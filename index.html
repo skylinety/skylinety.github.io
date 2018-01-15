@@ -234,11 +234,11 @@
   <div class="intro-navigate">
       <p class="navigater-list">
         
-          <a id="beautifont" class="main-nav-link" href="/">Startseite</a>
+          <a id="beautifont" class="main-nav-link" href="/">Home</a>
         
-          <a id="beautifont" class="main-nav-link" href="/archives">Archive</a>
+          <a id="beautifont" class="main-nav-link" href="/archives">Archives</a>
         
-          <a id="beautifont" class="main-nav-link" href="/categories">Kategorien</a>
+          <a id="beautifont" class="main-nav-link" href="/categories">Categories</a>
         
           <a id="beautifont" class="main-nav-link" href="/tags">Tags</a>
         
@@ -256,6 +256,187 @@
       <div id="content" class="outer">
         
           <section id="main" style="float:none;">
+  
+    <article id="post-chapter 1-5《JavaScript 高级程序设计》笔记"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+	<a href="/2018/01/14/chapter 1-5《JavaScript 高级程序设计》笔记/" class="article-date">
+	  <time datetime="2018-01-14T11:57:19.524Z" itemprop="datePublished">2018-01-14</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<p>《JavaScript高级程序设计》</p>
+</blockquote>
+<h2 id="chapter-1-5"><a href="#chapter-1-5" class="headerlink" title="chapter 1-5"></a>chapter 1-5</h2><h4 id="1-JaveScript-由三部分构成"><a href="#1-JaveScript-由三部分构成" class="headerlink" title="1.JaveScript 由三部分构成"></a>1.JaveScript 由三部分构成</h4><h5 id="a-如下图示"><a href="#a-如下图示" class="headerlink" title="a. 如下图示"></a>a. 如下图示</h5><p><img src="resources/19FC542247208E8D24C54AAC64D5A679.png" alt="js.png"></p>
+<hr>
+<h4 id="2-script元素"><a href="#2-script元素" class="headerlink" title="2. script元素"></a>2. script元素</h4><h5 id="a-async与defer"><a href="#a-async与defer" class="headerlink" title="a. async与defer"></a>a. async与defer</h5><table>
+<thead>
+<tr>
+<th>&nbsp;</th>
+<th>async</th>
+<th>defer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>立即下载脚本，不妨碍其他操作，不依赖其他脚本，不阻塞文档</td>
+<td>延迟脚本到文档被解析与显示之后</td>
+</tr>
+<tr>
+<td>适用范围</td>
+<td>外部引入脚本</td>
+<td>外部引入脚本           </td>
+</tr>
+<tr>
+<td>多个执行顺序</td>
+<td>不保证顺序</td>
+<td>先后顺序           </td>
+</tr>
+</tbody>
+</table>
+<p>多个执行顺序：同时出现多个async或defer脚本</p>
+<hr>
+<h4 id="3-Null类型"><a href="#3-Null类型" class="headerlink" title="3. Null类型"></a>3. Null类型</h4><h5 id="a-要点"><a href="#a-要点" class="headerlink" title="a. 要点"></a>a. 要点</h5><ul>
+<li>null表示空对象指针</li>
+<li>如果定义的变量将来用于保存对象，建议初始化为null而不是其他值</li>
+</ul>
+<hr>
+<h4 id="4-Boolean-调用或布尔值的隐式转换"><a href="#4-Boolean-调用或布尔值的隐式转换" class="headerlink" title="4. Boolean()调用或布尔值的隐式转换"></a>4. Boolean()调用或布尔值的隐式转换</h4><h5 id="a-如表"><a href="#a-如表" class="headerlink" title="a. 如表"></a>a. 如表</h5><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转化成true</th>
+<th>转化成false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>非空字符</td>
+<td>“”(空字符）</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>非零</td>
+<td>0与NaN</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>非Null对象</td>
+<td>null           </td>
+</tr>
+<tr>
+<td>Undefined</td>
+<td>无</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>Boolean(NaN) === false //true</code></strong></p>
+<hr>
+<h4 id="5-NaN"><a href="#5-NaN" class="headerlink" title="5. NaN"></a>5. NaN</h4><h5 id="a-要点-1"><a href="#a-要点-1" class="headerlink" title="a.要点"></a>a.要点</h5><ul>
+<li>涉及NaN的操作返回NaN</li>
+<li>NaN不等于任何值，包括本身</li>
+</ul>
+<h5 id="b-isNaN"><a href="#b-isNaN" class="headerlink" title="b.isNaN()"></a>b.isNaN()</h5><ul>
+<li>isNaN在接收到一个值以后会尝试将这个值转换成数字</li>
+</ul>
+<hr>
+<h4 id="6-类型隐式转换规则"><a href="#6-类型隐式转换规则" class="headerlink" title="6. 类型隐式转换规则"></a>6. 类型隐式转换规则</h4><h5 id="a-对象隐式转换成字符串或数字"><a href="#a-对象隐式转换成字符串或数字" class="headerlink" title="a. 对象隐式转换成字符串或数字"></a>a. 对象隐式转换成字符串或数字</h5><p><img src="resources/0E0B74FDA0F7561D3AF96126F84DD4B3.png" alt="ObjectToOther.png"></p>
+<h5 id="b-其他隐式转换"><a href="#b-其他隐式转换" class="headerlink" title="b. 其他隐式转换"></a>b. 其他隐式转换</h5><table>
+<thead>
+<tr>
+<th>值</th>
+<th>转化成字符串(调用String())</th>
+<th>转化成数字(Number())</th>
+<th>转化成布尔值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>undefined</td>
+<td>“undefined”</td>
+<td><strong>NaN</strong></td>
+<td>false</td>
+</tr>
+<tr>
+<td>null</td>
+<td>“null”</td>
+<td><strong>0</strong></td>
+<td>false</td>
+</tr>
+<tr>
+<td>NaN</td>
+<td>“NaN”</td>
+<td></td>
+<td><strong>false</strong></td>
+</tr>
+<tr>
+<td>[]（空数组）</td>
+<td>“”</td>
+<td>0</td>
+<td><strong>true</strong></td>
+</tr>
+<tr>
+<td>“”（空字符串）</td>
+<td></td>
+<td><strong>0</strong></td>
+<td>fales</td>
+</tr>
+</tbody>
+</table>
+<hr>
+        <!-- 参考资料
+《JavaScript高级程序设计》
+
+chapter 1-51.JaveScript 由三部分构成a. 如下图示
+
+2. script元素a. async与defer
+
+
+&nbsp;
+async
+defer
+
+
+
+
+描述
+立即下载脚本，不妨碍其他操作，不依赖其他脚本，不阻塞文档
+延迟脚本到文档被解析与显示之后
+
+
+适用范围
+外部引入脚本
+外部引入脚本           
+
+
+......  -->
+        <p class="article-more-link">
+          <a href="/2018/01/14/chapter 1-5《JavaScript 高级程序设计》笔记/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
   
     <article id="post-test"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
@@ -544,6 +725,92 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-README"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+	<a href="/2018/01/08/README/" class="article-date">
+	  <time datetime="2018-01-08T11:56:52.000Z" itemprop="datePublished">2018-01-08</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Hiker"><a href="#Hiker" class="headerlink" title="Hiker"></a>Hiker</h1><p><a href="https://gitter.im/hexo-theme-hiker/Lobby?utm_source=share-link&amp;utm_medium=link&amp;utm_campaign=share-link" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/079d8764b5eebffbb7158fb375df0959029ab2c3/68747470733a2f2f6261646765732e6769747465722e696d2f6865786f2d7468656d652d696e6469676f2f4c6f6262792e737667" alt="Gitter"></a>   <a href="https://travis-ci.org/iTimeTraveler/hexo-theme-hiker" target="_blank" rel="noopener"><img src="https://travis-ci.org/iTimeTraveler/hexo-theme-hiker.svg?branch=master" alt="Build Status"></a></p>
+<p>An attractive, exquisite theme for <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>. named “Hiker”, short for “HikerNews”.  </p>
+<p><a href="https://itimetraveler.github.io/hexo-theme-hiker/" target="_blank" rel="noopener"><strong>☞ Live Preview</strong></a>  |  <a href="https://github.com/iTimeTraveler/hexo-theme-hiker/blob/master/README.cn.md" target="_blank" rel="noopener"><strong>✎ Hiker 中文版使用文档</strong></a></p>
+<p><img src="https://itimetraveler.github.io/hexo-theme-hiker/2016/10/24/Hiker%E4%B8%BB%E9%A2%98%E9%A2%84%E8%A7%88/homepage-index.png" alt="Desktop Preview"><br><img src="https://itimetraveler.github.io/hexo-theme-hiker/2016/10/24/Hiker%E4%B8%BB%E9%A2%98%E9%A2%84%E8%A7%88/article-chrome.png" alt="Post Preview"><br><img src="https://github.com/iTimeTraveler/hexo-theme-hiker/blob/master/source/preview/preview-mobile.png?raw=true" alt="Mobile Preview"></p>
+<blockquote>
+<p>This is DEMO source which you can refer to: <a href="https://github.com/iTimeTraveler/hexo-theme-hiero/tree/site-source" target="_blank" rel="noopener">https://github.com/iTimeTraveler/hexo-theme-hiero/tree/site-source</a><br>
+        <!-- Hiker   
+An attractive, exquisite theme for Hexo. named “Hiker”, short for “HikerNews”.  
+☞ Live Preview  |  ✎ Hiker 中文版使用文档
+
+
+This is DEMO source which you can refer to: https://github.com/iTimeTr......  -->
+        <p class="article-more-link">
+          <a href="/2018/01/08/README/#more">Read More</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-README.cn"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+	<a href="/2018/01/08/README.cn/" class="article-date">
+	  <time datetime="2018-01-08T11:56:52.000Z" itemprop="datePublished">2018-01-08</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Hiker"><a href="#Hiker" class="headerlink" title="Hiker"></a>Hiker</h1><p><a href="https://travis-ci.org/iTimeTraveler/hexo-theme-hiker" target="_blank" rel="noopener"><img src="https://travis-ci.org/iTimeTraveler/hexo-theme-hiker.svg?branch=master" alt="Build Status"></a>        <a href="https://gitter.im/hexo-theme-hiker/Lobby?utm_source=share-link&amp;utm_medium=link&amp;utm_campaign=share-link" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/079d8764b5eebffbb7158fb375df0959029ab2c3/68747470733a2f2f6261646765732e6769747465722e696d2f6865786f2d7468656d652d696e6469676f2f4c6f6262792e737667" alt="Gitter"></a></p>
+<p>An attractive, exquisite theme for <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>. named “Hiker”, short for “HikerNews”.  </p>
+<p><a href="https://itimetraveler.github.io/hexo-theme-hiker/" target="_blank" rel="noopener"><strong>☞ 在线预览</strong></a>  |  <a href="https://gitter.im/hexo-theme-hiker/Lobby?utm_source=share-link&amp;utm_medium=link&amp;utm_campaign=share-link" target="_blank" rel="noopener"><strong>Hiker问题交流群</strong></a></p>
+<p><img src="https://itimetraveler.github.io/hexo-theme-hiker/2016/10/24/Hiker%E4%B8%BB%E9%A2%98%E9%A2%84%E8%A7%88/homepage-index.png" alt="Desktop Preview"><br><img src="https://itimetraveler.github.io/hexo-theme-hiker/2016/10/24/Hiker%E4%B8%BB%E9%A2%98%E9%A2%84%E8%A7%88/article-chrome.png" alt="Post Preview"><br><img src="https://github.com/iTimeTraveler/hexo-theme-hiker/blob/master/source/preview/preview-mobile.png?raw=true" alt="Mobile Preview"></p>
+        <!-- Hiker        
+An attractive, exquisite theme for Hexo. named “Hiker”, short for “HikerNews”.  
+☞ 在线预览  |  Hiker问题交流群
+
+
+以上Demo站点的源文件在这里，大家有需要的可以参考：https://github.com/iTimeTraveler/hexo-theme-hiero/t......  -->
+        <p class="article-more-link">
+          <a href="/2018/01/08/README.cn/#more">Read More</a>
+        </p>
       
     </div>
     <footer class="article-footer">
