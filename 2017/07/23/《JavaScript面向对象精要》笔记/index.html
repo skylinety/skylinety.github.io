@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>《javascript面向对象精要》笔记 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="chapter1. 原始类型和引用类型1. 正则 正则表达式字面量创建较为方便，构造函数创建需要将\s \d等反斜杠特殊意义字符再次转义，即写成\\s \\d   chapter2. 函数1. 函数a. 要点 ECMAScript为js对象定义了许多内部属性，这些内部属性用双重中括号来标注 函数声明与表达式，函数声明会被提升至当前作用域顶部 数组的sort方法默认会将数组的每一项转化成字符串处理，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《JavaScript面向对象精要》笔记">
+<meta property="og:url" content="http://yoursite.com/2017/07/23/《JavaScript面向对象精要》笔记/index.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="chapter1. 原始类型和引用类型1. 正则 正则表达式字面量创建较为方便，构造函数创建需要将\s \d等反斜杠特殊意义字符再次转义，即写成\\s \\d   chapter2. 函数1. 函数a. 要点 ECMAScript为js对象定义了许多内部属性，这些内部属性用双重中括号来标注 函数声明与表达式，函数声明会被提升至当前作用域顶部 数组的sort方法默认会将数组的每一项转化成字符串处理，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-23T09:34:27.153Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《JavaScript面向对象精要》笔记">
+<meta name="twitter:description" content="chapter1. 原始类型和引用类型1. 正则 正则表达式字面量创建较为方便，构造函数创建需要将\s \d等反斜杠特殊意义字符再次转义，即写成\\s \\d   chapter2. 函数1. 函数a. 要点 ECMAScript为js对象定义了许多内部属性，这些内部属性用双重中括号来标注 函数声明与表达式，函数声明会被提升至当前作用域顶部 数组的sort方法默认会将数组的每一项转化成字符串处理，">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Startseite</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archive</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Kategorien</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Schreib etwas..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Beiträge',
+            PAGES: 'Seiten',
+            CATEGORIES: 'Kategorien',
+            TAGS: 'Tags',
+            UNTITLED: '(Unbenannt)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-《JavaScript面向对象精要》笔记" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      《JavaScript面向对象精要》笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/07/23/《JavaScript面向对象精要》笔记/" class="article-date">
+	  <time datetime="2017-07-23T09:34:27.000Z" itemprop="datePublished">2017-07-23</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="chapter1-原始类型和引用类型"><a href="#chapter1-原始类型和引用类型" class="headerlink" title="chapter1. 原始类型和引用类型"></a>chapter1. 原始类型和引用类型</h2><h4 id="1-正则"><a href="#1-正则" class="headerlink" title="1. 正则"></a>1. 正则</h4><ul>
+<li>正则表达式字面量创建较为方便，构造函数创建需要将<code>\s \d</code>等反斜杠特殊意义字符再次转义，即写成<code>\\s \\d</code></li>
+</ul>
+<hr>
+<h2 id="chapter2-函数"><a href="#chapter2-函数" class="headerlink" title="chapter2. 函数"></a>chapter2. 函数</h2><h4 id="1-函数"><a href="#1-函数" class="headerlink" title="1. 函数"></a>1. 函数</h4><h5 id="a-要点"><a href="#a-要点" class="headerlink" title="a. 要点"></a>a. 要点</h5><ul>
+<li>ECMAScript为js对象定义了许多内部属性，这些内部属性用双重中括号来标注</li>
+<li>函数声明与表达式，函数声明会被提升至当前作用域顶部</li>
+<li>数组的sort方法默认会将数组的每一项转化成字符串处理，故不能用来直接对数字排序</li>
+<li>函数期望的参数长度保存在函数的length属性当中</li>
+<li>apply()方法的第二个参数是一个数组或类数组</li>
+</ul>
+<hr>
+<h2 id="chapter3-理解对象"><a href="#chapter3-理解对象" class="headerlink" title="chapter3. 理解对象"></a>chapter3. 理解对象</h2><h4 id="1-对象"><a href="#1-对象" class="headerlink" title="1. 对象"></a>1. 对象</h4><h5 id="a-要点-1"><a href="#a-要点-1" class="headerlink" title="a. 要点"></a>a. 要点</h5><ul>
+<li>当属新第一次被添加给对象时，js在对象上调用一个[[Put]]的内部方法</li>
+<li>当属新被赋予新值时，js在对象上调用一个[[Set]]的内部方法</li>
+<li>Object.keys()与for-in遍历对象属性获取可枚举属性有一个区别，for-in可以找到自有（实例）属性和原型属性，Object.keys只能拿到自有属性</li>
+<li>可以通过propertyIsEnumerable()来检查一个属性是否可以枚举</li>
+<li>属性分为数据属性和访问器属性</li>
+<li>使用前置下划线命名的属性约定俗成的命名规范，表示该属性被认为是私有的，但是其实它还是公开的，并且这种方式并不推荐</li>
+<li>访问器属性在数据劫持时非常有用</li>
+<li>通过Object.defineProperty()、Object.defineProperties()来定义属性时，最好为每一个属性描述符指定值，否则布尔型的描述符会被取默认的false（可以通过Object.getOwnPropertyDescriptor(s)来获取当前对象自有属性的属性描述符的值）</li>
+<li>Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展</li>
+<li>Object.seal()封印对象，Object.isSealed()检查是否被封印</li>
+<li>Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结</li>
+</ul>
+<h5 id="b-代码"><a href="#b-代码" class="headerlink" title="b. 代码"></a>b. 代码</h5><h6 id="字面量方式建立访问器属性"><a href="#字面量方式建立访问器属性" class="headerlink" title="字面量方式建立访问器属性"></a>字面量方式建立访问器属性</h6><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    _name: <span class="string">'skyline'</span>, <span class="comment">// 约定为私有属性，不推荐</span></span><br><span class="line">    set name(val) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._name = val</span><br><span class="line">    &#125;,</span><br><span class="line">    get name() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">person.name <span class="comment">// "skyline"</span></span><br><span class="line">person.name = <span class="string">'hahaha'</span> <span class="comment">// "hahaha"</span></span><br><span class="line">person.name <span class="comment">// "hahaha"</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>##chapter4. 构造函数和原型对象</p>
+<h4 id="1-构造函数"><a href="#1-构造函数" class="headerlink" title="1. 构造函数"></a>1. 构造函数</h4><ul>
+<li>如果没有参数，构造函数可以不用书写’()’</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'skyline'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person</span><br></pre></td></tr></table></figure>
+<ul>
+<li>以首字母大写来区分构造函数，构造函数依靠new操作符来提供返回值，没有new来执行，构造函数不过是一个普通函数，由此构造函数须确保有new来调用，否则构造函数中的属性将溢出到执行作用域中</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'haha'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> haha = Person()</span><br><span class="line"><span class="built_in">console</span>.log(haha.name) <span class="comment">// Uncaught TypeError: Cannot read property 'name' of undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(name) <span class="comment">// "haha"</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.name) <span class="comment">// "Person" 【js中函数具有默认的name属性，即函数变量名】</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>构造函数属性可以用来检测一个对象的类型，由于constructor 作为一个属性可以被随意篡改，故不推荐一次来检测类型</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'skyline'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person</span><br><span class="line">skyline.constructor === Person</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过字面量建立的对象的构造函数属性指向Object</li>
+<li>构造函数不需要return，若果你非要return，return原始类型会被忽略，return对象则会代替新创建的对象实例返回</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'haha'</span></span><br><span class="line">	<span class="keyword">return</span> &#123;<span class="attr">name</span>: <span class="string">'skyline'</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"><span class="keyword">var</span> haha = <span class="keyword">new</span> Person</span><br><span class="line">haha.name <span class="comment">// "skyline"</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-原型对象"><a href="#2-原型对象" class="headerlink" title="2. 原型对象"></a>2. 原型对象</h4><ul>
+<li>对象实例通过[[Prototype]]的内部属性来跟踪原型对象</li>
+<li>可以通过Object.getPrototypeOf()来获取[[Prototype]]属性的值</li>
+<li>在新的ES标准中，正考虑加入许多浏览器早已支持的<strong>proro</strong>属性来读写[[Prototype]]</li>
+<li>通过直接重写prototype时，注意将构造函数属性加上constructor属性来指定构造函数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'skyline'</span></span><br><span class="line">&#125;</span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">    <span class="comment">// 	constructor: Person, // 指定构造函数</span></span><br><span class="line">	say: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person</span><br><span class="line">skyline.say() <span class="comment">// My name is skyline</span></span><br><span class="line">skyline.constructor === Person <span class="comment">// false</span></span><br><span class="line">skyline <span class="keyword">instanceof</span> Person <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过Object.seal()重置内部属性[[Configurable]] [[Extensible]]为false</li>
+<li>通过Object.seal()重置内部属性[[Configurable]] [[Extensible]] [[Writable]]为false</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/07/23/JavaScript函数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/23/《Linux命令行大全》第四部分/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">《Linux命令行大全》第四部分</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Inhalt</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#chapter1-原始类型和引用类型"><span class="nav-number">1.</span> <span class="nav-text">chapter1. 原始类型和引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-正则"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 正则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chapter2-函数"><span class="nav-number">2.</span> <span class="nav-text">chapter2. 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-函数"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-要点"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">a. 要点</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chapter3-理解对象"><span class="nav-number">3.</span> <span class="nav-text">chapter3. 理解对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-对象"><span class="nav-number">3.0.1.</span> <span class="nav-text">1. 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-要点-1"><span class="nav-number">3.0.1.1.</span> <span class="nav-text">a. 要点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-代码"><span class="nav-number">3.0.1.2.</span> <span class="nav-text">b. 代码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#字面量方式建立访问器属性"><span class="nav-number">3.0.1.2.1.</span> <span class="nav-text">字面量方式建立访问器属性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-构造函数"><span class="nav-number">3.0.2.</span> <span class="nav-text">1. 构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-原型对象"><span class="nav-number">3.0.3.</span> <span class="nav-text">2. 原型对象</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 Skyline&#39;s blog All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
