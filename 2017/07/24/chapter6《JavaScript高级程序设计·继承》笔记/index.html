@@ -6,17 +6,20 @@
   <title>chapter6《javascript高级程序设计·继承》笔记 | Skyline&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="js" />
+  
   
   
   
   <meta name="description" content="参考资料 《JavaScript高级程序设计》  对象的属性要点 属性分为数据属性与访问器属性 数据属性通过Configurable、Enumerable、Writable、Value来描述，直接建立的属性描述默认都是true（除去Value) 访问器属性通过Configurable、Enumerable、Get、Set来描述，直接建立的属性描述默认都是true（除去Get、Set) Enumer">
+<meta name="keywords" content="js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="chapter6《JavaScript高级程序设计·继承》笔记">
 <meta property="og:url" content="http://blog.skyline.ink/2017/07/24/chapter6《JavaScript高级程序设计·继承》笔记/index.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
 <meta property="og:description" content="参考资料 《JavaScript高级程序设计》  对象的属性要点 属性分为数据属性与访问器属性 数据属性通过Configurable、Enumerable、Writable、Value来描述，直接建立的属性描述默认都是true（除去Value) 访问器属性通过Configurable、Enumerable、Get、Set来描述，直接建立的属性描述默认都是true（除去Get、Set) Enumer">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-24T02:24:30.137Z">
+<meta property="og:updated_time" content="2018-01-24T03:35:16.702Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="chapter6《JavaScript高级程序设计·继承》笔记">
 <meta name="twitter:description" content="参考资料 《JavaScript高级程序设计》  对象的属性要点 属性分为数据属性与访问器属性 数据属性通过Configurable、Enumerable、Writable、Value来描述，直接建立的属性描述默认都是true（除去Value) 访问器属性通过Configurable、Enumerable、Get、Set来描述，直接建立的属性描述默认都是true（除去Get、Set) Enumer">
@@ -176,10 +179,12 @@
     <div class="article-meta">
       
 	<a href="/2017/07/24/chapter6《JavaScript高级程序设计·继承》笔记/" class="article-date">
-	  <time datetime="2017-07-24T02:24:30.000Z" itemprop="datePublished">2017-07-24</time>
+	  <time datetime="2017-07-24T03:35:16.000Z" itemprop="datePublished">2017-07-24</time>
 	</a>
 
       
+    <a class="article-category-link" href="/categories/js/">js</a>
+
       
 	<a class="article-views">
 	<span id="busuanzi_container_page_pv">
@@ -210,8 +215,7 @@
 <li>configurable一旦指定为false,此时的Writable如果是true则可以修改为false，但是不能从false改为true（只关不开）</li>
 <li>configurable true，writable false时，可以通过Object.defineProperty()修改value的值，直接赋值无效；configurable false，writable true时可以通过赋值直接修改value的值，通过Object.defineProperty()指定value值将会报错</li>
 </ul>
-<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p><strong>Object.defineProperty()只指定value不指定其他将会导致configurable、enumerable、writable都是false</strong>，configurable为false导致该属性不能做出修改，不能调用Object.defineProperty()进行重新配置，故一般情况下需要指定configurable为true，便于之后修改enumerable、writable以及属性的值，删除属性等等</p>
-<a id="more"></a>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p><strong>Object.defineProperty()只指定value不指定其他将会导致configurable、enumerable、writable都是false</strong>，configurable为false导致该属性不能做出修改，不能调用Object.defineProperty()进行重新配置，故一般情况下需要指定configurable为true，便于之后修改enumerable、writable以及属性的值，删除属性等等<br><a id="more"></a></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">'name'</span>, &#123;<span class="attr">value</span>: <span class="string">'skyline'</span>&#125;)</span><br><span class="line">a <span class="comment">// &#123;name: "skyline"&#125;</span></span><br><span class="line">a.name = <span class="string">'lala'</span></span><br><span class="line">a <span class="comment">// &#123;name: "skyline"&#125;</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">'name'</span>, &#123;<span class="attr">value</span>: <span class="string">'skyline'</span>, <span class="attr">writable</span>: <span class="literal">true</span>&#125;) <span class="comment">// Uncaught TypeError: Cannot redefine property: name writeable是false，无法再改为true</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">'age'</span>, &#123;<span class="attr">value</span>: <span class="string">'18'</span>, <span class="attr">configurable</span>: <span class="literal">true</span>&#125;)</span><br><span class="line">a.age = <span class="number">19</span> <span class="comment">// 19</span></span><br><span class="line">a <span class="comment">// &#123;name: "skyline", age: "18"&#125;</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">'age'</span>, &#123;<span class="attr">value</span>: <span class="string">'18'</span>, <span class="attr">writable</span>: <span class="literal">true</span>&#125;)</span><br><span class="line">a.age = <span class="number">19</span></span><br><span class="line">a <span class="comment">// &#123;name: "skyline", age: 19&#125;</span></span><br></pre></td></tr></table></figure>
 <h4 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h4><h5 id="要点-1"><a href="#要点-1" class="headerlink" title="要点"></a>要点</h5><ul>
 <li>Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展</li>
@@ -346,6 +350,8 @@ var a = new Donate({
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
     </footer>
   </div>
   

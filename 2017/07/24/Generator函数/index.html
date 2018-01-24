@@ -6,20 +6,23 @@
   <title>generator函数 | Skyline&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="js" />
   
   
   
-  <meta name="description" content="1. 例子a. 代码11234567891011121314151617181920function* gen(x) &amp;#123;  const y = yield x + 1;  console.log(y, &apos;y&apos;); // 12 &quot;y&quot;  const z = yield y + 1;  console.log(z, &apos;z&apos;); // 12 &quot;z&quot;  return z;&amp;#125;const">
+  
+  <meta name="description" content="1. 例子a. 代码1123456789101112131415161718192021function* gen(x) &amp;#123;  const y = yield x + 1;  console.log(y, &apos;y&apos;); // 12 &quot;y&quot;  const z = yield y + 1;  console.log(z, &apos;z&apos;); // 12 &quot;z&quot;  return z;&amp;#125;cons">
+<meta name="keywords" content="js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Generator函数">
 <meta property="og:url" content="http://blog.skyline.ink/2017/07/24/Generator函数/index.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="1. 例子a. 代码11234567891011121314151617181920function* gen(x) &amp;#123;  const y = yield x + 1;  console.log(y, &apos;y&apos;); // 12 &quot;y&quot;  const z = yield y + 1;  console.log(z, &apos;z&apos;); // 12 &quot;z&quot;  return z;&amp;#125;const">
+<meta property="og:description" content="1. 例子a. 代码1123456789101112131415161718192021function* gen(x) &amp;#123;  const y = yield x + 1;  console.log(y, &apos;y&apos;); // 12 &quot;y&quot;  const z = yield y + 1;  console.log(z, &apos;z&apos;); // 12 &quot;z&quot;  return z;&amp;#125;cons">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-24T02:24:30.205Z">
+<meta property="og:updated_time" content="2018-01-24T03:35:16.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Generator函数">
-<meta name="twitter:description" content="1. 例子a. 代码11234567891011121314151617181920function* gen(x) &amp;#123;  const y = yield x + 1;  console.log(y, &apos;y&apos;); // 12 &quot;y&quot;  const z = yield y + 1;  console.log(z, &apos;z&apos;); // 12 &quot;z&quot;  return z;&amp;#125;const">
+<meta name="twitter:description" content="1. 例子a. 代码1123456789101112131415161718192021function* gen(x) &amp;#123;  const y = yield x + 1;  console.log(y, &apos;y&apos;); // 12 &quot;y&quot;  const z = yield y + 1;  console.log(z, &apos;z&apos;); // 12 &quot;z&quot;  return z;&amp;#125;cons">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -176,10 +179,12 @@
     <div class="article-meta">
       
 	<a href="/2017/07/24/Generator函数/" class="article-date">
-	  <time datetime="2017-07-24T02:24:30.000Z" itemprop="datePublished">2017-07-24</time>
+	  <time datetime="2017-07-24T03:35:16.000Z" itemprop="datePublished">2017-07-24</time>
 	</a>
 
       
+    <a class="article-category-link" href="/categories/js/">js</a>
+
       
 	<a class="article-views">
 	<span id="busuanzi_container_page_pv">
@@ -190,8 +195,7 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="1-例子"><a href="#1-例子" class="headerlink" title="1. 例子"></a>1. 例子</h4><h5 id="a-代码1"><a href="#a-代码1" class="headerlink" title="a. 代码1"></a>a. 代码1</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="keyword">yield</span> x + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(y, <span class="string">'y'</span>); <span class="comment">// 12 "y"</span></span><br><span class="line">  <span class="keyword">const</span> z = <span class="keyword">yield</span> y + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(z, <span class="string">'z'</span>); <span class="comment">// 12 "z"</span></span><br><span class="line">  <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> value = g.next().value; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(value); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 13, done: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 12, done: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">//12 "y"</span></span><br><span class="line"><span class="comment">// &#123;value: 13, done: false&#125;</span></span><br><span class="line"><span class="comment">//12 "z"</span></span><br><span class="line"><span class="comment">// &#123;value: 12, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<a id="more"></a>
+        <h4 id="1-例子"><a href="#1-例子" class="headerlink" title="1. 例子"></a>1. 例子</h4><h5 id="a-代码1"><a href="#a-代码1" class="headerlink" title="a. 代码1"></a>a. 代码1</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="keyword">yield</span> x + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(y, <span class="string">'y'</span>); <span class="comment">// 12 "y"</span></span><br><span class="line">  <span class="keyword">const</span> z = <span class="keyword">yield</span> y + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(z, <span class="string">'z'</span>); <span class="comment">// 12 "z"</span></span><br><span class="line">  <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> value = g.next().value; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(value); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 13, done: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 12, done: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">//12 "y"</span></span><br><span class="line"><span class="comment">// &#123;value: 13, done: false&#125;</span></span><br><span class="line"><span class="comment">//12 "z"</span></span><br><span class="line"><span class="comment">// &#123;value: 12, done: true&#125;</span></span><br><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure>
 <h5 id="b-代码2"><a href="#b-代码2" class="headerlink" title="b. 代码2"></a>b. 代码2</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next())</span><br><span class="line"><span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line"><span class="comment">// z is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: 3, done: false&#125;</span></span><br><span class="line"><span class="comment">// y is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
 <h5 id="c-代码3"><a href="#c-代码3" class="headerlink" title="c. 代码3"></a>c. 代码3</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line">g <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">g[<span class="built_in">Symbol</span>.iterator] <span class="comment">// ƒ [Symbol.iterator]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="keyword">var</span> x = g[<span class="built_in">Symbol</span>.iterator]()</span><br><span class="line">x <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">x.next() <span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// z is undefined &#123;value: 3, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// y is undefined &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
 <h5 id="d-分析"><a href="#d-分析" class="headerlink" title="d. 分析"></a>d. 分析</h5><ul>
@@ -245,25 +249,18 @@ var a = new Donate({
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2017/07/24/chapter1-3《JavaScript高级程序设计》笔记/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          chapter1-3《JavaScript高级程序设计》笔记
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/07/24/chapter4-5《JavaScript高级程序设计》笔记/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/07/24/chapter1-3《JavaScript高级程序设计》笔记/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">chapter4-5《JavaScript高级程序设计》笔记</div>
+      <div class="article-nav-title">chapter1-3《JavaScript高级程序设计》笔记</div>
     </a>
   
 </nav>
