@@ -21,13 +21,13 @@
 <meta property="og:site_name" content="Skyline&#39;s blog">
 <meta property="og:description" content="参考资料 《JavaScript高级程序设计》   作用域链 作用域链的作用是保证最执行环境有权访问的所有变量和函数的有序访问 作用域链最前端始终都是当前代码所在环境的变量对象，而后一步一步向外成延伸，直到全局执行环境 标志符解析是沿着作用域链一级一级搜索的过程，直到找到为止，故而位于作用域链最前端的变量作为当前环境的变量   垃圾收集 一般使用标记清除，引用计数不再使用，当存在循环引用现象时，“">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ovhnd57o6.bkt.clouddn.com/C9242CC575DBEB3766C8D4A7FA053623.png">
-<meta property="og:image" content="http://ovhnd57o6.bkt.clouddn.com/A724BE3A20AAF7086F2C651E8AF9E570.png">
-<meta property="og:updated_time" content="2017-07-27T10:18:30.000Z">
+<meta property="og:image" content="http://ovhnd57o6.bkt.clouddn.com/C9242CC575DBEB3766C8D4A7FA053623.png-content">
+<meta property="og:image" content="http://ovhnd57o6.bkt.clouddn.com/A724BE3A20AAF7086F2C651E8AF9E570.png-content">
+<meta property="og:updated_time" content="2017-07-29T09:55:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="chapter4-5《JavaScript高级程序设计》笔记">
 <meta name="twitter:description" content="参考资料 《JavaScript高级程序设计》   作用域链 作用域链的作用是保证最执行环境有权访问的所有变量和函数的有序访问 作用域链最前端始终都是当前代码所在环境的变量对象，而后一步一步向外成延伸，直到全局执行环境 标志符解析是沿着作用域链一级一级搜索的过程，直到找到为止，故而位于作用域链最前端的变量作为当前环境的变量   垃圾收集 一般使用标记清除，引用计数不再使用，当存在循环引用现象时，“">
-<meta name="twitter:image" content="http://ovhnd57o6.bkt.clouddn.com/C9242CC575DBEB3766C8D4A7FA053623.png">
+<meta name="twitter:image" content="http://ovhnd57o6.bkt.clouddn.com/C9242CC575DBEB3766C8D4A7FA053623.png-content">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -187,13 +187,13 @@
     <span style="color: #999">发表于</span>
     
     <a href="/chapter4-5《JavaScript高级程序设计》笔记.html" class="article-date">
-      <time datetime="2018-01-23T09:35:53.528Z" itemprop="datePublished">2018-01-23</time>
+      <time datetime="2017-07-29T06:13:27.000Z" itemprop="datePublished">2017-07-29</time>
     </a>
 
 
     <span style="color: #999">更新于</span>
     <a href="/chapter4-5《JavaScript高级程序设计》笔记.html" class="article-date">
-      <time datetime="2018-01-23T09:35:53.528Z" itemprop="datePublished">2018-01-23</time>
+      <time datetime="2017-07-29T06:13:27.000Z" itemprop="datePublished">2017-07-29</time>
     </a>
 
       
@@ -224,13 +224,14 @@
 <li>通过将值设置成null来<strong>解除引用</strong>以释放内存。适用于全局对象与属性，局部变量会在离开环境时自动解除引用</li>
 </ul>
 <p>循环引用：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    a.child = b;</span><br><span class="line">    b.child = a;</span><br><span class="line">&#125;</span><br><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    a.child = b;</span><br><span class="line">    b.child = a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><h5 id="坑点"><a href="#坑点" class="headerlink" title="坑点"></a>坑点</h5><ul>
 <li>数组的length不是只读的，可以通过修改来设置长度</li>
 <li>一般通过isArray来判断是否是数组，而不用instanceof</li>
 </ul>
-<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><h6 id="☞-概述"><a href="#☞-概述" class="headerlink" title="☞ 概述"></a>☞ 概述</h6><p>（括号内的-表示可选参数）</p>
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><a id="more"></a>
+<h6 id="☞-概述"><a href="#☞-概述" class="headerlink" title="☞ 概述"></a>☞ 概述</h6><p>（括号内的-表示可选参数）</p>
 <table>
 <thead>
 <tr>
@@ -429,7 +430,7 @@
 <li>slice 截取，如果你跟我一样小学数学不好，每次都要掰手指，参考下图，截取就不会再有问题</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">'skyline'</span>.slice(<span class="number">1</span>, <span class="number">5</span>) <span class="comment">// "kyli"</span></span><br><span class="line">[<span class="string">'s'</span>, <span class="string">'k'</span>, <span class="string">'y'</span>, <span class="string">'l'</span>, <span class="string">'i'</span>, <span class="string">'n'</span>, <span class="string">'e'</span>].slice(<span class="number">1</span>, <span class="number">5</span>) <span class="comment">// ["k", "y", "l", "i"]</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/C9242CC575DBEB3766C8D4A7FA053623.png" alt="slice.png"></p>
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/C9242CC575DBEB3766C8D4A7FA053623.png-content" alt="slice.png-content"></p>
 <ul>
 <li>indexOf的严格判等</li>
 </ul>
@@ -461,7 +462,7 @@
 </ul>
 <h5 id="基本包装类型的对象生存期"><a href="#基本包装类型的对象生存期" class="headerlink" title="基本包装类型的对象生存期"></a>基本包装类型的对象生存期</h5><h6 id="☞-代码"><a href="#☞-代码" class="headerlink" title="☞ 代码"></a>☞ 代码</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">'skyline'</span></span><br><span class="line">s.age = <span class="number">23</span></span><br><span class="line"><span class="built_in">console</span>.log(s.age)</span><br></pre></td></tr></table></figure>
 <p>以上代码可以想象成如下JS代码周期</p>
-<h6 id="☞-图示"><a href="#☞-图示" class="headerlink" title="☞ 图示"></a>☞ 图示</h6><p><img src="http://ovhnd57o6.bkt.clouddn.com/A724BE3A20AAF7086F2C651E8AF9E570.png" alt="基本包装类型.png"></p>
+<h6 id="☞-图示"><a href="#☞-图示" class="headerlink" title="☞ 图示"></a>☞ 图示</h6><p><img src="http://ovhnd57o6.bkt.clouddn.com/A724BE3A20AAF7086F2C651E8AF9E570.png-content" alt="基本包装类型.png-content"></p>
 <p>当最后访问s.age时又创建了一个新的对象，故age不存在</p>
 <h5 id="构造函数与转型函数"><a href="#构造函数与转型函数" class="headerlink" title="构造函数与转型函数"></a>构造函数与转型函数</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="built_in">String</span>(<span class="string">'skyline'</span>)<span class="comment">//转型函数，产生基本包装类型，相当于字面量创建</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> str)<span class="comment">//string</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'skyline'</span>)<span class="comment">//构造函数，产生引用类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> obj)<span class="comment">//object</span></span><br></pre></td></tr></table></figure>
 <h5 id="字符串的模式匹配方法"><a href="#字符串的模式匹配方法" class="headerlink" title="字符串的模式匹配方法"></a>字符串的模式匹配方法</h5><h6 id="☞-概述-1"><a href="#☞-概述-1" class="headerlink" title="☞ 概述"></a>☞ 概述</h6><p>（括号内多参数’,’隔开，不同类型参数’/‘隔开，括号内的-表示可选参数）</p>
@@ -602,20 +603,15 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Generator函数.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/chapter1-3《JavaScript高级程序设计》笔记.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Generator函数
+          chapter1-3《JavaScript高级程序设计》笔记
         
       </div>
     </a>
   
-  
-    <a href="/chapter1-3《JavaScript高级程序设计》笔记.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">chapter1-3《JavaScript高级程序设计》笔记</div>
-    </a>
   
 </nav>
 
