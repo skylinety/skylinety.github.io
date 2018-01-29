@@ -314,6 +314,64 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Generator函数"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Generator函数.html">Generator函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <a href="/Generator函数.html" class="article-date">
+      <time datetime="2017-06-29T12:58:25.000Z" itemprop="datePublished">2017-06-29</time>
+    </a>
+
+
+      
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><h5 id="代码1"><a href="#代码1" class="headerlink" title="代码1"></a>代码1</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="keyword">yield</span> x + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(y, <span class="string">'y'</span>); <span class="comment">// 12 "y"</span></span><br><span class="line">  <span class="keyword">const</span> z = <span class="keyword">yield</span> y + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(z, <span class="string">'z'</span>); <span class="comment">// 12 "z"</span></span><br><span class="line">  <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> value = g.next().value; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(value); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 13, done: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 12, done: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">//12 "y"</span></span><br><span class="line"><span class="comment">// &#123;value: 13, done: false&#125;</span></span><br><span class="line"><span class="comment">//12 "z"</span></span><br><span class="line"><span class="comment">// &#123;value: 12, done: true&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="代码2"><a href="#代码2" class="headerlink" title="代码2"></a>代码2</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next())</span><br><span class="line"><span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line"><span class="comment">// z is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: 3, done: false&#125;</span></span><br><span class="line"><span class="comment">// y is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="代码3"><a href="#代码3" class="headerlink" title="代码3"></a>代码3</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line">g <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">g[<span class="built_in">Symbol</span>.iterator] <span class="comment">// ƒ [Symbol.iterator]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="keyword">var</span> x = g[<span class="built_in">Symbol</span>.iterator]()</span><br><span class="line">x <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">x.next() <span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// z is undefined &#123;value: 3, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// y is undefined &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
+<li><strong>Generator 函数不同于普通函数执行它不会返回结果，返回的是一个指针对象（包含iterator接口，即拥有Symbol.iterator属性）</strong></li>
+<li>iterator 对象通过调用自身的 next 方法，保证游标后移，并且next方法返回一个包含了 value和 done（迭代器是否完成的布尔值）的对象。</li>
+<li>关于next返回对象中的value值，假设有n个yield语句，<strong>第n个value的值是第n个yield 语句后面表达式的值，第n+1个value的值是Generator函数的返回值，第n+2个以上的value值是undefined</strong></li>
+<li>yield 语句的值，比如上面代码1中的 y与z，是<strong>下一次调用 next 传入的参数的值</strong>，也就是 value + 10,如果此处next不传值，如代码2中，y与z就是undefined。反过来说，next 方法带有的参数可以传入 Generator 函数，作为上个阶段异步任务的返回结果（上一个yield 语句的值）<blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://blog.skyline.ink/Generator函数.html">http://blog.skyline.ink/Generator函数.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-chapter6《JavaScript高级程序设计·继承》笔记"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -332,16 +390,18 @@
       
     
     <a href="/chapter6《JavaScript高级程序设计·继承》笔记.html" class="article-date">
-      <time datetime="2017-07-29T06:26:24.000Z" itemprop="datePublished">2017-07-29</time>
+      <time datetime="2017-05-29T06:26:24.000Z" itemprop="datePublished">2017-05-29</time>
     </a>
 
 
       
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
       
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+        <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><blockquote>
 <p>《JavaScript高级程序设计》</p>
 </blockquote>
 <h4 id="对象的属性"><a href="#对象的属性" class="headerlink" title="对象的属性"></a>对象的属性</h4><h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><ul>
@@ -381,175 +441,7 @@ Enu......  -->
       
       
       
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Generator函数"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Generator函数.html">Generator函数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    
-    <a href="/Generator函数.html" class="article-date">
-      <time datetime="2017-07-29T06:13:27.000Z" itemprop="datePublished">2017-07-29</time>
-    </a>
-
-
-      
-    <a class="article-category-link" href="/categories/js/">js</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="1-例子"><a href="#1-例子" class="headerlink" title="1. 例子"></a>1. 例子</h4><h5 id="a-代码1"><a href="#a-代码1" class="headerlink" title="a. 代码1"></a>a. 代码1</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="keyword">yield</span> x + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(y, <span class="string">'y'</span>); <span class="comment">// 12 "y"</span></span><br><span class="line">  <span class="keyword">const</span> z = <span class="keyword">yield</span> y + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(z, <span class="string">'z'</span>); <span class="comment">// 12 "z"</span></span><br><span class="line">  <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> value = g.next().value; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(value); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 13, done: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 12, done: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">//12 "y"</span></span><br><span class="line"><span class="comment">// &#123;value: 13, done: false&#125;</span></span><br><span class="line"><span class="comment">//12 "z"</span></span><br><span class="line"><span class="comment">// &#123;value: 12, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="b-代码2"><a href="#b-代码2" class="headerlink" title="b. 代码2"></a>b. 代码2</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next())</span><br><span class="line"><span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line"><span class="comment">// z is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: 3, done: false&#125;</span></span><br><span class="line"><span class="comment">// y is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="c-代码3"><a href="#c-代码3" class="headerlink" title="c. 代码3"></a>c. 代码3</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line">g <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">g[<span class="built_in">Symbol</span>.iterator] <span class="comment">// ƒ [Symbol.iterator]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="keyword">var</span> x = g[<span class="built_in">Symbol</span>.iterator]()</span><br><span class="line">x <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">x.next() <span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// z is undefined &#123;value: 3, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// y is undefined &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="d-分析"><a href="#d-分析" class="headerlink" title="d. 分析"></a>d. 分析</h5><ul>
-<li><strong>Generator 函数不同于普通函数执行它不会返回结果，返回的是一个指针对象（包含iterator接口，即拥有Symbol.iterator属性）</strong></li>
-<li>iterator 对象通过调用自身的 next 方法，保证游标后移，并且next方法返回一个包含了 value和 done（迭代器是否完成的布尔值）的对象。</li>
-<li>关于next返回对象中的value值，假设有n个yield语句，<strong>第n个value的值是第n个yield 语句后面表达式的值，第n+1个value的值是Generator函数的返回值，第n+2个以上的value值是undefined</strong></li>
-<li>yield 语句的值，比如上面代码1中的 y与z，是<strong>下一次调用 next 传入的参数的值</strong>，也就是 value + 10,如果此处next不传值，如代码2中，y与z就是undefined。反过来说，next 方法带有的参数可以传入 Generator 函数，作为上个阶段异步任务的返回结果（上一个yield 语句的值）<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://blog.skyline.ink/Generator函数.html">http://blog.skyline.ink/Generator函数.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-chapter1-3《JavaScript高级程序设计》笔记"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/chapter1-3《JavaScript高级程序设计》笔记.html">chapter1-3《JavaScript高级程序设计》笔记</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    
-    <a href="/chapter1-3《JavaScript高级程序设计》笔记.html" class="article-date">
-      <time datetime="2017-07-29T06:13:27.000Z" itemprop="datePublished">2017-07-29</time>
-    </a>
-
-
-      
-    <a class="article-category-link" href="/categories/js/">js</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><blockquote>
-<p>《JavaScript高级程序设计》</p>
-</blockquote>
-<hr>
-<h4 id="JaveScript-由三部分构成"><a href="#JaveScript-由三部分构成" class="headerlink" title="JaveScript 由三部分构成"></a>JaveScript 由三部分构成</h4><h5 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h5><p><img src="http://ovhnd57o6.bkt.clouddn.com/19FC542247208E8D24C54AAC64D5A679.png-content" alt="js.png-content"></p>
-<hr>
-<h4 id="script元素"><a href="#script元素" class="headerlink" title="script元素"></a>script元素</h4><h5 id="async与defer"><a href="#async与defer" class="headerlink" title="async与defer"></a>async与defer</h5><table>
-<thead>
-<tr>
-<th>&nbsp;</th>
-<th>async</th>
-<th>defer</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>描述</td>
-<td>立即下载脚本，不妨碍其他操作，不依赖其他脚本，不阻塞文档</td>
-<td>延迟脚本到文档被解析与显示之后</td>
-</tr>
-<tr>
-<td>适用范围</td>
-<td>外部引入脚本</td>
-<td>外部引入脚本           </td>
-</tr>
-<tr>
-<td>多个执行顺序</td>
-<td>不保证顺序</td>
-<td>先后顺序           </td>
-</tr>
-</tbody>
-</table>
-<p>多个执行顺序：同时出现多个async或defer脚本</p>
-<hr>
-<h4 id="Null类型"><a href="#Null类型" class="headerlink" title="Null类型"></a>Null类型</h4>
-        <!-- 参考资料
-《JavaScript高级程序设计》
-
-
-JaveScript 由三部分构成图示
-
-script元素async与defer
-
-
-&nbsp;
-async
-defer
-
-
-
-
-描述
-立即下载脚本，不妨碍其他操作，不依赖其他脚本，不阻塞文档
-延迟脚本到文档被解析与显示之后
-
-
-适用范围
-外部引入脚本
-外部引入脚本           
-
-
-多个执行顺序
-不保证顺序
-先后顺序      ......  -->
-        <p class="article-more-link">
-          <a href="/chapter1-3《JavaScript高级程序设计》笔记.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js继承/">js继承</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
 
     </footer>
   </div>
@@ -577,12 +469,12 @@ defer
       
     
     <a href="/chapter4-5《JavaScript高级程序设计》笔记.html" class="article-date">
-      <time datetime="2017-07-29T06:13:27.000Z" itemprop="datePublished">2017-07-29</time>
+      <time datetime="2017-05-22T12:58:25.000Z" itemprop="datePublished">2017-05-22</time>
     </a>
 
 
       
-    <a class="article-category-link" href="/categories/js/">js</a>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
 
       
     </div>
@@ -631,7 +523,174 @@ defer
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js字符串/">js字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js数组/">js数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-chapter1-3《JavaScript高级程序设计》笔记"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/chapter1-3《JavaScript高级程序设计》笔记.html">chapter1-3《JavaScript高级程序设计》笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <a href="/chapter1-3《JavaScript高级程序设计》笔记.html" class="article-date">
+      <time datetime="2017-05-11T12:56:32.000Z" itemprop="datePublished">2017-05-11</time>
+    </a>
+
+
+      
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><blockquote>
+<p>《JavaScript高级程序设计》</p>
+</blockquote>
+<hr>
+<h4 id="JaveScript-由三部分构成"><a href="#JaveScript-由三部分构成" class="headerlink" title="JaveScript 由三部分构成"></a>JaveScript 由三部分构成</h4><h5 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h5><p><img src="http://ovhnd57o6.bkt.clouddn.com/19FC542247208E8D24C54AAC64D5A679.png-content" alt="js.png-content"></p>
+<hr>
+<h4 id="script元素"><a href="#script元素" class="headerlink" title="script元素"></a>script元素</h4><h5 id="async与defer"><a href="#async与defer" class="headerlink" title="async与defer"></a>async与defer</h5><table>
+<thead>
+<tr>
+<th>&nbsp;</th>
+<th>async</th>
+<th>defer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>立即下载脚本，不妨碍其他操作，不依赖其他脚本，不阻塞文档</td>
+<td>延迟脚本到文档被解析与显示之后</td>
+</tr>
+<tr>
+<td>适用范围</td>
+<td>外部引入脚本</td>
+<td>外部引入脚本</td>
+</tr>
+<tr>
+<td>多个执行顺序</td>
+<td>不保证顺序</td>
+<td>先后顺序</td>
+</tr>
+</tbody>
+</table>
+<p>多个执行顺序：同时出现多个async或defer脚本</p>
+<hr>
+<h4 id="Null类型"><a href="#Null类型" class="headerlink" title="Null类型"></a>Null类型</h4>
+        <!-- 参考资料
+《JavaScript高级程序设计》
+
+
+JaveScript 由三部分构成图示
+
+script元素async与defer
+
+
+&nbsp;
+async
+defer
+
+
+
+
+描述
+立即下载脚本，不妨碍其他操作，不依赖其他脚本，不阻塞文档
+延迟脚本到文档被解析与显示之后
+
+
+适用范围
+外部引入脚本
+外部引入脚本
+
+
+多个执行顺序
+不保证顺序
+先后顺序
+
+
+
+多个执行顺序：同时出现多个......  -->
+        <p class="article-more-link">
+          <a href="/chapter1-3《JavaScript高级程序设计》笔记.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-鹧鸪天·新寒（新韵）"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/鹧鸪天·新寒（新韵）.html">鹧鸪天·新寒（新韵）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <a href="/鹧鸪天·新寒（新韵）.html" class="article-date">
+      <time datetime="2015-07-29T12:51:03.000Z" itemprop="datePublished">2015-07-29</time>
+    </a>
+
+
+      
+    <a class="article-category-link" href="/categories/词·自作/">词·自作</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://ovhnd57o6.bkt.clouddn.com/C3E3C6022AD98A48DA98A20256EDFF55.jpg" alt="C3E3C6022AD98A48DA98A20256EDFF55.jpg"></p>
+<p>鹧鸪天·新寒（新韵）<br>乍起新寒风又嚎，厦间不见杜家茅。落棋柯烂朝兴替，弹指风挥花盛飘。<br>梦缥缈，路遥迢，随流逐浪几多豪？待心足了即名了，斜雨泥丫印土桥。</p>
+<blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://blog.skyline.ink/鹧鸪天·新寒（新韵）.html">http://blog.skyline.ink/鹧鸪天·新寒（新韵）.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词/">词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鹧鸪天/">鹧鸪天</a></li></ul>
 
     </footer>
   </div>
