@@ -13,18 +13,18 @@
   
   
   
-  <meta name="description" content="####ES5 function createArray5() &amp;#123;    console.log(arguments)    console.log(arguments instanceof Array)    return arguments;&amp;#125;createArray5(11,2,3)//(3) [11, 2, 3, callee: function, Symbol(Symb">
+  <meta name="description" content="ES5function createArray5() &amp;#123;    console.log(arguments)    console.log(arguments instanceof Array)    return arguments;&amp;#125;createArray5(11,2,3)//(3) [11, 2, 3, callee: function, Symbol(Symbol.it">
 <meta name="keywords" content="总结">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES5与ES6中的argments">
 <meta property="og:url" content="http://blog.skyline.ink/ES5与ES6中的argments.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="####ES5 function createArray5() &amp;#123;    console.log(arguments)    console.log(arguments instanceof Array)    return arguments;&amp;#125;createArray5(11,2,3)//(3) [11, 2, 3, callee: function, Symbol(Symb">
+<meta property="og:description" content="ES5function createArray5() &amp;#123;    console.log(arguments)    console.log(arguments instanceof Array)    return arguments;&amp;#125;createArray5(11,2,3)//(3) [11, 2, 3, callee: function, Symbol(Symbol.it">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-07-30T07:14:56.000Z">
+<meta property="og:updated_time" content="2018-01-24T08:17:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES5与ES6中的argments">
-<meta name="twitter:description" content="####ES5 function createArray5() &amp;#123;    console.log(arguments)    console.log(arguments instanceof Array)    return arguments;&amp;#125;createArray5(11,2,3)//(3) [11, 2, 3, callee: function, Symbol(Symb">
+<meta name="twitter:description" content="ES5function createArray5() &amp;#123;    console.log(arguments)    console.log(arguments instanceof Array)    return arguments;&amp;#125;createArray5(11,2,3)//(3) [11, 2, 3, callee: function, Symbol(Symbol.it">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+      <time datetime="2018-01-24T08:17:53.000Z" itemprop="datePublished">2018-01-24</time>
     </a><span style="color: #999">|</span>
 
       
@@ -207,11 +207,9 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>####ES5</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArray5</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span> <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">arguments</span>;</span><br><span class="line">&#125;</span><br><span class="line">createArray5(<span class="number">11</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="comment">//(3) [11, 2, 3, callee: function, Symbol(Symbol.iterator): function]</span></span><br><span class="line"><span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+        <h4 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArray5</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span> <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">arguments</span>;</span><br><span class="line">&#125;</span><br><span class="line">createArray5(<span class="number">11</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="comment">//(3) [11, 2, 3, callee: function, Symbol(Symbol.iterator): function]</span></span><br><span class="line"><span class="comment">//false</span></span><br></pre></td></tr></table></figure>
 <hr>
-<p>####ES6</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArray6</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(args)</span><br><span class="line">    <span class="built_in">console</span>.log(args <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br><span class="line">    <span class="keyword">return</span> args;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray6(<span class="number">11</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="comment">//  (3) [11, 2, 3]</span></span><br><span class="line"><span class="comment">//  true</span></span><br></pre></td></tr></table></figure>
+<h4 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArray6</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(args)</span><br><span class="line">    <span class="built_in">console</span>.log(args <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br><span class="line">    <span class="keyword">return</span> args;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray6(<span class="number">11</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="comment">//  (3) [11, 2, 3]</span></span><br><span class="line"><span class="comment">//  true</span></span><br></pre></td></tr></table></figure>
 <h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><ul>
 <li>ES5的arguments是一种类数组。</li>
 <li>ES6通过扩展运算符获取到的参数是一个数组</li>
@@ -272,19 +270,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/鹧鸪天·九月西湖雨入情（新韵）.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Jquery中的extend.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          鹧鸪天·九月西湖雨入情（新韵）
+          Jquery中的extend
         
       </div>
     </a>
   
   
-    <a href="/JS字符串截取substrsubstringslice.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Javascript对象扩展、封印与冻结.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">JS字符串截取substr、substring、slice</div>
+      <div class="article-nav-title">Javascript对象扩展、封印与冻结</div>
     </a>
   
 </nav>
@@ -298,7 +296,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">1.</span> <span class="nav-text">结论</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#ES5"><span class="nav-number">1.</span> <span class="nav-text">ES5</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6"><span class="nav-number">2.</span> <span class="nav-text">ES6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">3.</span> <span class="nav-text">结论</span></a></li></ol>
     
     </div>
   </aside>

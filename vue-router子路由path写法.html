@@ -8,20 +8,20 @@
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc" />
   <meta name="baidu-site-verification" content="8E0ReY1tJJ" />
   
-  <meta name="keywords" content="vue-router" />
+  <meta name="keywords" content="总结vue-router" />
   
   
   
   
   <meta name="description" content="代码☞ 不推荐写法&amp;#123;    path: &apos;/index&apos;,    component: Index,    children: [&amp;#123;            path: &apos;/home&apos;,            name: &apos;home&apos;,            component: Home        &amp;#125;    ]&amp;#125; ☞ 子路由&amp;#123;    path:">
-<meta name="keywords" content="vue-router">
+<meta name="keywords" content="总结,vue-router">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue-router子路由path写法">
 <meta property="og:url" content="http://blog.skyline.ink/vue-router子路由path写法.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
 <meta property="og:description" content="代码☞ 不推荐写法&amp;#123;    path: &apos;/index&apos;,    component: Index,    children: [&amp;#123;            path: &apos;/home&apos;,            name: &apos;home&apos;,            component: Home        &amp;#125;    ]&amp;#125; ☞ 子路由&amp;#123;    path:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-30T07:14:56.000Z">
+<meta property="og:updated_time" content="2018-01-24T08:17:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-router子路由path写法">
 <meta name="twitter:description" content="代码☞ 不推荐写法&amp;#123;    path: &apos;/index&apos;,    component: Index,    children: [&amp;#123;            path: &apos;/home&apos;,            name: &apos;home&apos;,            component: Home        &amp;#125;    ]&amp;#125; ☞ 子路由&amp;#123;    path:">
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-10-30T07:14:56.000Z" itemprop="datePublished">2017-10-30</time>
+      <time datetime="2018-01-24T08:17:54.000Z" itemprop="datePublished">2018-01-24</time>
     </a><span style="color: #999">|</span>
 
       
@@ -211,11 +211,11 @@
 <h6 id="☞-子路由"><a href="#☞-子路由" class="headerlink" title="☞ 子路由"></a>☞ 子路由</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/index'</span>,</span><br><span class="line">    component: Index,</span><br><span class="line">    children: [&#123;</span><br><span class="line">            path: <span class="string">'home'</span>,</span><br><span class="line">            name: <span class="string">'home'</span>,</span><br><span class="line">            component: Home</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>子路由中不建议在path前加’/‘绝对路径，容易造成误解（本意可能想要第二种结果）。如果需要在路由中隐藏’index’，改成如下写法</p>
 <h6 id="☞-路由隐藏index"><a href="#☞-路由隐藏index" class="headerlink" title="☞ 路由隐藏index"></a>☞ 路由隐藏index</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/'</span>,</span><br><span class="line">    component: Index,</span><br><span class="line">    children: [&#123;</span><br><span class="line">            path: <span class="string">'home'</span>,</span><br><span class="line">            name: <span class="string">'home'</span>,</span><br><span class="line">            component: Home</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="b-结果"><a href="#b-结果" class="headerlink" title="b. 结果"></a>b. 结果</h4><a id="more"></a>
-<blockquote>
+<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><a id="more"></a>
 <p>代码1 <a href="http://10.10.7.181:8060/#/home" target="_blank" rel="noopener">http://10.10.7.181:8060/#/home</a></p>
 <p>代码2 <a href="http://10.10.7.181:8060/#/index/home" target="_blank" rel="noopener">http://10.10.7.181:8060/#/index/home</a></p>
 <p>代码3 <a href="http://10.10.7.181:8060/#/home" target="_blank" rel="noopener">http://10.10.7.181:8060/#/home</a></p>
+<blockquote>
 <p>本文作者： Skyline(lty)<br>本文链接： <a href="http://blog.skyline.ink/vue-router子路由path写法.html">http://blog.skyline.ink/vue-router子路由path写法.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
 </blockquote>
 
@@ -263,13 +263,22 @@ var a = new Donate({
 
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/">vue-router</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
   
     
 <nav id="article-nav">
+  
+    <a href="/Generator函数.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Generator函数
+        
+      </div>
+    </a>
   
   
     <a href="/鹧鸪天·九月西湖雨入情（新韵）.html" id="article-nav-older" class="article-nav-link-wrap">
@@ -288,7 +297,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">1.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-不推荐写法"><span class="nav-number">1.0.1.</span> <span class="nav-text">☞ 不推荐写法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-子路由"><span class="nav-number">1.0.2.</span> <span class="nav-text">☞ 子路由</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-路由隐藏index"><span class="nav-number">1.0.3.</span> <span class="nav-text">☞ 路由隐藏index</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#b-结果"><span class="nav-number">2.</span> <span class="nav-text">b. 结果</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">1.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-不推荐写法"><span class="nav-number">1.0.1.</span> <span class="nav-text">☞ 不推荐写法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-子路由"><span class="nav-number">1.0.2.</span> <span class="nav-text">☞ 子路由</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-路由隐藏index"><span class="nav-number">1.0.3.</span> <span class="nav-text">☞ 路由隐藏index</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结果"><span class="nav-number">2.</span> <span class="nav-text">结果</span></a></li></ol>
     
     </div>
   </aside>
