@@ -102,9 +102,10 @@
 
       var alt = this.alt;
 
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      // if (alt) $(this).after('<span class="caption">' + alt + '</span>');
 
       $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+      // $(this).wrap('<a href="" title="' + alt + '" class="fancybox"></a>');
     });
 
     $(this).find('.fancybox').each(function(){
@@ -144,4 +145,8 @@
 
     $container.removeClass('mobile-nav-on');
   });
+
+  $(document).ready(function() {
+    $("#articleInner").find('table').wrap("<div style='width:100%;overflow:scroll'></div>")
+  })
 })(jQuery);
