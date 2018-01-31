@@ -120,8 +120,13 @@
   //   $('.fancybox').show()
   // })
 
-  if ($.fancybox){
-    $('.fancybox-thumb').fancybox();
+  if ($.fancybox) {
+    $('.fancybox-thumb').fancybox({
+      openEffect: 'elastic',
+      closeEffect: 'elastic',
+      openSpeed: 300,
+      closeSpeed: 300
+    });
   }
 
   // Mobile nav
