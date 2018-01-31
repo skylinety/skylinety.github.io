@@ -103,18 +103,25 @@
       var alt = this.alt;
 
       // if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-      // $(this).wrap('<a href="" title="' + alt + '" class="fancybox"></a>');
+      function stopRun(e) {
+        alert(e)
+        e.preventDefault()
+      }
+      // $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+      $(this).wrap('<a href="" title="' + alt + '" class="fancybox-thumb"></a>');
     });
 
-    $(this).find('.fancybox').each(function(){
+    $(this).find('.fancybox-thumb').each(function(){
       $(this).attr('rel', 'article' + i);
     });
   });
 
+  // $(document).on('click', '.fancybox-overlay', function () {
+  //   $('.fancybox').show()
+  // })
+
   if ($.fancybox){
-    $('.fancybox').fancybox();
+    $('.fancybox-thumb').fancybox();
   }
 
   // Mobile nav
