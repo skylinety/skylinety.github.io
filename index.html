@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-displaynone和visibilityhidden的区别"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CSS兄弟选择器"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/displaynone和visibilityhidden的区别.html">display:none和visibility:hidden的区别</a>
+      <a class="article-title" href="/CSS兄弟选择器.html">CSS兄弟选择器</a>
     </h1>
   
 
@@ -336,7 +336,7 @@
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
+      <time datetime="2018-01-25T12:13:37.000Z" itemprop="datePublished">2018-01-25</time>
     </a>
 
 
@@ -348,12 +348,48 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>  html里的元素都会在打开网页后一并加载。这个说到底也是css的基本功能。就是结构与表现的分离。我们的html是结构，结构会全部加载，但是在表现的时候（也就是页面的外观），由css来控制你看的到还是看不到而已。</p>
-<p>  display:none 与visibility:hidden都会渲染在页面中。</p>
-<p>  display会被文档流给移除，会影响页面布局。</p>
-<p>  visilibity:hidden不会被文档流给移除，不会影响布局，显示出一片空白</p>
+        <h4 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h4><ul>
+<li>兄弟选择器包括 + ~</li>
+<li>‘+’ 是相邻兄弟选择器</li>
+<li>‘~’ 是通用兄弟选择器</li>
+</ul>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ul>
+<li>相邻兄弟选择器 + 选择紧接在另一元素后的元素，且二者有相同父元素</li>
+<li>通用兄弟选择器 ~ 连接两个元素,它会匹配第二个元素,它必须跟(不一定是紧跟)在第一个元素之后,且他们都有一个共同的父元素 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>表示</th>
+<th>阐述</th>
+<th>同父</th>
+<th>紧接老哥</th>
+<th>选中元素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘+’</td>
+<td>相邻</td>
+<td>是</td>
+<td>是</td>
+<td>最多一个（非紧邻不选中）</td>
+</tr>
+<tr>
+<td>‘~’</td>
+<td>通用</td>
+<td>是</td>
+<td>否</td>
+<td>多个</td>
+</tr>
+</tbody>
+</table>
+<h4 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h4><ul>
+<li><code>h1 + p {color: red;}</code><br>紧邻h1的第一个p兄弟标签中招，h1之后没有紧邻的p，就白搭</li>
+<li><code>h1 ~ p {color: red;}</code><br>比h1小（在其后面）的p兄弟标签全部中招，h1之后没有p，就白搭</li>
+</ul>
 <blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://blog.skyline.ink/displaynone和visibilityhidden的区别.html">http://blog.skyline.ink/displaynone和visibilityhidden的区别.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://blog.skyline.ink/CSS兄弟选择器.html">http://blog.skyline.ink/CSS兄弟选择器.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
 </blockquote>
 
       
@@ -419,6 +455,59 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-displaynone和visibilityhidden的区别"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/displaynone和visibilityhidden的区别.html">display:none和visibility:hidden的区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/CSS-HTML/">CSS/HTML</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  html里的元素都会在打开网页后一并加载。这个说到底也是css的基本功能。就是结构与表现的分离。我们的html是结构，结构会全部加载，但是在表现的时候（也就是页面的外观），由css来控制你看的到还是看不到而已。</p>
+<p>  display:none 与visibility:hidden都会渲染在页面中。</p>
+<p>  display会被文档流给移除，会影响页面布局。</p>
+<p>  visilibity:hidden不会被文档流给移除，不会影响布局，显示出一片空白</p>
+<blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://blog.skyline.ink/displaynone和visibilityhidden的区别.html">http://blog.skyline.ink/displaynone和visibilityhidden的区别.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
@@ -935,60 +1024,6 @@ vue代码结构如下
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-鹧鸪天·九月西湖雨入情（新韵）"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/鹧鸪天·九月西湖雨入情（新韵）.html">鹧鸪天·九月西湖雨入情（新韵）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-09-23T06:15:40.000Z" itemprop="datePublished">2017-09-23</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/词·自作/">词·自作</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>&nbsp;<br>&nbsp;</p>
-<p>九月西湖雨入情，一人饮酒廿杯明。形成秋叶怜枝瘦，影化微风惜夜清。</p>
-<p>形伴影，叶随风，谢家庭院在西东？危楼伫望空千里，今夜无人入梦中。<br>&nbsp;<br>&nbsp;</p>
-<hr>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://blog.skyline.ink/鹧鸪天·九月西湖雨入情（新韵）.html">http://blog.skyline.ink/鹧鸪天·九月西湖雨入情（新韵）.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/练笔/">练笔</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词/">词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鹧鸪天/">鹧鸪天</a></li></ul>
 
     </footer>
   </div>
