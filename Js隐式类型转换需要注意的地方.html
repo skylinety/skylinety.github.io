@@ -13,18 +13,20 @@
   
   
   
-  <meta name="description" content="加号 等式中如果有字符串则在字符串之后的类型调用String()方法转化成字符串(null与undefined没有toString()方法），最后结果一定是字符串，运算方向是从左到右的,注意对象与数组的处理方式  2 + &quot;3&quot;; // &quot;23&quot;1 + 2 + &quot;3&quot;; // &quot;33&quot;1 + &quot;2&quot; + 3; // &quot;123&quot;&quot;2&quot; + true; //&quot;2true&quot;true.toString()">
+  <meta name="description" content="转换规则到布尔值的隐式转换规则如表   数据类型 转化成true 转化成false     String 非空字符 “”(空字符）   Number 非零 0与NaN   Object 非Null对象 null              undefined 无 undefined    （注：调用Boolean()方法得到结果相同）  对象隐式转换规则">
 <meta name="keywords" content="总结">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Js隐式类型转换需要注意的地方">
 <meta property="og:url" content="http://blog.skyline.ink/Js隐式类型转换需要注意的地方.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="加号 等式中如果有字符串则在字符串之后的类型调用String()方法转化成字符串(null与undefined没有toString()方法），最后结果一定是字符串，运算方向是从左到右的,注意对象与数组的处理方式  2 + &quot;3&quot;; // &quot;23&quot;1 + 2 + &quot;3&quot;; // &quot;33&quot;1 + &quot;2&quot; + 3; // &quot;123&quot;&quot;2&quot; + true; //&quot;2true&quot;true.toString()">
+<meta property="og:description" content="转换规则到布尔值的隐式转换规则如表   数据类型 转化成true 转化成false     String 非空字符 “”(空字符）   Number 非零 0与NaN   Object 非Null对象 null              undefined 无 undefined    （注：调用Boolean()方法得到结果相同）  对象隐式转换规则">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-01-24T08:17:53.000Z">
+<meta property="og:image" content="http://ovhnd57o6.bkt.clouddn.com/0E0B74FDA0F7561D3AF96126F84DD4B3.png-content">
+<meta property="og:updated_time" content="2018-01-26T08:32:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Js隐式类型转换需要注意的地方">
-<meta name="twitter:description" content="加号 等式中如果有字符串则在字符串之后的类型调用String()方法转化成字符串(null与undefined没有toString()方法），最后结果一定是字符串，运算方向是从左到右的,注意对象与数组的处理方式  2 + &quot;3&quot;; // &quot;23&quot;1 + 2 + &quot;3&quot;; // &quot;33&quot;1 + &quot;2&quot; + 3; // &quot;123&quot;&quot;2&quot; + true; //&quot;2true&quot;true.toString()">
+<meta name="twitter:description" content="转换规则到布尔值的隐式转换规则如表   数据类型 转化成true 转化成false     String 非空字符 “”(空字符）   Number 非零 0与NaN   Object 非Null对象 null              undefined 无 undefined    （注：调用Boolean()方法得到结果相同）  对象隐式转换规则">
+<meta name="twitter:image" content="http://ovhnd57o6.bkt.clouddn.com/0E0B74FDA0F7561D3AF96126F84DD4B3.png-content">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -188,7 +190,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-24T08:17:53.000Z" itemprop="datePublished">2018-01-24</time>
+      <time datetime="2018-01-26T08:32:48.000Z" itemprop="datePublished">2018-01-26</time>
     </a><span style="color: #999">|</span>
 
       
@@ -207,12 +209,135 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="加号"><a href="#加号" class="headerlink" title="加号"></a>加号</h4><ul>
-<li>等式中如果有字符串则在字符串之后的类型调用String()方法转化成字符串(null与undefined没有toString()方法），最后结果一定是字符串，运算方向是从左到右的,注意对象与数组的处理方式</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span> + <span class="string">"3"</span>; <span class="comment">// "23"</span></span><br><span class="line"><span class="number">1</span> + <span class="number">2</span> + <span class="string">"3"</span>; <span class="comment">// "33"</span></span><br><span class="line"><span class="number">1</span> + <span class="string">"2"</span> + <span class="number">3</span>; <span class="comment">// "123"</span></span><br><span class="line"></span><br><span class="line"><span class="string">"2"</span> + <span class="literal">true</span>; <span class="comment">//"2true"</span></span><br><span class="line"><span class="literal">true</span>.toString() <span class="comment">//"true"</span></span><br><span class="line"></span><br><span class="line"><span class="string">"2"</span> + <span class="literal">undefined</span>; <span class="comment">//"2undefined"</span></span><br><span class="line"><span class="string">"2"</span> + <span class="literal">NaN</span> <span class="comment">//"2NaN"</span></span><br><span class="line"><span class="string">'23'</span> + &#123;<span class="string">'a'</span>: <span class="number">1</span>&#125; <span class="comment">//"23[object Object]"</span></span><br><span class="line"></span><br><span class="line"><span class="string">'23'</span> + [<span class="number">1</span>,<span class="number">3</span>,&#123;&#125;, <span class="literal">null</span>, <span class="literal">undefined</span>, <span class="string">''</span>, <span class="string">'2'</span>] <span class="comment">// "231,3,[object Object],,,,2"</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">3</span>,&#123;&#125;, <span class="literal">null</span>, <span class="literal">undefined</span>, <span class="string">''</span>, <span class="string">'2'</span>].toString() <span class="comment">//"1,3,[object Object],,,,2"</span></span><br><span class="line"><span class="number">23</span> + <span class="string">"1,3,[object Object],,,,2"</span> <span class="comment">//"231,3,[object Object],,,,2"</span></span><br></pre></td></tr></table></figure>
+        <h3 id="转换规则"><a href="#转换规则" class="headerlink" title="转换规则"></a>转换规则</h3><h4 id="到布尔值的隐式转换规则"><a href="#到布尔值的隐式转换规则" class="headerlink" title="到布尔值的隐式转换规则"></a>到布尔值的隐式转换规则</h4><h5 id="如表"><a href="#如表" class="headerlink" title="如表"></a>如表</h5><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转化成true</th>
+<th>转化成false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>非空字符</td>
+<td>“”(空字符）</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>非零</td>
+<td>0与NaN</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>非Null对象</td>
+<td>null           </td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>无</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<p>（注：调用Boolean()方法得到结果相同）</p>
+<hr>
+<h4 id="对象隐式转换规则"><a href="#对象隐式转换规则" class="headerlink" title="对象隐式转换规则"></a>对象隐式转换规则</h4><a id="more"></a>
+<h5 id="对象隐式转换成字符串或数字"><a href="#对象隐式转换成字符串或数字" class="headerlink" title="对象隐式转换成字符串或数字"></a>对象隐式转换成字符串或数字</h5><p><img src="http://ovhnd57o6.bkt.clouddn.com/0E0B74FDA0F7561D3AF96126F84DD4B3.png-content" alt="0E0B74FDA0F7561D3AF96126F84DD4B3.png-content"></p>
+<h5 id="不同对象调用toString-得到的结果"><a href="#不同对象调用toString-得到的结果" class="headerlink" title="不同对象调用toString()得到的结果"></a>不同对象调用toString()得到的结果</h5><table>
+<thead>
+<tr>
+<th>对象</th>
+<th>调用toString()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通对象</td>
+<td>“[object Object]”</td>
+</tr>
+<tr>
+<td>数组arr</td>
+<td>arr.join()</td>
+</tr>
+<tr>
+<td>函数类</td>
+<td>定义函数的代码</td>
+</tr>
+<tr>
+<td>日期类</td>
+<td>可读日期</td>
+</tr>
+<tr>
+<td>正则对象</td>
+<td>正则对象字面量的字符</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>等式中如果没有字符串，如果有复杂类型，先将复杂类型调用valueOf()取得返回值,如果返回值不能转化成数值（即返回NaN)，调用toString()将返回值转化成字符串，再按照1的运算方式。没有有复杂类型则将简单类型隐式转换为数字即可。</li>
+<li>如果数组的某一项的值是null或者undefined，join()方法返回的结果以空字符串连接</li>
+<li>基本包装类型的引用类型用其字面量形式的值调用toString()</li>
+</ul>
+<h5 id="不同对象调用valueOf-得到的结果"><a href="#不同对象调用valueOf-得到的结果" class="headerlink" title="不同对象调用valueOf()得到的结果"></a>不同对象调用valueOf()得到的结果</h5><ul>
+<li>大多数对象，包括普通对象、数组、函数、正则简单返回对象本身</li>
+<li>日期对象返回19700101以来的毫秒数值</li>
+<li>基本包装类型的引用类型返回其字面量形式的值</li>
+</ul>
+<hr>
+<h4 id="其他隐式转换规则"><a href="#其他隐式转换规则" class="headerlink" title="其他隐式转换规则"></a>其他隐式转换规则</h4><table>
+<thead>
+<tr>
+<th>值</th>
+<th>转化成字符串</th>
+<th>转化成数字</th>
+<th>转化成布尔值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>undefined</td>
+<td>“undefined”</td>
+<td><strong>NaN</strong></td>
+<td>false</td>
+</tr>
+<tr>
+<td>null</td>
+<td>“null”</td>
+<td><strong>0</strong></td>
+<td>false</td>
+</tr>
+<tr>
+<td>NaN</td>
+<td>“NaN”</td>
+<td>NaN</td>
+<td><strong>false</strong></td>
+</tr>
+<tr>
+<td>[]（空数组）</td>
+<td>“”</td>
+<td>0</td>
+<td><strong>true</strong></td>
+</tr>
+<tr>
+<td>“”（空字符串）</td>
+<td>“”</td>
+<td><strong>0</strong></td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>布尔值转数字为0/1，转字符串为”true”/“false”</li>
+<li>数字转字符串加引号即可🙄</li>
+<li>字符串转数字，看去掉引号是否是数字即可🤣🤣，否则为NaN<br>（注：假装这样表述是对的，没意见吧，数字与字符串的相互转换不用表述大家都知道的）</li>
+</ul>
+<hr>
+<h3 id="开始转换"><a href="#开始转换" class="headerlink" title="开始转换"></a>开始转换</h3><h4 id="加号"><a href="#加号" class="headerlink" title="加号"></a>加号</h4><h5 id="表达式中有字符串"><a href="#表达式中有字符串" class="headerlink" title="表达式中有字符串"></a>表达式中有字符串</h5><ul>
+<li>表达式中如果有字符串，字符串前的类型隐式转换位数字，字符串后的类型隐式转换为字符串，按照从左到右的顺序，最终结果一定是字符串</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span> + <span class="string">"3"</span>; <span class="comment">// "23"</span></span><br><span class="line"><span class="number">1</span> + <span class="number">2</span> + <span class="string">"3"</span>; <span class="comment">// "33"</span></span><br><span class="line"><span class="literal">true</span> + <span class="number">2</span> + <span class="string">"3"</span>; <span class="comment">// "33"</span></span><br><span class="line"><span class="number">1</span> + <span class="string">"2"</span> + <span class="number">3</span>; <span class="comment">// "123"</span></span><br><span class="line"></span><br><span class="line"><span class="string">"2"</span> + <span class="literal">true</span>; <span class="comment">//"2true"</span></span><br><span class="line"><span class="literal">true</span>.toString() <span class="comment">//"true"</span></span><br><span class="line"></span><br><span class="line"><span class="string">"2"</span> + <span class="literal">undefined</span>; <span class="comment">//"2undefined"</span></span><br><span class="line"><span class="string">"2"</span> + <span class="literal">NaN</span> <span class="comment">//"2NaN"</span></span><br><span class="line"><span class="string">'23'</span> + &#123;<span class="string">'a'</span>: <span class="number">1</span>&#125; <span class="comment">//"23[object Object]"</span></span><br><span class="line"></span><br><span class="line"><span class="string">'23'</span> + [<span class="number">1</span>,<span class="number">3</span>,&#123;&#125;, <span class="literal">null</span>, <span class="literal">undefined</span>, <span class="string">''</span>, <span class="string">'2'</span>] <span class="comment">// "231,3,[object Object],,,,2"</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">3</span>,&#123;&#125;, <span class="literal">null</span>, <span class="literal">undefined</span>, <span class="string">''</span>, <span class="string">'2'</span>].toString() <span class="comment">//"1,3,[object Object],,,,2"</span></span><br><span class="line"><span class="number">23</span> + <span class="string">"1,3,[object Object],,,,2"</span> <span class="comment">//"231,3,[object Object],,,,2"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果有复杂类型，按照如上对象隐式转换规则转换成数字或字符串</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[].toString() <span class="comment">//""</span></span><br><span class="line"><span class="number">1</span> + [] <span class="comment">//"1"</span></span><br><span class="line"><span class="number">1</span> + [<span class="number">1</span>] <span class="comment">//"11"</span></span><br><span class="line"><span class="number">1</span> + &#123;<span class="attr">a</span>:<span class="string">'a'</span>&#125; <span class="comment">//"1[object Object]"</span></span><br><span class="line"><span class="literal">null</span> + <span class="literal">null</span> <span class="comment">//0</span></span><br><span class="line"><span class="literal">true</span> + &#123;<span class="attr">a</span>:<span class="string">'a'</span>&#125; <span class="comment">//"true[object Object]"</span></span><br></pre></td></tr></table></figure>
 <ul>
@@ -225,27 +350,22 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">+ <span class="string">'3'</span>      <span class="comment">// 数字3</span></span><br></pre></td></tr></table></figure>
 <hr>
 <h4 id="乘，除，取余，减"><a href="#乘，除，取余，减" class="headerlink" title="乘，除，取余，减"></a>乘，除，取余，减</h4><ul>
-<li><p>简单类型则会隐式转换为数字，对于字符串转成数字，如果字符串不是纯数字就会转成NaN。</p>
-</li>
-<li><p>有复杂类型，先将复杂类型调用valueOf()取得返回值,如果返回值不能转化成数值，调用toString()将返回值转化成字符串，再由字符转化成数字，最后从左到右计算</p>
-</li>
+<li>其他类型会隐式转换为数字</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span> - <span class="string">'5'</span> <span class="comment">//-4</span></span><br><span class="line"><span class="number">1</span> - [<span class="number">2</span>, <span class="number">2</span>] <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> - &#123;<span class="attr">a</span>:<span class="number">1</span>&#125; <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span>- <span class="literal">undefined</span> <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> - [] <span class="comment">//1</span></span><br><span class="line"><span class="number">1</span> - [<span class="number">2</span>, <span class="number">2</span>] <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> - <span class="literal">null</span> <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
 <hr>
 <h4 id="比较运算符部分-gt-lt-gt-lt"><a href="#比较运算符部分-gt-lt-gt-lt" class="headerlink" title="比较运算符部分 &gt; &lt; &gt;= &lt;= =="></a>比较运算符部分 &gt; &lt; &gt;= &lt;= ==</h4><ul>
 <li>数字vs其他，其他转化为数字</li>
-<li>布尔值vs其他，布尔值转数字</li>
+<li>布尔值vs其他，布尔值转数字，数字vs其他</li>
 <li>字符串vs字符串，按unicode依次比较(大写字母总是在小写字母之后)</li>
-<li>对象vs数字，对象vs字符串，对象首先尝试valueOf()，再尝试toString()【日期类只调用toString()】，目的都是将对象转化为原始值，再进行比较。</li>
-<li>特殊注意<ul>
-<li>如果其中一个操作数是NaN，那么总是返回false(NaN和NaN是不相等的)、</li>
-<li>null == undefined，为true</li>
-<li>null、undefined既不与0相等，也不与false相等</li>
+<li>对象vs数字，对象vs字符串，将对象转化为数字或字符串，再进行比较。</li>
+<li>如果其中一个操作数是NaN，那么总是返回false(NaN和NaN是不相等的)</li>
+<li>null 只和undefined是好基友（互相相等）</li>
 </ul>
-</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="literal">NaN</span>;</span><br><span class="line">x === <span class="literal">NaN</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="literal">NaN</span>;</span><br><span class="line">x === <span class="literal">NaN</span>; <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="literal">undefined</span> == <span class="string">"undefined"</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="string">"null"</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="number">0</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="literal">false</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">undefined</span> == <span class="number">0</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">undefined</span> == <span class="literal">false</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><blockquote>
+<p>《JavaScript高级程序设计》</p>
+<hr>
 <p>本文作者： Skyline(lty)<br>本文链接： <a href="http://blog.skyline.ink/Js隐式类型转换需要注意的地方.html">http://blog.skyline.ink/Js隐式类型转换需要注意的地方.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
 </blockquote>
 
@@ -311,9 +431,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/CSS实现单行溢出显示省略号.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Hbuilder打ipa包注意事项.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">CSS实现单行溢出显示省略号</div>
+      <div class="article-nav-title">Hbuilder打ipa包注意事项</div>
     </a>
   
 </nav>
@@ -327,7 +447,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#加号"><span class="nav-number">1.</span> <span class="nav-text">加号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乘，除，取余，减"><span class="nav-number">2.</span> <span class="nav-text">乘，除，取余，减</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较运算符部分-gt-lt-gt-lt"><span class="nav-number">3.</span> <span class="nav-text">比较运算符部分 &gt; &lt; &gt;= &lt;= ==</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#转换规则"><span class="nav-number">1.</span> <span class="nav-text">转换规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#到布尔值的隐式转换规则"><span class="nav-number">1.1.</span> <span class="nav-text">到布尔值的隐式转换规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如表"><span class="nav-number">1.1.1.</span> <span class="nav-text">如表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象隐式转换规则"><span class="nav-number">1.2.</span> <span class="nav-text">对象隐式转换规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对象隐式转换成字符串或数字"><span class="nav-number">1.2.1.</span> <span class="nav-text">对象隐式转换成字符串或数字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不同对象调用toString-得到的结果"><span class="nav-number">1.2.2.</span> <span class="nav-text">不同对象调用toString()得到的结果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不同对象调用valueOf-得到的结果"><span class="nav-number">1.2.3.</span> <span class="nav-text">不同对象调用valueOf()得到的结果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他隐式转换规则"><span class="nav-number">1.3.</span> <span class="nav-text">其他隐式转换规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始转换"><span class="nav-number">2.</span> <span class="nav-text">开始转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加号"><span class="nav-number">2.1.</span> <span class="nav-text">加号</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#表达式中有字符串"><span class="nav-number">2.1.1.</span> <span class="nav-text">表达式中有字符串</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乘，除，取余，减"><span class="nav-number">2.2.</span> <span class="nav-text">乘，除，取余，减</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较运算符部分-gt-lt-gt-lt"><span class="nav-number">2.3.</span> <span class="nav-text">比较运算符部分 &gt; &lt; &gt;= &lt;= ==</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol>
     
     </div>
   </aside>
