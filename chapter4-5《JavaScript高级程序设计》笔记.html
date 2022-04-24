@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>chapter4-5《javascript高级程序设计》笔记 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="笔记高程">
+  
+  
+  
+  
+  <meta name="description" content="参考资料 《JavaScript高级程序设计》   作用域链 作用域链的作用是保证最执行环境有权访问的所有变量和函数的有序访问 作用域链最前端始终都是当前代码所在环境的变量对象，而后一步一步向外成延伸，直到全局执行环境 标志符解析是沿着作用域链一级一级搜索的过程，直到找到为止，故而位于作用域链最前端的变量作为当前环境的变量   垃圾收集 一般使用标记清除，引用计数不再使用，当存在循环引用现象时，“">
+<meta name="keywords" content="笔记,高程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chapter4-5《JavaScript高级程序设计》笔记">
+<meta property="og:url" content="http://www.skyline.show/chapter4-5《JavaScript高级程序设计》笔记.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="参考资料 《JavaScript高级程序设计》   作用域链 作用域链的作用是保证最执行环境有权访问的所有变量和函数的有序访问 作用域链最前端始终都是当前代码所在环境的变量对象，而后一步一步向外成延伸，直到全局执行环境 标志符解析是沿着作用域链一级一级搜索的过程，直到找到为止，故而位于作用域链最前端的变量作为当前环境的变量   垃圾收集 一般使用标记清除，引用计数不再使用，当存在循环引用现象时，“">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ovhnd57o6.bkt.clouddn.com/C9242CC575DBEB3766C8D4A7FA053623.png-content">
+<meta property="og:image" content="http://ovhnd57o6.bkt.clouddn.com/A724BE3A20AAF7086F2C651E8AF9E570.png-content">
+<meta property="og:updated_time" content="2017-07-29T12:58:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="chapter4-5《JavaScript高级程序设计》笔记">
+<meta name="twitter:description" content="参考资料 《JavaScript高级程序设计》   作用域链 作用域链的作用是保证最执行环境有权访问的所有变量和函数的有序访问 作用域链最前端始终都是当前代码所在环境的变量对象，而后一步一步向外成延伸，直到全局执行环境 标志符解析是沿着作用域链一级一级搜索的过程，直到找到为止，故而位于作用域链最前端的变量作为当前环境的变量   垃圾收集 一般使用标记清除，引用计数不再使用，当存在循环引用现象时，“">
+<meta name="twitter:image" content="http://ovhnd57o6.bkt.clouddn.com/C9242CC575DBEB3766C8D4A7FA053623.png-content">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-chapter4-5《JavaScript高级程序设计》笔记" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      chapter4-5《JavaScript高级程序设计》笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-05-22T12:58:25.000Z" itemprop="datePublished">2017-05-22</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-07-29T12:58:25.000Z" itemprop="datePublished">2017-07-29</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a><span style="color: #999">|</span>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><blockquote>
+<p>《JavaScript高级程序设计》</p>
+</blockquote>
+<hr>
+<h4 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h4><ul>
+<li>作用域链的作用是保证最执行环境有权访问的所有变量和函数的有序访问</li>
+<li>作用域链最前端始终都是当前代码所在环境的变量对象，而后一步一步向外成延伸，直到全局执行环境</li>
+<li>标志符解析是沿着作用域链一级一级搜索的过程，直到找到为止，故而位于作用域链最前端的变量作为当前环境的变量</li>
+</ul>
+<hr>
+<h4 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h4><ul>
+<li>一般使用标记清除，引用计数不再使用，当存在循环引用现象时，“引用计数”会导致问题</li>
+<li>通过将值设置成null来<strong>解除引用</strong>以释放内存。适用于全局对象与属性，局部变量会在离开环境时自动解除引用</li>
+</ul>
+<p>循环引用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    a.child = b;</span><br><span class="line">    b.child = a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><h5 id="坑点"><a href="#坑点" class="headerlink" title="坑点"></a>坑点</h5><ul>
+<li>数组的length不是只读的，可以通过修改来设置长度</li>
+<li>一般通过isArray来判断是否是数组，而不用instanceof</li>
+</ul>
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><a id="more"></a>
+<h6 id="☞-概述"><a href="#☞-概述" class="headerlink" title="☞ 概述"></a>☞ 概述</h6><p>（括号内的-表示可选参数）</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+<th>参数</th>
+<th>返回</th>
+<th>是否修改原数组</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>push</td>
+<td>逐个添加至数组屁股</td>
+<td>任意（-）</td>
+<td>数组新长度</td>
+<td>是</td>
+</tr>
+<tr>
+<td>pop</td>
+<td>砍掉屁股一项</td>
+<td>无</td>
+<td>被砍掉的屁股</td>
+<td>是</td>
+</tr>
+<tr>
+<td>shift</td>
+<td>砍掉第一项</td>
+<td>无</td>
+<td>被砍掉的第一</td>
+<td>是</td>
+</tr>
+<tr>
+<td>unshift</td>
+<td>逐个添加至数组头部</td>
+<td>任意（-）</td>
+<td>数组新长度</td>
+<td>是</td>
+</tr>
+<tr>
+<td>reverse</td>
+<td>反向重排</td>
+<td>无</td>
+<td>数组</td>
+<td>是</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>排序</td>
+<td>fn（-）</td>
+<td>数组</td>
+<td>是</td>
+</tr>
+<tr>
+<td>concat</td>
+<td>联结</td>
+<td>任意（-）</td>
+<td>新数组</td>
+<td>否</td>
+</tr>
+<tr>
+<td>slice</td>
+<td>截取</td>
+<td>开始位置（-），结束位置（-）</td>
+<td>新数组</td>
+<td>否</td>
+</tr>
+<tr>
+<td>splice</td>
+<td>删除、插入、替换</td>
+<td>开始位置（-），结束位置（-），插入项（-）</td>
+<td>包含被删除的项的数组，没有则空数组</td>
+<td>是</td>
+</tr>
+<tr>
+<td>indexOf</td>
+<td>查找位置</td>
+<td>查找项（-），开始位置（-）</td>
+<td>找到返回位置，否则-1</td>
+<td>否</td>
+</tr>
+<tr>
+<td>lastIndexOf</td>
+<td>反向查找</td>
+<td>查找项（-），开始位置（-）</td>
+<td>找到返回位置，否则-1</td>
+<td>否</td>
+</tr>
+<tr>
+<td>every</td>
+<td>与迭代</td>
+<td>迭代函数，this指向作用域（-）</td>
+<td>布尔值</td>
+<td>否</td>
+</tr>
+<tr>
+<td>some</td>
+<td>或迭代</td>
+<td>迭代函数，this指向作用域（-）</td>
+<td>布尔值</td>
+<td>否</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>迭代筛选</td>
+<td>迭代函数，this指向作用域（-）</td>
+<td>函数返回值为true的项组成的数组</td>
+<td>否</td>
+</tr>
+<tr>
+<td>map</td>
+<td>迭代调整</td>
+<td>迭代函数，this指向作用域（-）</td>
+<td>函数返回值组成的数组</td>
+<td>否</td>
+</tr>
+<tr>
+<td>forEach</td>
+<td>迭代循环</td>
+<td>迭代函数，this指向作用域（-）</td>
+<td>无</td>
+<td>否</td>
+</tr>
+<tr>
+<td>reduce</td>
+<td>归并</td>
+<td>归并函数，初始值（-）</td>
+<td>归并终值</td>
+<td>否</td>
+</tr>
+<tr>
+<td>reduceRight</td>
+<td>反向归并</td>
+<td>归并函数，初始值（-）</td>
+<td>归并终值</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>增删排改（push、pop、shift、unshift、reverse、sort、splice）会修改原数组</li>
+<li>涉及遍历的方法（every、some、filter、map、forEach）第二个参数可以指定上下文</li>
+</ul>
+<h6 id="☞-分析"><a href="#☞-分析" class="headerlink" title="☞ 分析"></a>☞ 分析</h6><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sort</td>
+<td>无参数时为每一项调用toString()方法，按返回的字符串首字母升序，有参数fn时fn接受两个参数，即数组的两项，根据fn返回值正负零来确定先后</td>
+</tr>
+<tr>
+<td>concat</td>
+<td>无参数时返回原数组副本，多个参数中如果有数组，数组每一项添加到新数组，其他类型直接添加</td>
+</tr>
+<tr>
+<td>slice</td>
+<td>无参数时返回原数组副本，两个参数表示截取开始结束位置，一个参数时表示开始位置截取到最末。参数为复数时，加上数组长度后截取，结束大于开始返回空数组</td>
+</tr>
+<tr>
+<td>splice</td>
+<td>前两项整数，第一项指定删除与插入的开始位置，第二项指定删除个数，之后项是依次插入的数据</td>
+</tr>
+<tr>
+<td>indexOf</td>
+<td>参数一到两个，第一项指定查找项，与数组中项对比时要求使用严格相等判定，第二个指定开始位置（可选）</td>
+</tr>
+<tr>
+<td>every</td>
+<td>通过对数组每一项执行函数后全返回true则返回true，否则false</td>
+</tr>
+<tr>
+<td>some</td>
+<td>通过对每一项执行函数后至少一项返回true则返回true，否则false</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>返回通过对每一项执行函数后返回true的项组成的新数组</td>
+</tr>
+<tr>
+<td>map</td>
+<td>返回通过对每一项执行函数取返回值组成的新数组</td>
+</tr>
+<tr>
+<td>reduce</td>
+<td>归并函数接受4个参数：前一个值，当前值，项索引，数组对象。归并函数当前返回值作为第一个参数传给下一项</td>
+</tr>
+</tbody>
+</table>
+<p>其他描述</p>
+<ul>
+<li>slice 截取，如果你跟我一样小学数学不好，每次都要掰手指，参考下图，截取就不会再有问题</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">'skyline'</span>.slice(<span class="number">1</span>, <span class="number">5</span>) <span class="comment">// "kyli"</span></span><br><span class="line">[<span class="string">'s'</span>, <span class="string">'k'</span>, <span class="string">'y'</span>, <span class="string">'l'</span>, <span class="string">'i'</span>, <span class="string">'n'</span>, <span class="string">'e'</span>].slice(<span class="number">1</span>, <span class="number">5</span>) <span class="comment">// ["k", "y", "l", "i"]</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/C9242CC575DBEB3766C8D4A7FA053623.png-content" alt="slice.png-content"></p>
+<ul>
+<li>indexOf的严格判等</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;<span class="attr">name</span>: <span class="string">'skyline'</span>&#125;</span><br><span class="line"><span class="keyword">var</span> people = [&#123;<span class="attr">name</span>: <span class="string">'skyline'</span>&#125;]</span><br><span class="line"><span class="keyword">var</span> family = [person]</span><br><span class="line"><span class="built_in">console</span>.log(people.indexOf(person))<span class="comment">// -1</span></span><br><span class="line"><span class="built_in">console</span>.log(family.indexOf(person))<span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>模拟栈，push + pop</li>
+<li>模拟队列，shift + push</li>
+<li>模拟反向队列，unshift + pop</li>
+</ul>
+<hr>
+<h4 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><ul>
+<li>两种方式，对象字面量与构造函数</li>
+<li>元字符需要进行转义</li>
+<li>RegExp构造函数接受两个参数。第一个是要匹配的字符串模式，第二个是可选的标识字符串</li>
+<li>构造函数使用的模式字符串需要对元字符进行双重转义</li>
+</ul>
+<p>举个栗子：<br>字面量定义： <code>/\.at\\skyline/gi</code><br>构造函数定义： <code>new RegExp(&#39;\\.at\\\\skyline&#39;, &#39;gi&#39;)</code></p>
+<h5 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h5><h6 id="☞-exec"><a href="#☞-exec" class="headerlink" title="☞ exec"></a>☞ exec</h6><p>专为捕获组设计，当匹配成功时，返回数组，<strong>失败返回null</strong>。返回的数组跟正则是否有子串（圆括号内，圆括号被称为捕获括号），是否全局，开始匹配的位置（lastIndex指定）有关。<br>代码1：非全局有子串</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str=<span class="string">"Skyline should be hardworking(Skyline up up up)"</span>; </span><br><span class="line"><span class="keyword">var</span> reg=<span class="regexp">/Sky(line)/</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str));</span><br><span class="line"><span class="comment">// ["Skyline", "line", index: 0, input: "Skyline should be hardworking(Skyline up up up)"]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str));</span><br><span class="line"><span class="comment">// ["Skyline", "line", index: 0, input: "Skyline should be hardworking(Skyline up up up)"]</span></span><br></pre></td></tr></table></figure>
+<p>未开启全局，此函数的作用和String类型的match()函数是一样的，只能够在字符串中匹配一次，如果没有找到匹配的字符串，那么返回null</p>
+<p>代码2：全局有子串</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> str1=<span class="string">"Skyline should be hardworking(Skyline up up up Skyline)"</span>; </span><br><span class="line"><span class="keyword">var</span> reg1=<span class="regexp">/Skylin(e)/g</span>;</span><br><span class="line">reg1.lastIndex = <span class="number">8</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg1.exec(str1));</span><br><span class="line"><span class="comment">// VM1002:4 (2) ["Skyline", "e", index: 30, input: "Skyline should be hardworking(Skyline up up up Skyline)"]</span></span><br><span class="line"><span class="built_in">console</span>.log(reg1.lastIndex);</span><br><span class="line"><span class="comment">// 37</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg1.exec(str1));</span><br><span class="line"><span class="comment">// VM1016:1 (2) ["Skyline", "e", index: 47, input: "Skyline should be hardworking(Skyline up up up Skyline)"]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg1.exec(str1));</span><br><span class="line"><span class="comment">// VM1021:1 null</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg1.exec(str1));</span><br><span class="line"><span class="comment">// VM3222:1 (2) ["Skyline", "e", index: 0, input: "Skyline should be hardworking(Skyline up up up Skyline)"]</span></span><br></pre></td></tr></table></figure>
+<p>开启全局，此函数返回值同样是一个数组，并且也只能够在字符串中匹配一次。不过此时，此函数一般会和lastIndex属性匹配使用，此函数会在lastIndex属性指定的字符处开始检索字符串。<strong>返回为null时。lastIndex重置为0</strong></p>
+<hr>
+<h4 id="基本包装类型"><a href="#基本包装类型" class="headerlink" title="基本包装类型"></a>基本包装类型</h4><h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><ul>
+<li>包括Boolean、Number、String三种</li>
+<li>创建方式包括转型函数（见下）和字面量</li>
+<li>引用类型与基本包装类型的主要区别就是对象的生存期</li>
+</ul>
+<h5 id="基本包装类型的对象生存期"><a href="#基本包装类型的对象生存期" class="headerlink" title="基本包装类型的对象生存期"></a>基本包装类型的对象生存期</h5><h6 id="☞-代码"><a href="#☞-代码" class="headerlink" title="☞ 代码"></a>☞ 代码</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">'skyline'</span></span><br><span class="line">s.age = <span class="number">23</span></span><br><span class="line"><span class="built_in">console</span>.log(s.age)</span><br></pre></td></tr></table></figure>
+<p>以上代码可以想象成如下JS代码周期</p>
+<h6 id="☞-图示"><a href="#☞-图示" class="headerlink" title="☞ 图示"></a>☞ 图示</h6><p><img src="http://ovhnd57o6.bkt.clouddn.com/A724BE3A20AAF7086F2C651E8AF9E570.png-content" alt="基本包装类型.png-content"></p>
+<p>当最后访问s.age时又创建了一个新的对象，故age不存在</p>
+<h5 id="构造函数与转型函数"><a href="#构造函数与转型函数" class="headerlink" title="构造函数与转型函数"></a>构造函数与转型函数</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="built_in">String</span>(<span class="string">'skyline'</span>)<span class="comment">//转型函数，产生基本包装类型，相当于字面量创建</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> str)<span class="comment">//string</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'skyline'</span>)<span class="comment">//构造函数，产生引用类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> obj)<span class="comment">//object</span></span><br></pre></td></tr></table></figure>
+<h5 id="字符串的模式匹配方法"><a href="#字符串的模式匹配方法" class="headerlink" title="字符串的模式匹配方法"></a>字符串的模式匹配方法</h5><h6 id="☞-概述-1"><a href="#☞-概述-1" class="headerlink" title="☞ 概述"></a>☞ 概述</h6><p>（括号内多参数’,’隔开，不同类型参数’/‘隔开，括号内的-表示可选参数）</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+<th>参数类型</th>
+<th>参数说明</th>
+<th>返回 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>match</td>
+<td>本质与正则exec相同</td>
+<td>regExp</td>
+<td>&nbsp;</td>
+<td>与exec相同</td>
+</tr>
+<tr>
+<td>search</td>
+<td>查找字符串第一个匹配项</td>
+<td>regExp</td>
+<td>&nbsp;</td>
+<td>字符串第一个匹配项索引，无则-1</td>
+</tr>
+<tr>
+<td>indexOf</td>
+<td>查找字符串第一个子字符</td>
+<td>str，开始位置（-）</td>
+<td>&nbsp;</td>
+<td>字符串第一个子字符串索引，无则-1</td>
+</tr>
+<tr>
+<td>replace</td>
+<td>替代字符串</td>
+<td>regExp/str, str/fn(…args)</td>
+<td>分别指定目标字符与替换字符</td>
+<td>替换后的字符串</td>
+</tr>
+<tr>
+<td>split</td>
+<td>指定分隔符分割字符串</td>
+<td>regExp/str, num(-)</td>
+<td>分别指定分隔字符与返回的数组长度</td>
+<td>分隔后所有字符组成的数组</td>
+</tr>
+</tbody>
+</table>
+<h6 id="☞-详解"><a href="#☞-详解" class="headerlink" title="☞ 详解"></a>☞ 详解</h6><p>replace<br>要替换所有子串，<strong>第一个参数需要提供全局（g）标志的正则表达式。第二个参数是字符串时，可以使用字符序列表中的字符序列，将正则的到的值插入结果字符串；第二个参数是函数时，参数依次是匹配项，捕获组，匹配项位置，输入</strong></p>
+<p>字符序列表</p>
+<table>
+<thead>
+<tr>
+<th>字符序列</th>
+<th>正则属性</th>
+<th>表意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$&amp;</td>
+<td>regExp.lastMatch</td>
+<td>匹配整个模式的子串（匹配项）</td>
+</tr>
+<tr>
+<td>$’</td>
+<td>regExp.leftContext</td>
+<td>匹配子串左边内容</td>
+</tr>
+<tr>
+<td>$`</td>
+<td>regExp.rightContext</td>
+<td>匹配子串右边内容</td>
+</tr>
+<tr>
+<td>$n</td>
+<td>regExp[“$n”]</td>
+<td>匹配第n个捕获组子串</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/chapter4-5《JavaScript高级程序设计》笔记.html">http://www.skyline.show/chapter4-5《JavaScript高级程序设计》笔记.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/高程/">高程</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/chapter6《JavaScript高级程序设计·继承》笔记.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          chapter6《JavaScript高级程序设计·继承》笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/chapter1-3《JavaScript高级程序设计》笔记.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">chapter1-3《JavaScript高级程序设计》笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料"><span class="nav-number">1.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作用域链"><span class="nav-number">2.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾收集"><span class="nav-number">3.</span> <span class="nav-text">垃圾收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组"><span class="nav-number">4.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#坑点"><span class="nav-number">4.1.</span> <span class="nav-text">坑点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法"><span class="nav-number">4.2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-概述"><span class="nav-number">4.2.1.</span> <span class="nav-text">☞ 概述</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-分析"><span class="nav-number">4.2.2.</span> <span class="nav-text">☞ 分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正则"><span class="nav-number">5.</span> <span class="nav-text">正则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义"><span class="nav-number">5.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法-1"><span class="nav-number">5.2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-exec"><span class="nav-number">5.2.1.</span> <span class="nav-text">☞ exec</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本包装类型"><span class="nav-number">6.</span> <span class="nav-text">基本包装类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#要点"><span class="nav-number">6.1.</span> <span class="nav-text">要点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本包装类型的对象生存期"><span class="nav-number">6.2.</span> <span class="nav-text">基本包装类型的对象生存期</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-代码"><span class="nav-number">6.2.1.</span> <span class="nav-text">☞ 代码</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-图示"><span class="nav-number">6.2.2.</span> <span class="nav-text">☞ 图示</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构造函数与转型函数"><span class="nav-number">6.3.</span> <span class="nav-text">构造函数与转型函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串的模式匹配方法"><span class="nav-number">6.4.</span> <span class="nav-text">字符串的模式匹配方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-概述-1"><span class="nav-number">6.4.1.</span> <span class="nav-text">☞ 概述</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-详解"><span class="nav-number">6.4.2.</span> <span class="nav-text">☞ 详解</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2022 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2022 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

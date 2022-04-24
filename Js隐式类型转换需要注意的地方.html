@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>js隐式类型转换需要注意的地方 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="总结">
+  
+  
+  
+  
+  <meta name="description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  转换规则隐式转换为布尔值如表   数据类型 转化成true 转化成false     String 非空字符 “”(空字符）   Number 非零 0与NaN   Object 非Null对象 null              undefined 无 undefined    （注：调用Boolean()方法得到结">
+<meta name="keywords" content="总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Js隐式类型转换需要注意的地方">
+<meta property="og:url" content="http://www.skyline.show/Js隐式类型转换需要注意的地方.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  转换规则隐式转换为布尔值如表   数据类型 转化成true 转化成false     String 非空字符 “”(空字符）   Number 非零 0与NaN   Object 非Null对象 null              undefined 无 undefined    （注：调用Boolean()方法得到结">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ovhnd57o6.bkt.clouddn.com/0E0B74FDA0F7561D3AF96126F84DD4B3.png-content">
+<meta property="og:updated_time" content="2018-01-26T12:49:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Js隐式类型转换需要注意的地方">
+<meta name="twitter:description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  转换规则隐式转换为布尔值如表   数据类型 转化成true 转化成false     String 非空字符 “”(空字符）   Number 非零 0与NaN   Object 非Null对象 null              undefined 无 undefined    （注：调用Boolean()方法得到结">
+<meta name="twitter:image" content="http://ovhnd57o6.bkt.clouddn.com/0E0B74FDA0F7561D3AF96126F84DD4B3.png-content">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Js隐式类型转换需要注意的地方" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Js隐式类型转换需要注意的地方
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-26T07:14:56.000Z" itemprop="datePublished">2018-01-26</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-26T12:49:44.000Z" itemprop="datePublished">2018-01-26</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a><span style="color: #999">|</span>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h3 id="转换规则"><a href="#转换规则" class="headerlink" title="转换规则"></a>转换规则</h3><h4 id="隐式转换为布尔值"><a href="#隐式转换为布尔值" class="headerlink" title="隐式转换为布尔值"></a>隐式转换为布尔值</h4><h5 id="如表"><a href="#如表" class="headerlink" title="如表"></a>如表</h5><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转化成true</th>
+<th>转化成false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>非空字符</td>
+<td>“”(空字符）</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>非零</td>
+<td>0与NaN</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>非Null对象</td>
+<td>null           </td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>无</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<p>（注：调用Boolean()方法得到结果相同）</p>
+<hr>
+<h4 id="对象隐式转换规则"><a href="#对象隐式转换规则" class="headerlink" title="对象隐式转换规则"></a>对象隐式转换规则</h4><a id="more"></a>
+<h5 id="对象隐式转换成字符串或数字"><a href="#对象隐式转换成字符串或数字" class="headerlink" title="对象隐式转换成字符串或数字"></a>对象隐式转换成字符串或数字</h5><p><img src="http://ovhnd57o6.bkt.clouddn.com/0E0B74FDA0F7561D3AF96126F84DD4B3.png-content" alt="0E0B74FDA0F7561D3AF96126F84DD4B3.png-content"></p>
+<h5 id="不同对象调用toString-得到的结果"><a href="#不同对象调用toString-得到的结果" class="headerlink" title="不同对象调用toString()得到的结果"></a>不同对象调用toString()得到的结果</h5><table>
+<thead>
+<tr>
+<th>对象</th>
+<th>调用toString()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通对象</td>
+<td>“[object Object]”</td>
+</tr>
+<tr>
+<td>数组arr</td>
+<td>arr.join()</td>
+</tr>
+<tr>
+<td>函数类</td>
+<td>定义函数的代码</td>
+</tr>
+<tr>
+<td>日期类</td>
+<td>可读日期</td>
+</tr>
+<tr>
+<td>正则对象</td>
+<td>正则对象字面量的字符</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>如果数组的某一项的值是null或者undefined，join()方法返回的结果以空字符串连接</li>
+<li>基本包装类型的引用类型用其字面量形式的值调用toString()</li>
+</ul>
+<h5 id="不同对象调用valueOf-得到的结果"><a href="#不同对象调用valueOf-得到的结果" class="headerlink" title="不同对象调用valueOf()得到的结果"></a>不同对象调用valueOf()得到的结果</h5><ul>
+<li>大多数对象，包括普通对象、数组、函数、正则简单返回对象本身</li>
+<li>日期对象返回19700101以来的毫秒数值</li>
+<li>基本包装类型的引用类型返回其字面量形式的值</li>
+</ul>
+<hr>
+<h4 id="其他隐式转换规则"><a href="#其他隐式转换规则" class="headerlink" title="其他隐式转换规则"></a>其他隐式转换规则</h4><table>
+<thead>
+<tr>
+<th>值</th>
+<th>转化成字符串</th>
+<th>转化成数字</th>
+<th>转化成布尔值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>undefined</td>
+<td>“undefined”</td>
+<td><strong>NaN</strong></td>
+<td>false</td>
+</tr>
+<tr>
+<td>null</td>
+<td>“null”</td>
+<td><strong>0</strong></td>
+<td>false</td>
+</tr>
+<tr>
+<td>NaN</td>
+<td>“NaN”</td>
+<td>NaN</td>
+<td><strong>false</strong></td>
+</tr>
+<tr>
+<td>[]（空数组）</td>
+<td>“”</td>
+<td>0</td>
+<td><strong>true</strong></td>
+</tr>
+<tr>
+<td>“”（空字符串）</td>
+<td>“”</td>
+<td><strong>0</strong></td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>布尔值转数字为0/1，转字符串为”true”/“false”</li>
+<li>数字转字符串加引号即可🙄</li>
+<li>字符串转数字，看去掉引号是否是数字即可🤣，否则为NaN<br>（注：假装这样表述是很严谨的🤣，数字与字符串的相互转换不用表述大家都知道的）</li>
+</ul>
+<hr>
+<h3 id="开始转换"><a href="#开始转换" class="headerlink" title="开始转换"></a>开始转换</h3><h4 id="加号"><a href="#加号" class="headerlink" title="加号"></a>加号</h4><h5 id="表达式中有字符串"><a href="#表达式中有字符串" class="headerlink" title="表达式中有字符串"></a>表达式中有字符串</h5><ul>
+<li>其他类型隐式转换为字符串</li>
+<li>多个加号时，按照从左到右的顺序，两两进行计算</li>
+<li>只要表达式中如果有字符串，最终结果一定是字符串</li>
+<li>如果有复杂类型，先将复杂类型按照对象隐式转换规则转换成字符串</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span> + <span class="string">"3"</span>; <span class="comment">// "23"</span></span><br><span class="line"><span class="number">1</span> + <span class="number">2</span> + <span class="string">"3"</span>; <span class="comment">// "33"</span></span><br><span class="line"><span class="literal">true</span> + <span class="number">2</span> + <span class="string">"3"</span>; <span class="comment">// "33"</span></span><br><span class="line"><span class="number">1</span> + <span class="string">"2"</span> + <span class="number">3</span>; <span class="comment">// "123"</span></span><br><span class="line"></span><br><span class="line"><span class="string">"2"</span> + <span class="literal">true</span>; <span class="comment">//"2true"</span></span><br><span class="line"></span><br><span class="line"><span class="string">"2"</span> + <span class="literal">undefined</span>; <span class="comment">//"2undefined"</span></span><br><span class="line"><span class="string">"2"</span> + <span class="literal">NaN</span> <span class="comment">//"2NaN"</span></span><br><span class="line"><span class="string">'23'</span> + &#123;<span class="string">'a'</span>: <span class="number">1</span>&#125; <span class="comment">//"23[object Object]"</span></span><br><span class="line"></span><br><span class="line"><span class="string">'23'</span> + [<span class="number">1</span>,<span class="number">3</span>,&#123;&#125;, <span class="literal">null</span>, <span class="literal">undefined</span>, <span class="string">''</span>, <span class="string">'2'</span>] <span class="comment">// "231,3,[object Object],,,,2"</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">3</span>,&#123;&#125;, <span class="literal">null</span>, <span class="literal">undefined</span>, <span class="string">''</span>, <span class="string">'2'</span>].toString() <span class="comment">//"1,3,[object Object],,,,2"</span></span><br><span class="line"><span class="number">23</span> + <span class="string">"1,3,[object Object],,,,2"</span> <span class="comment">//"231,3,[object Object],,,,2"</span></span><br></pre></td></tr></table></figure>
+<h5 id="表达式中没有字符串"><a href="#表达式中没有字符串" class="headerlink" title="表达式中没有字符串"></a>表达式中没有字符串</h5><ul>
+<li>如果没有复杂类型，其他类型隐式转换为数字</li>
+<li>如果有复杂类型，先将复杂类型按照对象隐式转换规则转换成原始值再按照如上规则计算</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span> + [] <span class="comment">//"1"</span></span><br><span class="line"><span class="number">1</span> + [<span class="number">1</span>] <span class="comment">//"11"</span></span><br><span class="line"><span class="number">1</span> + &#123;<span class="attr">a</span>:<span class="string">'a'</span>&#125; <span class="comment">//"1[object Object]"</span></span><br><span class="line"><span class="literal">null</span> + <span class="literal">null</span> <span class="comment">//0</span></span><br><span class="line"><span class="literal">true</span> + &#123;<span class="attr">a</span>:<span class="string">'a'</span>&#125; <span class="comment">//"true[object Object]"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意undefined 转化成数字是NaN</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typeof</span> <span class="literal">NaN</span> <span class="comment">//"number"</span></span><br><span class="line"><span class="literal">null</span> + <span class="literal">undefined</span> <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">undefined</span> <span class="comment">//NaN</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>特殊注意</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">+ <span class="string">'3'</span>      <span class="comment">// 数字3</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="乘，除，取余，减"><a href="#乘，除，取余，减" class="headerlink" title="乘，除，取余，减"></a>乘，除，取余，减</h4><ul>
+<li>其他类型会隐式转换为数字</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span> - <span class="string">'5'</span> <span class="comment">//-4</span></span><br><span class="line"><span class="number">1</span> - [<span class="number">2</span>, <span class="number">2</span>] <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> - &#123;<span class="attr">a</span>:<span class="number">1</span>&#125; <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span>- <span class="literal">undefined</span> <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> - [] <span class="comment">//1</span></span><br><span class="line"><span class="number">1</span> - [<span class="number">2</span>, <span class="number">2</span>] <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> - <span class="literal">null</span> <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="比较运算符部分-gt-lt-gt-lt"><a href="#比较运算符部分-gt-lt-gt-lt" class="headerlink" title="比较运算符部分 &gt; &lt; &gt;= &lt;= =="></a>比较运算符部分 &gt; &lt; &gt;= &lt;= ==</h4><ul>
+<li>数字vs其他，其他转化为数字</li>
+<li>布尔值vs其他，布尔值转数字，数字vs其他</li>
+<li>字符串vs字符串，按unicode依次比较(大写字母总是在小写字母之后)</li>
+<li>对象vs数字，对象vs字符串，将对象转化为转换成原始值，再进行比较。</li>
+<li>如果其中一个操作数是NaN，那么总是返回false(NaN和NaN是不相等的)</li>
+<li>null 只和undefined是好基友（互相相等）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="literal">NaN</span>;</span><br><span class="line">x === <span class="literal">NaN</span>; <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="literal">undefined</span> == <span class="string">"undefined"</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="string">"null"</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="number">0</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="literal">false</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">undefined</span> == <span class="number">0</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">undefined</span> == <span class="literal">false</span> <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><blockquote>
+<p>《JavaScript高级程序设计》</p>
+</blockquote>
+<p>&nbsp;</p>
+<blockquote>
+<p>本文作者： Skyline(lty)<br>文章链接： <a href="http://www.skyline.show/Js隐式类型转换需要注意的地方.html">http://www.skyline.show/Js隐式类型转换需要注意的地方.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/JavaScript隐式类型转换小结.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          JavaScript隐式类型转换小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/采桑子（丑奴儿）.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">采桑子（丑奴儿）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#转换规则"><span class="nav-number">1.</span> <span class="nav-text">转换规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐式转换为布尔值"><span class="nav-number">1.1.</span> <span class="nav-text">隐式转换为布尔值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如表"><span class="nav-number">1.1.1.</span> <span class="nav-text">如表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象隐式转换规则"><span class="nav-number">1.2.</span> <span class="nav-text">对象隐式转换规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对象隐式转换成字符串或数字"><span class="nav-number">1.2.1.</span> <span class="nav-text">对象隐式转换成字符串或数字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不同对象调用toString-得到的结果"><span class="nav-number">1.2.2.</span> <span class="nav-text">不同对象调用toString()得到的结果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不同对象调用valueOf-得到的结果"><span class="nav-number">1.2.3.</span> <span class="nav-text">不同对象调用valueOf()得到的结果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他隐式转换规则"><span class="nav-number">1.3.</span> <span class="nav-text">其他隐式转换规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始转换"><span class="nav-number">2.</span> <span class="nav-text">开始转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加号"><span class="nav-number">2.1.</span> <span class="nav-text">加号</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#表达式中有字符串"><span class="nav-number">2.1.1.</span> <span class="nav-text">表达式中有字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#表达式中没有字符串"><span class="nav-number">2.1.2.</span> <span class="nav-text">表达式中没有字符串</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#乘，除，取余，减"><span class="nav-number">2.2.</span> <span class="nav-text">乘，除，取余，减</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较运算符部分-gt-lt-gt-lt"><span class="nav-number">2.3.</span> <span class="nav-text">比较运算符部分 &gt; &lt; &gt;= &lt;= ==</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2022 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2022 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
