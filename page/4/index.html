@@ -319,6 +319,969 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="Nginx-基础"><a href="#Nginx-基础" class="headerlink" title="Nginx 基础"></a>Nginx 基础</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#nginx-基础">Nginx 基础</a><ul>
+<li><a href="#location">location</a><ul>
+<li><a href="#基础使用">基础使用</a></li>
+<li><a href="#url-match">URL-match</a></li>
+<li><a href="#modifier">modifier</a></li>
+</ul>
+</li>
+<li><a href="#proxy_pass">proxy_pass</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#uri">URI</a></li>
+<li><a href="#问题">/ 问题</a></li>
+<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3><p>匹配所有路径</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优先级最低，所有都不匹配时，才会命中</p>
+<h3 id="modifier"><a href="#modifier" class="headerlink" title="modifier"></a>modifier</h3><p>URI 这里指 URL 除了 server:port 的部分。</p>
+<p><strong>命中优先级</strong><br>优先级由上依次降低。</p>
+<table>
+<thead>
+<tr>
+<th>modifier</th>
+<th>desc</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>exact (精确匹配)</td>
+<td>location = /site</td>
+</tr>
+<tr>
+<td>^~</td>
+<td>priority prefix (优先字符)</td>
+<td>location ^~ /site</td>
+</tr>
+<tr>
+<td>~</td>
+<td>case sensitive regex (大小写敏感正则)</td>
+<td>location ~ /site</td>
+</tr>
+<tr>
+<td>~*</td>
+<td>case insensitive regex(忽略大小写)</td>
+<td>location ~* /site</td>
+</tr>
+<tr>
+<td>(none)</td>
+<td>prefix(字符匹配，无修饰符，由 URI 头字符开始匹配)</td>
+<td>location /site</td>
+</tr>
+</tbody>
+</table>
+<p>在如下网址可进行匹配测试 <a href="https://nginx.viraptor.info/" target="_blank" rel="noopener">https://nginx.viraptor.info/</a></p>
+<p>^~ 与(none)都 进行字符匹配（非正则），^~ 相对于(none) ，提高了命中优先级。</p>
+<p><strong>典型示例</strong></p>
+<p>示例 1</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>^~ 进行字符匹配<br><a href="http://domain2.com/file/" target="_blank" rel="noopener">http://domain2.com/file/</a>* 可以命中<br><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 不能命中</p>
+<p>示例 2</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 根据优先级命中<code>^~ /file/</code></p>
+<h2 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h2><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3><pre><code>&lt;!--more--&gt;
+</code></pre><p>proxy_pass 通常位于 location 下，用于接口转发。</p>
+<h3 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h3><p>一般把 server:port 后的部分叫做 URI，proxy_pass 在其后加不加 URI 表现完全不同。<br>location 非正则匹配时，对于 proxy_pass 有如下规则：<br>proxy_pass 有 URI<br>替换请求中匹配的 URI 并替换成 proxy_pass 中的 URI 并向上游服务转发。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com/src;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://aaa.com/file/search" target="_blank" rel="noopener">http://aaa.com/file/search</a> 真实访问地址为<a href="http://bbb.com/src/search" target="_blank" rel="noopener">http://bbb.com/src/search</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://aaa.com/file/search" target="_blank" rel="noopener">http://aaa.com/file/search</a> 真实访问地址为<a href="http://bbb.com//search" target="_blank" rel="noopener">http://bbb.com//search</a></p>
+<p>proxy_pass 无 URI<br>保留请求 URI 并将其转发到上游服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://aaa.com/file/search" target="_blank" rel="noopener">http://aaa.com/file/search</a> 真实访问地址为<a href="http://bbb.com/file/search" target="_blank" rel="noopener">http://bbb.com/file/search</a></p>
+<p>location 为正则匹配时，由于 nginx 不知道替换哪些字符，<br>proxy_pass 的 URI 不起作用，保留原 URI，转发到上上游服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com/src;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://aaa.com/file/search" target="_blank" rel="noopener">http://aaa.com/file/search</a> 真实访问地址为<a href="http://bbb.com/file/search" target="_blank" rel="noopener">http://bbb.com/file/search</a></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="/ 问题"></a>/ 问题</h3><p>location 非正则匹配时，当 proxy_pass 有 URI 时，需要注意 URI 的尾斜杠，具体表现为如下<br>location 正则匹配时，不需要考虑 proxy_pass 的 URI</p>
+<table>
+<thead>
+<tr>
+<th>location</th>
+<th>proxy_pass</th>
+<th>Request</th>
+<th>Received by upstream</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/file/</td>
+<td><a href="http://bbb.com/src/" target="_blank" rel="noopener">http://bbb.com/src/</a></td>
+<td>/file/search?name=baz</td>
+<td>/src/search?name=baz</td>
+</tr>
+<tr>
+<td>/file/</td>
+<td><a href="http://bbb.com/src" target="_blank" rel="noopener">http://bbb.com/src</a></td>
+<td>/file/search?name=baz</td>
+<td>/srcsearch?name=baz</td>
+</tr>
+<tr>
+<td>/file</td>
+<td><a href="http://bbb.com/src/" target="_blank" rel="noopener">http://bbb.com/src/</a></td>
+<td>/file/search?name=baz</td>
+<td>/src//search?name=baz</td>
+</tr>
+<tr>
+<td>/file</td>
+<td><a href="http://bbb.com/src" target="_blank" rel="noopener">http://bbb.com/src</a></td>
+<td>/file/search?name=baz</td>
+<td>/src/search?name=baz</td>
+</tr>
+<tr>
+<td>/file</td>
+<td><a href="http://bbb.com/src" target="_blank" rel="noopener">http://bbb.com/src</a></td>
+<td>/filesearch?name=baz</td>
+<td>/srcsearch?name=baz</td>
+</tr>
+<tr>
+<td>~ /file/</td>
+<td><a href="http://bbb.com/src/[^1]" target="_blank" rel="noopener">http://bbb.com/src/[^1]</a></td>
+<td>/file/search?name=baz</td>
+<td>/file/search?name=baz</td>
+</tr>
+<tr>
+<td>~ /file/search/(.*)$</td>
+<td><a href="http://bbb.com/src?name=$1[^1]" target="_blank" rel="noopener">http://bbb.com/src?name=$1[^1]</a></td>
+<td>/file/search/baz</td>
+<td>/src?name=baz</td>
+</tr>
+<tr>
+<td>~ /file/</td>
+<td><a href="http://bbb.com" target="_blank" rel="noopener">http://bbb.com</a></td>
+<td>/file/search?name=baz</td>
+<td>/file/search?name=baz</td>
+</tr>
+</tbody>
+</table>
+<p>location 正则匹配保留 Request 原始 URI<br>非正则（前缀）匹配时，proxy_pass 有 URI 直接用 该 URI 替换 Request 中 URI 与 location 对应的字符，无 URI 则保留 Request 原始 URI</p>
+<p>总之一句话<br><strong>location 采用字符前缀匹配时 proxy_pass 中的 URI 替换原始 URI</strong></p>
+<p>[^1]: 较新版的 nginx 不支持正则中的 proxy_pass 有 URI(指纯字符 URI，经过测试，包含变量如$1等时可以)，会报错。<code>&quot;proxy_pass&quot; cannot have URI part in location given by regular expression, or inside named location, or inside &quot;if&quot; statement, or inside &quot;limit_except&quot; block</code></p>
+<h3 id="uri-request-uri"><a href="#uri-request-uri" class="headerlink" title="\$uri \$request_uri"></a>\$uri \$request_uri</h3><p>要同时保留 location 与 proxy_pass 的 URI 需要使用前缀匹配的同时用到 $uri 或$request_uri<br>两者区别是$uri 不会保留请求中的路由参数<br>具体如下</p>
+<table>
+<thead>
+<tr>
+<th>location</th>
+<th>proxy_pass</th>
+<th>Request</th>
+<th>Received by upstream</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/file/</td>
+<td><a href="http://bbb.com/src$uri" target="_blank" rel="noopener">http://bbb.com/src$uri</a></td>
+<td>/file/search?name=baz</td>
+<td>/src/file/search</td>
+</tr>
+<tr>
+<td>/file/</td>
+<td><a href="http://bbb.com/src$request_uri" target="_blank" rel="noopener">http://bbb.com/src$request_uri</a></td>
+<td>/file/search?name=baz</td>
+<td>/src/file/search?name=baz</td>
+</tr>
+</tbody>
+</table>
+<p>注意$uri与$request_uri 自带头斜杠</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+<p><a href="https://nginx.viraptor.info/" target="_blank" rel="noopener">https://nginx.viraptor.info/</a> <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching</a></p>
+</blockquote>
+<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<blockquote>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
+</blockquote>
+<pre><code>&amp;nbsp;
+
+&gt; 本文作者： Skyline(lty)
+文章链接： [http://www.skyline.show/Nginx基础.html](http://www.skyline.show/Nginx基础.html)
+版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-MacOS应用清单"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/MacOS应用清单.html">MacOS应用清单</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="MacOS-应用清单"><a href="#MacOS-应用清单" class="headerlink" title="MacOS 应用清单"></a>MacOS 应用清单</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#macos-应用清单">MacOS 应用清单</a><ul>
+<li><a href="#开发">开发</a></li>
+<li><a href="#学习">学习</a></li>
+<li><a href="#效率">效率</a><ul>
+<li><a href="#汇总">汇总</a></li>
+<li><a href="#barrier">barrier</a></li>
+</ul>
+</li>
+<li><a href="#娱乐">娱乐</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><h2 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h2><h3 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h3><table>
+<thead>
+<tr>
+<th>APP</th>
+<th>DESC</th>
+<th>Free</th>
+<th>Web</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sharemouse</td>
+<td>跨端键鼠共用工具</td>
+<td>trial</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+<tr>
+<td>Synergy</td>
+<td>跨端键鼠共用工具</td>
+<td>false</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+<tr>
+<td>barrier</td>
+<td>基于 Synergy-core 1.9 的开源跨端键鼠共用工具</td>
+<td>true</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="barrier"><a href="#barrier" class="headerlink" title="barrier"></a>barrier</h3><p>barrier 是一款基于 Synergy-core 1.9 的开源跨端键鼠共用工具，拥有 Synergy 基本的跨平台共享键鼠，复制粘贴等基础功能。<br>其他类似的软件还有 Sharemouse 和 Synergy。<br>Synergy 目前已闭源收费，功能上与 barrier 差距不大，<br>Synergy 与 barrier 采用主副机设定。只有主机的键鼠可共享，其他设备的键鼠不能共享试用。<br>Sharemouse 相比，所有键鼠都可共享，但是，Sharemouse 提供的免费试用版本，试用版只支持两台电脑，且两台电脑各自只能有一台内置显示器。<br>目前了解到的类似软件还有，</p>
+<ul>
+<li>Mouse without Borders</li>
+<li>Input Director</li>
+</ul>
+<p>未安装试用验证。</p>
+<h2 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h2><h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><pre><code>&lt;!--more--&gt;
+</code></pre><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<blockquote>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
+</blockquote>
+<pre><code>&amp;nbsp;
+
+&gt; 本文作者： Skyline(lty)
+文章链接： [http://www.skyline.show/MacOS应用清单.html](http://www.skyline.show/MacOS应用清单.html)
+版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-MacOS基本操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/MacOS基本操作.html">MacOS基本操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="MacOS-基础使用"><a href="#MacOS-基础使用" class="headerlink" title="MacOS 基础使用"></a>MacOS 基础使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#macos-基础使用">MacOS 基础使用</a><ul>
+<li><a href="#网络磁盘映射">网络磁盘映射</a></li>
+<li><a href="#剪切移动">剪切（移动）</a><ul>
+<li><a href="#常规">常规</a></li>
+<li><a href="#快捷键">快捷键</a></li>
+</ul>
+</li>
+<li><a href="#直接删除文件">直接删除文件</a></li>
+<li><a href="#修改终端用户名">修改终端用户名</a></li>
+<li><a href="#启用-ssd-的-trim-支持">启用 SSD 的 TRIM 支持</a></li>
+<li><a href="#关闭-sip">关闭 SIP</a></li>
+<li><a href="#设定文件默认打开方式">设定文件默认打开方式</a><ul>
+<li><a href="#常规-1">常规</a></li>
+<li><a href="#其他方式">其他方式</a></li>
+</ul>
+</li>
+<li><a href="#打开允许未知来源-app-选项">打开允许未知来源 app 选项</a></li>
+<li><a href="#设定快捷打开程序快捷键">设定快捷打开程序快捷键</a><ul>
+<li><a href="#设置-automator-任务">设置 automator 任务</a></li>
+<li><a href="#设置程序打开快捷键">设置程序打开快捷键</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Macos-Beta-系统更新开启"><a href="#Macos-Beta-系统更新开启" class="headerlink" title="Macos Beta 系统更新开启"></a>Macos Beta 系统更新开启</h2><p>在apple beta 地址上登录<br><a href="https://beta.apple.com" target="_blank" rel="noopener">https://beta.apple.com</a></p>
+<p>在如下网站下载 <a href="https://beta.apple.com/sp/betaprogram/enroll#macos" target="_blank" rel="noopener">MacOS Public Beta Access Utility</a>工具<br>注意开启前在Time Mechine中进行系统备份<br>下载工具安装后即可开启。</p>
+<h2 id="网络磁盘映射"><a href="#网络磁盘映射" class="headerlink" title="网络磁盘映射"></a>网络磁盘映射</h2><p>在 finder 下操作 ⌘ + k<br>在弹出框中输入网络共享服务地址<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/MacOS%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211227153214.png" alt="MacOS基本操作20211227153214"><br>一般有 Samba 或 AFP 等方式共享服务<br>常见地址如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">afp://192.168.2.20</span><br><span class="line">smb://192.168.2.20</span><br></pre></td></tr></table></figure>
+<h2 id="剪切（移动）"><a href="#剪切（移动）" class="headerlink" title="剪切（移动）"></a>剪切（移动）</h2><h3 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h3><p>复制需要移动的文件。<br>在目标位置右击鼠标，一般出现粘贴项目选项。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211118165151.png" alt="Macos基本操作20211118165151"><br>此时按住 ⌥ 键，菜单会变为将项目移动到此处。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211118165216.png" alt="Macos基本操作20211118165216"></p>
+<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">⌘ + c</span><br><span class="line">⌘ + ⌥ + v</span><br></pre></td></tr></table></figure>
+<p>⌘ + c 复制文件<br>在目标目录 ⌘ + ⌥ + v 即可移动成功</p>
+<h2 id="直接删除文件"><a href="#直接删除文件" class="headerlink" title="直接删除文件"></a>直接删除文件</h2><p>放进垃圾桶<br>【Command】+【Backspace】/【Delete】<br>永久删除<br>【Option】+【Command】+【Backspace】/【Delete】</p>
+<h2 id="修改终端用户名"><a href="#修改终端用户名" class="headerlink" title="修改终端用户名"></a>修改终端用户名</h2><p>修改前图示</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CE77BBFF51DF4A64E8C6FA24BFEF8D2AF.jpg" alt="Macos基本操作E77BBFF51DF4A64E8C6FA24BFEF8D2AF"></p>
+<p>输入<br><code>sudo scutil --set HostName &lt;name&gt;</code><br>改后图示<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CF5C2146E34383DB6E8EE91DC7AD8EC82.jpg" alt="Macos基本操作F5C2146E34383DB6E8EE91DC7AD8EC82"></p>
+<h2 id="启用-SSD-的-TRIM-支持"><a href="#启用-SSD-的-TRIM-支持" class="headerlink" title="启用 SSD 的 TRIM 支持"></a>启用 SSD 的 TRIM 支持</h2><p>mac 更换非官方固态和默认不启动 TRIM 硬盘优化，可输入<br><code>sudo trimforce enable</code><br>打开</p>
+<h2 id="关闭-SIP"><a href="#关闭-SIP" class="headerlink" title="关闭 SIP"></a>关闭 SIP</h2><p>mac 关闭系统完整性保护 System Integrity Protection<br>重启时，出现 apple logo 时按住<br><code>⌘+R</code><br>进入恢复模式<br>点击工具中的终端<br>输入<br><code>csrutil disable</code><br>输出<br>Successfully disabled System Integrity Protection. Please restart the machine for the changes to take effect.<br>表示关闭 SIP 成功<br>开启命令为<br><code>csrutil enable</code></p>
+<h2 id="设定文件默认打开方式"><a href="#设定文件默认打开方式" class="headerlink" title="设定文件默认打开方式"></a>设定文件默认打开方式</h2><h3 id="常规-1"><a href="#常规-1" class="headerlink" title="常规"></a>常规</h3><p>按住 option 键，鼠标右击，查看菜单栏变化</p>
+<h3 id="其他方式"><a href="#其他方式" class="headerlink" title="其他方式"></a>其他方式</h3><pre><code>&lt;!--more--&gt;
+</code></pre><p>第一步：右键单击该文件，然后选择「显示简介」选项。<br>第二步：找到「打开方式」项目，点击倒三角选择你想指定的默认应用程序。<br>第三步：单击「全部更改」按钮即可生效<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/MacOS%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211215113806.png" alt="MacOS基本操作20211215113806"></p>
+<h2 id="打开允许未知来源-app-选项"><a href="#打开允许未知来源-app-选项" class="headerlink" title="打开允许未知来源 app 选项"></a>打开允许未知来源 app 选项</h2><p><code>sudo spctl --master-disable</code></p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211118165525.png" alt="Macos基本操作20211118165525"></p>
+<h2 id="设定快捷打开程序快捷键"><a href="#设定快捷打开程序快捷键" class="headerlink" title="设定快捷打开程序快捷键"></a>设定快捷打开程序快捷键</h2><h3 id="设置-automator-任务"><a href="#设置-automator-任务" class="headerlink" title="设置 automator 任务"></a>设置 automator 任务</h3><p>如下动态图所示</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C4DE1B15BC1EABA0DAE13F68FF436371B.gif" alt="Macos基本操作4DE1B15BC1EABA0DAE13F68FF436371B"></p>
+<h3 id="设置程序打开快捷键"><a href="#设置程序打开快捷键" class="headerlink" title="设置程序打开快捷键"></a>设置程序打开快捷键</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C3B838E4C4D5B3D48BED0B7FB2AE51847.jpg" alt="Macos基本操作3B838E4C4D5B3D48BED0B7FB2AE51847"></p>
+<pre><code>&amp;nbsp;
+
+&gt; 本文作者： Skyline(lty)
+文章链接： [http://www.skyline.show/MacOS基本操作.html](http://www.skyline.show/MacOS基本操作.html)
+版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-JavaScript隐式类型转换小结"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/JavaScript隐式类型转换小结.html">JavaScript隐式类型转换小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-26T12:49:44.000Z" itemprop="datePublished">2018-01-26</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h3 id="转换规则"><a href="#转换规则" class="headerlink" title="转换规则"></a>转换规则</h3><h4 id="隐式转换为布尔值"><a href="#隐式转换为布尔值" class="headerlink" title="隐式转换为布尔值"></a>隐式转换为布尔值</h4><h5 id="如表"><a href="#如表" class="headerlink" title="如表"></a>如表</h5><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转化成true</th>
+<th>转化成false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>非空字符</td>
+<td>“”(空字符）</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>非零</td>
+<td>0与NaN</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>非Null对象</td>
+<td>null           </td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>无</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<p>（注：调用Boolean()方法得到结果相同）</p>
+<hr>
+<h4 id="对象隐式转换规则"><a href="#对象隐式转换规则" class="headerlink" title="对象隐式转换规则"></a>对象隐式转换规则</h4>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+转换规则隐式转换为布尔值如表
+
+
+数据类型
+转化成true
+转化成false
+
+
+
+
+String
+非空字符
+“”(空字符）
+
+
+Number
+非零
+0与NaN
+
+
+Object
+非Null对象
+null           
+
+
+undefined
+无
+undefined
+
+
+
+（注：调用Boolean()方法......  -->
+        <p class="article-more-link">
+          <a href="/JavaScript隐式类型转换小结.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Js隐式类型转换需要注意的地方"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Js隐式类型转换需要注意的地方.html">Js隐式类型转换需要注意的地方</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-26T07:14:56.000Z" itemprop="datePublished">2018-01-26</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h3 id="转换规则"><a href="#转换规则" class="headerlink" title="转换规则"></a>转换规则</h3><h4 id="隐式转换为布尔值"><a href="#隐式转换为布尔值" class="headerlink" title="隐式转换为布尔值"></a>隐式转换为布尔值</h4><h5 id="如表"><a href="#如表" class="headerlink" title="如表"></a>如表</h5><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转化成true</th>
+<th>转化成false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>非空字符</td>
+<td>“”(空字符）</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>非零</td>
+<td>0与NaN</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>非Null对象</td>
+<td>null           </td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>无</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<p>（注：调用Boolean()方法得到结果相同）</p>
+<hr>
+<h4 id="对象隐式转换规则"><a href="#对象隐式转换规则" class="headerlink" title="对象隐式转换规则"></a>对象隐式转换规则</h4>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+转换规则隐式转换为布尔值如表
+
+
+数据类型
+转化成true
+转化成false
+
+
+
+
+String
+非空字符
+“”(空字符）
+
+
+Number
+非零
+0与NaN
+
+
+Object
+非Null对象
+null           
+
+
+undefined
+无
+undefined
+
+
+
+（注：调用Boolean()方法......  -->
+        <p class="article-more-link">
+          <a href="/Js隐式类型转换需要注意的地方.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-采桑子（丑奴儿）"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/采桑子（丑奴儿）.html">采桑子（丑奴儿）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-25T12:55:34.000Z" itemprop="datePublished">2018-01-25</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/词·搜集/">词·搜集</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="简介（摘自度娘百科）"><a href="#简介（摘自度娘百科）" class="headerlink" title="简介（摘自度娘百科）"></a>简介（摘自度娘百科）</h3><p>采桑子，又名《丑奴儿》，《丑奴儿令》，《罗敷媚》，《罗敷艳歌》等。采桑子格律为双调四十四字，上下片各四句三平韵。另有添字格，两结句各添二字，两平韵，一叠韵。</p>
+<hr>
+<h3 id="名家名作"><a href="#名家名作" class="headerlink" title="名家名作"></a>名家名作</h3><h4 id="欧阳修"><a href="#欧阳修" class="headerlink" title="欧阳修"></a>欧阳修</h4><p>轻舟短棹西湖好，<strong>绿水逶迤，芳草长堤，隐隐笙歌处处随</strong>。</p>
+<p><strong>无风水面琉璃滑，不觉船移，微动涟漪，惊起沙禽掠岸飞</strong>。</p>
+<hr>
+<p>群芳过后西湖好，狼籍残红，飞絮濛濛。垂柳阑干尽日风。</p>
+<p><strong>笙歌散尽游人去，始觉春空。垂下帘栊，双燕归来细雨中</strong>。</p>
+<hr>
+<h4 id="纳兰性德"><a href="#纳兰性德" class="headerlink" title="纳兰性德"></a>纳兰性德</h4><p>谢家庭院残更立，燕宿雕梁，月度银墙，不辨花丛那辨香。</p>
+<p><strong>此情已自成追忆，零落鸳鸯，雨歇微凉，十一年前梦一场</strong>。</p>
+<hr>
+<p>谁翻乐府凄凉曲？<strong>风也萧萧，雨也萧萧，瘦尽灯花又一宵</strong>。</p>
+<p><strong>不知何事萦怀抱，醒也无聊，醉也无聊，梦也何曾到谢桥</strong>。</p>
+<hr>
+<p><strong>彤霞久绝飞琼字，人在谁边。人在谁边，今夜玉清眠不眠</strong>。</p>
+<p><strong>香销被冷残灯灭，静数秋天。静数秋天，又误心期到下弦。</strong></p>
+<hr>
+<h4 id="吕本中（宋）"><a href="#吕本中（宋）" class="headerlink" title="吕本中（宋）"></a>吕本中（宋）</h4><p>恨君不似江楼月，南北东西，南北东西，只有相随无别离。</p>
+<p>恨君却似江楼月，暂满还亏，暂满还亏，待得团圆是几时？</p>
+<hr>
+<h4 id="晏几道"><a href="#晏几道" class="headerlink" title="晏几道"></a>晏几道</h4><p>西楼月下当时见，泪粉偷匀。歌罢还颦。恨隔炉烟看未真。</p>
+<p>别来楼外垂杨缕，几换青春。倦客红尘，长记楼中粉泪人。</p>
+<hr>
+<p>昭华凤管知名久，长闭帘栊。日日春慵。闲倚庭花晕脸红。</p>
+<p>应说金谷无人后，此会相逢。三弄临风。送得当筵玉盏空。</p>
+<hr>
+<h4 id="辛弃疾"><a href="#辛弃疾" class="headerlink" title="辛弃疾"></a>辛弃疾</h4>
+        <!-- 简介（摘自度娘百科）采桑子，又名《丑奴儿》，《丑奴儿令》，《罗敷媚》，《罗敷艳歌》等。采桑子格律为双调四十四字，上下片各四句三平韵。另有添字格，两结句各添二字，两平韵，一叠韵。
+
+名家名作欧阳修轻舟短棹西湖好，绿水逶迤，芳草长堤，隐隐笙歌处处随。
+无风水面琉璃滑，不觉船移，微动涟漪，惊起沙禽掠岸飞。
+
+群芳过后西湖好，狼籍残红，飞絮濛濛。垂柳阑干尽日风。
+笙歌散尽游人去，始觉春空。垂下帘栊，......  -->
+        <p class="article-more-link">
+          <a href="/采桑子（丑奴儿）.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词/">词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/采桑子/">采桑子</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-浣溪沙"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/浣溪沙.html">浣溪沙</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-25T12:53:12.000Z" itemprop="datePublished">2018-01-25</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/词·搜集/">词·搜集</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="简介（摘自度娘百科）"><a href="#简介（摘自度娘百科）" class="headerlink" title="简介（摘自度娘百科）"></a>简介（摘自度娘百科）</h3><p>浣溪沙，唐代教坊曲名，后用为词牌。分平仄两体，字数以四十二字居多，还有四十四字和四十六字两种。全词分两片，上片三句全用韵，下片末二句用韵（多用平韵）。</p>
+<hr>
+<h3 id="名家名作"><a href="#名家名作" class="headerlink" title="名家名作"></a>名家名作</h3><h4 id="晏殊"><a href="#晏殊" class="headerlink" title="晏殊"></a>晏殊</h4><p>一曲新词酒一杯,去年天气旧亭台。夕阳西下几时回? </p>
+<p><strong>无可奈何花落去,似曾相识燕归来。</strong>小园香径独徘徊。</p>
+<hr>
+<p>青杏园林煮酒香，佳人初试薄罗裳。柳丝无力燕飞忙。</p>
+<p><strong>乍雨乍晴花自落，闲愁闲闷日偏长</strong>。为谁消瘦减容光。</p>
+<hr>
+<p>一向年光有限身，等闲离别易销魂，酒筵歌席莫辞频。</p>
+<p><strong>满目山河空念远，落花风雨更伤春，不如怜取眼前人。</strong></p>
+<hr>
+<h4 id="苏轼"><a href="#苏轼" class="headerlink" title="苏轼"></a>苏轼</h4><p>簌簌衣巾落枣花,村南村北响缲车。牛衣古柳卖黄瓜。</p>
+<p>酒困路长惟欲睡,日高人渴漫思茶。敲门试问野人家。</p>
+<hr>
+<p>（游蕲水清泉寺,寺临兰溪,溪水西流。）</p>
+<p>山下兰芽短浸溪，松间沙路净无泥，潇潇暮雨子规啼。</p>
+<p><strong>谁道人生无再少？门前流水尚能西！休将白发唱黄鸡。</strong></p>
+<hr>
+<p>（咏橘）</p>
+<p>橘暗荷枯一夜霜，新苞绿叶照林光。竹林茅舍出青黄。</p>
+<p>香雾噀（xùn）人惊半破，清泉流齿怯初尝。吴姬三日手犹香。</p>
+<hr>
+<h4 id="纳兰性德"><a href="#纳兰性德" class="headerlink" title="纳兰性德"></a>纳兰性德</h4><p>谁念西风独自凉，萧萧黄叶闭疏窗。沉思往事立残阳。</p>
+<p><strong>被酒莫惊春睡重，赌书消得泼茶香。当时只道是寻常。</strong></p>
+<hr>
+<p>雨歇梧桐泪乍收，遣怀翻自忆从头，摘花销恨旧风流。</p>
+<p>帘影碧桃人已去，屧（xiè）痕苍藓径空留。两眉何处月如钩？</p>
+<hr>
+<h4 id="秦观"><a href="#秦观" class="headerlink" title="秦观"></a>秦观</h4><p>漠漠轻寒上小楼，晓阴无赖似穷秋。淡烟流水画屏幽。</p>
+<p><strong>自在飞花轻似梦，无边丝雨细如愁</strong>。宝帘闲挂小银钩。</p>
+<hr>
+<h4 id="王安石"><a href="#王安石" class="headerlink" title="王安石"></a>王安石</h4>
+        <!-- 简介（摘自度娘百科）浣溪沙，唐代教坊曲名，后用为词牌。分平仄两体，字数以四十二字居多，还有四十四字和四十六字两种。全词分两片，上片三句全用韵，下片末二句用韵（多用平韵）。
+
+名家名作晏殊一曲新词酒一杯,去年天气旧亭台。夕阳西下几时回? 
+无可奈何花落去,似曾相识燕归来。小园香径独徘徊。
+
+青杏园林煮酒香，佳人初试薄罗裳。柳丝无力燕飞忙。
+乍雨乍晴花自落，闲愁闲闷日偏长。为谁消瘦减容光。
+
+一......  -->
+        <p class="article-more-link">
+          <a href="/浣溪沙.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浣溪沙/">浣溪沙</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词/">词</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CSS兄弟选择器"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS兄弟选择器.html">CSS兄弟选择器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-25T12:13:37.000Z" itemprop="datePublished">2018-01-25</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/CSS-HTML/">CSS/HTML</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h4><ul>
+<li>兄弟选择器包括 + ~</li>
+<li>‘+’ 是相邻兄弟选择器</li>
+<li>‘~’ 是通用兄弟选择器</li>
+</ul>
+<hr>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ul>
+<li>相邻兄弟选择器 + 选择紧接在另一元素后的元素，且二者有相同父元素</li>
+<li>通用兄弟选择器 ~ 连接两个元素,它会匹配第二个元素,它必须跟(不一定是紧跟)在第一个元素之后,且他们都有一个共同的父元素 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>表示</th>
+<th>阐述</th>
+<th>同父</th>
+<th>紧接老哥</th>
+<th>选中元素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘+’</td>
+<td>相邻</td>
+<td>是</td>
+<td>是</td>
+<td>最多一个（非紧邻不选中）</td>
+</tr>
+<tr>
+<td>‘~’</td>
+<td>通用</td>
+<td>是</td>
+<td>否</td>
+<td>多个</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h4><ul>
+<li><code>h1 + p {color: red;}</code><br>紧邻h1的第一个p兄弟标签中招，h1之后没有紧邻的p，就白搭</li>
+<li><code>h1 ~ p {color: red;}</code><br>比h1小（在其后面）的p兄弟标签全部中招，h1之后没有p，就白搭</li>
+</ul>
+<blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/CSS兄弟选择器.html">http://www.skyline.show/CSS兄弟选择器.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-鹧鸪天·新寒（新韵）"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -365,87 +1328,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/练笔/">练笔</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词/">词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鹧鸪天/">鹧鸪天</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-displaynone和visibilityhidden的区别"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/displaynone和visibilityhidden的区别.html">displaynone和visibilityhidden的区别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/CSS-HTML/">CSS/HTML</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="口述"><a href="#口述" class="headerlink" title="口述"></a>口述</h4><p>简单来说都是用于隐藏元素。表现形式大有不同</p>
-<p>display会被文档流给移除，会影响页面布局，页面重新排版，浏览器重绘，原本位置被其他元素占据。</p>
-<p>visilibity:hidden不会被文档流给移除，不会影响布局，页面不会重新排版，浏览器只是重绘出一片空白</p>
-<p>display不是继承属性，而visibility是继承属性。当子元素的visibility为visible时可以重置由先辈继承的visibility:hidden而变得可见。而元素的display属性设为none后子元素无力挣扎。</p>
-<hr>
-<h4 id="表述"><a href="#表述" class="headerlink" title="表述"></a>表述</h4><table>
-<thead>
-<tr>
-<th>样式</th>
-<th>页面重绘</th>
-<th>页面重排</th>
-<th>显示效果</th>
-<th>所在css属性是否继承</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>display:none</td>
-<td>是</td>
-<td>是</td>
-<td>无显示</td>
-<td>否</td>
-</tr>
-<tr>
-<td>visibility:hidden</td>
-<td>是</td>
-<td>否</td>
-<td>所处区域空白</td>
-<td>是</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/displaynone和visibilityhidden的区别.html">http://www.skyline.show/displaynone和visibilityhidden的区别.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
@@ -511,529 +1393,11 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-Sed命令"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Sed命令.html">Sed命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-22T07:14:56.000Z" itemprop="datePublished">2018-01-22</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Linux-Unix/">Linux/Unix</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>流编辑器，sed用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。</p>
-<hr>
-<h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><h4 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h4><h5 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h5><p>默认情况下，在所有的标准输出都会被打印到屏幕上。 -n选项用于指定输出内容。</p>
-<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><h6 id="☞-代码"><a href="#☞-代码" class="headerlink" title="☞ 代码"></a>☞ 代码</h6><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出100到200行</span></span><br><span class="line">sed -n <span class="string">'100,200p'</span> skyline.txt</span><br><span class="line"><span class="comment"># 输出文件行数</span></span><br><span class="line">sed -n <span class="string">'$='</span> skyline.txt</span><br></pre></td></tr></table></figure>
-<h6 id="☞-说明"><a href="#☞-说明" class="headerlink" title="☞ 说明"></a>☞ 说明</h6>
-        <!-- 简介流编辑器，sed用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。
-
-选项-n概述默认情况下，在所有的标准输出都会被打印到屏幕上。 -n选项用于指定输出内容。
-示例☞ 代码# 输出100到200行sed -n '100,200p' skyline.txt# 输出文件行数sed -n '$=' skyline.txt
-☞ 说明
-
-地址逗号......  -->
-        <p class="article-more-link">
-          <a href="/Sed命令.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-对象的私有、静态（类）、自有（实例）、原型属性与方法"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/对象的私有、静态（类）、自有（实例）、原型属性与方法.html">对象的私有、静态（类）、自有（实例）、原型属性与方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-02T07:14:56.000Z" itemprop="datePublished">2018-01-02</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="es5代码"><a href="#es5代码" class="headerlink" title="es5代码"></a>es5代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对象构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Baby</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> className = <span class="string">"Baby"</span>;</span><br><span class="line">    <span class="comment">//私有属性，只能在对象构造函数内部使用</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.weight = <span class="string">'3kg'</span>;</span><br><span class="line">    <span class="comment">//自有属性，每个实例私有，在对象实例化后调用，实例属性在对象实力化后创建</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg()); <span class="comment">//使用原型方法扩充的方法可以在类内部使用</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.sex); <span class="comment">//使用原型方法扩充的属性可以在类内部使用</span></span><br><span class="line">        <span class="built_in">console</span>.log(Baby.age, <span class="keyword">this</span>.age); <span class="comment">//静态属性调用时格式为[对象.静态属性]</span></span><br><span class="line">    &#125;<span class="comment">//对象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Baby.Run = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"跑起来！！！"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//类方法 (实际是静态方法直接调用)，只有类才能访问类方法，实例不能访问 ，在类方法中通过this只能访问类属性不能访问其他属性，即在本例中，Run方法只能访问到this.age</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我叫："</span> + <span class="keyword">this</span>.name); </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//原型方法，如果原型方法当作静态方法直接调用时，this.name无法被调用</span></span><br><span class="line"></span><br><span class="line">Baby.age = <span class="number">20</span>; </span><br><span class="line"><span class="comment">//类属性 在类的外部。公有静态属性不能使用 【this.属性】，只能使用 【对象.属性】 调用，只有类才能访问类属性，实例不能访问  </span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex = <span class="string">"男娃娃"</span></span><br><span class="line"><span class="comment">//原型属性，所有实例共有，【this.属性】这种写法访问时，先会访问实例对象属性，没有实例对象属性就会访问原型属性 ，也可以当成公有静态属性使用【对象.prototype.原型属性。 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bob = <span class="keyword">new</span> Baby(<span class="string">"bob"</span>); </span><br><span class="line"><span class="comment">//自有方法和原型方法需要实例化对象后才可以使</span></span><br><span class="line"></span><br><span class="line">Baby.name</span><br><span class="line"><span class="comment">//"Baby" :每一个类都有一个基本的name属性</span></span><br><span class="line"></span><br><span class="line">bob.name</span><br><span class="line"><span class="comment">//"bob"</span></span><br><span class="line"></span><br><span class="line">Baby.weight</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line">bob.weight</span><br><span class="line"><span class="comment">//"3kg"</span></span><br><span class="line"></span><br><span class="line">Baby.hello()</span><br><span class="line"><span class="comment">//Uncaught TypeError: Baby.hello is not a function</span></span><br><span class="line"></span><br><span class="line">bob.hello()</span><br><span class="line"><span class="comment">// bob</span></span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">// undefined :this.msg没有返回所以undefined</span></span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">// 20 undefined</span></span><br><span class="line"></span><br><span class="line">Baby.Run(); <span class="comment">//跑起来！！！</span></span><br><span class="line"><span class="comment">//类方法也是静态方法，可以直接使用 【对象.静态方法()】</span></span><br><span class="line"></span><br><span class="line">bob.run()<span class="comment">// TypeError: bob.run is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.msg()</span><br><span class="line"><span class="comment">// Uncaught TypeError: Baby.msg is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg()</span><br><span class="line"><span class="comment">// 我叫：undefined</span></span><br><span class="line"><span class="comment">//原型方法当成静态方法使用时【对象.prototype.方法()】 </span></span><br><span class="line"></span><br><span class="line">bob.msg();</span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">//原型方法必须实例化对象</span></span><br><span class="line"></span><br><span class="line">bob.age;</span><br><span class="line"><span class="comment">// undefined </span></span><br><span class="line"><span class="comment">//错误，公有静态属性只能使用 【对象.属性】调用</span></span><br><span class="line"></span><br><span class="line">Baby.age</span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">//原型属性当作静态属性使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">Baby.sex</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">bob.sex</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="es6代码"><a href="#es6代码" class="headerlink" title="es6代码"></a>es6代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="comment">//对象属性、方法</span></span><br><span class="line">    <span class="keyword">this</span>.x = x;</span><br><span class="line">    <span class="keyword">this</span>.y = y;</span><br><span class="line">    <span class="keyword">this</span>.fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'skyline'</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//自有属性，使用存取器</span></span><br><span class="line">  <span class="keyword">get</span> prop() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'skyline getter'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> prop(value) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'skyline setter: '</span>+value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型方法</span></span><br><span class="line">  <span class="comment">//Point.prototype.toString = function () &#123;</span></span><br><span class="line">  <span class="comment">//  return '(' + this.x + ', ' + this.y + ')';</span></span><br><span class="line">  <span class="comment">//&#125;;</span></span><br><span class="line">  <span class="comment">//的语法糖</span></span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'('</span> + <span class="keyword">this</span>.x + <span class="string">', '</span> + <span class="keyword">this</span>.y + <span class="string">')'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//类方法</span></span><br><span class="line">  <span class="keyword">static</span> classMethod() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'hello skyline'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类属性，ES6 明确规定，Class 内部只有静态方法，没有静态属性，不过有其他提案，不拓展</span></span><br><span class="line">Point.prop = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
-<li>静态属性方法，可以直接通过类进行访问的</li>
-<li>实例属性方法是需要创建实例对象进行访问的</li>
-<li>相互之间不能串访</li>
-</ul>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/对象的私有、静态（类）、自有（实例）、原型属性与方法.html">http://www.skyline.show/对象的私有、静态（类）、自有（实例）、原型属性与方法.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-word-break、overflow-wrap(word-wrap)、white-space"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/word-break、overflow-wrap(word-wrap)、white-space.html">word-break、overflow-wrap(word-wrap)、white-space</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/CSS-HTML/">CSS/HTML</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="段落换行"><a href="#段落换行" class="headerlink" title="段落换行"></a>段落换行</h3><p><strong>word-break 、overflow-wrap(word-wrap)</strong></p>
-<h4 id="overflow-wrap"><a href="#overflow-wrap" class="headerlink" title="overflow-wrap"></a>overflow-wrap</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">overflow-wrap: normal;</span><br><span class="line">overflow-wrap: <span class="keyword">break</span>-word;</span><br></pre></td></tr></table></figure>
-<p>word-wrap原始微软私有，css3之后重命名为overflow-wrap。<br>normal,默认值，单词保留完整，超出不管，CJK断行<br>break-word，尽量保留英文完整，从空白或CJK断开（单词一般是完整的，除非一个单词占一行才断开换行）</p>
-<hr>
-<h4 id="word-break"><a href="#word-break" class="headerlink" title="word-break"></a>word-break</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">word-<span class="keyword">break</span>: normal </span><br><span class="line">word-<span class="keyword">break</span>: <span class="keyword">break</span>-all </span><br><span class="line">word-<span class="keyword">break</span>: keep-all</span><br></pre></td></tr></table></figure>
-<p>normal,默认值，单词保留完整，超出不管，CJK断行<br>break-all 超出即换行，不考虑单词完整（适用所有语言），就是挨着<strong>把空白填满</strong><br>keep-all，<strong>只有遇到空白</strong>才断行（包括CJK），超出不管</p>
-<hr>
-<h4 id="换行总结"><a href="#换行总结" class="headerlink" title="换行总结"></a>换行总结</h4><ul>
-<li>normal 想的没错（你想的是哪样就是哪样）</li>
-<li>break-word 英文优先</li>
-<li>break-all 空白填满</li>
-<li>keep-all 空白断行</li>
-</ul>
-<hr>
-<hr>
-<h3 id="处理文字空白"><a href="#处理文字空白" class="headerlink" title="处理文字空白"></a>处理文字空白</h3><p><strong>white-space</strong></p>
-<h4 id="white-space"><a href="#white-space" class="headerlink" title="white-space"></a>white-space</h4><p>white-space设计用于处理段落中的空白符，处理换行问题时，涉及的是换不换行的问题，而不是怎么换行。常见使用是让文字直接不断行</p>
-<table>
-<thead>
-<tr>
-<th>&nbsp;</th>
-<th>换行符</th>
-<th>空格和制表符</th>
-<th>文字转行</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>normal</td>
-<td>合并</td>
-<td>合并</td>
-<td>转行</td>
-</tr>
-<tr>
-<td>nowrap</td>
-<td>合并</td>
-<td>合并</td>
-<td>不转行</td>
-</tr>
-<tr>
-<td>pre</td>
-<td>保留</td>
-<td>保留</td>
-<td>不转行</td>
-</tr>
-<tr>
-<td>pre-wrap</td>
-<td>保留</td>
-<td>保留</td>
-<td>转行</td>
-</tr>
-<tr>
-<td>pre-line</td>
-<td>保留</td>
-<td>合并</td>
-<td>转行</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><blockquote>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/white-space" target="_blank" rel="noopener">MDN white-space</a></p>
-</blockquote>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/word-break、overflow-wrap(word-wrap">http://www.skyline.show/word-break、overflow-wrap(word-wrap)、white-space.html</a>、white-space.html)<br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ls命令"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ls命令.html">ls命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Linux-Unix/">Linux/Unix</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="ls命令"><a href="#ls命令" class="headerlink" title="ls命令"></a>ls命令</h2><h3 id="查询目录内容命令"><a href="#查询目录内容命令" class="headerlink" title="查询目录内容命令"></a>查询目录内容命令</h3><p><code>ls 【选项】【目录/文件】</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">➜  ~ ll</span><br><span class="line">total <span class="number">0</span></span><br><span class="line">drwx------@  <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">4</span>  <span class="number">4</span> <span class="number">11</span>:<span class="number">17</span> Applications</span><br><span class="line">drwx------+ <span class="number">16</span> skyline  staff   <span class="number">544</span>B  <span class="number">5</span> <span class="number">11</span> <span class="number">17</span>:<span class="number">52</span> Desktop</span><br><span class="line">drwx------+ <span class="number">11</span> skyline  staff   <span class="number">374</span>B  <span class="number">4</span> <span class="number">18</span> <span class="number">09</span>:<span class="number">33</span> Documents</span><br><span class="line">drwx------+ <span class="number">78</span> skyline  staff   <span class="number">2.6</span>K  <span class="number">5</span> <span class="number">26</span> <span class="number">10</span>:<span class="number">43</span> Downloads</span><br><span class="line">drwxr-xr-x   <span class="number">4</span> skyline  staff   <span class="number">136</span>B  <span class="number">5</span> <span class="number">11</span> <span class="number">10</span>:<span class="number">17</span> ENV</span><br><span class="line">drwxr-xr-x   <span class="number">5</span> skyline  staff   <span class="number">170</span>B  <span class="number">4</span>  <span class="number">5</span> <span class="number">15</span>:<span class="number">30</span> HBuilder</span><br><span class="line">drwxr-xr-x   <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">4</span>  <span class="number">5</span> <span class="number">15</span>:<span class="number">30</span> HBuilderProjects</span><br><span class="line">drwx------@ <span class="number">64</span> skyline  staff   <span class="number">2.1</span>K  <span class="number">5</span> <span class="number">22</span> <span class="number">14</span>:<span class="number">18</span> Library</span><br><span class="line">drwx------+  <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">4</span>  <span class="number">3</span> <span class="number">12</span>:<span class="number">30</span> Movies</span><br><span class="line">drwx------+  <span class="number">6</span> skyline  staff   <span class="number">204</span>B  <span class="number">4</span> <span class="number">25</span> <span class="number">17</span>:<span class="number">31</span> Music</span><br><span class="line">drwx------+  <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">5</span> <span class="number">22</span> <span class="number">14</span>:<span class="number">19</span> Pictures</span><br><span class="line">drwxr-xr-x+  <span class="number">5</span> skyline  staff   <span class="number">170</span>B  <span class="number">4</span>  <span class="number">3</span> <span class="number">12</span>:<span class="number">30</span> Public</span><br><span class="line">drwxr-xr-x   <span class="number">9</span> skyline  staff   <span class="number">306</span>B  <span class="number">5</span> <span class="number">11</span> <span class="number">09</span>:<span class="number">57</span> workSpace</span><br></pre></td></tr></table></figure>
-<h3 id="命令解析"><a href="#命令解析" class="headerlink" title="命令解析"></a>命令解析</h3><table>
-<thead>
-<tr>
-<th>文件格式</th>
-<th>所有者权限</th>
-<th>群组权限</th>
-<th>其他人权限</th>
-<th>ACL权限</th>
-<th>引用计数</th>
-<th>所有者</th>
-<th>所在组</th>
-<th>大小</th>
-<th>最后修改日期</th>
-<th>文件名</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>d</td>
-<td>rwx</td>
-<td>r-x</td>
-<td>r-x</td>
-<td>+</td>
-<td>5</td>
-<td>skyline</td>
-<td>staff</td>
-<td>170B</td>
-<td>4  3 12:30</td>
-<td>Public</td>
-</tr>
-</tbody>
-</table>
-<h4 id="权限11位-rwxr-xr-x"><a href="#权限11位-rwxr-xr-x" class="headerlink" title="权限11位 rwxr-xr-x"></a>权限11位 <code>rwxr-xr-x</code></h4><ul>
-<li><p>第1位代表文件类型:</p>
-<ul>
-<li>-文件</li>
-<li>d目录 </li>
-<li>l软链接文件</li>
-<li>b 装置文件里面的可供储存的接口设备(可随机存取装置)；</li>
-<li>c 装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)</li>
-</ul>
-</li>
-<li><p>接下来的字符中，以三个为一组，且均为『rwx』 的三个参数的组合。</p>
-<ul>
-<li>[ r ]代表可读(read)</li>
-<li>[ w ]代表可写(write)</li>
-<li>[ x ]代表可执行(execute)</li>
-</ul>
-</li>
-</ul>
-<p>要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已。<br>以一个班级为所有用户为例举例说明：<br><code>rwx</code> u所有者 skyline<br><code>r-x</code> g所属组 美眉<br><code>r-x</code> o其他人 大老爷们傻和尚<br><code>r</code>读 <code>w</code>写 <code>x</code>执行<br>3,6,10这些数字代表引用计数  </p>
-<p><code>-a</code> 显示所有文件，包括隐藏文件<br><code>-la</code> 详细显示所有文件<br><code>-d</code> 显示目录属性<br><code>-i</code> 显示文件inode编号<br><code>-ld</code> 详细显示目录属性</p>
-<p>对目录如果没有w权限，即使里面的文件有写权限，也不能对文件进行移动，重命名操作，此时，需要给目录加上w权限：<code>chmod +w</code>（注意此时cwd是此目录）</p>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ls命令.html">http://www.skyline.show/ls命令.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-vue里面的小坑"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/vue里面的小坑.html">vue里面的小坑</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Vue/">Vue</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p><a href="https://cn.vuejs.org" target="_blank" rel="noopener">部分代码与文字源于官网，详情与变更参见官网，本文仅作参考</a></p>
-</blockquote>
-<h4 id="组件挂载顺序"><a href="#组件挂载顺序" class="headerlink" title="组件挂载顺序"></a>组件挂载顺序</h4><h5 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h5><ul>
-<li>vue子组件与父组件之间，父组件首先加载完成（beforeCreate-&gt;beforeMount率先执行）之后是子组件加载，最后由子向父组件挂载</li>
-<li>要在所有组件生命周期完成后执行某个函数，只需要在父组件加入nextTick即可</li>
-</ul>
-<p>vue代码结构如下</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'papa'</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">c1</span>&gt;</span><span class="tag">&lt;/<span class="name">c1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">c2</span>&gt;</span><span class="tag">&lt;/<span class="name">c2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">'PaPa'</span>,</span></span><br><span class="line">    </span><br><span class="line">    components: &#123;</span><br><span class="line">        c1,</span><br><span class="line">        c2</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    beforeCreate() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa beforeCreate'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    created() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa created'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    beforeMount() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa beforeMount'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    mounted()&#123;</span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'papa mounted'</span>)</span></span><br><span class="line"><span class="javascript">        <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'papa nextTick'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"><span class="javascript">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'papa setTimeout'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>打印结果如下：<br>其中nextTick与setTimeout在生命周期的位置无关</p>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/20981C34C327CF8ED10EE433FA51FE19.png-content" alt="Screen Shot 2017-11-08 at 15.21.37.png-content"></p>
-<hr>
-<h4 id="关于computed"><a href="#关于computed" class="headerlink" title="关于computed"></a>关于computed</h4><h5 id="简单说明"><a href="#简单说明" class="headerlink" title="简单说明"></a>简单说明</h5><p>计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。这就意味着只要依赖还没有发生改变，多次访问计算属性会立即返回之前的计算结果，这一定程度上节约了开销。</p>
-<h5 id="关于setter"><a href="#关于setter" class="headerlink" title="关于setter"></a>关于setter</h5>
-        <!-- 
-部分代码与文字源于官网，详情与变更参见官网，本文仅作参考
-
-组件挂载顺序注意点
-vue子组件与父组件之间，父组件首先加载完成（beforeCreate-&gt;beforeMount率先执行）之后是子组件加载，最后由子向父组件挂载
-要在所有组件生命周期完成后执行某个函数，只需要在父组件加入nextTick即可
-
-vue代码结构如下
-&lt;template&gt;    &lt;div c......  -->
-        <p class="article-more-link">
-          <a href="/vue里面的小坑.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Generator函数"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Generator函数.html">Generator函数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-11-29T12:58:25.000Z" itemprop="datePublished">2017-11-29</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><h5 id="代码1"><a href="#代码1" class="headerlink" title="代码1"></a>代码1</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="keyword">yield</span> x + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(y, <span class="string">'y'</span>); <span class="comment">// 12 "y"</span></span><br><span class="line">  <span class="keyword">const</span> z = <span class="keyword">yield</span> y + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(z, <span class="string">'z'</span>); <span class="comment">// 12 "z"</span></span><br><span class="line">  <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> value = g.next().value; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(value); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 13, done: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 12, done: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">//12 "y"</span></span><br><span class="line"><span class="comment">// &#123;value: 13, done: false&#125;</span></span><br><span class="line"><span class="comment">//12 "z"</span></span><br><span class="line"><span class="comment">// &#123;value: 12, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="代码2"><a href="#代码2" class="headerlink" title="代码2"></a>代码2</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next())</span><br><span class="line"><span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line"><span class="comment">// z is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: 3, done: false&#125;</span></span><br><span class="line"><span class="comment">// y is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="代码3"><a href="#代码3" class="headerlink" title="代码3"></a>代码3</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line">g <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">g[<span class="built_in">Symbol</span>.iterator] <span class="comment">// ƒ [Symbol.iterator]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="keyword">var</span> x = g[<span class="built_in">Symbol</span>.iterator]()</span><br><span class="line">x <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">x.next() <span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// z is undefined &#123;value: 3, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// y is undefined &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
-<li><strong>Generator 函数不同于普通函数执行它不会返回结果，返回的是一个指针对象（包含iterator接口，即拥有Symbol.iterator属性）</strong></li>
-<li>iterator 对象通过调用自身的 next 方法，保证游标后移，并且next方法返回一个包含了 value和 done（迭代器是否完成的布尔值）的对象。</li>
-<li>关于next返回对象中的value值，假设有n个yield语句，<strong>第n个value的值是第n个yield 语句后面表达式的值，第n+1个value的值是Generator函数的返回值，第n+2个以上的value值是undefined</strong></li>
-<li>yield 语句的值，比如上面代码1中的 y与z，是<strong>下一次调用 next 传入的参数的值</strong>，也就是 value + 10,如果此处next不传值，如代码2中，y与z就是undefined。反过来说，next 方法带有的参数可以传入 Generator 函数，作为上个阶段异步任务的返回结果（上一个yield 语句的值）<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/Generator函数.html">http://www.skyline.show/Generator函数.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-vue-router子路由path写法"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/vue-router子路由path写法.html">vue-router子路由path写法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-10-30T07:14:56.000Z" itemprop="datePublished">2017-10-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Vue/">Vue</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h6 id="☞-不推荐写法"><a href="#☞-不推荐写法" class="headerlink" title="☞ 不推荐写法"></a>☞ 不推荐写法</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/index'</span>,</span><br><span class="line">    component: Index,</span><br><span class="line">    children: [&#123;</span><br><span class="line">            path: <span class="string">'/home'</span>,</span><br><span class="line">            name: <span class="string">'home'</span>,</span><br><span class="line">            component: Home</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="☞-子路由"><a href="#☞-子路由" class="headerlink" title="☞ 子路由"></a>☞ 子路由</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/index'</span>,</span><br><span class="line">    component: Index,</span><br><span class="line">    children: [&#123;</span><br><span class="line">            path: <span class="string">'home'</span>,</span><br><span class="line">            name: <span class="string">'home'</span>,</span><br><span class="line">            component: Home</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>子路由中不建议在path前加’/‘绝对路径，容易造成误解（本意可能想要第二种结果）。如果需要在路由中隐藏’index’，改成如下写法</p>
-<h6 id="☞-路由隐藏index"><a href="#☞-路由隐藏index" class="headerlink" title="☞ 路由隐藏index"></a>☞ 路由隐藏index</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/'</span>,</span><br><span class="line">    component: Index,</span><br><span class="line">    children: [&#123;</span><br><span class="line">            path: <span class="string">'home'</span>,</span><br><span class="line">            name: <span class="string">'home'</span>,</span><br><span class="line">            component: Home</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4>
-        <!-- 代码☞ 不推荐写法&#123;    path: '/index',    component: Index,    children: [&#123;            path: '/home',            name: 'home',            component: Home        &#125;    ]&#125;
-☞ 子路由&#123;    pa......  -->
-        <p class="article-more-link">
-          <a href="/vue-router子路由path写法.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">下一页 &raquo;</a>
   </nav>
 
 </section>

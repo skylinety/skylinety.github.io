@@ -228,7 +228,7 @@
 </code></pre><p>要配置 Git 钩子，只需要简单地在.git/hooks/目录下放对应钩子的可执行文件即可<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Husky%E4%BD%BF%E7%94%A820210924152534.png" alt="Husky使用20210924152534"></p>
 <p>通过 husky 简述中配置可以看到，husky 更新后配置似乎更加麻烦，如下探讨会为何会有去简就繁的操作。</p>
 <h3 id="V4-工作原理"><a href="#V4-工作原理" class="headerlink" title="V4 工作原理"></a>V4 工作原理</h3><p>在 V4 版本及以前，为了可执行 .huskyrc.js 中配置的钩子， 在装 Husky 的时候，默认初始化了全部钩子在.git/hooks/ 中。<br>例如，在执行 commit 时 ， husky/runner.js 会去检查 .huskyrc.js 中是否有对应的配置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> git commit</span><br><span class="line"></span><br><span class="line">pre-commit (native) → husky/runner.js (node)</span><br><span class="line">→ is a pre-commit defined in `.huskyrc.js`? → YES, run it</span><br><span class="line"></span><br><span class="line">prepare-commit-msg (native) → husky/runner.js (node)</span><br><span class="line">→ is a prepare-commit-msg defined in `.huskyrc.js`? → NO, do nothing</span><br><span class="line"></span><br><span class="line">commit-msg (native) → husky/runner.js (node)</span><br><span class="line">→ is a commit-msg defined in `.huskyrc.js`? → NO, do nothing</span><br><span class="line"></span><br><span class="line">post-commit (native) → husky/runner.js (node)</span><br><span class="line">→ is a post-commit defined in `.huskyrc.js`? → NO, do nothing</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git commit</span></span><br><span class="line"></span><br><span class="line">pre-commit (native) → husky/runner.js (node)</span><br><span class="line">→ is a pre-commit defined in `.huskyrc.js`? → YES, run it</span><br><span class="line"></span><br><span class="line">prepare-commit-msg (native) → husky/runner.js (node)</span><br><span class="line">→ is a prepare-commit-msg defined in `.huskyrc.js`? → NO, do nothing</span><br><span class="line"></span><br><span class="line">commit-msg (native) → husky/runner.js (node)</span><br><span class="line">→ is a commit-msg defined in `.huskyrc.js`? → NO, do nothing</span><br><span class="line"></span><br><span class="line">post-commit (native) → husky/runner.js (node)</span><br><span class="line">→ is a post-commit defined in `.huskyrc.js`? → NO, do nothing</span><br></pre></td></tr></table></figure>
 <p>初始所有了所有.git/hooks/ 钩子，这样的好处是用户随时可以在.huskyrc.js 中增减配置，缺点是对应钩子没有任何相应的配置时，.git/hooks/对应钩子仍旧存在，husky/runner.js 也仍旧会执行。<br>考虑优化插件方向，如果 Husky 初始根据.huskyrc.js 只在.git/hooks/生成对应的配置<br>考虑如下配置</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// .huskyrc.js</span><br><span class="line">module.exports = &#123;</span><br><span class="line">  hooks: &#123;</span><br><span class="line">    &apos;pre-commit&apos;: &apos;lint-staged&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.git/hooks/pre-commit ← is somehow created</span><br></pre></td></tr></table></figure>
@@ -311,9 +311,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/康定周边2日.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Vue基础使用.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">康定周边2日</div>
+      <div class="article-nav-title">Vue基础使用</div>
     </a>
   
 </nav>
