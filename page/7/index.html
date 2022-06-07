@@ -319,6 +319,85 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-chapter6《JavaScript高级程序设计·继承》笔记"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/chapter6《JavaScript高级程序设计·继承》笔记.html">chapter6《JavaScript高级程序设计·继承》笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-05-29T06:26:24.000Z" itemprop="datePublished">2017-05-29</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><blockquote>
+<p>《JavaScript高级程序设计》</p>
+</blockquote>
+<h4 id="对象的属性"><a href="#对象的属性" class="headerlink" title="对象的属性"></a>对象的属性</h4><h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><ul>
+<li>属性分为数据属性与访问器属性</li>
+<li>数据属性通过Configurable、Enumerable、Writable、Value来描述，<strong>直接建立的属性描述默认都是true</strong>（除去Value)</li>
+<li>访问器属性通过Configurable、Enumerable、Get、Set来描述，<strong>直接建立的属性描述默认都是true</strong>（除去Get、Set)</li>
+<li>Enumerable表示能否通过for-in循环来返回属性</li>
+<li>Configurable表示能否删除属性，<strong>能否修改某些属性描述符</strong>，能否将属性改为访问器(数据)属性</li>
+<li>可以通过Object.defineProperty()来定义或者修改属性</li>
+<li>Object.defineProperty()接受三个参数，分别是对象名，属性名，描述符对象；数据属性描述符对象只接受configurable、enumerable、writable、value四种属性中的一个或多个;访问器属性描述符对象只接受configurable、enumerable、get、set四种属性中的一个或多个</li>
+<li>Object.defineProperty()新增属性时，<strong>描述符对象不指定configurable、enumerable、writable时，他们的默认值是false；不指定value、get、set时，默认值是undefined</strong>。</li>
+<li>Object.defineProperties()同时新增多个属性</li>
+<li>Object.getOwnPropertyDescriptor(s) 查看属性描述符</li>
+</ul>
+<h5 id="Configurable"><a href="#Configurable" class="headerlink" title="Configurable"></a>Configurable</h5><ul>
+<li>configurable一旦指定为false，则configurable、enumerable、value、get、set将无法通过Object.defineProperty()重新配置，删除对应的属性将不产生效果（严格模式导致错误），属性将不能转换（数据与访问器之间）</li>
+<li>configurable一旦指定为false,此时的Writable如果是true则可以修改为false，但是不能从false改为true（只关不开）</li>
+<li>configurable true，writable false时，可以通过Object.defineProperty()修改value的值，直接赋值无效；configurable false，writable true时可以通过赋值直接修改value的值，通过Object.defineProperty()指定value值将会报错</li>
+</ul>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p><strong>Object.defineProperty()只指定value不指定其他将会导致configurable、enumerable、writable都是false</strong>，configurable为false导致该属性不能做出修改，不能调用Object.defineProperty()进行重新配置，故一般情况下需要指定configurable为true，便于之后修改enumerable、writable以及属性的值，删除属性等等</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">'name'</span>, &#123;<span class="attr">value</span>: <span class="string">'skyline'</span>&#125;)</span><br><span class="line">a <span class="comment">// &#123;name: "skyline"&#125;</span></span><br><span class="line">a.name = <span class="string">'lala'</span></span><br><span class="line">a <span class="comment">// &#123;name: "skyline"&#125;</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">'name'</span>, &#123;<span class="attr">value</span>: <span class="string">'skyline'</span>, <span class="attr">writable</span>: <span class="literal">true</span>&#125;) <span class="comment">// Uncaught TypeError: Cannot redefine property: name writeable是false，无法再改为true</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">'age'</span>, &#123;<span class="attr">value</span>: <span class="string">'18'</span>, <span class="attr">configurable</span>: <span class="literal">true</span>&#125;)</span><br><span class="line">a.age = <span class="number">19</span> <span class="comment">// 19</span></span><br><span class="line">a <span class="comment">// &#123;name: "skyline", age: "18"&#125;</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">'age'</span>, &#123;<span class="attr">value</span>: <span class="string">'18'</span>, <span class="attr">writable</span>: <span class="literal">true</span>&#125;)</span><br><span class="line">a.age = <span class="number">19</span></span><br><span class="line">a <span class="comment">// &#123;name: "skyline", age: 19&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h4><h5 id="要点-1"><a href="#要点-1" class="headerlink" title="要点"></a>要点</h5>
+        <!-- 参考资料
+《JavaScript高级程序设计》
+
+对象的属性要点
+属性分为数据属性与访问器属性
+数据属性通过Configurable、Enumerable、Writable、Value来描述，直接建立的属性描述默认都是true（除去Value)
+访问器属性通过Configurable、Enumerable、Get、Set来描述，直接建立的属性描述默认都是true（除去Get、Set)
+Enu......  -->
+        <p class="article-more-link">
+          <a href="/chapter6《JavaScript高级程序设计·继承》笔记.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/高程/">高程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-chapter4-5《JavaScript高级程序设计》笔记"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     

@@ -400,6 +400,62 @@
 <!-- Table of Contents -->
 
   
+    <article id="post-ES5与ES6中的argments"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES5与ES6中的argments.html">ES5与ES6中的argments</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArray5</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span> <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">arguments</span>;</span><br><span class="line">&#125;</span><br><span class="line">createArray5(<span class="number">11</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="comment">//(3) [11, 2, 3, callee: function, Symbol(Symbol.iterator): function]</span></span><br><span class="line"><span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArray6</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(args)</span><br><span class="line">    <span class="built_in">console</span>.log(args <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br><span class="line">    <span class="keyword">return</span> args;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray6(<span class="number">11</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="comment">//  (3) [11, 2, 3]</span></span><br><span class="line"><span class="comment">//  true</span></span><br></pre></td></tr></table></figure>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><ul>
+<li>ES5的arguments是一种类数组。</li>
+<li>ES6通过扩展运算符获取到的参数是一个数组</li>
+</ul>
+<blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ES5与ES6中的argments.html">http://www.skyline.show/ES5与ES6中的argments.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Sed命令"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -963,79 +1019,6 @@ vue代码结构如下
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/练笔/">练笔</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词/">词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鹧鸪天/">鹧鸪天</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-JS字符串截取substr、substring、slice"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/JS字符串截取substr、substring、slice.html">JS字符串截取substr、substring、slice</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T08:02:42.000Z" itemprop="datePublished">2017-07-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"skylinety"</span></span><br><span class="line"></span><br><span class="line">a.slice(<span class="number">2</span>,<span class="number">5</span>)<span class="comment">//"yli"</span></span><br><span class="line"></span><br><span class="line">a.substr(<span class="number">2</span>,<span class="number">5</span>)<span class="comment">//"yline"</span></span><br><span class="line"></span><br><span class="line">a.substring(<span class="number">2</span>,<span class="number">5</span>)<span class="comment">//"yli"</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="截取规则"><a href="#截取规则" class="headerlink" title="截取规则"></a>截取规则</h4><ol>
-<li>0s1k2y3l4i5n6e7t8y9</li>
-<li>-9s-8k-7y-6l-5i-4n-3e-2t-1y0</li>
-</ol>
-<p>s k y l i n e t y</p>
-<p>0 1 2 3 4 5 6 7 8 9</p>
-<h4 id="异同"><a href="#异同" class="headerlink" title="异同"></a>异同</h4><ul>
-<li>slice与substring截取规则基本相同，start,end</li>
-<li>substr截取规则，start,length</li>
-<li><p>slice中的start如果为负数，会从尾部算起，-1表示倒数第一个，-2表示倒数第2个</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.slice(-2,-5)//&quot;&quot;</span><br><span class="line"></span><br><span class="line">a.slice(-5,-2)//&quot;ine&quot;</span><br><span class="line"></span><br><span class="line">a.slice(-5,8)//&quot;inet&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>slice的start如果为正数,end如果为负数，end同样从尾部算起，如果其位置超过开始位置，返回空字符串</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.slice(5,-2)//&quot;ne&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>substr第一个参数可正负，第二个参数表示，要截取的长度,若该参数为负数或0，都将返回空字符串</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.substr(-5,6)//&quot;inety</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>substring会取start和end中较小的值为start,二者相等返回空字符串，任何一个参数为负数被替换为0(即该值会成为start参数)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.substring(-5,5)//&quot;skyli&quot;</span><br><span class="line"></span><br><span class="line">a.substring(5,-5)//&quot;skyli&quot;</span><br><span class="line"></span><br><span class="line">a.substring(-5,-4)//&quot;&quot;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/JS字符串截取substr、substring、slice.html">http://www.skyline.show/JS字符串截取substr、substring、slice.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
