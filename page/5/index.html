@@ -574,110 +574,6 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-ls命令"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ls命令.html">ls命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Linux-Unix/">Linux/Unix</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="ls命令"><a href="#ls命令" class="headerlink" title="ls命令"></a>ls命令</h2><h3 id="查询目录内容命令"><a href="#查询目录内容命令" class="headerlink" title="查询目录内容命令"></a>查询目录内容命令</h3><p><code>ls 【选项】【目录/文件】</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">➜  ~ ll</span><br><span class="line">total <span class="number">0</span></span><br><span class="line">drwx------@  <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">4</span>  <span class="number">4</span> <span class="number">11</span>:<span class="number">17</span> Applications</span><br><span class="line">drwx------+ <span class="number">16</span> skyline  staff   <span class="number">544</span>B  <span class="number">5</span> <span class="number">11</span> <span class="number">17</span>:<span class="number">52</span> Desktop</span><br><span class="line">drwx------+ <span class="number">11</span> skyline  staff   <span class="number">374</span>B  <span class="number">4</span> <span class="number">18</span> <span class="number">09</span>:<span class="number">33</span> Documents</span><br><span class="line">drwx------+ <span class="number">78</span> skyline  staff   <span class="number">2.6</span>K  <span class="number">5</span> <span class="number">26</span> <span class="number">10</span>:<span class="number">43</span> Downloads</span><br><span class="line">drwxr-xr-x   <span class="number">4</span> skyline  staff   <span class="number">136</span>B  <span class="number">5</span> <span class="number">11</span> <span class="number">10</span>:<span class="number">17</span> ENV</span><br><span class="line">drwxr-xr-x   <span class="number">5</span> skyline  staff   <span class="number">170</span>B  <span class="number">4</span>  <span class="number">5</span> <span class="number">15</span>:<span class="number">30</span> HBuilder</span><br><span class="line">drwxr-xr-x   <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">4</span>  <span class="number">5</span> <span class="number">15</span>:<span class="number">30</span> HBuilderProjects</span><br><span class="line">drwx------@ <span class="number">64</span> skyline  staff   <span class="number">2.1</span>K  <span class="number">5</span> <span class="number">22</span> <span class="number">14</span>:<span class="number">18</span> Library</span><br><span class="line">drwx------+  <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">4</span>  <span class="number">3</span> <span class="number">12</span>:<span class="number">30</span> Movies</span><br><span class="line">drwx------+  <span class="number">6</span> skyline  staff   <span class="number">204</span>B  <span class="number">4</span> <span class="number">25</span> <span class="number">17</span>:<span class="number">31</span> Music</span><br><span class="line">drwx------+  <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">5</span> <span class="number">22</span> <span class="number">14</span>:<span class="number">19</span> Pictures</span><br><span class="line">drwxr-xr-x+  <span class="number">5</span> skyline  staff   <span class="number">170</span>B  <span class="number">4</span>  <span class="number">3</span> <span class="number">12</span>:<span class="number">30</span> Public</span><br><span class="line">drwxr-xr-x   <span class="number">9</span> skyline  staff   <span class="number">306</span>B  <span class="number">5</span> <span class="number">11</span> <span class="number">09</span>:<span class="number">57</span> workSpace</span><br></pre></td></tr></table></figure>
-<h3 id="命令解析"><a href="#命令解析" class="headerlink" title="命令解析"></a>命令解析</h3><table>
-<thead>
-<tr>
-<th>文件格式</th>
-<th>所有者权限</th>
-<th>群组权限</th>
-<th>其他人权限</th>
-<th>ACL权限</th>
-<th>引用计数</th>
-<th>所有者</th>
-<th>所在组</th>
-<th>大小</th>
-<th>最后修改日期</th>
-<th>文件名</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>d</td>
-<td>rwx</td>
-<td>r-x</td>
-<td>r-x</td>
-<td>+</td>
-<td>5</td>
-<td>skyline</td>
-<td>staff</td>
-<td>170B</td>
-<td>4  3 12:30</td>
-<td>Public</td>
-</tr>
-</tbody>
-</table>
-<h4 id="权限11位-rwxr-xr-x"><a href="#权限11位-rwxr-xr-x" class="headerlink" title="权限11位 rwxr-xr-x"></a>权限11位 <code>rwxr-xr-x</code></h4><ul>
-<li><p>第1位代表文件类型:</p>
-<ul>
-<li>-文件</li>
-<li>d目录 </li>
-<li>l软链接文件</li>
-<li>b 装置文件里面的可供储存的接口设备(可随机存取装置)；</li>
-<li>c 装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)</li>
-</ul>
-</li>
-<li><p>接下来的字符中，以三个为一组，且均为『rwx』 的三个参数的组合。</p>
-<ul>
-<li>[ r ]代表可读(read)</li>
-<li>[ w ]代表可写(write)</li>
-<li>[ x ]代表可执行(execute)</li>
-</ul>
-</li>
-</ul>
-<p>要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已。<br>以一个班级为所有用户为例举例说明：<br><code>rwx</code> u所有者 skyline<br><code>r-x</code> g所属组 美眉<br><code>r-x</code> o其他人 大老爷们傻和尚<br><code>r</code>读 <code>w</code>写 <code>x</code>执行<br>3,6,10这些数字代表引用计数  </p>
-<p><code>-a</code> 显示所有文件，包括隐藏文件<br><code>-la</code> 详细显示所有文件<br><code>-d</code> 显示目录属性<br><code>-i</code> 显示文件inode编号<br><code>-ld</code> 详细显示目录属性</p>
-<p>对目录如果没有w权限，即使里面的文件有写权限，也不能对文件进行移动，重命名操作，此时，需要给目录加上w权限：<code>chmod +w</code>（注意此时cwd是此目录）</p>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ls命令.html">http://www.skyline.show/ls命令.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-vue里面的小坑"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -852,6 +748,110 @@ vue代码结构如下
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ls命令"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ls命令.html">ls命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Linux-Unix/">Linux/Unix</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ls命令"><a href="#ls命令" class="headerlink" title="ls命令"></a>ls命令</h2><h3 id="查询目录内容命令"><a href="#查询目录内容命令" class="headerlink" title="查询目录内容命令"></a>查询目录内容命令</h3><p><code>ls 【选项】【目录/文件】</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">➜  ~ ll</span><br><span class="line">total <span class="number">0</span></span><br><span class="line">drwx------@  <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">4</span>  <span class="number">4</span> <span class="number">11</span>:<span class="number">17</span> Applications</span><br><span class="line">drwx------+ <span class="number">16</span> skyline  staff   <span class="number">544</span>B  <span class="number">5</span> <span class="number">11</span> <span class="number">17</span>:<span class="number">52</span> Desktop</span><br><span class="line">drwx------+ <span class="number">11</span> skyline  staff   <span class="number">374</span>B  <span class="number">4</span> <span class="number">18</span> <span class="number">09</span>:<span class="number">33</span> Documents</span><br><span class="line">drwx------+ <span class="number">78</span> skyline  staff   <span class="number">2.6</span>K  <span class="number">5</span> <span class="number">26</span> <span class="number">10</span>:<span class="number">43</span> Downloads</span><br><span class="line">drwxr-xr-x   <span class="number">4</span> skyline  staff   <span class="number">136</span>B  <span class="number">5</span> <span class="number">11</span> <span class="number">10</span>:<span class="number">17</span> ENV</span><br><span class="line">drwxr-xr-x   <span class="number">5</span> skyline  staff   <span class="number">170</span>B  <span class="number">4</span>  <span class="number">5</span> <span class="number">15</span>:<span class="number">30</span> HBuilder</span><br><span class="line">drwxr-xr-x   <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">4</span>  <span class="number">5</span> <span class="number">15</span>:<span class="number">30</span> HBuilderProjects</span><br><span class="line">drwx------@ <span class="number">64</span> skyline  staff   <span class="number">2.1</span>K  <span class="number">5</span> <span class="number">22</span> <span class="number">14</span>:<span class="number">18</span> Library</span><br><span class="line">drwx------+  <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">4</span>  <span class="number">3</span> <span class="number">12</span>:<span class="number">30</span> Movies</span><br><span class="line">drwx------+  <span class="number">6</span> skyline  staff   <span class="number">204</span>B  <span class="number">4</span> <span class="number">25</span> <span class="number">17</span>:<span class="number">31</span> Music</span><br><span class="line">drwx------+  <span class="number">3</span> skyline  staff   <span class="number">102</span>B  <span class="number">5</span> <span class="number">22</span> <span class="number">14</span>:<span class="number">19</span> Pictures</span><br><span class="line">drwxr-xr-x+  <span class="number">5</span> skyline  staff   <span class="number">170</span>B  <span class="number">4</span>  <span class="number">3</span> <span class="number">12</span>:<span class="number">30</span> Public</span><br><span class="line">drwxr-xr-x   <span class="number">9</span> skyline  staff   <span class="number">306</span>B  <span class="number">5</span> <span class="number">11</span> <span class="number">09</span>:<span class="number">57</span> workSpace</span><br></pre></td></tr></table></figure>
+<h3 id="命令解析"><a href="#命令解析" class="headerlink" title="命令解析"></a>命令解析</h3><table>
+<thead>
+<tr>
+<th>文件格式</th>
+<th>所有者权限</th>
+<th>群组权限</th>
+<th>其他人权限</th>
+<th>ACL权限</th>
+<th>引用计数</th>
+<th>所有者</th>
+<th>所在组</th>
+<th>大小</th>
+<th>最后修改日期</th>
+<th>文件名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>d</td>
+<td>rwx</td>
+<td>r-x</td>
+<td>r-x</td>
+<td>+</td>
+<td>5</td>
+<td>skyline</td>
+<td>staff</td>
+<td>170B</td>
+<td>4  3 12:30</td>
+<td>Public</td>
+</tr>
+</tbody>
+</table>
+<h4 id="权限11位-rwxr-xr-x"><a href="#权限11位-rwxr-xr-x" class="headerlink" title="权限11位 rwxr-xr-x"></a>权限11位 <code>rwxr-xr-x</code></h4><ul>
+<li><p>第1位代表文件类型:</p>
+<ul>
+<li>-文件</li>
+<li>d目录 </li>
+<li>l软链接文件</li>
+<li>b 装置文件里面的可供储存的接口设备(可随机存取装置)；</li>
+<li>c 装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)</li>
+</ul>
+</li>
+<li><p>接下来的字符中，以三个为一组，且均为『rwx』 的三个参数的组合。</p>
+<ul>
+<li>[ r ]代表可读(read)</li>
+<li>[ w ]代表可写(write)</li>
+<li>[ x ]代表可执行(execute)</li>
+</ul>
+</li>
+</ul>
+<p>要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已。<br>以一个班级为所有用户为例举例说明：<br><code>rwx</code> u所有者 skyline<br><code>r-x</code> g所属组 美眉<br><code>r-x</code> o其他人 大老爷们傻和尚<br><code>r</code>读 <code>w</code>写 <code>x</code>执行<br>3,6,10这些数字代表引用计数  </p>
+<p><code>-a</code> 显示所有文件，包括隐藏文件<br><code>-la</code> 详细显示所有文件<br><code>-d</code> 显示目录属性<br><code>-i</code> 显示文件inode编号<br><code>-ld</code> 详细显示目录属性</p>
+<p>对目录如果没有w权限，即使里面的文件有写权限，也不能对文件进行移动，重命名操作，此时，需要给目录加上w权限：<code>chmod +w</code>（注意此时cwd是此目录）</p>
+<blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ls命令.html">http://www.skyline.show/ls命令.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>

@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-Husky使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES对象创建"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Husky使用.html">Husky使用</a>
+      <a class="article-title" href="/ES对象创建.html">ES对象创建</a>
     </h1>
   
 
@@ -348,35 +348,93 @@
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="Husky-使用"><a href="#Husky-使用" class="headerlink" title="Husky 使用"></a>Husky 使用</h1><h2 id="Husky-使用配置"><a href="#Husky-使用配置" class="headerlink" title="Husky 使用配置"></a>Husky 使用配置</h2><h3 id="husky-简述"><a href="#husky-简述" class="headerlink" title="husky 简述"></a>husky 简述</h3><p>husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。</p>
-<p>以代码校验为例来说明</p>
-<p>代码校验 lint-staged 相关配置如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">		<span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	...,</span><br><span class="line">	<span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>后续代码中，其余配置为 husky 相关，通过这些配置，我们在 commit 代码时，会校验代码错误与格式，校验不通过会有提示。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Husky%E4%BD%BF%E7%94%A820210924150933.png" alt="Husky使用20210924150933"></p>
-<p>Husky 在版本 5 中配置做了大变动，具体前后的配置以版本来说明。</p>
-<h3 id="V5"><a href="#V5" class="headerlink" title="V5+"></a>V5+</h3><p>yarn add husky -D</p>
-<p>安装 husky 最新包</p>
-<p>npx husky-init &amp;&amp; yarn</p>
-<p>在 package.json 会自动添加如下选项</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>汇总其他相关配置选项，如下<br><code>package.json</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"precommit"</span>: <span class="string">"lint-staged"</span>,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">    <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同时会在项目目录下自动生成 .husky 目录，包含最基础的 pre-commit bash 脚本，将 bash 脚本的默认 npm test 改为 npm run precommit 即可</p>
-<p><code>pre-commit</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">. <span class="string">"$(dirname "</span>$<span class="number">0</span><span class="string">")/_/husky.sh"</span></span><br><span class="line"></span><br><span class="line">npm run precommit</span><br></pre></td></tr></table></figure>
-<h3 id="V4"><a href="#V4" class="headerlink" title="V4"></a>V4</h3><p>yarn add <a href="mailto:husky@v4.3.8" target="_blank" rel="noopener">husky@v4.3.8</a> -D</p>
-<p>package.json</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">            ...,</span><br><span class="line">            <span class="string">"husky"</span>: <span class="string">"4.3.8"</span>,</span><br><span class="line">            <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"husky"</span>: &#123;</span><br><span class="line">        <span class="string">"hooks"</span>: &#123;</span><br><span class="line">        <span class="string">"pre-commit"</span>: <span class="string">"lint-staged"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Husky-配置更新"><a href="#Husky-配置更新" class="headerlink" title="Husky 配置更新"></a>Husky 配置更新</h2><h3 id="git-hooks-说明"><a href="#git-hooks-说明" class="headerlink" title="git hooks 说明"></a>git hooks 说明</h3>
+<h1 id="JS-对象的创建"><a href="#JS-对象的创建" class="headerlink" title="JS 对象的创建"></a>JS 对象的创建</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#js-对象的创建">JS 对象的创建</a><ul>
+<li><a href="#工厂模式">工厂模式</a></li>
+<li><a href="#构造函数模式">构造函数模式</a><ul>
+<li><a href="#实现">实现</a></li>
+<li><a href="#优化">优化</a></li>
+</ul>
+</li>
+<li><a href="#原型模式">原型模式</a><ul>
+<li><a href="#实现-1">实现</a></li>
+<li><a href="#原型判定">原型判定</a></li>
+<li><a href="#原型重写">原型重写</a></li>
+<li><a href="#原型模式问题">原型模式问题</a></li>
+</ul>
+</li>
+<li><a href="#组合构造与原型">组合构造与原型</a></li>
+<li><a href="#动态原型">动态原型</a><ul>
+<li><a href="#实现-2">实现</a></li>
+<li><a href="#重写原型">重写原型</a></li>
+</ul>
+</li>
+<li><a href="#寄生构造函数">寄生构造函数</a></li>
+<li><a href="#稳妥构造函数">稳妥构造函数</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  p.name = name;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">"skyline"</span>);</span><br><span class="line">me.name; <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
+<h2 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>解决了对象识别问题</p>
+<p>构造函数首字母都要大写，非构造函数小写字母开头</p>
+<p>构造函数主要问题是方法会在实例中各自创建，me.say === you.say 说明了这个问题</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>优化方案解决了方法不能复用的问题，但破坏了封装</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = sayName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>ES 中，无论何时创建的新函数，都会根据一组特定的规则来为函数添加一个指向原型对象名为 prototype 的指针属性，该原型对象自动获得一个 constructor 属性，属性指向该函数，而后基于原型对象添置实例共享的属性和方法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = <span class="string">"skyline"</span>;</span><br><span class="line">Person.prototype.age = <span class="number">27</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line">skyline.sayName(); <span class="comment">// My name is skyline</span></span><br><span class="line">skyline <span class="keyword">instanceof</span> Person; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="原型判定"><a href="#原型判定" class="headerlink" title="原型判定"></a>原型判定</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-Husky 使用Husky 使用配置husky 简述husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。
-以代码校验为例来说明
-代码校验 lint-staged 相关配置如下
-&#123;	"devDependencies": &#123;		"lint-stag......  -->
+JS 对象的创建
+
+
+JS 对象的创建
+工厂模式
+构造函数模式
+实现
+优化
+
+
+原型模式
+实现
+原型判定
+原型重写
+原型模式问题
+
+
+组合构造与原型
+动态原型
+实现
+重写原型
+
+
+寄生构造函数
+稳妥构造函数
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+工厂模式工厂模式解......  -->
         <p class="article-more-link">
-          <a href="/Husky使用.html#more">阅读全文</a>
+          <a href="/ES对象创建.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -644,54 +702,6 @@ toLocaleString
 <!-- Table of Contents -->
 
   
-    <article id="post-VSCode相关问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/VSCode相关问题汇总.html">VSCode相关问题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="VSCode-相关问题汇总"><a href="#VSCode-相关问题汇总" class="headerlink" title="VSCode 相关问题汇总"></a>VSCode 相关问题汇总</h1><h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="markdown-文件-Snippets-不生效"><a href="#markdown-文件-Snippets-不生效" class="headerlink" title="markdown 文件 Snippets 不生效"></a>markdown 文件 Snippets 不生效</h3><p><strong>问题描述</strong><br>通过 File -&gt; Preferences -&gt; User Snippets -&gt; Markdown<br>写相关代码块如下<br><code>markdown.json</code></p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and</span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the</span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="attr">"JS code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cjs"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:js&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"JS code block"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"PY code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cpy"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:python&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"PY code block"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在 markdown 文件中敲击:cjs 不自动提示。<br><strong>解决方案</strong><br>尝试 CTRL + Space 强制开启。<br>在用户配置<code>setting.json</code>中添加如下配置项</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"[markdown]": &#123;</span><br><span class="line">    "editor.quickSuggestions": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -892,6 +902,203 @@ firewalld 是 CentOS 7/8......  -->
 <!-- Table of Contents -->
 
   
+    <article id="post-VSCode相关问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/VSCode相关问题汇总.html">VSCode相关问题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="VSCode-相关问题汇总"><a href="#VSCode-相关问题汇总" class="headerlink" title="VSCode 相关问题汇总"></a>VSCode 相关问题汇总</h1><h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="markdown-文件-Snippets-不生效"><a href="#markdown-文件-Snippets-不生效" class="headerlink" title="markdown 文件 Snippets 不生效"></a>markdown 文件 Snippets 不生效</h3><p><strong>问题描述</strong><br>通过 File -&gt; Preferences -&gt; User Snippets -&gt; Markdown<br>写相关代码块如下<br><code>markdown.json</code></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and</span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the</span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="attr">"JS code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cjs"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:js&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"JS code block"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"PY code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cpy"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:python&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"PY code block"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 markdown 文件中敲击:cjs 不自动提示。<br><strong>解决方案</strong><br>尝试 CTRL + Space 强制开启。<br>在用户配置<code>setting.json</code>中添加如下配置项</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"[markdown]": &#123;</span><br><span class="line">    "editor.quickSuggestions": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-MacOS应用清单"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/MacOS应用清单.html">MacOS应用清单</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="MacOS-应用清单"><a href="#MacOS-应用清单" class="headerlink" title="MacOS 应用清单"></a>MacOS 应用清单</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#macos-应用清单">MacOS 应用清单</a><ul>
+<li><a href="#开发">开发</a></li>
+<li><a href="#学习">学习</a></li>
+<li><a href="#效率">效率</a><ul>
+<li><a href="#汇总">汇总</a></li>
+<li><a href="#barrier">barrier</a></li>
+</ul>
+</li>
+<li><a href="#娱乐">娱乐</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><h2 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h2><h3 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h3><table>
+<thead>
+<tr>
+<th>APP</th>
+<th>DESC</th>
+<th>Free</th>
+<th>Web</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sharemouse</td>
+<td>跨端键鼠共用工具</td>
+<td>trial</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+<tr>
+<td>Synergy</td>
+<td>跨端键鼠共用工具</td>
+<td>false</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+<tr>
+<td>barrier</td>
+<td>基于 Synergy-core 1.9 的开源跨端键鼠共用工具</td>
+<td>true</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="barrier"><a href="#barrier" class="headerlink" title="barrier"></a>barrier</h3><p>barrier 是一款基于 Synergy-core 1.9 的开源跨端键鼠共用工具，拥有 Synergy 基本的跨平台共享键鼠，复制粘贴等基础功能。<br>其他类似的软件还有 Sharemouse 和 Synergy。<br>Synergy 目前已闭源收费，功能上与 barrier 差距不大，<br>Synergy 与 barrier 采用主副机设定。只有主机的键鼠可共享，其他设备的键鼠不能共享试用。<br>Sharemouse 相比，所有键鼠都可共享，但是，Sharemouse 提供的免费试用版本，试用版只支持两台电脑，且两台电脑各自只能有一台内置显示器。<br>目前了解到的类似软件还有，</p>
+<ul>
+<li>Mouse without Borders</li>
+<li>Input Director</li>
+</ul>
+<p>未安装试用验证。</p>
+<h2 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h2><h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+MacOS 应用清单
+
+
+MacOS 应用清单
+开发
+学习
+效率
+汇总
+barrier
+
+
+娱乐
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+开发学习效率汇总
+
+
+APP
+DESC
+Free
+Web
+
+
+
+
+Sharemouse
+跨端键鼠共用工具
+trial
+https......  -->
+        <p class="article-more-link">
+          <a href="/MacOS应用清单.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-MacOS基本操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1009,7 +1216,7 @@ Macos Beta 系统更新开启
 <!-- Table of Contents -->
 
   
-    <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-黑群晖安装"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1017,7 +1224,7 @@ Macos Beta 系统更新开启
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/黑群晖常见问题.html">黑群晖常见问题</a>
+      <a class="article-title" href="/黑群晖安装.html">黑群晖安装</a>
     </h1>
   
 
@@ -1038,29 +1245,119 @@ Macos Beta 系统更新开启
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="黑群晖常见问题"><a href="#黑群晖常见问题" class="headerlink" title="黑群晖常见问题"></a>黑群晖常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h1 id="黑群晖安装"><a href="#黑群晖安装" class="headerlink" title="黑群晖安装"></a>黑群晖安装</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#黑群晖常见问题">黑群晖常见问题</a><ul>
-<li><a href="#黑群晖搜索不到ip">黑群晖搜索不到IP</a><ul>
-<li><a href="#网络联通检查">网络联通检查</a></li>
-<li><a href="#网卡驱动问题">网卡驱动问题</a></li>
+<li><a href="#黑群晖安装">黑群晖安装</a><ul>
+<li><a href="#硬件准备">硬件准备</a><ul>
+<li><a href="#nas-主机">Nas 主机</a></li>
+<li><a href="#u-盘">u 盘</a></li>
+<li><a href="#电脑">电脑</a></li>
 </ul>
 </li>
-<li><a href="#ssd缓存">SSD缓存</a></li>
-<li><a href="#moments-人物主题无照片">Moments 人物、主题无照片</a></li>
+<li><a href="#软件准备">软件准备</a><ul>
+<li><a href="#系统选择">系统选择</a></li>
+<li><a href="#相关软件">相关软件</a></li>
+</ul>
+</li>
+<li><a href="#引导盘准备">引导盘准备</a><ul>
+<li><a href="#获取-vid-与-pid">获取 VID 与 PID</a></li>
+<li><a href="#替换-vid-与-pid">替换 VID 与 PID</a></li>
+<li><a href="#格式化硬盘">格式化硬盘</a></li>
+<li><a href="#引导盘制作">引导盘制作</a></li>
+</ul>
+</li>
+<li><a href="#安装系统">安装系统</a><ul>
+<li><a href="#nas-进入">Nas 进入</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="黑群晖搜索不到IP"><a href="#黑群晖搜索不到IP" class="headerlink" title="黑群晖搜索不到IP"></a>黑群晖搜索不到IP</h2><h3 id="网络联通检查"><a href="#网络联通检查" class="headerlink" title="网络联通检查"></a>网络联通检查</h3><p>主板网口灯检查<br>检查主板网口灯，绿灯常亮说明网络连接成功，黄灯闪烁说明有流量传输。<br>若绿灯亮，进入下一步。</p>
-<h3 id="网卡驱动问题"><a href="#网卡驱动问题" class="headerlink" title="网卡驱动问题"></a>网卡驱动问题</h3><p>检查网卡配置，黑群晖默认不支持2.5G以及万兆网卡，<br>需要替换引导中的网卡驱动文件。<br>直接Google<code>DS918+ 6.23 &quot;0.13.3&quot;</code><br>找到DS918-6.23_1.04b的扩展驱动0.13.3.zip<br>解压得到进行两个文件<br><code>extra.lzma
-extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘。在左侧目录下可以看到一个 分区(1)，右键选择”挂载到 windows”。然后选择确定之后。可以发现这个分区出现在文件管理那边。<br>用上述解压得到的文件替换分区里的文件即可。<br>然后退出 U 盘，重新启动，就能支持 2.5G 网卡了<br>[^1]:<a href="https://post.smzdm.com/p/aoxd6697/" target="_blank" rel="noopener">https://post.smzdm.com/p/aoxd6697/</a></p>
-<h2 id="SSD缓存"><a href="#SSD缓存" class="headerlink" title="SSD缓存"></a>SSD缓存</h2><p>不打补丁的情况下，黑群晖默认不识别SSD<br>SSD补丁如下<br>版本 | 补丁 | 操作<br>— | — | —<br>6.22 | libNVMEpatch.sh |  将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code><br>6.23 | libsynonvme.so.1 |  将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code></p>
-<p>上述操作需要先远程ssh user@ip ，操作完成后退出重启即可[^2]<br>[^2]:<a href="https://wp.gxnas.com/6010.html" target="_blank" rel="noopener">https://wp.gxnas.com/6010.html</a></p>
-<h2 id="Moments-人物、主题无照片"><a href="#Moments-人物、主题无照片" class="headerlink" title="Moments 人物、主题无照片"></a>Moments 人物、主题无照片</h2><p>安装Moments后人物与主题无法智能识别，进入后显示还有xxx张照片待发现。<br>停用Moments<br>进入 /var/packages/SynologyMoments/target/usr/lib 目录下<br>备份 libsynophoto-plugin-detection.so<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mv ./libsynophoto-plugin-detection.so ./libsynophoto-plugin-detection.so.bak</span><br></pre></td></tr></table></figure></p>
-<p><a href="http://42.193.201.102:8443/file/Docs/Tools/OS/Nas/黑群晖常见问题/libsynophoto-plugin-detection.so" target="_blank" rel="noopener">libsynophoto-plugin-detection.so</a><br>将下载的新文件放在 /var/packages/SynologyMoments/target/usr/lib下，对全部用户赋完全权限（777）或对SynologyMoments赋控制权限（755）。<br>开启moments，重建索引。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%BB%91%E7%BE%A4%E6%99%96%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220121102822.png" alt="黑群晖常见问题20220121102822"></p>
+<h2 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h2><table>
+<thead>
+<tr>
+<th>硬件</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nas 主机</td>
+<td>Intel CPU</td>
+</tr>
+<tr>
+<td>u 盘</td>
+<td>&gt; 50M</td>
+</tr>
+<tr>
+<td>电脑</td>
+<td>Windows 系统</td>
+</tr>
+<tr>
+<td>键鼠</td>
+<td>进 BIOS 等</td>
+</tr>
+<tr>
+<td>硬盘</td>
+<td>大大的好</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Nas-主机"><a href="#Nas-主机" class="headerlink" title="Nas 主机"></a>Nas 主机</h3><p>黑群晖对主机的要求不是很高，不需要硬解软路由+移动硬盘都可运行。<br>主机一般推荐使用 10 代以下的 Intel CPU.<br>新代 Intel 与 AMD 等其他 CPU 主机核显硬解不友好，视硬解需求而定。</p>
+<h3 id="u-盘"><a href="#u-盘" class="headerlink" title="u 盘"></a>u 盘</h3><p>U 盘用于做系统引导，引导程序的大小为 50M。<br>大于这个容量即可，现在 U 盘基本都满足要求。</p>
+<h3 id="电脑"><a href="#电脑" class="headerlink" title="电脑"></a>电脑</h3><p>需要一台 windows 电脑来安装系统引导程序。<br>键鼠需要插入 Nas 主机操作 BIOS。</p>
+<h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><h3 id="系统选择"><a href="#系统选择" class="headerlink" title="系统选择"></a>系统选择</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
+黑群晖安装
+
+
+黑群晖安装
+硬件准备
+Nas 主机
+u 盘
+电脑
+
+
+软件准备
+系统选择
+相关软件
+
+
+引导盘准备
+获取 VID 与 PID
+替换 VID 与 PID
+格式化硬盘
+引导盘制作
+
+
+安装系统
+Nas 进入
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+硬......  -->
+        <p class="article-more-link">
+          <a href="/黑群晖安装.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
@@ -1269,108 +1566,6 @@ inoremap
 模式正常模式 (Normal-mode)正常模式一般用于浏览文件，......  -->
         <p class="article-more-link">
           <a href="/VIM基本使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Nginx常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Nginx常见问题汇总.html">Nginx常见问题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="Nginx-常见问题汇总"><a href="#Nginx-常见问题汇总" class="headerlink" title="Nginx 常见问题汇总"></a>Nginx 常见问题汇总</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#nginx-常见问题汇总">Nginx 常见问题汇总</a><ul>
-<li><a href="#proxy_pass-代理接口不能访问">proxy_pass 代理接口不能访问</a><ul>
-<li><a href="#问题描述">问题描述</a></li>
-<li><a href="#配置">配置</a></li>
-</ul>
-</li>
-<li><a href="#页面刷新不能进入">页面刷新不能进入</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="proxy-pass-代理接口不能访问"><a href="#proxy-pass-代理接口不能访问" class="headerlink" title="proxy_pass 代理接口不能访问"></a>proxy_pass 代理接口不能访问</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>客户端访问接口，发起请求<br><a href="http://aaa.com/file/123.png" target="_blank" rel="noopener">http://aaa.com/file/123.png</a></p>
-<p>真实接口地址为<br><a href="http://bbb.com/123.png" target="_blank" rel="noopener">http://bbb.com/123.png</a></p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>检查配置，正确的配置如下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>检查地址，注意后缀’/‘都不能去掉。<br>一般把 server:port 后的部分叫做 URI，proxy_pass 在其后加不加 URI 表现完全不同。<br>location 非正则匹配时，proxy_pass 有 URI 直接用 URI 把 location 对应的字符替换，无 URI 则直接替换 server:port<br>详细解析查看<a href="https://github.com/skylinety/Blog/blob/bf27769f7e637edbb12e2bac320d4dd8b73692e5/Docs/Tools/DEVs/Nginx/Nginx%E5%9F%BA%E7%A1%80.md" target="_blank" rel="noopener">Nginx 基础</a></p>
-<h2 id="页面刷新不能进入"><a href="#页面刷新不能进入" class="headerlink" title="页面刷新不能进入"></a>页面刷新不能进入</h2><p>检查页面的路由模式。<br>特别是在 Vue 项目中，具体查看 <a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">HTML5 History Mode</a><br>vue 默认的是 hash 路由模式，使用此种模式，页面路由变化时，并不会重载页面<br>在配置网站根文件的位置加入<br><code>try_files $uri $uri/ /index.html;</code><br>一般如下配置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /skyline&#123;</span><br><span class="line">    alias /data/wwwroot/skyline/dist;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">    try_files $uri $uri/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-Nginx 常见问题汇总
-
-
-Nginx 常见问题汇总
-proxy_pass 代理接口不能访问
-问题描述
-配置
-
-
-页面刷新不能进入
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-
-
-proxy_pass 代理接口不能访问问题描述客户端访问接口，发起请求http://aaa.......  -->
-        <p class="article-more-link">
-          <a href="/Nginx常见问题汇总.html#more">阅读全文</a>
         </p>
       
     </div>
