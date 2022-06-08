@@ -234,7 +234,53 @@
 <li>services</li>
 </ul>
 <p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
-<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3><p>zones 预设级别不同的防火墙策略，用户可以自定义 zones，也可以使用预设的 zones。<br>默认使用 public zone<br>根据拦截级别严格程度，预设 zones 如下<br>zone | 拦截说明<br>— | —<br>drop | 丢弃区，所有接入连接都会进行无消息响应拦截，只有输出连接被允许。<br>block | 拦截区，接入连接都会被拦截，会响应 icmp-host-prohibited 等拦截消息，只有输出连接被允许。<br>public | 公共区，用于不受信任的公共区域，仅允许自选接入连接，默认允许 ssh 和 dhcpv6-client<br>external | 外部区，用于外部网络，系统充当网关角色，仅允许自选接入连接，默认允许 ssh<br>internal | 内部区，用于内部网络，系统充当网关角色，仅允许自选接入连接<br>dmz | 隔离区，demilitarized zone（隔离区，军事缓冲区），用于允许部分服务被外网访问，仅允许自选接入连接<br>work | 工作区，用于工作网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client 和 dhcpv6-client<br>home | 家庭区，用于工作家庭网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client，mdns，samba-client 和 dhcpv6-client<br>trusted | 信任区，并接受所有网络连接</p>
+<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3><p>zones 预设级别不同的防火墙策略，用户可以自定义 zones，也可以使用预设的 zones。<br>默认使用 public zone<br>根据拦截级别严格程度，预设 zones 如下</p>
+<table>
+<thead>
+<tr>
+<th>zone</th>
+<th>拦截说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>drop</td>
+<td>丢弃区，所有接入连接都会进行无消息响应拦截，只有输出连接被允许。</td>
+</tr>
+<tr>
+<td>block</td>
+<td>拦截区，接入连接都会被拦截，会响应 icmp-host-prohibited 等拦截消息，只有输出连接被允许。</td>
+</tr>
+<tr>
+<td>public</td>
+<td>公共区，用于不受信任的公共区域，仅允许自选接入连接，默认允许 ssh 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>external</td>
+<td>外部区，用于外部网络，系统充当网关角色，仅允许自选接入连接，默认允许 ssh</td>
+</tr>
+<tr>
+<td>internal</td>
+<td>内部区，用于内部网络，系统充当网关角色，仅允许自选接入连接</td>
+</tr>
+<tr>
+<td>dmz</td>
+<td>隔离区，demilitarized zone（隔离区，军事缓冲区），用于允许部分服务被外网访问，仅允许自选接入连接</td>
+</tr>
+<tr>
+<td>work</td>
+<td>工作区，用于工作网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>home</td>
+<td>家庭区，用于工作家庭网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client，mdns，samba-client 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>trusted</td>
+<td>信任区，并接受所有网络连接</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>新建防火墙区域策略</li>
 </ul>

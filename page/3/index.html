@@ -758,7 +758,53 @@ toLocaleString
 <li>services</li>
 </ul>
 <p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
-<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3><p>zones 预设级别不同的防火墙策略，用户可以自定义 zones，也可以使用预设的 zones。<br>默认使用 public zone<br>根据拦截级别严格程度，预设 zones 如下<br>zone | 拦截说明<br>— | —<br>drop | 丢弃区，所有接入连接都会进行无消息响应拦截，只有输出连接被允许。<br>block | 拦截区，接入连接都会被拦截，会响应 icmp-host-prohibited 等拦截消息，只有输出连接被允许。<br>public | 公共区，用于不受信任的公共区域，仅允许自选接入连接，默认允许 ssh 和 dhcpv6-client<br>external | 外部区，用于外部网络，系统充当网关角色，仅允许自选接入连接，默认允许 ssh<br>internal | 内部区，用于内部网络，系统充当网关角色，仅允许自选接入连接<br>dmz | 隔离区，demilitarized zone（隔离区，军事缓冲区），用于允许部分服务被外网访问，仅允许自选接入连接<br>work | 工作区，用于工作网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client 和 dhcpv6-client<br>home | 家庭区，用于工作家庭网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client，mdns，samba-client 和 dhcpv6-client<br>trusted | 信任区，并接受所有网络连接</p>
+<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3><p>zones 预设级别不同的防火墙策略，用户可以自定义 zones，也可以使用预设的 zones。<br>默认使用 public zone<br>根据拦截级别严格程度，预设 zones 如下</p>
+<table>
+<thead>
+<tr>
+<th>zone</th>
+<th>拦截说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>drop</td>
+<td>丢弃区，所有接入连接都会进行无消息响应拦截，只有输出连接被允许。</td>
+</tr>
+<tr>
+<td>block</td>
+<td>拦截区，接入连接都会被拦截，会响应 icmp-host-prohibited 等拦截消息，只有输出连接被允许。</td>
+</tr>
+<tr>
+<td>public</td>
+<td>公共区，用于不受信任的公共区域，仅允许自选接入连接，默认允许 ssh 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>external</td>
+<td>外部区，用于外部网络，系统充当网关角色，仅允许自选接入连接，默认允许 ssh</td>
+</tr>
+<tr>
+<td>internal</td>
+<td>内部区，用于内部网络，系统充当网关角色，仅允许自选接入连接</td>
+</tr>
+<tr>
+<td>dmz</td>
+<td>隔离区，demilitarized zone（隔离区，军事缓冲区），用于允许部分服务被外网访问，仅允许自选接入连接</td>
+</tr>
+<tr>
+<td>work</td>
+<td>工作区，用于工作网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>home</td>
+<td>家庭区，用于工作家庭网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client，mdns，samba-client 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>trusted</td>
+<td>信任区，并接受所有网络连接</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>新建防火墙区域策略</li>
 </ul>
@@ -890,6 +936,163 @@ firewalld 是 CentOS......  -->
 <p>在 markdown 文件中敲击:cjs 不自动提示。<br><strong>解决方案</strong><br>尝试 CTRL + Space 强制开启。<br>在用户配置<code>setting.json</code>中添加如下配置项</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">"[markdown]": &#123;</span><br><span class="line">    "editor.quickSuggestions": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="Nginx-基础"><a href="#Nginx-基础" class="headerlink" title="Nginx 基础"></a>Nginx 基础</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#nginx-基础">Nginx 基础</a><ul>
+<li><a href="#location">location</a><ul>
+<li><a href="#基础使用">基础使用</a></li>
+<li><a href="#url-match">URL-match</a></li>
+<li><a href="#modifier">modifier</a></li>
+</ul>
+</li>
+<li><a href="#proxy_pass">proxy_pass</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#uri">URI</a></li>
+<li><a href="#-问题">/ 问题</a></li>
+<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3><p>匹配所有路径</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优先级最低，所有都不匹配时，才会命中</p>
+<h3 id="modifier"><a href="#modifier" class="headerlink" title="modifier"></a>modifier</h3><p>URI 这里指 URL 除了 server:port 的部分。</p>
+<p><strong>命中优先级</strong><br>优先级由上依次降低。</p>
+<table>
+<thead>
+<tr>
+<th>modifier</th>
+<th>desc</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>exact (精确匹配)</td>
+<td>location = /site</td>
+</tr>
+<tr>
+<td>^~</td>
+<td>priority prefix (优先字符)</td>
+<td>location ^~ /site</td>
+</tr>
+<tr>
+<td>~</td>
+<td>case sensitive regex (大小写敏感正则)</td>
+<td>location ~ /site</td>
+</tr>
+<tr>
+<td>~*</td>
+<td>case insensitive regex(忽略大小写)</td>
+<td>location ~* /site</td>
+</tr>
+<tr>
+<td>(none)</td>
+<td>prefix(字符匹配，无修饰符，由 URI 头字符开始匹配)</td>
+<td>location /site</td>
+</tr>
+</tbody>
+</table>
+<p>在如下网址可进行匹配测试 <a href="https://nginx.viraptor.info/" target="_blank" rel="noopener">https://nginx.viraptor.info/</a></p>
+<p>^~ 与(none)都 进行字符匹配（非正则），^~ 相对于(none) ，提高了命中优先级。</p>
+<p><strong>典型示例</strong></p>
+<p>示例 1</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>^~ 进行字符匹配<br><a href="http://domain2.com/file/" target="_blank" rel="noopener">http://domain2.com/file/</a>* 可以命中<br><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 不能命中</p>
+<p>示例 2</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 根据优先级命中<code>^~ /file/</code></p>
+<h2 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h2><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+Nginx 基础
+
+
+Nginx 基础
+location
+基础使用
+URL-match
+modifier
+
+
+proxy_pass
+简述
+URI
+/ 问题
+\$uri \$request_uri
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+location基础使用l......  -->
+        <p class="article-more-link">
+          <a href="/Nginx基础.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
@@ -1038,123 +1241,6 @@ trial
 https......  -->
         <p class="article-more-link">
           <a href="/MacOS应用清单.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-MacOS基本操作"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/MacOS基本操作.html">MacOS基本操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="MacOS-基础使用"><a href="#MacOS-基础使用" class="headerlink" title="MacOS 基础使用"></a>MacOS 基础使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#macos-基础使用">MacOS 基础使用</a><ul>
-<li><a href="#macos-beta-系统更新开启">Macos Beta 系统更新开启</a></li>
-<li><a href="#网络磁盘映射">网络磁盘映射</a></li>
-<li><a href="#剪切移动">剪切（移动）</a><ul>
-<li><a href="#常规">常规</a></li>
-<li><a href="#快捷键">快捷键</a></li>
-</ul>
-</li>
-<li><a href="#直接删除文件">直接删除文件</a></li>
-<li><a href="#修改终端用户名">修改终端用户名</a></li>
-<li><a href="#启用-ssd-的-trim-支持">启用 SSD 的 TRIM 支持</a></li>
-<li><a href="#关闭-sip">关闭 SIP</a></li>
-<li><a href="#设定文件默认打开方式">设定文件默认打开方式</a><ul>
-<li><a href="#常规-1">常规</a></li>
-<li><a href="#其他方式">其他方式</a></li>
-</ul>
-</li>
-<li><a href="#打开允许未知来源-app-选项">打开允许未知来源 app 选项</a></li>
-<li><a href="#设定快捷打开程序快捷键">设定快捷打开程序快捷键</a><ul>
-<li><a href="#设置-automator-任务">设置 automator 任务</a></li>
-<li><a href="#设置程序打开快捷键">设置程序打开快捷键</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Macos-Beta-系统更新开启"><a href="#Macos-Beta-系统更新开启" class="headerlink" title="Macos Beta 系统更新开启"></a>Macos Beta 系统更新开启</h2><p>在apple beta 地址上登录<br><a href="https://beta.apple.com" target="_blank" rel="noopener">https://beta.apple.com</a></p>
-<p>在如下网站下载 <a href="https://beta.apple.com/sp/betaprogram/enroll#macos" target="_blank" rel="noopener">MacOS Public Beta Access Utility</a>工具<br>注意开启前在Time Mechine中进行系统备份<br>下载工具安装后即可开启。</p>
-<h2 id="网络磁盘映射"><a href="#网络磁盘映射" class="headerlink" title="网络磁盘映射"></a>网络磁盘映射</h2><p>在 finder 下操作 ⌘ + k<br>在弹出框中输入网络共享服务地址<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/MacOS%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211227153214.png" alt="MacOS基本操作20211227153214"><br>一般有 Samba 或 AFP 等方式共享服务<br>常见地址如下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">afp://192.168.2.20</span><br><span class="line">smb://192.168.2.20</span><br></pre></td></tr></table></figure>
-<h2 id="剪切（移动）"><a href="#剪切（移动）" class="headerlink" title="剪切（移动）"></a>剪切（移动）</h2><h3 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h3><p>复制需要移动的文件。<br>在目标位置右击鼠标，一般出现粘贴项目选项。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211118165151.png" alt="Macos基本操作20211118165151"><br>此时按住 ⌥ 键，菜单会变为将项目移动到此处。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211118165216.png" alt="Macos基本操作20211118165216"></p>
-<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">⌘ + c</span><br><span class="line">⌘ + ⌥ + v</span><br></pre></td></tr></table></figure>
-<p>⌘ + c 复制文件<br>在目标目录 ⌘ + ⌥ + v 即可移动成功</p>
-<h2 id="直接删除文件"><a href="#直接删除文件" class="headerlink" title="直接删除文件"></a>直接删除文件</h2><p>放进垃圾桶<br>【Command】+【Backspace】/【Delete】<br>永久删除<br>【Option】+【Command】+【Backspace】/【Delete】</p>
-<h2 id="修改终端用户名"><a href="#修改终端用户名" class="headerlink" title="修改终端用户名"></a>修改终端用户名</h2><p>修改前图示</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CE77BBFF51DF4A64E8C6FA24BFEF8D2AF.jpg" alt="Macos基本操作E77BBFF51DF4A64E8C6FA24BFEF8D2AF"></p>
-<p>输入<br><code>sudo scutil --set HostName &lt;name&gt;</code><br>改后图示<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CF5C2146E34383DB6E8EE91DC7AD8EC82.jpg" alt="Macos基本操作F5C2146E34383DB6E8EE91DC7AD8EC82"></p>
-<h2 id="启用-SSD-的-TRIM-支持"><a href="#启用-SSD-的-TRIM-支持" class="headerlink" title="启用 SSD 的 TRIM 支持"></a>启用 SSD 的 TRIM 支持</h2><p>mac 更换非官方固态和默认不启动 TRIM 硬盘优化，可输入<br><code>sudo trimforce enable</code><br>打开</p>
-<h2 id="关闭-SIP"><a href="#关闭-SIP" class="headerlink" title="关闭 SIP"></a>关闭 SIP</h2><p>mac 关闭系统完整性保护 System Integrity Protection<br>重启时，出现 apple logo 时按住<br><code>⌘+R</code><br>进入恢复模式<br>点击工具中的终端<br>输入<br><code>csrutil disable</code><br>输出<br>Successfully disabled System Integrity Protection. Please restart the machine for the changes to take effect.<br>表示关闭 SIP 成功<br>开启命令为<br><code>csrutil enable</code></p>
-<h2 id="设定文件默认打开方式"><a href="#设定文件默认打开方式" class="headerlink" title="设定文件默认打开方式"></a>设定文件默认打开方式</h2><h3 id="常规-1"><a href="#常规-1" class="headerlink" title="常规"></a>常规</h3><p>按住 option 键，鼠标右击，查看菜单栏变化</p>
-<h3 id="其他方式"><a href="#其他方式" class="headerlink" title="其他方式"></a>其他方式</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-MacOS 基础使用
-
-
-MacOS 基础使用
-Macos Beta 系统更新开启
-网络磁盘映射
-剪切（移动）
-常规
-快捷键
-
-
-直接删除文件
-修改终端用户名
-启用 SSD 的 TRIM 支持
-关闭 SIP
-设定文件默认打开方式
-常规
-其他方式
-
-
-打开允许未知来源 app 选项
-设定快捷打开程序快捷键
-设置 a......  -->
-        <p class="article-more-link">
-          <a href="/MacOS基本操作.html#more">阅读全文</a>
         </p>
       
     </div>
