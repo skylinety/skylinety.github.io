@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-ES对象属性"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES对象创建"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES对象属性.html">ES对象属性</a>
+      <a class="article-title" href="/ES对象创建.html">ES对象创建</a>
     </h1>
   
 
@@ -348,32 +348,154 @@
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="JS-对象的属性"><a href="#JS-对象的属性" class="headerlink" title="JS 对象的属性"></a>JS 对象的属性</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h1 id="JS-对象的创建"><a href="#JS-对象的创建" class="headerlink" title="JS 对象的创建"></a>JS 对象的创建</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#js-对象的属性">JS 对象的属性</a><ul>
-<li><a href="#属性描述符">属性描述符</a><ul>
-<li><a href="#属性分类">属性分类</a></li>
-<li><a href="#enumerable">Enumerable</a></li>
-<li><a href="#configurable">Configurable</a></li>
+<li><a href="#js-对象的创建">JS 对象的创建</a><ul>
+<li><a href="#工厂模式">工厂模式</a></li>
+<li><a href="#构造函数模式">构造函数模式</a><ul>
+<li><a href="#实现">实现</a></li>
+<li><a href="#优化">优化</a></li>
 </ul>
 </li>
-<li><a href="#属性创建">属性创建</a><ul>
-<li><a href="#直接创建">直接创建</a></li>
-<li><a href="#objectdefineproperty--objectdefineproperties">Object.defineProperty() &amp; Object.defineProperties()</a></li>
-<li><a href="#objectcreate">Object.create</a></li>
+<li><a href="#原型模式">原型模式</a><ul>
+<li><a href="#实现-1">实现</a></li>
+<li><a href="#原型判定">原型判定</a></li>
+<li><a href="#原型重写">原型重写</a></li>
+<li><a href="#原型模式问题">原型模式问题</a></li>
 </ul>
 </li>
-<li><a href="#扩展封印与冻结">扩展、封印与冻结</a><ul>
-<li><a href="#preventextensions">preventExtensions</a></li>
-<li><a href="#seal">seal</a></li>
-<li><a href="#freeze">freeze</a></li>
+<li><a href="#组合构造与原型">组合构造与原型</a></li>
+<li><a href="#动态原型">动态原型</a><ul>
+<li><a href="#实现-2">实现</a></li>
+<li><a href="#重写原型">重写原型</a></li>
 </ul>
 </li>
-<li><a href="#屏蔽检测与遍历">屏蔽、检测与遍历</a><ul>
-<li><a href="#属性屏蔽">属性屏蔽</a></li>
-<li><a href="#属性检测">属性检测</a></li>
-<li><a href="#属性遍历">属性遍历</a></li>
+<li><a href="#寄生构造函数">寄生构造函数</a></li>
+<li><a href="#稳妥构造函数">稳妥构造函数</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  p.name = name;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">"skyline"</span>);</span><br><span class="line">me.name; <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
+<h2 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>解决了对象识别问题</p>
+<p>构造函数首字母都要大写，非构造函数小写字母开头</p>
+<p>构造函数主要问题是方法会在实例中各自创建，me.say === you.say 说明了这个问题</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>优化方案解决了方法不能复用的问题，但破坏了封装</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = sayName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>ES 中，无论何时创建的新函数，都会根据一组特定的规则来为函数添加一个指向原型对象名为 prototype 的指针属性，该原型对象自动获得一个 constructor 属性，属性指向该函数，而后基于原型对象添置实例共享的属性和方法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = <span class="string">"skyline"</span>;</span><br><span class="line">Person.prototype.age = <span class="number">27</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line">skyline.sayName(); <span class="comment">// My name is skyline</span></span><br><span class="line">skyline <span class="keyword">instanceof</span> Person; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="原型判定"><a href="#原型判定" class="headerlink" title="原型判定"></a>原型判定</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+JS 对象的创建
+
+
+JS 对象的创建
+工厂模式
+构造函数模式
+实现
+优化
+
+
+原型模式
+实现
+原型判定
+原型重写
+原型模式问题
+
+
+组合构造与原型
+动态原型
+实现
+重写原型
+
+
+寄生构造函数
+稳妥构造函数
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+工厂模式工厂模式解......  -->
+        <p class="article-more-link">
+          <a href="/ES对象创建.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shadowsocks服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shadowsocks服务搭建与访问.html">Shadowsocks服务搭建与访问</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="Shadowsocks-服务搭建与访问"><a href="#Shadowsocks-服务搭建与访问" class="headerlink" title="Shadowsocks 服务搭建与访问"></a>Shadowsocks 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#shadowsocks-服务搭建与访问">Shadowsocks 服务搭建与访问</a><ul>
+<li><a href="#ss-server">SS server</a><ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#配置文件">配置文件</a></li>
+<li><a href="#开启服务">开启服务</a></li>
+<li><a href="#开机启动">开机启动</a></li>
+</ul>
+</li>
+<li><a href="#ss-client">SS client</a></li>
+<li><a href="#添加自定代理规则">添加自定代理规则</a></li>
+<li><a href="#常见问题">常见问题</a><ul>
+<li><a href="#配置完成无法访问墙外">配置完成无法访问墙外</a></li>
+<li><a href="#syn_recv">SYN_RECV</a></li>
+<li><a href="#ip或端口被封">IP或端口被封</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -386,54 +508,85 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h2><h3 id="属性分类"><a href="#属性分类" class="headerlink" title="属性分类"></a>属性分类</h3><ul>
-<li>数据属性<ul>
-<li>Configurable</li>
-<li>Enumerable</li>
-<li>Writable</li>
-<li>Value</li>
+<h2 id="SS-server"><a href="#SS-server" class="headerlink" title="SS server"></a>SS server</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>SS server 服务端有多语言版本支持<br>此处采用 python 版本<br>首先安装 pip 包管理器</p>
+<p>Debian / Ubuntu</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br></pre></td></tr></table></figure>
+<p>CentOS</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install epel-release # 添加Enterprise Linux企业源</span><br><span class="line">sudo yum install python-pip</span><br></pre></td></tr></table></figure>
+<p>查看是否安装成功</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip --version</span><br><span class="line"><span class="meta">#</span><span class="bash"> pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</span></span><br></pre></td></tr></table></figure>
+<p>然后直接输入以下命令安装</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>新增配置文件<br><code>/etc/shadowsocks.json</code></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"server"</span>: <span class="string">"23.234.212.12"</span>,</span><br><span class="line">  <span class="attr">"port_password"</span>: &#123;</span><br><span class="line">    <span class="attr">"8388"</span>: <span class="string">"123"</span>,</span><br><span class="line">    <span class="attr">"8389"</span>: <span class="string">"456"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"timeout"</span>: <span class="number">300</span>,</span><br><span class="line">  <span class="attr">"method"</span>: <span class="string">"rc4-md5"</span>,</span><br><span class="line">  <span class="attr">"fast_open"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"workers"</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server</td>
+<td>vps ip 地址</td>
+</tr>
+<tr>
+<td>port_password</td>
+<td>服务端口和对应密码</td>
+</tr>
+<tr>
+<td>method</td>
+<td>加密方法</td>
+</tr>
+<tr>
+<td>workers</td>
+<td>线程数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><p>调用命令开启服务。<br>相关命令如下</p>
+<ul>
+<li>指定配置文件开启服务</li>
 </ul>
-</li>
-<li>访问器属性<ul>
-<li>Configurable</li>
-<li>Enumerable</li>
-<li>Get</li>
-<li>Set</li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指定配置文件重启</li>
 </ul>
-</li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d restart</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关闭服务</li>
 </ul>
-<h3 id="Enumerable"><a href="#Enumerable" class="headerlink" title="Enumerable"></a>Enumerable</h3><p>Enumerable 表示能否枚举，常见</p>
-<h3 id="Configurable"><a href="#Configurable" class="headerlink" title="Configurable"></a>Configurable</h3><p>Configurable 表示能否删除属性，能否修改某些属性描述符，能否将属性改为访问器(数据)属性。</p>
-<p>configurable 一旦指定为 false，则 configurable、enumerable、value、get、set 将无法通过 Object.defineProperty()重新配置，删除对应的属性将不产生效果（严格模式导致错误），属性将不能转换（数据与访问器之间）</p>
-<p>configurable 一旦指定为 false,此时的 Writable 如果是 true 则可以修改为 false，但是不能从 false 改为 true（只关不开）</p>
-<p>configurable true，writable false 时，可以通过 Object.defineProperty()修改 value 的值，直接赋值无效；configurable false，writable true 时可以通过赋值直接修改 value 的值，通过 Object.defineProperty()指定 value 值将会报错</p>
-<p>数据属性能否重新直接赋值取决于 writable<br>属性能否重新通过 defineProperty 定义属性描述与值以及被删除取决于 configurable</p>
-<p>忽略 enumerable 为 false 属性的操作</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105422.png" alt="JS对象属性20210928105422"></p>
-<h2 id="属性创建"><a href="#属性创建" class="headerlink" title="属性创建"></a>属性创建</h2><h3 id="直接创建"><a href="#直接创建" class="headerlink" title="直接创建"></a>直接创建</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -d stop</span><br></pre></td></tr></table></figure>
+<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-JS 对象的属性
+Shadowsocks 服务搭建与访问
 
 
-JS 对象的属性
-属性描述符
-属性分类
-Enumerable
-Configurable
+Shadowsocks 服务搭建与访问
+SS server
+安装
+配置文件
+开启服务
+开机启动
 
 
-属性创建
-直接创建
-Object.defineProperty() &amp; Object.defineProperties()
-Object.create
+SS client
+添加自定代理规则
+常见问题
+配置完成无法访问墙外
+SYN_RECV
+IP或端口被封
 
 
-扩展、封印与冻结
-preventEx......  -->
+BMW WARNING
+Bulletin
+Material
+W......  -->
         <p class="article-more-link">
-          <a href="/ES对象属性.html#more">阅读全文</a>
+          <a href="/Shadowsocks服务搭建与访问.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -555,7 +708,7 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-Brook服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Number相关基础操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -563,7 +716,7 @@ Warrant
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Brook服务搭建与访问.html">Brook服务搭建与访问</a>
+      <a class="article-title" href="/Number相关基础操作.html">Number相关基础操作</a>
     </h1>
   
 
@@ -577,214 +730,366 @@ Warrant
 
 
       
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="Number-相关基础操作"><a href="#Number-相关基础操作" class="headerlink" title="Number 相关基础操作"></a>Number 相关基础操作</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#number-相关基础操作">Number 相关基础操作</a><ul>
+<li><a href="#保留小数">保留小数</a><ul>
+<li><a href="#四舍五入">四舍五入</a></li>
+<li><a href="#不取舍">不取舍</a></li>
+</ul>
+</li>
+<li><a href="#添加千位分隔符">添加千位分隔符</a><ul>
+<li><a href="#tolocalestring">toLocaleString</a></li>
+<li><a href="#正则">正则</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="保留小数"><a href="#保留小数" class="headerlink" title="保留小数"></a>保留小数</h2><h3 id="四舍五入"><a href="#四舍五入" class="headerlink" title="四舍五入"></a>四舍五入</h3><p><strong>toFixed</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">2.123123123</span>).toFixed(<span class="number">3</span>); <span class="comment">// 输出结果为 2.123</span></span><br><span class="line">(<span class="number">2.123923123</span>).toFixed(<span class="number">3</span>); <span class="comment">// 输出结果为 2.124</span></span><br></pre></td></tr></table></figure>
+<p><strong>toLocaleString</strong><br>toLocaleString 默认保留 3 位小数，且会产生千位分隔符</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">12332.123923123</span>).toLocaleString(<span class="literal">undefined</span>, &#123;</span><br><span class="line">  minimumFractionDigits: <span class="number">5</span>,</span><br><span class="line">  maximumFractionDigits: <span class="number">6</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 输出结果为 '12,332.123923'</span></span><br></pre></td></tr></table></figure>
+<p>可通过 minimumFractionDigits，maximumFractionDigits 来指定保留参数的长度</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">2.123923123</span>).toLocaleString(<span class="literal">undefined</span>, &#123;</span><br><span class="line">  minimumFractionDigits: <span class="number">5</span>,</span><br><span class="line">  maximumFractionDigits: <span class="number">6</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 输出结果为 '2.123923'</span></span><br></pre></td></tr></table></figure>
+<h3 id="不取舍"><a href="#不取舍" class="headerlink" title="不取舍"></a>不取舍</h3><p><strong>Math.floor</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.floor(<span class="number">15.7784514</span> * <span class="number">1000</span>) / <span class="number">1000</span>; <span class="comment">// 输出结果为 15.778</span></span><br></pre></td></tr></table></figure>
+<h2 id="添加千位分隔符"><a href="#添加千位分隔符" class="headerlink" title="添加千位分隔符"></a>添加千位分隔符</h2><h3 id="toLocaleString-NaN"><a href="#toLocaleString-NaN" class="headerlink" title="toLocaleString"></a>toLocaleString</h3><p>通过 toLocaleString 很容易直接添加千位。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString(<span class="string">"en-US"</span>);</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString();</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
+<p>toLocaleString 将字符本地串化，第一个参数为串化标准，默认为’en-US’。<br>对于小数而言，其会四舍五入保留 3 位</p>
+<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+Number 相关基础操作
+
+
+Number 相关基础操作
+保留小数
+四舍五入
+不取舍
+
+
+添加千位分隔符
+toLocaleString
+正则
+
+
+
+
+
+
+保留小数四舍五入toFixed
+(2.123123123).toFixed(3); // 输出结果为 2.123(2.123923123).toFixed(3......  -->
+        <p class="article-more-link">
+          <a href="/Number相关基础操作.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-IpadOS常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
     
-    <a class="article-category-link" href="/categories/APPs/">APPs</a>
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/IpadOS常见问题.html">IpadOS常见问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="IpadOS-常见问题"><a href="#IpadOS-常见问题" class="headerlink" title="IpadOS 常见问题"></a>IpadOS 常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#ipados-常见问题">IpadOS 常见问题</a><ul>
+<li><a href="#apple-pencil-断触">Apple pencil 断触</a><ul>
+<li><a href="#软件问题">软件问题</a></li>
+<li><a href="#还原设置">还原设置</a></li>
+<li><a href="#硬件检测">硬件检测</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Apple-pencil-断触"><a href="#Apple-pencil-断触" class="headerlink" title="Apple pencil 断触"></a>Apple pencil 断触</h2><h3 id="软件问题"><a href="#软件问题" class="headerlink" title="软件问题"></a>软件问题</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">使用系统自带的备忘录尝试是否为软件问题</span><br></pre></td></tr></table></figure>
+<p>部分软件可能手触屏幕会有断触问题</p>
+<h3 id="还原设置"><a href="#还原设置" class="headerlink" title="还原设置"></a>还原设置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">关掉蓝牙重新连接 Pencil</span><br><span class="line"></span><br><span class="line">重启 iPad 后再次连接 Pencil</span><br><span class="line"></span><br><span class="line">打开 ipad 设置—&gt;通用—&gt;还原—&gt;还原所有设置</span><br></pre></td></tr></table></figure>
+<p>上述操作只是还原设置，不会删除数据，但是人脸识别和密码，壁纸会还原</p>
+<h3 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">去除贴膜，笔尖套</span><br><span class="line"></span><br><span class="line">更换笔头尝试</span><br><span class="line"></span><br><span class="line">换个 ipad 试下是否为笔的问题</span><br></pre></td></tr></table></figure>
+<p>这些操作都不行，联系售后解决</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+IpadOS 常见问题
+
+
+IpadOS 常见问题
+Apple pencil 断触
+软件问题
+还原设置
+硬件检测
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软件问题
+部分软件可能手触屏幕会有断触问......  -->
+        <p class="article-more-link">
+          <a href="/IpadOS常见问题.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Brook-服务搭建与访问"><a href="#Brook-服务搭建与访问" class="headerlink" title="Brook 服务搭建与访问"></a>Brook 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#brook-服务搭建与访问">Brook 服务搭建与访问</a><ul>
-<li><a href="#server-配置">Server 配置</a><ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#后台运行">后台运行</a></li>
+<li><a href="#firewalld">firewalld</a><ul>
+<li><a href="#concepts">Concepts</a></li>
+<li><a href="#zones">Zones</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#runtime">Runtime</a></li>
+<li><a href="#state">State</a></li>
+<li><a href="#port">Port</a></li>
+<li><a href="#source">Source</a></li>
 </ul>
 </li>
-<li><a href="#client">client</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="Server-配置"><a href="#Server-配置" class="headerlink" title="Server 配置"></a>Server 配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brook</span><br><span class="line">chmod +x /usr/bin/brook</span><br><span class="line">brook server --listen :9999 --password hello</span><br></pre></td></tr></table></figure>
-<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/brook.service</span><br></pre></td></tr></table></figure>
-<p>输入如下内容：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=brook vpn</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :2000 --password mima</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>要开启多个服务，只需要创建多个 service 文件监听不同端口即可。</p>
-<p>重置守护进程服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start brook</span><br></pre></td></tr></table></figure>
-<p>检查服务是否开启成功，查看 2000 端口是否开启服务即可。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 2000</span><br></pre></td></tr></table></figure>
-<p>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable brook</span><br></pre></td></tr></table></figure>
-<p>即可。</p>
-<h2 id="client"><a href="#client" class="headerlink" title="client"></a>client</h2><p>在如下地址下载客户端界面：<br><a href="https://txthinking.github.io/brook/#/install-gui-client" target="_blank" rel="noopener">https://txthinking.github.io/brook/#/install-gui-client</a><br>下载后连接成功如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Brook%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20220118111315.png" alt="Brook服务搭建与访问20220118111315"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN1/">VPN1</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-systemd开启后台进程"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/systemd开启后台进程.html">systemd开启后台进程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="利用-Systemd-开启后台进程"><a href="#利用-Systemd-开启后台进程" class="headerlink" title="利用 Systemd 开启后台进程"></a>利用 Systemd 开启后台进程</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
+<h2 id="firewalld"><a href="#firewalld" class="headerlink" title="firewalld"></a>firewalld</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld[^1] 采用区域与服务的概念来控制流量的出入。</p>
 <ul>
-<li><a href="#利用-systemd-开启后台进程">利用 Systemd 开启后台进程</a><ul>
-<li><a href="#简介">简介</a><ul>
-<li><a href="#创建新服务">创建新服务</a></li>
-<li><a href="#开启服务">开启服务</a></li>
+<li>zones</li>
+<li>services</li>
 </ul>
-</li>
-<li><a href="#systemd服务操作汇总">systemd服务操作汇总</a></li>
+<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
+<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3><p>zones 预设级别不同的防火墙策略，用户可以自定义 zones，也可以使用预设的 zones。<br>默认使用 public zone<br>根据拦截级别严格程度，预设 zones 如下</p>
+<table>
+<thead>
+<tr>
+<th>zone</th>
+<th>拦截说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>drop</td>
+<td>丢弃区，所有接入连接都会进行无消息响应拦截，只有输出连接被允许。</td>
+</tr>
+<tr>
+<td>block</td>
+<td>拦截区，接入连接都会被拦截，会响应 icmp-host-prohibited 等拦截消息，只有输出连接被允许。</td>
+</tr>
+<tr>
+<td>public</td>
+<td>公共区，用于不受信任的公共区域，仅允许自选接入连接，默认允许 ssh 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>external</td>
+<td>外部区，用于外部网络，系统充当网关角色，仅允许自选接入连接，默认允许 ssh</td>
+</tr>
+<tr>
+<td>internal</td>
+<td>内部区，用于内部网络，系统充当网关角色，仅允许自选接入连接</td>
+</tr>
+<tr>
+<td>dmz</td>
+<td>隔离区，demilitarized zone（隔离区，军事缓冲区），用于允许部分服务被外网访问，仅允许自选接入连接</td>
+</tr>
+<tr>
+<td>work</td>
+<td>工作区，用于工作网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>home</td>
+<td>家庭区，用于工作家庭网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client，mdns，samba-client 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>trusted</td>
+<td>信任区，并接受所有网络连接</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>新建防火墙区域策略</li>
 </ul>
-</li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --new-zone=memcached --permanent</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看系统默认区</li>
 </ul>
-<!-- /code_chunk_output -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。<br>systemd 提供多个命令行工具，最基本的为 systemctl<br>systemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。</p>
-<h3 id="创建新服务"><a href="#创建新服务" class="headerlink" title="创建新服务"></a>创建新服务</h3><p>创建服务文件并打开</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/foo.service</span><br></pre></td></tr></table></figure>
-<p>输入以下内容</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My custom service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :992 --password xxxx</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>[Unit]</p>
-<pre><code>提供服务基础信息
-Description 为描述信息
-After
-服务启动的前置条件
-</code></pre><p>[Service]</p>
-<pre><code>提供启动服务的相关信息
-</code></pre><p>[Install]</p>
-<pre><code>WantedBy
-定义服务被谁触发
-</code></pre><blockquote>
-<p>Defines which service triggers the custom service if enabled with systemctl enable. This is mostly used for starting the custom service on boot. In this example, foo.service uses multi-user.target, which starts foo.service when systemd loads multi-user.target on boot.</p>
-</blockquote>
-<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><p>创建该服务后，需要重载 systemd 服务文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启该服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
-<p>查看该服务运行状态</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
-<h2 id="systemd服务操作汇总"><a href="#systemd服务操作汇总" class="headerlink" title="systemd服务操作汇总"></a>systemd服务操作汇总</h2><p>开启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
-<p>关闭服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl stop foo</span><br></pre></td></tr></table></figure>
-<p>重启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl restart foo</span><br></pre></td></tr></table></figure>
-<p>服务状态</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
-<p>开机自启动服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable foo</span><br></pre></td></tr></table></figure>
-<p>禁止开机启动</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl disable foo</span><br></pre></td></tr></table></figure>
-<p>查看是否允许开机启动</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl is-enabled foo</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-frp内网穿透"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/frp内网穿透.html">frp内网穿透</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="frp-内网穿透"><a href="#frp-内网穿透" class="headerlink" title="frp 内网穿透"></a>frp 内网穿透</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
-<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<p>github国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
-<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
-<p>尝试启动服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
-<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
-<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure></p>
-<p>修改 frp.service 内容如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>重置守护进程服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启服务</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
-<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
-<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable frp</span><br></pre></td></tr></table></figure></p>
-<p>即可。</p>
-<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc配置"><a href="#frpc配置" class="headerlink" title="frpc配置"></a>frpc配置</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-default-zone</span><br><span class="line"><span class="meta">#</span><span class="bash"> public</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>调整系统默认区</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --set-default-zone=home</span><br></pre></td></tr></table></figure>
+<ul>
+<li>系统中配置的所有区</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> block dmz drop external home internal public trusted work</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> 上述命令会打印所有区与其详细的配置，输出内容较长</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看系统使用区</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-active-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> public</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   interfaces: eth0 eth1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看指定区的详细配置</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-all</span><br><span class="line"><span class="meta">#</span><span class="bash"> public (active)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   target: default</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   icmp-block-inversion: no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   interfaces: eth0 eth1</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   sources:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   services: ssh dhcpv6-client</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   protocols:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   masquerade: no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   forward-ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   <span class="built_in">source</span>-ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   icmp-blocks:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   rich rules:</span></span><br></pre></td></tr></table></figure>
+<h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p>services 在 zones 中为不同的服务预设不同的配置。<br>例如，可以为服务提供不同的端口等配置</p>
+<ul>
+<li>查看所有的服务</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --get-services</span><br><span class="line"><span class="meta">#</span><span class="bash"> RH-Satellite-6 RH-Satellite-6-capsule amanda-client amanda-k5-client amqp amqps... git... ssh ...dhcpv6-client</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看当前开放的服务</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --list-services</span><br><span class="line"><span class="meta">#</span><span class="bash"> dhcpv6-client ssh</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>增加开放服务</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br></pre></td></tr></table></figure>
+<ul>
+<li>移除开放的服务</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久配置需要添加 --permanent后缀</span></span><br></pre></td></tr></table></figure>
+<p>所有服务的配置都在/usr/lib/firewalld/services 目录下<br>例如 http 服务的配置为</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">short</span>&gt;</span>WWW (HTTP)<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>HTTP is the protocol used to serve Web pages. If you plan to make your Web server publicly available, enable this option. This option is not required for viewing pages locally or developing Web pages.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"80"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>自定义服务</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/diyservice.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">short</span>&gt;</span>diyservice<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">description</span>&gt;</span>Plex is a streaming media server that brings all your video, music and photo collections together and stream them to your devices at anytime and from anywhere.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"udp"</span> <span class="attr">port</span>=<span class="string">"1900"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"32400"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>重启防火墙后就可以看到该服务。</p>
+<h3 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h3>
         <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-frp 内网穿透简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示：
-Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 https://github.com/fatedier/frp/relea......  -->
+
+firewalld
+Concepts
+Zones
+Services
+Runtime
+State
+Port
+Source
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+firewalldConceptsfirewalld[^1] 采用区域与服务的概念来控制流量的出入。
+
+zones
+services
+
+firewalld 是 CentOS 7/8......  -->
         <p class="article-more-link">
-          <a href="/frp内网穿透.html#more">阅读全文</a>
+          <a href="/CentOS防火墙.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -792,237 +1097,8 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 h
       
       
       
-    </footer>
-  </div>
-  
-</article>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
 
-<!-- Table of Contents -->
-
-  
-    <article id="post-VSCode相关问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/VSCode相关问题汇总.html">VSCode相关问题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="VSCode-相关问题汇总"><a href="#VSCode-相关问题汇总" class="headerlink" title="VSCode 相关问题汇总"></a>VSCode 相关问题汇总</h1><h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="markdown-文件-Snippets-不生效"><a href="#markdown-文件-Snippets-不生效" class="headerlink" title="markdown 文件 Snippets 不生效"></a>markdown 文件 Snippets 不生效</h3><p><strong>问题描述</strong><br>通过 File -&gt; Preferences -&gt; User Snippets -&gt; Markdown<br>写相关代码块如下<br><code>markdown.json</code></p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and</span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the</span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="attr">"JS code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cjs"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:js&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"JS code block"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"PY code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cpy"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:python&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"PY code block"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在 markdown 文件中敲击:cjs 不自动提示。<br><strong>解决方案</strong><br>尝试 CTRL + Space 强制开启。<br>在用户配置<code>setting.json</code>中添加如下配置项</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"[markdown]": &#123;</span><br><span class="line">    "editor.quickSuggestions": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/黑群晖常见问题.html">黑群晖常见问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="黑群晖常见问题"><a href="#黑群晖常见问题" class="headerlink" title="黑群晖常见问题"></a>黑群晖常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#黑群晖常见问题">黑群晖常见问题</a><ul>
-<li><a href="#黑群晖搜索不到ip">黑群晖搜索不到IP</a><ul>
-<li><a href="#网络联通检查">网络联通检查</a></li>
-<li><a href="#网卡驱动问题">网卡驱动问题</a></li>
-</ul>
-</li>
-<li><a href="#ssd缓存">SSD缓存</a></li>
-<li><a href="#moments-人物主题无照片">Moments 人物、主题无照片</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="黑群晖搜索不到IP"><a href="#黑群晖搜索不到IP" class="headerlink" title="黑群晖搜索不到IP"></a>黑群晖搜索不到IP</h2><h3 id="网络联通检查"><a href="#网络联通检查" class="headerlink" title="网络联通检查"></a>网络联通检查</h3><p>主板网口灯检查<br>检查主板网口灯，绿灯常亮说明网络连接成功，黄灯闪烁说明有流量传输。<br>若绿灯亮，进入下一步。</p>
-<h3 id="网卡驱动问题"><a href="#网卡驱动问题" class="headerlink" title="网卡驱动问题"></a>网卡驱动问题</h3><p>检查网卡配置，黑群晖默认不支持2.5G以及万兆网卡，<br>需要替换引导中的网卡驱动文件。<br>直接Google<code>DS918+ 6.23 &quot;0.13.3&quot;</code><br>找到DS918-6.23_1.04b的扩展驱动0.13.3.zip<br>解压得到进行两个文件<br><code>extra.lzma
-extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘。在左侧目录下可以看到一个 分区(1)，右键选择”挂载到 windows”。然后选择确定之后。可以发现这个分区出现在文件管理那边。<br>用上述解压得到的文件替换分区里的文件即可。<br>然后退出 U 盘，重新启动，就能支持 2.5G 网卡了<br>[^1]:<a href="https://post.smzdm.com/p/aoxd6697/" target="_blank" rel="noopener">https://post.smzdm.com/p/aoxd6697/</a></p>
-<h2 id="SSD缓存"><a href="#SSD缓存" class="headerlink" title="SSD缓存"></a>SSD缓存</h2><p>不打补丁的情况下，黑群晖默认不识别SSD<br>SSD补丁如下<br>版本 | 补丁 | 操作<br>— | — | —<br>6.22 | libNVMEpatch.sh |  将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code><br>6.23 | libsynonvme.so.1 |  将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code></p>
-<p>上述操作需要先远程ssh user@ip ，操作完成后退出重启即可[^2]<br>[^2]:<a href="https://wp.gxnas.com/6010.html" target="_blank" rel="noopener">https://wp.gxnas.com/6010.html</a></p>
-<h2 id="Moments-人物、主题无照片"><a href="#Moments-人物、主题无照片" class="headerlink" title="Moments 人物、主题无照片"></a>Moments 人物、主题无照片</h2><p>安装Moments后人物与主题无法智能识别，进入后显示还有xxx张照片待发现。<br>停用Moments<br>进入 /var/packages/SynologyMoments/target/usr/lib 目录下<br>备份 libsynophoto-plugin-detection.so<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mv ./libsynophoto-plugin-detection.so ./libsynophoto-plugin-detection.so.bak</span><br></pre></td></tr></table></figure></p>
-<p><a href="http://42.193.201.102:8443/file/Docs/Tools/OS/Nas/黑群晖常见问题/libsynophoto-plugin-detection.so" target="_blank" rel="noopener">libsynophoto-plugin-detection.so</a><br>将下载的新文件放在 /var/packages/SynologyMoments/target/usr/lib下，对全部用户赋完全权限（777）或对SynologyMoments赋控制权限（755）。<br>开启moments，重建索引。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%BB%91%E7%BE%A4%E6%99%96%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220121102822.png" alt="黑群晖常见问题20220121102822"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-MacOS基本操作"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/MacOS基本操作.html">MacOS基本操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="MacOS-基础使用"><a href="#MacOS-基础使用" class="headerlink" title="MacOS 基础使用"></a>MacOS 基础使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#macos-基础使用">MacOS 基础使用</a><ul>
-<li><a href="#macos-beta-系统更新开启">Macos Beta 系统更新开启</a></li>
-<li><a href="#网络磁盘映射">网络磁盘映射</a></li>
-<li><a href="#剪切移动">剪切（移动）</a><ul>
-<li><a href="#常规">常规</a></li>
-<li><a href="#快捷键">快捷键</a></li>
-</ul>
-</li>
-<li><a href="#直接删除文件">直接删除文件</a></li>
-<li><a href="#修改终端用户名">修改终端用户名</a></li>
-<li><a href="#启用-ssd-的-trim-支持">启用 SSD 的 TRIM 支持</a></li>
-<li><a href="#关闭-sip">关闭 SIP</a></li>
-<li><a href="#设定文件默认打开方式">设定文件默认打开方式</a><ul>
-<li><a href="#常规-1">常规</a></li>
-<li><a href="#其他方式">其他方式</a></li>
-</ul>
-</li>
-<li><a href="#打开允许未知来源-app-选项">打开允许未知来源 app 选项</a></li>
-<li><a href="#设定快捷打开程序快捷键">设定快捷打开程序快捷键</a><ul>
-<li><a href="#设置-automator-任务">设置 automator 任务</a></li>
-<li><a href="#设置程序打开快捷键">设置程序打开快捷键</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Macos-Beta-系统更新开启"><a href="#Macos-Beta-系统更新开启" class="headerlink" title="Macos Beta 系统更新开启"></a>Macos Beta 系统更新开启</h2><p>在apple beta 地址上登录<br><a href="https://beta.apple.com" target="_blank" rel="noopener">https://beta.apple.com</a></p>
-<p>在如下网站下载 <a href="https://beta.apple.com/sp/betaprogram/enroll#macos" target="_blank" rel="noopener">MacOS Public Beta Access Utility</a>工具<br>注意开启前在Time Mechine中进行系统备份<br>下载工具安装后即可开启。</p>
-<h2 id="网络磁盘映射"><a href="#网络磁盘映射" class="headerlink" title="网络磁盘映射"></a>网络磁盘映射</h2><p>在 finder 下操作 ⌘ + k<br>在弹出框中输入网络共享服务地址<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/MacOS%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211227153214.png" alt="MacOS基本操作20211227153214"><br>一般有 Samba 或 AFP 等方式共享服务<br>常见地址如下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">afp://192.168.2.20</span><br><span class="line">smb://192.168.2.20</span><br></pre></td></tr></table></figure>
-<h2 id="剪切（移动）"><a href="#剪切（移动）" class="headerlink" title="剪切（移动）"></a>剪切（移动）</h2><h3 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h3><p>复制需要移动的文件。<br>在目标位置右击鼠标，一般出现粘贴项目选项。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211118165151.png" alt="Macos基本操作20211118165151"><br>此时按住 ⌥ 键，菜单会变为将项目移动到此处。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211118165216.png" alt="Macos基本操作20211118165216"></p>
-<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">⌘ + c</span><br><span class="line">⌘ + ⌥ + v</span><br></pre></td></tr></table></figure>
-<p>⌘ + c 复制文件<br>在目标目录 ⌘ + ⌥ + v 即可移动成功</p>
-<h2 id="直接删除文件"><a href="#直接删除文件" class="headerlink" title="直接删除文件"></a>直接删除文件</h2><p>放进垃圾桶<br>【Command】+【Backspace】/【Delete】<br>永久删除<br>【Option】+【Command】+【Backspace】/【Delete】</p>
-<h2 id="修改终端用户名"><a href="#修改终端用户名" class="headerlink" title="修改终端用户名"></a>修改终端用户名</h2><p>修改前图示</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CE77BBFF51DF4A64E8C6FA24BFEF8D2AF.jpg" alt="Macos基本操作E77BBFF51DF4A64E8C6FA24BFEF8D2AF"></p>
-<p>输入<br><code>sudo scutil --set HostName &lt;name&gt;</code><br>改后图示<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CF5C2146E34383DB6E8EE91DC7AD8EC82.jpg" alt="Macos基本操作F5C2146E34383DB6E8EE91DC7AD8EC82"></p>
-<h2 id="启用-SSD-的-TRIM-支持"><a href="#启用-SSD-的-TRIM-支持" class="headerlink" title="启用 SSD 的 TRIM 支持"></a>启用 SSD 的 TRIM 支持</h2><p>mac 更换非官方固态和默认不启动 TRIM 硬盘优化，可输入<br><code>sudo trimforce enable</code><br>打开</p>
-<h2 id="关闭-SIP"><a href="#关闭-SIP" class="headerlink" title="关闭 SIP"></a>关闭 SIP</h2><p>mac 关闭系统完整性保护 System Integrity Protection<br>重启时，出现 apple logo 时按住<br><code>⌘+R</code><br>进入恢复模式<br>点击工具中的终端<br>输入<br><code>csrutil disable</code><br>输出<br>Successfully disabled System Integrity Protection. Please restart the machine for the changes to take effect.<br>表示关闭 SIP 成功<br>开启命令为<br><code>csrutil enable</code></p>
-<h2 id="设定文件默认打开方式"><a href="#设定文件默认打开方式" class="headerlink" title="设定文件默认打开方式"></a>设定文件默认打开方式</h2><h3 id="常规-1"><a href="#常规-1" class="headerlink" title="常规"></a>常规</h3><p>按住 option 键，鼠标右击，查看菜单栏变化</p>
-<h3 id="其他方式"><a href="#其他方式" class="headerlink" title="其他方式"></a>其他方式</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-MacOS 基础使用
-
-
-MacOS 基础使用
-Macos Beta 系统更新开启
-网络磁盘映射
-剪切（移动）
-常规
-快捷键
-
-
-直接删除文件
-修改终端用户名
-启用 SSD 的 TRIM 支持
-关闭 SIP
-设定文件默认打开方式
-常规
-其他方式
-
-
-打开允许未知来源 app 选项
-设定快捷打开程序快捷键
-设置 a......  -->
-        <p class="article-more-link">
-          <a href="/MacOS基本操作.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
     </footer>
   </div>
   
@@ -1180,6 +1256,79 @@ https......  -->
 <!-- Table of Contents -->
 
   
+    <article id="post-frp内网穿透"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/frp内网穿透.html">frp内网穿透</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="frp-内网穿透"><a href="#frp-内网穿透" class="headerlink" title="frp 内网穿透"></a>frp 内网穿透</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
+<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>github国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
+<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
+<p>尝试启动服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
+<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
+<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure></p>
+<p>修改 frp.service 内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>重置守护进程服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启服务</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
+<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
+<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable frp</span><br></pre></td></tr></table></figure></p>
+<p>即可。</p>
+<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc配置"><a href="#frpc配置" class="headerlink" title="frpc配置"></a>frpc配置</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+frp 内网穿透简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示：
+Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 https://github.com/fatedier/frp/relea......  -->
+        <p class="article-more-link">
+          <a href="/frp内网穿透.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-黑群晖安装"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1322,6 +1471,54 @@ Warrant
         <p class="article-more-link">
           <a href="/黑群晖安装.html#more">阅读全文</a>
         </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-VSCode相关问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/VSCode相关问题汇总.html">VSCode相关问题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="VSCode-相关问题汇总"><a href="#VSCode-相关问题汇总" class="headerlink" title="VSCode 相关问题汇总"></a>VSCode 相关问题汇总</h1><h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="markdown-文件-Snippets-不生效"><a href="#markdown-文件-Snippets-不生效" class="headerlink" title="markdown 文件 Snippets 不生效"></a>markdown 文件 Snippets 不生效</h3><p><strong>问题描述</strong><br>通过 File -&gt; Preferences -&gt; User Snippets -&gt; Markdown<br>写相关代码块如下<br><code>markdown.json</code></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and</span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the</span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="attr">"JS code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cjs"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:js&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"JS code block"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"PY code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cpy"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:python&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"PY code block"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 markdown 文件中敲击:cjs 不自动提示。<br><strong>解决方案</strong><br>尝试 CTRL + Space 强制开启。<br>在用户配置<code>setting.json</code>中添加如下配置项</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"[markdown]": &#123;</span><br><span class="line">    "editor.quickSuggestions": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
