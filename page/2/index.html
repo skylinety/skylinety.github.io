@@ -319,166 +319,6 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-HTTPS加密方式1"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
-    </a>
-
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>---
-title: HTTPS加密方式1
-updated: 2022-01-21    17:56:00
-            date: 2022-01-20    15:50:45
-            tags: []
-            categories: []
----
-&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-</code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
-<ul>
-<li>窃听</li>
-<li>篡改</li>
-<li>冒充</li>
-</ul>
-<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
-<h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4><pre><code>&lt;!--more--&gt;
-</code></pre><ul>
-<li>端口：HTTPS 443，HTTP 80</li>
-<li>传输： HTTPS密文， HTTP 明文</li>
-<li>证书：HTTPS需要，HTTP 不需要</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/206E0D3B34F008B147F154636E11CDD7.jpg" alt></p>
-<p>（图源：<a href="https://juejin.im/post/6844903604868874247" target="_blank" rel="noopener">https://juejin.im/post/6844903604868874247</a>）</p>
-<hr>
-<h3 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h3><p>常见的加密方式中，是选择对称加密，非对称加密还是算不上加密的摘要算法？<br>以下进行加密方式选择的讨论</p>
-<h4 id="摘要算法"><a href="#摘要算法" class="headerlink" title="摘要算法"></a>摘要算法</h4><p>摘要算法无法逆向获取原文内容，没有可行性。</p>
-<h4 id="对称加密（共享密钥加密算法）"><a href="#对称加密（共享密钥加密算法）" class="headerlink" title="对称加密（共享密钥加密算法）"></a>对称加密（共享密钥加密算法）</h4><p>对称加密算法 中，使用的密钥只有一个，发送 和 接收 双方都使用这个密钥对数据进行 加密 和 解密</p>
-<h5 id="可行性"><a href="#可行性" class="headerlink" title="可行性"></a>可行性</h5><h6 id="存在密钥传输问题"><a href="#存在密钥传输问题" class="headerlink" title="存在密钥传输问题"></a>存在密钥传输问题</h6><p>如何保证密钥传输给众多客户端过程中不被泄露？<br>网络存在通信实体庞大，不是单单的一对一的问题，往往一台服务器对应众多的访问客户，如何把密钥传递给庞大的客户群并在传输过程不被泄露，是关键问题。</p>
-<h4 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h4><p>公钥加密，私钥解密</p>
-<h5 id="可行性-1"><a href="#可行性-1" class="headerlink" title="可行性"></a>可行性</h5><h6 id="单组非对称加密密钥"><a href="#单组非对称加密密钥" class="headerlink" title="单组非对称加密密钥"></a>单组非对称加密密钥</h6><p>只能保证单边通信可靠性<br>使用一组非对称加密密钥，存在如下问题。客户端公钥加密，服务器私钥解密，客户端到服务器的通信是可靠的，但是反之，服务器向客户端传递信息，如果用私钥加密，则公开的公钥都能解密</p>
-<h6 id="两组公钥私钥"><a href="#两组公钥私钥" class="headerlink" title="两组公钥私钥"></a>两组公钥私钥</h6><p>客户端服务器分别保留一把公钥，一把私钥，公钥加密，私钥解密<br><strong>可行性差的主要原因是非对称加密非常耗时</strong></p>
-<h4 id="对称-非对称"><a href="#对称-非对称" class="headerlink" title="对称 + 非对称"></a>对称 + 非对称</h4><h5 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h5><p><strong>采用用非对称算法传递对称密钥，采用对称加密算法加密传输数据</strong></p>
-<h5 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h5><ul>
-<li>客户端发起请求</li>
-<li>服务器明文发送公钥A，客户端获取公钥A</li>
-<li>客户端生成密钥X，用公钥A加密密钥X得到密文XXXA后传给服务器</li>
-<li>服务器私钥A’解密密文XXXA获取密钥X</li>
-<li>双方用密钥X对称加解密进行通信</li>
-</ul>
-<h5 id="过程图示"><a href="#过程图示" class="headerlink" title="过程图示"></a>过程图示</h5><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/5B02C61921A0B6F1A5678D0F74D4F022.gif" alt="anigif.gif"></p>
-<hr>
-<h3 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>非对称加密算法在传递公钥过程中存在公钥被中间人截取篡改的风险。<br>只要是采用了非对称加密算法，都会存在中间人攻击的风险。</p>
-<h5 id="非对称加密中间人攻击"><a href="#非对称加密中间人攻击" class="headerlink" title="非对称加密中间人攻击"></a>非对称加密中间人攻击</h5><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/50E14FEDDD279C38F6E0F02E7589BDEC.jpg" alt></p>
-<ul>
-<li>中间人获取服务器的公钥A拦截</li>
-<li>中间人把自己生产的公钥B返给客户端</li>
-<li>客户端用公钥B加密明文”QQ:123 密码：123”成密文XXXB</li>
-<li>中间人用私钥B’解密获取明文</li>
-<li>中间人用公钥A加密明文为XXXA并传给服务器</li>
-</ul>
-<p>上述过程中，客户端与服务器正常通信，难以发觉信息已经被泄露。</p>
-<h5 id="信息抵赖"><a href="#信息抵赖" class="headerlink" title="信息抵赖"></a>信息抵赖</h5><p>由于存在中间人的已知风险，如果不解决非对称中的这个漏洞，即便不存在中间人攻击，对于错误的消息，服务器可以不承认。<br>（中间过程传递的是密文，为了便于理解直接明文展示）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/C6CE0D53E606C13393E7CBA6E76AACC4.jpg" alt></p>
-<h5 id="非对称与对称方案中的中间人攻击"><a href="#非对称与对称方案中的中间人攻击" class="headerlink" title="非对称与对称方案中的中间人攻击"></a>非对称与对称方案中的中间人攻击</h5><p>上述非对称与对称方案并没有解决针对非对称加密算法的此项漏洞，中间人可以在上述非对称与对称方案中进行攻击。具体过程如下</p>
-<ul>
-<li>客户端发起请求</li>
-<li>服务器发送公钥A，被拦截，中间人获取公钥A</li>
-<li>中间人生成公钥B，私钥B’</li>
-<li>中间人发送公钥B，客户端获取公钥B</li>
-<li>客户端生成密钥X，用公钥B加密密钥X得到密文XXXB</li>
-<li>客户端发送密文XXXB，中间人截取密文</li>
-<li>中间人用私钥B’解密获取密钥X</li>
-<li>中间人用公钥A加密密钥X得到XXXA，并发送给服务器</li>
-<li>服务器私钥A’解密XXXA获取密钥X</li>
-<li>双方用密钥X对称加解密进行通信</li>
-</ul>
-<h6 id="过程图示-1"><a href="#过程图示-1" class="headerlink" title="过程图示"></a>过程图示</h6><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/1ADC3A5F4D04361EF2FF96840720329D.gif" alt="anigif.gif"></p>
-<p>最终中间人成功的获取了客户端与服务器此次通信的密钥X，此次通行中所用信息都可被中间人解密获取</p>
-<h4 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h4><p><strong>中间人成功攻击的根本原因是浏览器无法确认获取的公钥真实性</strong></p>
-<hr>
-<h3 id="数字证书与签名"><a href="#数字证书与签名" class="headerlink" title="数字证书与签名"></a>数字证书与签名</h3><h4 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h4><p>为了保证公钥的正确真实性，需要权威CA机构(证书授权中心/Certificate Authority )来颁发数字证书，数字证书里有证书持有者（持有网站）、持有者公钥等信息。<br>在传输过程中，服务器传输公钥A改为传输数字证书，客户端从证书里获取取公钥A</p>
-<h4 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h4><p>如何保证数字证书文件的真实性？<br>数字证书既然通过网络传输，那么中间人也可以直接拦截后篡改内容之后再返回。同样，中间人也可以向同一家机构申请证书然后换成自己的证书。<br>如何避免这些问题？<br>世界没有完全相同的一片叶子，也没有完全相同的一个人。<br>人有指纹，有虹膜，还可以用签名来标识身份信息，在这个场景中，有没有可以借鉴的地方？<br>通过数字签名</p>
-<h5 id="签发证书"><a href="#签发证书" class="headerlink" title="签发证书"></a>签发证书</h5><p>CA机构用非对称加密算法拥有一对公私钥，用摘要算法对证书明文信息获取摘要，然后用私钥对摘要进行加密形成签名，最后将签名与使用的摘要算法置入证书当中。这里，不直接用私钥加密明文主要是因为非对称加密算法存在性能问题，加密内容不宜过长，加密摘要显然优于加密明文。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/5DC872B3801F62A3077D9D473631545A.jpg" alt></p>
-<h5 id="验证签名"><a href="#验证签名" class="headerlink" title="验证签名"></a>验证签名</h5><ol>
-<li>客户端用CA机构公钥解密数字签名得到摘要A（<strong>由于是客户端（浏览器等）信任的机构，所以其保有对应证书签发机构的公钥</strong>）</li>
-<li>客户端用证书中的摘要算法对明文进行摘要得到摘要B</li>
-<li>对比摘要A与摘要B是否一致</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/13397A6392668084153F342B1A3C8DC3.jpg" alt></p>
-<p>如果摘要对比一致，则验证成功。</p>
-<h5 id="不可篡改"><a href="#不可篡改" class="headerlink" title="不可篡改"></a>不可篡改</h5><p>为什么数字签名可以保证证书不被篡改？<br>中间人即便篡改明文信息并按照摘要算法重新生成摘要，但是由于没有CA机构的私钥，无法对摘要加密形成有效签名。<br>在客户端验证签名过程中（上节步骤1中），无法正确获取摘要A，验证失败！</p>
-<h5 id="证书掉包"><a href="#证书掉包" class="headerlink" title="证书掉包"></a>证书掉包</h5><p>既然签名不可伪造，证书内容不可篡改，那么，是否可以将证书整体掉包？<br>证书是可以被掉包的，但是由于证书里包含了申请者的信息比如域名，浏览器等客户端会把证书里的域名与请求时的域名进行比对，掉包随即就被发现。<br>证书被掉包时，浏览器会有如下警告</p>
-<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/5BB52CC17D71512B6205349B19751BD1.png" alt><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/88AE731196443B8898EAA56C0EACB2D0.jpg" alt></p>
-<h5 id="签名本质"><a href="#签名本质" class="headerlink" title="签名本质"></a>签名本质</h5><p><strong>采用摘要算法获取明文摘要，采用非对称加密算法私钥加密摘要</strong></p>
-<h5 id="证书实例"><a href="#证书实例" class="headerlink" title="证书实例"></a>证书实例</h5><p>证书通常包含以下信息：</p>
-<ul>
-<li>申请者公钥</li>
-<li>申请者的组织信息和个人信息</li>
-<li>签发机构CA的信息</li>
-<li>有效时间、证书序列号等信息明文</li>
-<li>签名与签名算法</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/E66B1F91FA33704AA7642ECC6EDA6DBD.jpg" alt></p>
-<h5 id="证书申请"><a href="#证书申请" class="headerlink" title="证书申请"></a>证书申请</h5><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/7585846312F7C656F13A459AADC43B50.png" alt></p>
-<p>（出自：<a href="http://yunlaiwu.github.io/" target="_blank" rel="noopener">http://yunlaiwu.github.io/</a>）</p>
-<h5 id="本地CA机构公钥"><a href="#本地CA机构公钥" class="headerlink" title="本地CA机构公钥"></a>本地CA机构公钥</h5><p>加入数字证书是为了让客户端准确获取服务器的公钥。但是要想解开证书中的签名，必须有签发机构的公钥，这些公钥从何而来？<br>事实上，操作系统、浏览器等会在安装时附带其认为安全的 CA机构的根证书列表。<br>例如，在HTTPS通信中使用的服务端证书是CA机构W签发的，如果在浏览器中存在W的根证书，那么就可以直接拿到其公钥。<br>在实际过程中根证书往往不直接颁发服务端证书，而是授权给中间证书。</p>
-<h5 id="证书链"><a href="#证书链" class="headerlink" title="证书链"></a>证书链</h5><p>完整的证书链一般有三级</p>
-<ul>
-<li>服务端证书（end-user certificates）</li>
-<li>中间证书（intermediates Certificates）</li>
-<li>根证书（root Certificates）</li>
-</ul>
-<p>点击chrome上这个锁图标，可以看一个https网站经过了几级证书认证，并可以查看每一级证书详细信息</p>
-<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/D0DC36E595FCD4FC1F563AE67917853E.jpg" alt></p>
-<p><strong>不管存在多少级证书，其最终的目的都是为了验证服务端证书未篡改。</strong><br>中间证书可以存在多级，中间证书不会影响验证结果，证书的签发与验证原理不变，最终只要通过证书链最终被CA根证书验证通过即可<br>中间证书的优势：</p>
-<ul>
-<li>分级管理，减少根证书管理量，高效签发与管理证书</li>
-<li>根证书内置与客户端中，一旦根证书对应的私钥泄露，吊销根证书非常困难，而中间证书私钥泄露，可先在线吊销</li>
-</ul>
-<p>常见证书链如下所示</p>
-<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/95585823EED7AA6BF3D447928A82BBD2.jpg" alt></p>
-<h5 id="不被信任证书"><a href="#不被信任证书" class="headerlink" title="不被信任证书"></a>不被信任证书</h5><p>当证书不是由受信任的机构颁发的，浏览器也会警告，用户可以根据网站提示安装证书或进行其他进一步操作。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/52D49F4E0B961719AF0FD35F97F2AFC6.jpg" alt></p>
-<h5 id="服务端如何找到正确的密钥X？"><a href="#服务端如何找到正确的密钥X？" class="headerlink" title="服务端如何找到正确的密钥X？"></a>服务端如何找到正确的密钥X？</h5><p>一台服务器一般情况是与多个客户端保持连接的，每一个连接都有自己的密钥，如何对对应的客户端用正确的密钥X呢？<br>真正的数据传输前，需要进行SSL/TSL握手，密钥X的传递包含其中。当连接建立后，服务器会为每个客户端维护一个session ID，客户端的每一个请求都会携带该sessionID，而服务器正是通过sessionID找到正确的密钥来解密内容</p>
-<hr>
-<h3 id="HTTPS请求流程图解"><a href="#HTTPS请求流程图解" class="headerlink" title="HTTPS请求流程图解"></a>HTTPS请求流程图解</h3><p>HTTPS请求的大致流程如下所示</p>
-<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/1706630D2F6DDCBF7002BAFFAEE2D75E.jpg" alt></p>
-<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><h4 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h4><p>常用的SSH协议中(Secure Shell安全外壳协议，简称SSH)，采用的就是非对称加密。<br>SSH不像https协议，SSH协议的公钥是没有证书中心（CA）公证，都是自己签发的，那么远程登录使用SSH时是如何防止中间人攻击的？<br>SSH登录有两种方式：</p>
-<ul>
-<li>口令登录</li>
-<li>公钥登录</li>
-</ul>
-<h5 id="口令登录"><a href="#口令登录" class="headerlink" title="口令登录"></a>口令登录</h5><p>第一次登录时服务器会返回公钥并会给出公钥指纹（摘要算法获取公钥的摘要），用户可以拿到指纹与服务器提供商提供的指纹做对比，验证是否一致<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">　　$ ssh user@host</span><br><span class="line"></span><br><span class="line">　　The authenticity of host &apos;host (12.18.429.21)&apos; can&apos;t be established.</span><br><span class="line"></span><br><span class="line">　　RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.</span><br><span class="line"></span><br><span class="line">　　Are you sure you want to continue connecting (yes/no)?</span><br></pre></td></tr></table></figure></p>
-<p>如果一致，用户确认之后，公钥将会加密用户输入的密码给服务器，让后建立连接</p>
-<h5 id="公钥登录"><a href="#公钥登录" class="headerlink" title="公钥登录"></a>公钥登录</h5><p>使用口令登录，每次都要输入用户名密码，非常繁琐。<br>在公钥登录方式中，用户自己生成一堆非对称密钥。私钥存于本地，公钥拷贝到服务器，建立连接即可。</p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><blockquote>
-<p><a href="https://juejin.im/post/6844903670044164109" target="_blank" rel="noopener">彻底搞懂HTTPS的加密机制</a><br><a href="http://yunlaiwu.github.io/blog/2016/12/18/HTTPS%E5%AE%89%E5%85%A8%E6%80%A7%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E5%85%B6%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E5%BD%B1%E5%93%8D/" target="_blank" rel="noopener">HTTPS安全性原理以及其对前端的影响</a></p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-HTTPS加密方式"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -613,6 +453,166 @@ updated: 2022-02-03    14:21:52
 <hr>
 <h3 id="HTTPS请求流程图解"><a href="#HTTPS请求流程图解" class="headerlink" title="HTTPS请求流程图解"></a>HTTPS请求流程图解</h3><p>HTTPS请求的大致流程如下所示</p>
 <p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/1706630D2F6DDCBF7002BAFFAEE2D75E.jpg" alt></p>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><h4 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h4><p>常用的SSH协议中(Secure Shell安全外壳协议，简称SSH)，采用的就是非对称加密。<br>SSH不像https协议，SSH协议的公钥是没有证书中心（CA）公证，都是自己签发的，那么远程登录使用SSH时是如何防止中间人攻击的？<br>SSH登录有两种方式：</p>
+<ul>
+<li>口令登录</li>
+<li>公钥登录</li>
+</ul>
+<h5 id="口令登录"><a href="#口令登录" class="headerlink" title="口令登录"></a>口令登录</h5><p>第一次登录时服务器会返回公钥并会给出公钥指纹（摘要算法获取公钥的摘要），用户可以拿到指纹与服务器提供商提供的指纹做对比，验证是否一致<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">　　$ ssh user@host</span><br><span class="line"></span><br><span class="line">　　The authenticity of host &apos;host (12.18.429.21)&apos; can&apos;t be established.</span><br><span class="line"></span><br><span class="line">　　RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.</span><br><span class="line"></span><br><span class="line">　　Are you sure you want to continue connecting (yes/no)?</span><br></pre></td></tr></table></figure></p>
+<p>如果一致，用户确认之后，公钥将会加密用户输入的密码给服务器，让后建立连接</p>
+<h5 id="公钥登录"><a href="#公钥登录" class="headerlink" title="公钥登录"></a>公钥登录</h5><p>使用口令登录，每次都要输入用户名密码，非常繁琐。<br>在公钥登录方式中，用户自己生成一堆非对称密钥。私钥存于本地，公钥拷贝到服务器，建立连接即可。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><blockquote>
+<p><a href="https://juejin.im/post/6844903670044164109" target="_blank" rel="noopener">彻底搞懂HTTPS的加密机制</a><br><a href="http://yunlaiwu.github.io/blog/2016/12/18/HTTPS%E5%AE%89%E5%85%A8%E6%80%A7%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E5%85%B6%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E5%BD%B1%E5%93%8D/" target="_blank" rel="noopener">HTTPS安全性原理以及其对前端的影响</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-HTTPS加密方式1"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
+    </a>
+
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>---
+title: HTTPS加密方式1
+updated: 2022-01-21    17:56:00
+            date: 2022-01-20    15:50:45
+            tags: []
+            categories: []
+---
+&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+</code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
+<ul>
+<li>窃听</li>
+<li>篡改</li>
+<li>冒充</li>
+</ul>
+<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
+<h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4><pre><code>&lt;!--more--&gt;
+</code></pre><ul>
+<li>端口：HTTPS 443，HTTP 80</li>
+<li>传输： HTTPS密文， HTTP 明文</li>
+<li>证书：HTTPS需要，HTTP 不需要</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/206E0D3B34F008B147F154636E11CDD7.jpg" alt></p>
+<p>（图源：<a href="https://juejin.im/post/6844903604868874247" target="_blank" rel="noopener">https://juejin.im/post/6844903604868874247</a>）</p>
+<hr>
+<h3 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h3><p>常见的加密方式中，是选择对称加密，非对称加密还是算不上加密的摘要算法？<br>以下进行加密方式选择的讨论</p>
+<h4 id="摘要算法"><a href="#摘要算法" class="headerlink" title="摘要算法"></a>摘要算法</h4><p>摘要算法无法逆向获取原文内容，没有可行性。</p>
+<h4 id="对称加密（共享密钥加密算法）"><a href="#对称加密（共享密钥加密算法）" class="headerlink" title="对称加密（共享密钥加密算法）"></a>对称加密（共享密钥加密算法）</h4><p>对称加密算法 中，使用的密钥只有一个，发送 和 接收 双方都使用这个密钥对数据进行 加密 和 解密</p>
+<h5 id="可行性"><a href="#可行性" class="headerlink" title="可行性"></a>可行性</h5><h6 id="存在密钥传输问题"><a href="#存在密钥传输问题" class="headerlink" title="存在密钥传输问题"></a>存在密钥传输问题</h6><p>如何保证密钥传输给众多客户端过程中不被泄露？<br>网络存在通信实体庞大，不是单单的一对一的问题，往往一台服务器对应众多的访问客户，如何把密钥传递给庞大的客户群并在传输过程不被泄露，是关键问题。</p>
+<h4 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h4><p>公钥加密，私钥解密</p>
+<h5 id="可行性-1"><a href="#可行性-1" class="headerlink" title="可行性"></a>可行性</h5><h6 id="单组非对称加密密钥"><a href="#单组非对称加密密钥" class="headerlink" title="单组非对称加密密钥"></a>单组非对称加密密钥</h6><p>只能保证单边通信可靠性<br>使用一组非对称加密密钥，存在如下问题。客户端公钥加密，服务器私钥解密，客户端到服务器的通信是可靠的，但是反之，服务器向客户端传递信息，如果用私钥加密，则公开的公钥都能解密</p>
+<h6 id="两组公钥私钥"><a href="#两组公钥私钥" class="headerlink" title="两组公钥私钥"></a>两组公钥私钥</h6><p>客户端服务器分别保留一把公钥，一把私钥，公钥加密，私钥解密<br><strong>可行性差的主要原因是非对称加密非常耗时</strong></p>
+<h4 id="对称-非对称"><a href="#对称-非对称" class="headerlink" title="对称 + 非对称"></a>对称 + 非对称</h4><h5 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h5><p><strong>采用用非对称算法传递对称密钥，采用对称加密算法加密传输数据</strong></p>
+<h5 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h5><ul>
+<li>客户端发起请求</li>
+<li>服务器明文发送公钥A，客户端获取公钥A</li>
+<li>客户端生成密钥X，用公钥A加密密钥X得到密文XXXA后传给服务器</li>
+<li>服务器私钥A’解密密文XXXA获取密钥X</li>
+<li>双方用密钥X对称加解密进行通信</li>
+</ul>
+<h5 id="过程图示"><a href="#过程图示" class="headerlink" title="过程图示"></a>过程图示</h5><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/5B02C61921A0B6F1A5678D0F74D4F022.gif" alt="anigif.gif"></p>
+<hr>
+<h3 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>非对称加密算法在传递公钥过程中存在公钥被中间人截取篡改的风险。<br>只要是采用了非对称加密算法，都会存在中间人攻击的风险。</p>
+<h5 id="非对称加密中间人攻击"><a href="#非对称加密中间人攻击" class="headerlink" title="非对称加密中间人攻击"></a>非对称加密中间人攻击</h5><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/50E14FEDDD279C38F6E0F02E7589BDEC.jpg" alt></p>
+<ul>
+<li>中间人获取服务器的公钥A拦截</li>
+<li>中间人把自己生产的公钥B返给客户端</li>
+<li>客户端用公钥B加密明文”QQ:123 密码：123”成密文XXXB</li>
+<li>中间人用私钥B’解密获取明文</li>
+<li>中间人用公钥A加密明文为XXXA并传给服务器</li>
+</ul>
+<p>上述过程中，客户端与服务器正常通信，难以发觉信息已经被泄露。</p>
+<h5 id="信息抵赖"><a href="#信息抵赖" class="headerlink" title="信息抵赖"></a>信息抵赖</h5><p>由于存在中间人的已知风险，如果不解决非对称中的这个漏洞，即便不存在中间人攻击，对于错误的消息，服务器可以不承认。<br>（中间过程传递的是密文，为了便于理解直接明文展示）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/C6CE0D53E606C13393E7CBA6E76AACC4.jpg" alt></p>
+<h5 id="非对称与对称方案中的中间人攻击"><a href="#非对称与对称方案中的中间人攻击" class="headerlink" title="非对称与对称方案中的中间人攻击"></a>非对称与对称方案中的中间人攻击</h5><p>上述非对称与对称方案并没有解决针对非对称加密算法的此项漏洞，中间人可以在上述非对称与对称方案中进行攻击。具体过程如下</p>
+<ul>
+<li>客户端发起请求</li>
+<li>服务器发送公钥A，被拦截，中间人获取公钥A</li>
+<li>中间人生成公钥B，私钥B’</li>
+<li>中间人发送公钥B，客户端获取公钥B</li>
+<li>客户端生成密钥X，用公钥B加密密钥X得到密文XXXB</li>
+<li>客户端发送密文XXXB，中间人截取密文</li>
+<li>中间人用私钥B’解密获取密钥X</li>
+<li>中间人用公钥A加密密钥X得到XXXA，并发送给服务器</li>
+<li>服务器私钥A’解密XXXA获取密钥X</li>
+<li>双方用密钥X对称加解密进行通信</li>
+</ul>
+<h6 id="过程图示-1"><a href="#过程图示-1" class="headerlink" title="过程图示"></a>过程图示</h6><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/1ADC3A5F4D04361EF2FF96840720329D.gif" alt="anigif.gif"></p>
+<p>最终中间人成功的获取了客户端与服务器此次通信的密钥X，此次通行中所用信息都可被中间人解密获取</p>
+<h4 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h4><p><strong>中间人成功攻击的根本原因是浏览器无法确认获取的公钥真实性</strong></p>
+<hr>
+<h3 id="数字证书与签名"><a href="#数字证书与签名" class="headerlink" title="数字证书与签名"></a>数字证书与签名</h3><h4 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h4><p>为了保证公钥的正确真实性，需要权威CA机构(证书授权中心/Certificate Authority )来颁发数字证书，数字证书里有证书持有者（持有网站）、持有者公钥等信息。<br>在传输过程中，服务器传输公钥A改为传输数字证书，客户端从证书里获取取公钥A</p>
+<h4 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h4><p>如何保证数字证书文件的真实性？<br>数字证书既然通过网络传输，那么中间人也可以直接拦截后篡改内容之后再返回。同样，中间人也可以向同一家机构申请证书然后换成自己的证书。<br>如何避免这些问题？<br>世界没有完全相同的一片叶子，也没有完全相同的一个人。<br>人有指纹，有虹膜，还可以用签名来标识身份信息，在这个场景中，有没有可以借鉴的地方？<br>通过数字签名</p>
+<h5 id="签发证书"><a href="#签发证书" class="headerlink" title="签发证书"></a>签发证书</h5><p>CA机构用非对称加密算法拥有一对公私钥，用摘要算法对证书明文信息获取摘要，然后用私钥对摘要进行加密形成签名，最后将签名与使用的摘要算法置入证书当中。这里，不直接用私钥加密明文主要是因为非对称加密算法存在性能问题，加密内容不宜过长，加密摘要显然优于加密明文。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/5DC872B3801F62A3077D9D473631545A.jpg" alt></p>
+<h5 id="验证签名"><a href="#验证签名" class="headerlink" title="验证签名"></a>验证签名</h5><ol>
+<li>客户端用CA机构公钥解密数字签名得到摘要A（<strong>由于是客户端（浏览器等）信任的机构，所以其保有对应证书签发机构的公钥</strong>）</li>
+<li>客户端用证书中的摘要算法对明文进行摘要得到摘要B</li>
+<li>对比摘要A与摘要B是否一致</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/13397A6392668084153F342B1A3C8DC3.jpg" alt></p>
+<p>如果摘要对比一致，则验证成功。</p>
+<h5 id="不可篡改"><a href="#不可篡改" class="headerlink" title="不可篡改"></a>不可篡改</h5><p>为什么数字签名可以保证证书不被篡改？<br>中间人即便篡改明文信息并按照摘要算法重新生成摘要，但是由于没有CA机构的私钥，无法对摘要加密形成有效签名。<br>在客户端验证签名过程中（上节步骤1中），无法正确获取摘要A，验证失败！</p>
+<h5 id="证书掉包"><a href="#证书掉包" class="headerlink" title="证书掉包"></a>证书掉包</h5><p>既然签名不可伪造，证书内容不可篡改，那么，是否可以将证书整体掉包？<br>证书是可以被掉包的，但是由于证书里包含了申请者的信息比如域名，浏览器等客户端会把证书里的域名与请求时的域名进行比对，掉包随即就被发现。<br>证书被掉包时，浏览器会有如下警告</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/5BB52CC17D71512B6205349B19751BD1.png" alt><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/88AE731196443B8898EAA56C0EACB2D0.jpg" alt></p>
+<h5 id="签名本质"><a href="#签名本质" class="headerlink" title="签名本质"></a>签名本质</h5><p><strong>采用摘要算法获取明文摘要，采用非对称加密算法私钥加密摘要</strong></p>
+<h5 id="证书实例"><a href="#证书实例" class="headerlink" title="证书实例"></a>证书实例</h5><p>证书通常包含以下信息：</p>
+<ul>
+<li>申请者公钥</li>
+<li>申请者的组织信息和个人信息</li>
+<li>签发机构CA的信息</li>
+<li>有效时间、证书序列号等信息明文</li>
+<li>签名与签名算法</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/E66B1F91FA33704AA7642ECC6EDA6DBD.jpg" alt></p>
+<h5 id="证书申请"><a href="#证书申请" class="headerlink" title="证书申请"></a>证书申请</h5><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/7585846312F7C656F13A459AADC43B50.png" alt></p>
+<p>（出自：<a href="http://yunlaiwu.github.io/" target="_blank" rel="noopener">http://yunlaiwu.github.io/</a>）</p>
+<h5 id="本地CA机构公钥"><a href="#本地CA机构公钥" class="headerlink" title="本地CA机构公钥"></a>本地CA机构公钥</h5><p>加入数字证书是为了让客户端准确获取服务器的公钥。但是要想解开证书中的签名，必须有签发机构的公钥，这些公钥从何而来？<br>事实上，操作系统、浏览器等会在安装时附带其认为安全的 CA机构的根证书列表。<br>例如，在HTTPS通信中使用的服务端证书是CA机构W签发的，如果在浏览器中存在W的根证书，那么就可以直接拿到其公钥。<br>在实际过程中根证书往往不直接颁发服务端证书，而是授权给中间证书。</p>
+<h5 id="证书链"><a href="#证书链" class="headerlink" title="证书链"></a>证书链</h5><p>完整的证书链一般有三级</p>
+<ul>
+<li>服务端证书（end-user certificates）</li>
+<li>中间证书（intermediates Certificates）</li>
+<li>根证书（root Certificates）</li>
+</ul>
+<p>点击chrome上这个锁图标，可以看一个https网站经过了几级证书认证，并可以查看每一级证书详细信息</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/D0DC36E595FCD4FC1F563AE67917853E.jpg" alt></p>
+<p><strong>不管存在多少级证书，其最终的目的都是为了验证服务端证书未篡改。</strong><br>中间证书可以存在多级，中间证书不会影响验证结果，证书的签发与验证原理不变，最终只要通过证书链最终被CA根证书验证通过即可<br>中间证书的优势：</p>
+<ul>
+<li>分级管理，减少根证书管理量，高效签发与管理证书</li>
+<li>根证书内置与客户端中，一旦根证书对应的私钥泄露，吊销根证书非常困难，而中间证书私钥泄露，可先在线吊销</li>
+</ul>
+<p>常见证书链如下所示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/95585823EED7AA6BF3D447928A82BBD2.jpg" alt></p>
+<h5 id="不被信任证书"><a href="#不被信任证书" class="headerlink" title="不被信任证书"></a>不被信任证书</h5><p>当证书不是由受信任的机构颁发的，浏览器也会警告，用户可以根据网站提示安装证书或进行其他进一步操作。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/52D49F4E0B961719AF0FD35F97F2AFC6.jpg" alt></p>
+<h5 id="服务端如何找到正确的密钥X？"><a href="#服务端如何找到正确的密钥X？" class="headerlink" title="服务端如何找到正确的密钥X？"></a>服务端如何找到正确的密钥X？</h5><p>一台服务器一般情况是与多个客户端保持连接的，每一个连接都有自己的密钥，如何对对应的客户端用正确的密钥X呢？<br>真正的数据传输前，需要进行SSL/TSL握手，密钥X的传递包含其中。当连接建立后，服务器会为每个客户端维护一个session ID，客户端的每一个请求都会携带该sessionID，而服务器正是通过sessionID找到正确的密钥来解密内容</p>
+<hr>
+<h3 id="HTTPS请求流程图解"><a href="#HTTPS请求流程图解" class="headerlink" title="HTTPS请求流程图解"></a>HTTPS请求流程图解</h3><p>HTTPS请求的大致流程如下所示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式1/resources/1706630D2F6DDCBF7002BAFFAEE2D75E.jpg" alt></p>
 <h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><h4 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h4><p>常用的SSH协议中(Secure Shell安全外壳协议，简称SSH)，采用的就是非对称加密。<br>SSH不像https协议，SSH协议的公钥是没有证书中心（CA）公证，都是自己签发的，那么远程登录使用SSH时是如何防止中间人攻击的？<br>SSH登录有两种方式：</p>
 <ul>
 <li>口令登录</li>
@@ -804,7 +804,7 @@ updated: 2022-02-03    14:21:52
 <!-- Table of Contents -->
 
   
-    <article id="post-ES对象创建"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Number相关基础操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -812,7 +812,7 @@ updated: 2022-02-03    14:21:52
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES对象创建.html">ES对象创建</a>
+      <a class="article-title" href="/Number相关基础操作.html">Number相关基础操作</a>
     </h1>
   
 
@@ -833,99 +833,48 @@ updated: 2022-02-03    14:21:52
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="JS-对象的创建"><a href="#JS-对象的创建" class="headerlink" title="JS 对象的创建"></a>JS 对象的创建</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h1 id="Number-相关基础操作"><a href="#Number-相关基础操作" class="headerlink" title="Number 相关基础操作"></a>Number 相关基础操作</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#js-对象的创建">JS 对象的创建</a><ul>
-<li><a href="#工厂模式">工厂模式</a></li>
-<li><a href="#构造函数模式">构造函数模式</a><ul>
-<li><a href="#实现">实现</a></li>
-<li><a href="#优化">优化</a></li>
+<li><a href="#number-相关基础操作">Number 相关基础操作</a><ul>
+<li><a href="#保留小数">保留小数</a><ul>
+<li><a href="#四舍五入">四舍五入</a></li>
+<li><a href="#不取舍">不取舍</a></li>
 </ul>
 </li>
-<li><a href="#原型模式">原型模式</a><ul>
-<li><a href="#实现-1">实现</a></li>
-<li><a href="#原型判定">原型判定</a></li>
-<li><a href="#原型重写">原型重写</a></li>
-<li><a href="#原型模式问题">原型模式问题</a></li>
-</ul>
-</li>
-<li><a href="#组合构造与原型">组合构造与原型</a></li>
-<li><a href="#动态原型">动态原型</a><ul>
-<li><a href="#实现-2">实现</a></li>
-<li><a href="#重写原型">重写原型</a></li>
-</ul>
-</li>
-<li><a href="#寄生构造函数">寄生构造函数</a></li>
-<li><a href="#稳妥构造函数">稳妥构造函数</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
+<li><a href="#添加千位分隔符">添加千位分隔符</a><ul>
+<li><a href="#tolocalestring">toLocaleString</a></li>
+<li><a href="#正则">正则</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  p.name = name;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">"skyline"</span>);</span><br><span class="line">me.name; <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
-<h2 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>解决了对象识别问题</p>
-<p>构造函数首字母都要大写，非构造函数小写字母开头</p>
-<p>构造函数主要问题是方法会在实例中各自创建，me.say === you.say 说明了这个问题</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>优化方案解决了方法不能复用的问题，但破坏了封装</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = sayName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>ES 中，无论何时创建的新函数，都会根据一组特定的规则来为函数添加一个指向原型对象名为 prototype 的指针属性，该原型对象自动获得一个 constructor 属性，属性指向该函数，而后基于原型对象添置实例共享的属性和方法</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = <span class="string">"skyline"</span>;</span><br><span class="line">Person.prototype.age = <span class="number">27</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line">skyline.sayName(); <span class="comment">// My name is skyline</span></span><br><span class="line">skyline <span class="keyword">instanceof</span> Person; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h3 id="原型判定"><a href="#原型判定" class="headerlink" title="原型判定"></a>原型判定</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>调用构造函数创建一个新的实例之后，该实例内部包含一个指向构造函数原型对象的指针[[Prototype]]（内部属性）。多数浏览器实现了<code>__proto__</code>来获取[[Prototype]]内部属性</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA20210928110402.png" alt="JS对象创建20210928110402"></p>
-<p>可以通过 isPrototypeOf()与 getPrototypeOf()来确定与获取关系</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">skyline.__proto__ == Person.prototype; <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(skyline) == Person.prototype; <span class="comment">// true</span></span><br><span class="line">Person.prototype.isPrototypeOf(skyline); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h3 id="原型重写"><a href="#原型重写" class="headerlink" title="原型重写"></a>原型重写</h3><p>为了更好的封装性，有时会进行原型重写。</p>
-<p>重写原型对象会切断新原型对象与之前已存在的实例对象之间的联系，故重写需谨慎，最好在新建函数的时候重写</p>
-<p>通过直接重写 prototype 时，注意将构造函数属性加上 constructor 属性来指定构造函数，此时重新设定的 constructor 属性是可枚举的，es 原生的是不可枚举的，可通过 Object.defineProperty()来定义 constructor</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Person.prototype = &#123;</span><br><span class="line">  <span class="comment">//  constructor: Person, // 不指定构造函数</span></span><br><span class="line">  say: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">skyline.constructor === Person; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h3 id="原型模式问题"><a href="#原型模式问题" class="headerlink" title="原型模式问题"></a>原型模式问题</h3><ul>
-<li>属性和方法都共享，多个实例之间会相互影响</li>
-<li>无法动态传递参数</li>
+<h2 id="保留小数"><a href="#保留小数" class="headerlink" title="保留小数"></a>保留小数</h2><h3 id="四舍五入"><a href="#四舍五入" class="headerlink" title="四舍五入"></a>四舍五入</h3><p><strong>toFixed</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">2.123123123</span>).toFixed(<span class="number">3</span>); <span class="comment">// 输出结果为 2.123</span></span><br><span class="line">(<span class="number">2.123923123</span>).toFixed(<span class="number">3</span>); <span class="comment">// 输出结果为 2.124</span></span><br></pre></td></tr></table></figure>
+<p><strong>toLocaleString</strong><br>toLocaleString 默认保留 3 位小数，且会产生千位分隔符</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">12332.123923123</span>).toLocaleString(<span class="literal">undefined</span>, &#123;</span><br><span class="line">  minimumFractionDigits: <span class="number">5</span>,</span><br><span class="line">  maximumFractionDigits: <span class="number">6</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 输出结果为 '12,332.123923'</span></span><br></pre></td></tr></table></figure>
+<p>可通过 minimumFractionDigits，maximumFractionDigits 来指定保留参数的长度</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">2.123923123</span>).toLocaleString(<span class="literal">undefined</span>, &#123;</span><br><span class="line">  minimumFractionDigits: <span class="number">5</span>,</span><br><span class="line">  maximumFractionDigits: <span class="number">6</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 输出结果为 '2.123923'</span></span><br></pre></td></tr></table></figure>
+<h3 id="不取舍"><a href="#不取舍" class="headerlink" title="不取舍"></a>不取舍</h3><p><strong>Math.floor</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.floor(<span class="number">15.7784514</span> * <span class="number">1000</span>) / <span class="number">1000</span>; <span class="comment">// 输出结果为 15.778</span></span><br></pre></td></tr></table></figure>
+<h2 id="添加千位分隔符"><a href="#添加千位分隔符" class="headerlink" title="添加千位分隔符"></a>添加千位分隔符</h2><h3 id="toLocaleString-NaN"><a href="#toLocaleString-NaN" class="headerlink" title="toLocaleString"></a>toLocaleString</h3><p>通过 toLocaleString 很容易直接添加千位。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString(<span class="string">"en-US"</span>);</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString();</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
+<p>toLocaleString 将字符本地串化，第一个参数为串化标准，默认为’en-US’。<br>对于小数而言，其会四舍五入保留 3 位</p>
+<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3><pre><code>&lt;!--more--&gt;
+</code></pre><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span> + <span class="string">""</span>).replace(<span class="regexp">/(\d)(?=(\d&#123;3&#125;)+$)/g</span>, <span class="string">"$1,"</span>);</span><br><span class="line"><span class="comment">//'1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
+<p><strong>设计正则解析</strong></p>
+<ul>
+<li><code>+</code><br>匹配前面一个表达式 1 次或者多次。等价于{1,}。</li>
+<li><code>x(?=y)</code><br>匹配 x 仅仅当 x 后面跟着 y。这种叫做先行断言。</li>
 </ul>
-<h2 id="组合构造与原型"><a href="#组合构造与原型" class="headerlink" title="组合构造与原型"></a>组合构造与原型</h2><p>组合使用两者，构造函数模式用于实例属性，原型模式用于定义方法和共享属性</p>
-<p>应用最广泛的模式，没有在一个地方使用构造函数与原型，对于封装性而言，不算最佳</p>
-<h2 id="动态原型"><a href="#动态原型" class="headerlink" title="动态原型"></a>动态原型</h2><h3 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h3><p>动态原型模式是将原型与自有的信息都封装在构造函数中，通过在必要情况下初始化原型，实现组合使用构造函数与原型的优点。</p>
-<p>实质就是通过检查某个应该存在的方法是否有效来决定是否初始化原型方法，if 语句检查初始化后应该存在的任何属性或方法，检查其中一个即可</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"skyline"</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.say != <span class="string">"function"</span>) &#123;</span><br><span class="line">    Person.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    Person.prototype.sayHi = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">`Hi!<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line">skyline.say(); <span class="comment">// My name is skyline</span></span><br></pre></td></tr></table></figure>
-<h3 id="重写原型"><a href="#重写原型" class="headerlink" title="重写原型"></a>重写原型</h3><p>在构造函数中通过对象字面量重写原型</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"skyline"</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.say != <span class="string">"function"</span>) &#123;</span><br><span class="line">    <span class="comment">// 不能再构造函数中直接用对象字面量重写原型，重写原型对象会切断新原型对象与之前已存在的实例对象之间的联系</span></span><br><span class="line">    Person.prototype = &#123;</span><br><span class="line">      <span class="keyword">constructor</span>: Person, // 指定构造函数</span><br><span class="line">      say: function () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="comment">// 首次使用时，skyline的__proto__是指向默认产生的原型对象</span></span><br><span class="line"><span class="comment">// 而不是由字面量创建的新原型对象，调用say将会找不到</span></span><br><span class="line">skyline.say(); <span class="comment">// VM846:1 Uncaught TypeError: skyline.say is not a function</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA20210928110309.png" alt="JS对象创建20210928110309"></p>
-<p>可以通过如下方式解决上述问题</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"skyline"</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.say != <span class="string">"function"</span>) &#123;</span><br><span class="line">    <span class="comment">// 不能再构造函数中直接用对象字面量重写原型，重写原型对象会切断新原型对象与之前已存在的实例对象之间的联系</span></span><br><span class="line">    Person.prototype = &#123;</span><br><span class="line">      <span class="keyword">constructor</span>: Person, // 指定构造函数</span><br><span class="line">      say: function () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Person();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="寄生构造函数"><a href="#寄生构造函数" class="headerlink" title="寄生构造函数"></a>寄生构造函数</h2><p>new 操作符并把使用的包装函数叫做构造函数之外，此模式与工厂模式并没有区别</p>
-<p>创建的对象与构造函数之间毫无关系</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  p.name = name;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line">me.name; <span class="comment">// 'skyline'</span></span><br><span class="line">me <span class="keyword">instanceof</span> Person; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h2 id="稳妥构造函数"><a href="#稳妥构造函数" class="headerlink" title="稳妥构造函数"></a>稳妥构造函数</h2><ul>
-<li>稳妥对象是指没有公共属性，其方法不使用 this 的对象稳妥构造函数模式与寄生构造函数类似，有两点不同一是实例方法不引用 this，二是构造函数不使用 new。</li>
-<li>如下代码中创建了一个稳妥对象，除了 say 没有其他方式可以访问传入构造函数的原始数据。保证了数据的安全性。</li>
-<li>稳妥构造函数模式也跟工厂模式一样，无法识别对象所属类型</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  <span class="keyword">var</span> age = <span class="number">27</span>;</span><br><span class="line">  p.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;name&#125;</span> and I am <span class="subst">$&#123;age&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = Person(<span class="string">"skyline"</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-<p>《JavaScript 高级程序设计》</p>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-<blockquote>
-<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
-</blockquote>
+<p>整个正则的意思为后面跟有三个或三的倍数个连续数字的数后面加上逗号</p>
 <pre><code>&amp;nbsp;
 
 &gt; 本文作者： Skyline(lty)
-文章链接： [http://www.skyline.show/ES对象创建.html](http://www.skyline.show/ES对象创建.html)
+文章链接： [http://www.skyline.show/Number相关基础操作.html](http://www.skyline.show/Number相关基础操作.html)
 版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
 </code></pre>
       
@@ -1014,6 +963,154 @@ updated: 2022-02-03    14:21:52
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN1/">VPN1</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ES对象属性"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES对象属性.html">ES对象属性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="JS-对象的属性"><a href="#JS-对象的属性" class="headerlink" title="JS 对象的属性"></a>JS 对象的属性</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#js-对象的属性">JS 对象的属性</a><ul>
+<li><a href="#属性描述符">属性描述符</a><ul>
+<li><a href="#属性分类">属性分类</a></li>
+<li><a href="#enumerable">Enumerable</a></li>
+<li><a href="#configurable">Configurable</a></li>
+</ul>
+</li>
+<li><a href="#属性创建">属性创建</a><ul>
+<li><a href="#直接创建">直接创建</a></li>
+<li><a href="#objectdefineproperty-objectdefineproperties">Object.defineProperty() &amp; Object.defineProperties()</a></li>
+<li><a href="#objectcreate">Object.create</a></li>
+</ul>
+</li>
+<li><a href="#扩展-封印与冻结">扩展、封印与冻结</a><ul>
+<li><a href="#preventextensions">preventExtensions</a></li>
+<li><a href="#seal">seal</a></li>
+<li><a href="#freeze">freeze</a></li>
+</ul>
+</li>
+<li><a href="#屏蔽-检测与遍历">屏蔽、检测与遍历</a><ul>
+<li><a href="#属性屏蔽">属性屏蔽</a></li>
+<li><a href="#属性检测">属性检测</a></li>
+<li><a href="#属性遍历">属性遍历</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#Warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h2><h3 id="属性分类"><a href="#属性分类" class="headerlink" title="属性分类"></a>属性分类</h3><ul>
+<li>数据属性<ul>
+<li>Configurable</li>
+<li>Enumerable</li>
+<li>Writable</li>
+<li>Value</li>
+</ul>
+</li>
+<li>访问器属性<ul>
+<li>Configurable</li>
+<li>Enumerable</li>
+<li>Get</li>
+<li>Set</li>
+</ul>
+</li>
+</ul>
+<h3 id="Enumerable"><a href="#Enumerable" class="headerlink" title="Enumerable"></a>Enumerable</h3><p>Enumerable 表示能否枚举，常见</p>
+<h3 id="Configurable"><a href="#Configurable" class="headerlink" title="Configurable"></a>Configurable</h3><p>Configurable 表示能否删除属性，能否修改某些属性描述符，能否将属性改为访问器(数据)属性。</p>
+<p>configurable 一旦指定为 false，则 configurable、enumerable、value、get、set 将无法通过 Object.defineProperty()重新配置，删除对应的属性将不产生效果（严格模式导致错误），属性将不能转换（数据与访问器之间）</p>
+<p>configurable 一旦指定为 false,此时的 Writable 如果是 true 则可以修改为 false，但是不能从 false 改为 true（只关不开）</p>
+<p>configurable true，writable false 时，可以通过 Object.defineProperty()修改 value 的值，直接赋值无效；configurable false，writable true 时可以通过赋值直接修改 value 的值，通过 Object.defineProperty()指定 value 值将会报错</p>
+<p>数据属性能否重新直接赋值取决于 writable<br>属性能否重新通过 defineProperty 定义属性描述与值以及被删除取决于 configurable</p>
+<p>忽略 enumerable 为 false 属性的操作</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105422.png" alt="JS对象属性20210928105422"></p>
+<h2 id="属性创建"><a href="#属性创建" class="headerlink" title="属性创建"></a>属性创建</h2><h3 id="直接创建"><a href="#直接创建" class="headerlink" title="直接创建"></a>直接创建</h3><pre><code>&lt;!--more--&gt;
+</code></pre><p>直接建立的布尔型属性描述默认都是 true</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123; <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(a, <span class="string">"c"</span>);</span><br><span class="line"><span class="comment">// &#123;value: 1, writable: true, enumerable: true, configurable: true&#125;</span></span><br><span class="line">a.d = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(a, <span class="string">"d"</span>);</span><br><span class="line"><span class="comment">//&#123;value: 2, writable: true, enumerable: true, configurable: true&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-defineProperty-amp-Object-defineProperties"><a href="#Object-defineProperty-amp-Object-defineProperties" class="headerlink" title="Object.defineProperty() &amp; Object.defineProperties()"></a>Object.defineProperty() &amp; Object.defineProperties()</h3><p>通过 Object.defineProperty()来定义或者修改属性</p>
+<p>Object.defineProperty()接受三个参数，分别是对象名，属性名，描述符对象。</p>
+<p>数据属性描述符对象只接受 configurable、enumerable、writable、value 四种属性中的一个或多个;访问器属性描述符对象只接受 configurable、enumerable、get、set 四种属性中的一个或多个。</p>
+<p>描述符对象不指定 configurable、enumerable、writable 时，他们的默认值是 false；不指定 value、get、set 时，默认值是 undefined<br>在使用 defineProperty 时通常需要代码直接指定布尔型描述全为 true</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">"name"</span>, &#123; <span class="attr">value</span>: <span class="string">"skyline"</span> &#125;);</span><br><span class="line">a; <span class="comment">// &#123;name: "skyline"&#125;</span></span><br><span class="line">a.name = <span class="string">"lala"</span>;</span><br><span class="line">a; <span class="comment">// &#123;name: "skyline"&#125; 修改不生效</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">"name"</span>, &#123; <span class="attr">value</span>: <span class="string">"skyline"</span>, <span class="attr">writable</span>: <span class="literal">true</span> &#125;); <span class="comment">// Uncaught TypeError: Cannot redefine property: name writeable是false，无法再改为true</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">"age"</span>, &#123; <span class="attr">value</span>: <span class="string">"18"</span>, <span class="attr">configurable</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">a.age = <span class="number">19</span>; <span class="comment">// 19 修改不生效</span></span><br><span class="line">a; <span class="comment">// &#123;name: "skyline", age: "18"&#125;</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">"age"</span>, &#123; <span class="attr">value</span>: <span class="string">"18"</span>, <span class="attr">writable</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">a.age = <span class="number">19</span>;</span><br><span class="line">a; <span class="comment">// &#123;name: "skyline", age: 19&#125; 修改生效</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create"></a>Object.create</h3><p>Object.create 方法的第二个参数添加的对象属性，同样的，只指定 value 不指定其他将会导致 configurable、enumerable、writable 都是 false</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = <span class="built_in">Object</span>.create(&#123;&#125;, &#123; <span class="attr">p</span>: &#123; <span class="attr">value</span>: <span class="number">1</span> &#125; &#125;);</span><br><span class="line"><span class="built_in">Object</span>.values(obj); <span class="comment">// []</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="string">"p"</span>);</span><br><span class="line"><span class="comment">//&#123;value: 1, writable: false, enumerable: false, configurable: false&#125;</span></span><br></pre></td></tr></table></figure>
+<p>Object.getOwnPropertyDescriptor(s) 查看属性描述符</p>
+<h2 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h2><h3 id="preventExtensions"><a href="#preventExtensions" class="headerlink" title="preventExtensions"></a>preventExtensions</h3><p>Object.preventExtensions()禁止扩展，即防止对象添加新的属性，Object.isExtensible()检查是否可扩展</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> object1 = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(object1);</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(object1, <span class="string">"property1"</span>, &#123;</span><br><span class="line">    value: <span class="number">42</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e);</span><br><span class="line">  <span class="comment">// expected output: TypeError: Cannot define property property1, object is not extensible</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="seal"><a href="#seal" class="headerlink" title="seal"></a>seal</h3><p>Object.seal()封印对象，防止对象添加新的属性，且将所有属性的 Configurable 置为 false Object.isSealed()检查是否被封印</p>
+<h3 id="freeze"><a href="#freeze" class="headerlink" title="freeze"></a>freeze</h3><p>Object.freeze()冻结对象，防止对象添加新的属性，且将所有属性的 Configurable 置为 false ，数据属性的所有 writable 设置为 false，防止对象属性直接重新赋值， Object.isFrozen()检查是否被冻结</p>
+<p>被冻结的对象一定被封印了；被封印的对象一定不能扩展。</p>
+<p>当一个被封印的对象所有自有（实例）属性的描述符 writable 改为 false 时，那么此时它也是被冻结的，通过 isFrozen 返回 true</p>
+<p>被冻结对象的访问器属性如果有 set 描述符，则它仍旧是可写的</p>
+<h2 id="屏蔽、检测与遍历"><a href="#屏蔽、检测与遍历" class="headerlink" title="屏蔽、检测与遍历"></a>屏蔽、检测与遍历</h2><h3 id="属性屏蔽"><a href="#属性屏蔽" class="headerlink" title="属性屏蔽"></a>属性屏蔽</h3><p>原型属性指存在于原型链上的属性。实例中创建与原型中同名的属性，会屏蔽原型中的属性值。delete 可以删除实例中的属性，来重新暴露原型中的属性</p>
+<h3 id="属性检测"><a href="#属性检测" class="headerlink" title="属性检测"></a>属性检测</h3><p>hasOwnProperty()来获取自有（实例）属性</p>
+<p><strong>in 操作符来确定属性是否存在于实例属性与原型链中</strong></p>
+<p>属性检测不受枚举与否影响</p>
+<p><a href="https://www.notion.so/f21a953fb05546148c673bb69ff7b17a" target="_blank" rel="noopener">Detection</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = <span class="built_in">Object</span>.create(&#123;&#125;, &#123; <span class="attr">p</span>: &#123; <span class="attr">value</span>: <span class="number">1</span> &#125; &#125;);</span><br><span class="line"><span class="built_in">Object</span>.values(obj); <span class="comment">// []</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="string">"p"</span>);</span><br><span class="line"><span class="comment">// &#123;value: 1, writable: false, enumerable: false, configurable: false&#125;</span></span><br><span class="line"><span class="string">"p"</span> <span class="keyword">in</span> obj; <span class="comment">// true</span></span><br><span class="line"><span class="string">"valueOf"</span> <span class="keyword">in</span> obj; <span class="comment">// true</span></span><br><span class="line">obj.hasOwnProperty(<span class="string">"p"</span>); <span class="comment">// true</span></span><br><span class="line">obj.hasOwnProperty(<span class="string">"valueOf"</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="属性遍历"><a href="#属性遍历" class="headerlink" title="属性遍历"></a>属性遍历</h3><p>for-in 语句遍历所有可枚举的自有（实例）和原型属性</p>
+<p>Object.keys()只会收录自有可枚举属性名在数组中</p>
+<p><a href="https://www.notion.so/91b7ac8e68c7480dbc50a20db50e1cc6" target="_blank" rel="noopener">Iteration</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = <span class="built_in">Object</span>.create(&#123;&#125;, &#123; <span class="attr">p</span>: &#123; <span class="attr">value</span>: <span class="number">1</span> &#125; &#125;);</span><br><span class="line"><span class="built_in">Object</span>.values(obj); <span class="comment">// []</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="string">"p"</span>);</span><br><span class="line"><span class="comment">// &#123;value: 1, writable: false, enumerable: false, configurable: false&#125;</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyNames(obj); <span class="comment">//["p"]</span></span><br><span class="line"><span class="built_in">Object</span>.keys(obj); <span class="comment">// []</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105558.png" alt="JS对象属性20210928105558"></p>
+<p>常见方法需要可枚举，非常见不限制枚举</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>I am a bucolic migrant worker but I never walk backwards.</p>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><blockquote>
+<p>《JavaScript 高级程序设计》</p>
+</blockquote>
+<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><blockquote>
+<p>本文作者： Skyline(lty)<br>版权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+</blockquote>
+<pre><code>&amp;nbsp;
+
+&gt; 本文作者： Skyline(lty)
+文章链接： [http://www.skyline.show/ES对象属性.html](http://www.skyline.show/ES对象属性.html)
+版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
     </footer>
   </div>
   
@@ -1209,6 +1306,316 @@ updated: 2022-02-03    14:21:52
 <!-- Table of Contents -->
 
   
+    <article id="post-ES对象创建"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES对象创建.html">ES对象创建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="JS-对象的创建"><a href="#JS-对象的创建" class="headerlink" title="JS 对象的创建"></a>JS 对象的创建</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#js-对象的创建">JS 对象的创建</a><ul>
+<li><a href="#工厂模式">工厂模式</a></li>
+<li><a href="#构造函数模式">构造函数模式</a><ul>
+<li><a href="#实现">实现</a></li>
+<li><a href="#优化">优化</a></li>
+</ul>
+</li>
+<li><a href="#原型模式">原型模式</a><ul>
+<li><a href="#实现-1">实现</a></li>
+<li><a href="#原型判定">原型判定</a></li>
+<li><a href="#原型重写">原型重写</a></li>
+<li><a href="#原型模式问题">原型模式问题</a></li>
+</ul>
+</li>
+<li><a href="#组合构造与原型">组合构造与原型</a></li>
+<li><a href="#动态原型">动态原型</a><ul>
+<li><a href="#实现-2">实现</a></li>
+<li><a href="#重写原型">重写原型</a></li>
+</ul>
+</li>
+<li><a href="#寄生构造函数">寄生构造函数</a></li>
+<li><a href="#稳妥构造函数">稳妥构造函数</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  p.name = name;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">"skyline"</span>);</span><br><span class="line">me.name; <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
+<h2 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>解决了对象识别问题</p>
+<p>构造函数首字母都要大写，非构造函数小写字母开头</p>
+<p>构造函数主要问题是方法会在实例中各自创建，me.say === you.say 说明了这个问题</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>优化方案解决了方法不能复用的问题，但破坏了封装</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = sayName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>ES 中，无论何时创建的新函数，都会根据一组特定的规则来为函数添加一个指向原型对象名为 prototype 的指针属性，该原型对象自动获得一个 constructor 属性，属性指向该函数，而后基于原型对象添置实例共享的属性和方法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = <span class="string">"skyline"</span>;</span><br><span class="line">Person.prototype.age = <span class="number">27</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line">skyline.sayName(); <span class="comment">// My name is skyline</span></span><br><span class="line">skyline <span class="keyword">instanceof</span> Person; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="原型判定"><a href="#原型判定" class="headerlink" title="原型判定"></a>原型判定</h3><pre><code>&lt;!--more--&gt;
+</code></pre><p>调用构造函数创建一个新的实例之后，该实例内部包含一个指向构造函数原型对象的指针[[Prototype]]（内部属性）。多数浏览器实现了<code>__proto__</code>来获取[[Prototype]]内部属性</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA20210928110402.png" alt="JS对象创建20210928110402"></p>
+<p>可以通过 isPrototypeOf()与 getPrototypeOf()来确定与获取关系</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">skyline.__proto__ == Person.prototype; <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(skyline) == Person.prototype; <span class="comment">// true</span></span><br><span class="line">Person.prototype.isPrototypeOf(skyline); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="原型重写"><a href="#原型重写" class="headerlink" title="原型重写"></a>原型重写</h3><p>为了更好的封装性，有时会进行原型重写。</p>
+<p>重写原型对象会切断新原型对象与之前已存在的实例对象之间的联系，故重写需谨慎，最好在新建函数的时候重写</p>
+<p>通过直接重写 prototype 时，注意将构造函数属性加上 constructor 属性来指定构造函数，此时重新设定的 constructor 属性是可枚举的，es 原生的是不可枚举的，可通过 Object.defineProperty()来定义 constructor</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Person.prototype = &#123;</span><br><span class="line">  <span class="comment">//  constructor: Person, // 不指定构造函数</span></span><br><span class="line">  say: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">skyline.constructor === Person; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="原型模式问题"><a href="#原型模式问题" class="headerlink" title="原型模式问题"></a>原型模式问题</h3><ul>
+<li>属性和方法都共享，多个实例之间会相互影响</li>
+<li>无法动态传递参数</li>
+</ul>
+<h2 id="组合构造与原型"><a href="#组合构造与原型" class="headerlink" title="组合构造与原型"></a>组合构造与原型</h2><p>组合使用两者，构造函数模式用于实例属性，原型模式用于定义方法和共享属性</p>
+<p>应用最广泛的模式，没有在一个地方使用构造函数与原型，对于封装性而言，不算最佳</p>
+<h2 id="动态原型"><a href="#动态原型" class="headerlink" title="动态原型"></a>动态原型</h2><h3 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h3><p>动态原型模式是将原型与自有的信息都封装在构造函数中，通过在必要情况下初始化原型，实现组合使用构造函数与原型的优点。</p>
+<p>实质就是通过检查某个应该存在的方法是否有效来决定是否初始化原型方法，if 语句检查初始化后应该存在的任何属性或方法，检查其中一个即可</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"skyline"</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.say != <span class="string">"function"</span>) &#123;</span><br><span class="line">    Person.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    Person.prototype.sayHi = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">`Hi!<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line">skyline.say(); <span class="comment">// My name is skyline</span></span><br></pre></td></tr></table></figure>
+<h3 id="重写原型"><a href="#重写原型" class="headerlink" title="重写原型"></a>重写原型</h3><p>在构造函数中通过对象字面量重写原型</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"skyline"</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.say != <span class="string">"function"</span>) &#123;</span><br><span class="line">    <span class="comment">// 不能再构造函数中直接用对象字面量重写原型，重写原型对象会切断新原型对象与之前已存在的实例对象之间的联系</span></span><br><span class="line">    Person.prototype = &#123;</span><br><span class="line">      <span class="keyword">constructor</span>: Person, // 指定构造函数</span><br><span class="line">      say: function () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="comment">// 首次使用时，skyline的__proto__是指向默认产生的原型对象</span></span><br><span class="line"><span class="comment">// 而不是由字面量创建的新原型对象，调用say将会找不到</span></span><br><span class="line">skyline.say(); <span class="comment">// VM846:1 Uncaught TypeError: skyline.say is not a function</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA20210928110309.png" alt="JS对象创建20210928110309"></p>
+<p>可以通过如下方式解决上述问题</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"skyline"</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.say != <span class="string">"function"</span>) &#123;</span><br><span class="line">    <span class="comment">// 不能再构造函数中直接用对象字面量重写原型，重写原型对象会切断新原型对象与之前已存在的实例对象之间的联系</span></span><br><span class="line">    Person.prototype = &#123;</span><br><span class="line">      <span class="keyword">constructor</span>: Person, // 指定构造函数</span><br><span class="line">      say: function () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Person();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="寄生构造函数"><a href="#寄生构造函数" class="headerlink" title="寄生构造函数"></a>寄生构造函数</h2><p>new 操作符并把使用的包装函数叫做构造函数之外，此模式与工厂模式并没有区别</p>
+<p>创建的对象与构造函数之间毫无关系</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  p.name = name;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line">me.name; <span class="comment">// 'skyline'</span></span><br><span class="line">me <span class="keyword">instanceof</span> Person; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h2 id="稳妥构造函数"><a href="#稳妥构造函数" class="headerlink" title="稳妥构造函数"></a>稳妥构造函数</h2><ul>
+<li>稳妥对象是指没有公共属性，其方法不使用 this 的对象稳妥构造函数模式与寄生构造函数类似，有两点不同一是实例方法不引用 this，二是构造函数不使用 new。</li>
+<li>如下代码中创建了一个稳妥对象，除了 say 没有其他方式可以访问传入构造函数的原始数据。保证了数据的安全性。</li>
+<li>稳妥构造函数模式也跟工厂模式一样，无法识别对象所属类型</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  <span class="keyword">var</span> age = <span class="number">27</span>;</span><br><span class="line">  p.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;name&#125;</span> and I am <span class="subst">$&#123;age&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = Person(<span class="string">"skyline"</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+<p>《JavaScript 高级程序设计》</p>
+</blockquote>
+<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<blockquote>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
+</blockquote>
+<pre><code>&amp;nbsp;
+
+&gt; 本文作者： Skyline(lty)
+文章链接： [http://www.skyline.show/ES对象创建.html](http://www.skyline.show/ES对象创建.html)
+版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shadowsocks服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shadowsocks服务搭建与访问.html">Shadowsocks服务搭建与访问</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="Shadowsocks-服务搭建与访问"><a href="#Shadowsocks-服务搭建与访问" class="headerlink" title="Shadowsocks 服务搭建与访问"></a>Shadowsocks 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#shadowsocks-服务搭建与访问">Shadowsocks 服务搭建与访问</a><ul>
+<li><a href="#ss-server">SS server</a><ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#配置文件">配置文件</a></li>
+<li><a href="#开启服务">开启服务</a></li>
+<li><a href="#开机启动">开机启动</a></li>
+</ul>
+</li>
+<li><a href="#ss-client">SS client</a></li>
+<li><a href="#添加自定代理规则">添加自定代理规则</a></li>
+<li><a href="#常见问题">常见问题</a><ul>
+<li><a href="#配置完成无法访问墙外">配置完成无法访问墙外</a></li>
+<li><a href="#syn_recv">SYN_RECV</a></li>
+<li><a href="#ip或端口被封">IP或端口被封</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="SS-server"><a href="#SS-server" class="headerlink" title="SS server"></a>SS server</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>SS server 服务端有多语言版本支持<br>此处采用 python 版本<br>首先安装 pip 包管理器</p>
+<p>Debian / Ubuntu</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br></pre></td></tr></table></figure>
+<p>CentOS</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install epel-release # 添加Enterprise Linux企业源</span><br><span class="line">sudo yum install python-pip</span><br></pre></td></tr></table></figure>
+<p>查看是否安装成功</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip --version</span><br><span class="line"><span class="meta">#</span><span class="bash"> pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</span></span><br></pre></td></tr></table></figure>
+<p>然后直接输入以下命令安装</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>新增配置文件<br><code>/etc/shadowsocks.json</code></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"server"</span>: <span class="string">"23.234.212.12"</span>,</span><br><span class="line">  <span class="attr">"port_password"</span>: &#123;</span><br><span class="line">    <span class="attr">"8388"</span>: <span class="string">"123"</span>,</span><br><span class="line">    <span class="attr">"8389"</span>: <span class="string">"456"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"timeout"</span>: <span class="number">300</span>,</span><br><span class="line">  <span class="attr">"method"</span>: <span class="string">"rc4-md5"</span>,</span><br><span class="line">  <span class="attr">"fast_open"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"workers"</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server</td>
+<td>vps ip 地址</td>
+</tr>
+<tr>
+<td>port_password</td>
+<td>服务端口和对应密码</td>
+</tr>
+<tr>
+<td>method</td>
+<td>加密方法</td>
+</tr>
+<tr>
+<td>workers</td>
+<td>线程数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><p>调用命令开启服务。<br>相关命令如下</p>
+<ul>
+<li>指定配置文件开启服务</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指定配置文件重启</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d restart</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关闭服务</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -d stop</span><br></pre></td></tr></table></figure>
+<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><pre><code>&lt;!--more--&gt;
+</code></pre><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/rc.local</span><br></pre></td></tr></table></figure>
+<p>然后将如下开启服务的命令添加进去即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
+<h2 id="SS-client"><a href="#SS-client" class="headerlink" title="SS client"></a>SS client</h2><p>在如下位置新增服务配置<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210170145.png" alt="Shadowsocks服务搭建与访问20211210170145"><br>与服务端配置对应<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210170258.png" alt="Shadowsocks服务搭建与访问20211210170258"><br>选择全局或者 PAC 模式，浏览器输入科学上网网址即可</p>
+<h2 id="添加自定代理规则"><a href="#添加自定代理规则" class="headerlink" title="添加自定代理规则"></a>添加自定代理规则</h2><p>部分网站国内访问较慢，但是 PAC 规则中没有，可以添加用户自定义规则<br>点击 Edit User Rules For PAC<br>添加规则如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">! Put user rules line by line <span class="keyword">in</span> <span class="keyword">this</span> file.</span><br><span class="line">! See https:<span class="comment">//adblockplus.org/en/filter-cheatsheet</span></span><br><span class="line">“||https:<span class="comment">//github.com/^”,</span></span><br><span class="line">“||https:<span class="comment">//raw.githubusercontent.com^”</span></span><br></pre></td></tr></table></figure>
+<p>注意逗号和引号不要遗漏</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="配置完成无法访问墙外"><a href="#配置完成无法访问墙外" class="headerlink" title="配置完成无法访问墙外"></a>配置完成无法访问墙外</h3><ul>
+<li>IP 检查</li>
+</ul>
+<p>检查 vps ip 是否被封<br>在<a href="http://ping.pe/下输入ip" target="_blank" rel="noopener">http://ping.pe/下输入ip</a></p>
+<p>异常情况<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210170940.png" alt="Shadowsocks服务搭建与访问20211210170940"><br>正常情况下面部分为绿色<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210171222.png" alt="Shadowsocks服务搭建与访问20211210171222"></p>
+<p>ip 异常需要向 vps 提供商发起工单。</p>
+<ul>
+<li>防火墙检查</li>
+</ul>
+<p>若 ip 正常，检查 vps 防火墙。<br>CentOS7 等版本默认防火墙非常严格，一般端口都屏蔽都外部访问。<br>关闭防火墙测试是否能访问<br>centos7 关闭防火墙使用如下命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+<p>检查是否可正常访问。<br>若是防火墙问题，暴露对应端口即可，不要关闭防火墙。</p>
+<p>打开防火墙的命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl start firewalld</span><br></pre></td></tr></table></figure>
+<p>暴露端口段</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port 8300-8400/tcp</span><br></pre></td></tr></table></figure>
+<p>或直接指定端口</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port 1191/tcp</span><br></pre></td></tr></table></figure>
+<p>暴露后需要重启防火墙</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<p>查看暴露的端口</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd  --list-ports</span><br><span class="line"><span class="meta">#</span><span class="bash"> 8300-8400/tcp</span></span><br></pre></td></tr></table></figure>
+<h3 id="SYN-RECV"><a href="#SYN-RECV" class="headerlink" title="SYN_RECV"></a>SYN_RECV</h3><p>通过<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 88</span><br></pre></td></tr></table></figure></p>
+<p>grep后接自己暴露的端口前缀。</p>
+<p>可以看到，有大量tcp处于SYN_RECV状态。<br>这是由于TCP最后一次握手回传的ACK包丢失导致。<br>大概率由于GFW嗅探到当前连接导致。<br>可以进行如下尝试。<br>更换端口，查看可否访问<br>更换不同网络ISP（移动、联通、电信等）尝试。<br>这时，最好尝试用其他方法搭建服务</p>
+<h3 id="IP或端口被封"><a href="#IP或端口被封" class="headerlink" title="IP或端口被封"></a>IP或端口被封</h3><h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<blockquote>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
+</blockquote>
+<pre><code>&amp;nbsp;
+
+&gt; 本文作者： Skyline(lty)
+文章链接： [http://www.skyline.show/Shadowsocks服务搭建与访问.html](http://www.skyline.show/Shadowsocks服务搭建与访问.html)
+版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-ES类的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1300,337 +1707,6 @@ updated: 2022-02-03    14:21:52
 
 &gt; 本文作者： Skyline(lty)
 文章链接： [http://www.skyline.show/ES类的使用.html](http://www.skyline.show/ES类的使用.html)
-版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Husky使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Husky使用.html">Husky使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="Husky-使用"><a href="#Husky-使用" class="headerlink" title="Husky 使用"></a>Husky 使用</h1><h2 id="Husky-使用配置"><a href="#Husky-使用配置" class="headerlink" title="Husky 使用配置"></a>Husky 使用配置</h2><h3 id="husky-简述"><a href="#husky-简述" class="headerlink" title="husky 简述"></a>husky 简述</h3><p>husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。</p>
-<p>以代码校验为例来说明</p>
-<p>代码校验 lint-staged 相关配置如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">		<span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	...,</span><br><span class="line">	<span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>后续代码中，其余配置为 husky 相关，通过这些配置，我们在 commit 代码时，会校验代码错误与格式，校验不通过会有提示。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Husky%E4%BD%BF%E7%94%A820210924150933.png" alt="Husky使用20210924150933"></p>
-<p>Husky 在版本 5 中配置做了大变动，具体前后的配置以版本来说明。</p>
-<h3 id="V5"><a href="#V5" class="headerlink" title="V5+"></a>V5+</h3><p>yarn add husky -D</p>
-<p>安装 husky 最新包</p>
-<p>npx husky-init &amp;&amp; yarn</p>
-<p>在 package.json 会自动添加如下选项</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>汇总其他相关配置选项，如下<br><code>package.json</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"precommit"</span>: <span class="string">"lint-staged"</span>,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">    <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同时会在项目目录下自动生成 .husky 目录，包含最基础的 pre-commit bash 脚本，将 bash 脚本的默认 npm test 改为 npm run precommit 即可</p>
-<p><code>pre-commit</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">. <span class="string">"$(dirname "</span>$<span class="number">0</span><span class="string">")/_/husky.sh"</span></span><br><span class="line"></span><br><span class="line">npm run precommit</span><br></pre></td></tr></table></figure>
-<h3 id="V4"><a href="#V4" class="headerlink" title="V4"></a>V4</h3><p>yarn add <a href="mailto:husky@v4.3.8" target="_blank" rel="noopener">husky@v4.3.8</a> -D</p>
-<p>package.json</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">            ...,</span><br><span class="line">            <span class="string">"husky"</span>: <span class="string">"4.3.8"</span>,</span><br><span class="line">            <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"husky"</span>: &#123;</span><br><span class="line">        <span class="string">"hooks"</span>: &#123;</span><br><span class="line">        <span class="string">"pre-commit"</span>: <span class="string">"lint-staged"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Husky-配置更新"><a href="#Husky-配置更新" class="headerlink" title="Husky 配置更新"></a>Husky 配置更新</h2><h3 id="git-hooks-说明"><a href="#git-hooks-说明" class="headerlink" title="git hooks 说明"></a>git hooks 说明</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>要配置 Git 钩子，只需要简单地在.git/hooks/目录下放对应钩子的可执行文件即可<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Husky%E4%BD%BF%E7%94%A820210924152534.png" alt="Husky使用20210924152534"></p>
-<p>通过 husky 简述中配置可以看到，husky 更新后配置似乎更加麻烦，如下探讨会为何会有去简就繁的操作。</p>
-<h3 id="V4-工作原理"><a href="#V4-工作原理" class="headerlink" title="V4 工作原理"></a>V4 工作原理</h3><p>在 V4 版本及以前，为了可执行 .huskyrc.js 中配置的钩子， 在装 Husky 的时候，默认初始化了全部钩子在.git/hooks/ 中。<br>例如，在执行 commit 时 ， husky/runner.js 会去检查 .huskyrc.js 中是否有对应的配置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git commit</span></span><br><span class="line"></span><br><span class="line">pre-commit (native) → husky/runner.js (node)</span><br><span class="line">→ is a pre-commit defined in `.huskyrc.js`? → YES, run it</span><br><span class="line"></span><br><span class="line">prepare-commit-msg (native) → husky/runner.js (node)</span><br><span class="line">→ is a prepare-commit-msg defined in `.huskyrc.js`? → NO, do nothing</span><br><span class="line"></span><br><span class="line">commit-msg (native) → husky/runner.js (node)</span><br><span class="line">→ is a commit-msg defined in `.huskyrc.js`? → NO, do nothing</span><br><span class="line"></span><br><span class="line">post-commit (native) → husky/runner.js (node)</span><br><span class="line">→ is a post-commit defined in `.huskyrc.js`? → NO, do nothing</span><br></pre></td></tr></table></figure>
-<p>初始所有了所有.git/hooks/ 钩子，这样的好处是用户随时可以在.huskyrc.js 中增减配置，缺点是对应钩子没有任何相应的配置时，.git/hooks/对应钩子仍旧存在，husky/runner.js 也仍旧会执行。<br>考虑优化插件方向，如果 Husky 初始根据.huskyrc.js 只在.git/hooks/生成对应的配置<br>考虑如下配置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// .huskyrc.js</span><br><span class="line">module.exports = &#123;</span><br><span class="line">  hooks: &#123;</span><br><span class="line">    &apos;pre-commit&apos;: &apos;lint-staged&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.git/hooks/pre-commit ← is somehow created</span><br></pre></td></tr></table></figure>
-<p>后续有新的钩子需求</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// .huskyrc.js</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    hooks: &#123;</span><br><span class="line">    // &apos;pre-commit&apos;: &apos;lint-staged&apos;, ← removed</span><br><span class="line">    &apos;commit-msg&apos;: &apos;lint-staged&apos; ← added</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>.git/hooks 目录下仍旧只存在 pre-commit 文件。<br>本例中，如果我们只需要使用 pre-commit 钩子，删除.git/hooks/中其他钩子后程序依旧可以正常运行，但是后续在 .huskyrc.js 添加新钩子并不会在.git/hooks/自动生成对应钩子，新加的配置不会起任何作用。</p>
-<p>如果要采用上述方式又不想初始化全部钩子，.huskyrc.js 配置与.git/hooks/ 中自动生成对应钩子文件，这就涉及 JS 与 Git 的配置同步问题。</p>
-<h3 id="V5-原理"><a href="#V5-原理" class="headerlink" title="V5+ 原理"></a>V5+ 原理</h3><p>2016 年，Git 在 2.9 版本引入了 core.hooksPath. 让 Git hooks 的目录可以个性化定制。<br>Husky 5+ 将相关钩子放置在项目.husky 目录下，默认只创建一个运行 npm test 的 pre-commit 钩子。<br>用户不再去.huskyrc.js 配置钩子，而是需要手动运行 npx husky add .husky/commit-msg ‘npm test’ 添加新的钩子。<br><code>husky install</code> 更改 Git hooks 目录到 .husky/<br>解决了非必要钩子初始化问题，默认只创建一个运行 npm test 的 pre-commit 钩子。<br><code>husky add</code> 提供后续添加新钩子的需求<br>解决配置同步问题，不再去使用.huskyrc.js 或者在 package.json 中配置钩子，而是通过该命令直接在.husky 目录下生成）</p>
-<h3 id="后续问题"><a href="#后续问题" class="headerlink" title="后续问题"></a>后续问题</h3><p>引入.husky 目录，代码混乱?<br>引入.huskyrc.js 也存在，.husky 支持统一放在 config 等指定目录下。<br>作为 JS 库不用 JS 来配置？<br>如 Jest, ESLint, Prettier 等用 .jestrc.js, .eslintrc.js, .prettierrc.js 来配置，它们全都是用纯 JS 写的。<br>Husky 并不是纯 JS 开发，包含 Shell 脚本，与 Git 交互。</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>I am a bucolic migrant worker but I never walk backwards.</p>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><blockquote>
-<p><a href="https://blog.typicode.com/husky-git-hooks-javascript-config/" target="_blank" rel="noopener">Why husky has dropped conventional JS config</a></p>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><blockquote>
-<p>本文作者： Skyline(lty)<br>版权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-</blockquote>
-<pre><code>&amp;nbsp;
-
-&gt; 本文作者： Skyline(lty)
-文章链接： [http://www.skyline.show/Husky使用.html](http://www.skyline.show/Husky使用.html)
-版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-康定周边2日"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/康定周边2日.html">康定周边2日</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="康定周边-2-日"><a href="#康定周边-2-日" class="headerlink" title="康定周边 2 日"></a>康定周边 2 日</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#康定周边-2-日">康定周边 2 日</a><ul>
-<li><a href="#准备">准备</a><ul>
-<li><a href="#时间">时间</a></li>
-<li><a href="#物品清单">物品清单</a></li>
-<li><a href="#路线">路线</a></li>
-</ul>
-</li>
-<li><a href="#主要地点">主要地点</a><ul>
-<li><a href="#海螺沟">海螺沟</a></li>
-<li><a href="#折多山">折多山</a></li>
-<li><a href="#新都桥">新都桥</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。<br>周五晚出发建议在泸定留宿，直接前往磨西古镇也可，需要多一个小时车程。<br>注意 3 岁以下小朋友容易高反，带过去需要有人专职陪伴，备足氧气瓶，折多山上和去沿途有氧气卖。</p>
-<h3 id="物品清单"><a href="#物品清单" class="headerlink" title="物品清单"></a>物品清单</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">氧气瓶</span><br><span class="line">血氧仪</span><br><span class="line">防滑链（时间定）</span><br><span class="line">墨镜</span><br><span class="line">巧克力</span><br><span class="line">葡萄糖</span><br><span class="line">鸭舌帽</span><br></pre></td></tr></table></figure>
-<h3 id="路线"><a href="#路线" class="headerlink" title="路线"></a>路线</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%BA%B7%E5%AE%9A%E5%91%A8%E8%BE%B92%E6%97%A520211026104129.png" alt="康定周边2日20211026104129"><br>推荐一天去一个选框中相关地点，标红为海拔高度，连线中为不堵时两地驾车时长。<br>路线图采用 sketch 制作。<br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Life/Travel/travel.sketch" target="_blank" rel="noopener">路线图</a></p>
-<h2 id="主要地点"><a href="#主要地点" class="headerlink" title="主要地点"></a>主要地点</h2><h3 id="海螺沟"><a href="#海螺沟" class="headerlink" title="海螺沟"></a>海螺沟</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%BA%B7%E5%AE%9A%E5%91%A8%E8%BE%B92%E6%97%A520211026143433.png" alt="康定周边2日20211026143433"><br>海螺沟需要在磨西古镇买景区票，然后统一坐大巴，40 分钟左右经过山路，可以选到 3 号营地下或继续坐车到 4 号营地。<br>大巴可选 3 号或 4 号营地下车。<br>看冰川需要在 4 号营地坐缆车。不看冰川可以直接去 3 号营地去月牙湖和冰川舌，4 号营地不坐缆车没有其他游乐设施，需要徒步到 3 号营地，通过人工步道一路穿过林地，风景一般，时间紧可不去 4 号营地。<br>海螺沟前往康定的沿途风景也不错，建议白天出发，沿途非常容易起雾，能见度非常低，路上不时出现趴在上面休息的牛羊，或有拦路的大块石头，起雾驾车需要特别小心。</p>
-<h3 id="折多山"><a href="#折多山" class="headerlink" title="折多山"></a>折多山</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%BA%B7%E5%AE%9A%E5%91%A8%E8%BE%B92%E6%97%A520211026144444.png" alt="康定周边2日20211026144444"></p>
-<p>折多山山腰处运气好可以拍到云海。折多山上雪景不错，需要备好墨镜和帽子。</p>
-<h3 id="新都桥"><a href="#新都桥" class="headerlink" title="新都桥"></a>新都桥</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%BA%B7%E5%AE%9A%E5%91%A8%E8%BE%B92%E6%97%A520211026143554.png" alt="康定周边2日20211026143554"><br>新都桥镇看叶子上可打卡，镇上几处可能不是最漂亮的地方。看叶子最美的地方，由新都桥导航去红海子，在 318 和 434 省道有一段村路，看叶子不错，或者在过新都桥大桥之前的岔路去另一条路往前几公里。<br>新都桥驾车前往红海子的路上 434 省道海拔高的路段容易起雾，且比较弯曲，需要注意。<br>镇上吃烤肉烤全羊等需要晚上。</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-<blockquote>
-<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
-</blockquote>
-<pre><code>&amp;nbsp;
-
-&gt; 本文作者： Skyline(lty)
-文章链接： [http://www.skyline.show/康定周边2日.html](http://www.skyline.show/康定周边2日.html)
-版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ES对象属性"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES对象属性.html">ES对象属性</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="JS-对象的属性"><a href="#JS-对象的属性" class="headerlink" title="JS 对象的属性"></a>JS 对象的属性</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#js-对象的属性">JS 对象的属性</a><ul>
-<li><a href="#属性描述符">属性描述符</a><ul>
-<li><a href="#属性分类">属性分类</a></li>
-<li><a href="#enumerable">Enumerable</a></li>
-<li><a href="#configurable">Configurable</a></li>
-</ul>
-</li>
-<li><a href="#属性创建">属性创建</a><ul>
-<li><a href="#直接创建">直接创建</a></li>
-<li><a href="#objectdefineproperty-objectdefineproperties">Object.defineProperty() &amp; Object.defineProperties()</a></li>
-<li><a href="#objectcreate">Object.create</a></li>
-</ul>
-</li>
-<li><a href="#扩展-封印与冻结">扩展、封印与冻结</a><ul>
-<li><a href="#preventextensions">preventExtensions</a></li>
-<li><a href="#seal">seal</a></li>
-<li><a href="#freeze">freeze</a></li>
-</ul>
-</li>
-<li><a href="#屏蔽-检测与遍历">屏蔽、检测与遍历</a><ul>
-<li><a href="#属性屏蔽">属性屏蔽</a></li>
-<li><a href="#属性检测">属性检测</a></li>
-<li><a href="#属性遍历">属性遍历</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h2><h3 id="属性分类"><a href="#属性分类" class="headerlink" title="属性分类"></a>属性分类</h3><ul>
-<li>数据属性<ul>
-<li>Configurable</li>
-<li>Enumerable</li>
-<li>Writable</li>
-<li>Value</li>
-</ul>
-</li>
-<li>访问器属性<ul>
-<li>Configurable</li>
-<li>Enumerable</li>
-<li>Get</li>
-<li>Set</li>
-</ul>
-</li>
-</ul>
-<h3 id="Enumerable"><a href="#Enumerable" class="headerlink" title="Enumerable"></a>Enumerable</h3><p>Enumerable 表示能否枚举，常见</p>
-<h3 id="Configurable"><a href="#Configurable" class="headerlink" title="Configurable"></a>Configurable</h3><p>Configurable 表示能否删除属性，能否修改某些属性描述符，能否将属性改为访问器(数据)属性。</p>
-<p>configurable 一旦指定为 false，则 configurable、enumerable、value、get、set 将无法通过 Object.defineProperty()重新配置，删除对应的属性将不产生效果（严格模式导致错误），属性将不能转换（数据与访问器之间）</p>
-<p>configurable 一旦指定为 false,此时的 Writable 如果是 true 则可以修改为 false，但是不能从 false 改为 true（只关不开）</p>
-<p>configurable true，writable false 时，可以通过 Object.defineProperty()修改 value 的值，直接赋值无效；configurable false，writable true 时可以通过赋值直接修改 value 的值，通过 Object.defineProperty()指定 value 值将会报错</p>
-<p>数据属性能否重新直接赋值取决于 writable<br>属性能否重新通过 defineProperty 定义属性描述与值以及被删除取决于 configurable</p>
-<p>忽略 enumerable 为 false 属性的操作</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105422.png" alt="JS对象属性20210928105422"></p>
-<h2 id="属性创建"><a href="#属性创建" class="headerlink" title="属性创建"></a>属性创建</h2><h3 id="直接创建"><a href="#直接创建" class="headerlink" title="直接创建"></a>直接创建</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>直接建立的布尔型属性描述默认都是 true</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123; <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(a, <span class="string">"c"</span>);</span><br><span class="line"><span class="comment">// &#123;value: 1, writable: true, enumerable: true, configurable: true&#125;</span></span><br><span class="line">a.d = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(a, <span class="string">"d"</span>);</span><br><span class="line"><span class="comment">//&#123;value: 2, writable: true, enumerable: true, configurable: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="Object-defineProperty-amp-Object-defineProperties"><a href="#Object-defineProperty-amp-Object-defineProperties" class="headerlink" title="Object.defineProperty() &amp; Object.defineProperties()"></a>Object.defineProperty() &amp; Object.defineProperties()</h3><p>通过 Object.defineProperty()来定义或者修改属性</p>
-<p>Object.defineProperty()接受三个参数，分别是对象名，属性名，描述符对象。</p>
-<p>数据属性描述符对象只接受 configurable、enumerable、writable、value 四种属性中的一个或多个;访问器属性描述符对象只接受 configurable、enumerable、get、set 四种属性中的一个或多个。</p>
-<p>描述符对象不指定 configurable、enumerable、writable 时，他们的默认值是 false；不指定 value、get、set 时，默认值是 undefined<br>在使用 defineProperty 时通常需要代码直接指定布尔型描述全为 true</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">"name"</span>, &#123; <span class="attr">value</span>: <span class="string">"skyline"</span> &#125;);</span><br><span class="line">a; <span class="comment">// &#123;name: "skyline"&#125;</span></span><br><span class="line">a.name = <span class="string">"lala"</span>;</span><br><span class="line">a; <span class="comment">// &#123;name: "skyline"&#125; 修改不生效</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">"name"</span>, &#123; <span class="attr">value</span>: <span class="string">"skyline"</span>, <span class="attr">writable</span>: <span class="literal">true</span> &#125;); <span class="comment">// Uncaught TypeError: Cannot redefine property: name writeable是false，无法再改为true</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">"age"</span>, &#123; <span class="attr">value</span>: <span class="string">"18"</span>, <span class="attr">configurable</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">a.age = <span class="number">19</span>; <span class="comment">// 19 修改不生效</span></span><br><span class="line">a; <span class="comment">// &#123;name: "skyline", age: "18"&#125;</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, <span class="string">"age"</span>, &#123; <span class="attr">value</span>: <span class="string">"18"</span>, <span class="attr">writable</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">a.age = <span class="number">19</span>;</span><br><span class="line">a; <span class="comment">// &#123;name: "skyline", age: 19&#125; 修改生效</span></span><br></pre></td></tr></table></figure>
-<h3 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create"></a>Object.create</h3><p>Object.create 方法的第二个参数添加的对象属性，同样的，只指定 value 不指定其他将会导致 configurable、enumerable、writable 都是 false</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = <span class="built_in">Object</span>.create(&#123;&#125;, &#123; <span class="attr">p</span>: &#123; <span class="attr">value</span>: <span class="number">1</span> &#125; &#125;);</span><br><span class="line"><span class="built_in">Object</span>.values(obj); <span class="comment">// []</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="string">"p"</span>);</span><br><span class="line"><span class="comment">//&#123;value: 1, writable: false, enumerable: false, configurable: false&#125;</span></span><br></pre></td></tr></table></figure>
-<p>Object.getOwnPropertyDescriptor(s) 查看属性描述符</p>
-<h2 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h2><h3 id="preventExtensions"><a href="#preventExtensions" class="headerlink" title="preventExtensions"></a>preventExtensions</h3><p>Object.preventExtensions()禁止扩展，即防止对象添加新的属性，Object.isExtensible()检查是否可扩展</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> object1 = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(object1);</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(object1, <span class="string">"property1"</span>, &#123;</span><br><span class="line">    value: <span class="number">42</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e);</span><br><span class="line">  <span class="comment">// expected output: TypeError: Cannot define property property1, object is not extensible</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="seal"><a href="#seal" class="headerlink" title="seal"></a>seal</h3><p>Object.seal()封印对象，防止对象添加新的属性，且将所有属性的 Configurable 置为 false Object.isSealed()检查是否被封印</p>
-<h3 id="freeze"><a href="#freeze" class="headerlink" title="freeze"></a>freeze</h3><p>Object.freeze()冻结对象，防止对象添加新的属性，且将所有属性的 Configurable 置为 false ，数据属性的所有 writable 设置为 false，防止对象属性直接重新赋值， Object.isFrozen()检查是否被冻结</p>
-<p>被冻结的对象一定被封印了；被封印的对象一定不能扩展。</p>
-<p>当一个被封印的对象所有自有（实例）属性的描述符 writable 改为 false 时，那么此时它也是被冻结的，通过 isFrozen 返回 true</p>
-<p>被冻结对象的访问器属性如果有 set 描述符，则它仍旧是可写的</p>
-<h2 id="屏蔽、检测与遍历"><a href="#屏蔽、检测与遍历" class="headerlink" title="屏蔽、检测与遍历"></a>屏蔽、检测与遍历</h2><h3 id="属性屏蔽"><a href="#属性屏蔽" class="headerlink" title="属性屏蔽"></a>属性屏蔽</h3><p>原型属性指存在于原型链上的属性。实例中创建与原型中同名的属性，会屏蔽原型中的属性值。delete 可以删除实例中的属性，来重新暴露原型中的属性</p>
-<h3 id="属性检测"><a href="#属性检测" class="headerlink" title="属性检测"></a>属性检测</h3><p>hasOwnProperty()来获取自有（实例）属性</p>
-<p><strong>in 操作符来确定属性是否存在于实例属性与原型链中</strong></p>
-<p>属性检测不受枚举与否影响</p>
-<p><a href="https://www.notion.so/f21a953fb05546148c673bb69ff7b17a" target="_blank" rel="noopener">Detection</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = <span class="built_in">Object</span>.create(&#123;&#125;, &#123; <span class="attr">p</span>: &#123; <span class="attr">value</span>: <span class="number">1</span> &#125; &#125;);</span><br><span class="line"><span class="built_in">Object</span>.values(obj); <span class="comment">// []</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="string">"p"</span>);</span><br><span class="line"><span class="comment">// &#123;value: 1, writable: false, enumerable: false, configurable: false&#125;</span></span><br><span class="line"><span class="string">"p"</span> <span class="keyword">in</span> obj; <span class="comment">// true</span></span><br><span class="line"><span class="string">"valueOf"</span> <span class="keyword">in</span> obj; <span class="comment">// true</span></span><br><span class="line">obj.hasOwnProperty(<span class="string">"p"</span>); <span class="comment">// true</span></span><br><span class="line">obj.hasOwnProperty(<span class="string">"valueOf"</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h3 id="属性遍历"><a href="#属性遍历" class="headerlink" title="属性遍历"></a>属性遍历</h3><p>for-in 语句遍历所有可枚举的自有（实例）和原型属性</p>
-<p>Object.keys()只会收录自有可枚举属性名在数组中</p>
-<p><a href="https://www.notion.so/91b7ac8e68c7480dbc50a20db50e1cc6" target="_blank" rel="noopener">Iteration</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = <span class="built_in">Object</span>.create(&#123;&#125;, &#123; <span class="attr">p</span>: &#123; <span class="attr">value</span>: <span class="number">1</span> &#125; &#125;);</span><br><span class="line"><span class="built_in">Object</span>.values(obj); <span class="comment">// []</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="string">"p"</span>);</span><br><span class="line"><span class="comment">// &#123;value: 1, writable: false, enumerable: false, configurable: false&#125;</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyNames(obj); <span class="comment">//["p"]</span></span><br><span class="line"><span class="built_in">Object</span>.keys(obj); <span class="comment">// []</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105558.png" alt="JS对象属性20210928105558"></p>
-<p>常见方法需要可枚举，非常见不限制枚举</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>I am a bucolic migrant worker but I never walk backwards.</p>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><blockquote>
-<p>《JavaScript 高级程序设计》</p>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><blockquote>
-<p>本文作者： Skyline(lty)<br>版权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-</blockquote>
-<pre><code>&amp;nbsp;
-
-&gt; 本文作者： Skyline(lty)
-文章链接： [http://www.skyline.show/ES对象属性.html](http://www.skyline.show/ES对象属性.html)
 版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
 </code></pre>
       

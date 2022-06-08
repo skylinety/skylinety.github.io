@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144558.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144752.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144800.png">
-<meta property="og:updated_time" content="2022-05-27T07:41:02.000Z">
+<meta property="og:updated_time" content="2022-06-02T02:55:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Webpack中DllPlugin使用">
 <meta name="twitter:description" content="Webpack 中 DllPlugin 使用   Webpack 中 DllPlugin 使用 DllPlugin 概述 实质 DllPlugin 配置   引入 dll 库 手动引入 dll 文件（不推荐） 手动引入注意 自动引入(推荐) 自动引入常见问题   成果分析 优化前 优化后：   BMW WARNING Bulletin Material Warrant       DllPlugi">
@@ -195,7 +195,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-05-27T07:41:02.000Z" itemprop="datePublished">2022-05-27</time>
+      <time datetime="2022-06-02T02:55:08.000Z" itemprop="datePublished">2022-06-02</time>
     </a><span style="color: #999">|</span>
 
       
@@ -260,8 +260,8 @@
 <p>执行 yarn dll<br>生成 dll 文件和 manifest.json 文件<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144435.png" alt="Webpack中DllPlugin使用20220411144435"><br>manifest.json 文件包含了引用模块的 id 映射，为 DllReferencePlugin 引用做准备</p>
 <h2 id="引入-dll-库"><a href="#引入-dll-库" class="headerlink" title="引入 dll 库"></a>引入 dll 库</h2><h3 id="手动引入-dll-文件（不推荐）"><a href="#手动引入-dll-文件（不推荐）" class="headerlink" title="手动引入 dll 文件（不推荐）"></a>手动引入 dll 文件（不推荐）</h3><p>在根目录的 index.html 里引入所生成的 dll 库</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xx市城市综合管理基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/vendor.dll.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="手动引入注意"><a href="#手动引入注意" class="headerlink" title="手动引入注意"></a>手动引入注意</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>如果前后端约定了项目访问 url 前缀，如’skyline’,则前端可以在 output.publicPath 指定值为’/skyline/‘<br>同时手动引入是需为如下配置。</p>
+<h3 id="手动引入注意"><a href="#手动引入注意" class="headerlink" title="手动引入注意"></a>手动引入注意</h3><a id="more"></a>
+<p>如果前后端约定了项目访问 url 前缀，如’skyline’,则前端可以在 output.publicPath 指定值为’/skyline/‘<br>同时手动引入是需为如下配置。</p>
 <p>同时在测试环境 webpack.dev.conf.js 中，需要设定代理</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">proxyTable: &#123;</span><br><span class="line">      <span class="string">'/skyline'</span>: &#123;</span><br><span class="line">        target: <span class="string">'http://localhost:8080/'</span>, <span class="comment">// 本地地址，开发环境一旦端口变更就要更改，非常麻烦</span></span><br><span class="line">        pathRewrite: &#123;</span><br><span class="line">          <span class="string">'^/skyline/static'</span>: <span class="string">'/static'</span></span><br><span class="line">        &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="自动引入-推荐"><a href="#自动引入-推荐" class="headerlink" title="自动引入(推荐)"></a>自动引入(推荐)</h3><p>html-webpack-tags-plugin 插件</p>
@@ -341,19 +341,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/ES_Module&CommonJS.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Git常见操作.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          ES_Module&amp;CommonJS
+          Git常见操作
         
       </div>
     </a>
   
   
-    <a href="/HTTPS加密方式1.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/排序算法.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">排序算法</div>
     </a>
   
 </nav>
