@@ -1391,7 +1391,7 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1399,7 +1399,7 @@ Warrant
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/排序算法.html">排序算法</a>
+      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
     </h1>
   
 
@@ -1420,55 +1420,25 @@ Warrant
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <h1 id="Webpack-中-DllPlugin-使用"><a href="#Webpack-中-DllPlugin-使用" class="headerlink" title="Webpack 中 DllPlugin 使用"></a>Webpack 中 DllPlugin 使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#排序算法">排序算法</a><ul>
-<li><a href="#选择排序">选择排序</a><ul>
-<li><a href="#选排的思想">选排的思想</a></li>
-<li><a href="#时间复杂度">时间复杂度</a></li>
+<li><a href="#webpack-中-dllplugin-使用">Webpack 中 DllPlugin 使用</a><ul>
+<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
+<li><a href="#实质">实质</a></li>
+<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
 </ul>
 </li>
-<li><a href="#冒泡排序">冒泡排序</a><ul>
-<li><a href="#基本思路">基本思路</a></li>
-<li><a href="#时间复杂度-1">时间复杂度</a></li>
-<li><a href="#交换判定优化">交换判定优化</a></li>
+<li><a href="#引入-dll-库">引入 dll 库</a><ul>
+<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
+<li><a href="#手动引入注意">手动引入注意</a></li>
+<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
+<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
 </ul>
 </li>
-<li><a href="#插入排序">插入排序</a><ul>
-<li><a href="#插排的思想">插排的思想</a></li>
-<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
-<li><a href="#哨兵优化">哨兵优化</a></li>
-<li><a href="#折半优化">折半优化</a></li>
-</ul>
-</li>
-<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
-<li><a href="#归并排序思路">归并排序思路</a></li>
-<li><a href="#合并">合并</a></li>
-<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
-</ul>
-</li>
-<li><a href="#快速排序">快速排序</a><ul>
-<li><a href="#快排思路">快排思路</a></li>
-<li><a href="#选值优化">选值优化</a></li>
-<li><a href="#多路快排">多路快排</a></li>
-</ul>
-</li>
-<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
-<li><a href="#关键思路">关键思路</a></li>
-<li><a href="#时间复杂度-2">时间复杂度</a></li>
-</ul>
-</li>
-<li><a href="#计数排序">计数排序</a><ul>
-<li><a href="#关键思路-1">关键思路</a></li>
-<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
-</ul>
-</li>
-<li><a href="#堆排序">堆排序</a><ul>
-<li><a href="#完全二叉树">完全二叉树</a></li>
-<li><a href="#堆">堆</a></li>
-<li><a href="#构造堆">构造堆</a></li>
-<li><a href="#排序">排序</a></li>
+<li><a href="#成果分析">成果分析</a><ul>
+<li><a href="#优化前">优化前</a></li>
+<li><a href="#优化后">优化后：</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -1481,61 +1451,56 @@ Warrant
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>选择排序的比较次数 = (n - 1) + (n - 2) + … + 2 + 1 = n * (n - 1) / 2，因此时间复杂度为：O(n²)。</p>
-<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>每一轮通过不断对比交换位置来将该轮最大（小）值上浮（下沉）到对应轮位置<br>核心思想是<strong>每轮换位置</strong><br><strong>外层循环确定轮次，内层循环<code>交换位置</code></strong>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<p>每一轮都进行了<strong>多次交换</strong>，故相较于选择排序耗时</p>
-<h3 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
-        <!-- 排序算法
+<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
+<blockquote>
+<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
+</blockquote>
+<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3><p>webpack.dll.config.js 配置</p>
+<p>新建单独的配置文件</p>
+<p>webpack.dll.config.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 你想要打包的模块的数组</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: [</span><br><span class="line">      <span class="string">'vue/dist/vue.esm.js'</span>,</span><br><span class="line">      <span class="string">'vuex'</span>,</span><br><span class="line">      <span class="string">'axios'</span>,</span><br><span class="line">      <span class="string">'vue-router'</span>,</span><br><span class="line">      <span class="string">'element-ui'</span>,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">'../static/js'</span>), <span class="comment">// 打包后文件输出的位置</span></span><br><span class="line">    filename: <span class="string">'[name].dll.js'</span>,</span><br><span class="line">    library: <span class="string">'[name]_library'</span>,</span><br><span class="line">    <span class="comment">// vendor.dll.js中暴露出的全局变量名。</span></span><br><span class="line">    <span class="comment">// 主要是给DllPlugin中的name使用，</span></span><br><span class="line">    <span class="comment">// 故这里需要和webpack.DllPlugin中的`name: '[name]_library',`保持一致。</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.DllPlugin(&#123;</span><br><span class="line">      path: path.join(__dirname, <span class="string">'../'</span>, <span class="string">'[name]-manifest.json'</span>),</span><br><span class="line">      name: <span class="string">'[name]_library'</span>,</span><br><span class="line">      context: __dirname,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="comment">// 压缩打包的文件</span></span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">      compress: &#123;</span><br><span class="line">        warnings: <span class="literal">false</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置说明</p>
+<p>path：manifest.json 生成的文件夹及名字，该项目让它生成在了根目录下。<br>name：和 output. library 保持一致即可。<br>context：选填，manifest 文件中请求的上下文，默认为该 webpack 文件上下文。</p>
+<p>在 package.json 中添加执行脚本</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"dll"</span>: <span class="string">"webpack --config build/webpack.dll.conf.js"</span>,</span><br></pre></td></tr></table></figure>
+<p>执行 yarn dll<br>生成 dll 文件和 manifest.json 文件<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144435.png" alt="Webpack中DllPlugin使用20220411144435"><br>manifest.json 文件包含了引用模块的 id 映射，为 DllReferencePlugin 引用做准备</p>
+<h2 id="引入-dll-库"><a href="#引入-dll-库" class="headerlink" title="引入 dll 库"></a>引入 dll 库</h2><h3 id="手动引入-dll-文件（不推荐）"><a href="#手动引入-dll-文件（不推荐）" class="headerlink" title="手动引入 dll 文件（不推荐）"></a>手动引入 dll 文件（不推荐）</h3><p>在根目录的 index.html 里引入所生成的 dll 库</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xx市城市综合管理基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/vendor.dll.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="手动引入注意"><a href="#手动引入注意" class="headerlink" title="手动引入注意"></a>手动引入注意</h3>
+        <!-- Webpack 中 DllPlugin 使用
 
 
-排序算法
-选择排序
-选排的思想
-时间复杂度
+Webpack 中 DllPlugin 使用
+DllPlugin 概述
+实质
+DllPlugin 配置
 
 
-冒泡排序
-基本思路
-时间复杂度
-交换判定优化
+引入 dll 库
+手动引入 dll 文件（不推荐）
+手动引入注意
+自动引入(推荐)
+自动引入常见问题
 
 
-插入排序
-插排的思想
-时间复杂度分析
-哨兵优化
-折半优化
+成果分析
+优化前
+优化后：
 
 
-归并排序（Merge Sort）
-归并排序思路
-合并
-时间复杂度分析
+BMW WARNING
+Bulletin
+Material
+Warrant
 
 
-快速排序
-快排思路
-选值优化
-多路快排
 
 
-希尔排序（缩小增量排序）
-关键思路
-时间复杂度
 
 
-计数排序
-关键思路
-时间复杂度分析
-
-
-堆排序
-完......  -->
+DllPl......  -->
         <p class="article-more-link">
-          <a href="/排序算法.html#more">阅读全文</a>
+          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1543,7 +1508,7 @@ Warrant
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
 
     </footer>
   </div>
@@ -1719,7 +1684,7 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1727,7 +1692,7 @@ Warrant
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
+      <a class="article-title" href="/排序算法.html">排序算法</a>
     </h1>
   
 
@@ -1748,25 +1713,55 @@ Warrant
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Webpack-中-DllPlugin-使用"><a href="#Webpack-中-DllPlugin-使用" class="headerlink" title="Webpack 中 DllPlugin 使用"></a>Webpack 中 DllPlugin 使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#webpack-中-dllplugin-使用">Webpack 中 DllPlugin 使用</a><ul>
-<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
-<li><a href="#实质">实质</a></li>
-<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
+<li><a href="#排序算法">排序算法</a><ul>
+<li><a href="#选择排序">选择排序</a><ul>
+<li><a href="#选排的思想">选排的思想</a></li>
+<li><a href="#时间复杂度">时间复杂度</a></li>
 </ul>
 </li>
-<li><a href="#引入-dll-库">引入 dll 库</a><ul>
-<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
-<li><a href="#手动引入注意">手动引入注意</a></li>
-<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
-<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
+<li><a href="#冒泡排序">冒泡排序</a><ul>
+<li><a href="#基本思路">基本思路</a></li>
+<li><a href="#时间复杂度-1">时间复杂度</a></li>
+<li><a href="#交换判定优化">交换判定优化</a></li>
 </ul>
 </li>
-<li><a href="#成果分析">成果分析</a><ul>
-<li><a href="#优化前">优化前</a></li>
-<li><a href="#优化后">优化后：</a></li>
+<li><a href="#插入排序">插入排序</a><ul>
+<li><a href="#插排的思想">插排的思想</a></li>
+<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
+<li><a href="#哨兵优化">哨兵优化</a></li>
+<li><a href="#折半优化">折半优化</a></li>
+</ul>
+</li>
+<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
+<li><a href="#归并排序思路">归并排序思路</a></li>
+<li><a href="#合并">合并</a></li>
+<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#快速排序">快速排序</a><ul>
+<li><a href="#快排思路">快排思路</a></li>
+<li><a href="#选值优化">选值优化</a></li>
+<li><a href="#多路快排">多路快排</a></li>
+</ul>
+</li>
+<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
+<li><a href="#关键思路">关键思路</a></li>
+<li><a href="#时间复杂度-2">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#计数排序">计数排序</a><ul>
+<li><a href="#关键思路-1">关键思路</a></li>
+<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#堆排序">堆排序</a><ul>
+<li><a href="#完全二叉树">完全二叉树</a></li>
+<li><a href="#堆">堆</a></li>
+<li><a href="#构造堆">构造堆</a></li>
+<li><a href="#排序">排序</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -1779,56 +1774,61 @@ Warrant
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
-<blockquote>
-<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
-</blockquote>
-<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3><p>webpack.dll.config.js 配置</p>
-<p>新建单独的配置文件</p>
-<p>webpack.dll.config.js</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 你想要打包的模块的数组</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: [</span><br><span class="line">      <span class="string">'vue/dist/vue.esm.js'</span>,</span><br><span class="line">      <span class="string">'vuex'</span>,</span><br><span class="line">      <span class="string">'axios'</span>,</span><br><span class="line">      <span class="string">'vue-router'</span>,</span><br><span class="line">      <span class="string">'element-ui'</span>,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">'../static/js'</span>), <span class="comment">// 打包后文件输出的位置</span></span><br><span class="line">    filename: <span class="string">'[name].dll.js'</span>,</span><br><span class="line">    library: <span class="string">'[name]_library'</span>,</span><br><span class="line">    <span class="comment">// vendor.dll.js中暴露出的全局变量名。</span></span><br><span class="line">    <span class="comment">// 主要是给DllPlugin中的name使用，</span></span><br><span class="line">    <span class="comment">// 故这里需要和webpack.DllPlugin中的`name: '[name]_library',`保持一致。</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.DllPlugin(&#123;</span><br><span class="line">      path: path.join(__dirname, <span class="string">'../'</span>, <span class="string">'[name]-manifest.json'</span>),</span><br><span class="line">      name: <span class="string">'[name]_library'</span>,</span><br><span class="line">      context: __dirname,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="comment">// 压缩打包的文件</span></span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">      compress: &#123;</span><br><span class="line">        warnings: <span class="literal">false</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>配置说明</p>
-<p>path：manifest.json 生成的文件夹及名字，该项目让它生成在了根目录下。<br>name：和 output. library 保持一致即可。<br>context：选填，manifest 文件中请求的上下文，默认为该 webpack 文件上下文。</p>
-<p>在 package.json 中添加执行脚本</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"dll"</span>: <span class="string">"webpack --config build/webpack.dll.conf.js"</span>,</span><br></pre></td></tr></table></figure>
-<p>执行 yarn dll<br>生成 dll 文件和 manifest.json 文件<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144435.png" alt="Webpack中DllPlugin使用20220411144435"><br>manifest.json 文件包含了引用模块的 id 映射，为 DllReferencePlugin 引用做准备</p>
-<h2 id="引入-dll-库"><a href="#引入-dll-库" class="headerlink" title="引入 dll 库"></a>引入 dll 库</h2><h3 id="手动引入-dll-文件（不推荐）"><a href="#手动引入-dll-文件（不推荐）" class="headerlink" title="手动引入 dll 文件（不推荐）"></a>手动引入 dll 文件（不推荐）</h3><p>在根目录的 index.html 里引入所生成的 dll 库</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xx市城市综合管理基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/vendor.dll.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="手动引入注意"><a href="#手动引入注意" class="headerlink" title="手动引入注意"></a>手动引入注意</h3>
-        <!-- Webpack 中 DllPlugin 使用
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>选择排序的比较次数 = (n - 1) + (n - 2) + … + 2 + 1 = n * (n - 1) / 2，因此时间复杂度为：O(n²)。</p>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>每一轮通过不断对比交换位置来将该轮最大（小）值上浮（下沉）到对应轮位置<br>核心思想是<strong>每轮换位置</strong><br><strong>外层循环确定轮次，内层循环<code>交换位置</code></strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<p>每一轮都进行了<strong>多次交换</strong>，故相较于选择排序耗时</p>
+<h3 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
+        <!-- 排序算法
 
 
-Webpack 中 DllPlugin 使用
-DllPlugin 概述
-实质
-DllPlugin 配置
+排序算法
+选择排序
+选排的思想
+时间复杂度
 
 
-引入 dll 库
-手动引入 dll 文件（不推荐）
-手动引入注意
-自动引入(推荐)
-自动引入常见问题
+冒泡排序
+基本思路
+时间复杂度
+交换判定优化
 
 
-成果分析
-优化前
-优化后：
+插入排序
+插排的思想
+时间复杂度分析
+哨兵优化
+折半优化
 
 
-BMW WARNING
-Bulletin
-Material
-Warrant
+归并排序（Merge Sort）
+归并排序思路
+合并
+时间复杂度分析
 
 
+快速排序
+快排思路
+选值优化
+多路快排
 
 
+希尔排序（缩小增量排序）
+关键思路
+时间复杂度
 
 
-DllPl......  -->
+计数排序
+关键思路
+时间复杂度分析
+
+
+堆排序
+完......  -->
         <p class="article-more-link">
-          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
+          <a href="/排序算法.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1836,7 +1836,7 @@ DllPl......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
 
     </footer>
   </div>
