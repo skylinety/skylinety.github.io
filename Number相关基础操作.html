@@ -232,20 +232,15 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString(<span class="string">"en-US"</span>);</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString();</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
 <p>toLocaleString 将字符本地串化，第一个参数为串化标准，默认为’en-US’。<br>对于小数而言，其会四舍五入保留 3 位</p>
-<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3><pre><code>&lt;!--more--&gt;
-</code></pre><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span> + <span class="string">""</span>).replace(<span class="regexp">/(\d)(?=(\d&#123;3&#125;)+$)/g</span>, <span class="string">"$1,"</span>);</span><br><span class="line"><span class="comment">//'1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
+<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3><a id="more"></a>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span> + <span class="string">""</span>).replace(<span class="regexp">/(\d)(?=(\d&#123;3&#125;)+$)/g</span>, <span class="string">"$1,"</span>);</span><br><span class="line"><span class="comment">//'1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
 <p><strong>设计正则解析</strong></p>
 <ul>
 <li><code>+</code><br>匹配前面一个表达式 1 次或者多次。等价于{1,}。</li>
 <li><code>x(?=y)</code><br>匹配 x 仅仅当 x 后面跟着 y。这种叫做先行断言。</li>
 </ul>
 <p>整个正则的意思为后面跟有三个或三的倍数个连续数字的数后面加上逗号</p>
-<pre><code>&amp;nbsp;
 
-&gt; 本文作者： Skyline(lty)
-文章链接： [http://www.skyline.show/Number相关基础操作.html](http://www.skyline.show/Number相关基础操作.html)
-版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
-</code></pre>
       
     </div>
     <footer class="article-footer">
@@ -306,9 +301,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/Brook服务搭建与访问.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/systemd开启后台进程.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Brook服务搭建与访问</div>
+      <div class="article-nav-title">systemd开启后台进程</div>
     </a>
   
 </nav>

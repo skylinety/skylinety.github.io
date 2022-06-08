@@ -250,8 +250,8 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = sayName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>ES 中，无论何时创建的新函数，都会根据一组特定的规则来为函数添加一个指向原型对象名为 prototype 的指针属性，该原型对象自动获得一个 constructor 属性，属性指向该函数，而后基于原型对象添置实例共享的属性和方法</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = <span class="string">"skyline"</span>;</span><br><span class="line">Person.prototype.age = <span class="number">27</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line">skyline.sayName(); <span class="comment">// My name is skyline</span></span><br><span class="line">skyline <span class="keyword">instanceof</span> Person; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h3 id="原型判定"><a href="#原型判定" class="headerlink" title="原型判定"></a>原型判定</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>调用构造函数创建一个新的实例之后，该实例内部包含一个指向构造函数原型对象的指针[[Prototype]]（内部属性）。多数浏览器实现了<code>__proto__</code>来获取[[Prototype]]内部属性</p>
+<h3 id="原型判定"><a href="#原型判定" class="headerlink" title="原型判定"></a>原型判定</h3><a id="more"></a>
+<p>调用构造函数创建一个新的实例之后，该实例内部包含一个指向构造函数原型对象的指针[[Prototype]]（内部属性）。多数浏览器实现了<code>__proto__</code>来获取[[Prototype]]内部属性</p>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA20210928110402.png" alt="JS对象创建20210928110402"></p>
 <p>可以通过 isPrototypeOf()与 getPrototypeOf()来确定与获取关系</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">skyline.__proto__ == Person.prototype; <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(skyline) == Person.prototype; <span class="comment">// true</span></span><br><span class="line">Person.prototype.isPrototypeOf(skyline); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
@@ -294,12 +294,7 @@
 <blockquote>
 <p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
 </blockquote>
-<pre><code>&amp;nbsp;
 
-&gt; 本文作者： Skyline(lty)
-文章链接： [http://www.skyline.show/ES对象创建.html](http://www.skyline.show/ES对象创建.html)
-版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
-</code></pre>
       
     </div>
     <footer class="article-footer">
@@ -350,19 +345,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Vue基础使用.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Brook服务搭建与访问.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Vue基础使用
+          Brook服务搭建与访问
         
       </div>
     </a>
   
   
-    <a href="/Shadowsocks服务搭建与访问.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/CentOS防火墙.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Shadowsocks服务搭建与访问</div>
+      <div class="article-nav-title">CentOS防火墙</div>
     </a>
   
 </nav>

@@ -254,8 +254,8 @@
 <p>将不备份直接修改源文件</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">'s/skyline/lty/g'</span> ./skyline.txt</span><br></pre></td></tr></table></figure>
 <p>linux 可以直接执行修改源文件，mac 下需要如上指定空字符方可<br>在 Mac 上，sed 命令直接操作文件的时候，必须指定备份的格式，而在 linux 上，却并没有这个要求</p>
-<h2 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h2><h3 id="i-a"><a href="#i-a" class="headerlink" title="i/a"></a>i/a</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>i 与 a 都是插入参数，后面可以接字串，用 a 插入的字串会在行的下一行行首出现，用 i 插入的字串会在当前行的行首，出现单独一行需要在字符后加上\n</p>
+<h2 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h2><h3 id="i-a"><a href="#i-a" class="headerlink" title="i/a"></a>i/a</h3><a id="more"></a>
+<p>i 与 a 都是插入参数，后面可以接字串，用 a 插入的字串会在行的下一行行首出现，用 i 插入的字串会在当前行的行首，出现单独一行需要在字符后加上\n</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Mac/Linux</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'9i\</span></span><br><span class="line"><span class="string">6666666'</span> skyline.txt</span><br><span class="line"><span class="comment"># Linux</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'9a\6666666'</span> skyline.txt</span><br></pre></td></tr></table></figure>
 <ul>
 <li>注意 mac 下\后需要换行</li>

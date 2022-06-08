@@ -258,8 +258,8 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">find . -name &quot;*.md&quot; | wc -l</span><br><span class="line"># output</span><br><span class="line">       8</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">find . -name &quot;*.md&quot; | xargs wc -l</span><br><span class="line"># output</span><br><span class="line">      84 ./Major/Mobile/Flutter/Flutter基础使用汇总.md</span><br><span class="line">     109 ./Major/Mobile/Flutter/Flutter基础控件使用.md</span><br><span class="line">       0 ./Major/Shell/Shell中xargs使用.md</span><br><span class="line">     131 ./Major/Shell/Shell中的符号.md</span><br><span class="line">      13 ./Major/Shell/Shell常见操作汇总.md</span><br><span class="line">       4 ./README.md</span><br><span class="line">      44 ./Tools/DEVs/VSCode/Extensions/PicGo.md</span><br><span class="line">       5 ./Tools/OS/ipadOS使用.md</span><br><span class="line">     390 total</span><br></pre></td></tr></table></figure>
 <h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo 1 2 3 | xargs mkdir</span><br><span class="line">ls</span><br><span class="line"># output</span><br><span class="line">1 2 3</span><br></pre></td></tr></table></figure>
-<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><h3 id="0"><a href="#0" class="headerlink" title="-0"></a>-0</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>用 null 作为分隔符，与 find 中 -print0 意义一致，且需一起使用</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><h3 id="0"><a href="#0" class="headerlink" title="-0"></a>-0</h3><a id="more"></a>
+<p>用 null 作为分隔符，与 find 中 -print0 意义一致，且需一起使用</p>
 <h3 id="I"><a href="#I" class="headerlink" title="-I"></a>-I</h3><p>将标准输入以指定字符缓存，方便后续使用。类似于正则中()的作用。</p>
 <p>将当前目录下文件统一加后缀</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> input</span></span><br><span class="line">ls</span><br><span class="line"><span class="meta">#</span><span class="bash"> output</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> one           two         three</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> input</span></span><br><span class="line">find . -type f -name '*' -print0 | xargs -0 -I&#123;&#125; mv &#123;&#125; &#123;&#125;.txt &amp;&amp; ls</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> one.txt           two.txt         three.txt</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> input</span></span><br><span class="line">ls | xargs -I_ mv _ _.bak &amp;&amp; ls</span><br><span class="line"><span class="meta">#</span><span class="bash"> output</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> one.txt.bak   three.txt.bak two.txt.bak</span></span><br></pre></td></tr></table></figure>
@@ -345,9 +345,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/浏览器回流与重绘.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Shell中的符号.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">浏览器回流与重绘</div>
+      <div class="article-nav-title">Shell中的符号</div>
     </a>
   
 </nav>

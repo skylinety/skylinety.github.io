@@ -274,8 +274,8 @@
 <h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>每一轮通过不断对比交换位置来将该轮最大（小）值上浮（下沉）到对应轮位置<br>核心思想是<strong>每轮换位置</strong><br><strong>外层循环确定轮次，内层循环<code>交换位置</code></strong>。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
 <p>每一轮都进行了<strong>多次交换</strong>，故相较于选择排序耗时</p>
-<h3 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>冒泡排序的比较次数 = (n - 1) + (n - 2) + … + 2 + 1，即：n * (n - 1) / 2，所以冒泡排序的时间复杂度为：O(n²)<br>冒泡排序最优情况的时间复杂度是：O(n) 要达到这个复杂度，上述代码需要进一步优化</p>
+<h3 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><a id="more"></a>
+<p>冒泡排序的比较次数 = (n - 1) + (n - 2) + … + 2 + 1，即：n * (n - 1) / 2，所以冒泡排序的时间复杂度为：O(n²)<br>冒泡排序最优情况的时间复杂度是：O(n) 要达到这个复杂度，上述代码需要进一步优化</p>
 <h3 id="交换判定优化"><a href="#交换判定优化" class="headerlink" title="交换判定优化"></a>交换判定优化</h3><p>对于已经有序的数列，进行了冗余的循环操作，通过在<strong>每轮进行交换标记</strong>来进行优化</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 冒泡交换判定优化</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">optimizeBubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        swap = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line">                swap = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> swap:</span><br><span class="line">            <span class="keyword">return</span> nums</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
 <h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><h3 id="插排的思想"><a href="#插排的思想" class="headerlink" title="插排的思想"></a>插排的思想</h3><p>将 list 分为两部分，前部分作为已排序部分并向其中插入值，注意插入值之后值的移动<br><strong>外层循环确定插入值，内层循环确定插入位置</strong></p>
@@ -409,11 +409,11 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Webpack中DllPlugin使用.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/浏览器回流与重绘.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Webpack中DllPlugin使用
+          浏览器回流与重绘
         
       </div>
     </a>

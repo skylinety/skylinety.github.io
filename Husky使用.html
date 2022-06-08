@@ -224,8 +224,8 @@
 <h3 id="V4"><a href="#V4" class="headerlink" title="V4"></a>V4</h3><p>yarn add <a href="mailto:husky@v4.3.8" target="_blank" rel="noopener">husky@v4.3.8</a> -D</p>
 <p>package.json</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">            ...,</span><br><span class="line">            <span class="string">"husky"</span>: <span class="string">"4.3.8"</span>,</span><br><span class="line">            <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"husky"</span>: &#123;</span><br><span class="line">        <span class="string">"hooks"</span>: &#123;</span><br><span class="line">        <span class="string">"pre-commit"</span>: <span class="string">"lint-staged"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Husky-配置更新"><a href="#Husky-配置更新" class="headerlink" title="Husky 配置更新"></a>Husky 配置更新</h2><h3 id="git-hooks-说明"><a href="#git-hooks-说明" class="headerlink" title="git hooks 说明"></a>git hooks 说明</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>要配置 Git 钩子，只需要简单地在.git/hooks/目录下放对应钩子的可执行文件即可<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Husky%E4%BD%BF%E7%94%A820210924152534.png" alt="Husky使用20210924152534"></p>
+<h2 id="Husky-配置更新"><a href="#Husky-配置更新" class="headerlink" title="Husky 配置更新"></a>Husky 配置更新</h2><h3 id="git-hooks-说明"><a href="#git-hooks-说明" class="headerlink" title="git hooks 说明"></a>git hooks 说明</h3><a id="more"></a>
+<p>要配置 Git 钩子，只需要简单地在.git/hooks/目录下放对应钩子的可执行文件即可<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Husky%E4%BD%BF%E7%94%A820210924152534.png" alt="Husky使用20210924152534"></p>
 <p>通过 husky 简述中配置可以看到，husky 更新后配置似乎更加麻烦，如下探讨会为何会有去简就繁的操作。</p>
 <h3 id="V4-工作原理"><a href="#V4-工作原理" class="headerlink" title="V4 工作原理"></a>V4 工作原理</h3><p>在 V4 版本及以前，为了可执行 .huskyrc.js 中配置的钩子， 在装 Husky 的时候，默认初始化了全部钩子在.git/hooks/ 中。<br>例如，在执行 commit 时 ， husky/runner.js 会去检查 .huskyrc.js 中是否有对应的配置</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git commit</span></span><br><span class="line"></span><br><span class="line">pre-commit (native) → husky/runner.js (node)</span><br><span class="line">→ is a pre-commit defined in `.huskyrc.js`? → YES, run it</span><br><span class="line"></span><br><span class="line">prepare-commit-msg (native) → husky/runner.js (node)</span><br><span class="line">→ is a prepare-commit-msg defined in `.huskyrc.js`? → NO, do nothing</span><br><span class="line"></span><br><span class="line">commit-msg (native) → husky/runner.js (node)</span><br><span class="line">→ is a commit-msg defined in `.huskyrc.js`? → NO, do nothing</span><br><span class="line"></span><br><span class="line">post-commit (native) → husky/runner.js (node)</span><br><span class="line">→ is a post-commit defined in `.huskyrc.js`? → NO, do nothing</span><br></pre></td></tr></table></figure>
@@ -245,12 +245,7 @@
 <h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><blockquote>
 <p>本文作者： Skyline(lty)<br>版权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
 </blockquote>
-<pre><code>&amp;nbsp;
 
-&gt; 本文作者： Skyline(lty)
-文章链接： [http://www.skyline.show/Husky使用.html](http://www.skyline.show/Husky使用.html)
-版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
-</code></pre>
       
     </div>
     <footer class="article-footer">
@@ -301,19 +296,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/systemd开启后台进程.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Shadowsocks服务搭建与访问.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          systemd开启后台进程
+          Shadowsocks服务搭建与访问
         
       </div>
     </a>
   
   
-    <a href="/MacOS基本操作.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ES类的使用.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">MacOS基本操作</div>
+      <div class="article-nav-title">ES类的使用</div>
     </a>
   
 </nav>

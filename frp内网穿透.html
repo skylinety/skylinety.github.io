@@ -233,8 +233,8 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
 <p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable frp</span><br></pre></td></tr></table></figure></p>
 <p>即可。</p>
-<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc配置"><a href="#frpc配置" class="headerlink" title="frpc配置"></a>frpc配置</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>本文Client 端此处采用 Docker 方式。<br>将下载的 frpc.ini 放在 Docker 宿主机本地<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117194957.png" alt="20220117194957"><br>frpc.ini 内容修改如下：</p>
+<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc配置"><a href="#frpc配置" class="headerlink" title="frpc配置"></a>frpc配置</h3><a id="more"></a>
+<p>本文Client 端此处采用 Docker 方式。<br>将下载的 frpc.ini 放在 Docker 宿主机本地<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117194957.png" alt="20220117194957"><br>frpc.ini 内容修改如下：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 42.113.1.102</span><br><span class="line">server_port = 7000</span><br><span class="line">token = mima</span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 6000</span><br><span class="line"></span><br><span class="line">[DSM]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 5000</span><br><span class="line">remote_port = 5000</span><br></pre></td></tr></table></figure>
 <p>如上配置后，意味着我们之后可以通过 42.113.1.102:5000 来进入群晖，通过 42.113.1.102:22 进入群晖后台。</p>
 <h3 id="添加-docker-镜像"><a href="#添加-docker-镜像" class="headerlink" title="添加 docker 镜像"></a>添加 docker 镜像</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117195517.png" alt="20220117195517"><br>地址如下：<br><a href="https://hub.docker.com/r/chenhw2/frp" target="_blank" rel="noopener">https://hub.docker.com/r/chenhw2/frp</a><br>下载完成后，双击镜像，做如下三处修改：</p>
@@ -243,11 +243,8 @@
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117200053.png" alt="20220117200053"></p>
 <p>应用修改后保存退出。</p>
 <h3 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117200151.png" alt="20220117200151"><br>点击开关容器启动成功即可，若启动失败，可在Details查看启动日志。</p>
-<p>在外网环境在浏览器输入 42.113.1.102:5000<br>来到群晖登录页即穿透成功。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F20220118112743.png" alt="frp内网穿透20220118112743"><br>            &nbsp;</p>
-<pre><code>&gt; 本文作者： Skyline(lty)
-文章链接： [http://www.skyline.show/frp内网穿透.html](http://www.skyline.show/frp内网穿透.html)
-版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
-</code></pre>
+<p>在外网环境在浏览器输入 42.113.1.102:5000<br>来到群晖登录页即穿透成功。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F20220118112743.png" alt="frp内网穿透20220118112743">            </p>
+
       
     </div>
     <footer class="article-footer">
@@ -298,19 +295,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/IpadOS常见问题.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Nginx常见问题汇总.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          IpadOS常见问题
+          Nginx常见问题汇总
         
       </div>
     </a>
   
   
-    <a href="/JavaScript隐式类型转换小结.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/VSCode相关问题汇总.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">JavaScript隐式类型转换小结</div>
+      <div class="article-nav-title">VSCode相关问题汇总</div>
     </a>
   
 </nav>

@@ -215,7 +215,7 @@
 <li><a href="#proxy_pass">proxy_pass</a><ul>
 <li><a href="#简述">简述</a></li>
 <li><a href="#uri">URI</a></li>
-<li><a href="#问题">/ 问题</a></li>
+<li><a href="#-问题">/ 问题</a></li>
 <li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
 </ul>
 </li>
@@ -281,8 +281,8 @@
 <p>示例 2</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 根据优先级命中<code>^~ /file/</code></p>
-<h2 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h2><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>proxy_pass 通常位于 location 下，用于接口转发。</p>
+<h2 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h2><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3><a id="more"></a>
+<p>proxy_pass 通常位于 location 下，用于接口转发。</p>
 <h3 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h3><p>一般把 server:port 后的部分叫做 URI，proxy_pass 在其后加不加 URI 表现完全不同。<br>location 非正则匹配时，对于 proxy_pass 有如下规则：<br>proxy_pass 有 URI<br>替换请求中匹配的 URI 并替换成 proxy_pass 中的 URI 并向上游服务转发。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com/src;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a href="http://aaa.com/file/search" target="_blank" rel="noopener">http://aaa.com/file/search</a> 真实访问地址为<a href="http://bbb.com/src/search" target="_blank" rel="noopener">http://bbb.com/src/search</a></p>
@@ -396,12 +396,7 @@
 <blockquote>
 <p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
 </blockquote>
-<pre><code>&amp;nbsp;
 
-&gt; 本文作者： Skyline(lty)
-文章链接： [http://www.skyline.show/Nginx基础.html](http://www.skyline.show/Nginx基础.html)
-版权声明： 部分图片源自网络，并已在图片下方标明，由于转载等诸多因素，图源可能不准确，侵删。本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 3.0 许可协议](https://creativecommons.org/licenses/by-nc-sa/3.0/)。转载请注明出处！
-</code></pre>
       
     </div>
     <footer class="article-footer">
@@ -452,19 +447,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/VSCode相关问题汇总.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/MacOS应用清单.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          VSCode相关问题汇总
+          MacOS应用清单
         
       </div>
     </a>
   
   
-    <a href="/IpadOS常见问题.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/VIM基本使用.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">IpadOS常见问题</div>
+      <div class="article-nav-title">VIM基本使用</div>
     </a>
   
 </nav>

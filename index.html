@@ -377,25 +377,29 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if [[ "$VAR1" == "$VAR2" ]]; then</span><br><span class="line">    echo "Strings are equal."</span><br><span class="line">else</span><br><span class="line">    echo "Strings are not equal."</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> Strings are equal.</span></span><br></pre></td></tr></table></figure>
 <p>[[]]内部支持更多的表达式语法。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 检查文件是否为符号链接</span></span><br><span class="line">[[ -L $file &amp;&amp; -f $file ]]</span><br><span class="line">[ -L "$file" ] &amp;&amp; [ -f "$file" ]</span><br></pre></td></tr></table></figure>
-<h3 id="command-1"><a href="#command-1" class="headerlink" title="(command)"></a>(command)</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>表示验证子命令是否成功执行。<br>()其内部不是表达式而是可执行命令，表示在 subshell 跑 command 命令，可以理解为单开进程执行跟主程序无关的其他命令。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if ("$VAR1" == "$VAR2"); then</span><br><span class="line">    echo "Strings are equal."</span><br><span class="line">else</span><br><span class="line">    echo "Strings are not equal."</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> 依次输入1回车，1回车，结果为：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1: <span class="built_in">command</span> not found</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Strings are not equal.</span></span><br></pre></td></tr></table></figure>
-<p>上述代码中，()内部内容被当做可执行命令执行，故报错，转到 else 执行。<br>()内部命令执行成功，则才会转到 then 执行。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if (echo Skyline); then</span><br><span class="line">    echo "echo Skyline."</span><br><span class="line">else</span><br><span class="line">    echo "Something wrong."</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-<p>()内执行的命令结果，不会对父 shell 运行结果 造成影响。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">skyline=1; (skyline=2);</span><br><span class="line">echo $skyline</span><br><span class="line"><span class="meta">#</span><span class="bash"> 1</span></span><br></pre></td></tr></table></figure>
-<p>当()前面加上$时，表示 Command-Substitution，与<code>command</code>一致，表示其运行结果充当所在命令行的一部分</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo 'skyline'| cut -c`echo 2`-3</span><br><span class="line"><span class="meta">#</span><span class="bash"> ky</span></span><br><span class="line">echo 'skyline'| cut -c$(echo 2)-3</span><br><span class="line"><span class="meta">#</span><span class="bash"> ky</span></span><br></pre></td></tr></table></figure>
-<h3 id="expression-2"><a href="#expression-2" class="headerlink" title="((expression))"></a>((expression))</h3><p>表示验证<strong>算数表达式</strong>是否成立。<br>(())内部进行算数表达式的计算。<br>算数表达式包含常见的一元二元运算符，逻辑运算符等。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if (("$VAR1" == "$VAR2")); then</span><br><span class="line">    echo "Strings are equal."</span><br><span class="line">else</span><br><span class="line">    echo "Strings are not equal."</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> Strings are equal.</span></span><br></pre></td></tr></table></figure>
-<p><a href="http://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic" target="_blank" rel="noopener">Shell-Arithmetic</a><br>当(())前面加上$时，表示得到的算数结果充当所在命令行的一部分.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo 'skyline'| cut -c$((1 + 1))-3</span><br><span class="line"><span class="meta">#</span><span class="bash"> ky</span></span><br></pre></td></tr></table></figure>
-<p>上述代码实现的效果可以使用 expr 实现</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo 'skyline'| cut -c$(expr 1 + 1)-3</span><br><span class="line"><span class="meta">#</span><span class="bash"> ky</span></span><br></pre></td></tr></table></figure>
-<p>注意，expr 通常与<code></code>一起使用，或使用$()，注意空格的使用，否则报错<br>也可使用 let 来实现计算</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">start=1</span><br><span class="line">let start+=1</span><br><span class="line">echo start</span><br><span class="line">echo 'skyline'| cut -c$start-3</span><br></pre></td></tr></table></figure>
-<h2 id="三元"><a href="#三元" class="headerlink" title="三元"></a>三元</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">test "$VAR1" == "$VAR2" &amp;&amp; echo "Strings are equal." || echo "Strings are not equal."</span><br></pre></td></tr></table></figure>
+<h3 id="command-1"><a href="#command-1" class="headerlink" title="(command)"></a>(command)</h3>
+        <!-- Shell 条件判定
 
+
+Shell 条件判定
+if
+command
+[expression]
+[[expression]]
+(command)
+((expression))
+
+
+三元
+
+
+
+
+ifcommand表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首先执行
+read -p "Enter first string: " VAR1read -p "Enter sec......  -->
+        <p class="article-more-link">
+          <a href="/Shell条件判定.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
@@ -532,41 +536,46 @@
 <h2 id="查看端口占用"><a href="#查看端口占用" class="headerlink" title="查看端口占用"></a>查看端口占用</h2><p><code>netstat -apn | grep 8884</code></p>
 <p><code>lsof -i:8884</code></p>
 <h2 id="删除目录下模糊匹配的文件"><a href="#删除目录下模糊匹配的文件" class="headerlink" title="删除目录下模糊匹配的文件"></a>删除目录下模糊匹配的文件</h2><h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p><code>find . -name &quot;*.js&quot; | xargs rm -rf</code></p>
-<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>Shell 中只有部分命令支持标准输入，例如 wc、grep 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，例如 echo rm mkdir 等，这里需要 xargs 来提供<br><a href="https://github.com/skylinety/Blog/blob/b941cb7487a5e46cee010461e38e89fb2eb897dc/Docs/Major/Shell/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8.md" target="_blank" rel="noopener">xargs</a></p>
-<h2 id="查找目录下包含指定字符的文件"><a href="#查找目录下包含指定字符的文件" class="headerlink" title="查找目录下包含指定字符的文件"></a>查找目录下包含指定字符的文件</h2><h3 id="命令-1"><a href="#命令-1" class="headerlink" title="命令"></a>命令</h3><p>在 Docs 目录下查找包含 find 字符的文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls ./ | xargs grep -rni find</span><br><span class="line"></span><br><span class="line">find . -type f | xargs grep -rni find</span><br><span class="line"></span><br><span class="line">grep -rni ./ -e find</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20211112174412.png" alt="Shell常见操作汇总20211112174412"></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -rniw ./ -e user</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20211112182828.png" alt="Shell常见操作汇总20211112182828"></p>
-<p>上述代码不会匹配 users</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -rniw ./ -e user -l</span><br></pre></td></tr></table></figure>
-<p>-l –files-with-matches<br>只输出匹配的文件名</p>
-<blockquote>
-<p>Only the names of files containing selected lines are written to standard output</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20211112182942.png" alt="Shell常见操作汇总20211112182942"></p>
-<h3 id="解析-1"><a href="#解析-1" class="headerlink" title="解析"></a>解析</h3><p>grep 参数</p>
-<ul>
-<li>r 递归查找子目录文件</li>
-<li>n 列出行标</li>
-<li>i 忽略大小写</li>
-<li>e 搜索时启用正则匹配</li>
-<li>w 精确指定单词，需要为单词，英文单词前后有字母不匹配</li>
-<li>l 只输出匹配的文件名</li>
-</ul>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-<blockquote>
-<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
-</blockquote>
+<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3>
+        <!-- Shell 常见操作汇总
 
+
+Shell 常见操作汇总
+判定目录或文件存在
+算数命令
+查看目录下文件夹
+创建嵌套文件夹并进入
+查看远程服务及端口是否开启
+设置别名
+临时别名
+永久生效
+
+
+查看端口占用
+删除目录下模糊匹配的文件
+命令
+解析
+
+
+查找目录下包含指定字符的文件
+命令
+解析
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+判定目录或文件存......  -->
+        <p class="article-more-link">
+          <a href="/Shell常见操作汇总.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
@@ -659,37 +668,47 @@
 <p>将不备份直接修改源文件</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">'s/skyline/lty/g'</span> ./skyline.txt</span><br></pre></td></tr></table></figure>
 <p>linux 可以直接执行修改源文件，mac 下需要如上指定空字符方可<br>在 Mac 上，sed 命令直接操作文件的时候，必须指定备份的格式，而在 linux 上，却并没有这个要求</p>
-<h2 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h2><h3 id="i-a"><a href="#i-a" class="headerlink" title="i/a"></a>i/a</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>i 与 a 都是插入参数，后面可以接字串，用 a 插入的字串会在行的下一行行首出现，用 i 插入的字串会在当前行的行首，出现单独一行需要在字符后加上\n</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Mac/Linux</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'9i\</span></span><br><span class="line"><span class="string">6666666'</span> skyline.txt</span><br><span class="line"><span class="comment"># Linux</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'9a\6666666'</span> skyline.txt</span><br></pre></td></tr></table></figure>
-<ul>
-<li>注意 mac 下\后需要换行</li>
-</ul>
-<h3 id="d"><a href="#d" class="headerlink" title="d"></a>d</h3><p>删除，之后不接内容<br><code>sed -i &#39;&#39; &#39;1,2d&#39; skyline.txt</code></p>
-<h3 id="p"><a href="#p" class="headerlink" title="p"></a>p</h3><p>标准输出内容</p>
-<p><code>sed -n &#39;3p&#39; skyline</code></p>
-<h3 id="s-c"><a href="#s-c" class="headerlink" title="s/c"></a>s/c</h3><p>替换部分内容，s 来替换，通常这个 s 搭配正则表达式。 c 替换通常指定行，之后用这些字串取代 n1,n2 之间的行内容</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 替换1到5行的内容为lalala</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'1,5c\</span></span><br><span class="line"><span class="string">lalala'</span> skyline.txt</span><br><span class="line"><span class="comment"># 替换</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'s/666/222/g'</span> skyline.txt</span><br></pre></td></tr></table></figure>
-<h2 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h2><h3 id="文末插入"><a href="#文末插入" class="headerlink" title="文末插入"></a>文末插入</h3><p>注意 mac 下\后需要换行</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">''</span> <span class="string">'$a\skyline'</span> skyline.txt</span><br></pre></td></tr></table></figure>
-<h3 id="替换字符"><a href="#替换字符" class="headerlink" title="替换字符"></a>替换字符</h3><p>替换第 n 个匹配的字符</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> sksksksksksk | sed <span class="string">'s/sk/SK/3'</span></span><br></pre></td></tr></table></figure>
-<h3 id="行数"><a href="#行数" class="headerlink" title="行数"></a>行数</h3><p>输出文件行数</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -n <span class="string">'$='</span> skyline.txt</span><br></pre></td></tr></table></figure>
-<h3 id="字符行号"><a href="#字符行号" class="headerlink" title="字符行号"></a>字符行号</h3><p>输出文件第 n 个匹配字符所在行号</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -n /skyline/= skyline.txt | sed -n 2p <span class="comment">#匹配第二个skyline，打印其所在行号</span></span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-<blockquote>
-<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
-</blockquote>
+<h2 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h2><h3 id="i-a"><a href="#i-a" class="headerlink" title="i/a"></a>i/a</h3>
+        <!-- sed 的使用
 
+
+sed 的使用
+简介
+选项参数
+-n
+-e
+-i
+
+
+命令参数
+i/a
+d
+p
+s/c
+
+
+常见用法
+文末插入
+替换字符
+行数
+字符行号
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+简介流编辑器，sed 用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。
+选项参数-n默认情......  -->
+        <p class="article-more-link">
+          <a href="/Shell中sed的使用.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
@@ -782,31 +801,42 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">find . -name &quot;*.md&quot; | wc -l</span><br><span class="line"># output</span><br><span class="line">       8</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">find . -name &quot;*.md&quot; | xargs wc -l</span><br><span class="line"># output</span><br><span class="line">      84 ./Major/Mobile/Flutter/Flutter基础使用汇总.md</span><br><span class="line">     109 ./Major/Mobile/Flutter/Flutter基础控件使用.md</span><br><span class="line">       0 ./Major/Shell/Shell中xargs使用.md</span><br><span class="line">     131 ./Major/Shell/Shell中的符号.md</span><br><span class="line">      13 ./Major/Shell/Shell常见操作汇总.md</span><br><span class="line">       4 ./README.md</span><br><span class="line">      44 ./Tools/DEVs/VSCode/Extensions/PicGo.md</span><br><span class="line">       5 ./Tools/OS/ipadOS使用.md</span><br><span class="line">     390 total</span><br></pre></td></tr></table></figure>
 <h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo 1 2 3 | xargs mkdir</span><br><span class="line">ls</span><br><span class="line"># output</span><br><span class="line">1 2 3</span><br></pre></td></tr></table></figure>
-<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><h3 id="0"><a href="#0" class="headerlink" title="-0"></a>-0</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>用 null 作为分隔符，与 find 中 -print0 意义一致，且需一起使用</p>
-<h3 id="I"><a href="#I" class="headerlink" title="-I"></a>-I</h3><p>将标准输入以指定字符缓存，方便后续使用。类似于正则中()的作用。</p>
-<p>将当前目录下文件统一加后缀</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> input</span></span><br><span class="line">ls</span><br><span class="line"><span class="meta">#</span><span class="bash"> output</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> one           two         three</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> input</span></span><br><span class="line">find . -type f -name '*' -print0 | xargs -0 -I&#123;&#125; mv &#123;&#125; &#123;&#125;.txt &amp;&amp; ls</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> one.txt           two.txt         three.txt</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> input</span></span><br><span class="line">ls | xargs -I_ mv _ _.bak &amp;&amp; ls</span><br><span class="line"><span class="meta">#</span><span class="bash"> output</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> one.txt.bak   three.txt.bak two.txt.bak</span></span><br></pre></td></tr></table></figure>
-<h3 id="L"><a href="#L" class="headerlink" title="-L"></a>-L</h3><p>number 类型，解决多行输入问题，将标准输入按照该数字指定的行数进行分隔，假设为 -L 2，则每次执行取两行作为标准输入，<br>执行多次，直到多行执行结束。<br>多数命令不支持多行参数，通常直接指定 -L1</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> input</span></span><br><span class="line">echo -e "She*\nFlu*" | xargs -L 1 find  . -name</span><br><span class="line"><span class="meta">#</span><span class="bash"> output</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Shell</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Shell/Shell中xargs使用.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Shell/Shell中的符号.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Shell/Shell常见操作汇总.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Mobile/Flutter</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Mobile/Flutter/Flutter基础使用汇总.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Mobile/Flutter/Flutter基础控件使用.md</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8QQ20210923-105617-HD.gif" alt="Shell中xargs使用QQ20210923-105617-HD"></p>
-<h3 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h3><p>number 类型，解决同行多项参数问题。与-L 参数互斥，同时指定选后指定的选项。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> input</span></span><br><span class="line">echo -e "She* Flu*" | xargs -n 1 find . -name</span><br><span class="line"><span class="meta">#</span><span class="bash"> output</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Shell</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Shell/Shell中xargs使用.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Shell/Shell中的符号.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Shell/Shell常见操作汇总.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Mobile/Flutter</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Mobile/Flutter/Flutter基础使用汇总.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./Major/Mobile/Flutter/Flutter基础控件使用.md</span></span><br></pre></td></tr></table></figure>
-<h3 id="d"><a href="#d" class="headerlink" title="-d"></a>-d</h3><p>指定分隔符<br>这在处理有空格等特殊符号的输入中很有用</p>
-<h3 id="t"><a href="#t" class="headerlink" title="-t"></a>-t</h3><p>打印执行日志</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo skyline | xargs -t echo</span><br><span class="line"># output</span><br><span class="line">echo skyline</span><br><span class="line">skyline</span><br></pre></td></tr></table></figure>
-<h3 id="p"><a href="#p" class="headerlink" title="-p"></a>-p</h3><p>打印实际操作并让用户选择是否执行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">ls</span><br><span class="line"># output</span><br><span class="line">one   three two</span><br><span class="line"># input</span><br><span class="line">echo &apos;one two three&apos; | xargs -p rm -rf</span><br><span class="line"># input &amp; output</span><br><span class="line">rm -rf one two three?...y</span><br><span class="line"># input</span><br><span class="line">ls</span><br><span class="line"># output</span><br></pre></td></tr></table></figure>
-<p>上述确认操作中除了输入 y，其他任何输入都不会进行删除操作</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8QQ20210923-170939-HD.gif" alt="Shell中xargs使用QQ20210923-170939-HD"></p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>I am a bucolic migrant worker but I never walk backwards.</p>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><blockquote>
-<p><a href="https://shapeshed.com/unix-xargs/" target="_blank" rel="noopener">Linux and Unix xargs command tutorial with examples</a> &gt; <a href="https://www.howtoforge.com/tutorial/linux-xargs-command/" target="_blank" rel="noopener">8 Practical Examples of Linux Xargs Command for Beginners</a></p>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><blockquote>
-<p>本文作者： Skyline(lty)<br>版权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-</blockquote>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><h3 id="0"><a href="#0" class="headerlink" title="-0"></a>-0</h3>
+        <!-- Shell 中 xargs 使用
 
+
+Shell 中 xargs 使用
+概述
+基础使用示例
+echo
+wc
+mkdir
+
+
+参数
+-0
+-I
+-L
+-n
+-d
+-t
+-p
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这......  -->
+        <p class="article-more-link">
+          <a href="/Shell中xargs使用.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
@@ -814,184 +844,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-05-27T07:41:03.000Z" itemprop="datePublished">2022-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="浏览器回流与重绘"><a href="#浏览器回流与重绘" class="headerlink" title="浏览器回流与重绘"></a>浏览器回流与重绘</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#浏览器回流与重绘">浏览器回流与重绘</a><ul>
-<li><a href="#页面渲染">页面渲染</a><ul>
-<li><a href="#渲染流程">渲染流程</a></li>
-<li><a href="#layout">Layout</a></li>
-<li><a href="#paint">Paint</a></li>
-</ul>
-</li>
-<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
-<li><a href="#回流触发">回流触发</a></li>
-<li><a href="#重绘触发">重绘触发</a></li>
-</ul>
-</li>
-<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
-<li><a href="#浏览器优化">浏览器优化</a></li>
-<li><a href="#代码优化">代码优化</a><ul>
-<li><a href="#html">HTML</a></li>
-<li><a href="#css">CSS</a></li>
-<li><a href="#js">JS</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#总结">总结</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
-<ul>
-<li>解析 HTML 节点，创建 DOM 树</li>
-<li>解析 CSS 创建 CSSOM 树</li>
-<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
-<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
-<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
-<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
-</ul>
-</li>
-<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
-<li>Paint， 绘制 renderTree 到页面上</li>
-</ul>
-<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
-<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3><p>布局（排列）阶段，包括初始的布局 Layout 以及后续出现的回流 Reflow。<br>主要（重新）计算节点的位置与几何形状，可以看做给节点画框架。<br>通常情况下，当前节点回流，会同时触发其关联节点（祖先、后代节点以及兄弟节点）回流。<br>多数回流本质都会造成页面重新渲染。</p>
-<h3 id="Paint"><a href="#Paint" class="headerlink" title="Paint"></a>Paint</h3><p>绘制阶段，主要绘制节点的样式，可以看做给节点加个皮肤。<br>包括初始的绘制 Paint 与后续的重绘 Repaint。</p>
-<h2 id="回流与重绘触发"><a href="#回流与重绘触发" class="headerlink" title="回流与重绘触发"></a>回流与重绘触发</h2><h3 id="回流触发"><a href="#回流触发" class="headerlink" title="回流触发"></a>回流触发</h3><pre><code>&lt;!--more--&gt;
-</code></pre><ul>
-<li>窗口调整</li>
-<li>字体变更</li>
-<li>增删样式<ul>
-<li>操作节点 style</li>
-<li>操作节点 class</li>
-</ul>
-</li>
-<li>内容变更<ul>
-<li>用户输入（input 等表单）</li>
-<li>增删 dom 节点</li>
-<li>节点尺寸变化</li>
-</ul>
-</li>
-<li>伪类激活</li>
-<li>节点动画</li>
-<li>读写 offsetWidth 等</li>
-</ul>
-<p>基本上回流都会触发重绘</p>
-<h3 id="重绘触发"><a href="#重绘触发" class="headerlink" title="重绘触发"></a>重绘触发</h3><p>如下仅讨论只触发重绘的情况</p>
-<ul>
-<li>visibility 变化</li>
-<li>backgroud 背景颜色变化</li>
-<li>color 字体颜色</li>
-<li>opacity 调整</li>
-</ul>
-<p>不影响节点的位置和形状的改变一般不触发回流</p>
-<h2 id="回流与重绘优化"><a href="#回流与重绘优化" class="headerlink" title="回流与重绘优化"></a>回流与重绘优化</h2><h3 id="浏览器优化"><a href="#浏览器优化" class="headerlink" title="浏览器优化"></a>浏览器优化</h3><ul>
-<li><p>队列机制</p>
-<p>在现代浏览器中，由于回流重绘会有较大的性能损耗，多数浏览器会将回流重绘放入队列。<br>当一定时间或操作到指定阀值，浏览器在将队列中的一次性进行处理，减少回流重绘次数。<br>在上文回流触发中，读取 offsetWidth 等的值也会触发回流重绘，其根本原因就是由于这个优化。<br>当代码在读取这些值时，为了获取准确的信息，浏览器不得不将队列清空强制执行回流重绘来得到这些值得最新信息。<br>涉及的相关属性和方法包括：</p>
-<blockquote>
-<p><em>Getting box metrics</em><br>elem.offsetLeft, elem.offsetTop, elem.offsetWidth, elem.offsetHeight, elem.offsetParent<br>elem.clientLeft, elem.clientTop, elem.clientWidth, elem.clientHeight<br>elem.getClientRects(), elem.getBoundingClientRect()<br><em>Scroll stuff</em><br>elem.scrollBy(), elem.scrollTo()<br>elem.scrollIntoView(), elem.scrollIntoViewIfNeeded()<br>elem.scrollWidth, elem.scrollHeight<br>elem.scrollLeft, elem.scrollTop also, setting them</p>
-</blockquote>
-<p>参见 <a href="https://gist.github.com/paulirish/5d52fb081b3570c81e3a" target="_blank" rel="noopener">What forces layout / reflow</a></p>
-</li>
-</ul>
-<ul>
-<li>CSS3 硬件加速（GPU）<br>部分 CSS3 属性的设定会触发 GPU 加速，从而不会产生回流重绘。<br>常见的属性有 transform、opacity、filters、will-change</li>
-</ul>
-<h3 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h3><p>在实际业务中，页面变化不可避免。<br>回流与重绘优化的主要思路与浏览器优化思路基本一致，减少回流重绘次数。<br>技术层面上，优化从 HTML、 CSS 与 JS 大方向入手。</p>
-<h4 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h4><ul>
-<li>精简节点嵌套层级<br>避免出现无意义层级</li>
-</ul>
-<h4 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h4><ul>
-<li>将动画应用于文档流外的节点<br>可能的话，将动画添加到 absolute 或 fixed 定位的节点上。</li>
-<li>避免表达式属性<br>类似于 calc 的 css 属性设置方法会在其他节点或回流触发时进行重新计算，从而使得对应节点也触发回流。</li>
-</ul>
-<h4 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h4><ul>
-<li>class 变更选用更底层节点<br>选用样式变更的节点来替换或变更类属性而不是在其包裹或祖先节点上。</li>
-<li>调整类而不是样式<br>对于多条样式调整的节点，集中更改样式或添加修改类而不是分散修改样式</li>
-<li>捆绑 DOM 调整<br>对于 DOM 节点的调整，涉及到多次调整，可以捆绑最后再进行一次插入或替换 DOM 操作，具体方法有<ul>
-<li>documentFragment<br>通过 documentFragment 新建文档流外的子树，将所有变更应用到子树，最后一次插入或替换到 DOM 中</li>
-<li>display:none<br>隐藏节点（display:none）脱离文档流，多次修改该节点，显示节点</li>
-</ul>
-</li>
-<li>集中读写样式代码</li>
-<li>缓存引起强制重绘的属性或函数结果<br>对于 clientWith 等引起强制重绘的属性或函数，多次使用时，缓存其值。</li>
-</ul>
-<p>调整类而不是样式</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line"><span class="keyword">var</span> left = <span class="number">10</span>,</span><br><span class="line">  top = <span class="number">10</span></span><br><span class="line">el.style.left = left + <span class="string">'px'</span></span><br><span class="line">el.style.top = top + <span class="string">'px'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// better</span></span><br><span class="line">el.className += <span class="string">' theclassname'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// better</span></span><br><span class="line">el.style.cssText += <span class="string">'; left: '</span> + left + <span class="string">'px; top: '</span> + top + <span class="string">'px;'</span></span><br></pre></td></tr></table></figure>
-<p>捆绑 DOM 调整</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">appendDataToElement</span>(<span class="params">appendToElement, data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> li</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">    li = <span class="built_in">document</span>.createElement(<span class="string">'li'</span>)</span><br><span class="line">    li.textContent = <span class="string">'text'</span></span><br><span class="line">    appendToElement.appendChild(li)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> ul = <span class="built_in">document</span>.getElementById(<span class="string">'list'</span>)</span><br><span class="line"><span class="comment">//bad</span></span><br><span class="line">appendDataToElement(ul, data)</span><br><span class="line"></span><br><span class="line"><span class="comment">// better</span></span><br><span class="line">ul.style.display = <span class="string">'none'</span></span><br><span class="line">appendDataToElement(ul, data)</span><br><span class="line">ul.style.display = <span class="string">'block'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// better</span></span><br><span class="line"><span class="keyword">const</span> fragment = <span class="built_in">document</span>.createDocumentFragment()</span><br><span class="line">appendDataToElement(fragment, data)</span><br><span class="line">ul.appendChild(fragment)</span><br></pre></td></tr></table></figure>
-<p>集中读写样式代码</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line"><span class="keyword">var</span> rh = <span class="built_in">document</span>.getElementById(<span class="string">'rect'</span>).clientHeight</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'rect'</span>).style.height = rh + <span class="number">10</span> + <span class="string">'px'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ch = <span class="built_in">document</span>.getElementById(<span class="string">'circle'</span>).clientHeight</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'circle'</span>).style.height = ch + <span class="number">10</span> + <span class="string">'px'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//better</span></span><br><span class="line"><span class="keyword">var</span> rh = <span class="built_in">document</span>.getElementById(<span class="string">'rect'</span>).clientHeight</span><br><span class="line"><span class="keyword">var</span> ch = <span class="built_in">document</span>.getElementById(<span class="string">'circle'</span>).clientHeight</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'rect'</span>).style.height = rh + <span class="number">10</span> + <span class="string">'px'</span></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'circle'</span>).style.height = ch + <span class="number">10</span> + <span class="string">'px'</span></span><br></pre></td></tr></table></figure>
-<p>缓存引起强制重绘的属性或函数结果</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initP</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; paragraphs.length; i++) &#123;</span><br><span class="line">    paragraphs[i].style.width = box.offsetWidth + <span class="string">'px'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//better</span></span><br><span class="line"><span class="keyword">const</span> width = box.offsetWidth</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initP</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; paragraphs.length; i++) &#123;</span><br><span class="line">    paragraphs[i].style.width = width + <span class="string">'px'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>回流基本都会会引起重绘，重绘不一定回流。<br>一般来说，引起位置变化的都会回流并重绘，不引起位置变化的重绘即可。<br>不管是浏览器底层还是业务代码层面，优化回流和重绘的基本思路都是减少其次数。</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-<p><a href="https://dev.to/gopal1996/understanding-reflow-and-repaint-in-the-browser-1jbg" target="_blank" rel="noopener">https://dev.to/gopal1996/understanding-reflow-and-repaint-in-the-browser-1jbg</a> &gt; <a href="https://juejin.cn/post/6844903779700047885" target="_blank" rel="noopener">https://juejin.cn/post/6844903779700047885</a></p>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-<blockquote>
-<p>[CC BY - NC - SA 3.0](<a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh</a></p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
 
     </footer>
   </div>
@@ -1359,32 +1211,32 @@
 </li>
 </ul>
 <h2 id="Git-用户配置"><a href="#Git-用户配置" class="headerlink" title="Git 用户配置"></a>Git 用户配置</h2><h3 id="查看配置"><a href="#查看配置" class="headerlink" title="查看配置"></a>查看配置</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看全部配置</span></span><br><span class="line">git config --list</span><br><span class="line"><span class="comment">#查看指定配置</span></span><br><span class="line">git config user.name</span><br><span class="line"></span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
-<h3 id="修改全局配置"><a href="#修改全局配置" class="headerlink" title="修改全局配置"></a>修改全局配置</h3><pre><code>&lt;!--more--&gt;
-</code></pre><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global user.name "username"</span><br><span class="line"></span><br><span class="line">git config --global user.email "email"</span><br></pre></td></tr></table></figure>
-<h2 id="GIT-SSH-免密"><a href="#GIT-SSH-免密" class="headerlink" title="GIT SSH 免密"></a>GIT SSH 免密</h2><p><strong>查看本地 SSH 密钥</strong></p>
-<p><code>cd ~/.sshls</code><br>id_rsa 是私钥，id_rsa.pub 是公钥。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302185442.png" alt="Git常见操作20220302185442"></p>
-<p><strong>创建 SSH 密钥</strong></p>
-<p>如果没有相关密钥文件，需要生成</p>
-<p><strong>ssh-keygen</strong></p>
-<p>输入命令，生成相关文件</p>
-<p><strong>复制公钥</strong></p>
-<p>cat ~/.ssh/id_rsa.pub<br>复制对应内容</p>
-<p><strong>远程仓库设置</strong></p>
-<p>在 github 等远程仓库设置页面对应的 SSH keys 粘贴公钥内容</p>
-<h2 id="同步-Github-fork-仓库"><a href="#同步-Github-fork-仓库" class="headerlink" title="同步 Github fork 仓库"></a>同步 Github fork 仓库</h2><p><strong>配置 remote，指向原始仓库</strong></p>
-<p>git remote add upstream <a href="https://github.com/skyline.git" target="_blank" rel="noopener">https://github.com/skyline.git</a></p>
-<p><strong>获取上游仓库分支</strong></p>
-<p>获取到上游仓库分支，及相关的提交信息，它们将被保存在本地的 upstream/master，upstream/hotfix 等分支</p>
-<p>git fetch upstream</p>
-<p><strong>切换到本地的 master 分支</strong></p>
-<p>git checkout master</p>
-<p><strong>合并上游分支</strong></p>
-<p>将 upstream/master 分支合并到本地的 master 分支，本地的 master 分支将与上游仓库保持同步，且不会丢失本地修改。</p>
-<p>git merge upstream/master</p>
-<p><strong>上传代码</strong></p>
-<p>将上游仓库的代码更新到自己的远程仓库中</p>
-<p>git push</p>
+<h3 id="修改全局配置"><a href="#修改全局配置" class="headerlink" title="修改全局配置"></a>修改全局配置</h3>
+        <!-- Git 常见操作
 
+
+Git 常见操作
+git 单列已添加到暂存区的文件
+Git 本地分支有提交，单独查看并运行远程该分支
+新建仓库时关联远程与本地
+git 同时推送多个仓库
+git remote add
+git remote set-url
+
+
+https 方式访问 git 免输密码
+Git 用户配置
+查看配置
+修改全局配置
+
+
+GIT SSH 免密
+同步 Github fork 仓库
+
+......  -->
+        <p class="article-more-link">
+          <a href="/Git常见操作.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
@@ -1401,7 +1253,7 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1409,7 +1261,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
+      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
     </h1>
   
 
@@ -1418,7 +1270,7 @@
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-05-27T07:41:02.000Z" itemprop="datePublished">2022-05-27</time>
+      <time datetime="2022-05-27T07:41:03.000Z" itemprop="datePublished">2022-05-27</time>
     </a>
 
 
@@ -1430,27 +1282,32 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Webpack-中-DllPlugin-使用"><a href="#Webpack-中-DllPlugin-使用" class="headerlink" title="Webpack 中 DllPlugin 使用"></a>Webpack 中 DllPlugin 使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <h1 id="浏览器回流与重绘"><a href="#浏览器回流与重绘" class="headerlink" title="浏览器回流与重绘"></a>浏览器回流与重绘</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#webpack-中-dllplugin-使用">Webpack 中 DllPlugin 使用</a><ul>
-<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
-<li><a href="#实质">实质</a></li>
-<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
+<li><a href="#浏览器回流与重绘">浏览器回流与重绘</a><ul>
+<li><a href="#页面渲染">页面渲染</a><ul>
+<li><a href="#渲染流程">渲染流程</a></li>
+<li><a href="#layout">Layout</a></li>
+<li><a href="#paint">Paint</a></li>
 </ul>
 </li>
-<li><a href="#引入-dll-库">引入 dll 库</a><ul>
-<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
-<li><a href="#手动引入注意">手动引入注意</a></li>
-<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
-<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
+<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
+<li><a href="#回流触发">回流触发</a></li>
+<li><a href="#重绘触发">重绘触发</a></li>
 </ul>
 </li>
-<li><a href="#成果分析">成果分析</a><ul>
-<li><a href="#优化前">优化前</a></li>
-<li><a href="#优化后">优化后：</a></li>
+<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
+<li><a href="#浏览器优化">浏览器优化</a></li>
+<li><a href="#代码优化">代码优化</a><ul>
+<li><a href="#html">HTML</a></li>
+<li><a href="#css">CSS</a></li>
+<li><a href="#js">JS</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#总结">总结</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
@@ -1461,43 +1318,49 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
-<blockquote>
-<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
-</blockquote>
-<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3><p>webpack.dll.config.js 配置</p>
-<p>新建单独的配置文件</p>
-<p>webpack.dll.config.js</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 你想要打包的模块的数组</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: [</span><br><span class="line">      <span class="string">'vue/dist/vue.esm.js'</span>,</span><br><span class="line">      <span class="string">'vuex'</span>,</span><br><span class="line">      <span class="string">'axios'</span>,</span><br><span class="line">      <span class="string">'vue-router'</span>,</span><br><span class="line">      <span class="string">'element-ui'</span>,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">'../static/js'</span>), <span class="comment">// 打包后文件输出的位置</span></span><br><span class="line">    filename: <span class="string">'[name].dll.js'</span>,</span><br><span class="line">    library: <span class="string">'[name]_library'</span>,</span><br><span class="line">    <span class="comment">// vendor.dll.js中暴露出的全局变量名。</span></span><br><span class="line">    <span class="comment">// 主要是给DllPlugin中的name使用，</span></span><br><span class="line">    <span class="comment">// 故这里需要和webpack.DllPlugin中的`name: '[name]_library',`保持一致。</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.DllPlugin(&#123;</span><br><span class="line">      path: path.join(__dirname, <span class="string">'../'</span>, <span class="string">'[name]-manifest.json'</span>),</span><br><span class="line">      name: <span class="string">'[name]_library'</span>,</span><br><span class="line">      context: __dirname,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="comment">// 压缩打包的文件</span></span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">      compress: &#123;</span><br><span class="line">        warnings: <span class="literal">false</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>配置说明</p>
-<p>path：manifest.json 生成的文件夹及名字，该项目让它生成在了根目录下。<br>name：和 output. library 保持一致即可。<br>context：选填，manifest 文件中请求的上下文，默认为该 webpack 文件上下文。</p>
-<p>在 package.json 中添加执行脚本</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"dll"</span>: <span class="string">"webpack --config build/webpack.dll.conf.js"</span>,</span><br></pre></td></tr></table></figure>
-<p>执行 yarn dll<br>生成 dll 文件和 manifest.json 文件<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144435.png" alt="Webpack中DllPlugin使用20220411144435"><br>manifest.json 文件包含了引用模块的 id 映射，为 DllReferencePlugin 引用做准备</p>
-<h2 id="引入-dll-库"><a href="#引入-dll-库" class="headerlink" title="引入 dll 库"></a>引入 dll 库</h2><h3 id="手动引入-dll-文件（不推荐）"><a href="#手动引入-dll-文件（不推荐）" class="headerlink" title="手动引入 dll 文件（不推荐）"></a>手动引入 dll 文件（不推荐）</h3><p>在根目录的 index.html 里引入所生成的 dll 库</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xx市城市综合管理基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/vendor.dll.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="手动引入注意"><a href="#手动引入注意" class="headerlink" title="手动引入注意"></a>手动引入注意</h3>
-        <!-- Webpack 中 DllPlugin 使用
+<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
+<ul>
+<li>解析 HTML 节点，创建 DOM 树</li>
+<li>解析 CSS 创建 CSSOM 树</li>
+<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
+<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
+<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
+<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
+</ul>
+</li>
+<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
+<li>Paint， 绘制 renderTree 到页面上</li>
+</ul>
+<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
+<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3><p>布局（排列）阶段，包括初始的布局 Layout 以及后续出现的回流 Reflow。<br>主要（重新）计算节点的位置与几何形状，可以看做给节点画框架。<br>通常情况下，当前节点回流，会同时触发其关联节点（祖先、后代节点以及兄弟节点）回流。<br>多数回流本质都会造成页面重新渲染。</p>
+<h3 id="Paint"><a href="#Paint" class="headerlink" title="Paint"></a>Paint</h3><p>绘制阶段，主要绘制节点的样式，可以看做给节点加个皮肤。<br>包括初始的绘制 Paint 与后续的重绘 Repaint。</p>
+<h2 id="回流与重绘触发"><a href="#回流与重绘触发" class="headerlink" title="回流与重绘触发"></a>回流与重绘触发</h2><h3 id="回流触发"><a href="#回流触发" class="headerlink" title="回流触发"></a>回流触发</h3>
+        <!-- 浏览器回流与重绘
 
 
-Webpack 中 DllPlugin 使用
-DllPlugin 概述
-实质
-DllPlugin 配置
+浏览器回流与重绘
+页面渲染
+渲染流程
+Layout
+Paint
 
 
-引入 dll 库
-手动引入 dll 文件（不推荐）
-手动引入注意
-自动引入(推荐)
-自动引入常见问题
+回流与重绘触发
+回流触发
+重绘触发
 
 
-成果分析
-优化前
-优化后：
+回流与重绘优化
+浏览器优化
+代码优化
+HTML
+CSS
+JS
 
 
+
+
+总结
 BMW WARNING
 Bulletin
 Material
@@ -1508,9 +1371,9 @@ Warrant
 
 
 
-DllPl......  -->
+页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲......  -->
         <p class="article-more-link">
-          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
+          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1518,7 +1381,7 @@ DllPl......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
 
     </footer>
   </div>
@@ -1624,89 +1487,56 @@ DllPl......  -->
 <h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>每一轮通过不断对比交换位置来将该轮最大（小）值上浮（下沉）到对应轮位置<br>核心思想是<strong>每轮换位置</strong><br><strong>外层循环确定轮次，内层循环<code>交换位置</code></strong>。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
 <p>每一轮都进行了<strong>多次交换</strong>，故相较于选择排序耗时</p>
-<h3 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>冒泡排序的比较次数 = (n - 1) + (n - 2) + … + 2 + 1，即：n * (n - 1) / 2，所以冒泡排序的时间复杂度为：O(n²)<br>冒泡排序最优情况的时间复杂度是：O(n) 要达到这个复杂度，上述代码需要进一步优化</p>
-<h3 id="交换判定优化"><a href="#交换判定优化" class="headerlink" title="交换判定优化"></a>交换判定优化</h3><p>对于已经有序的数列，进行了冗余的循环操作，通过在<strong>每轮进行交换标记</strong>来进行优化</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 冒泡交换判定优化</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">optimizeBubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        swap = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line">                swap = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> swap:</span><br><span class="line">            <span class="keyword">return</span> nums</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><h3 id="插排的思想"><a href="#插排的思想" class="headerlink" title="插排的思想"></a>插排的思想</h3><p>将 list 分为两部分，前部分作为已排序部分并向其中插入值，注意插入值之后值的移动<br><strong>外层循环确定插入值，内层循环确定插入位置</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 插入排序</span></span><br><span class="line"><span class="comment"># 外层循环确定插入值，内层循环确定插入位置</span></span><br><span class="line"><span class="comment"># 将list分为两部分，前部分作为已排序部分并向其中插入值，注意值的移动</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(nums)):</span><br><span class="line">        <span class="keyword">if</span> nums[i] &lt; nums[i - <span class="number">1</span>]:</span><br><span class="line">            j = i - <span class="number">1</span></span><br><span class="line">            aim = nums[i]</span><br><span class="line">            <span class="keyword">while</span> aim &lt; nums[j] <span class="keyword">and</span> j &gt; <span class="number">-1</span>:</span><br><span class="line">                nums[j + <span class="number">1</span>] = nums[j]</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            nums[j + <span class="number">1</span>] = aim</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>最坏的情况下，即整个数组是倒序的，比较次数 = 1 + 2 + 3 + … + (n - 2) + (n - 1) = n * (n - 1) / 2，此时的时间复杂度为：O(n²)。<br>在最好的情况下，即整个数组是正序的，比较次数 = n - 1，此时的时间复杂度为：O(n)</p>
-<h3 id="哨兵优化"><a href="#哨兵优化" class="headerlink" title="哨兵优化"></a>哨兵优化</h3><p>在插入排序循环判定中，<strong>aim &lt; nums[j] and j &gt; -1</strong>，即既要保证不越界又要判断数据是否符合条件，用哨兵代替上述两个条件，每次循环只需一次比较，可以减少一半的比较次数。</p>
-<p>哨兵的作用</p>
-<ul>
-<li>暂时存放待插入的元素</li>
-<li>监视数组下标越界</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sentryInsertionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    nums.append(nums[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(nums)):</span><br><span class="line">        <span class="keyword">if</span> nums[i] &lt; nums[i - <span class="number">1</span>]:</span><br><span class="line">            j = i - <span class="number">1</span></span><br><span class="line">            nums[<span class="number">0</span>] = nums[i]</span><br><span class="line">            <span class="keyword">while</span> nums[<span class="number">0</span>] &lt; nums[j]:</span><br><span class="line">                nums[j + <span class="number">1</span>] = nums[j]</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line">            nums[j + <span class="number">1</span>] = nums[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> nums[<span class="number">1</span>:]</span><br></pre></td></tr></table></figure>
-<h3 id="折半优化"><a href="#折半优化" class="headerlink" title="折半优化"></a>折半优化</h3><p>前半部分由于已经排序，故可通过二分查找找出插入位置</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 插入排序折半优化</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binaryInsertionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(nums)):</span><br><span class="line">        <span class="keyword">if</span> nums[i] &lt; nums[i - <span class="number">1</span>]:</span><br><span class="line">            aim = nums[i]</span><br><span class="line">            s,m,e = <span class="number">0</span>, <span class="number">0</span>, i - <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> s &lt; e:</span><br><span class="line">                m = s + e &gt;&gt; <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> aim &gt; nums[m]:</span><br><span class="line">                    s = m + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    e = m</span><br><span class="line">            j = i</span><br><span class="line">            <span class="keyword">while</span> j &gt; e:</span><br><span class="line">                nums[j] = nums[j - <span class="number">1</span>]</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line">            nums[e] = aim</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<h2 id="归并排序（Merge-Sort）"><a href="#归并排序（Merge-Sort）" class="headerlink" title="归并排序（Merge Sort）"></a>归并排序（Merge Sort）</h2><h3 id="归并排序思路"><a href="#归并排序思路" class="headerlink" title="归并排序思路"></a>归并排序思路</h3><p>归并排序是一种分治算法。<br>其思想是将原始数组切分成较小的数组，直到每个小数组只有一个元素，接着将小数组归并成有序的较大的数组，最后变成一个排序完成的大数组。<br>归并排序中，归是指递归，并即合并<br><strong>递归进行拆分，合并进行排序</strong>（两个有序数组合为新的有序数组）<br>归并排序与快排最大的不同在于<strong>重合并不重划分</strong>，归并需要合并两个有序数列，在划分时，无脑取中位即可。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 归并排序</span></span><br><span class="line"><span class="comment"># 归并排序的主要思想是分治</span></span><br><span class="line"><span class="comment"># 将n个元素从中间切开，分成两部分。（左右可能长度差1）</span></span><br><span class="line"><span class="comment"># 递归分解，直到所有部分的元素个数都为1</span></span><br><span class="line"><span class="comment"># 从最底层开始逐步向上合并两个排好序的数列</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 并</span></span><br><span class="line"><span class="comment"># 合并两个有序数组为新的有序数组</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeSorted</span><span class="params">(nums1, nums2)</span>:</span></span><br><span class="line">    nums = []</span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    l = len(nums2)</span><br><span class="line">    <span class="keyword">while</span> i &lt; len(nums1):</span><br><span class="line">        <span class="keyword">if</span> nums1[i] &lt;= nums2[j]: <span class="comment">#判定条件为 nums1[i] &lt; nums2[j]时不稳定</span></span><br><span class="line">            nums.append(nums1[i])</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            nums.append(nums2[j])</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> (j == l):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> nums + nums1[i:] + nums2[j:]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 归</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">recursionMergeSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    l = len(nums)</span><br><span class="line">    <span class="keyword">if</span> l &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> nums</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 整除</span></span><br><span class="line">        m = l // <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> mergeSorted(recursionMergeSort(nums[:m]), recursionMergeSort(nums[m:]))</span><br></pre></td></tr></table></figure>
-<p>mergeSorted 方法里面的 <code>nums1[i] &lt;= nums2[j]</code> ，保证了值相同的元素，在合并前后的先后顺序不变。归并排序是一种稳定的排序方法</p>
-<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p>如何将两个有序数组合并成一个新的有序数组?<br>轮番比较两个数列的最低位，直到一方全部比较完毕</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeSorted</span><span class="params">(nums1, nums2)</span>:</span></span><br><span class="line">    nums = []</span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    l = len(nums2)</span><br><span class="line">    <span class="keyword">while</span> i &lt; len(nums1):</span><br><span class="line">        <span class="keyword">if</span> nums1[i] &lt; nums2[j]:</span><br><span class="line">            nums.append(nums1[i])</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            nums.append(nums2[j])</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> (j == l):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> nums + nums1[i:] + nums2[j:]</span><br></pre></td></tr></table></figure>
-<p>由于合并函数需要另开内存空间存储新的数组，归并排序不是原地排序算法。</p>
-<h3 id="时间复杂度分析-1"><a href="#时间复杂度分析-1" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>递归中的时间复杂度为 logn，合并数组最多循环 n 次<br>归并排序的时间复杂度为 O(nlogn)</p>
-<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h3 id="快排思路"><a href="#快排思路" class="headerlink" title="快排思路"></a>快排思路</h3><p>采用分治的思想，选取一个值为基准值，假设其放在正确顺序位置 pos，将比其小的放在其前面，比其大的放在其后面，从 pos 处将数列砍成两半，对子序列递归执行前述操作<br><strong>递归进行拆分，双指针进行排序</strong><br>快排<strong>重划分，不需要合并</strong>，在划分时，可以随意选择一个值，但选值得大小将影响排序的效率<br>通过<strong>双指针找到选择值在数列中的正确位置</strong></p>
-<ul>
-<li>取中位</li>
-</ul>
-<p>取中位，在将中位交换到对应位置时，对比取边界，需要做比较多的处理，容易出错</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span><span class="params">(nums, start, end)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> end - start &lt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="comment"># m可取数列中任意数，此处取中位</span></span><br><span class="line">    s, m, e = start, start + end &gt;&gt; <span class="number">1</span>, end</span><br><span class="line">        <span class="comment"># 通过双指针找到nums[m]正确位置</span></span><br><span class="line">    <span class="keyword">while</span> s &lt;= e:</span><br><span class="line">        <span class="comment"># 取值判定加等号，防止nums[m]值被交换</span></span><br><span class="line">        <span class="keyword">while</span> s &lt;= e <span class="keyword">and</span>  nums[s] &lt;= nums[m]:</span><br><span class="line">            s += <span class="number">1</span></span><br><span class="line">                <span class="comment"># 取值判定加等号，防止nums[m]值被交换，针对中位取值</span></span><br><span class="line">        <span class="keyword">while</span> s &lt;= e <span class="keyword">and</span> nums[e] &gt;= nums[m]:</span><br><span class="line">            e -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> s &lt; e:</span><br><span class="line">            nums[s], nums[e] = nums[e], nums[s]</span><br><span class="line">        <span class="comment"># 通过交换将nums[m]放在正确的位置</span></span><br><span class="line">    <span class="keyword">if</span> m &gt; s:</span><br><span class="line">        nums[s], nums[m] = nums[m], nums[s]</span><br><span class="line">        <span class="comment"># 移动位置，缩减nums[m]位置，防止某些情况死循环（如所有值一致）</span></span><br><span class="line">        s += <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        nums[e], nums[m] = nums[m], nums[e]</span><br><span class="line">        e -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> start &lt; e:</span><br><span class="line">        quickSort(nums, start, e)</span><br><span class="line">    <span class="keyword">if</span> s &lt; end:</span><br><span class="line">        quickSort(nums, s, end)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>取边界</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span><span class="params">(nums, start, end)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> end - start &lt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    s, m, e = start + <span class="number">1</span>, start, end <span class="comment"># 选取第一个值为基准值</span></span><br><span class="line">    <span class="keyword">while</span> s &lt;= e:</span><br><span class="line">        <span class="keyword">while</span> s &lt;= e <span class="keyword">and</span>  nums[s] &lt; nums[m]: <span class="comment"># 找出左边以一个比基准大的数的位置</span></span><br><span class="line">            s += <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> s &lt;= e <span class="keyword">and</span> nums[e] &gt;= nums[m]: <span class="comment"># 找出右边以一个比基准小的数的位置</span></span><br><span class="line">            e -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> s &lt; e: <span class="comment"># 交换双方位置，并进入中间尚未比较位置继续对比交换</span></span><br><span class="line">            nums[s], nums[e] = nums[e], nums[s]</span><br><span class="line"></span><br><span class="line">    nums[e], nums[m] = nums[m], nums[e]</span><br><span class="line">    <span class="keyword">if</span> start &lt; e:</span><br><span class="line">        quickSort(nums, start, e - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> s &lt; end:</span><br><span class="line">        quickSort(nums, s, end)</span><br></pre></td></tr></table></figure>
-<h3 id="选值优化"><a href="#选值优化" class="headerlink" title="选值优化"></a>选值优化</h3><ul>
-<li>随机选值<br>基准值随机地选取，而不是每次都取第一个数。这样就不会受正序或逆序的数组的干扰</li>
-<li>三数取中<br>前中后选三个值选取三数的中位数，以降低取到最大或最小值的概率。三数取中时，比较的同时应将三个元素按中间，小，大的顺序重新排好位置</li>
-</ul>
-<h3 id="多路快排"><a href="#多路快排" class="headerlink" title="多路快排"></a>多路快排</h3><p>在遍历数列时选用指针的数量</p>
-<ul>
-<li>单路<br><del>基准值 base 左边的都比 base 小，而 base 右边的都大于等于 base。等于 base 的这些会聚集到右侧(或者稍微改改大小关系就会聚集到左侧)。总之就会聚集到一边。这样在数组中重复数字很多的时候，就又会导致两边子递归规模差距悬殊的情况</del></li>
-<li>双路<br>上述代码采用的就是双路</li>
-<li>三路<br>对于大于小于等于分别选用一个指针<br>在当前值小于目标值时，s 与 c 齐头并进，直到等于出现时，s 停留在第一个相等的位置，c 开始往后移动，通过 c 做中介来交换 s 与 e 位置的值</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span><span class="params">(nums, start, end)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> end - start &lt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    s, c, m, e = start + <span class="number">1</span>, start + <span class="number">1</span>, start, end</span><br><span class="line">    <span class="keyword">while</span> c &lt;= e:</span><br><span class="line">        <span class="keyword">if</span> nums[c] == nums[m]:</span><br><span class="line">            c += <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> nums[c] &lt; nums[m]:</span><br><span class="line">            nums[s], nums[c] = nums[c], nums[s]</span><br><span class="line">            s += <span class="number">1</span></span><br><span class="line">            c += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            nums[e], nums[c] = nums[c], nums[e]</span><br><span class="line">            e -= <span class="number">1</span></span><br><span class="line">    nums[e], nums[m] = nums[m], nums[e]</span><br><span class="line">    <span class="keyword">if</span> start &lt; e:</span><br><span class="line">        quickSort(nums, start, e - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> s &lt; end:</span><br><span class="line">        quickSort(nums, s, end)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>时间复杂度分析<br>待排序为正序或逆序，取值也为最值，这样每次分割后的子序列一个之比上一次序列少一个元素,最终 O(n²)<br>平均为 O(nlogn)</li>
-</ul>
-<h2 id="希尔排序（缩小增量排序）"><a href="#希尔排序（缩小增量排序）" class="headerlink" title="希尔排序（缩小增量排序）"></a>希尔排序（缩小增量排序）</h2><h3 id="关键思路"><a href="#关键思路" class="headerlink" title="关键思路"></a>关键思路</h3><p>希尔排序又叫<strong>缩小增量排序</strong><br>希尔排序是插入排序的优化版本，在插入排序中，将数列分为有序与无序部分，若无序部分的头部每次都需要插入到有序部分的头部，那么最终的总复杂度会到 n²<br>希尔排序将数列每一轮分为多个子数列，对每个子数列进行插入排序，直至整体基本有序时（增量为 1 前），再对全体记录进行插入排序（增量为 1）起来就容易了(由于最后一次基本有序无须多次移位或交换)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shellSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    span = len(nums)</span><br><span class="line">    <span class="keyword">while</span> span &gt; <span class="number">1</span>:</span><br><span class="line">        span //= <span class="number">2</span>  <span class="comment"># span取数跨度，先将整个待排序的记录序列分割成为若干子序列，每轮缩小取数跨度，子数列长度</span></span><br><span class="line">        insertionSort(nums, span)</span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertionSort</span><span class="params">(nums, span)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> pos <span class="keyword">in</span> range(span, len(nums), <span class="number">1</span>):  <span class="comment"># 由span位置开始，到len(nums) - 1位置结束， 循环步长为1</span></span><br><span class="line">        <span class="keyword">if</span> nums[pos] &lt; nums[pos - span]:</span><br><span class="line">            pre = pos - span</span><br><span class="line">            aim = nums[pos]</span><br><span class="line">            <span class="keyword">while</span> aim &lt; nums[pre] <span class="keyword">and</span> pre &gt; <span class="number">-1</span>:</span><br><span class="line">                nums[pos] = nums[pre]  <span class="comment"># 数后移</span></span><br><span class="line">                pre -= span</span><br><span class="line">            nums[pre + span] = aim</span><br></pre></td></tr></table></figure>
-<h3 id="时间复杂度-2"><a href="#时间复杂度-2" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>希尔排序的时间复杂度最佳情况：O(n logn)。 最差情况：O(n (log(n))²)。 平均情况：取决于间隙序列</p>
-<h2 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h2><h3 id="关键思路-1"><a href="#关键思路-1" class="headerlink" title="关键思路"></a>关键思路</h3><p>对于一个自然数数组 A，选取数组中的最大值 m，然后初始化一个长度为 m + 1 的备用数组 B。<br>对于数组 B<br>B 的索引对应数组 A 的值<br>B 的值对应数组 A 中相应值的个数<br>C 的值记录 A 顺序后前面出现值的个数<br>例如</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A = [<span class="number">3</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>]</span><br><span class="line"><span class="comment"># B = [1, 0, 3, 2, 0, 0, 0, 0, 0, 1]</span></span><br><span class="line"><span class="comment"># C = [1, 1, 4, 6, 6, 6, 6, 6, 6, 7]</span></span><br><span class="line"><span class="comment"># 以3为例</span></span><br><span class="line"><span class="comment"># B: 3有两个</span></span><br><span class="line"><span class="comment"># C: 如果有3，最后一个3位于第6位，即索引为5</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">countingSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    counts = [<span class="number">0</span>] * (max(nums) + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">        counts[i] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    accumulation = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> index, value <span class="keyword">in</span> enumerate(counts):</span><br><span class="line">        accumulation += value</span><br><span class="line">        counts[index] = accumulation</span><br><span class="line"></span><br><span class="line">    rets = [<span class="number">0</span>] * len(nums)</span><br><span class="line">    <span class="keyword">for</span> v <span class="keyword">in</span> nums:</span><br><span class="line">        rets[counts[v] - <span class="number">1</span>] = v</span><br><span class="line">        counts[v] -= <span class="number">1</span>  <span class="comment"># 下一个相同值索引减1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rets</span><br></pre></td></tr></table></figure>
-<h3 id="时间复杂度分析-2"><a href="#时间复杂度分析-2" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>计数排序利用了空间换时间，对于不同的实现（比如最大值判定循环等），其内部始终是遍历两个定长的数组。<br>O(max)+O(len)+… = O(max+len)<br>即其时间复杂度为 O(n + k)</p>
-<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><h3 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h3><p>二叉树是指最多只存在两个子节点的树形数据结构。<br>完全二叉树是指除了最后一层的叶子节点，每一层节点都存在，且最后一层的叶子节点由左起依次排列不能留空。</p>
-<p>数组可以表示一个典型的完全二叉树。<br>i（索引） 为 0 的节点为根节点。<br>所有左子节点的索引为 <code>2i+1</code>，右子节点的索引为 <code>2i+2</code>。<br>同时，可以通过<code>(i-1)/2</code> 获取其父节点的值</p>
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆是一颗完全二叉树，且对于所有节点，都要满足父节点的值大于等于（或小于等于）子节点的值。<br>父节点大于等于子节点时，称为大顶堆<br>父节点小于等于子节点时，称为小顶堆</p>
-<h3 id="构造堆"><a href="#构造堆" class="headerlink" title="构造堆"></a>构造堆</h3><p>当跟节点的左子树和右子树已经为堆时，加入父节点构造堆。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 当跟节点的左子树和右子树已经为堆时，加入父节点构造堆</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapify</span><span class="params">(nums, pos)</span>:</span></span><br><span class="line">    length = len(nums)</span><br><span class="line">    mark = pos</span><br><span class="line">    left = <span class="number">2</span> * pos + <span class="number">1</span></span><br><span class="line">    right = <span class="number">2</span> * pos + <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(left &lt; length <span class="keyword">and</span> nums[pos] &lt; nums[left]):</span><br><span class="line">        pos = left</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(right &lt; length <span class="keyword">and</span> nums[pos] &lt; nums[right]):</span><br><span class="line">        pos = right</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(mark != pos):</span><br><span class="line">        nums[mark], nums[pos] = nums[pos], nums[mark]</span><br><span class="line">        heapify(nums, pos) <span class="comment"># 交换位置后，子树需要重新构造堆</span></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<p>对于任意完全二叉树（数组）构造堆</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 对于任意完全二叉树（数组）构造堆</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapifyArr</span><span class="params">(nums)</span>:</span></span><br><span class="line">    start = (len(nums) - <span class="number">1</span>) // <span class="number">2</span> <span class="comment"># 大于此索引的其他节点是叶子节点</span></span><br><span class="line">    <span class="keyword">while</span> (start &gt; <span class="number">-1</span>):</span><br><span class="line">        heapify(nums, start) <span class="comment">#所有非叶子节点，由下到上，从右到左依次遍历构造堆</span></span><br><span class="line">        start -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>对于任意数组，当调用上述方法构造堆后，可得其最值位于根节点（索引为 0）<br>利用该特性，堆排序思路如下</p>
-<ol>
-<li>将数组构造成堆</li>
-<li>交换堆的首节点与尾节点，移除此时处于最后的根节点（或记录偏移位置）。</li>
-<li>对于剩下的完全二叉树，根节点的左右子树仍为堆，采用 heapify 来将剩下的完全二叉树构造成堆。</li>
-<li>重复 2、3 步，直到移除完所有节点</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 堆排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    pos = len(nums) - <span class="number">1</span></span><br><span class="line">    heapifyArr(nums)</span><br><span class="line">    ret = []</span><br><span class="line">    arr = nums</span><br><span class="line">    <span class="keyword">while</span> pos &gt; <span class="number">-1</span>:</span><br><span class="line">        arr = heapify(arr[:pos + <span class="number">1</span>], <span class="number">0</span>)</span><br><span class="line">        ret.append(arr[<span class="number">0</span>])</span><br><span class="line">        arr[<span class="number">0</span>], arr[pos] = arr[pos], arr[<span class="number">0</span>]</span><br><span class="line">        pos -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
-<p>上述排序引入了多余的数组来最后存储与中间存储相关结果，通过对偏移量的记录，所有操作可以源数组进行（原地排序）<br>进一步优化</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 当跟节点的左子树和右子树已经为堆时，加入父节点构造堆</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapify</span><span class="params">(nums, offset, pos)</span>:</span></span><br><span class="line">    <span class="comment"># length = len(nums)</span></span><br><span class="line">    mark = pos</span><br><span class="line">    left = <span class="number">2</span> * pos + <span class="number">1</span></span><br><span class="line">    right = <span class="number">2</span> * pos + <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(left &lt; offset <span class="keyword">and</span> nums[pos] &lt; nums[left]):</span><br><span class="line">        pos = left</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(right &lt; offset <span class="keyword">and</span> nums[pos] &lt; nums[right]):</span><br><span class="line">        pos = right</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(mark != pos):</span><br><span class="line">        nums[mark], nums[pos] = nums[pos], nums[mark]</span><br><span class="line">        heapify(nums, offset, pos)  <span class="comment"># 交换位置后，子树需要重新构造堆</span></span><br><span class="line">    <span class="comment"># return nums</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于任意完全二叉树（数组）构造堆</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapifyArr</span><span class="params">(nums)</span>:</span></span><br><span class="line">    start = (len(nums) - <span class="number">1</span>) // <span class="number">2</span>  <span class="comment"># 大于此索引的其他节点是叶子节点</span></span><br><span class="line">    <span class="keyword">while</span> (start &gt; <span class="number">-1</span>):</span><br><span class="line">        heapify(nums, len(nums), start)  <span class="comment"># 所有非叶子节点，由下到上，从右到左依次遍历构造堆</span></span><br><span class="line">        start -= <span class="number">1</span></span><br><span class="line">    <span class="comment"># return nums</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 堆排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    offset = len(nums) - <span class="number">1</span></span><br><span class="line">    heapifyArr(nums)</span><br><span class="line">    <span class="comment"># ret = []</span></span><br><span class="line">    <span class="comment"># arr = nums</span></span><br><span class="line">    <span class="keyword">while</span> offset &gt; <span class="number">-1</span>:</span><br><span class="line">        heapify(nums, offset, <span class="number">0</span>)</span><br><span class="line">        nums[<span class="number">0</span>], nums[offset] = nums[offset], nums[<span class="number">0</span>]</span><br><span class="line">        offset -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line"></span><br><span class="line">nums = [<span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">2</span>]</span><br><span class="line"><span class="comment"># nums = [1, 12, 9, 5, 6, 10]</span></span><br><span class="line">heapSort(nums)</span><br><span class="line">print(nums)</span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-<p><a href="https://zhuanlan.zhihu.com/p/36075856" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/36075856</a></p>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-<blockquote>
-<p>[CC BY - NC - SA 3.0](<a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh</a></p>
-</blockquote>
+<h3 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
+        <!-- 排序算法
 
+
+排序算法
+选择排序
+选排的思想
+时间复杂度
+
+
+冒泡排序
+基本思路
+时间复杂度
+交换判定优化
+
+
+插入排序
+插排的思想
+时间复杂度分析
+哨兵优化
+折半优化
+
+
+归并排序（Merge Sort）
+归并排序思路
+合并
+时间复杂度分析
+
+
+快速排序
+快排思路
+选值优化
+多路快排
+
+
+希尔排序（缩小增量排序）
+关键思路
+时间复杂度
+
+
+计数排序
+关键思路
+时间复杂度分析
+
+
+堆排序
+完......  -->
+        <p class="article-more-link">
+          <a href="/排序算法.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
@@ -1846,16 +1676,33 @@ DllPl......  -->
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><pre><code>&lt;!--more--&gt;
-</code></pre><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-<p><a href="https://es6.ruanyifeng.com/#docs/module-loader" target="_blank" rel="noopener">https://es6.ruanyifeng.com/#docs/module-loader</a></p>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-<blockquote>
-<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
-</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
+        <!-- ES Module vs CommonJS
 
+
+ES Module vs CommonJS
+模块系统
+ESM VS CJS
+ESM VS CJS 要点解析
+模块输出
+模块加载
+
+
+tree shaking
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进......  -->
+        <p class="article-more-link">
+          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
@@ -1863,6 +1710,133 @@ DllPl......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-05-27T07:41:02.000Z" itemprop="datePublished">2022-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Webpack-中-DllPlugin-使用"><a href="#Webpack-中-DllPlugin-使用" class="headerlink" title="Webpack 中 DllPlugin 使用"></a>Webpack 中 DllPlugin 使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#webpack-中-dllplugin-使用">Webpack 中 DllPlugin 使用</a><ul>
+<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
+<li><a href="#实质">实质</a></li>
+<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
+</ul>
+</li>
+<li><a href="#引入-dll-库">引入 dll 库</a><ul>
+<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
+<li><a href="#手动引入注意">手动引入注意</a></li>
+<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
+<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
+</ul>
+</li>
+<li><a href="#成果分析">成果分析</a><ul>
+<li><a href="#优化前">优化前</a></li>
+<li><a href="#优化后">优化后：</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
+<blockquote>
+<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
+</blockquote>
+<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3><p>webpack.dll.config.js 配置</p>
+<p>新建单独的配置文件</p>
+<p>webpack.dll.config.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 你想要打包的模块的数组</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: [</span><br><span class="line">      <span class="string">'vue/dist/vue.esm.js'</span>,</span><br><span class="line">      <span class="string">'vuex'</span>,</span><br><span class="line">      <span class="string">'axios'</span>,</span><br><span class="line">      <span class="string">'vue-router'</span>,</span><br><span class="line">      <span class="string">'element-ui'</span>,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">'../static/js'</span>), <span class="comment">// 打包后文件输出的位置</span></span><br><span class="line">    filename: <span class="string">'[name].dll.js'</span>,</span><br><span class="line">    library: <span class="string">'[name]_library'</span>,</span><br><span class="line">    <span class="comment">// vendor.dll.js中暴露出的全局变量名。</span></span><br><span class="line">    <span class="comment">// 主要是给DllPlugin中的name使用，</span></span><br><span class="line">    <span class="comment">// 故这里需要和webpack.DllPlugin中的`name: '[name]_library',`保持一致。</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.DllPlugin(&#123;</span><br><span class="line">      path: path.join(__dirname, <span class="string">'../'</span>, <span class="string">'[name]-manifest.json'</span>),</span><br><span class="line">      name: <span class="string">'[name]_library'</span>,</span><br><span class="line">      context: __dirname,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="comment">// 压缩打包的文件</span></span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">      compress: &#123;</span><br><span class="line">        warnings: <span class="literal">false</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置说明</p>
+<p>path：manifest.json 生成的文件夹及名字，该项目让它生成在了根目录下。<br>name：和 output. library 保持一致即可。<br>context：选填，manifest 文件中请求的上下文，默认为该 webpack 文件上下文。</p>
+<p>在 package.json 中添加执行脚本</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"dll"</span>: <span class="string">"webpack --config build/webpack.dll.conf.js"</span>,</span><br></pre></td></tr></table></figure>
+<p>执行 yarn dll<br>生成 dll 文件和 manifest.json 文件<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144435.png" alt="Webpack中DllPlugin使用20220411144435"><br>manifest.json 文件包含了引用模块的 id 映射，为 DllReferencePlugin 引用做准备</p>
+<h2 id="引入-dll-库"><a href="#引入-dll-库" class="headerlink" title="引入 dll 库"></a>引入 dll 库</h2><h3 id="手动引入-dll-文件（不推荐）"><a href="#手动引入-dll-文件（不推荐）" class="headerlink" title="手动引入 dll 文件（不推荐）"></a>手动引入 dll 文件（不推荐）</h3><p>在根目录的 index.html 里引入所生成的 dll 库</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xx市城市综合管理基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/vendor.dll.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="手动引入注意"><a href="#手动引入注意" class="headerlink" title="手动引入注意"></a>手动引入注意</h3>
+        <!-- Webpack 中 DllPlugin 使用
+
+
+Webpack 中 DllPlugin 使用
+DllPlugin 概述
+实质
+DllPlugin 配置
+
+
+引入 dll 库
+手动引入 dll 文件（不推荐）
+手动引入注意
+自动引入(推荐)
+自动引入常见问题
+
+
+成果分析
+优化前
+优化后：
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+DllPl......  -->
+        <p class="article-more-link">
+          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
 
     </footer>
   </div>
