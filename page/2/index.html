@@ -582,7 +582,7 @@ p:......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Builder建筑工模式"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -590,7 +590,7 @@ p:......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
+      <a class="article-title" href="/Builder建筑工模式.html">Builder建筑工模式</a>
     </h1>
   
 
@@ -615,65 +615,59 @@ p:......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#formatting-context">Formatting Context</a></li>
-<li><a href="#bfc">BFC</a><ul>
-<li><a href="#bfc-定义">BFC 定义</a></li>
-<li><a href="#常见-bfc">常见 BFC</a></li>
-<li><a href="#常见应用">常见应用</a></li>
-<li><a href="#display-flow-root">display: flow-root</a></li>
+<li><a href="#概述">概述</a></li>
+<li><a href="#实例">实例</a><ul>
+<li><a href="#修房子">修房子</a></li>
+<li><a href="#找工人">找工人</a></li>
+<li><a href="#监工">监工</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
+<li><a href="#Warrant">Warrant</a></li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
-<ul>
-<li>块级格式化上下文（block formatting contexts）</li>
-<li>内联格式化上下文（inline formatting contexts）</li>
-<li>弹性格式化上下文（grid formatting context）</li>
-<li>网格格式化上下文（flex formatting context）</li>
-</ul>
-<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
-<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3><p>正如上文所说格式化上下文只是约定了自身与内部元素的展示规则。<br>这些规则据定了父子元素、兄弟元素等等元素之间在展示时相互影响。<br>BFC 一样，只是约定了一套规则，没有所谓的定义。<br>在 CSS2.1 规范 中，这套规则描述如下：</p>
-<blockquote>
-<p>In a block formatting context, boxes are laid out one after the other, vertically, beginning at the top of a containing block. The vertical distance between two sibling boxes is determined by the ‘margin’ properties. Vertical margins between adjacent block-level boxes in a block formatting context collapse.<br>In a block formatting context, each box’s left outer edge touches the left edge of the containing block (for right-to-left formatting, right edges touch). This is true even in the presence of floats (although a box’s line boxes may shrink due to the floats), unless the box establishes a new block formatting context (in which case the box itself may become narrower due to the floats).</p>
-</blockquote>
-<p>上述规则规定了 BFC 内部元素的排列方向为由上而下，由左至右。<br>兄弟元素之间的间距由 margin 定，上下毗邻块级元素 marign 会合并。</p>
-<p>在这套规则描述中，没有提到但 BFC 有的最大的特征是：<br>BFC 容器内部的元素无论如何不会影响容器外部的元素。</p>
-<h3 id="常见-BFC"><a href="#常见-BFC" class="headerlink" title="常见 BFC"></a>常见 BFC</h3><p>最外层的的页面元素（即 html 元素）创建初始的块级格式化上下文。</p>
-<ul>
-<li>html 元素</li>
-<li>浮动（float != none）</li>
-<li>绝对位置元素（position: fixed, absolute）</li>
-<li>table 及其部分子属性（ display: table, table-cell, table-caption, table-row, table-row-group, table-header-group, table-footer-group）</li>
-<li>内联块级元素（display: inline-block）</li>
-<li>overflow 非默认</li>
-<li>flex 子元素</li>
-<li>grid 子元素</li>
-<li>display: flow-root</li>
-</ul>
-<h3 id="常见应用"><a href="#常见应用" class="headerlink" title="常见应用"></a>常见应用</h3><p>由 BFC 常用于如下场景中：</p>
-<ul>
-<li>包含内部浮动元素（contain internal floats）</li>
-<li>排斥外部浮动元素（exclude external floats）</li>
-<li>抑制边距合并（suppress margin collapsing）</li>
-</ul>
-<p>在内联上下文中，浮动无法将容器撑开。</p>
-<h3 id="display-flow-root"><a href="#display-flow-root" class="headerlink" title="display: flow-root"></a>display: flow-root</h3>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Builder 模式一般翻译为建造者模式。<br>在重构代码的过程中，我们常看到几百上千行的复杂类。<br>这些类往往由于最初设定不合理以及需求不断增加而壮大。<br>建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。<br>建筑工模式通常支持链式调用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">House.setDoors(<span class="number">1</span>).setRooms(<span class="number">2</span>).getHouse();</span><br></pre></td></tr></table></figure>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="修房子"><a href="#修房子" class="headerlink" title="修房子"></a>修房子</h3><p>现在有一个基础房屋类如下所示</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> House &#123;</span><br><span class="line">  <span class="keyword">public</span> windows: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> doors: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> rooms: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> area: <span class="built_in">number</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">public</span> parts: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setWindows(<span class="string">"window"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setDoors(<span class="string">"door"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setBedRooms(<span class="string">"room"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listWindows(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House windows: <span class="subst">$&#123;<span class="keyword">this</span>.windows.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listDoors(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House doors: <span class="subst">$&#123;<span class="keyword">this</span>.doors.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listRooms(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House rooms: <span class="subst">$&#123;<span class="keyword">this</span>.rooms.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> setWindows(w: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.windows.push(w);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setDoors(d: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.doors.push(d);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setBedRooms(r: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.area += <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setKitchens(r: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.area += <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> capacity(): <span class="built_in">number</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.area / <span class="number">15</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在生活水平不断提高，我们开始有不同的要求，有车的人需要有车库的房子，有人需要有花园的，有泳池，有庭院等的房子。<br>一种常用的方法是，基于 House 类派生出 HouseWithGarage、HouseWithPool、HouseWithYard…</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> HouseWithGarage <span class="keyword">extends</span> House &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.setGarges(<span class="string">"garage"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listGarges(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House parts: <span class="subst">$&#123;<span class="keyword">this</span>.parts.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setGarges(g: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> hg = <span class="keyword">new</span> HouseWithGarage();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builderProblem.ts第63行:::hg"</span>, hg);</span><br></pre></td></tr></table></figure>
+<p>使用后得到如下的建筑</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"windows"</span>: [<span class="string">"window"</span>],</span><br><span class="line">  <span class="attr">"doors"</span>: [<span class="string">"door"</span>],</span><br><span class="line">  <span class="attr">"rooms"</span>: [<span class="string">"room"</span>],</span><br><span class="line">  <span class="attr">"area"</span>: <span class="number">30</span>,</span><br><span class="line">  <span class="attr">"parts"</span>: [<span class="string">"garage"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/Creational/builder/builderProblem.ts" target="_blank" rel="noopener">详细代码</a><br>当又有智能家居、新风系统等新需求来的时候，相关的派生类变得非常多。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104113645.png" alt="Builder建筑工模式20211104113645"></p>
+<p>另一种基本不会用的方法是直接在构造函数中进行相关配置并初始化。</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> House &#123;</span><br><span class="line">    ...,</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">hasGarage: <span class="built_in">boolean</span>, hasYard: <span class="built_in">boolean</span>, hasPool: <span class="built_in">boolean</span>, ...</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.setWindows(<span class="string">'east-window'</span>);</span><br><span class="line">        <span class="keyword">this</span>.setDoors(<span class="string">'east-door'</span>);</span><br><span class="line">        <span class="keyword">this</span>.setBedRooms(<span class="string">'east-room'</span>);</span><br><span class="line">        <span class="keyword">if</span>(hasGarage) &#123;</span><br><span class="line">            <span class="keyword">this</span>.setGarges(<span class="string">"garage"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用的时候会出现如下情况</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> House(<span class="literal">true</span>, <span class="literal">null</span>, <span class="literal">true</span>, ...);</span><br><span class="line"><span class="keyword">new</span> House(<span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">true</span>, ...);</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104113734.png" alt="Builder建筑工模式20211104113734"><br>上述方案虽然可以解决一定的问题，但是在易用性与维护性方面大打折扣。<br>这些场景中的建筑工可以很好地解决问题。</p>
+<h3 id="找工人"><a href="#找工人" class="headerlink" title="找工人"></a>找工人</h3><p>在 House 类中，有最终生产与配置房屋实例相关的方法（set…)。<br>这些方法都为构建产品而立，我们可以把这些工作都交给建筑工。</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> House &#123;</span><br><span class="line">  <span class="keyword">public</span> windows: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> doors: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> rooms: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> area: <span class="built_in">number</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">public</span> parts: <span class="built_in">string</span>[] = [];</span><br><span class="line">  [s: <span class="built_in">string</span>]: <span class="built_in">any</span>;</span><br><span class="line">  <span class="keyword">public</span> listWindows(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House windows: <span class="subst">$&#123;<span class="keyword">this</span>.windows.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listDoors(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House doors: <span class="subst">$&#123;<span class="keyword">this</span>.doors.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listRooms(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House rooms: <span class="subst">$&#123;<span class="keyword">this</span>.rooms.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> capacity(): <span class="built_in">number</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.area / <span class="number">15</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 建筑者接口，提供创建产品的基本方法与步骤</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">interface</span> Builder &#123;</span><br><span class="line">  setBase(): Builder;</span><br><span class="line">  setKitchens(r: <span class="built_in">string</span>): Builder;</span><br><span class="line">  setGarges(g: <span class="built_in">string</span>): Builder;</span><br><span class="line">  setPools(g: <span class="built_in">string</span>): Builder;</span><br><span class="line">  setYards(g: <span class="built_in">string</span>): Builder;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 建筑者实体类。不同的建筑者实体类可以对方法进行不同实现</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> HouseABuilder <span class="keyword">implements</span> Builder &#123;</span><br><span class="line">  <span class="keyword">private</span> house!: House;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.reset();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> reset(): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.house = <span class="keyword">new</span> House();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.house;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @returns 提供this 链式调用</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> setBase(): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.setWindows(<span class="string">"window"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setDoors(<span class="string">"door"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setBedRooms(<span class="string">"room"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> setWindows(w: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.windows.push(w);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setDoors(d: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.doors.push(d);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setBedRooms(r: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.house.area += <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> setKitchens(r: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.house.area += <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setGarges(g: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setPools(g: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setYards(g: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * 暴露产品的方法。</span></span><br><span class="line"><span class="comment">   * 在将现有产品交付后，建筑工通常需要初始化一个新的产品，供后续调用。</span></span><br><span class="line"><span class="comment">   * 此处通过reset，这不是必须的，可以在客户使用时显示调用reset</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> getHouse(): House &#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">this</span>.house;</span><br><span class="line">    <span class="keyword">this</span>.reset();</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们可以请建筑工来帮我们建筑不同的房子。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> builder = <span class="keyword">new</span> HouseABuilder();</span><br><span class="line">builder.setBase().setGarges(<span class="string">"garage"</span>).setYards(<span class="string">"yard"</span>);</span><br><span class="line"><span class="keyword">const</span> gy = builder.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builder.ts第85行:::gy"</span>, gy);</span><br><span class="line">builder.setBase().setGarges(<span class="string">"garage"</span>);</span><br><span class="line"><span class="keyword">const</span> g = builder.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builder.ts第88行:::g"</span>, g);</span><br><span class="line">builder.setBase().setPools(<span class="string">"pool"</span>);</span><br><span class="line"><span class="keyword">const</span> p = builder.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builder.ts第91行:::p"</span>, p);</span><br></pre></td></tr></table></figure>
+<p>得到如下的结果</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">[LOG]: "builder.ts第85行:::gy",  House: &#123;</span><br><span class="line">  "windows": [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  "doors": [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  "rooms": [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  "area": 30,</span><br><span class="line">  "parts": [</span><br><span class="line">    "garage",</span><br><span class="line">    <span class="string">"yard"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">[LOG]: "builder.ts第88行:::g",  House: &#123;</span><br><span class="line">  "windows": [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  "doors": [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  "rooms": [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  "area": 30,</span><br><span class="line">  "parts": [</span><br><span class="line">    <span class="string">"garage"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">[LOG]: "builder.ts第91行:::p",  House: &#123;</span><br><span class="line">  "windows": [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  "doors": [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  "rooms": [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  "area": 30,</span><br><span class="line">  "parts": [</span><br><span class="line">    <span class="string">"pool"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/Creational/builder/builder.ts" target="_blank" rel="noopener">详细代码</a></p>
+<p>通过找建筑工帮忙，我们的产品交付给客户时只剩下客户关心的配置。<br>当客户有不同客制化需求时，我们只需让建筑工工程师帮忙发挥他的技能即可。<br>建筑工模式让我们再构建一个产品时让建筑工来执行一系列步骤，通过执行不同步骤来定制不同的产品。<br>虽然当前的建筑工技能已经比较全面，但是某项特定的需求也可能差异化。<br>例如，建筑普通房子的窗可能只需要挖个洞，而富豪的窗是需要镶钻的。<br>普通的院子大小只能让小孩打滚，富豪的院子则需要能打高尔夫。<br>这时候，我们需要差异化建筑工，用不同的建筑工，构建不同的房子。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104140334.png" alt="Builder建筑工模式20211104140334"><br>当不同的建筑工越来越多时，什么时候用什么样的工人，需要统一管理，我们引入监工。</p>
+<h3 id="监工"><a href="#监工" class="headerlink" title="监工"></a>监工</h3><figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 引入监工是为指定的需求做定制，</span></span><br><span class="line"><span class="comment"> * 如此处定制基础房屋、小房子、大房子等</span></span><br><span class="line"><span class="comment"> * 另一个用处是调配工人</span></span><br><span class="line"><span class="comment"> * 这不必须的。客户也可去掉这个中间商，直接去找工人</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> Director &#123;</span><br><span class="line">  <span class="keyword">private</span> builder: Builder;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 调配工人</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> setBuilder(builder: Builder): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder = builder;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 建筑基础房子</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> buildMini(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder.setBase();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> buildMedium(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder.setBase().setGarges(<span class="string">"garage"</span>).setYards(<span class="string">"yard"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> buildLarge(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder</span><br><span class="line">      .setBase()</span><br><span class="line">      .setGarges(<span class="string">"garage"</span>)</span><br><span class="line">      .setYards(<span class="string">"yard"</span>)</span><br><span class="line">      .setPools(<span class="string">"pool"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>监工的使用</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> director = <span class="keyword">new</span> Director();</span><br><span class="line"><span class="keyword">const</span> builderA = <span class="keyword">new</span> HouseABuilder();</span><br><span class="line">director.setBuilder(builderA);</span><br><span class="line">director.buildLarge();</span><br><span class="line"><span class="keyword">const</span> f = builderA.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"director.ts第214行:::large base house"</span>, f);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> builderB = <span class="keyword">new</span> HouseBBuilder();</span><br><span class="line">director.setBuilder(builderB);</span><br><span class="line">director.buildMedium();</span><br><span class="line"><span class="keyword">const</span> m = builderB.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"director.ts第214行:::medium diamond house"</span>, m);</span><br></pre></td></tr></table></figure>
+<p>得到如下的结果</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[LOG]: <span class="string">"director.ts第214行:::large base house"</span>,  <span class="attr">House</span>: &#123;</span><br><span class="line">  <span class="string">"windows"</span>: [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"doors"</span>: [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"rooms"</span>: [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"area"</span>: <span class="number">30</span>,</span><br><span class="line">  <span class="string">"parts"</span>: [</span><br><span class="line">    <span class="string">"garage"</span>,</span><br><span class="line">    <span class="string">"yard"</span>,</span><br><span class="line">    <span class="string">"pool"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">[LOG]: <span class="string">"director.ts第214行:::medium diamond house"</span>,  <span class="attr">House</span>: &#123;</span><br><span class="line">  <span class="string">"windows"</span>: [</span><br><span class="line">    <span class="string">"Diamond window"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"doors"</span>: [</span><br><span class="line">    <span class="string">"Diamond door"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"rooms"</span>: [</span><br><span class="line">    <span class="string">"Diamond room"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"area"</span>: <span class="number">300</span>,</span><br><span class="line">  <span class="string">"parts"</span>: [</span><br><span class="line">    <span class="string">"Diamond garage"</span>,</span><br><span class="line">    <span class="string">"Diamond yard"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>监工的引入不是必须的，根据实际的需求，选用简单的建筑工还是引入监工。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
         <!-- 
 
 
-Formatting Context
-BFC
-BFC 定义
-常见 BFC
-常见应用
-display: flow-root
+概述
+实例
+修房子
+找工人
+监工
 
 
 BMW WARNING
@@ -684,11 +678,10 @@ Warrant
 
 
 
-Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
-
-块级格式化上下文（block formatting c......  -->
+概述Builder 模式一般翻译为建造者模式。在重构代码的过程中，我们常看到几百上千行的复杂类。这些类往往由于最初设定不合理以及需求不断增加而壮大。建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。建筑工模式通常支持链式调用。
+House......  -->
         <p class="article-more-link">
-          <a href="/CSS格式化上下文.html#more">阅读全文</a>
+          <a href="/Builder建筑工模式.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -696,7 +689,7 @@ Formatting Context页面的元素或是格式化上下文的一部分，或本�
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Creational/">Creational</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
 
     </footer>
   </div>
@@ -976,123 +969,6 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-Builder建筑工模式"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Builder建筑工模式.html">Builder建筑工模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#实例">实例</a><ul>
-<li><a href="#修房子">修房子</a></li>
-<li><a href="#找工人">找工人</a></li>
-<li><a href="#监工">监工</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Builder 模式一般翻译为建造者模式。<br>在重构代码的过程中，我们常看到几百上千行的复杂类。<br>这些类往往由于最初设定不合理以及需求不断增加而壮大。<br>建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。<br>建筑工模式通常支持链式调用。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">House.setDoors(<span class="number">1</span>).setRooms(<span class="number">2</span>).getHouse();</span><br></pre></td></tr></table></figure>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="修房子"><a href="#修房子" class="headerlink" title="修房子"></a>修房子</h3><p>现在有一个基础房屋类如下所示</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> House &#123;</span><br><span class="line">  <span class="keyword">public</span> windows: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> doors: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> rooms: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> area: <span class="built_in">number</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">public</span> parts: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setWindows(<span class="string">"window"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setDoors(<span class="string">"door"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setBedRooms(<span class="string">"room"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listWindows(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House windows: <span class="subst">$&#123;<span class="keyword">this</span>.windows.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listDoors(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House doors: <span class="subst">$&#123;<span class="keyword">this</span>.doors.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listRooms(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House rooms: <span class="subst">$&#123;<span class="keyword">this</span>.rooms.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> setWindows(w: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.windows.push(w);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setDoors(d: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.doors.push(d);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setBedRooms(r: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.area += <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setKitchens(r: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.area += <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> capacity(): <span class="built_in">number</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.area / <span class="number">15</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在生活水平不断提高，我们开始有不同的要求，有车的人需要有车库的房子，有人需要有花园的，有泳池，有庭院等的房子。<br>一种常用的方法是，基于 House 类派生出 HouseWithGarage、HouseWithPool、HouseWithYard…</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> HouseWithGarage <span class="keyword">extends</span> House &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.setGarges(<span class="string">"garage"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listGarges(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House parts: <span class="subst">$&#123;<span class="keyword">this</span>.parts.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setGarges(g: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> hg = <span class="keyword">new</span> HouseWithGarage();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builderProblem.ts第63行:::hg"</span>, hg);</span><br></pre></td></tr></table></figure>
-<p>使用后得到如下的建筑</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"windows"</span>: [<span class="string">"window"</span>],</span><br><span class="line">  <span class="attr">"doors"</span>: [<span class="string">"door"</span>],</span><br><span class="line">  <span class="attr">"rooms"</span>: [<span class="string">"room"</span>],</span><br><span class="line">  <span class="attr">"area"</span>: <span class="number">30</span>,</span><br><span class="line">  <span class="attr">"parts"</span>: [<span class="string">"garage"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/Creational/builder/builderProblem.ts" target="_blank" rel="noopener">详细代码</a><br>当又有智能家居、新风系统等新需求来的时候，相关的派生类变得非常多。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104113645.png" alt="Builder建筑工模式20211104113645"></p>
-<p>另一种基本不会用的方法是直接在构造函数中进行相关配置并初始化。</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> House &#123;</span><br><span class="line">    ...,</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">hasGarage: <span class="built_in">boolean</span>, hasYard: <span class="built_in">boolean</span>, hasPool: <span class="built_in">boolean</span>, ...</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.setWindows(<span class="string">'east-window'</span>);</span><br><span class="line">        <span class="keyword">this</span>.setDoors(<span class="string">'east-door'</span>);</span><br><span class="line">        <span class="keyword">this</span>.setBedRooms(<span class="string">'east-room'</span>);</span><br><span class="line">        <span class="keyword">if</span>(hasGarage) &#123;</span><br><span class="line">            <span class="keyword">this</span>.setGarges(<span class="string">"garage"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>调用的时候会出现如下情况</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> House(<span class="literal">true</span>, <span class="literal">null</span>, <span class="literal">true</span>, ...);</span><br><span class="line"><span class="keyword">new</span> House(<span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">true</span>, ...);</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104113734.png" alt="Builder建筑工模式20211104113734"><br>上述方案虽然可以解决一定的问题，但是在易用性与维护性方面大打折扣。<br>这些场景中的建筑工可以很好地解决问题。</p>
-<h3 id="找工人"><a href="#找工人" class="headerlink" title="找工人"></a>找工人</h3><p>在 House 类中，有最终生产与配置房屋实例相关的方法（set…)。<br>这些方法都为构建产品而立，我们可以把这些工作都交给建筑工。</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> House &#123;</span><br><span class="line">  <span class="keyword">public</span> windows: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> doors: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> rooms: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> area: <span class="built_in">number</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">public</span> parts: <span class="built_in">string</span>[] = [];</span><br><span class="line">  [s: <span class="built_in">string</span>]: <span class="built_in">any</span>;</span><br><span class="line">  <span class="keyword">public</span> listWindows(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House windows: <span class="subst">$&#123;<span class="keyword">this</span>.windows.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listDoors(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House doors: <span class="subst">$&#123;<span class="keyword">this</span>.doors.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listRooms(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House rooms: <span class="subst">$&#123;<span class="keyword">this</span>.rooms.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> capacity(): <span class="built_in">number</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.area / <span class="number">15</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 建筑者接口，提供创建产品的基本方法与步骤</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">interface</span> Builder &#123;</span><br><span class="line">  setBase(): Builder;</span><br><span class="line">  setKitchens(r: <span class="built_in">string</span>): Builder;</span><br><span class="line">  setGarges(g: <span class="built_in">string</span>): Builder;</span><br><span class="line">  setPools(g: <span class="built_in">string</span>): Builder;</span><br><span class="line">  setYards(g: <span class="built_in">string</span>): Builder;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 建筑者实体类。不同的建筑者实体类可以对方法进行不同实现</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> HouseABuilder <span class="keyword">implements</span> Builder &#123;</span><br><span class="line">  <span class="keyword">private</span> house!: House;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.reset();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> reset(): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.house = <span class="keyword">new</span> House();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.house;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @returns 提供this 链式调用</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> setBase(): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.setWindows(<span class="string">"window"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setDoors(<span class="string">"door"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setBedRooms(<span class="string">"room"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> setWindows(w: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.windows.push(w);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setDoors(d: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.doors.push(d);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setBedRooms(r: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.house.area += <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> setKitchens(r: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.house.area += <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setGarges(g: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setPools(g: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setYards(g: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * 暴露产品的方法。</span></span><br><span class="line"><span class="comment">   * 在将现有产品交付后，建筑工通常需要初始化一个新的产品，供后续调用。</span></span><br><span class="line"><span class="comment">   * 此处通过reset，这不是必须的，可以在客户使用时显示调用reset</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> getHouse(): House &#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">this</span>.house;</span><br><span class="line">    <span class="keyword">this</span>.reset();</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在我们可以请建筑工来帮我们建筑不同的房子。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> builder = <span class="keyword">new</span> HouseABuilder();</span><br><span class="line">builder.setBase().setGarges(<span class="string">"garage"</span>).setYards(<span class="string">"yard"</span>);</span><br><span class="line"><span class="keyword">const</span> gy = builder.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builder.ts第85行:::gy"</span>, gy);</span><br><span class="line">builder.setBase().setGarges(<span class="string">"garage"</span>);</span><br><span class="line"><span class="keyword">const</span> g = builder.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builder.ts第88行:::g"</span>, g);</span><br><span class="line">builder.setBase().setPools(<span class="string">"pool"</span>);</span><br><span class="line"><span class="keyword">const</span> p = builder.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builder.ts第91行:::p"</span>, p);</span><br></pre></td></tr></table></figure>
-<p>得到如下的结果</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">[LOG]: "builder.ts第85行:::gy",  House: &#123;</span><br><span class="line">  "windows": [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  "doors": [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  "rooms": [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  "area": 30,</span><br><span class="line">  "parts": [</span><br><span class="line">    "garage",</span><br><span class="line">    <span class="string">"yard"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">[LOG]: "builder.ts第88行:::g",  House: &#123;</span><br><span class="line">  "windows": [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  "doors": [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  "rooms": [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  "area": 30,</span><br><span class="line">  "parts": [</span><br><span class="line">    <span class="string">"garage"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">[LOG]: "builder.ts第91行:::p",  House: &#123;</span><br><span class="line">  "windows": [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  "doors": [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  "rooms": [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  "area": 30,</span><br><span class="line">  "parts": [</span><br><span class="line">    <span class="string">"pool"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/Creational/builder/builder.ts" target="_blank" rel="noopener">详细代码</a></p>
-<p>通过找建筑工帮忙，我们的产品交付给客户时只剩下客户关心的配置。<br>当客户有不同客制化需求时，我们只需让建筑工工程师帮忙发挥他的技能即可。<br>建筑工模式让我们再构建一个产品时让建筑工来执行一系列步骤，通过执行不同步骤来定制不同的产品。<br>虽然当前的建筑工技能已经比较全面，但是某项特定的需求也可能差异化。<br>例如，建筑普通房子的窗可能只需要挖个洞，而富豪的窗是需要镶钻的。<br>普通的院子大小只能让小孩打滚，富豪的院子则需要能打高尔夫。<br>这时候，我们需要差异化建筑工，用不同的建筑工，构建不同的房子。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104140334.png" alt="Builder建筑工模式20211104140334"><br>当不同的建筑工越来越多时，什么时候用什么样的工人，需要统一管理，我们引入监工。</p>
-<h3 id="监工"><a href="#监工" class="headerlink" title="监工"></a>监工</h3><figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 引入监工是为指定的需求做定制，</span></span><br><span class="line"><span class="comment"> * 如此处定制基础房屋、小房子、大房子等</span></span><br><span class="line"><span class="comment"> * 另一个用处是调配工人</span></span><br><span class="line"><span class="comment"> * 这不必须的。客户也可去掉这个中间商，直接去找工人</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> Director &#123;</span><br><span class="line">  <span class="keyword">private</span> builder: Builder;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 调配工人</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> setBuilder(builder: Builder): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder = builder;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 建筑基础房子</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> buildMini(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder.setBase();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> buildMedium(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder.setBase().setGarges(<span class="string">"garage"</span>).setYards(<span class="string">"yard"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> buildLarge(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder</span><br><span class="line">      .setBase()</span><br><span class="line">      .setGarges(<span class="string">"garage"</span>)</span><br><span class="line">      .setYards(<span class="string">"yard"</span>)</span><br><span class="line">      .setPools(<span class="string">"pool"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>监工的使用</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> director = <span class="keyword">new</span> Director();</span><br><span class="line"><span class="keyword">const</span> builderA = <span class="keyword">new</span> HouseABuilder();</span><br><span class="line">director.setBuilder(builderA);</span><br><span class="line">director.buildLarge();</span><br><span class="line"><span class="keyword">const</span> f = builderA.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"director.ts第214行:::large base house"</span>, f);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> builderB = <span class="keyword">new</span> HouseBBuilder();</span><br><span class="line">director.setBuilder(builderB);</span><br><span class="line">director.buildMedium();</span><br><span class="line"><span class="keyword">const</span> m = builderB.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"director.ts第214行:::medium diamond house"</span>, m);</span><br></pre></td></tr></table></figure>
-<p>得到如下的结果</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[LOG]: <span class="string">"director.ts第214行:::large base house"</span>,  <span class="attr">House</span>: &#123;</span><br><span class="line">  <span class="string">"windows"</span>: [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"doors"</span>: [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"rooms"</span>: [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"area"</span>: <span class="number">30</span>,</span><br><span class="line">  <span class="string">"parts"</span>: [</span><br><span class="line">    <span class="string">"garage"</span>,</span><br><span class="line">    <span class="string">"yard"</span>,</span><br><span class="line">    <span class="string">"pool"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">[LOG]: <span class="string">"director.ts第214行:::medium diamond house"</span>,  <span class="attr">House</span>: &#123;</span><br><span class="line">  <span class="string">"windows"</span>: [</span><br><span class="line">    <span class="string">"Diamond window"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"doors"</span>: [</span><br><span class="line">    <span class="string">"Diamond door"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"rooms"</span>: [</span><br><span class="line">    <span class="string">"Diamond room"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"area"</span>: <span class="number">300</span>,</span><br><span class="line">  <span class="string">"parts"</span>: [</span><br><span class="line">    <span class="string">"Diamond garage"</span>,</span><br><span class="line">    <span class="string">"Diamond yard"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>监工的引入不是必须的，根据实际的需求，选用简单的建筑工还是引入监工。</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
-        <!-- 
-
-
-概述
-实例
-修房子
-找工人
-监工
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-概述Builder 模式一般翻译为建造者模式。在重构代码的过程中，我们常看到几百上千行的复杂类。这些类往往由于最初设定不合理以及需求不断增加而壮大。建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。建筑工模式通常支持链式调用。
-House......  -->
-        <p class="article-more-link">
-          <a href="/Builder建筑工模式.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Creational/">Creational</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-硬盘MR技术"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1182,6 +1058,127 @@ MRLMRLongitudinal Magnetic Recordi......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardware/">Hardware</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/硬盘/">硬盘</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-UML类图画图图解"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/UML类图画图图解.html">UML类图画图图解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#object">Object</a><ul>
+<li><a href="#classes">Classes</a></li>
+<li><a href="#interface">Interface</a></li>
+<li><a href="#abstract-classes">Abstract Classes</a></li>
+</ul>
+</li>
+<li><a href="#relations">Relations</a><ul>
+<li><a href="#dependency">Dependency</a></li>
+<li><a href="#association">Association</a></li>
+<li><a href="#aggregation">Aggregation</a></li>
+<li><a href="#composition">Composition</a></li>
+<li><a href="#inheritance">Inheritance</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#Warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>统一建模语言（Unified Modeling Language）简写 UML</p>
+<h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><h3 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h3><p>在面向对象编程语言中，常使用 UML 画对象关系图。<br>Class 图包含三个部分(三行)</p>
+<ul>
+<li>类名</li>
+<li>属性与属性类型</li>
+<li>方法名、方法参数与返回值类型</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/UML%E7%94%BB%E5%9B%BE%E5%9B%BE%E8%A7%A320211027144207.png" alt="UML画图图解20211027144207"><br>属性方法访问符标记</p>
+<ul>
+<li>Public (+)</li>
+<li>Private (-)</li>
+<li>Protected (#)</li>
+<li>Package (~)</li>
+<li>Derived (/)</li>
+<li>Static (underlined)</li>
+</ul>
+<h3 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h3><p>Interface 与 Class 类似，只需在第一层类名头部加上 <code>&lt;&lt;interface&gt;&gt;</code>即可，接口第二层一般为空。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/UML%E7%B1%BB%E5%9B%BE%E7%94%BB%E5%9B%BE%E5%9B%BE%E8%A7%A320211101113439.png" alt="UML类图画图图解20211101113439"></p>
+<h3 id="Abstract-Classes"><a href="#Abstract-Classes" class="headerlink" title="Abstract Classes"></a>Abstract Classes</h3><p>Abstract Classes 与 Interface 类似，只需在第一层类名头部加上 <code>&lt;&lt;abstract&gt;&gt;</code>即可</p>
+<h2 id="Relations"><a href="#Relations" class="headerlink" title="Relations"></a>Relations</h2><h3 id="Dependency"><a href="#Dependency" class="headerlink" title="Dependency"></a>Dependency</h3>
+        <!-- 
+
+
+简介
+Object
+Classes
+Interface
+Abstract Classes
+
+
+Relations
+Dependency
+Association
+Aggregation
+Composition
+Inheritance
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+简介统一建模语言（Unified Modeling Language......  -->
+        <p class="article-more-link">
+          <a href="/UML类图画图图解.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
 
     </footer>
   </div>
@@ -1326,7 +1323,7 @@ Warra......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-UML类图画图图解"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1334,7 +1331,7 @@ Warra......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/UML类图画图图解.html">UML类图画图图解</a>
+      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
     </h1>
   
 
@@ -1359,64 +1356,65 @@ Warra......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#object">Object</a><ul>
-<li><a href="#classes">Classes</a></li>
-<li><a href="#interface">Interface</a></li>
-<li><a href="#abstract-classes">Abstract Classes</a></li>
-</ul>
-</li>
-<li><a href="#relations">Relations</a><ul>
-<li><a href="#dependency">Dependency</a></li>
-<li><a href="#association">Association</a></li>
-<li><a href="#aggregation">Aggregation</a></li>
-<li><a href="#composition">Composition</a></li>
-<li><a href="#inheritance">Inheritance</a></li>
+<li><a href="#formatting-context">Formatting Context</a></li>
+<li><a href="#bfc">BFC</a><ul>
+<li><a href="#bfc-定义">BFC 定义</a></li>
+<li><a href="#常见-bfc">常见 BFC</a></li>
+<li><a href="#常见应用">常见应用</a></li>
+<li><a href="#display-flow-root">display: flow-root</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
+<li><a href="#warrant">Warrant</a></li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>统一建模语言（Unified Modeling Language）简写 UML</p>
-<h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><h3 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h3><p>在面向对象编程语言中，常使用 UML 画对象关系图。<br>Class 图包含三个部分(三行)</p>
+<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
 <ul>
-<li>类名</li>
-<li>属性与属性类型</li>
-<li>方法名、方法参数与返回值类型</li>
+<li>块级格式化上下文（block formatting contexts）</li>
+<li>内联格式化上下文（inline formatting contexts）</li>
+<li>弹性格式化上下文（grid formatting context）</li>
+<li>网格格式化上下文（flex formatting context）</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/UML%E7%94%BB%E5%9B%BE%E5%9B%BE%E8%A7%A320211027144207.png" alt="UML画图图解20211027144207"><br>属性方法访问符标记</p>
+<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
+<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3><p>正如上文所说格式化上下文只是约定了自身与内部元素的展示规则。<br>这些规则据定了父子元素、兄弟元素等等元素之间在展示时相互影响。<br>BFC 一样，只是约定了一套规则，没有所谓的定义。<br>在 CSS2.1 规范 中，这套规则描述如下：</p>
+<blockquote>
+<p>In a block formatting context, boxes are laid out one after the other, vertically, beginning at the top of a containing block. The vertical distance between two sibling boxes is determined by the ‘margin’ properties. Vertical margins between adjacent block-level boxes in a block formatting context collapse.<br>In a block formatting context, each box’s left outer edge touches the left edge of the containing block (for right-to-left formatting, right edges touch). This is true even in the presence of floats (although a box’s line boxes may shrink due to the floats), unless the box establishes a new block formatting context (in which case the box itself may become narrower due to the floats).</p>
+</blockquote>
+<p>上述规则规定了 BFC 内部元素的排列方向为由上而下，由左至右。<br>兄弟元素之间的间距由 margin 定，上下毗邻块级元素 marign 会合并。</p>
+<p>在这套规则描述中，没有提到但 BFC 有的最大的特征是：<br>BFC 容器内部的元素无论如何不会影响容器外部的元素。</p>
+<h3 id="常见-BFC"><a href="#常见-BFC" class="headerlink" title="常见 BFC"></a>常见 BFC</h3><p>最外层的的页面元素（即 html 元素）创建初始的块级格式化上下文。</p>
 <ul>
-<li>Public (+)</li>
-<li>Private (-)</li>
-<li>Protected (#)</li>
-<li>Package (~)</li>
-<li>Derived (/)</li>
-<li>Static (underlined)</li>
+<li>html 元素</li>
+<li>浮动（float != none）</li>
+<li>绝对位置元素（position: fixed, absolute）</li>
+<li>table 及其部分子属性（ display: table, table-cell, table-caption, table-row, table-row-group, table-header-group, table-footer-group）</li>
+<li>内联块级元素（display: inline-block）</li>
+<li>overflow 非默认</li>
+<li>flex 子元素</li>
+<li>grid 子元素</li>
+<li>display: flow-root</li>
 </ul>
-<h3 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h3><p>Interface 与 Class 类似，只需在第一层类名头部加上 <code>&lt;&lt;interface&gt;&gt;</code>即可，接口第二层一般为空。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/UML%E7%B1%BB%E5%9B%BE%E7%94%BB%E5%9B%BE%E5%9B%BE%E8%A7%A320211101113439.png" alt="UML类图画图图解20211101113439"></p>
-<h3 id="Abstract-Classes"><a href="#Abstract-Classes" class="headerlink" title="Abstract Classes"></a>Abstract Classes</h3><p>Abstract Classes 与 Interface 类似，只需在第一层类名头部加上 <code>&lt;&lt;abstract&gt;&gt;</code>即可</p>
-<h2 id="Relations"><a href="#Relations" class="headerlink" title="Relations"></a>Relations</h2><h3 id="Dependency"><a href="#Dependency" class="headerlink" title="Dependency"></a>Dependency</h3>
+<h3 id="常见应用"><a href="#常见应用" class="headerlink" title="常见应用"></a>常见应用</h3><p>由 BFC 常用于如下场景中：</p>
+<ul>
+<li>包含内部浮动元素（contain internal floats）</li>
+<li>排斥外部浮动元素（exclude external floats）</li>
+<li>抑制边距合并（suppress margin collapsing）</li>
+</ul>
+<p>在内联上下文中，浮动无法将容器撑开。</p>
+<h3 id="display-flow-root"><a href="#display-flow-root" class="headerlink" title="display: flow-root"></a>display: flow-root</h3>
         <!-- 
 
 
-简介
-Object
-Classes
-Interface
-Abstract Classes
-
-
-Relations
-Dependency
-Association
-Aggregation
-Composition
-Inheritance
+Formatting Context
+BFC
+BFC 定义
+常见 BFC
+常见应用
+display: flow-root
 
 
 BMW WARNING
@@ -1427,9 +1425,11 @@ Warrant
 
 
 
-简介统一建模语言（Unified Modeling Language......  -->
+Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
+
+块级格式化上下文（block formatting c......  -->
         <p class="article-more-link">
-          <a href="/UML类图画图图解.html#more">阅读全文</a>
+          <a href="/CSS格式化上下文.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1437,7 +1437,7 @@ Warrant
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>
