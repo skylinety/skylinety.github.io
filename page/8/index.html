@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-html5+移动支付配置（微信）"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Javascript对象扩展、封印与冻结"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/html5+移动支付配置（微信）.html">html5+移动支付配置（微信）</a>
+      <a class="article-title" href="/Javascript对象扩展、封印与冻结.html">Javascript对象扩展、封印与冻结</a>
     </h1>
   
 
@@ -342,35 +342,41 @@
 
       
     
-    <a class="article-category-link" href="/categories/H5/">H5+</a>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p><a href="https://ask.dcloud.net.cn/article/71" target="_blank" rel="noopener">先看官方文档，支付插件配置</a></p>
-<h4 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h4><p>（框架vue)</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      payType: <span class="string">'2'</span>,</span><br><span class="line">      payTypes: [</span><br><span class="line">       &#123;</span><br><span class="line">         <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">         key: <span class="string">'1'</span>,</span><br><span class="line">         value: <span class="string">'支付宝'</span></span><br><span class="line">       &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">        key: <span class="string">'2'</span>,</span><br><span class="line">        value: <span class="string">'微信支付'</span></span><br><span class="line">      &#125;],</span><br><span class="line">      channels: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取服务</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    getSerivces() &#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">      plus.payment.getChannels(<span class="function"><span class="keyword">function</span>(<span class="params">channels</span>)</span>&#123;</span><br><span class="line">          me.channels=channels;</span><br><span class="line">      &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">          alert(<span class="string">"获取支付通道失败："</span>+e.message);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 支付 */</span></span><br><span class="line">    pay()&#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line">      SelectPayType(&#123;<span class="attr">orderNum</span>: <span class="keyword">this</span>.activeOrderNum, <span class="attr">payType</span>: <span class="keyword">this</span>.payType&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.code == <span class="number">101</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> channel,</span><br><span class="line">            data = <span class="built_in">JSON</span>.parse(res.data);</span><br><span class="line"></span><br><span class="line">          <span class="keyword">var</span> payType = me.payType == <span class="string">'1'</span> ? <span class="string">'alipay'</span> : <span class="string">'wxpay'</span>;</span><br><span class="line"></span><br><span class="line">          me.channels.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">            val.id == payType &amp;&amp; (channel = val)</span><br><span class="line">          &#125;)</span><br><span class="line"></span><br><span class="line">          plus.payment.request(channel, data, <span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">            me.isShowPayTypes = <span class="literal">false</span>;</span><br><span class="line">            plus.nativeUI.alert(<span class="string">"支付成功！订单状态将在稍后更新，请不要重复付款"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                back();</span><br><span class="line">            &#125;);</span><br><span class="line">            me.jump(&#123;<span class="attr">name</span>:<span class="string">'订单详情'</span>,<span class="attr">query</span>:&#123;<span class="attr">orderNum</span>: me.activeOrderNum&#125;&#125;)</span><br><span class="line">          &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">              plus.nativeUI.alert(<span class="string">"支付失败："</span> + error.code);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          me.$vux.toast.show(&#123;</span><br><span class="line">            text: res.message,</span><br><span class="line">            type: <span class="string">'warn'</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  mounted()&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</span><br><span class="line">     <span class="keyword">this</span>.getSerivces()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// getSerivces()</span></span><br><span class="line">     <span class="comment">// document.addEventListener('plusready', this.getSerivces,false)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//selectPayType是请求支付需要相关字段，需要查看相关平台接口文档，本文为微信，返回的字段如下</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"package"</span>: <span class="string">"Sign=WXPay"</span>,</span><br><span class="line">    <span class="string">"appid"</span>: <span class="string">"wx7xxxxxx4987f28"</span>,</span><br><span class="line">    <span class="string">"sign"</span>: <span class="string">"51B0ADxxxxx4E480486C70BD64BF44E1D"</span>,</span><br><span class="line">    <span class="string">"partnerid"</span>: <span class="string">"148xxx722"</span>,</span><br><span class="line">    <span class="string">"prepayid"</span>: <span class="string">"wx2017xxxxxx2fc85d2cc3c0205143628"</span>,</span><br><span class="line">    <span class="string">"noncestr"</span>: <span class="string">"k2xxxxx3X2D1O4YCz7Hn4s"</span>,</span><br><span class="line">    <span class="string">"timestamp"</span>: <span class="string">"1503312709"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h4><p>提示 支付失败：-100支付失败：[payment微信：-1] 的问题</p>
-<ul>
-<li>微信支付不能真机调试，只能打包安装测试，因为要你app的真实签名，真机调试用的是dcloud的调试基座app的wx0411fa6a39d61297,如果嫌打包麻烦，你可以把后端返回的数据appid换成wx0411fa6a39d61297</li>
-<li>安卓平台下，首先查看微信开放平台配置的参数与提交打包的参数是否一致，主要包括(应用签名、包名)，其中应用签名如果使用的DCloud公用证书则必须是“59201CF6589202CB2CDAB26752472112”。</li>
+        <h4 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h4><h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><ul>
+<li>Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展</li>
+<li>Object.seal()封印对象，Object.isSealed()检查是否被封印</li>
+<li>Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结</li>
+<li>被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符writable改为false时，那么此时它也是被冻结的，通过isFrozen返回true</li>
+<li>被冻结对象的访问器属性如果有set描述符，则它仍旧是可写的</li>
+<li>冻结与封印只针对首层属性，如果对象包含对象属性，该属性下对象仍旧是乐意改变的</li>
 </ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/D001D4A36782781AB0AB75A09E572E34.jpg-content" alt=":Users:skyline:Desktop:Screen Shot 2017-08-21 at 19.26.08.jpg-content"></p>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/ED1EE7E39B541D59C9849CDE59BC21A2.jpg-content" alt=":Users:skyline:Desktop:Screen Shot 2017-08-21 at 19.25.59.jpg-content"></p>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/html5+移动支付配置（微信）.html">http://www.skyline.show/html5+移动支付配置（微信）.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/8284EEDA9E61CD4DA3CA8A04281F2AB7.png-content" alt="freeze.png-content"></p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p><code>var c = d = {name: &quot;skyline liu&quot;, age: &quot;21&quot;, phone: &quot;10086&quot;}</code><br><code>Object.getOwnPropertyDescriptors(c)</code><br><code>Object.getOwnPropertyDescriptors(d)</code></p>
+<h6 id="☞-c、d属性的描述符"><a href="#☞-c、d属性的描述符" class="headerlink" title="☞ c、d属性的描述符"></a>☞ c、d属性的描述符</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    age: &#123;</span><br><span class="line">        value: <span class="string">"21"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    name: &#123;</span><br><span class="line">        value: <span class="string">"skyline liu"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    phone: &#123;</span><br><span class="line">        value: <span class="string">"10086"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Object.freeze(c)</code><br><code>Object.getOwnPropertyDescriptors(c)</code></p>
+<h6 id="☞c属性的描述符"><a href="#☞c属性的描述符" class="headerlink" title="☞c属性的描述符"></a>☞c属性的描述符</h6>
+        <!-- 扩展、封印与冻结要点
+Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展
+Object.seal()封印对象，Object.isSealed()检查是否被封印
+Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
+被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符wr......  -->
+        <p class="article-more-link">
+          <a href="/Javascript对象扩展、封印与冻结.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/示例/">示例</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
@@ -574,7 +580,7 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-Javascript对象扩展、封印与冻结"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-html5+移动支付配置（微信）"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -582,7 +588,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Javascript对象扩展、封印与冻结.html">Javascript对象扩展、封印与冻结</a>
+      <a class="article-title" href="/html5+移动支付配置（微信）.html">html5+移动支付配置（微信）</a>
     </h1>
   
 
@@ -597,41 +603,35 @@
 
       
     
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/categories/H5/">H5+</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h4><h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><ul>
-<li>Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展</li>
-<li>Object.seal()封印对象，Object.isSealed()检查是否被封印</li>
-<li>Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结</li>
-<li>被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符writable改为false时，那么此时它也是被冻结的，通过isFrozen返回true</li>
-<li>被冻结对象的访问器属性如果有set描述符，则它仍旧是可写的</li>
-<li>冻结与封印只针对首层属性，如果对象包含对象属性，该属性下对象仍旧是乐意改变的</li>
+        <h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p><a href="https://ask.dcloud.net.cn/article/71" target="_blank" rel="noopener">先看官方文档，支付插件配置</a></p>
+<h4 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h4><p>（框架vue)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      payType: <span class="string">'2'</span>,</span><br><span class="line">      payTypes: [</span><br><span class="line">       &#123;</span><br><span class="line">         <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">         key: <span class="string">'1'</span>,</span><br><span class="line">         value: <span class="string">'支付宝'</span></span><br><span class="line">       &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">        key: <span class="string">'2'</span>,</span><br><span class="line">        value: <span class="string">'微信支付'</span></span><br><span class="line">      &#125;],</span><br><span class="line">      channels: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取服务</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    getSerivces() &#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">      plus.payment.getChannels(<span class="function"><span class="keyword">function</span>(<span class="params">channels</span>)</span>&#123;</span><br><span class="line">          me.channels=channels;</span><br><span class="line">      &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">          alert(<span class="string">"获取支付通道失败："</span>+e.message);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 支付 */</span></span><br><span class="line">    pay()&#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line">      SelectPayType(&#123;<span class="attr">orderNum</span>: <span class="keyword">this</span>.activeOrderNum, <span class="attr">payType</span>: <span class="keyword">this</span>.payType&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.code == <span class="number">101</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> channel,</span><br><span class="line">            data = <span class="built_in">JSON</span>.parse(res.data);</span><br><span class="line"></span><br><span class="line">          <span class="keyword">var</span> payType = me.payType == <span class="string">'1'</span> ? <span class="string">'alipay'</span> : <span class="string">'wxpay'</span>;</span><br><span class="line"></span><br><span class="line">          me.channels.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">            val.id == payType &amp;&amp; (channel = val)</span><br><span class="line">          &#125;)</span><br><span class="line"></span><br><span class="line">          plus.payment.request(channel, data, <span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">            me.isShowPayTypes = <span class="literal">false</span>;</span><br><span class="line">            plus.nativeUI.alert(<span class="string">"支付成功！订单状态将在稍后更新，请不要重复付款"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                back();</span><br><span class="line">            &#125;);</span><br><span class="line">            me.jump(&#123;<span class="attr">name</span>:<span class="string">'订单详情'</span>,<span class="attr">query</span>:&#123;<span class="attr">orderNum</span>: me.activeOrderNum&#125;&#125;)</span><br><span class="line">          &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">              plus.nativeUI.alert(<span class="string">"支付失败："</span> + error.code);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          me.$vux.toast.show(&#123;</span><br><span class="line">            text: res.message,</span><br><span class="line">            type: <span class="string">'warn'</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  mounted()&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</span><br><span class="line">     <span class="keyword">this</span>.getSerivces()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// getSerivces()</span></span><br><span class="line">     <span class="comment">// document.addEventListener('plusready', this.getSerivces,false)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//selectPayType是请求支付需要相关字段，需要查看相关平台接口文档，本文为微信，返回的字段如下</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"package"</span>: <span class="string">"Sign=WXPay"</span>,</span><br><span class="line">    <span class="string">"appid"</span>: <span class="string">"wx7xxxxxx4987f28"</span>,</span><br><span class="line">    <span class="string">"sign"</span>: <span class="string">"51B0ADxxxxx4E480486C70BD64BF44E1D"</span>,</span><br><span class="line">    <span class="string">"partnerid"</span>: <span class="string">"148xxx722"</span>,</span><br><span class="line">    <span class="string">"prepayid"</span>: <span class="string">"wx2017xxxxxx2fc85d2cc3c0205143628"</span>,</span><br><span class="line">    <span class="string">"noncestr"</span>: <span class="string">"k2xxxxx3X2D1O4YCz7Hn4s"</span>,</span><br><span class="line">    <span class="string">"timestamp"</span>: <span class="string">"1503312709"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h4><p>提示 支付失败：-100支付失败：[payment微信：-1] 的问题</p>
+<ul>
+<li>微信支付不能真机调试，只能打包安装测试，因为要你app的真实签名，真机调试用的是dcloud的调试基座app的wx0411fa6a39d61297,如果嫌打包麻烦，你可以把后端返回的数据appid换成wx0411fa6a39d61297</li>
+<li>安卓平台下，首先查看微信开放平台配置的参数与提交打包的参数是否一致，主要包括(应用签名、包名)，其中应用签名如果使用的DCloud公用证书则必须是“59201CF6589202CB2CDAB26752472112”。</li>
 </ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/8284EEDA9E61CD4DA3CA8A04281F2AB7.png-content" alt="freeze.png-content"></p>
-<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p><code>var c = d = {name: &quot;skyline liu&quot;, age: &quot;21&quot;, phone: &quot;10086&quot;}</code><br><code>Object.getOwnPropertyDescriptors(c)</code><br><code>Object.getOwnPropertyDescriptors(d)</code></p>
-<h6 id="☞-c、d属性的描述符"><a href="#☞-c、d属性的描述符" class="headerlink" title="☞ c、d属性的描述符"></a>☞ c、d属性的描述符</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    age: &#123;</span><br><span class="line">        value: <span class="string">"21"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    name: &#123;</span><br><span class="line">        value: <span class="string">"skyline liu"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    phone: &#123;</span><br><span class="line">        value: <span class="string">"10086"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>Object.freeze(c)</code><br><code>Object.getOwnPropertyDescriptors(c)</code></p>
-<h6 id="☞c属性的描述符"><a href="#☞c属性的描述符" class="headerlink" title="☞c属性的描述符"></a>☞c属性的描述符</h6>
-        <!-- 扩展、封印与冻结要点
-Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展
-Object.seal()封印对象，Object.isSealed()检查是否被封印
-Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
-被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符wr......  -->
-        <p class="article-more-link">
-          <a href="/Javascript对象扩展、封印与冻结.html#more">阅读全文</a>
-        </p>
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/D001D4A36782781AB0AB75A09E572E34.jpg-content" alt=":Users:skyline:Desktop:Screen Shot 2017-08-21 at 19.26.08.jpg-content"></p>
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/ED1EE7E39B541D59C9849CDE59BC21A2.jpg-content" alt=":Users:skyline:Desktop:Screen Shot 2017-08-21 at 19.25.59.jpg-content"></p>
+<blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/html5+移动支付配置（微信）.html">http://www.skyline.show/html5+移动支付配置（微信）.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
       
     </div>
     <footer class="article-footer">
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/示例/">示例</a></li></ul>
 
     </footer>
   </div>

@@ -3,25 +3,38 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>Skyline&#39;s blog</title>
+  <title>nas使用frp内网穿透 | Skyline&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
+  <meta name="keywords" content="OSNas">
   
   
   
-  <meta name="description" content="不瓜，也不怎么爱吃瓜，不好好写字的程序猿不是合格的农民，所以要多爬爬东坡，多亲近方块呀">
+  
+  <meta name="description" content="简介 Server 端 下载包 试运行 后台运行服务   Client 端 frpc 配置 添加 docker 镜像 启动容器 套件映射 frpc.ini     简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示： Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 htt">
+<meta name="keywords" content="OS,Nas">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Skyline&#39;s blog">
+<meta property="og:title" content="Nas使用frp内网穿透">
 <meta property="og:url" content="http://www.skyline.show/Nas使用frp内网穿透.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="不瓜，也不怎么爱吃瓜，不好好写字的程序猿不是合格的农民，所以要多爬爬东坡，多亲近方块呀">
+<meta property="og:description" content="简介 Server 端 下载包 试运行 后台运行服务   Client 端 frpc 配置 添加 docker 镜像 启动容器 套件映射 frpc.ini     简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示： Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 htt">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-09T09:41:58.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117194957.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117195517.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117195707.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117195946.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117200053.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117200151.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F20220118112743.png">
+<meta property="og:updated_time" content="2022-06-03T09:47:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Skyline&#39;s blog">
-<meta name="twitter:description" content="不瓜，也不怎么爱吃瓜，不好好写字的程序猿不是合格的农民，所以要多爬爬东坡，多亲近方块呀">
+<meta name="twitter:title" content="Nas使用frp内网穿透">
+<meta name="twitter:description" content="简介 Server 端 下载包 试运行 后台运行服务   Client 端 frpc 配置 添加 docker 镜像 启动容器 套件映射 frpc.ini     简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示： Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 htt">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -165,6 +178,16 @@
   <div id="articleInner" class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Nas使用frp内网穿透
+    </h1>
+  
+
+      </header>
+    
     <div class="article-meta">
       
     
@@ -175,15 +198,78 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-09T09:41:58.000Z" itemprop="datePublished">2022-06-09</time>
+      <time datetime="2022-06-03T09:47:42.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!-- <span style="color: #999">|</span> -->
+
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#server-端">Server 端</a><ul>
+<li><a href="#下载包">下载包</a></li>
+<li><a href="#试运行">试运行</a></li>
+<li><a href="#后台运行服务">后台运行服务</a></li>
+</ul>
+</li>
+<li><a href="#client-端">Client 端</a><ul>
+<li><a href="#frpc-配置">frpc 配置</a></li>
+<li><a href="#添加-docker-镜像">添加 docker 镜像</a></li>
+<li><a href="#启动容器">启动容器</a></li>
+<li><a href="#套件映射">套件映射</a></li>
+<li><a href="#frpcini">frpc.ini</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
+<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>github 国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
+<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
+<p>尝试启动服务</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
+<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
+<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure>
+<p>修改 frp.service 内容如下：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>重置守护进程服务</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启服务</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
+<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
+<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> frp</span><br></pre></td></tr></table></figure>
+<p>即可。</p>
+<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc-配置"><a href="#frpc-配置" class="headerlink" title="frpc 配置"></a>frpc 配置</h3><a id="more"></a>
+<p>本文 Client 端此处采用 Docker 方式。<br>将下载的 frpc.ini 放在 Docker 宿主机本地<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117194957.png" alt="20220117194957"><br>frpc.ini 内容修改如下：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 42.113.1.102</span><br><span class="line">server_port = 7000</span><br><span class="line">token = mima</span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line"><span class="built_in">type</span> = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 6000</span><br><span class="line"></span><br><span class="line">[DSM]</span><br><span class="line"><span class="built_in">type</span> = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 5000</span><br><span class="line">remote_port = 5000</span><br></pre></td></tr></table></figure>
+<p>如上配置后，意味着我们之后可以通过 42.113.1.102:5000 来进入群晖，通过 42.113.1.102:22 进入群晖后台。</p>
+<h3 id="添加-docker-镜像"><a href="#添加-docker-镜像" class="headerlink" title="添加 docker 镜像"></a>添加 docker 镜像</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117195517.png" alt="20220117195517"><br>地址如下：<br><a href="https://hub.docker.com/r/chenhw2/frp" target="_blank" rel="noopener">https://hub.docker.com/r/chenhw2/frp</a><br>下载完成后，双击镜像，做如下三处修改：</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117195707.png" alt="20220117195707"></p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117195946.png" alt="20220117195946"></p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117200053.png" alt="20220117200053"></p>
+<p>应用修改后保存退出。</p>
+<h3 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117200151.png" alt="20220117200151"><br>点击开关容器启动成功即可，若启动失败，可在 Details 查看启动日志。</p>
+<p>在外网环境在浏览器输入 42.113.1.102:5000<br>来到群晖登录页即穿透成功。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F20220118112743.png" alt="frp内网穿透20220118112743"></p>
+<h3 id="套件映射"><a href="#套件映射" class="headerlink" title="套件映射"></a>套件映射</h3><p>对于多数群晖套件，会单独启动不同的服务端口，对于PhotoStation套件来说，其占用了80端口。<br>通过frp的方式外网直接访问无效，需要添加端口映射。<br>一般来说服务器80端口和443端口后续可能要提供另外的http或https服务，尽量不要被占用，作出如下调整<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[PHOTOSTATION]</span><br><span class="line"><span class="built_in">type</span> = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 80</span><br><span class="line">remote_port = 8000</span><br></pre></td></tr></table></figure></p>
+<p>此时，使用DS Photo App时，也需要对应的IP后添加8000端口。<br>其他套件的建议与原端口保持一致。</p>
+<h3 id="frpc-ini"><a href="#frpc-ini" class="headerlink" title="frpc.ini"></a>frpc.ini</h3><p>一个常见的frpc.ini配置如下<br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Tools/OS/Nas/frpc.ini" target="_blank" rel="noopener">frpc.ini</a></p>
+
       
     </div>
     <footer class="article-footer">
@@ -228,6 +314,8 @@ var a = new Donate({
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
     </footer>
   </div>
   
@@ -251,7 +339,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav">无</ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-端"><span class="nav-number">2.</span> <span class="nav-text">Server 端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载包"><span class="nav-number">2.1.</span> <span class="nav-text">下载包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#试运行"><span class="nav-number">2.2.</span> <span class="nav-text">试运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后台运行服务"><span class="nav-number">2.3.</span> <span class="nav-text">后台运行服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-端"><span class="nav-number">3.</span> <span class="nav-text">Client 端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#frpc-配置"><span class="nav-number">3.1.</span> <span class="nav-text">frpc 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加-docker-镜像"><span class="nav-number">3.2.</span> <span class="nav-text">添加 docker 镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动容器"><span class="nav-number">3.3.</span> <span class="nav-text">启动容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#套件映射"><span class="nav-number">3.4.</span> <span class="nav-text">套件映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#frpc-ini"><span class="nav-number">3.5.</span> <span class="nav-text">frpc.ini</span></a></li></ol></li></ol>
     
     </div>
   </aside>
