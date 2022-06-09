@@ -639,6 +639,16 @@ read -p "Enter first string: " VAR1read -p "Enter second string......  -->
   <div id="articleInner" class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中sed的使用.html">Shell中sed的使用</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
@@ -647,17 +657,105 @@ read -p "Enter first string: " VAR1read -p "Enter second string......  -->
 
 
       
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="sed-的使用"><a href="#sed-的使用" class="headerlink" title="sed 的使用"></a>sed 的使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#sed-简介">sed 简介</a></li>
+<li><a href="#选项参数">选项参数</a><ul>
+<li><a href="#-n">-n</a></li>
+<li><a href="#-e">-e</a></li>
+<li><a href="#-i">-i</a></li>
+</ul>
+</li>
+<li><a href="#命令参数">命令参数</a><ul>
+<li><a href="#ia">i/a</a></li>
+<li><a href="#d">d</a></li>
+<li><a href="#p">p</a></li>
+<li><a href="#sc">s/c</a></li>
+</ul>
+</li>
+<li><a href="#常见用法">常见用法</a><ul>
+<li><a href="#文末插入">文末插入</a></li>
+<li><a href="#替换字符">替换字符</a></li>
+<li><a href="#获取行数">获取行数</a></li>
+<li><a href="#获取字符行号">获取字符行号</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="sed-简介"><a href="#sed-简介" class="headerlink" title="sed 简介"></a>sed 简介</h2><p>流编辑器，sed 用于读取指定文件或标准输入。<br>如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。<br>本文后续内容以<a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/skyline.txt" target="_blank" rel="noopener">skyline.txt</a>示例，可在根目录执行下述脚本。<br>其文本内容为</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">test</span><br><span class="line">skyline</span><br><span class="line">test2</span><br><span class="line">skyline test</span><br></pre></td></tr></table></figure>
+<h2 id="选项参数"><a href="#选项参数" class="headerlink" title="选项参数"></a>选项参数</h2><h3 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h3><p>默认情况下，在所有的标准输出都会被打印到屏幕上。 -n 选项用于指定输出内容。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出1到3行</span></span><br><span class="line">sed -n <span class="string">'1,3p'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># skyline</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出文件总行数</span></span><br><span class="line">sed -n <span class="string">'$='</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="comment"># 获取文件行数，也可使用cat Demos/Major/Shell/skyline.txt  | wc -l</span></span><br></pre></td></tr></table></figure>
+<p>连续的行数用逗号隔开。</p>
+<h3 id="e"><a href="#e" class="headerlink" title="-e"></a>-e</h3><p>-e 是编辑命令，用于执行多个编辑任务。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sed -e '1,2d' -e 's/skyline/lty/g' Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> test2</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> lty <span class="built_in">test</span></span></span><br></pre></td></tr></table></figure>
+<p>skyline.txt 将依次执行之后的命令，删除 1 到 2 行，并且全局替换’skyline’为’lty’<br>上述操作不会影响 skyline.txt 源文件，只做标准输出，可使用&gt;将结果重定向到另一个文件。</p>
+<h3 id="i"><a href="#i" class="headerlink" title="-i"></a>-i</h3><p>-i 指定备份</p>
+<p>可指定字符后缀为备份文件</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定会在skyline.txt同级目录生产skyline.txt.bak备份，skyline.txt内容将会变更</span></span><br><span class="line"><span class="comment"># skyline.txt 源文件内容将会备份到 skyline.txt.bak 文件中</span></span><br><span class="line">sed -i <span class="string">'.bak'</span> <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line">cat Demos/Major/Shell/skyline.txt.bak</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># skyline</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># skyline test</span></span><br><span class="line">cat Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># lty</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># lty test</span></span><br></pre></td></tr></table></figure>
+<p>指定空字符串或不指定内容直接修改源文件(linux 下可以不指定，mac 下需指定空字符)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">''</span> <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># 将不备份直接修改skyline.txt源文件</span></span><br><span class="line">cat Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># lty</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># lty test</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># mac下不可执行，linux 可以直接执行修改源文件，mac 下需要如上指定空字符方可</span></span><br><span class="line"><span class="comment"># 在 Mac 上，sed 命令直接操作文件的时候，必须指定备份的格式，而在 linux 上，却并没有这个要求</span></span><br></pre></td></tr></table></figure>
+<h2 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h2><h3 id="i-a"><a href="#i-a" class="headerlink" title="i/a"></a>i/a</h3>
+        <!-- sed 的使用
+
+
+sed 简介
+选项参数
+-n
+-e
+-i
+
+
+命令参数
+i/a
+d
+p
+s/c
+
+
+常见用法
+文末插入
+替换字符
+获取行数
+获取字符行号
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+sed 简介流编辑器，sed 用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。本文后续内容以s......  -->
+        <p class="article-more-link">
+          <a href="/Shell中sed的使用.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
       
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
     </footer>
   </div>
   

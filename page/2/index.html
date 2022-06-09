@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/排序算法.html">排序算法</a>
+      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
     </h1>
   
 
@@ -349,55 +349,25 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <h1 id="Webpack-中-DllPlugin-使用"><a href="#Webpack-中-DllPlugin-使用" class="headerlink" title="Webpack 中 DllPlugin 使用"></a>Webpack 中 DllPlugin 使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#排序算法">排序算法</a><ul>
-<li><a href="#选择排序">选择排序</a><ul>
-<li><a href="#选排的思想">选排的思想</a></li>
-<li><a href="#时间复杂度">时间复杂度</a></li>
+<li><a href="#webpack-中-dllplugin-使用">Webpack 中 DllPlugin 使用</a><ul>
+<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
+<li><a href="#实质">实质</a></li>
+<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
 </ul>
 </li>
-<li><a href="#冒泡排序">冒泡排序</a><ul>
-<li><a href="#基本思路">基本思路</a></li>
-<li><a href="#时间复杂度-1">时间复杂度</a></li>
-<li><a href="#交换判定优化">交换判定优化</a></li>
+<li><a href="#引入-dll-库">引入 dll 库</a><ul>
+<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
+<li><a href="#手动引入注意">手动引入注意</a></li>
+<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
+<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
 </ul>
 </li>
-<li><a href="#插入排序">插入排序</a><ul>
-<li><a href="#插排的思想">插排的思想</a></li>
-<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
-<li><a href="#哨兵优化">哨兵优化</a></li>
-<li><a href="#折半优化">折半优化</a></li>
-</ul>
-</li>
-<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
-<li><a href="#归并排序思路">归并排序思路</a></li>
-<li><a href="#合并">合并</a></li>
-<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
-</ul>
-</li>
-<li><a href="#快速排序">快速排序</a><ul>
-<li><a href="#快排思路">快排思路</a></li>
-<li><a href="#选值优化">选值优化</a></li>
-<li><a href="#多路快排">多路快排</a></li>
-</ul>
-</li>
-<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
-<li><a href="#关键思路">关键思路</a></li>
-<li><a href="#时间复杂度-2">时间复杂度</a></li>
-</ul>
-</li>
-<li><a href="#计数排序">计数排序</a><ul>
-<li><a href="#关键思路-1">关键思路</a></li>
-<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
-</ul>
-</li>
-<li><a href="#堆排序">堆排序</a><ul>
-<li><a href="#完全二叉树">完全二叉树</a></li>
-<li><a href="#堆">堆</a></li>
-<li><a href="#构造堆">构造堆</a></li>
-<li><a href="#排序">排序</a></li>
+<li><a href="#成果分析">成果分析</a><ul>
+<li><a href="#优化前">优化前</a></li>
+<li><a href="#优化后">优化后：</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -410,61 +380,56 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>选择排序的比较次数 = (n - 1) + (n - 2) + … + 2 + 1 = n * (n - 1) / 2，因此时间复杂度为：O(n²)。</p>
-<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>每一轮通过不断对比交换位置来将该轮最大（小）值上浮（下沉）到对应轮位置<br>核心思想是<strong>每轮换位置</strong><br><strong>外层循环确定轮次，内层循环<code>交换位置</code></strong>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<p>每一轮都进行了<strong>多次交换</strong>，故相较于选择排序耗时</p>
-<h3 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
-        <!-- 排序算法
+<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
+<blockquote>
+<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
+</blockquote>
+<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3><p>webpack.dll.config.js 配置</p>
+<p>新建单独的配置文件</p>
+<p>webpack.dll.config.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 你想要打包的模块的数组</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: [</span><br><span class="line">      <span class="string">'vue/dist/vue.esm.js'</span>,</span><br><span class="line">      <span class="string">'vuex'</span>,</span><br><span class="line">      <span class="string">'axios'</span>,</span><br><span class="line">      <span class="string">'vue-router'</span>,</span><br><span class="line">      <span class="string">'element-ui'</span>,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">'../static/js'</span>), <span class="comment">// 打包后文件输出的位置</span></span><br><span class="line">    filename: <span class="string">'[name].dll.js'</span>,</span><br><span class="line">    library: <span class="string">'[name]_library'</span>,</span><br><span class="line">    <span class="comment">// vendor.dll.js中暴露出的全局变量名。</span></span><br><span class="line">    <span class="comment">// 主要是给DllPlugin中的name使用，</span></span><br><span class="line">    <span class="comment">// 故这里需要和webpack.DllPlugin中的`name: '[name]_library',`保持一致。</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.DllPlugin(&#123;</span><br><span class="line">      path: path.join(__dirname, <span class="string">'../'</span>, <span class="string">'[name]-manifest.json'</span>),</span><br><span class="line">      name: <span class="string">'[name]_library'</span>,</span><br><span class="line">      context: __dirname,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="comment">// 压缩打包的文件</span></span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">      compress: &#123;</span><br><span class="line">        warnings: <span class="literal">false</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置说明</p>
+<p>path：manifest.json 生成的文件夹及名字，该项目让它生成在了根目录下。<br>name：和 output. library 保持一致即可。<br>context：选填，manifest 文件中请求的上下文，默认为该 webpack 文件上下文。</p>
+<p>在 package.json 中添加执行脚本</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"dll"</span>: <span class="string">"webpack --config build/webpack.dll.conf.js"</span>,</span><br></pre></td></tr></table></figure>
+<p>执行 yarn dll<br>生成 dll 文件和 manifest.json 文件<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144435.png" alt="Webpack中DllPlugin使用20220411144435"><br>manifest.json 文件包含了引用模块的 id 映射，为 DllReferencePlugin 引用做准备</p>
+<h2 id="引入-dll-库"><a href="#引入-dll-库" class="headerlink" title="引入 dll 库"></a>引入 dll 库</h2><h3 id="手动引入-dll-文件（不推荐）"><a href="#手动引入-dll-文件（不推荐）" class="headerlink" title="手动引入 dll 文件（不推荐）"></a>手动引入 dll 文件（不推荐）</h3><p>在根目录的 index.html 里引入所生成的 dll 库</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xx市城市综合管理基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/vendor.dll.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="手动引入注意"><a href="#手动引入注意" class="headerlink" title="手动引入注意"></a>手动引入注意</h3>
+        <!-- Webpack 中 DllPlugin 使用
 
 
-排序算法
-选择排序
-选排的思想
-时间复杂度
+Webpack 中 DllPlugin 使用
+DllPlugin 概述
+实质
+DllPlugin 配置
 
 
-冒泡排序
-基本思路
-时间复杂度
-交换判定优化
+引入 dll 库
+手动引入 dll 文件（不推荐）
+手动引入注意
+自动引入(推荐)
+自动引入常见问题
 
 
-插入排序
-插排的思想
-时间复杂度分析
-哨兵优化
-折半优化
+成果分析
+优化前
+优化后：
 
 
-归并排序（Merge Sort）
-归并排序思路
-合并
-时间复杂度分析
+BMW WARNING
+Bulletin
+Material
+Warrant
 
 
-快速排序
-快排思路
-选值优化
-多路快排
 
 
-希尔排序（缩小增量排序）
-关键思路
-时间复杂度
 
 
-计数排序
-关键思路
-时间复杂度分析
-
-
-堆排序
-完......  -->
+DllPl......  -->
         <p class="article-more-link">
-          <a href="/排序算法.html#more">阅读全文</a>
+          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -472,7 +437,7 @@
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
 
     </footer>
   </div>
@@ -649,7 +614,7 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -657,7 +622,7 @@ Warrant
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
+      <a class="article-title" href="/排序算法.html">排序算法</a>
     </h1>
   
 
@@ -679,25 +644,55 @@ Warrant
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Webpack-中-DllPlugin-使用"><a href="#Webpack-中-DllPlugin-使用" class="headerlink" title="Webpack 中 DllPlugin 使用"></a>Webpack 中 DllPlugin 使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#webpack-中-dllplugin-使用">Webpack 中 DllPlugin 使用</a><ul>
-<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
-<li><a href="#实质">实质</a></li>
-<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
+<li><a href="#排序算法">排序算法</a><ul>
+<li><a href="#选择排序">选择排序</a><ul>
+<li><a href="#选排的思想">选排的思想</a></li>
+<li><a href="#时间复杂度">时间复杂度</a></li>
 </ul>
 </li>
-<li><a href="#引入-dll-库">引入 dll 库</a><ul>
-<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
-<li><a href="#手动引入注意">手动引入注意</a></li>
-<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
-<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
+<li><a href="#冒泡排序">冒泡排序</a><ul>
+<li><a href="#基本思路">基本思路</a></li>
+<li><a href="#时间复杂度-1">时间复杂度</a></li>
+<li><a href="#交换判定优化">交换判定优化</a></li>
 </ul>
 </li>
-<li><a href="#成果分析">成果分析</a><ul>
-<li><a href="#优化前">优化前</a></li>
-<li><a href="#优化后">优化后：</a></li>
+<li><a href="#插入排序">插入排序</a><ul>
+<li><a href="#插排的思想">插排的思想</a></li>
+<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
+<li><a href="#哨兵优化">哨兵优化</a></li>
+<li><a href="#折半优化">折半优化</a></li>
+</ul>
+</li>
+<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
+<li><a href="#归并排序思路">归并排序思路</a></li>
+<li><a href="#合并">合并</a></li>
+<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#快速排序">快速排序</a><ul>
+<li><a href="#快排思路">快排思路</a></li>
+<li><a href="#选值优化">选值优化</a></li>
+<li><a href="#多路快排">多路快排</a></li>
+</ul>
+</li>
+<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
+<li><a href="#关键思路">关键思路</a></li>
+<li><a href="#时间复杂度-2">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#计数排序">计数排序</a><ul>
+<li><a href="#关键思路-1">关键思路</a></li>
+<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#堆排序">堆排序</a><ul>
+<li><a href="#完全二叉树">完全二叉树</a></li>
+<li><a href="#堆">堆</a></li>
+<li><a href="#构造堆">构造堆</a></li>
+<li><a href="#排序">排序</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -710,56 +705,61 @@ Warrant
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
-<blockquote>
-<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
-</blockquote>
-<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3><p>webpack.dll.config.js 配置</p>
-<p>新建单独的配置文件</p>
-<p>webpack.dll.config.js</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 你想要打包的模块的数组</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: [</span><br><span class="line">      <span class="string">'vue/dist/vue.esm.js'</span>,</span><br><span class="line">      <span class="string">'vuex'</span>,</span><br><span class="line">      <span class="string">'axios'</span>,</span><br><span class="line">      <span class="string">'vue-router'</span>,</span><br><span class="line">      <span class="string">'element-ui'</span>,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">'../static/js'</span>), <span class="comment">// 打包后文件输出的位置</span></span><br><span class="line">    filename: <span class="string">'[name].dll.js'</span>,</span><br><span class="line">    library: <span class="string">'[name]_library'</span>,</span><br><span class="line">    <span class="comment">// vendor.dll.js中暴露出的全局变量名。</span></span><br><span class="line">    <span class="comment">// 主要是给DllPlugin中的name使用，</span></span><br><span class="line">    <span class="comment">// 故这里需要和webpack.DllPlugin中的`name: '[name]_library',`保持一致。</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.DllPlugin(&#123;</span><br><span class="line">      path: path.join(__dirname, <span class="string">'../'</span>, <span class="string">'[name]-manifest.json'</span>),</span><br><span class="line">      name: <span class="string">'[name]_library'</span>,</span><br><span class="line">      context: __dirname,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="comment">// 压缩打包的文件</span></span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">      compress: &#123;</span><br><span class="line">        warnings: <span class="literal">false</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>配置说明</p>
-<p>path：manifest.json 生成的文件夹及名字，该项目让它生成在了根目录下。<br>name：和 output. library 保持一致即可。<br>context：选填，manifest 文件中请求的上下文，默认为该 webpack 文件上下文。</p>
-<p>在 package.json 中添加执行脚本</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"dll"</span>: <span class="string">"webpack --config build/webpack.dll.conf.js"</span>,</span><br></pre></td></tr></table></figure>
-<p>执行 yarn dll<br>生成 dll 文件和 manifest.json 文件<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144435.png" alt="Webpack中DllPlugin使用20220411144435"><br>manifest.json 文件包含了引用模块的 id 映射，为 DllReferencePlugin 引用做准备</p>
-<h2 id="引入-dll-库"><a href="#引入-dll-库" class="headerlink" title="引入 dll 库"></a>引入 dll 库</h2><h3 id="手动引入-dll-文件（不推荐）"><a href="#手动引入-dll-文件（不推荐）" class="headerlink" title="手动引入 dll 文件（不推荐）"></a>手动引入 dll 文件（不推荐）</h3><p>在根目录的 index.html 里引入所生成的 dll 库</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xx市城市综合管理基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/vendor.dll.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="手动引入注意"><a href="#手动引入注意" class="headerlink" title="手动引入注意"></a>手动引入注意</h3>
-        <!-- Webpack 中 DllPlugin 使用
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>选择排序的比较次数 = (n - 1) + (n - 2) + … + 2 + 1 = n * (n - 1) / 2，因此时间复杂度为：O(n²)。</p>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>每一轮通过不断对比交换位置来将该轮最大（小）值上浮（下沉）到对应轮位置<br>核心思想是<strong>每轮换位置</strong><br><strong>外层循环确定轮次，内层循环<code>交换位置</code></strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<p>每一轮都进行了<strong>多次交换</strong>，故相较于选择排序耗时</p>
+<h3 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
+        <!-- 排序算法
 
 
-Webpack 中 DllPlugin 使用
-DllPlugin 概述
-实质
-DllPlugin 配置
+排序算法
+选择排序
+选排的思想
+时间复杂度
 
 
-引入 dll 库
-手动引入 dll 文件（不推荐）
-手动引入注意
-自动引入(推荐)
-自动引入常见问题
+冒泡排序
+基本思路
+时间复杂度
+交换判定优化
 
 
-成果分析
-优化前
-优化后：
+插入排序
+插排的思想
+时间复杂度分析
+哨兵优化
+折半优化
 
 
-BMW WARNING
-Bulletin
-Material
-Warrant
+归并排序（Merge Sort）
+归并排序思路
+合并
+时间复杂度分析
 
 
+快速排序
+快排思路
+选值优化
+多路快排
 
 
+希尔排序（缩小增量排序）
+关键思路
+时间复杂度
 
 
-DllPl......  -->
+计数排序
+关键思路
+时间复杂度分析
+
+
+堆排序
+完......  -->
         <p class="article-more-link">
-          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
+          <a href="/排序算法.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -767,7 +767,7 @@ DllPl......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
 
     </footer>
   </div>
@@ -963,7 +963,7 @@ HTTPS超文本传输安全协议（（HyperText Transfer Protocol Secure）也�
 <!-- Table of Contents -->
 
   
-    <article id="post-Number相关基础操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Brook服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -971,7 +971,83 @@ HTTPS超文本传输安全协议（（HyperText Transfer Protocol Secure）也�
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Number相关基础操作.html">Number相关基础操作</a>
+      <a class="article-title" href="/Brook服务搭建与访问.html">Brook服务搭建与访问</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/APPs/">APPs</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Brook-服务搭建与访问"><a href="#Brook-服务搭建与访问" class="headerlink" title="Brook 服务搭建与访问"></a>Brook 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#brook-服务搭建与访问">Brook 服务搭建与访问</a><ul>
+<li><a href="#server-配置">Server 配置</a><ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#后台运行">后台运行</a></li>
+</ul>
+</li>
+<li><a href="#client">client</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Server-配置"><a href="#Server-配置" class="headerlink" title="Server 配置"></a>Server 配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brook</span><br><span class="line">chmod +x /usr/bin/brook</span><br><span class="line">brook server --listen :9999 --password hello</span><br></pre></td></tr></table></figure>
+<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/brook.service</span><br></pre></td></tr></table></figure>
+<p>输入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=brook vpn</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :2000 --password mima</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>要开启多个服务，只需要创建多个 service 文件监听不同端口即可。</p>
+<p>重置守护进程服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start brook</span><br></pre></td></tr></table></figure>
+<p>检查服务是否开启成功，查看 2000 端口是否开启服务即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 2000</span><br></pre></td></tr></table></figure>
+<p>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable brook</span><br></pre></td></tr></table></figure>
+<p>即可。</p>
+<h2 id="client"><a href="#client" class="headerlink" title="client"></a>client</h2><p>在如下地址下载客户端界面：<br><a href="https://txthinking.github.io/brook/#/install-gui-client" target="_blank" rel="noopener">https://txthinking.github.io/brook/#/install-gui-client</a><br>下载后连接成功如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Brook%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20220118111315.png" alt="Brook服务搭建与访问20220118111315"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN1/">VPN1</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Vue基础使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Vue基础使用.html">Vue基础使用</a>
     </h1>
   
 
@@ -992,62 +1068,242 @@ HTTPS超文本传输安全协议（（HyperText Transfer Protocol Secure）也�
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="Number-相关基础操作"><a href="#Number-相关基础操作" class="headerlink" title="Number 相关基础操作"></a>Number 相关基础操作</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h1 id="Vue-基础使用"><a href="#Vue-基础使用" class="headerlink" title="Vue 基础使用"></a>Vue 基础使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#number-相关基础操作">Number 相关基础操作</a><ul>
-<li><a href="#保留小数">保留小数</a><ul>
-<li><a href="#四舍五入">四舍五入</a></li>
-<li><a href="#不取舍">不取舍</a></li>
+<li><a href="#vue-基础使用">Vue 基础使用</a><ul>
+<li><a href="#vue-router-model">Vue Router model</a></li>
+<li><a href="#img-图片错误默认处理">img 图片错误默认处理</a></li>
+<li><a href="#extend">extend</a><ul>
+<li><a href="#获取vue-组件的构造函数">获取.vue 组件的构造函数</a></li>
+<li><a href="#使用示例">使用示例</a></li>
+<li><a href="#无法挂载错误">无法挂载错误</a></li>
 </ul>
 </li>
-<li><a href="#添加千位分隔符">添加千位分隔符</a><ul>
-<li><a href="#tolocalestring">toLocaleString</a></li>
-<li><a href="#正则">正则</a></li>
+<li><a href="#mixin">mixin</a><ul>
+<li><a href="#混入规则">混入规则</a></li>
+</ul>
+</li>
+<li><a href="#组件挂载顺序">组件挂载顺序</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#总结">总结</a></li>
+</ul>
+</li>
+<li><a href="#computed">computed</a><ul>
+<li><a href="#简单说明">简单说明</a></li>
+<li><a href="#setter">setter</a></li>
+</ul>
+</li>
+<li><a href="#watch">$watch</a><ul>
+<li><a href="#用法">用法</a></li>
+<li><a href="#注意">注意</a></li>
+<li><a href="#返回值">返回值</a></li>
+<li><a href="#深度监听">深度监听</a></li>
+</ul>
+</li>
+<li><a href="#资源引用">资源引用</a></li>
+<li><a href="#refs-使用">refs 使用</a></li>
+<li><a href="#动态组件">动态组件</a></li>
+<li><a href="#attrs-与listeners">\$attrs 与\$listeners</a></li>
+<li><a href="#生命周期函数">生命周期函数</a><ul>
+<li><a href="#监听">监听</a></li>
+</ul>
+</li>
+<li><a href="#vueobservable">Vue.observable</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="保留小数"><a href="#保留小数" class="headerlink" title="保留小数"></a>保留小数</h2><h3 id="四舍五入"><a href="#四舍五入" class="headerlink" title="四舍五入"></a>四舍五入</h3><p><strong>toFixed</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">2.123123123</span>).toFixed(<span class="number">3</span>); <span class="comment">// 输出结果为 2.123</span></span><br><span class="line">(<span class="number">2.123923123</span>).toFixed(<span class="number">3</span>); <span class="comment">// 输出结果为 2.124</span></span><br></pre></td></tr></table></figure>
-<p><strong>toLocaleString</strong><br>toLocaleString 默认保留 3 位小数，且会产生千位分隔符</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">12332.123923123</span>).toLocaleString(<span class="literal">undefined</span>, &#123;</span><br><span class="line">  minimumFractionDigits: <span class="number">5</span>,</span><br><span class="line">  maximumFractionDigits: <span class="number">6</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 输出结果为 '12,332.123923'</span></span><br></pre></td></tr></table></figure>
-<p>可通过 minimumFractionDigits，maximumFractionDigits 来指定保留参数的长度</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">2.123923123</span>).toLocaleString(<span class="literal">undefined</span>, &#123;</span><br><span class="line">  minimumFractionDigits: <span class="number">5</span>,</span><br><span class="line">  maximumFractionDigits: <span class="number">6</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 输出结果为 '2.123923'</span></span><br></pre></td></tr></table></figure>
-<h3 id="不取舍"><a href="#不取舍" class="headerlink" title="不取舍"></a>不取舍</h3><p><strong>Math.floor</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.floor(<span class="number">15.7784514</span> * <span class="number">1000</span>) / <span class="number">1000</span>; <span class="comment">// 输出结果为 15.778</span></span><br></pre></td></tr></table></figure>
-<h2 id="添加千位分隔符"><a href="#添加千位分隔符" class="headerlink" title="添加千位分隔符"></a>添加千位分隔符</h2><h3 id="toLocaleString-NaN"><a href="#toLocaleString-NaN" class="headerlink" title="toLocaleString"></a>toLocaleString</h3><p>通过 toLocaleString 很容易直接添加千位。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString(<span class="string">"en-US"</span>);</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString();</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
-<p>toLocaleString 将字符本地串化，第一个参数为串化标准，默认为’en-US’。<br>对于小数而言，其会四舍五入保留 3 位</p>
-<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3>
+<h2 id="Vue-Router-model"><a href="#Vue-Router-model" class="headerlink" title="Vue Router model"></a>Vue Router model</h2><p>Vue 有两种路由模式:</p>
+<ul>
+<li>Hash</li>
+<li>History</li>
+</ul>
+<p>默认情况下使用 Hash 模式。<br>哈希模式利用 URL Hash 保证单页系统不进行页面重载。<br>但是，传统 URL 的 Hash 中即常见的<code>site#thing</code>是来定位页面内容的，<br>使用<code>site/thing</code>来跳转页面<br>Hash 模式虽然保证了页面不跳转，但是’#’的出现破坏了传统规则。<br>在一些项目中，会使用 History 模式。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  mode: <span class="string">'history'</span>,</span><br><span class="line">  routes: [...]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>History 模式通过 history.pushState 防止路由重载。<br>由于单页问题，History 在对应路由在服务器中位置并没有 HTML 入口文件，<br>这需要我们进行额外的服务配置。<br>若不进行配置，刷新页面会报错。<br>Nginx 配置如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  try_files $uri $uri/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其余服务端配置参考<br><a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations</a></p>
+<h2 id="img-图片错误默认处理"><a href="#img-图片错误默认处理" class="headerlink" title="img 图片错误默认处理"></a>img 图片错误默认处理</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;img</span><br><span class="line">    width=<span class="string">"98"</span></span><br><span class="line">    height=<span class="string">"112"</span></span><br><span class="line">    :src=<span class="string">"m.imgAddr || '~@img/suspect.png'"</span></span><br><span class="line">    @error=<span class="string">"slotimg"</span></span><br><span class="line">    alt</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> defaultImg = <span class="built_in">require</span>(<span class="string">"@img/suspect.png"</span>);</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">    slotimg(event) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"HotFocus.vue第211行:::err img"</span>);</span><br><span class="line">      <span class="keyword">let</span> img = event.srcElement;</span><br><span class="line">      img.src = defaultImg;</span><br><span class="line">      img.onerror = <span class="literal">null</span>; <span class="comment">//防止闪图</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>html 原生是 οnerrοr 来监听图片渲染错误事件</p>
+<h2 id="extend"><a href="#extend" class="headerlink" title="extend"></a>extend</h2><h3 id="获取-vue-组件的构造函数"><a href="#获取-vue-组件的构造函数" class="headerlink" title="获取.vue 组件的构造函数"></a>获取.vue 组件的构造函数</h3><h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><p>Vue.extend</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> button = Vue.extend(FullScreenButton)</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> button()</span><br><span class="line">b.$mount()</span><br></pre></td></tr></table></figure>
+<h3 id="无法挂载错误"><a href="#无法挂载错误" class="headerlink" title="无法挂载错误"></a>无法挂载错误</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A820211202165231.png" alt="Vue基础使用20211202165231"></p>
+<p>出现这种错误是由于首字母大写导致，具体缘由待查，如下图中注释所示</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A820211202165302.png" alt="Vue基础使用20211202165302"></p>
+<h2 id="mixin"><a href="#mixin" class="headerlink" title="mixin"></a>mixin</h2><h3 id="混入规则"><a href="#混入规则" class="headerlink" title="混入规则"></a>混入规则</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-Number 相关基础操作
+Vue 基础使用
 
 
-Number 相关基础操作
-保留小数
-四舍五入
-不取舍
+Vue 基础使用
+Vue Router model
+img 图片错误默认处理
+extend
+获取.vue 组件的构造函数
+使用示例
+无法挂载错误
 
 
-添加千位分隔符
-toLocaleString
-正则
+mixin
+混入规则
 
 
+组件挂载顺序
+简述
+总结
 
 
+computed
+简单说明
+setter
 
 
-保留小数四舍五入toFixed
-(2.123123123).toFixed(3); // 输出结果为 2.123(2.123923123).toFixed(3......  -->
+$watch
+用法
+注意
+返回值
+深度监......  -->
         <p class="article-more-link">
-          <a href="/Number相关基础操作.html#more">阅读全文</a>
+          <a href="/Vue基础使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ES对象属性"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES对象属性.html">ES对象属性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="JS-对象的属性"><a href="#JS-对象的属性" class="headerlink" title="JS 对象的属性"></a>JS 对象的属性</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#js-对象的属性">JS 对象的属性</a><ul>
+<li><a href="#属性描述符">属性描述符</a><ul>
+<li><a href="#属性分类">属性分类</a></li>
+<li><a href="#enumerable">Enumerable</a></li>
+<li><a href="#configurable">Configurable</a></li>
+</ul>
+</li>
+<li><a href="#属性创建">属性创建</a><ul>
+<li><a href="#直接创建">直接创建</a></li>
+<li><a href="#objectdefineproperty--objectdefineproperties">Object.defineProperty() &amp; Object.defineProperties()</a></li>
+<li><a href="#objectcreate">Object.create</a></li>
+</ul>
+</li>
+<li><a href="#扩展封印与冻结">扩展、封印与冻结</a><ul>
+<li><a href="#preventextensions">preventExtensions</a></li>
+<li><a href="#seal">seal</a></li>
+<li><a href="#freeze">freeze</a></li>
+</ul>
+</li>
+<li><a href="#屏蔽检测与遍历">屏蔽、检测与遍历</a><ul>
+<li><a href="#属性屏蔽">属性屏蔽</a></li>
+<li><a href="#属性检测">属性检测</a></li>
+<li><a href="#属性遍历">属性遍历</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h2><h3 id="属性分类"><a href="#属性分类" class="headerlink" title="属性分类"></a>属性分类</h3><ul>
+<li>数据属性<ul>
+<li>Configurable</li>
+<li>Enumerable</li>
+<li>Writable</li>
+<li>Value</li>
+</ul>
+</li>
+<li>访问器属性<ul>
+<li>Configurable</li>
+<li>Enumerable</li>
+<li>Get</li>
+<li>Set</li>
+</ul>
+</li>
+</ul>
+<h3 id="Enumerable"><a href="#Enumerable" class="headerlink" title="Enumerable"></a>Enumerable</h3><p>Enumerable 表示能否枚举，常见</p>
+<h3 id="Configurable"><a href="#Configurable" class="headerlink" title="Configurable"></a>Configurable</h3><p>Configurable 表示能否删除属性，能否修改某些属性描述符，能否将属性改为访问器(数据)属性。</p>
+<p>configurable 一旦指定为 false，则 configurable、enumerable、value、get、set 将无法通过 Object.defineProperty()重新配置，删除对应的属性将不产生效果（严格模式导致错误），属性将不能转换（数据与访问器之间）</p>
+<p>configurable 一旦指定为 false,此时的 Writable 如果是 true 则可以修改为 false，但是不能从 false 改为 true（只关不开）</p>
+<p>configurable true，writable false 时，可以通过 Object.defineProperty()修改 value 的值，直接赋值无效；configurable false，writable true 时可以通过赋值直接修改 value 的值，通过 Object.defineProperty()指定 value 值将会报错</p>
+<p>数据属性能否重新直接赋值取决于 writable<br>属性能否重新通过 defineProperty 定义属性描述与值以及被删除取决于 configurable</p>
+<p>忽略 enumerable 为 false 属性的操作</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105422.png" alt="JS对象属性20210928105422"></p>
+<h2 id="属性创建"><a href="#属性创建" class="headerlink" title="属性创建"></a>属性创建</h2><h3 id="直接创建"><a href="#直接创建" class="headerlink" title="直接创建"></a>直接创建</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+JS 对象的属性
+
+
+JS 对象的属性
+属性描述符
+属性分类
+Enumerable
+Configurable
+
+
+属性创建
+直接创建
+Object.defineProperty() &amp; Object.defineProperties()
+Object.create
+
+
+扩展、封印与冻结
+preventEx......  -->
+        <p class="article-more-link">
+          <a href="/ES对象属性.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1121,254 +1377,6 @@ Husky 使用Husky 使用配置husky 简述husky 支持所有 git 相关钩子，
 &#123;	"devDependencies": &#123;		"lint-stag......  -->
         <p class="article-more-link">
           <a href="/Husky使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-systemd开启后台进程"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/systemd开启后台进程.html">systemd开启后台进程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="利用-Systemd-开启后台进程"><a href="#利用-Systemd-开启后台进程" class="headerlink" title="利用 Systemd 开启后台进程"></a>利用 Systemd 开启后台进程</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#利用-systemd-开启后台进程">利用 Systemd 开启后台进程</a><ul>
-<li><a href="#简介">简介</a><ul>
-<li><a href="#创建新服务">创建新服务</a></li>
-<li><a href="#开启服务">开启服务</a></li>
-</ul>
-</li>
-<li><a href="#systemd服务操作汇总">systemd服务操作汇总</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。<br>systemd 提供多个命令行工具，最基本的为 systemctl<br>systemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。</p>
-<h3 id="创建新服务"><a href="#创建新服务" class="headerlink" title="创建新服务"></a>创建新服务</h3><p>创建服务文件并打开</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/foo.service</span><br></pre></td></tr></table></figure>
-<p>输入以下内容</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My custom service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :992 --password xxxx</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>[Unit]</p>
-<pre><code>提供服务基础信息
-Description 为描述信息
-After
-服务启动的前置条件
-</code></pre><p>[Service]</p>
-<pre><code>提供启动服务的相关信息
-</code></pre><p>[Install]</p>
-<pre><code>WantedBy
-定义服务被谁触发
-</code></pre><blockquote>
-<p>Defines which service triggers the custom service if enabled with systemctl enable. This is mostly used for starting the custom service on boot. In this example, foo.service uses multi-user.target, which starts foo.service when systemd loads multi-user.target on boot.</p>
-</blockquote>
-<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><p>创建该服务后，需要重载 systemd 服务文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启该服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
-<p>查看该服务运行状态</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
-<h2 id="systemd服务操作汇总"><a href="#systemd服务操作汇总" class="headerlink" title="systemd服务操作汇总"></a>systemd服务操作汇总</h2><p>开启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
-<p>关闭服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl stop foo</span><br></pre></td></tr></table></figure>
-<p>重启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl restart foo</span><br></pre></td></tr></table></figure>
-<p>服务状态</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
-<p>开机自启动服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable foo</span><br></pre></td></tr></table></figure>
-<p>禁止开机启动</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl disable foo</span><br></pre></td></tr></table></figure>
-<p>查看是否允许开机启动</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl is-enabled foo</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shadowsocks服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shadowsocks服务搭建与访问.html">Shadowsocks服务搭建与访问</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="Shadowsocks-服务搭建与访问"><a href="#Shadowsocks-服务搭建与访问" class="headerlink" title="Shadowsocks 服务搭建与访问"></a>Shadowsocks 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#shadowsocks-服务搭建与访问">Shadowsocks 服务搭建与访问</a><ul>
-<li><a href="#ss-server">SS server</a><ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#配置文件">配置文件</a></li>
-<li><a href="#开启服务">开启服务</a></li>
-<li><a href="#开机启动">开机启动</a></li>
-</ul>
-</li>
-<li><a href="#ss-client">SS client</a></li>
-<li><a href="#添加自定代理规则">添加自定代理规则</a></li>
-<li><a href="#常见问题">常见问题</a><ul>
-<li><a href="#配置完成无法访问墙外">配置完成无法访问墙外</a></li>
-<li><a href="#syn_recv">SYN_RECV</a></li>
-<li><a href="#ip或端口被封">IP或端口被封</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="SS-server"><a href="#SS-server" class="headerlink" title="SS server"></a>SS server</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>SS server 服务端有多语言版本支持<br>此处采用 python 版本<br>首先安装 pip 包管理器</p>
-<p>Debian / Ubuntu</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br></pre></td></tr></table></figure>
-<p>CentOS</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install epel-release # 添加Enterprise Linux企业源</span><br><span class="line">sudo yum install python-pip</span><br></pre></td></tr></table></figure>
-<p>查看是否安装成功</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip --version</span><br><span class="line"><span class="meta">#</span><span class="bash"> pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</span></span><br></pre></td></tr></table></figure>
-<p>然后直接输入以下命令安装</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>新增配置文件<br><code>/etc/shadowsocks.json</code></p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"server"</span>: <span class="string">"23.234.212.12"</span>,</span><br><span class="line">  <span class="attr">"port_password"</span>: &#123;</span><br><span class="line">    <span class="attr">"8388"</span>: <span class="string">"123"</span>,</span><br><span class="line">    <span class="attr">"8389"</span>: <span class="string">"456"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"timeout"</span>: <span class="number">300</span>,</span><br><span class="line">  <span class="attr">"method"</span>: <span class="string">"rc4-md5"</span>,</span><br><span class="line">  <span class="attr">"fast_open"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"workers"</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>server</td>
-<td>vps ip 地址</td>
-</tr>
-<tr>
-<td>port_password</td>
-<td>服务端口和对应密码</td>
-</tr>
-<tr>
-<td>method</td>
-<td>加密方法</td>
-</tr>
-<tr>
-<td>workers</td>
-<td>线程数</td>
-</tr>
-</tbody>
-</table>
-<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><p>调用命令开启服务。<br>相关命令如下</p>
-<ul>
-<li>指定配置文件开启服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
-<ul>
-<li>指定配置文件重启</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d restart</span><br></pre></td></tr></table></figure>
-<ul>
-<li>关闭服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -d stop</span><br></pre></td></tr></table></figure>
-<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-Shadowsocks 服务搭建与访问
-
-
-Shadowsocks 服务搭建与访问
-SS server
-安装
-配置文件
-开启服务
-开机启动
-
-
-SS client
-添加自定代理规则
-常见问题
-配置完成无法访问墙外
-SYN_RECV
-IP或端口被封
-
-
-BMW WARNING
-Bulletin
-Material
-W......  -->
-        <p class="article-more-link">
-          <a href="/Shadowsocks服务搭建与访问.html#more">阅读全文</a>
         </p>
       
     </div>
