@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-frp内网穿透"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-MacOS应用清单"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/frp内网穿透.html">frp内网穿透</a>
+      <a class="article-title" href="/MacOS应用清单.html">MacOS应用清单</a>
     </h1>
   
 
@@ -348,35 +348,604 @@
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="frp-内网穿透"><a href="#frp-内网穿透" class="headerlink" title="frp 内网穿透"></a>frp 内网穿透</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
-<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<p>github国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
-<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
-<p>尝试启动服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
-<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
-<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure></p>
-<p>修改 frp.service 内容如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>重置守护进程服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启服务</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
-<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
-<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable frp</span><br></pre></td></tr></table></figure></p>
-<p>即可。</p>
-<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc配置"><a href="#frpc配置" class="headerlink" title="frpc配置"></a>frpc配置</h3>
+<h1 id="MacOS-应用清单"><a href="#MacOS-应用清单" class="headerlink" title="MacOS 应用清单"></a>MacOS 应用清单</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#macos-应用清单">MacOS 应用清单</a><ul>
+<li><a href="#开发">开发</a></li>
+<li><a href="#学习">学习</a></li>
+<li><a href="#效率">效率</a><ul>
+<li><a href="#汇总">汇总</a></li>
+<li><a href="#barrier">barrier</a></li>
+</ul>
+</li>
+<li><a href="#娱乐">娱乐</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><h2 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h2><h3 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h3><table>
+<thead>
+<tr>
+<th>APP</th>
+<th>DESC</th>
+<th>Free</th>
+<th>Web</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sharemouse</td>
+<td>跨端键鼠共用工具</td>
+<td>trial</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+<tr>
+<td>Synergy</td>
+<td>跨端键鼠共用工具</td>
+<td>false</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+<tr>
+<td>barrier</td>
+<td>基于 Synergy-core 1.9 的开源跨端键鼠共用工具</td>
+<td>true</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="barrier"><a href="#barrier" class="headerlink" title="barrier"></a>barrier</h3><p>barrier 是一款基于 Synergy-core 1.9 的开源跨端键鼠共用工具，拥有 Synergy 基本的跨平台共享键鼠，复制粘贴等基础功能。<br>其他类似的软件还有 Sharemouse 和 Synergy。<br>Synergy 目前已闭源收费，功能上与 barrier 差距不大，<br>Synergy 与 barrier 采用主副机设定。只有主机的键鼠可共享，其他设备的键鼠不能共享试用。<br>Sharemouse 相比，所有键鼠都可共享，但是，Sharemouse 提供的免费试用版本，试用版只支持两台电脑，且两台电脑各自只能有一台内置显示器。<br>目前了解到的类似软件还有，</p>
+<ul>
+<li>Mouse without Borders</li>
+<li>Input Director</li>
+</ul>
+<p>未安装试用验证。</p>
+<h2 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h2><h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-frp 内网穿透简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示：
-Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 https://github.com/fatedier/frp/relea......  -->
+MacOS 应用清单
+
+
+MacOS 应用清单
+开发
+学习
+效率
+汇总
+barrier
+
+
+娱乐
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+开发学习效率汇总
+
+
+APP
+DESC
+Free
+Web
+
+
+
+
+Sharemouse
+跨端键鼠共用工具
+trial
+https......  -->
         <p class="article-more-link">
-          <a href="/frp内网穿透.html#more">阅读全文</a>
+          <a href="/MacOS应用清单.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-VIM基本使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/VIM基本使用.html">VIM基本使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="VIM-基本使用"><a href="#VIM-基本使用" class="headerlink" title="VIM 基本使用"></a>VIM 基本使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#vim-基本使用">VIM 基本使用</a><ul>
+<li><a href="#模式">模式</a><ul>
+<li><a href="#正常模式-normal-mode">正常模式 (Normal-mode)</a></li>
+<li><a href="#插入模式-insert-mode">插入模式 (Insert-mode)</a></li>
+<li><a href="#命令模式-command-mode">命令模式 (Command-mode)</a></li>
+<li><a href="#可视模式-visual-mode">可视模式 (Visual-mode)</a></li>
+</ul>
+</li>
+<li><a href="#vimrc">.vimrc</a><ul>
+<li><a href="#inoremap">inoremap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><h3 id="正常模式-Normal-mode"><a href="#正常模式-Normal-mode" class="headerlink" title="正常模式 (Normal-mode)"></a>正常模式 (Normal-mode)</h3><p>正常模式一般用于浏览文件，同时包括一些复制、粘贴、删除等快捷操作。<br>其他模式通常通过 ESC 键返回正常模式。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>按键</th>
+<th>EN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>撤销</td>
+<td>u</td>
+<td>undo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="插入模式-Insert-mode"><a href="#插入模式-Insert-mode" class="headerlink" title="插入模式 (Insert-mode)"></a>插入模式 (Insert-mode)</h3><p>用于编辑文档，直接输入内容。</p>
+<h3 id="命令模式-Command-mode"><a href="#命令模式-Command-mode" class="headerlink" title="命令模式 (Command-mode)"></a>命令模式 (Command-mode)</h3><p>输入:或/进入命令模式<br>命令模式用于执行 VIM 提供的相关指令。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>按键</th>
+<th>EN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>移动</td>
+<td>:m</td>
+<td>move</td>
+</tr>
+<tr>
+<td>设定</td>
+<td>:set</td>
+</tr>
+</tbody>
+</table>
+<p><strong>:m</strong><br>:m 多用于换行操作，当前行的位置为 0.具体使用如下</p>
+<ul>
+<li>:m -2 移动到-2 行的位置(当前行与上一行互换)</li>
+<li>:m +1 移动到+1 行的位置(当前行与下一行互换)</li>
+<li>:m 0 移动到首行的位置</li>
+<li>:m $ 移动到尾行的位置</li>
+</ul>
+<p><strong>:set</strong><br>:set number 显示行索引</p>
+<h3 id="可视模式-Visual-mode"><a href="#可视模式-Visual-mode" class="headerlink" title="可视模式 (Visual-mode)"></a>可视模式 (Visual-mode)</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+VIM 基本使用
+
+
+VIM 基本使用
+模式
+正常模式 (Normal-mode)
+插入模式 (Insert-mode)
+命令模式 (Command-mode)
+可视模式 (Visual-mode)
+
+
+.vimrc
+inoremap
+
+
+
+
+
+
+模式正常模式 (Normal-mode)正常模式一般用于浏览文件，......  -->
+        <p class="article-more-link">
+          <a href="/VIM基本使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-IpadOS常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/IpadOS常见问题.html">IpadOS常见问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="IpadOS-常见问题"><a href="#IpadOS-常见问题" class="headerlink" title="IpadOS 常见问题"></a>IpadOS 常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#ipados-常见问题">IpadOS 常见问题</a><ul>
+<li><a href="#apple-pencil-断触">Apple pencil 断触</a><ul>
+<li><a href="#软件问题">软件问题</a></li>
+<li><a href="#还原设置">还原设置</a></li>
+<li><a href="#硬件检测">硬件检测</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Apple-pencil-断触"><a href="#Apple-pencil-断触" class="headerlink" title="Apple pencil 断触"></a>Apple pencil 断触</h2><h3 id="软件问题"><a href="#软件问题" class="headerlink" title="软件问题"></a>软件问题</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">使用系统自带的备忘录尝试是否为软件问题</span><br></pre></td></tr></table></figure>
+<p>部分软件可能手触屏幕会有断触问题</p>
+<h3 id="还原设置"><a href="#还原设置" class="headerlink" title="还原设置"></a>还原设置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">关掉蓝牙重新连接 Pencil</span><br><span class="line"></span><br><span class="line">重启 iPad 后再次连接 Pencil</span><br><span class="line"></span><br><span class="line">打开 ipad 设置—&gt;通用—&gt;还原—&gt;还原所有设置</span><br></pre></td></tr></table></figure>
+<p>上述操作只是还原设置，不会删除数据，但是人脸识别和密码，壁纸会还原</p>
+<h3 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">去除贴膜，笔尖套</span><br><span class="line"></span><br><span class="line">更换笔头尝试</span><br><span class="line"></span><br><span class="line">换个 ipad 试下是否为笔的问题</span><br></pre></td></tr></table></figure>
+<p>这些操作都不行，联系售后解决</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+IpadOS 常见问题
+
+
+IpadOS 常见问题
+Apple pencil 断触
+软件问题
+还原设置
+硬件检测
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软件问题
+部分软件可能手触屏幕会有断触问......  -->
+        <p class="article-more-link">
+          <a href="/IpadOS常见问题.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="Nginx-基础"><a href="#Nginx-基础" class="headerlink" title="Nginx 基础"></a>Nginx 基础</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#nginx-基础">Nginx 基础</a><ul>
+<li><a href="#location">location</a><ul>
+<li><a href="#基础使用">基础使用</a></li>
+<li><a href="#url-match">URL-match</a></li>
+<li><a href="#modifier">modifier</a></li>
+</ul>
+</li>
+<li><a href="#proxy_pass">proxy_pass</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#uri">URI</a></li>
+<li><a href="#-问题">/ 问题</a></li>
+<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3><p>匹配所有路径</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优先级最低，所有都不匹配时，才会命中</p>
+<h3 id="modifier"><a href="#modifier" class="headerlink" title="modifier"></a>modifier</h3><p>URI 这里指 URL 除了 server:port 的部分。</p>
+<p><strong>命中优先级</strong><br>优先级由上依次降低。</p>
+<table>
+<thead>
+<tr>
+<th>modifier</th>
+<th>desc</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>exact (精确匹配)</td>
+<td>location = /site</td>
+</tr>
+<tr>
+<td>^~</td>
+<td>priority prefix (优先字符)</td>
+<td>location ^~ /site</td>
+</tr>
+<tr>
+<td>~</td>
+<td>case sensitive regex (大小写敏感正则)</td>
+<td>location ~ /site</td>
+</tr>
+<tr>
+<td>~*</td>
+<td>case insensitive regex(忽略大小写)</td>
+<td>location ~* /site</td>
+</tr>
+<tr>
+<td>(none)</td>
+<td>prefix(字符匹配，无修饰符，由 URI 头字符开始匹配)</td>
+<td>location /site</td>
+</tr>
+</tbody>
+</table>
+<p>在如下网址可进行匹配测试 <a href="https://nginx.viraptor.info/" target="_blank" rel="noopener">https://nginx.viraptor.info/</a></p>
+<p>^~ 与(none)都 进行字符匹配（非正则），^~ 相对于(none) ，提高了命中优先级。</p>
+<p><strong>典型示例</strong></p>
+<p>示例 1</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>^~ 进行字符匹配<br><a href="http://domain2.com/file/" target="_blank" rel="noopener">http://domain2.com/file/</a>* 可以命中<br><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 不能命中</p>
+<p>示例 2</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 根据优先级命中<code>^~ /file/</code></p>
+<h2 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h2><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+Nginx 基础
+
+
+Nginx 基础
+location
+基础使用
+URL-match
+modifier
+
+
+proxy_pass
+简述
+URI
+/ 问题
+\$uri \$request_uri
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+location基础使用l......  -->
+        <p class="article-more-link">
+          <a href="/Nginx基础.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Nginx常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Nginx常见问题汇总.html">Nginx常见问题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="Nginx-常见问题汇总"><a href="#Nginx-常见问题汇总" class="headerlink" title="Nginx 常见问题汇总"></a>Nginx 常见问题汇总</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#nginx-常见问题汇总">Nginx 常见问题汇总</a><ul>
+<li><a href="#proxy_pass-代理接口不能访问">proxy_pass 代理接口不能访问</a><ul>
+<li><a href="#问题描述">问题描述</a></li>
+<li><a href="#配置">配置</a></li>
+</ul>
+</li>
+<li><a href="#页面刷新不能进入">页面刷新不能进入</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="proxy-pass-代理接口不能访问"><a href="#proxy-pass-代理接口不能访问" class="headerlink" title="proxy_pass 代理接口不能访问"></a>proxy_pass 代理接口不能访问</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>客户端访问接口，发起请求<br><a href="http://aaa.com/file/123.png" target="_blank" rel="noopener">http://aaa.com/file/123.png</a></p>
+<p>真实接口地址为<br><a href="http://bbb.com/123.png" target="_blank" rel="noopener">http://bbb.com/123.png</a></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>检查配置，正确的配置如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>检查地址，注意后缀’/‘都不能去掉。<br>一般把 server:port 后的部分叫做 URI，proxy_pass 在其后加不加 URI 表现完全不同。<br>location 非正则匹配时，proxy_pass 有 URI 直接用 URI 把 location 对应的字符替换，无 URI 则直接替换 server:port<br>详细解析查看<a href="https://github.com/skylinety/Blog/blob/bf27769f7e637edbb12e2bac320d4dd8b73692e5/Docs/Tools/DEVs/Nginx/Nginx%E5%9F%BA%E7%A1%80.md" target="_blank" rel="noopener">Nginx 基础</a></p>
+<h2 id="页面刷新不能进入"><a href="#页面刷新不能进入" class="headerlink" title="页面刷新不能进入"></a>页面刷新不能进入</h2><p>检查页面的路由模式。<br>特别是在 Vue 项目中，具体查看 <a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">HTML5 History Mode</a><br>vue 默认的是 hash 路由模式，使用此种模式，页面路由变化时，并不会重载页面<br>在配置网站根文件的位置加入<br><code>try_files $uri $uri/ /index.html;</code><br>一般如下配置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /skyline&#123;</span><br><span class="line">    alias /data/wwwroot/skyline/dist;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">    try_files $uri $uri/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+Nginx 常见问题汇总
+
+
+Nginx 常见问题汇总
+proxy_pass 代理接口不能访问
+问题描述
+配置
+
+
+页面刷新不能进入
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+proxy_pass 代理接口不能访问问题描述客户端访问接口，发起请求http://aaa.......  -->
+        <p class="article-more-link">
+          <a href="/Nginx常见问题汇总.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -600,411 +1169,6 @@ extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘�
 <h2 id="Moments-人物、主题无照片"><a href="#Moments-人物、主题无照片" class="headerlink" title="Moments 人物、主题无照片"></a>Moments 人物、主题无照片</h2><p>安装Moments后人物与主题无法智能识别，进入后显示还有xxx张照片待发现。<br>停用Moments<br>进入 /var/packages/SynologyMoments/target/usr/lib 目录下<br>备份 libsynophoto-plugin-detection.so<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mv ./libsynophoto-plugin-detection.so ./libsynophoto-plugin-detection.so.bak</span><br></pre></td></tr></table></figure></p>
 <p><a href="http://42.193.201.102:8443/file/Docs/Tools/OS/Nas/黑群晖常见问题/libsynophoto-plugin-detection.so" target="_blank" rel="noopener">libsynophoto-plugin-detection.so</a><br>将下载的新文件放在 /var/packages/SynologyMoments/target/usr/lib下，对全部用户赋完全权限（777）或对SynologyMoments赋控制权限（755）。<br>开启moments，重建索引。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%BB%91%E7%BE%A4%E6%99%96%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220121102822.png" alt="黑群晖常见问题20220121102822"></p>
 
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-VSCode相关问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/VSCode相关问题汇总.html">VSCode相关问题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="VSCode-相关问题汇总"><a href="#VSCode-相关问题汇总" class="headerlink" title="VSCode 相关问题汇总"></a>VSCode 相关问题汇总</h1><h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="markdown-文件-Snippets-不生效"><a href="#markdown-文件-Snippets-不生效" class="headerlink" title="markdown 文件 Snippets 不生效"></a>markdown 文件 Snippets 不生效</h3><p><strong>问题描述</strong><br>通过 File -&gt; Preferences -&gt; User Snippets -&gt; Markdown<br>写相关代码块如下<br><code>markdown.json</code></p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and</span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the</span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="attr">"JS code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cjs"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:js&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"JS code block"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"PY code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cpy"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:python&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"PY code block"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在 markdown 文件中敲击:cjs 不自动提示。<br><strong>解决方案</strong><br>尝试 CTRL + Space 强制开启。<br>在用户配置<code>setting.json</code>中添加如下配置项</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"[markdown]": &#123;</span><br><span class="line">    "editor.quickSuggestions": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-IpadOS常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/IpadOS常见问题.html">IpadOS常见问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="IpadOS-常见问题"><a href="#IpadOS-常见问题" class="headerlink" title="IpadOS 常见问题"></a>IpadOS 常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#ipados-常见问题">IpadOS 常见问题</a><ul>
-<li><a href="#apple-pencil-断触">Apple pencil 断触</a><ul>
-<li><a href="#软件问题">软件问题</a></li>
-<li><a href="#还原设置">还原设置</a></li>
-<li><a href="#硬件检测">硬件检测</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Apple-pencil-断触"><a href="#Apple-pencil-断触" class="headerlink" title="Apple pencil 断触"></a>Apple pencil 断触</h2><h3 id="软件问题"><a href="#软件问题" class="headerlink" title="软件问题"></a>软件问题</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">使用系统自带的备忘录尝试是否为软件问题</span><br></pre></td></tr></table></figure>
-<p>部分软件可能手触屏幕会有断触问题</p>
-<h3 id="还原设置"><a href="#还原设置" class="headerlink" title="还原设置"></a>还原设置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">关掉蓝牙重新连接 Pencil</span><br><span class="line"></span><br><span class="line">重启 iPad 后再次连接 Pencil</span><br><span class="line"></span><br><span class="line">打开 ipad 设置—&gt;通用—&gt;还原—&gt;还原所有设置</span><br></pre></td></tr></table></figure>
-<p>上述操作只是还原设置，不会删除数据，但是人脸识别和密码，壁纸会还原</p>
-<h3 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">去除贴膜，笔尖套</span><br><span class="line"></span><br><span class="line">更换笔头尝试</span><br><span class="line"></span><br><span class="line">换个 ipad 试下是否为笔的问题</span><br></pre></td></tr></table></figure>
-<p>这些操作都不行，联系售后解决</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-IpadOS 常见问题
-
-
-IpadOS 常见问题
-Apple pencil 断触
-软件问题
-还原设置
-硬件检测
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-
-
-Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软件问题
-部分软件可能手触屏幕会有断触问......  -->
-        <p class="article-more-link">
-          <a href="/IpadOS常见问题.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Nginx常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Nginx常见问题汇总.html">Nginx常见问题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="Nginx-常见问题汇总"><a href="#Nginx-常见问题汇总" class="headerlink" title="Nginx 常见问题汇总"></a>Nginx 常见问题汇总</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#nginx-常见问题汇总">Nginx 常见问题汇总</a><ul>
-<li><a href="#proxy_pass-代理接口不能访问">proxy_pass 代理接口不能访问</a><ul>
-<li><a href="#问题描述">问题描述</a></li>
-<li><a href="#配置">配置</a></li>
-</ul>
-</li>
-<li><a href="#页面刷新不能进入">页面刷新不能进入</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="proxy-pass-代理接口不能访问"><a href="#proxy-pass-代理接口不能访问" class="headerlink" title="proxy_pass 代理接口不能访问"></a>proxy_pass 代理接口不能访问</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>客户端访问接口，发起请求<br><a href="http://aaa.com/file/123.png" target="_blank" rel="noopener">http://aaa.com/file/123.png</a></p>
-<p>真实接口地址为<br><a href="http://bbb.com/123.png" target="_blank" rel="noopener">http://bbb.com/123.png</a></p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>检查配置，正确的配置如下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>检查地址，注意后缀’/‘都不能去掉。<br>一般把 server:port 后的部分叫做 URI，proxy_pass 在其后加不加 URI 表现完全不同。<br>location 非正则匹配时，proxy_pass 有 URI 直接用 URI 把 location 对应的字符替换，无 URI 则直接替换 server:port<br>详细解析查看<a href="https://github.com/skylinety/Blog/blob/bf27769f7e637edbb12e2bac320d4dd8b73692e5/Docs/Tools/DEVs/Nginx/Nginx%E5%9F%BA%E7%A1%80.md" target="_blank" rel="noopener">Nginx 基础</a></p>
-<h2 id="页面刷新不能进入"><a href="#页面刷新不能进入" class="headerlink" title="页面刷新不能进入"></a>页面刷新不能进入</h2><p>检查页面的路由模式。<br>特别是在 Vue 项目中，具体查看 <a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">HTML5 History Mode</a><br>vue 默认的是 hash 路由模式，使用此种模式，页面路由变化时，并不会重载页面<br>在配置网站根文件的位置加入<br><code>try_files $uri $uri/ /index.html;</code><br>一般如下配置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /skyline&#123;</span><br><span class="line">    alias /data/wwwroot/skyline/dist;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">    try_files $uri $uri/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-Nginx 常见问题汇总
-
-
-Nginx 常见问题汇总
-proxy_pass 代理接口不能访问
-问题描述
-配置
-
-
-页面刷新不能进入
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-
-
-proxy_pass 代理接口不能访问问题描述客户端访问接口，发起请求http://aaa.......  -->
-        <p class="article-more-link">
-          <a href="/Nginx常见问题汇总.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="Nginx-基础"><a href="#Nginx-基础" class="headerlink" title="Nginx 基础"></a>Nginx 基础</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#nginx-基础">Nginx 基础</a><ul>
-<li><a href="#location">location</a><ul>
-<li><a href="#基础使用">基础使用</a></li>
-<li><a href="#url-match">URL-match</a></li>
-<li><a href="#modifier">modifier</a></li>
-</ul>
-</li>
-<li><a href="#proxy_pass">proxy_pass</a><ul>
-<li><a href="#简述">简述</a></li>
-<li><a href="#uri">URI</a></li>
-<li><a href="#-问题">/ 问题</a></li>
-<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3><p>匹配所有路径</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>优先级最低，所有都不匹配时，才会命中</p>
-<h3 id="modifier"><a href="#modifier" class="headerlink" title="modifier"></a>modifier</h3><p>URI 这里指 URL 除了 server:port 的部分。</p>
-<p><strong>命中优先级</strong><br>优先级由上依次降低。</p>
-<table>
-<thead>
-<tr>
-<th>modifier</th>
-<th>desc</th>
-<th>example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>=</td>
-<td>exact (精确匹配)</td>
-<td>location = /site</td>
-</tr>
-<tr>
-<td>^~</td>
-<td>priority prefix (优先字符)</td>
-<td>location ^~ /site</td>
-</tr>
-<tr>
-<td>~</td>
-<td>case sensitive regex (大小写敏感正则)</td>
-<td>location ~ /site</td>
-</tr>
-<tr>
-<td>~*</td>
-<td>case insensitive regex(忽略大小写)</td>
-<td>location ~* /site</td>
-</tr>
-<tr>
-<td>(none)</td>
-<td>prefix(字符匹配，无修饰符，由 URI 头字符开始匹配)</td>
-<td>location /site</td>
-</tr>
-</tbody>
-</table>
-<p>在如下网址可进行匹配测试 <a href="https://nginx.viraptor.info/" target="_blank" rel="noopener">https://nginx.viraptor.info/</a></p>
-<p>^~ 与(none)都 进行字符匹配（非正则），^~ 相对于(none) ，提高了命中优先级。</p>
-<p><strong>典型示例</strong></p>
-<p>示例 1</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>^~ 进行字符匹配<br><a href="http://domain2.com/file/" target="_blank" rel="noopener">http://domain2.com/file/</a>* 可以命中<br><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 不能命中</p>
-<p>示例 2</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 根据优先级命中<code>^~ /file/</code></p>
-<h2 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h2><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-Nginx 基础
-
-
-Nginx 基础
-location
-基础使用
-URL-match
-modifier
-
-
-proxy_pass
-简述
-URI
-/ 问题
-\$uri \$request_uri
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-
-
-location基础使用l......  -->
-        <p class="article-more-link">
-          <a href="/Nginx基础.html#more">阅读全文</a>
-        </p>
       
     </div>
     <footer class="article-footer">
