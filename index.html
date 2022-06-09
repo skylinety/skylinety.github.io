@@ -1031,6 +1031,123 @@ ssh root@10.2.160.12
 <!-- Table of Contents -->
 
   
+    <article id="post-JS内存泄漏与处理"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/JS内存泄漏与处理.html">JS内存泄漏与处理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a><ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
+<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
+</ul>
+</li>
+<li><a href="#内存泄漏memory-leaks">内存泄漏（Memory Leaks）</a><ul>
+<li><a href="#简介-1">简介</a></li>
+<li><a href="#常见内存泄漏情况">常见内存泄漏情况</a></li>
+<li><a href="#常见情况示例">常见情况示例</a></li>
+</ul>
+</li>
+<li><a href="#内存泄漏处理">内存泄漏处理</a><ul>
+<li><a href="#chrome-memory-调试">Chrome Memory 调试</a></li>
+<li><a href="#内存泄漏监测">内存泄漏监测</a></li>
+<li><a href="#泄漏内存对比">泄漏内存对比</a></li>
+<li><a href="#泄漏内存对象详情">泄漏内存对象详情</a></li>
+<li><a href="#对象引用链">对象引用链</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JS 自动进行垃圾回收，不需要如 C 语言等一般需要代码中指定回收。<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>回收垃圾时，需要将那些被标记的清除掉，垃圾标记器会跟踪无用内存并打上标记，以供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
+<h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3><p>传统的引用计数方式简单来说就是记录内存引用的总数，当总数为 0 时，该内存将被回收。<br>该方式最大的弊端是循环引用对应的内存将不能被回收。<br>循环引用代码示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  a.child = b</span><br><span class="line">  b.child = a</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="标记清除（Mark-amp-Sweep）"><a href="#标记清除（Mark-amp-Sweep）" class="headerlink" title="标记清除（Mark &amp; Sweep）"></a>标记清除（Mark &amp; Sweep）</h3><ul>
+<li>标记阶段</li>
+</ul>
+<p>JavaScript 由根对象开始，例如浏览器中的 window，定期遍历找出其所有关联引用的对象。<br>即找所有从这个全局对象开始引用的对象，再找这些对象引用的对象…<br>对这些存在引用关系的对象进行标记，这是标记阶段。</p>
+<ul>
+<li>清除阶段</li>
+</ul>
+<p>清除阶段就是垃圾收集器清除那些没有被标记的对象，释放其内存。</p>
+<h2 id="内存泄漏（Memory-Leaks）"><a href="#内存泄漏（Memory-Leaks）" class="headerlink" title="内存泄漏（Memory Leaks）"></a>内存泄漏（Memory Leaks）</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3>
+        <!-- 
+
+
+垃圾回收(GC:Garbage Collecation)
+简介
+引用计数（Reference Counting）
+标记清除（Mark &amp; Sweep）
+
+
+内存泄漏（Memory Leaks）
+简介
+常见内存泄漏情况
+常见情况示例
+
+
+内存泄漏处理
+Chrome Memory 调试
+内存泄漏监测
+泄漏内存对比
+泄漏内存对象详情
+对象引用链
+
+
+BMW WARNING
+Bulle......  -->
+        <p class="article-more-link">
+          <a href="/JS内存泄漏与处理.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-TS语法校验常见错误"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1240,123 +1357,6 @@ property does not exist on type Object复现P......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-JS内存泄漏与处理"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/JS内存泄漏与处理.html">JS内存泄漏与处理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a><ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
-<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
-</ul>
-</li>
-<li><a href="#内存泄漏memory-leaks">内存泄漏（Memory Leaks）</a><ul>
-<li><a href="#简介-1">简介</a></li>
-<li><a href="#常见内存泄漏情况">常见内存泄漏情况</a></li>
-<li><a href="#常见情况示例">常见情况示例</a></li>
-</ul>
-</li>
-<li><a href="#内存泄漏处理">内存泄漏处理</a><ul>
-<li><a href="#chrome-memory-调试">Chrome Memory 调试</a></li>
-<li><a href="#内存泄漏监测">内存泄漏监测</a></li>
-<li><a href="#泄漏内存对比">泄漏内存对比</a></li>
-<li><a href="#泄漏内存对象详情">泄漏内存对象详情</a></li>
-<li><a href="#对象引用链">对象引用链</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JS 自动进行垃圾回收，不需要如 C 语言等一般需要代码中指定回收。<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>回收垃圾时，需要将那些被标记的清除掉，垃圾标记器会跟踪无用内存并打上标记，以供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
-<h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3><p>传统的引用计数方式简单来说就是记录内存引用的总数，当总数为 0 时，该内存将被回收。<br>该方式最大的弊端是循环引用对应的内存将不能被回收。<br>循环引用代码示例：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  a.child = b</span><br><span class="line">  b.child = a</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="标记清除（Mark-amp-Sweep）"><a href="#标记清除（Mark-amp-Sweep）" class="headerlink" title="标记清除（Mark &amp; Sweep）"></a>标记清除（Mark &amp; Sweep）</h3><ul>
-<li>标记阶段</li>
-</ul>
-<p>JavaScript 由根对象开始，例如浏览器中的 window，定期遍历找出其所有关联引用的对象。<br>即找所有从这个全局对象开始引用的对象，再找这些对象引用的对象…<br>对这些存在引用关系的对象进行标记，这是标记阶段。</p>
-<ul>
-<li>清除阶段</li>
-</ul>
-<p>清除阶段就是垃圾收集器清除那些没有被标记的对象，释放其内存。</p>
-<h2 id="内存泄漏（Memory-Leaks）"><a href="#内存泄漏（Memory-Leaks）" class="headerlink" title="内存泄漏（Memory Leaks）"></a>内存泄漏（Memory Leaks）</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3>
-        <!-- 
-
-
-垃圾回收(GC:Garbage Collecation)
-简介
-引用计数（Reference Counting）
-标记清除（Mark &amp; Sweep）
-
-
-内存泄漏（Memory Leaks）
-简介
-常见内存泄漏情况
-常见情况示例
-
-
-内存泄漏处理
-Chrome Memory 调试
-内存泄漏监测
-泄漏内存对比
-泄漏内存对象详情
-对象引用链
-
-
-BMW WARNING
-Bulle......  -->
-        <p class="article-more-link">
-          <a href="/JS内存泄漏与处理.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
 
     </footer>
   </div>
