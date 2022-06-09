@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-Brook服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES类的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,83 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Brook服务搭建与访问.html">Brook服务搭建与访问</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/APPs/">APPs</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Brook-服务搭建与访问"><a href="#Brook-服务搭建与访问" class="headerlink" title="Brook 服务搭建与访问"></a>Brook 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#brook-服务搭建与访问">Brook 服务搭建与访问</a><ul>
-<li><a href="#server-配置">Server 配置</a><ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#后台运行">后台运行</a></li>
-</ul>
-</li>
-<li><a href="#client">client</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Server-配置"><a href="#Server-配置" class="headerlink" title="Server 配置"></a>Server 配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brook</span><br><span class="line">chmod +x /usr/bin/brook</span><br><span class="line">brook server --listen :9999 --password hello</span><br></pre></td></tr></table></figure>
-<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/brook.service</span><br></pre></td></tr></table></figure>
-<p>输入如下内容：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=brook vpn</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :2000 --password mima</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>要开启多个服务，只需要创建多个 service 文件监听不同端口即可。</p>
-<p>重置守护进程服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start brook</span><br></pre></td></tr></table></figure>
-<p>检查服务是否开启成功，查看 2000 端口是否开启服务即可。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 2000</span><br></pre></td></tr></table></figure>
-<p>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable brook</span><br></pre></td></tr></table></figure>
-<p>即可。</p>
-<h2 id="client"><a href="#client" class="headerlink" title="client"></a>client</h2><p>在如下地址下载客户端界面：<br><a href="https://txthinking.github.io/brook/#/install-gui-client" target="_blank" rel="noopener">https://txthinking.github.io/brook/#/install-gui-client</a><br>下载后连接成功如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Brook%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20220118111315.png" alt="Brook服务搭建与访问20220118111315"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN1/">VPN1</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ES对象属性"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES对象属性.html">ES对象属性</a>
+      <a class="article-title" href="/ES类的使用.html">ES类的使用</a>
     </h1>
   
 
@@ -424,32 +348,19 @@
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="JS-对象的属性"><a href="#JS-对象的属性" class="headerlink" title="JS 对象的属性"></a>JS 对象的属性</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h1 id="ES-类的使用"><a href="#ES-类的使用" class="headerlink" title="ES 类的使用"></a>ES 类的使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#js-对象的属性">JS 对象的属性</a><ul>
-<li><a href="#属性描述符">属性描述符</a><ul>
-<li><a href="#属性分类">属性分类</a></li>
-<li><a href="#enumerable">Enumerable</a></li>
-<li><a href="#configurable">Configurable</a></li>
+<li><a href="#es-类的使用">ES 类的使用</a><ul>
+<li><a href="#静态类实例原型属性与方法">静态（类）、实例、原型属性与方法</a><ul>
+<li><a href="#es5">ES5</a></li>
+<li><a href="#es6">ES6</a></li>
+<li><a href="#属性访问结论">属性访问结论</a></li>
 </ul>
 </li>
-<li><a href="#属性创建">属性创建</a><ul>
-<li><a href="#直接创建">直接创建</a></li>
-<li><a href="#objectdefineproperty--objectdefineproperties">Object.defineProperty() &amp; Object.defineProperties()</a></li>
-<li><a href="#objectcreate">Object.create</a></li>
-</ul>
-</li>
-<li><a href="#扩展封印与冻结">扩展、封印与冻结</a><ul>
-<li><a href="#preventextensions">preventExtensions</a></li>
-<li><a href="#seal">seal</a></li>
-<li><a href="#freeze">freeze</a></li>
-</ul>
-</li>
-<li><a href="#屏蔽检测与遍历">屏蔽、检测与遍历</a><ul>
-<li><a href="#属性屏蔽">属性屏蔽</a></li>
-<li><a href="#属性检测">属性检测</a></li>
-<li><a href="#属性遍历">属性遍历</a></li>
+<li><a href="#class">Class</a><ul>
+<li><a href="#原型方法语法糖">原型方法语法糖</a></li>
+<li><a href="#class-中属性与方法的枚举性质">Class 中属性与方法的枚举性质</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -462,154 +373,51 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h2><h3 id="属性分类"><a href="#属性分类" class="headerlink" title="属性分类"></a>属性分类</h3><ul>
-<li>数据属性<ul>
-<li>Configurable</li>
-<li>Enumerable</li>
-<li>Writable</li>
-<li>Value</li>
-</ul>
-</li>
-<li>访问器属性<ul>
-<li>Configurable</li>
-<li>Enumerable</li>
-<li>Get</li>
-<li>Set</li>
-</ul>
-</li>
-</ul>
-<h3 id="Enumerable"><a href="#Enumerable" class="headerlink" title="Enumerable"></a>Enumerable</h3><p>Enumerable 表示能否枚举，常见</p>
-<h3 id="Configurable"><a href="#Configurable" class="headerlink" title="Configurable"></a>Configurable</h3><p>Configurable 表示能否删除属性，能否修改某些属性描述符，能否将属性改为访问器(数据)属性。</p>
-<p>configurable 一旦指定为 false，则 configurable、enumerable、value、get、set 将无法通过 Object.defineProperty()重新配置，删除对应的属性将不产生效果（严格模式导致错误），属性将不能转换（数据与访问器之间）</p>
-<p>configurable 一旦指定为 false,此时的 Writable 如果是 true 则可以修改为 false，但是不能从 false 改为 true（只关不开）</p>
-<p>configurable true，writable false 时，可以通过 Object.defineProperty()修改 value 的值，直接赋值无效；configurable false，writable true 时可以通过赋值直接修改 value 的值，通过 Object.defineProperty()指定 value 值将会报错</p>
-<p>数据属性能否重新直接赋值取决于 writable<br>属性能否重新通过 defineProperty 定义属性描述与值以及被删除取决于 configurable</p>
-<p>忽略 enumerable 为 false 属性的操作</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105422.png" alt="JS对象属性20210928105422"></p>
-<h2 id="属性创建"><a href="#属性创建" class="headerlink" title="属性创建"></a>属性创建</h2><h3 id="直接创建"><a href="#直接创建" class="headerlink" title="直接创建"></a>直接创建</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-JS 对象的属性
-
-
-JS 对象的属性
-属性描述符
-属性分类
-Enumerable
-Configurable
-
-
-属性创建
-直接创建
-Object.defineProperty() &amp; Object.defineProperties()
-Object.create
-
-
-扩展、封印与冻结
-preventEx......  -->
-        <p class="article-more-link">
-          <a href="/ES对象属性.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Number相关基础操作"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Number相关基础操作.html">Number相关基础操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="Number-相关基础操作"><a href="#Number-相关基础操作" class="headerlink" title="Number 相关基础操作"></a>Number 相关基础操作</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
+<h2 id="静态（类）、实例、原型属性与方法"><a href="#静态（类）、实例、原型属性与方法" class="headerlink" title="静态（类）、实例、原型属性与方法"></a>静态（类）、实例、原型属性与方法</h2><h3 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h3><p>Baby 类</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对象构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Baby</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> className = <span class="string">"Baby"</span>;</span><br><span class="line">  <span class="comment">//实例属性，每个实例私有，在对象实例化后调用，实例属性在对象实力化后创建</span></span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.weight = <span class="string">"3kg"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg()); <span class="comment">//使用原型方法扩充的方法可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.sex); <span class="comment">//使用原型方法扩充的属性可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(Baby.age, <span class="keyword">this</span>.age); <span class="comment">//静态属性调用时格式为[对象.静态属性]</span></span><br><span class="line">  &#125;; <span class="comment">//对象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类方法 (实际是静态方法直接调用)，只有类才能访问类方法，实例不能访问 ，在类方法中通过this只能访问类属性不能访问其他属性，即在本例中，Run方法只能访问到this.age</span></span><br><span class="line">Baby.Run = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"跑起来！！！"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型方法，如果原型方法当作静态方法直接调用时，this.name无法被调用</span></span><br><span class="line">Baby.prototype.msg = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"我叫："</span> + <span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类属性 在类的外部。公有静态属性不能使用 【this.属性】，只能使用 【对象.属性】 调用，只有类才能访问类属性，实例不能访问</span></span><br><span class="line">Baby.age = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型属性，所有实例共有，【this.属性】这种写法访问时，先会访问实例对象属性，没有实例对象属性就会访问原型属性 ，也可以当成公有静态属性使用【对象.prototype.原型属性。</span></span><br><span class="line">Baby.prototype.sex = <span class="string">"男娃娃"</span>;</span><br></pre></td></tr></table></figure>
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//实例方法和原型方法需要实例化对象后才可以使</span></span><br><span class="line"><span class="keyword">var</span> bob = <span class="keyword">new</span> Baby(<span class="string">"bob"</span>);</span><br><span class="line">Baby.name;</span><br><span class="line"><span class="comment">//"Baby" :每一个类都有一个基本的name属性</span></span><br><span class="line"></span><br><span class="line">bob.name;</span><br><span class="line"><span class="comment">//"bob"</span></span><br><span class="line"></span><br><span class="line">Baby.weight;</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line">bob.weight;</span><br><span class="line"><span class="comment">//"3kg"</span></span><br><span class="line"></span><br><span class="line">Baby.hello();</span><br><span class="line"><span class="comment">//Uncaught TypeError: Baby.hello is not a function</span></span><br><span class="line"></span><br><span class="line">bob.hello();</span><br><span class="line"><span class="comment">// bob</span></span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">// undefined :this.msg没有返回所以undefined</span></span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">// 20 undefined</span></span><br><span class="line"></span><br><span class="line">Baby.Run(); <span class="comment">//跑起来！！！</span></span><br><span class="line"><span class="comment">//类方法也是静态方法，可以直接使用 【对象.静态方法()】</span></span><br><span class="line"></span><br><span class="line">bob.run(); <span class="comment">// TypeError: bob.run is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.msg();</span><br><span class="line"><span class="comment">// Uncaught TypeError: Baby.msg is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg();</span><br><span class="line"><span class="comment">// 我叫：undefined</span></span><br><span class="line"><span class="comment">//原型方法当成静态方法使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">bob.msg();</span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">//原型方法必须实例化对象</span></span><br><span class="line"></span><br><span class="line">bob.age;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="comment">//错误，公有静态属性只能使用 【对象.属性】调用</span></span><br><span class="line"></span><br><span class="line">Baby.age;</span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">//原型属性当作静态属性使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">Baby.sex;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">bob.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br></pre></td></tr></table></figure>
+<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><p>Baby 类</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baby</span> </span>&#123;</span><br><span class="line">  <span class="comment">//实例属性、方法</span></span><br><span class="line">  eat = <span class="string">"meat"</span>;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="comment">//实例属性、方法</span></span><br><span class="line">    <span class="keyword">this</span>.firstName = x;</span><br><span class="line">    <span class="keyword">this</span>.lastName = y;</span><br><span class="line">    <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"skyline"</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型属性，使用存取器</span></span><br><span class="line">  <span class="keyword">get</span> prop() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"skyline getter"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> prop(value) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"skyline setter: "</span> + value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型方法</span></span><br><span class="line"></span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"("</span> + <span class="keyword">this</span>.firstName + <span class="string">", "</span> + <span class="keyword">this</span>.lastName + <span class="string">")"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//类方法</span></span><br><span class="line">  <span class="keyword">static</span> hello() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello skyline"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> hi() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.hello; <span class="comment">//如果静态方法包含this关键字，这个this指的是类，而不是实例</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//类属性，ES6 在当前阶段，Class 内部只有静态方法，没有静态属性，可以直接指定类（静态）属性</span></span><br><span class="line">Baby.age = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="属性访问结论"><a href="#属性访问结论" class="headerlink" title="属性访问结论"></a>属性访问结论</h3><p>不论是那种方式建立，遵循以下结论</p>
 <ul>
-<li><a href="#number-相关基础操作">Number 相关基础操作</a><ul>
-<li><a href="#保留小数">保留小数</a><ul>
-<li><a href="#四舍五入">四舍五入</a></li>
-<li><a href="#不取舍">不取舍</a></li>
+<li>静态属性方法，可以直接通过类进行访问的</li>
+<li>实例属性方法是需要创建实例对象进行访问的</li>
+<li>静态与实例之间的属性与方法不能互访</li>
 </ul>
-</li>
-<li><a href="#添加千位分隔符">添加千位分隔符</a><ul>
-<li><a href="#tolocalestring">toLocaleString</a></li>
-<li><a href="#正则">正则</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="保留小数"><a href="#保留小数" class="headerlink" title="保留小数"></a>保留小数</h2><h3 id="四舍五入"><a href="#四舍五入" class="headerlink" title="四舍五入"></a>四舍五入</h3><p><strong>toFixed</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">2.123123123</span>).toFixed(<span class="number">3</span>); <span class="comment">// 输出结果为 2.123</span></span><br><span class="line">(<span class="number">2.123923123</span>).toFixed(<span class="number">3</span>); <span class="comment">// 输出结果为 2.124</span></span><br></pre></td></tr></table></figure>
-<p><strong>toLocaleString</strong><br>toLocaleString 默认保留 3 位小数，且会产生千位分隔符</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">12332.123923123</span>).toLocaleString(<span class="literal">undefined</span>, &#123;</span><br><span class="line">  minimumFractionDigits: <span class="number">5</span>,</span><br><span class="line">  maximumFractionDigits: <span class="number">6</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 输出结果为 '12,332.123923'</span></span><br></pre></td></tr></table></figure>
-<p>可通过 minimumFractionDigits，maximumFractionDigits 来指定保留参数的长度</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">2.123923123</span>).toLocaleString(<span class="literal">undefined</span>, &#123;</span><br><span class="line">  minimumFractionDigits: <span class="number">5</span>,</span><br><span class="line">  maximumFractionDigits: <span class="number">6</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 输出结果为 '2.123923'</span></span><br></pre></td></tr></table></figure>
-<h3 id="不取舍"><a href="#不取舍" class="headerlink" title="不取舍"></a>不取舍</h3><p><strong>Math.floor</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.floor(<span class="number">15.7784514</span> * <span class="number">1000</span>) / <span class="number">1000</span>; <span class="comment">// 输出结果为 15.778</span></span><br></pre></td></tr></table></figure>
-<h2 id="添加千位分隔符"><a href="#添加千位分隔符" class="headerlink" title="添加千位分隔符"></a>添加千位分隔符</h2><h3 id="toLocaleString-NaN"><a href="#toLocaleString-NaN" class="headerlink" title="toLocaleString"></a>toLocaleString</h3><p>通过 toLocaleString 很容易直接添加千位。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString(<span class="string">"en-US"</span>);</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString();</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
-<p>toLocaleString 将字符本地串化，第一个参数为串化标准，默认为’en-US’。<br>对于小数而言，其会四舍五入保留 3 位</p>
-<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3>
+<h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><h3 id="原型方法语法糖"><a href="#原型方法语法糖" class="headerlink" title="原型方法语法糖"></a>原型方法语法糖</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-Number 相关基础操作
+ES 类的使用
 
 
-Number 相关基础操作
-保留小数
-四舍五入
-不取舍
+ES 类的使用
+静态（类）、实例、原型属性与方法
+ES5
+ES6
+属性访问结论
 
 
-添加千位分隔符
-toLocaleString
-正则
+Class
+原型方法语法糖
+Class 中属性与方法的枚举性质
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
 
 
 
 
 
 
-保留小数四舍五入toFixed
-(2.123123123).toFixed(3); // 输出结果为 2.123(2.123923123).toFixed(3......  -->
+静态（类）、实例、原型属性与方法ES5Baby 类
+/......  -->
         <p class="article-more-link">
-          <a href="/Number相关基础操作.html#more">阅读全文</a>
+          <a href="/ES类的使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -777,7 +585,7 @@ W......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Vue基础使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -785,7 +593,7 @@ W......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/黑群晖常见问题.html">黑群晖常见问题</a>
+      <a class="article-title" href="/Vue基础使用.html">Vue基础使用</a>
     </h1>
   
 
@@ -794,7 +602,7 @@ W......  -->
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
     </a>
 
 
@@ -806,86 +614,48 @@ W......  -->
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="黑群晖常见问题"><a href="#黑群晖常见问题" class="headerlink" title="黑群晖常见问题"></a>黑群晖常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h1 id="Vue-基础使用"><a href="#Vue-基础使用" class="headerlink" title="Vue 基础使用"></a>Vue 基础使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#黑群晖常见问题">黑群晖常见问题</a><ul>
-<li><a href="#黑群晖搜索不到ip">黑群晖搜索不到IP</a><ul>
-<li><a href="#网络联通检查">网络联通检查</a></li>
-<li><a href="#网卡驱动问题">网卡驱动问题</a></li>
+<li><a href="#vue-基础使用">Vue 基础使用</a><ul>
+<li><a href="#vue-router-model">Vue Router model</a></li>
+<li><a href="#img-图片错误默认处理">img 图片错误默认处理</a></li>
+<li><a href="#extend">extend</a><ul>
+<li><a href="#获取vue-组件的构造函数">获取.vue 组件的构造函数</a></li>
+<li><a href="#使用示例">使用示例</a></li>
+<li><a href="#无法挂载错误">无法挂载错误</a></li>
 </ul>
 </li>
-<li><a href="#ssd缓存">SSD缓存</a></li>
-<li><a href="#moments-人物主题无照片">Moments 人物、主题无照片</a></li>
+<li><a href="#mixin">mixin</a><ul>
+<li><a href="#混入规则">混入规则</a></li>
 </ul>
 </li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="黑群晖搜索不到IP"><a href="#黑群晖搜索不到IP" class="headerlink" title="黑群晖搜索不到IP"></a>黑群晖搜索不到IP</h2><h3 id="网络联通检查"><a href="#网络联通检查" class="headerlink" title="网络联通检查"></a>网络联通检查</h3><p>主板网口灯检查<br>检查主板网口灯，绿灯常亮说明网络连接成功，黄灯闪烁说明有流量传输。<br>若绿灯亮，进入下一步。</p>
-<h3 id="网卡驱动问题"><a href="#网卡驱动问题" class="headerlink" title="网卡驱动问题"></a>网卡驱动问题</h3><p>检查网卡配置，黑群晖默认不支持2.5G以及万兆网卡，<br>需要替换引导中的网卡驱动文件。<br>直接Google<code>DS918+ 6.23 &quot;0.13.3&quot;</code><br>找到DS918-6.23_1.04b的扩展驱动0.13.3.zip<br>解压得到进行两个文件<br><code>extra.lzma
-extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘。在左侧目录下可以看到一个 分区(1)，右键选择”挂载到 windows”。然后选择确定之后。可以发现这个分区出现在文件管理那边。<br>用上述解压得到的文件替换分区里的文件即可。<br>然后退出 U 盘，重新启动，就能支持 2.5G 网卡了<br>[^1]:<a href="https://post.smzdm.com/p/aoxd6697/" target="_blank" rel="noopener">https://post.smzdm.com/p/aoxd6697/</a></p>
-<h2 id="SSD缓存"><a href="#SSD缓存" class="headerlink" title="SSD缓存"></a>SSD缓存</h2><p>不打补丁的情况下，黑群晖默认不识别SSD<br>SSD补丁如下<br>版本 | 补丁 | 操作<br>— | — | —<br>6.22 | libNVMEpatch.sh |  将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code><br>6.23 | libsynonvme.so.1 |  将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code></p>
-<p>上述操作需要先远程ssh user@ip ，操作完成后退出重启即可[^2]<br>[^2]:<a href="https://wp.gxnas.com/6010.html" target="_blank" rel="noopener">https://wp.gxnas.com/6010.html</a></p>
-<h2 id="Moments-人物、主题无照片"><a href="#Moments-人物、主题无照片" class="headerlink" title="Moments 人物、主题无照片"></a>Moments 人物、主题无照片</h2><p>安装Moments后人物与主题无法智能识别，进入后显示还有xxx张照片待发现。<br>停用Moments<br>进入 /var/packages/SynologyMoments/target/usr/lib 目录下<br>备份 libsynophoto-plugin-detection.so<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mv ./libsynophoto-plugin-detection.so ./libsynophoto-plugin-detection.so.bak</span><br></pre></td></tr></table></figure></p>
-<p><a href="http://42.193.201.102:8443/file/Docs/Tools/OS/Nas/黑群晖常见问题/libsynophoto-plugin-detection.so" target="_blank" rel="noopener">libsynophoto-plugin-detection.so</a><br>将下载的新文件放在 /var/packages/SynologyMoments/target/usr/lib下，对全部用户赋完全权限（777）或对SynologyMoments赋控制权限（755）。<br>开启moments，重建索引。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%BB%91%E7%BE%A4%E6%99%96%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220121102822.png" alt="黑群晖常见问题20220121102822"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#firewalld">firewalld</a><ul>
-<li><a href="#concepts">Concepts</a></li>
-<li><a href="#zones">Zones</a></li>
-<li><a href="#services">Services</a></li>
-<li><a href="#runtime">Runtime</a></li>
-<li><a href="#state">State</a></li>
-<li><a href="#port">Port</a></li>
-<li><a href="#source">Source</a></li>
+<li><a href="#组件挂载顺序">组件挂载顺序</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#总结">总结</a></li>
 </ul>
 </li>
+<li><a href="#computed">computed</a><ul>
+<li><a href="#简单说明">简单说明</a></li>
+<li><a href="#setter">setter</a></li>
+</ul>
+</li>
+<li><a href="#watch">$watch</a><ul>
+<li><a href="#用法">用法</a></li>
+<li><a href="#注意">注意</a></li>
+<li><a href="#返回值">返回值</a></li>
+<li><a href="#深度监听">深度监听</a></li>
+</ul>
+</li>
+<li><a href="#资源引用">资源引用</a></li>
+<li><a href="#refs-使用">refs 使用</a></li>
+<li><a href="#动态组件">动态组件</a></li>
+<li><a href="#attrs-与listeners">\$attrs 与\$listeners</a></li>
+<li><a href="#生命周期函数">生命周期函数</a><ul>
+<li><a href="#监听">监听</a></li>
+</ul>
+</li>
+<li><a href="#vueobservable">Vue.observable</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
@@ -893,140 +663,63 @@ extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘�
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 <!-- /code_chunk_output -->
-<h2 id="firewalld"><a href="#firewalld" class="headerlink" title="firewalld"></a>firewalld</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld[^1] 采用区域与服务的概念来控制流量的出入。</p>
+<h2 id="Vue-Router-model"><a href="#Vue-Router-model" class="headerlink" title="Vue Router model"></a>Vue Router model</h2><p>Vue 有两种路由模式:</p>
 <ul>
-<li>zones</li>
-<li>services</li>
+<li>Hash</li>
+<li>History</li>
 </ul>
-<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
-<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3><p>zones 预设级别不同的防火墙策略，用户可以自定义 zones，也可以使用预设的 zones。<br>默认使用 public zone<br>根据拦截级别严格程度，预设 zones 如下</p>
-<table>
-<thead>
-<tr>
-<th>zone</th>
-<th>拦截说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>drop</td>
-<td>丢弃区，所有接入连接都会进行无消息响应拦截，只有输出连接被允许。</td>
-</tr>
-<tr>
-<td>block</td>
-<td>拦截区，接入连接都会被拦截，会响应 icmp-host-prohibited 等拦截消息，只有输出连接被允许。</td>
-</tr>
-<tr>
-<td>public</td>
-<td>公共区，用于不受信任的公共区域，仅允许自选接入连接，默认允许 ssh 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>external</td>
-<td>外部区，用于外部网络，系统充当网关角色，仅允许自选接入连接，默认允许 ssh</td>
-</tr>
-<tr>
-<td>internal</td>
-<td>内部区，用于内部网络，系统充当网关角色，仅允许自选接入连接</td>
-</tr>
-<tr>
-<td>dmz</td>
-<td>隔离区，demilitarized zone（隔离区，军事缓冲区），用于允许部分服务被外网访问，仅允许自选接入连接</td>
-</tr>
-<tr>
-<td>work</td>
-<td>工作区，用于工作网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>home</td>
-<td>家庭区，用于工作家庭网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client，mdns，samba-client 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>trusted</td>
-<td>信任区，并接受所有网络连接</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>新建防火墙区域策略</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --new-zone=memcached --permanent</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看系统默认区</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-default-zone</span><br><span class="line"><span class="meta">#</span><span class="bash"> public</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>调整系统默认区</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --set-default-zone=home</span><br></pre></td></tr></table></figure>
-<ul>
-<li>系统中配置的所有区</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> block dmz drop external home internal public trusted work</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> 上述命令会打印所有区与其详细的配置，输出内容较长</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看系统使用区</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-active-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> public</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   interfaces: eth0 eth1</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看指定区的详细配置</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-all</span><br><span class="line"><span class="meta">#</span><span class="bash"> public (active)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   target: default</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   icmp-block-inversion: no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   interfaces: eth0 eth1</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   sources:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   services: ssh dhcpv6-client</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   protocols:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   masquerade: no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   forward-ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   <span class="built_in">source</span>-ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   icmp-blocks:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   rich rules:</span></span><br></pre></td></tr></table></figure>
-<h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p>services 在 zones 中为不同的服务预设不同的配置。<br>例如，可以为服务提供不同的端口等配置</p>
-<ul>
-<li>查看所有的服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --get-services</span><br><span class="line"><span class="meta">#</span><span class="bash"> RH-Satellite-6 RH-Satellite-6-capsule amanda-client amanda-k5-client amqp amqps... git... ssh ...dhcpv6-client</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看当前开放的服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --list-services</span><br><span class="line"><span class="meta">#</span><span class="bash"> dhcpv6-client ssh</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>增加开放服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br></pre></td></tr></table></figure>
-<ul>
-<li>移除开放的服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久配置需要添加 --permanent后缀</span></span><br></pre></td></tr></table></figure>
-<p>所有服务的配置都在/usr/lib/firewalld/services 目录下<br>例如 http 服务的配置为</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">short</span>&gt;</span>WWW (HTTP)<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>HTTP is the protocol used to serve Web pages. If you plan to make your Web server publicly available, enable this option. This option is not required for viewing pages locally or developing Web pages.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"80"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>自定义服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/diyservice.xml</span><br></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">short</span>&gt;</span>diyservice<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">description</span>&gt;</span>Plex is a streaming media server that brings all your video, music and photo collections together and stream them to your devices at anytime and from anywhere.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"udp"</span> <span class="attr">port</span>=<span class="string">"1900"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"32400"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>重启防火墙后就可以看到该服务。</p>
-<h3 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h3>
+<p>默认情况下使用 Hash 模式。<br>哈希模式利用 URL Hash 保证单页系统不进行页面重载。<br>但是，传统 URL 的 Hash 中即常见的<code>site#thing</code>是来定位页面内容的，<br>使用<code>site/thing</code>来跳转页面<br>Hash 模式虽然保证了页面不跳转，但是’#’的出现破坏了传统规则。<br>在一些项目中，会使用 History 模式。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  mode: <span class="string">'history'</span>,</span><br><span class="line">  routes: [...]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>History 模式通过 history.pushState 防止路由重载。<br>由于单页问题，History 在对应路由在服务器中位置并没有 HTML 入口文件，<br>这需要我们进行额外的服务配置。<br>若不进行配置，刷新页面会报错。<br>Nginx 配置如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  try_files $uri $uri/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其余服务端配置参考<br><a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations</a></p>
+<h2 id="img-图片错误默认处理"><a href="#img-图片错误默认处理" class="headerlink" title="img 图片错误默认处理"></a>img 图片错误默认处理</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;img</span><br><span class="line">    width=<span class="string">"98"</span></span><br><span class="line">    height=<span class="string">"112"</span></span><br><span class="line">    :src=<span class="string">"m.imgAddr || '~@img/suspect.png'"</span></span><br><span class="line">    @error=<span class="string">"slotimg"</span></span><br><span class="line">    alt</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> defaultImg = <span class="built_in">require</span>(<span class="string">"@img/suspect.png"</span>);</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">    slotimg(event) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"HotFocus.vue第211行:::err img"</span>);</span><br><span class="line">      <span class="keyword">let</span> img = event.srcElement;</span><br><span class="line">      img.src = defaultImg;</span><br><span class="line">      img.onerror = <span class="literal">null</span>; <span class="comment">//防止闪图</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>html 原生是 οnerrοr 来监听图片渲染错误事件</p>
+<h2 id="extend"><a href="#extend" class="headerlink" title="extend"></a>extend</h2><h3 id="获取-vue-组件的构造函数"><a href="#获取-vue-组件的构造函数" class="headerlink" title="获取.vue 组件的构造函数"></a>获取.vue 组件的构造函数</h3><h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><p>Vue.extend</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> button = Vue.extend(FullScreenButton)</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> button()</span><br><span class="line">b.$mount()</span><br></pre></td></tr></table></figure>
+<h3 id="无法挂载错误"><a href="#无法挂载错误" class="headerlink" title="无法挂载错误"></a>无法挂载错误</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A820211202165231.png" alt="Vue基础使用20211202165231"></p>
+<p>出现这种错误是由于首字母大写导致，具体缘由待查，如下图中注释所示</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A820211202165302.png" alt="Vue基础使用20211202165302"></p>
+<h2 id="mixin"><a href="#mixin" class="headerlink" title="mixin"></a>mixin</h2><h3 id="混入规则"><a href="#混入规则" class="headerlink" title="混入规则"></a>混入规则</h3>
         <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+Vue 基础使用
 
 
-firewalld
-Concepts
-Zones
-Services
-Runtime
-State
-Port
-Source
+Vue 基础使用
+Vue Router model
+img 图片错误默认处理
+extend
+获取.vue 组件的构造函数
+使用示例
+无法挂载错误
 
 
-BMW WARNING
-Bulletin
-Material
-Warrant
+mixin
+混入规则
 
 
+组件挂载顺序
+简述
+总结
 
 
-firewalldConceptsfirewalld[^1] 采用区域与服务的概念来控制流量的出入。
+computed
+简单说明
+setter
 
-zones
-services
 
-firewalld 是 CentOS 7/8......  -->
+$watch
+用法
+注意
+返回值
+深度监......  -->
         <p class="article-more-link">
-          <a href="/CentOS防火墙.html#more">阅读全文</a>
+          <a href="/Vue基础使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1034,7 +727,81 @@ firewalld 是 CentOS 7/8......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Brook服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Brook服务搭建与访问.html">Brook服务搭建与访问</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/APPs/">APPs</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Brook-服务搭建与访问"><a href="#Brook-服务搭建与访问" class="headerlink" title="Brook 服务搭建与访问"></a>Brook 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#brook-服务搭建与访问">Brook 服务搭建与访问</a><ul>
+<li><a href="#server-配置">Server 配置</a><ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#后台运行">后台运行</a></li>
+</ul>
+</li>
+<li><a href="#client">client</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Server-配置"><a href="#Server-配置" class="headerlink" title="Server 配置"></a>Server 配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brook</span><br><span class="line">chmod +x /usr/bin/brook</span><br><span class="line">brook server --listen :9999 --password hello</span><br></pre></td></tr></table></figure>
+<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/brook.service</span><br></pre></td></tr></table></figure>
+<p>输入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=brook vpn</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :2000 --password mima</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>要开启多个服务，只需要创建多个 service 文件监听不同端口即可。</p>
+<p>重置守护进程服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start brook</span><br></pre></td></tr></table></figure>
+<p>检查服务是否开启成功，查看 2000 端口是否开启服务即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 2000</span><br></pre></td></tr></table></figure>
+<p>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable brook</span><br></pre></td></tr></table></figure>
+<p>即可。</p>
+<h2 id="client"><a href="#client" class="headerlink" title="client"></a>client</h2><p>在如下地址下载客户端界面：<br><a href="https://txthinking.github.io/brook/#/install-gui-client" target="_blank" rel="noopener">https://txthinking.github.io/brook/#/install-gui-client</a><br>下载后连接成功如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Brook%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20220118111315.png" alt="Brook服务搭建与访问20220118111315"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN1/">VPN1</a></li></ul>
 
     </footer>
   </div>
@@ -1044,7 +811,7 @@ firewalld 是 CentOS 7/8......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-康定周边2日"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1052,7 +819,113 @@ firewalld 是 CentOS 7/8......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
+      <a class="article-title" href="/康定周边2日.html">康定周边2日</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="康定周边-2-日"><a href="#康定周边-2-日" class="headerlink" title="康定周边 2 日"></a>康定周边 2 日</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#康定周边-2-日">康定周边 2 日</a><ul>
+<li><a href="#准备">准备</a><ul>
+<li><a href="#时间">时间</a></li>
+<li><a href="#物品清单">物品清单</a></li>
+<li><a href="#路线">路线</a></li>
+</ul>
+</li>
+<li><a href="#主要地点">主要地点</a><ul>
+<li><a href="#海螺沟">海螺沟</a></li>
+<li><a href="#折多山">折多山</a></li>
+<li><a href="#新都桥">新都桥</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。<br>周五晚出发建议在泸定留宿，直接前往磨西古镇也可，需要多一个小时车程。<br>注意 3 岁以下小朋友容易高反，带过去需要有人专职陪伴，备足氧气瓶，折多山上和去沿途有氧气卖。</p>
+<h3 id="物品清单"><a href="#物品清单" class="headerlink" title="物品清单"></a>物品清单</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">氧气瓶</span><br><span class="line">血氧仪</span><br><span class="line">防滑链（时间定）</span><br><span class="line">墨镜</span><br><span class="line">巧克力</span><br><span class="line">葡萄糖</span><br><span class="line">鸭舌帽</span><br></pre></td></tr></table></figure>
+<h3 id="路线"><a href="#路线" class="headerlink" title="路线"></a>路线</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%BA%B7%E5%AE%9A%E5%91%A8%E8%BE%B92%E6%97%A520211026104129.png" alt="康定周边2日20211026104129"><br>推荐一天去一个选框中相关地点，标红为海拔高度，连线中为不堵时两地驾车时长。<br>路线图采用 sketch 制作。<br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Life/Travel/travel.sketch" target="_blank" rel="noopener">路线图</a></p>
+<h2 id="主要地点"><a href="#主要地点" class="headerlink" title="主要地点"></a>主要地点</h2><h3 id="海螺沟"><a href="#海螺沟" class="headerlink" title="海螺沟"></a>海螺沟</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+康定周边 2 日
+
+
+康定周边 2 日
+准备
+时间
+物品清单
+路线
+
+
+主要地点
+海螺沟
+折多山
+新都桥
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+准备时间本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。周五晚出发建议在泸定留宿，直接前往磨......  -->
+        <p class="article-more-link">
+          <a href="/康定周边2日.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-黑群晖安装"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/黑群晖安装.html">黑群晖安装</a>
     </h1>
   
 
@@ -1073,21 +946,30 @@ firewalld 是 CentOS 7/8......  -->
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="Nginx-基础"><a href="#Nginx-基础" class="headerlink" title="Nginx 基础"></a>Nginx 基础</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h1 id="黑群晖安装"><a href="#黑群晖安装" class="headerlink" title="黑群晖安装"></a>黑群晖安装</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#nginx-基础">Nginx 基础</a><ul>
-<li><a href="#location">location</a><ul>
-<li><a href="#基础使用">基础使用</a></li>
-<li><a href="#url-match">URL-match</a></li>
-<li><a href="#modifier">modifier</a></li>
+<li><a href="#黑群晖安装">黑群晖安装</a><ul>
+<li><a href="#硬件准备">硬件准备</a><ul>
+<li><a href="#nas-主机">Nas 主机</a></li>
+<li><a href="#u-盘">u 盘</a></li>
+<li><a href="#电脑">电脑</a></li>
 </ul>
 </li>
-<li><a href="#proxy_pass">proxy_pass</a><ul>
-<li><a href="#简述">简述</a></li>
-<li><a href="#uri">URI</a></li>
-<li><a href="#-问题">/ 问题</a></li>
-<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
+<li><a href="#软件准备">软件准备</a><ul>
+<li><a href="#系统选择">系统选择</a></li>
+<li><a href="#相关软件">相关软件</a></li>
+</ul>
+</li>
+<li><a href="#引导盘准备">引导盘准备</a><ul>
+<li><a href="#获取-vid-与-pid">获取 VID 与 PID</a></li>
+<li><a href="#替换-vid-与-pid">替换 VID 与 PID</a></li>
+<li><a href="#格式化硬盘">格式化硬盘</a></li>
+<li><a href="#引导盘制作">引导盘制作</a></li>
+</ul>
+</li>
+<li><a href="#安装系统">安装系统</a><ul>
+<li><a href="#nas-进入">Nas 进入</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -1100,77 +982,67 @@ firewalld 是 CentOS 7/8......  -->
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3><p>匹配所有路径</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>优先级最低，所有都不匹配时，才会命中</p>
-<h3 id="modifier"><a href="#modifier" class="headerlink" title="modifier"></a>modifier</h3><p>URI 这里指 URL 除了 server:port 的部分。</p>
-<p><strong>命中优先级</strong><br>优先级由上依次降低。</p>
-<table>
+<h2 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h2><table>
 <thead>
 <tr>
-<th>modifier</th>
-<th>desc</th>
-<th>example</th>
+<th>硬件</th>
+<th>要求</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>=</td>
-<td>exact (精确匹配)</td>
-<td>location = /site</td>
+<td>Nas 主机</td>
+<td>Intel CPU</td>
 </tr>
 <tr>
-<td>^~</td>
-<td>priority prefix (优先字符)</td>
-<td>location ^~ /site</td>
+<td>u 盘</td>
+<td>&gt; 50M</td>
 </tr>
 <tr>
-<td>~</td>
-<td>case sensitive regex (大小写敏感正则)</td>
-<td>location ~ /site</td>
+<td>电脑</td>
+<td>Windows 系统</td>
 </tr>
 <tr>
-<td>~*</td>
-<td>case insensitive regex(忽略大小写)</td>
-<td>location ~* /site</td>
+<td>键鼠</td>
+<td>进 BIOS 等</td>
 </tr>
 <tr>
-<td>(none)</td>
-<td>prefix(字符匹配，无修饰符，由 URI 头字符开始匹配)</td>
-<td>location /site</td>
+<td>硬盘</td>
+<td>大大的好</td>
 </tr>
 </tbody>
 </table>
-<p>在如下网址可进行匹配测试 <a href="https://nginx.viraptor.info/" target="_blank" rel="noopener">https://nginx.viraptor.info/</a></p>
-<p>^~ 与(none)都 进行字符匹配（非正则），^~ 相对于(none) ，提高了命中优先级。</p>
-<p><strong>典型示例</strong></p>
-<p>示例 1</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>^~ 进行字符匹配<br><a href="http://domain2.com/file/" target="_blank" rel="noopener">http://domain2.com/file/</a>* 可以命中<br><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 不能命中</p>
-<p>示例 2</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 根据优先级命中<code>^~ /file/</code></p>
-<h2 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h2><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3>
+<h3 id="Nas-主机"><a href="#Nas-主机" class="headerlink" title="Nas 主机"></a>Nas 主机</h3><p>黑群晖对主机的要求不是很高，不需要硬解软路由+移动硬盘都可运行。<br>主机一般推荐使用 10 代以下的 Intel CPU.<br>新代 Intel 与 AMD 等其他 CPU 主机核显硬解不友好，视硬解需求而定。</p>
+<h3 id="u-盘"><a href="#u-盘" class="headerlink" title="u 盘"></a>u 盘</h3><p>U 盘用于做系统引导，引导程序的大小为 50M。<br>大于这个容量即可，现在 U 盘基本都满足要求。</p>
+<h3 id="电脑"><a href="#电脑" class="headerlink" title="电脑"></a>电脑</h3><p>需要一台 windows 电脑来安装系统引导程序。<br>键鼠需要插入 Nas 主机操作 BIOS。</p>
+<h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><h3 id="系统选择"><a href="#系统选择" class="headerlink" title="系统选择"></a>系统选择</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-Nginx 基础
+黑群晖安装
 
 
-Nginx 基础
-location
-基础使用
-URL-match
-modifier
+黑群晖安装
+硬件准备
+Nas 主机
+u 盘
+电脑
 
 
-proxy_pass
-简述
-URI
-/ 问题
-\$uri \$request_uri
+软件准备
+系统选择
+相关软件
+
+
+引导盘准备
+获取 VID 与 PID
+替换 VID 与 PID
+格式化硬盘
+引导盘制作
+
+
+安装系统
+Nas 进入
 
 
 BMW WARNING
@@ -1183,9 +1055,9 @@ Warrant
 
 
 
-location基础使用l......  -->
+硬......  -->
         <p class="article-more-link">
-          <a href="/Nginx基础.html#more">阅读全文</a>
+          <a href="/黑群晖安装.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1318,7 +1190,7 @@ Macos Beta 系统更新开启
 <!-- Table of Contents -->
 
   
-    <article id="post-frp内网穿透"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-IpadOS常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1326,7 +1198,7 @@ Macos Beta 系统更新开启
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/frp内网穿透.html">frp内网穿透</a>
+      <a class="article-title" href="/IpadOS常见问题.html">IpadOS常见问题</a>
     </h1>
   
 
@@ -1347,35 +1219,60 @@ Macos Beta 系统更新开启
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="frp-内网穿透"><a href="#frp-内网穿透" class="headerlink" title="frp 内网穿透"></a>frp 内网穿透</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
-<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<p>github国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
-<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
-<p>尝试启动服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
-<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
-<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure></p>
-<p>修改 frp.service 内容如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>重置守护进程服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启服务</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
-<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
-<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable frp</span><br></pre></td></tr></table></figure></p>
-<p>即可。</p>
-<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc配置"><a href="#frpc配置" class="headerlink" title="frpc配置"></a>frpc配置</h3>
+<h1 id="IpadOS-常见问题"><a href="#IpadOS-常见问题" class="headerlink" title="IpadOS 常见问题"></a>IpadOS 常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#ipados-常见问题">IpadOS 常见问题</a><ul>
+<li><a href="#apple-pencil-断触">Apple pencil 断触</a><ul>
+<li><a href="#软件问题">软件问题</a></li>
+<li><a href="#还原设置">还原设置</a></li>
+<li><a href="#硬件检测">硬件检测</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Apple-pencil-断触"><a href="#Apple-pencil-断触" class="headerlink" title="Apple pencil 断触"></a>Apple pencil 断触</h2><h3 id="软件问题"><a href="#软件问题" class="headerlink" title="软件问题"></a>软件问题</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">使用系统自带的备忘录尝试是否为软件问题</span><br></pre></td></tr></table></figure>
+<p>部分软件可能手触屏幕会有断触问题</p>
+<h3 id="还原设置"><a href="#还原设置" class="headerlink" title="还原设置"></a>还原设置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">关掉蓝牙重新连接 Pencil</span><br><span class="line"></span><br><span class="line">重启 iPad 后再次连接 Pencil</span><br><span class="line"></span><br><span class="line">打开 ipad 设置—&gt;通用—&gt;还原—&gt;还原所有设置</span><br></pre></td></tr></table></figure>
+<p>上述操作只是还原设置，不会删除数据，但是人脸识别和密码，壁纸会还原</p>
+<h3 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">去除贴膜，笔尖套</span><br><span class="line"></span><br><span class="line">更换笔头尝试</span><br><span class="line"></span><br><span class="line">换个 ipad 试下是否为笔的问题</span><br></pre></td></tr></table></figure>
+<p>这些操作都不行，联系售后解决</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-frp 内网穿透简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示：
-Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 https://github.com/fatedier/frp/relea......  -->
+IpadOS 常见问题
+
+
+IpadOS 常见问题
+Apple pencil 断触
+软件问题
+还原设置
+硬件检测
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软件问题
+部分软件可能手触屏幕会有断触问......  -->
         <p class="article-more-link">
-          <a href="/frp内网穿透.html#more">阅读全文</a>
+          <a href="/IpadOS常见问题.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1391,7 +1288,7 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 h
 <!-- Table of Contents -->
 
   
-    <article id="post-VIM基本使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-MacOS应用清单"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1399,7 +1296,7 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 h
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/VIM基本使用.html">VIM基本使用</a>
+      <a class="article-title" href="/MacOS应用清单.html">MacOS应用清单</a>
     </h1>
   
 
@@ -1420,98 +1317,213 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 h
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="VIM-基本使用"><a href="#VIM-基本使用" class="headerlink" title="VIM 基本使用"></a>VIM 基本使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h1 id="MacOS-应用清单"><a href="#MacOS-应用清单" class="headerlink" title="MacOS 应用清单"></a>MacOS 应用清单</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#vim-基本使用">VIM 基本使用</a><ul>
-<li><a href="#模式">模式</a><ul>
-<li><a href="#正常模式-normal-mode">正常模式 (Normal-mode)</a></li>
-<li><a href="#插入模式-insert-mode">插入模式 (Insert-mode)</a></li>
-<li><a href="#命令模式-command-mode">命令模式 (Command-mode)</a></li>
-<li><a href="#可视模式-visual-mode">可视模式 (Visual-mode)</a></li>
+<li><a href="#macos-应用清单">MacOS 应用清单</a><ul>
+<li><a href="#开发">开发</a></li>
+<li><a href="#学习">学习</a></li>
+<li><a href="#效率">效率</a><ul>
+<li><a href="#汇总">汇总</a></li>
+<li><a href="#barrier">barrier</a></li>
 </ul>
 </li>
-<li><a href="#vimrc">.vimrc</a><ul>
-<li><a href="#inoremap">inoremap</a></li>
+<li><a href="#娱乐">娱乐</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><h3 id="正常模式-Normal-mode"><a href="#正常模式-Normal-mode" class="headerlink" title="正常模式 (Normal-mode)"></a>正常模式 (Normal-mode)</h3><p>正常模式一般用于浏览文件，同时包括一些复制、粘贴、删除等快捷操作。<br>其他模式通常通过 ESC 键返回正常模式。</p>
-<table>
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><h2 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h2><h3 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h3><table>
 <thead>
 <tr>
-<th>操作</th>
-<th>按键</th>
-<th>EN</th>
+<th>APP</th>
+<th>DESC</th>
+<th>Free</th>
+<th>Web</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>撤销</td>
-<td>u</td>
-<td>undo</td>
+<td>Sharemouse</td>
+<td>跨端键鼠共用工具</td>
+<td>trial</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+<tr>
+<td>Synergy</td>
+<td>跨端键鼠共用工具</td>
+<td>false</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+<tr>
+<td>barrier</td>
+<td>基于 Synergy-core 1.9 的开源跨端键鼠共用工具</td>
+<td>true</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
 </tr>
 </tbody>
 </table>
-<h3 id="插入模式-Insert-mode"><a href="#插入模式-Insert-mode" class="headerlink" title="插入模式 (Insert-mode)"></a>插入模式 (Insert-mode)</h3><p>用于编辑文档，直接输入内容。</p>
-<h3 id="命令模式-Command-mode"><a href="#命令模式-Command-mode" class="headerlink" title="命令模式 (Command-mode)"></a>命令模式 (Command-mode)</h3><p>输入:或/进入命令模式<br>命令模式用于执行 VIM 提供的相关指令。</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>按键</th>
-<th>EN</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>移动</td>
-<td>:m</td>
-<td>move</td>
-</tr>
-<tr>
-<td>设定</td>
-<td>:set</td>
-</tr>
-</tbody>
-</table>
-<p><strong>:m</strong><br>:m 多用于换行操作，当前行的位置为 0.具体使用如下</p>
+<h3 id="barrier"><a href="#barrier" class="headerlink" title="barrier"></a>barrier</h3><p>barrier 是一款基于 Synergy-core 1.9 的开源跨端键鼠共用工具，拥有 Synergy 基本的跨平台共享键鼠，复制粘贴等基础功能。<br>其他类似的软件还有 Sharemouse 和 Synergy。<br>Synergy 目前已闭源收费，功能上与 barrier 差距不大，<br>Synergy 与 barrier 采用主副机设定。只有主机的键鼠可共享，其他设备的键鼠不能共享试用。<br>Sharemouse 相比，所有键鼠都可共享，但是，Sharemouse 提供的免费试用版本，试用版只支持两台电脑，且两台电脑各自只能有一台内置显示器。<br>目前了解到的类似软件还有，</p>
 <ul>
-<li>:m -2 移动到-2 行的位置(当前行与上一行互换)</li>
-<li>:m +1 移动到+1 行的位置(当前行与下一行互换)</li>
-<li>:m 0 移动到首行的位置</li>
-<li>:m $ 移动到尾行的位置</li>
+<li>Mouse without Borders</li>
+<li>Input Director</li>
 </ul>
-<p><strong>:set</strong><br>:set number 显示行索引</p>
-<h3 id="可视模式-Visual-mode"><a href="#可视模式-Visual-mode" class="headerlink" title="可视模式 (Visual-mode)"></a>可视模式 (Visual-mode)</h3>
+<p>未安装试用验证。</p>
+<h2 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h2><h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-VIM 基本使用
+MacOS 应用清单
 
 
-VIM 基本使用
-模式
-正常模式 (Normal-mode)
-插入模式 (Insert-mode)
-命令模式 (Command-mode)
-可视模式 (Visual-mode)
+MacOS 应用清单
+开发
+学习
+效率
+汇总
+barrier
 
 
-.vimrc
-inoremap
+娱乐
+BMW WARNING
+Bulletin
+Material
+Warrant
 
 
 
 
 
 
-模式正常模式 (Normal-mode)正常模式一般用于浏览文件，......  -->
+开发学习效率汇总
+
+
+APP
+DESC
+Free
+Web
+
+
+
+
+Sharemouse
+跨端键鼠共用工具
+trial
+https......  -->
         <p class="article-more-link">
-          <a href="/VIM基本使用.html#more">阅读全文</a>
+          <a href="/MacOS应用清单.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Nginx常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Nginx常见问题汇总.html">Nginx常见问题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="Nginx-常见问题汇总"><a href="#Nginx-常见问题汇总" class="headerlink" title="Nginx 常见问题汇总"></a>Nginx 常见问题汇总</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#nginx-常见问题汇总">Nginx 常见问题汇总</a><ul>
+<li><a href="#proxy_pass-代理接口不能访问">proxy_pass 代理接口不能访问</a><ul>
+<li><a href="#问题描述">问题描述</a></li>
+<li><a href="#配置">配置</a></li>
+</ul>
+</li>
+<li><a href="#页面刷新不能进入">页面刷新不能进入</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="proxy-pass-代理接口不能访问"><a href="#proxy-pass-代理接口不能访问" class="headerlink" title="proxy_pass 代理接口不能访问"></a>proxy_pass 代理接口不能访问</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>客户端访问接口，发起请求<br><a href="http://aaa.com/file/123.png" target="_blank" rel="noopener">http://aaa.com/file/123.png</a></p>
+<p>真实接口地址为<br><a href="http://bbb.com/123.png" target="_blank" rel="noopener">http://bbb.com/123.png</a></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>检查配置，正确的配置如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>检查地址，注意后缀’/‘都不能去掉。<br>一般把 server:port 后的部分叫做 URI，proxy_pass 在其后加不加 URI 表现完全不同。<br>location 非正则匹配时，proxy_pass 有 URI 直接用 URI 把 location 对应的字符替换，无 URI 则直接替换 server:port<br>详细解析查看<a href="https://github.com/skylinety/Blog/blob/bf27769f7e637edbb12e2bac320d4dd8b73692e5/Docs/Tools/DEVs/Nginx/Nginx%E5%9F%BA%E7%A1%80.md" target="_blank" rel="noopener">Nginx 基础</a></p>
+<h2 id="页面刷新不能进入"><a href="#页面刷新不能进入" class="headerlink" title="页面刷新不能进入"></a>页面刷新不能进入</h2><p>检查页面的路由模式。<br>特别是在 Vue 项目中，具体查看 <a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">HTML5 History Mode</a><br>vue 默认的是 hash 路由模式，使用此种模式，页面路由变化时，并不会重载页面<br>在配置网站根文件的位置加入<br><code>try_files $uri $uri/ /index.html;</code><br>一般如下配置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /skyline&#123;</span><br><span class="line">    alias /data/wwwroot/skyline/dist;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">    try_files $uri $uri/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+Nginx 常见问题汇总
+
+
+Nginx 常见问题汇总
+proxy_pass 代理接口不能访问
+问题描述
+配置
+
+
+页面刷新不能进入
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+proxy_pass 代理接口不能访问问题描述客户端访问接口，发起请求http://aaa.......  -->
+        <p class="article-more-link">
+          <a href="/Nginx常见问题汇总.html#more">阅读全文</a>
         </p>
       
     </div>
