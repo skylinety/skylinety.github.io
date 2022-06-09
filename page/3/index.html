@@ -381,21 +381,12 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="sed-简介"><a href="#sed-简介" class="headerlink" title="sed 简介"></a>sed 简介</h2><p>流编辑器，sed 用于读取指定文件或标准输入。<br>如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。<br>本文后续内容以<a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/skyline.txt" target="_blank" rel="noopener">skyline.txt</a>示例，可在根目录执行下述脚本。<br>其文本内容为</p>
+<h2 id="sed-简介"><a href="#sed-简介" class="headerlink" title="sed 简介"></a>sed 简介</h2><p>sed 是一种流文本编辑器，用于读取指定文件或标准输入。<br>如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。<br>本文后续内容以<a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/skyline.txt" target="_blank" rel="noopener">skyline.txt</a>示例，可在根目录执行下述脚本。<br>其文本内容为</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">test</span><br><span class="line">skyline</span><br><span class="line">test2</span><br><span class="line">skyline test</span><br></pre></td></tr></table></figure>
 <h2 id="选项参数"><a href="#选项参数" class="headerlink" title="选项参数"></a>选项参数</h2><h3 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h3><p>默认情况下，在所有的标准输出都会被打印到屏幕上。 -n 选项用于指定输出内容。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出1到3行</span></span><br><span class="line">sed -n <span class="string">'1,3p'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># skyline</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出文件总行数</span></span><br><span class="line">sed -n <span class="string">'$='</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="comment"># 获取文件行数，也可使用cat Demos/Major/Shell/skyline.txt  | wc -l</span></span><br></pre></td></tr></table></figure>
 <p>连续的行数用逗号隔开。</p>
-<h3 id="e"><a href="#e" class="headerlink" title="-e"></a>-e</h3><p>-e 是编辑命令，用于执行多个编辑任务。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -e <span class="string">'1,2d'</span> -e <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># lty test</span></span><br></pre></td></tr></table></figure>
-<p>skyline.txt 将依次执行之后的命令，删除 1 到 2 行，并且全局替换’skyline’为’lty’<br>上述操作不会影响 skyline.txt 源文件，只做标准输出，可使用&gt;将结果重定向到另一个文件。</p>
-<h3 id="i"><a href="#i" class="headerlink" title="-i"></a>-i</h3><p>-i 指定备份</p>
-<p>可指定字符后缀为备份文件</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定会在skyline.txt同级目录生产skyline.txt.bak备份，skyline.txt内容将会变更</span></span><br><span class="line"><span class="comment"># skyline.txt 源文件内容将会备份到 skyline.txt.bak 文件中</span></span><br><span class="line">sed -i <span class="string">'.bak'</span> <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line">cat Demos/Major/Shell/skyline.txt.bak</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># skyline</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># skyline test</span></span><br><span class="line">cat Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># lty</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># lty test</span></span><br></pre></td></tr></table></figure>
-<p>指定空字符串或不指定内容直接修改源文件(linux 下可以不指定，mac 下需指定空字符)</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">''</span> <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># 将不备份直接修改skyline.txt源文件</span></span><br><span class="line">cat Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># lty</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># lty test</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># mac下不可执行，linux 可以直接执行修改源文件，mac 下需要如上指定空字符方可</span></span><br><span class="line"><span class="comment"># 在 Mac 上，sed 命令直接操作文件的时候，必须指定备份的格式，而在 linux 上，却并没有这个要求</span></span><br></pre></td></tr></table></figure>
-<h2 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h2><h3 id="i-a"><a href="#i-a" class="headerlink" title="i/a"></a>i/a</h3>
+<h3 id="e"><a href="#e" class="headerlink" title="-e"></a>-e</h3>
         <!-- 
 
 
@@ -428,7 +419,7 @@ Warrant
 
 
 
-sed 简介流编辑器，sed 用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。本文后续内容以skyline.......  -->
+sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。本文后续内容以sky......  -->
         <p class="article-more-link">
           <a href="/Shell中sed的使用.html#more">阅读全文</a>
         </p>
@@ -1546,64 +1537,6 @@ DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含
 <!-- Table of Contents -->
 
   
-    <article id="post-HTTPS加密方式1"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>---
-title: HTTPS加密方式1
-updated: 2022-01-21    17:56:00
-            date: 2022-01-20    15:50:45
-            tags: []
-            categories: []
----
-&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-</code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
-<ul>
-<li>窃听</li>
-<li>篡改</li>
-<li>冒充</li>
-</ul>
-<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
-<h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4>
-        <!-- ---
-title: HTTPS加密方式1
-updated: 2022-01-21    17:56:00
-            date: 2022-01-20    15:50:45
-            tags: []
-            categories: []
----
-&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-HTTPS概述加......  -->
-        <p class="article-more-link">
-          <a href="/HTTPS加密方式1.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Husky使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1715,6 +1648,70 @@ Husky 使用配置husky 简述husky 支持所有 git 相关钩子，在对应 gi
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-HTTPS加密方式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>---
+title: HTTPS加密方式
+updated: 2022-02-03    14:21:52
+
+
+
+---
+&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+</code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
+<ul>
+<li>窃听</li>
+<li>篡改</li>
+<li>冒充</li>
+</ul>
+<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
+<h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4>
+        <!-- ---
+title: HTTPS加密方式
+updated: 2022-02-03    14:21:52
+
+
+
+---
+&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+HTTPS概述加密缘由明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉容易被中间人攻击，存在以下风险
+
+窃听
+篡改
+冒充
+
+HTTPS超文本传输......  -->
+        <p class="article-more-link">
+          <a href="/HTTPS加密方式.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
     </footer>
   </div>
   
