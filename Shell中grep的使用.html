@@ -3,25 +3,28 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>Skyline&#39;s blog</title>
+  <title>shell中grep的使用 | Skyline&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
+  <meta name="keywords" content="ShellCommands">
   
   
   
-  <meta name="description" content="Shell 中 grep 的使用 使用 基础使用 正则 递归查找子目录 忽略大小写 匹配次数 静默查找   选项     使用基础使用grep 使用的基础语法为 grep [options] pattern [files] 正则^ 匹配的字符在行首$ 匹配的字符在行尾 grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.mdgrep shel">
+  
+  <meta name="description" content="使用 基础使用 正则 递归查找子目录 忽略大小写 匹配次数 静默查找   选项   使用基础使用grep 使用的基础语法为 grep [options] pattern [files] 正则^ 匹配的字符在行首$ 匹配的字符在行尾 grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.mdgrep shell$ Docs/Major/Shell">
+<meta name="keywords" content="Shell,Commands">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Skyline&#39;s blog">
+<meta property="og:title" content="Shell中grep的使用">
 <meta property="og:url" content="http://www.skyline.show/Shell中grep的使用.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="Shell 中 grep 的使用 使用 基础使用 正则 递归查找子目录 忽略大小写 匹配次数 静默查找   选项     使用基础使用grep 使用的基础语法为 grep [options] pattern [files] 正则^ 匹配的字符在行首$ 匹配的字符在行尾 grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.mdgrep shel">
+<meta property="og:description" content="使用 基础使用 正则 递归查找子目录 忽略大小写 匹配次数 静默查找   选项   使用基础使用grep 使用的基础语法为 grep [options] pattern [files] 正则^ 匹配的字符在行首$ 匹配的字符在行尾 grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.mdgrep shell$ Docs/Major/Shell">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-09T06:54:53.000Z">
+<meta property="og:updated_time" content="2022-06-03T09:41:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Skyline&#39;s blog">
-<meta name="twitter:description" content="Shell 中 grep 的使用 使用 基础使用 正则 递归查找子目录 忽略大小写 匹配次数 静默查找   选项     使用基础使用grep 使用的基础语法为 grep [options] pattern [files] 正则^ 匹配的字符在行首$ 匹配的字符在行尾 grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.mdgrep shel">
+<meta name="twitter:title" content="Shell中grep的使用">
+<meta name="twitter:description" content="使用 基础使用 正则 递归查找子目录 忽略大小写 匹配次数 静默查找   选项   使用基础使用grep 使用的基础语法为 grep [options] pattern [files] 正则^ 匹配的字符在行首$ 匹配的字符在行尾 grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.mdgrep shell$ Docs/Major/Shell">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -165,6 +168,16 @@
   <div id="articleInner" class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Shell中grep的使用
+    </h1>
+  
+
+      </header>
+    
     <div class="article-meta">
       
     
@@ -175,10 +188,16 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-09T06:54:53.000Z" itemprop="datePublished">2022-06-09</time>
+      <time datetime="2022-06-03T09:41:56.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
@@ -186,7 +205,6 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#shell-中-grep-的使用">Shell 中 grep 的使用</a><ul>
 <li><a href="#使用">使用</a><ul>
 <li><a href="#基础使用">基础使用</a></li>
 <li><a href="#正则">正则</a></li>
@@ -198,26 +216,24 @@
 </li>
 <li><a href="#选项">选项</a></li>
 </ul>
-</li>
-</ul>
 <!-- /code_chunk_output -->
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>grep 使用的基础语法为</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep [options] pattern [files]</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep [options] pattern [files]</span><br></pre></td></tr></table></figure>
 <h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3><p>^ 匹配的字符在行首<br>$ 匹配的字符在行尾</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br><span class="line">grep shell$ Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br><span class="line">grep shell$ Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
 <p>可通过 -e 来开启正则匹配模式，-e 参数在使用多次时很有用</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -e shell -e grep Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep -e shell -e grep Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
 <h3 id="递归查找子目录"><a href="#递归查找子目录" class="headerlink" title="递归查找子目录"></a>递归查找子目录</h3><p>-r 选项<br>在项目根目录尝试输入如下命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -r shell -e grep Docs/Major/Shell/</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep -r shell -e grep Docs/Major/Shell/</span><br></pre></td></tr></table></figure>
 <h3 id="忽略大小写"><a href="#忽略大小写" class="headerlink" title="忽略大小写"></a>忽略大小写</h3><a id="more"></a>
 <p>-i 选项<br>在项目根目录尝试输入如下命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -i shell Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep -i shell Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
 <h3 id="匹配次数"><a href="#匹配次数" class="headerlink" title="匹配次数"></a>匹配次数</h3><p>-c 选项<br>在项目根目录尝试输入如下命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -c shell Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep -c shell Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
 <h3 id="静默查找"><a href="#静默查找" class="headerlink" title="静默查找"></a>静默查找</h3><p>-q 选项<br>静默查找，不做输出，常用语条件判定等情况<br>关闭静默</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">STR='GNU/Linux is an operating system'</span><br><span class="line">SUB='Linux'</span><br><span class="line"></span><br><span class="line">if grep "$SUB" &lt;&lt;&lt; "$STR"; then</span><br><span class="line">  echo "It's there"</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> GNU/Linux is an operating system</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> It<span class="string">'s there</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">'GNU/Linux is an operating system'</span></span><br><span class="line">SUB=<span class="string">'Linux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> grep <span class="string">"<span class="variable">$SUB</span>"</span> &lt;&lt;&lt; <span class="string">"<span class="variable">$STR</span>"</span>; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"It's there"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># GNU/Linux is an operating system</span></span><br><span class="line"><span class="comment"># It's there</span></span><br></pre></td></tr></table></figure>
 <p>开启静默</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">STR='GNU/Linux is an operating system'</span><br><span class="line">SUB='Linux'</span><br><span class="line"></span><br><span class="line">if grep -q "$SUB" &lt;&lt;&lt; "$STR"; then</span><br><span class="line">  echo "It's there"</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> It<span class="string">'s there</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">'GNU/Linux is an operating system'</span></span><br><span class="line">SUB=<span class="string">'Linux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> grep -q <span class="string">"<span class="variable">$SUB</span>"</span> &lt;&lt;&lt; <span class="string">"<span class="variable">$STR</span>"</span>; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"It's there"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># It's there</span></span><br></pre></td></tr></table></figure>
 <h2 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h2><table>
 <thead>
 <tr>
@@ -313,16 +329,27 @@ var a = new Donate({
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
+    <a href="/Nas使用frp内网穿透.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
   
     <a href="/Shell中数组相关操作.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">Shell中数组相关操作</div>
     </a>
   
 </nav>

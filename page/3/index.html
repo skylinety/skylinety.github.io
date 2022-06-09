@@ -319,6 +319,258 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Shell中sed的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中sed的使用.html">Shell中sed的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-05-27T08:29:03.000Z" itemprop="datePublished">2022-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#sed-简介">sed 简介</a></li>
+<li><a href="#选项参数">选项参数</a><ul>
+<li><a href="#-n">-n</a></li>
+<li><a href="#-e">-e</a></li>
+<li><a href="#-i">-i</a></li>
+</ul>
+</li>
+<li><a href="#命令参数">命令参数</a><ul>
+<li><a href="#ia">i/a</a></li>
+<li><a href="#d">d</a></li>
+<li><a href="#p">p</a></li>
+<li><a href="#sc">s/c</a></li>
+</ul>
+</li>
+<li><a href="#常见用法">常见用法</a><ul>
+<li><a href="#文末插入">文末插入</a></li>
+<li><a href="#替换字符">替换字符</a></li>
+<li><a href="#获取行数">获取行数</a></li>
+<li><a href="#获取字符行号">获取字符行号</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="sed-简介"><a href="#sed-简介" class="headerlink" title="sed 简介"></a>sed 简介</h2><p>流编辑器，sed 用于读取指定文件或标准输入。<br>如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。<br>本文后续内容以<a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/skyline.txt" target="_blank" rel="noopener">skyline.txt</a>示例，可在根目录执行下述脚本。<br>其文本内容为</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">test</span><br><span class="line">skyline</span><br><span class="line">test2</span><br><span class="line">skyline test</span><br></pre></td></tr></table></figure>
+<h2 id="选项参数"><a href="#选项参数" class="headerlink" title="选项参数"></a>选项参数</h2><h3 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h3><p>默认情况下，在所有的标准输出都会被打印到屏幕上。 -n 选项用于指定输出内容。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出1到3行</span></span><br><span class="line">sed -n <span class="string">'1,3p'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># skyline</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出文件总行数</span></span><br><span class="line">sed -n <span class="string">'$='</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="comment"># 获取文件行数，也可使用cat Demos/Major/Shell/skyline.txt  | wc -l</span></span><br></pre></td></tr></table></figure>
+<p>连续的行数用逗号隔开。</p>
+<h3 id="e"><a href="#e" class="headerlink" title="-e"></a>-e</h3><p>-e 是编辑命令，用于执行多个编辑任务。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -e <span class="string">'1,2d'</span> -e <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># lty test</span></span><br></pre></td></tr></table></figure>
+<p>skyline.txt 将依次执行之后的命令，删除 1 到 2 行，并且全局替换’skyline’为’lty’<br>上述操作不会影响 skyline.txt 源文件，只做标准输出，可使用&gt;将结果重定向到另一个文件。</p>
+<h3 id="i"><a href="#i" class="headerlink" title="-i"></a>-i</h3><p>-i 指定备份</p>
+<p>可指定字符后缀为备份文件</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定会在skyline.txt同级目录生产skyline.txt.bak备份，skyline.txt内容将会变更</span></span><br><span class="line"><span class="comment"># skyline.txt 源文件内容将会备份到 skyline.txt.bak 文件中</span></span><br><span class="line">sed -i <span class="string">'.bak'</span> <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line">cat Demos/Major/Shell/skyline.txt.bak</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># skyline</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># skyline test</span></span><br><span class="line">cat Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># lty</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># lty test</span></span><br></pre></td></tr></table></figure>
+<p>指定空字符串或不指定内容直接修改源文件(linux 下可以不指定，mac 下需指定空字符)</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">''</span> <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># 将不备份直接修改skyline.txt源文件</span></span><br><span class="line">cat Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># lty</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># lty test</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># mac下不可执行，linux 可以直接执行修改源文件，mac 下需要如上指定空字符方可</span></span><br><span class="line"><span class="comment"># 在 Mac 上，sed 命令直接操作文件的时候，必须指定备份的格式，而在 linux 上，却并没有这个要求</span></span><br></pre></td></tr></table></figure>
+<h2 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h2><h3 id="i-a"><a href="#i-a" class="headerlink" title="i/a"></a>i/a</h3>
+        <!-- 
+
+
+sed 简介
+选项参数
+-n
+-e
+-i
+
+
+命令参数
+i/a
+d
+p
+s/c
+
+
+常见用法
+文末插入
+替换字符
+获取行数
+获取字符行号
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+sed 简介流编辑器，sed 用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。本文后续内容以skyline.......  -->
+        <p class="article-more-link">
+          <a href="/Shell中sed的使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中xargs使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中xargs使用.html">Shell中xargs使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-05-27T08:06:40.000Z" itemprop="datePublished">2022-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#概述">概述</a></li>
+<li><a href="#基础使用示例">基础使用示例</a><ul>
+<li><a href="#echo">echo</a></li>
+<li><a href="#wc">wc</a></li>
+<li><a href="#mkdir">mkdir</a></li>
+</ul>
+</li>
+<li><a href="#参数">参数</a><ul>
+<li><a href="#-0">-0</a></li>
+<li><a href="#-i">-I</a></li>
+<li><a href="#-l">-L</a></li>
+<li><a href="#-n">-n</a></li>
+<li><a href="#-d">-d</a></li>
+<li><a href="#-t">-t</a></li>
+<li><a href="#-p">-p</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支持标准输入的命令提供管道操作。<br>通过 xargs 将标准输入转换成参数来完成后续命令。如果转换成的参数有多个（通过标准输入空符分割），后续命令重复执行。</p>
+<blockquote>
+<p>The xargs command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like grep can accept standard input as a parameter, many other tools cannot. Using xargs allows tools like echo and rm and mkdir to accept standard input as arguments.</p>
+</blockquote>
+<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo skyline | echo</span><br><span class="line">#output</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo skyline | xargs echo</span><br><span class="line"># output</span><br><span class="line">skyline</span><br></pre></td></tr></table></figure>
+<p>在未指定后续操作的情况下，xargs 默认执行 echo 操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo skyline | xargs</span><br><span class="line"># output</span><br><span class="line">skyline</span><br></pre></td></tr></table></figure>
+<p>通常 xargs 与管道符一起使用，但其也可以从其他方式指定标准输入。<br>通过键盘指定标准输入<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8QQ20210922-174329-HD.gif" alt="Shell中xargs使用QQ20210922-174329-HD"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">xargs # 输入 xargs 输入 ⏎</span><br><span class="line">skyline # 输入 skyline 输入 ⏎ 输入 ^ + D</span><br><span class="line"># output</span><br><span class="line">skyline # 输出</span><br></pre></td></tr></table></figure>
+<p>与如下命令等价</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">xargs echo # 输入 xargs echo 输入 ⏎</span><br><span class="line">skyline # 输入 skyline 输入 ⏎ 输入 ^ + D</span><br><span class="line"># output</span><br><span class="line">skyline # 输出</span><br></pre></td></tr></table></figure>
+<h3 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">find . -name &quot;*.md&quot;</span><br><span class="line"># output</span><br><span class="line">./Major/Mobile/Flutter/Flutter基础使用汇总.md</span><br><span class="line">./Major/Mobile/Flutter/Flutter基础控件使用.md</span><br><span class="line">./Major/Shell/Shell中xargs使用.md</span><br><span class="line">./Major/Shell/Shell中的符号.md</span><br><span class="line">./Major/Shell/Shell常见操作汇总.md</span><br><span class="line">./README.md</span><br><span class="line">./Tools/DEVs/VSCode/Extensions/PicGo.md</span><br><span class="line">./Tools/OS/ipadOS使用.md</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">find . -name &quot;*.md&quot; | wc -l</span><br><span class="line"># output</span><br><span class="line">       8</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">find . -name &quot;*.md&quot; | xargs wc -l</span><br><span class="line"># output</span><br><span class="line">      84 ./Major/Mobile/Flutter/Flutter基础使用汇总.md</span><br><span class="line">     109 ./Major/Mobile/Flutter/Flutter基础控件使用.md</span><br><span class="line">       0 ./Major/Shell/Shell中xargs使用.md</span><br><span class="line">     131 ./Major/Shell/Shell中的符号.md</span><br><span class="line">      13 ./Major/Shell/Shell常见操作汇总.md</span><br><span class="line">       4 ./README.md</span><br><span class="line">      44 ./Tools/DEVs/VSCode/Extensions/PicGo.md</span><br><span class="line">       5 ./Tools/OS/ipadOS使用.md</span><br><span class="line">     390 total</span><br></pre></td></tr></table></figure>
+<h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo 1 2 3 | xargs mkdir</span><br><span class="line">ls</span><br><span class="line"># output</span><br><span class="line">1 2 3</span><br></pre></td></tr></table></figure>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><h3 id="0"><a href="#0" class="headerlink" title="-0"></a>-0</h3>
+        <!-- 
+
+
+概述
+基础使用示例
+echo
+wc
+mkdir
+
+
+参数
+-0
+-I
+-L
+-n
+-d
+-t
+-p
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 ......  -->
+        <p class="article-more-link">
+          <a href="/Shell中xargs使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Git常见操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -349,10 +601,9 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Git-常见操作"><a href="#Git-常见操作" class="headerlink" title="Git 常见操作"></a>Git 常见操作</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#git-常见操作">Git 常见操作</a><ul>
 <li><a href="#git-单列已添加到暂存区的文件">git 单列已添加到暂存区的文件</a></li>
 <li><a href="#git-本地分支有提交单独查看并运行远程该分支">Git 本地分支有提交，单独查看并运行远程该分支</a></li>
 <li><a href="#新建仓库时关联远程与本地">新建仓库时关联远程与本地</a></li>
@@ -370,11 +621,9 @@
 <li><a href="#git-ssh-免密">GIT SSH 免密</a></li>
 <li><a href="#同步-github-fork-仓库">同步 Github fork 仓库</a></li>
 </ul>
-</li>
-</ul>
 <!-- /code_chunk_output -->
 <h2 id="git-单列已添加到暂存区的文件"><a href="#git-单列已添加到暂存区的文件" class="headerlink" title="git 单列已添加到暂存区的文件"></a>git 单列已添加到暂存区的文件</h2><p>通过<code>git status</code>命令可以列出所有增删改的文件，并做了是否添加跟踪，是否加入暂存区的区分。<br>若只看加入暂存区的文件，使用</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git diff --name-only --cached</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git diff --name-only --cached</span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602161840.png" alt="Git常见操作20220602161840"><br>如上图所示为某次<code>git status</code>后展示的信息。<br>git diff –name-only –cached展示的信息如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602162017.png" alt="Git常见操作20220602162017"><br><code>git diff --cached</code>只会展示暂存区文件的变更。</p>
 <h2 id="Git-本地分支有提交，单独查看并运行远程该分支"><a href="#Git-本地分支有提交，单独查看并运行远程该分支" class="headerlink" title="Git 本地分支有提交，单独查看并运行远程该分支"></a>Git 本地分支有提交，单独查看并运行远程该分支</h2><p>本地 dev 分支有自己 commit 的版本，想要获取远端最新代码并运行（不包括本地新 commit 代码）</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">git fetch</span><br><span class="line">git checkout -b test origin/dev</span><br></pre></td></tr></table></figure>
@@ -386,12 +635,12 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin &lt;https://git.oschina.net/skylinelty/skyline-blog.git&gt;</span><br><span class="line">//或者先删除后增加</span><br><span class="line">//git remote rm origin</span><br><span class="line">//git remote add origin &lt;https://git.oschina.net/skylinelty/skyline-blog.git&gt;</span><br><span class="line">git add -A</span><br><span class="line">git commit -m<span class="string">"init"</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
 <h2 id="git-同时推送多个仓库"><a href="#git-同时推送多个仓库" class="headerlink" title="git 同时推送多个仓库"></a>git 同时推送多个仓库</h2><p>当前仓库正常开发，中途需要添加另一个推送仓库<br>当前仓库只关联一个远程仓库，查看远端仓库信息：<br><code>git remote -v</code><br>结果如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302172709.png" alt="Git常见操作20220302172709"></p>
 <p>新增关联仓库常用如下两个方案：</p>
-<h3 id="git-remote-add"><a href="#git-remote-add" class="headerlink" title="git remote add"></a>git remote add</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add origingit &lt;https://git.citycloud.com.cn:3000/hcsg_code/xxxx.git&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="git-remote-add"><a href="#git-remote-add" class="headerlink" title="git remote add"></a>git remote add</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git remote add origingit &lt;https://git.citycloud.com.cn:3000/hcsg_code/xxxx.git&gt;</span><br></pre></td></tr></table></figure>
 <p>查看远端仓库信息：<br><code>git remote -v</code><br>结果如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302173206.png" alt="Git常见操作20220302173206"></p>
 <p>这个地方只能是其他命名而不能是 origin 否则报错<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302173137.png" alt="Git常见操作20220302173137"></p>
 <p>本方案存在一个弊端，需要向远端仓库分别提交代码</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git  push origin master:master</span><br><span class="line">git  push origingit master:master</span><br></pre></td></tr></table></figure>
-<h3 id="git-remote-set-url"><a href="#git-remote-set-url" class="headerlink" title="git remote set-url"></a>git remote set-url</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote set-url --add origin &lt;https://git.citycloud.com.cn:3000/hcsg_code/xxxx.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git  push origin master:master</span><br><span class="line">git  push origingit master:master</span><br></pre></td></tr></table></figure>
+<h3 id="git-remote-set-url"><a href="#git-remote-set-url" class="headerlink" title="git remote set-url"></a>git remote set-url</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url --add origin &lt;https://git.citycloud.com.cn:3000/hcsg_code/xxxx.git</span><br></pre></td></tr></table></figure>
 <p><code>git remote -v</code><br>结果如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302175730.png" alt="Git常见操作20220302175730"></p>
 <p>本方案提交时，所有仓库都会同步接收，推荐使用。</p>
 <h2 id="https-方式访问-git-免输密码"><a href="#https-方式访问-git-免输密码" class="headerlink" title="https 方式访问 git 免输密码"></a>https 方式访问 git 免输密码</h2><p>在 git 早期版本中，https 方式每次都要输入密码，按照如下设置即可免去烦恼</p>
@@ -406,10 +655,9 @@
 </ul>
 <h2 id="Git-用户配置"><a href="#Git-用户配置" class="headerlink" title="Git 用户配置"></a>Git 用户配置</h2><h3 id="查看配置"><a href="#查看配置" class="headerlink" title="查看配置"></a>查看配置</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看全部配置</span></span><br><span class="line">git config --list</span><br><span class="line"><span class="comment">#查看指定配置</span></span><br><span class="line">git config user.name</span><br><span class="line"></span><br><span class="line">git config user.email</span><br></pre></td></tr></table></figure>
 <h3 id="修改全局配置"><a href="#修改全局配置" class="headerlink" title="修改全局配置"></a>修改全局配置</h3>
-        <!-- Git 常见操作
+        <!-- 
 
 
-Git 常见操作
 git 单列已添加到暂存区的文件
 Git 本地分支有提交，单独查看并运行远程该分支
 新建仓库时关联远程与本地
@@ -427,7 +675,8 @@ Git 用户配置
 GIT SSH 免密
 同步 Github fork 仓库
 
-......  -->
+
+git 单列已添加到暂存区的文件......  -->
         <p class="article-more-link">
           <a href="/Git常见操作.html#more">阅读全文</a>
         </p>
@@ -612,10 +861,9 @@ Warrant
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Shell-中的符号"><a href="#Shell-中的符号" class="headerlink" title="Shell 中的符号"></a>Shell 中的符号</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#shell-中的符号">Shell 中的符号</a><ul>
 <li><a href="#路径符">路径符</a></li>
 <li><a href="#重定向符">重定向符</a></li>
 <li><a href="#命令执行符">命令执行符</a></li>
@@ -624,8 +872,6 @@ Warrant
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
 <li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -716,9 +962,9 @@ Warrant
 <li>></li>
 </ul>
 <p>定义<br>输出重定向<br>command &gt; file 将 command 的输出重定向到 file<br>常见用法</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo Hello &gt; test.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> Hello &gt; test.txt</span><br></pre></td></tr></table></figure>
 <p>上述命令控制台不会有任何输出，Hello 文本将直接覆盖写入 test.txt</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">2&gt;</span><span class="bash">&amp;1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">2&gt;&amp;1</span><br></pre></td></tr></table></figure>
 <p>将标准错误重定向到标准输出<br>将错误的信息重新定向到输出，即”2&gt;1”，按照上面的写法，系统会将错误的信息重定向到一个名字为 1 的文件中，会有歧义，因此加&amp;进行区分，<br>这里的  2  和  &gt;  之间不可以有空格，2&gt;  是一体的时候才表示错误输出 ​</p>
 <pre><code>&gt; /dev/null
 /dev/null 是一个特殊的文件，写入到它的内容都会被丢弃，会起到&quot;禁止输出&quot;的效果
@@ -730,7 +976,7 @@ Warrant
 <li>&lt;</li>
 </ul>
 <p>输入重定向</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">command &lt; file</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">command</span> &lt; file</span><br></pre></td></tr></table></figure>
 <p>将输入重定向到 file，即将 file 中的内容作为 command 的参数</p>
 <h2 id="命令执行符"><a href="#命令执行符" class="headerlink" title="命令执行符"></a>命令执行符</h2><ul>
 <li>|</li>
@@ -740,31 +986,31 @@ Warrant
 <li>!</li>
 </ul>
 <p>shell 中!叫做事件提示符，可以方便的引用历史命令，当!  后面跟随的字母不是“空格、换行、回车、=和(”时，可以做命令替换</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!n</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">!n</span><br></pre></td></tr></table></figure>
 <p>替换命令历史中第 n 个命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!-n</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">!-n</span><br></pre></td></tr></table></figure>
 <p>替换命令历史中倒数第 n 个命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!!</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">!!</span><br></pre></td></tr></table></figure>
 <p>即!-1</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!string</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">!string</span><br></pre></td></tr></table></figure>
 <p>引用最近的以 string  开始的命令<br>注意一定是开始的位置,这条命令在你运行一个命令之后忘记了这个命令的参数是什么，直接!命令既可 ​​</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">!?string?</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">!?string?</span><br></pre></td></tr></table></figure>
 <p>指向包含这个字符串 string 的命令，包含字符即可</p>
 <ul>
 <li>&amp;</li>
 </ul>
 <p>所有命令同时进行</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">command1 &amp; command2 &amp; command3</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">command1 &amp; command2 &amp; command3</span><br></pre></td></tr></table></figure>
 <ul>
 <li>&amp;&amp;</li>
 </ul>
 <p>命令依次执行<br>只有前面命令执行成功，后面命令才继续执行</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">command1 &amp;&amp; command2</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">command1 &amp;&amp; command2</span><br></pre></td></tr></table></figure>
 <ul>
 <li>;</li>
 </ul>
 <p>命令依次执行<br>前面命令执行不管成功否，后面命令继续执行</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">command1; command2; command3</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">command1; command2; command3</span><br></pre></td></tr></table></figure>
 <h2 id="符号标记"><a href="#符号标记" class="headerlink" title="符号标记"></a>符号标记</h2><ul>
 <li>符号标记表</li>
 </ul>
@@ -813,25 +1059,25 @@ Warrant
 <ul>
 <li>?</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls ?.js</span><br><span class="line"><span class="meta">#</span><span class="bash"> 会列出a.js,b.js，不会列出ab.js</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls ?.js</span><br><span class="line"><span class="comment"># 会列出a.js,b.js，不会列出ab.js</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>*</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls *.js</span><br><span class="line"><span class="meta">#</span><span class="bash"> 会列出当前目录下所有.js后缀文件</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls *.js</span><br><span class="line"><span class="comment"># 会列出当前目录下所有.js后缀文件</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>&lt;&lt;</li>
 </ul>
 <p>将开始标记 tag 和结束标记 tag 之间的内容作为输入。<br>标记常指定为 EOF 即（End Of File)，也可指定其他字符。此符号常与 cat 一起使用</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;&gt; b.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;&gt; b.js</span><br></pre></td></tr></table></figure>
 <p>将后续输入的内容追加到 b.js 中，后续输入回车可换行，直到遇到 EOF 后退出文本编辑。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%AD%E7%9A%84%E7%AC%A6%E5%8F%B720220322165809.png" alt="Shell中的符号20220322165809"></p>
 <ul>
 <li>#</li>
 </ul>
 <p>#常用于注释，其他用法包括<br>为剔除字符中的由头部开始指定字符</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">skyline='Skyline Liu!';</span><br><span class="line">echo How-To $&#123;skyline#Skyline&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">echo</span> How-To <span class="variable">$&#123;skyline#Liu&#125;</span> 不会剔除Liu字符，不生效</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=<span class="string">'Skyline Liu!'</span>;</span><br><span class="line"><span class="built_in">echo</span> How-To <span class="variable">$&#123;skyline#Skyline&#125;</span></span><br><span class="line"><span class="comment"># echo How-To $&#123;skyline#Liu&#125; 不会剔除Liu字符，不生效</span></span><br></pre></td></tr></table></figure>
 <p>指定的字符非变量开始字符为首字符（本例需要 S 开头），不起任何作用</p>
 <p>获取字符或数组的长度</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dir='/a/b/c'</span><br><span class="line">echo $&#123;#dir&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 6</span></span><br><span class="line">arr=(1 2 3)</span><br><span class="line">echo $&#123;#arr&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">dir=<span class="string">'/a/b/c'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#dir&#125;</span></span><br><span class="line"><span class="comment"># 6</span></span><br><span class="line">arr=(1 2 3)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#arr&#125;</span></span><br><span class="line"><span class="comment"># 3</span></span><br></pre></td></tr></table></figure>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>I am a bucolic migrant worker but I never walk backwards.</p>
 <h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><blockquote>
 <p><a href="https://www.runoob.com/linux/linux-shell-io-redirections.html" target="_blank" rel="noopener">Shell 输入/输出重定向</a></p>
@@ -1300,64 +1546,6 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-HTTPS加密方式1"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>---
-title: HTTPS加密方式1
-updated: 2022-01-21    17:56:00
-            date: 2022-01-20    15:50:45
-            tags: []
-            categories: []
----
-&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-</code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
-<ul>
-<li>窃听</li>
-<li>篡改</li>
-<li>冒充</li>
-</ul>
-<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
-<h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4>
-        <!-- ---
-title: HTTPS加密方式1
-updated: 2022-01-21    17:56:00
-            date: 2022-01-20    15:50:45
-            tags: []
-            categories: []
----
-&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-HTTPS概述加......  -->
-        <p class="article-more-link">
-          <a href="/HTTPS加密方式1.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-HTTPS加密方式"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1422,24 +1610,14 @@ HTTPS超文本传输......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-HTTPS加密方式$"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-HTTPS加密方式1"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/HTTPS加密方式$.html">HTTPS加密方式$</a>
-    </h1>
-  
-
-      </header>
     
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:48:23.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
     </a>
 
 
@@ -1448,10 +1626,15 @@ HTTPS超文本传输......  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
+        <pre><code>---
+title: HTTPS加密方式1
+updated: 2022-01-21    17:56:00
+            date: 2022-01-20    15:50:45
+            tags: []
+            categories: []
+---
+&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+</code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
 <ul>
 <li>窃听</li>
 <li>篡改</li>
@@ -1459,18 +1642,17 @@ HTTPS超文本传输......  -->
 </ul>
 <h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
 <h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-HTTPS概述加密缘由明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉容易被中间人攻击，存在以下风险
-
-窃听
-篡改
-冒充
-
-HTTPS超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTT......  -->
+        <!-- ---
+title: HTTPS加密方式1
+updated: 2022-01-21    17:56:00
+            date: 2022-01-20    15:50:45
+            tags: []
+            categories: []
+---
+&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+HTTPS概述加......  -->
         <p class="article-more-link">
-          <a href="/HTTPS加密方式$.html#more">阅读全文</a>
+          <a href="/HTTPS加密方式1.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1486,87 +1668,11 @@ HTTPS超文本传输安全协议（（HyperText Transfer Protocol Secure）也�
 <!-- Table of Contents -->
 
   
-    <article id="post-Brook服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Brook服务搭建与访问.html">Brook服务搭建与访问</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/APPs/">APPs</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Brook-服务搭建与访问"><a href="#Brook-服务搭建与访问" class="headerlink" title="Brook 服务搭建与访问"></a>Brook 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#brook-服务搭建与访问">Brook 服务搭建与访问</a><ul>
-<li><a href="#server-配置">Server 配置</a><ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#后台运行">后台运行</a></li>
-</ul>
-</li>
-<li><a href="#client">client</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Server-配置"><a href="#Server-配置" class="headerlink" title="Server 配置"></a>Server 配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brook</span><br><span class="line">chmod +x /usr/bin/brook</span><br><span class="line">brook server --listen :9999 --password hello</span><br></pre></td></tr></table></figure>
-<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/brook.service</span><br></pre></td></tr></table></figure>
-<p>输入如下内容：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=brook vpn</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :2000 --password mima</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>要开启多个服务，只需要创建多个 service 文件监听不同端口即可。</p>
-<p>重置守护进程服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start brook</span><br></pre></td></tr></table></figure>
-<p>检查服务是否开启成功，查看 2000 端口是否开启服务即可。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 2000</span><br></pre></td></tr></table></figure>
-<p>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable brook</span><br></pre></td></tr></table></figure>
-<p>即可。</p>
-<h2 id="client"><a href="#client" class="headerlink" title="client"></a>client</h2><p>在如下地址下载客户端界面：<br><a href="https://txthinking.github.io/brook/#/install-gui-client" target="_blank" rel="noopener">https://txthinking.github.io/brook/#/install-gui-client</a><br>下载后连接成功如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Brook%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20220118111315.png" alt="Brook服务搭建与访问20220118111315"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN1/">VPN1</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
   </nav>
 
 </section>

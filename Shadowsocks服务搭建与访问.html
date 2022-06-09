@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210170258.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210170940.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210171222.png">
-<meta property="og:updated_time" content="2022-06-03T09:39:34.000Z">
+<meta property="og:updated_time" content="2022-06-03T09:41:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shadowsocks服务搭建与访问">
 <meta name="twitter:description" content="SS server 安装 配置文件 开启服务 开机启动   SS client 添加自定代理规则 常见问题 配置完成无法访问墙外 SYN_RECV IP或端口被封   BMW WARNING Bulletin Material Warrant     SS server安装SS server 服务端有多语言版本支持此处采用 python 版本首先安装 pip 包管理器 Debian / Ub">
@@ -193,7 +193,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:34.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-03T09:41:57.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
@@ -235,11 +235,11 @@
 <!-- /code_chunk_output -->
 <h2 id="SS-server"><a href="#SS-server" class="headerlink" title="SS server"></a>SS server</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>SS server 服务端有多语言版本支持<br>此处采用 python 版本<br>首先安装 pip 包管理器</p>
 <p>Debian / Ubuntu</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br></pre></td></tr></table></figure>
 <p>CentOS</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install epel-release # 添加Enterprise Linux企业源</span><br><span class="line">sudo yum install python-pip</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo yum install epel-release <span class="comment"># 添加Enterprise Linux企业源</span></span><br><span class="line">sudo yum install python-pip</span><br></pre></td></tr></table></figure>
 <p>查看是否安装成功</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip --version</span><br><span class="line"><span class="meta">#</span><span class="bash"> pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip --version</span><br><span class="line"><span class="comment"># pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</span></span><br></pre></td></tr></table></figure>
 <p>然后直接输入以下命令安装</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
 <h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>新增配置文件<br><code>/etc/shadowsocks.json</code></p>
@@ -274,19 +274,19 @@
 <ul>
 <li>指定配置文件开启服务</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
 <ul>
 <li>指定配置文件重启</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d restart</span><br></pre></td></tr></table></figure>
 <ul>
 <li>关闭服务</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -d stop</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ssserver -d stop</span><br></pre></td></tr></table></figure>
 <h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3><a id="more"></a>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/rc.local</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi /etc/rc.local</span><br></pre></td></tr></table></figure>
 <p>然后将如下开启服务的命令添加进去即可。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
 <h2 id="SS-client"><a href="#SS-client" class="headerlink" title="SS client"></a>SS client</h2><p>在如下位置新增服务配置<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210170145.png" alt="Shadowsocks服务搭建与访问20211210170145"><br>与服务端配置对应<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210170258.png" alt="Shadowsocks服务搭建与访问20211210170258"><br>选择全局或者 PAC 模式，浏览器输入科学上网网址即可</p>
 <h2 id="添加自定代理规则"><a href="#添加自定代理规则" class="headerlink" title="添加自定代理规则"></a>添加自定代理规则</h2><p>部分网站国内访问较慢，但是 PAC 规则中没有，可以添加用户自定义规则<br>点击 Edit User Rules For PAC<br>添加规则如下</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">! Put user rules line by line <span class="keyword">in</span> <span class="keyword">this</span> file.</span><br><span class="line">! See https:<span class="comment">//adblockplus.org/en/filter-cheatsheet</span></span><br><span class="line">“||https:<span class="comment">//github.com/^”,</span></span><br><span class="line">“||https:<span class="comment">//raw.githubusercontent.com^”</span></span><br></pre></td></tr></table></figure>
@@ -301,19 +301,19 @@
 <li>防火墙检查</li>
 </ul>
 <p>若 ip 正常，检查 vps 防火墙。<br>CentOS7 等版本默认防火墙非常严格，一般端口都屏蔽都外部访问。<br>关闭防火墙测试是否能访问<br>centos7 关闭防火墙使用如下命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop firewalld</span><br></pre></td></tr></table></figure>
 <p>检查是否可正常访问。<br>若是防火墙问题，暴露对应端口即可，不要关闭防火墙。</p>
 <p>打开防火墙的命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl start firewalld</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo systemctl start firewalld</span><br></pre></td></tr></table></figure>
 <p>暴露端口段</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port 8300-8400/tcp</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port 8300-8400/tcp</span><br></pre></td></tr></table></figure>
 <p>或直接指定端口</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port 1191/tcp</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port 1191/tcp</span><br></pre></td></tr></table></figure>
 <p>暴露后需要重启防火墙</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 <p>查看暴露的端口</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd  --list-ports</span><br><span class="line"><span class="meta">#</span><span class="bash"> 8300-8400/tcp</span></span><br></pre></td></tr></table></figure>
-<h3 id="SYN-RECV"><a href="#SYN-RECV" class="headerlink" title="SYN_RECV"></a>SYN_RECV</h3><p>通过<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 88</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd  --list-ports</span><br><span class="line"><span class="comment"># 8300-8400/tcp</span></span><br></pre></td></tr></table></figure>
+<h3 id="SYN-RECV"><a href="#SYN-RECV" class="headerlink" title="SYN_RECV"></a>SYN_RECV</h3><p>通过<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 88</span><br></pre></td></tr></table></figure></p>
 <p>grep后接自己暴露的端口前缀。</p>
 <p>可以看到，有大量tcp处于SYN_RECV状态。<br>这是由于TCP最后一次握手回传的ACK包丢失导致。<br>大概率由于GFW嗅探到当前连接导致。<br>可以进行如下尝试。<br>更换端口，查看可否访问<br>更换不同网络ISP（移动、联通、电信等）尝试。<br>这时，最好尝试用其他方法搭建服务</p>
 <h3 id="IP或端口被封"><a href="#IP或端口被封" class="headerlink" title="IP或端口被封"></a>IP或端口被封</h3><h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
@@ -380,19 +380,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/ES对象属性.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/systemd开启后台进程.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          ES对象属性
+          systemd开启后台进程
         
       </div>
     </a>
   
   
-    <a href="/ES对象创建.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ES类的使用.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">ES对象创建</div>
+      <div class="article-nav-title">ES类的使用</div>
     </a>
   
 </nav>

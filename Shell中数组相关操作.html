@@ -3,25 +3,28 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>Skyline&#39;s blog</title>
+  <title>shell中数组相关操作 | Skyline&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
+  <meta name="keywords" content="ShellScripts">
   
   
   
-  <meta name="description" content="Shell 中数组相关操作 获取数组长度 列出数组项 数组合并 数组遍历 数组下标获取 数组转字符串     获取数组长度skyline=(4 3 2 1)echo $&amp;#123;#skyline&amp;#125;# 4echo $&amp;#123;#skyline[*]&amp;#125;# 4echo $&amp;#123;#skyline[@]&amp;#125;# 4 列出数组项skyline=(4 3 2 1)ech">
+  
+  <meta name="description" content="获取数组长度 列出数组项 数组合并 数组遍历 数组下标获取 数组转字符串   获取数组长度skyline=(4 3 2 1)echo $&amp;#123;#skyline&amp;#125;# 4echo $&amp;#123;#skyline[*]&amp;#125;# 4echo $&amp;#123;#skyline[@]&amp;#125;# 4 列出数组项skyline=(4 3 2 1)echo $skyline# 4 3">
+<meta name="keywords" content="Shell,Scripts">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Skyline&#39;s blog">
+<meta property="og:title" content="Shell中数组相关操作">
 <meta property="og:url" content="http://www.skyline.show/Shell中数组相关操作.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="Shell 中数组相关操作 获取数组长度 列出数组项 数组合并 数组遍历 数组下标获取 数组转字符串     获取数组长度skyline=(4 3 2 1)echo $&amp;#123;#skyline&amp;#125;# 4echo $&amp;#123;#skyline[*]&amp;#125;# 4echo $&amp;#123;#skyline[@]&amp;#125;# 4 列出数组项skyline=(4 3 2 1)ech">
+<meta property="og:description" content="获取数组长度 列出数组项 数组合并 数组遍历 数组下标获取 数组转字符串   获取数组长度skyline=(4 3 2 1)echo $&amp;#123;#skyline&amp;#125;# 4echo $&amp;#123;#skyline[*]&amp;#125;# 4echo $&amp;#123;#skyline[@]&amp;#125;# 4 列出数组项skyline=(4 3 2 1)echo $skyline# 4 3">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-09T06:21:00.000Z">
+<meta property="og:updated_time" content="2022-06-03T09:41:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Skyline&#39;s blog">
-<meta name="twitter:description" content="Shell 中数组相关操作 获取数组长度 列出数组项 数组合并 数组遍历 数组下标获取 数组转字符串     获取数组长度skyline=(4 3 2 1)echo $&amp;#123;#skyline&amp;#125;# 4echo $&amp;#123;#skyline[*]&amp;#125;# 4echo $&amp;#123;#skyline[@]&amp;#125;# 4 列出数组项skyline=(4 3 2 1)ech">
+<meta name="twitter:title" content="Shell中数组相关操作">
+<meta name="twitter:description" content="获取数组长度 列出数组项 数组合并 数组遍历 数组下标获取 数组转字符串   获取数组长度skyline=(4 3 2 1)echo $&amp;#123;#skyline&amp;#125;# 4echo $&amp;#123;#skyline[*]&amp;#125;# 4echo $&amp;#123;#skyline[@]&amp;#125;# 4 列出数组项skyline=(4 3 2 1)echo $skyline# 4 3">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -165,6 +168,16 @@
   <div id="articleInner" class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Shell中数组相关操作
+    </h1>
+  
+
+      </header>
+    
     <div class="article-meta">
       
     
@@ -175,10 +188,16 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-09T06:21:00.000Z" itemprop="datePublished">2022-06-09</time>
+      <time datetime="2022-06-03T09:41:57.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
@@ -186,7 +205,6 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#shell-中数组相关操作">Shell 中数组相关操作</a><ul>
 <li><a href="#获取数组长度">获取数组长度</a></li>
 <li><a href="#列出数组项">列出数组项</a></li>
 <li><a href="#数组合并">数组合并</a></li>
@@ -194,17 +212,15 @@
 <li><a href="#数组下标获取">数组下标获取</a></li>
 <li><a href="#数组转字符串">数组转字符串</a></li>
 </ul>
-</li>
-</ul>
 <!-- /code_chunk_output -->
-<h2 id="获取数组长度"><a href="#获取数组长度" class="headerlink" title="获取数组长度"></a>获取数组长度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">echo $&#123;#skyline&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4</span></span><br><span class="line">echo $&#123;#skyline[*]&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4</span></span><br><span class="line">echo $&#123;#skyline[@]&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4</span></span><br></pre></td></tr></table></figure>
-<h2 id="列出数组项"><a href="#列出数组项" class="headerlink" title="列出数组项"></a>列出数组项</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">echo $skyline</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4 3 2 1</span></span><br><span class="line">echo $&#123;skyline[@]&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4 3 2 1</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 或使用<span class="built_in">echo</span> <span class="variable">$&#123;skyline[*]&#125;</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="数组合并"><a href="#数组合并" class="headerlink" title="数组合并"></a>数组合并</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">lty=(2 3 4)</span><br><span class="line">ret=($skyline $lty)</span><br><span class="line">echo  $ret</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4 3 2 1 2 3 4</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">ret=($skyline 2 3 4)</span><br><span class="line">echo  $ret</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4 3 2 1 2 3 4</span></span><br></pre></td></tr></table></figure>
+<h2 id="获取数组长度"><a href="#获取数组长度" class="headerlink" title="获取数组长度"></a>获取数组长度</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[*]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
+<h2 id="列出数组项"><a href="#列出数组项" class="headerlink" title="列出数组项"></a>列出数组项</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$skyline</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br><span class="line"><span class="comment"># 或使用echo $&#123;skyline[*]&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组合并"><a href="#数组合并" class="headerlink" title="数组合并"></a>数组合并</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">lty=(2 3 4)</span><br><span class="line">ret=(<span class="variable">$skyline</span> <span class="variable">$lty</span>)</span><br><span class="line"><span class="built_in">echo</span>  <span class="variable">$ret</span></span><br><span class="line"><span class="comment"># 4 3 2 1 2 3 4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">ret=(<span class="variable">$skyline</span> 2 3 4)</span><br><span class="line"><span class="built_in">echo</span>  <span class="variable">$ret</span></span><br><span class="line"><span class="comment"># 4 3 2 1 2 3 4</span></span><br></pre></td></tr></table></figure>
 <p>当数组添加项只有一项时，即可实现 JS 数组类似于 push 的效果</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">ret=($skyline 0)</span><br><span class="line">echo  $ret</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4 3 2 1 0</span></span><br></pre></td></tr></table></figure>
-<h2 id="数组遍历"><a href="#数组遍历" class="headerlink" title="数组遍历"></a>数组遍历</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">for value in $skyline</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> value <span class="keyword">in</span> <span class="string">"<span class="variable">$&#123;skyline[@]&#125;</span>"</span></span></span><br><span class="line">do</span><br><span class="line">     echo $value</span><br><span class="line">done</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 3</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1</span></span><br><span class="line">for (( i=1; i&lt;=$&#123;#skyline&#125;; i++ ))</span><br><span class="line">do</span><br><span class="line">  echo $&#123;skyline[$i]&#125;</span><br><span class="line">done</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 3</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1</span></span><br></pre></td></tr></table></figure>
-<h2 id="数组下标获取"><a href="#数组下标获取" class="headerlink" title="数组下标获取"></a>数组下标获取</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">echo $&#123;skyline[1]&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 4</span></span><br><span class="line">echo $&#123;skyline[-1]&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 1</span></span><br><span class="line">echo $&#123;skyline[-2]&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">ret=(<span class="variable">$skyline</span> 0)</span><br><span class="line"><span class="built_in">echo</span>  <span class="variable">$ret</span></span><br><span class="line"><span class="comment"># 4 3 2 1 0</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组遍历"><a href="#数组遍历" class="headerlink" title="数组遍历"></a>数组遍历</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> <span class="variable">$skyline</span></span><br><span class="line"><span class="comment"># for value in "$&#123;skyline[@]&#125;"</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$value</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="keyword">for</span> (( i=1; i&lt;=<span class="variable">$&#123;#skyline&#125;</span>; i++ ))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$&#123;skyline[$i]&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组下标获取"><a href="#数组下标获取" class="headerlink" title="数组下标获取"></a>数组下标获取</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[1]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[-1]&#125;</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[-2]&#125;</span></span><br><span class="line"><span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
 <h2 id="数组转字符串"><a href="#数组转字符串" class="headerlink" title="数组转字符串"></a>数组转字符串</h2>
       
     </div>
@@ -250,6 +266,8 @@ var a = new Donate({
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
     </footer>
   </div>
   
@@ -260,7 +278,7 @@ var a = new Donate({
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          (no title)
+          Shell中grep的使用
         
       </div>
     </a>

@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Skyline&#39;s blog">
 <meta property="og:description" content="字符包含判定 == grep   将字符串作为命令执行 获取子串（字符串切割） cut 截取语法   字符串转数组 BMW WARNING Bulletin Material Warrant     字符包含判定==STR=&apos;GNU/Linux is an operating system&apos;SUB=&apos;Linux&apos;if [[ &quot;$STR&quot; == *&quot;$SUB&quot;* ]]; then  echo">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-03T09:39:33.000Z">
+<meta property="og:updated_time" content="2022-06-03T09:41:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell中字符串相关操作">
 <meta name="twitter:description" content="字符包含判定 == grep   将字符串作为命令执行 获取子串（字符串切割） cut 截取语法   字符串转数组 BMW WARNING Bulletin Material Warrant     字符包含判定==STR=&apos;GNU/Linux is an operating system&apos;SUB=&apos;Linux&apos;if [[ &quot;$STR&quot; == *&quot;$SUB&quot;* ]]; then  echo">
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-03T09:41:57.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
@@ -225,24 +225,24 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="字符包含判定"><a href="#字符包含判定" class="headerlink" title="字符包含判定"></a>字符包含判定</h2><h3 id><a href="#" class="headerlink" title="=="></a>==</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">STR='GNU/Linux is an operating system'</span><br><span class="line">SUB='Linux'</span><br><span class="line">if [[ "$STR" == *"$SUB"* ]]; then</span><br><span class="line">  echo "It's there."</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h2 id="字符包含判定"><a href="#字符包含判定" class="headerlink" title="字符包含判定"></a>字符包含判定</h2><h3 id><a href="#" class="headerlink" title="=="></a>==</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">'GNU/Linux is an operating system'</span></span><br><span class="line">SUB=<span class="string">'Linux'</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$STR</span>"</span> == *<span class="string">"<span class="variable">$SUB</span>"</span>* ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"It's there."</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
 <h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>使用 grep</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">STR='GNU/Linux is an operating system'</span><br><span class="line">SUB='Linux'</span><br><span class="line"></span><br><span class="line">if grep -q "$SUB" &lt;&lt;&lt; "$STR"; then</span><br><span class="line">  echo "It's there"</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">'GNU/Linux is an operating system'</span></span><br><span class="line">SUB=<span class="string">'Linux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> grep -q <span class="string">"<span class="variable">$SUB</span>"</span> &lt;&lt;&lt; <span class="string">"<span class="variable">$STR</span>"</span>; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"It's there"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
 <h2 id="将字符串作为命令执行"><a href="#将字符串作为命令执行" class="headerlink" title="将字符串作为命令执行"></a>将字符串作为命令执行</h2><p>使用 eval 命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">eval 'echo 1'</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">eval</span> <span class="string">'echo 1'</span></span><br></pre></td></tr></table></figure>
 <h2 id="获取子串（字符串切割）"><a href="#获取子串（字符串切割）" class="headerlink" title="获取子串（字符串切割）"></a>获取子串（字符串切割）</h2><h3 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h3><p>使用 cut 命令，基本使用如下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo "STRING" | cut -cN-M</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo "skyline" | cut -c2-6</span><br><span class="line"><span class="meta">#</span><span class="bash"> kylin</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"STRING"</span> | cut -cN-M</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"skyline"</span> | cut -c2-6</span><br><span class="line"><span class="comment"># kylin</span></span><br></pre></td></tr></table></figure>
 <p>也可以不传 M</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo "skyline" | cut -c2-</span><br><span class="line"><span class="meta">#</span><span class="bash"> kyline</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"skyline"</span> | cut -c2-</span><br><span class="line"><span class="comment"># kyline</span></span><br></pre></td></tr></table></figure>
 <p>上述代码实现的效果类似于 JS 中字符串 slice 的效果，但注意字符串截取的索引指代不同。<br>要实现字符串 split 效果，需要添加额外参数<br>可以通过-d 参数指定分割符号（delimiter）<br>分割字符后将同样得到一个数组，需要添加 -f 参数来指定截取的索引</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo "skyline" | cut -d'i' -f1</span><br><span class="line"><span class="meta">#</span><span class="bash"> skyl</span></span><br><span class="line">echo "skyline" | cut -d'i' -f2</span><br><span class="line"><span class="meta">#</span><span class="bash"> ne</span></span><br><span class="line">echo "skyline" | cut -d'i' -f1-</span><br><span class="line"><span class="meta">#</span><span class="bash"> skyline</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"skyline"</span> | cut -d<span class="string">'i'</span> -f1</span><br><span class="line"><span class="comment"># skyl</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"skyline"</span> | cut -d<span class="string">'i'</span> -f2</span><br><span class="line"><span class="comment"># ne</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"skyline"</span> | cut -d<span class="string">'i'</span> -f1-</span><br><span class="line"><span class="comment"># skyline</span></span><br></pre></td></tr></table></figure>
 <h3 id="截取语法"><a href="#截取语法" class="headerlink" title="截取语法"></a>截取语法</h3><a id="more"></a>
 <p>基本语法</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">string='xxx'</span><br><span class="line">echo $&#123;string:S&#125;</span><br><span class="line">echo $&#123;string:S:E&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">string=<span class="string">'xxx'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;string:S&#125;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;string:S:E&#125;</span></span><br></pre></td></tr></table></figure>
 <p>S 与 E 分别指代开始和结束索引<br>使用</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">a=skyline</span><br><span class="line">echo $&#123;a:1&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> kyline</span></span><br><span class="line">echo $&#123;a:2&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> yline</span></span><br><span class="line">echo $&#123;a:2:4&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> ylin</span></span><br></pre></td></tr></table></figure>
-<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">a=skyline</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;a:1&#125;</span></span><br><span class="line"><span class="comment"># kyline</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;a:2&#125;</span></span><br><span class="line"><span class="comment"># yline</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;a:2:4&#125;</span></span><br><span class="line"><span class="comment"># ylin</span></span><br></pre></td></tr></table></figure>
+<h2 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
@@ -311,7 +311,7 @@ var a = new Donate({
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          (no title)
+          Shell中数组相关操作
         
       </div>
     </a>
@@ -319,7 +319,7 @@ var a = new Donate({
   
     <a href="/Shell条件判定.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">Shell条件判定</div>
     </a>
   
 </nav>

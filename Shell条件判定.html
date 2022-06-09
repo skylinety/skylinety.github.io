@@ -3,25 +3,28 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>Skyline&#39;s blog</title>
+  <title>shell条件判定 | Skyline&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
+  <meta name="keywords" content="ShellScripts">
   
   
   
-  <meta name="description" content="Shell 条件判定 if command [expression] [[expression]] (command) ((expression))   三元     ifcommand表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首先执行 read -p &quot;Enter first string: &quot; VAR1read -p &quot;Enter second string: &quot;">
+  
+  <meta name="description" content="if command [expression] [[expression]] (command) ((expression))   三元   ifcommand表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首先执行 read -p &quot;Enter first string: &quot; VAR1read -p &quot;Enter second string: &quot; VAR2 并进行两次相同">
+<meta name="keywords" content="Shell,Scripts">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Skyline&#39;s blog">
+<meta property="og:title" content="Shell条件判定">
 <meta property="og:url" content="http://www.skyline.show/Shell条件判定.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="Shell 条件判定 if command [expression] [[expression]] (command) ((expression))   三元     ifcommand表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首先执行 read -p &quot;Enter first string: &quot; VAR1read -p &quot;Enter second string: &quot;">
+<meta property="og:description" content="if command [expression] [[expression]] (command) ((expression))   三元   ifcommand表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首先执行 read -p &quot;Enter first string: &quot; VAR1read -p &quot;Enter second string: &quot; VAR2 并进行两次相同">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-09T06:14:17.000Z">
+<meta property="og:updated_time" content="2022-06-03T09:41:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Skyline&#39;s blog">
-<meta name="twitter:description" content="Shell 条件判定 if command [expression] [[expression]] (command) ((expression))   三元     ifcommand表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首先执行 read -p &quot;Enter first string: &quot; VAR1read -p &quot;Enter second string: &quot;">
+<meta name="twitter:title" content="Shell条件判定">
+<meta name="twitter:description" content="if command [expression] [[expression]] (command) ((expression))   三元   ifcommand表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首先执行 read -p &quot;Enter first string: &quot; VAR1read -p &quot;Enter second string: &quot; VAR2 并进行两次相同">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -165,6 +168,16 @@
   <div id="articleInner" class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Shell条件判定
+    </h1>
+  
+
+      </header>
+    
     <div class="article-meta">
       
     
@@ -175,10 +188,16 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-09T06:14:17.000Z" itemprop="datePublished">2022-06-09</time>
+      <time datetime="2022-06-03T09:41:57.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
@@ -186,7 +205,6 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#shell-条件判定">Shell 条件判定</a><ul>
 <li><a href="#if">if</a><ul>
 <li><a href="#command">command</a></li>
 <li><a href="#expression">[expression]</a></li>
@@ -197,39 +215,37 @@
 </li>
 <li><a href="#三元">三元</a></li>
 </ul>
-</li>
-</ul>
 <!-- /code_chunk_output -->
 <h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><p>表示验证<strong>命令</strong>是否成功执行。<br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/condition.sh" target="_blank" rel="noopener">代码源文件</a><br>如下对于本文后续所有类似代码，首先执行</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">read -p "Enter first string: " VAR1</span><br><span class="line">read -p "Enter second string: " VAR2</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">read</span> -p <span class="string">"Enter first string: "</span> VAR1</span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"Enter second string: "</span> VAR2</span><br></pre></td></tr></table></figure>
 <p>并进行两次相同输入后。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if "$VAR1" == "$VAR2"; then</span><br><span class="line">    echo "Strings are equal."</span><br><span class="line">else</span><br><span class="line">    echo "Strings are not equal."</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> 1: <span class="built_in">command</span> not found</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Strings are not equal.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="string">"<span class="variable">$VAR1</span>"</span> == <span class="string">"<span class="variable">$VAR2</span>"</span>; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are equal."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are not equal."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 1: command not found</span></span><br><span class="line"><span class="comment"># Strings are not equal.</span></span><br></pre></td></tr></table></figure>
 <p>if 后不跟包裹符号时，需要跟可执行命令而不是表达式。<br>若命令执行成功，则执行 then，否则执行 else</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if echo Skyline; then</span><br><span class="line">    echo "echo Skyline."</span><br><span class="line">else</span><br><span class="line">    echo "Something wrong."</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> Skyline</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">echo</span> Skyline</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">echo</span> Skyline; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"echo Skyline."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Something wrong."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Skyline</span></span><br><span class="line"><span class="comment"># echo Skyline</span></span><br></pre></td></tr></table></figure>
 <h3 id="expression"><a href="#expression" class="headerlink" title="[expression]"></a>[expression]</h3><p>表示验证<strong>条件表达式</strong>是否成立，进行条件判定。<br><a href="http://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions" target="_blank" rel="noopener">Bash-Conditional-Expressions</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">if [ "$VAR1" == "$VAR2" ]; then</span><br><span class="line">    echo "Strings are equal."</span><br><span class="line">else</span><br><span class="line">    echo "Strings are not equal."</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> Strings are equal.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$VAR1</span>"</span> == <span class="string">"<span class="variable">$VAR2</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are equal."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are not equal."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Strings are equal.</span></span><br></pre></td></tr></table></figure>
 <h3 id="expression-1"><a href="#expression-1" class="headerlink" title="[[expression]]"></a>[[expression]]</h3><p>[]的升级版本，</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if [[ "$VAR1" == "$VAR2" ]]; then</span><br><span class="line">    echo "Strings are equal."</span><br><span class="line">else</span><br><span class="line">    echo "Strings are not equal."</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> Strings are equal.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$VAR1</span>"</span> == <span class="string">"<span class="variable">$VAR2</span>"</span> ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are equal."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are not equal."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Strings are equal.</span></span><br></pre></td></tr></table></figure>
 <p>[[]]内部支持更多的表达式语法。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 检查文件是否为符号链接</span></span><br><span class="line">[[ -L $file &amp;&amp; -f $file ]]</span><br><span class="line">[ -L "$file" ] &amp;&amp; [ -f "$file" ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 检查文件是否为符号链接</span></span><br><span class="line">[[ -L <span class="variable">$file</span> &amp;&amp; -f <span class="variable">$file</span> ]]</span><br><span class="line">[ -L <span class="string">"<span class="variable">$file</span>"</span> ] &amp;&amp; [ -f <span class="string">"<span class="variable">$file</span>"</span> ]</span><br></pre></td></tr></table></figure>
 <h3 id="command-1"><a href="#command-1" class="headerlink" title="(command)"></a>(command)</h3><a id="more"></a>
 <p>表示验证子命令是否成功执行。<br>()其内部不是表达式而是可执行命令，表示在 subshell 跑 command 命令，可以理解为单开进程执行跟主程序无关的其他命令。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if ("$VAR1" == "$VAR2"); then</span><br><span class="line">    echo "Strings are equal."</span><br><span class="line">else</span><br><span class="line">    echo "Strings are not equal."</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> 依次输入1回车，1回车，结果为：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 1: <span class="built_in">command</span> not found</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Strings are not equal.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">"<span class="variable">$VAR1</span>"</span> == <span class="string">"<span class="variable">$VAR2</span>"</span>); <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are equal."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are not equal."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 依次输入1回车，1回车，结果为：</span></span><br><span class="line"><span class="comment"># 1: command not found</span></span><br><span class="line"><span class="comment"># Strings are not equal.</span></span><br></pre></td></tr></table></figure>
 <p>上述代码中，()内部内容被当做可执行命令执行，故报错，转到 else 执行。<br>()内部命令执行成功，则才会转到 then 执行。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if (echo Skyline); then</span><br><span class="line">    echo "echo Skyline."</span><br><span class="line">else</span><br><span class="line">    echo "Something wrong."</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">echo</span> Skyline); <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"echo Skyline."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Something wrong."</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
 <p>()内执行的命令结果，不会对父 shell 运行结果 造成影响。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">skyline=1; (skyline=2);</span><br><span class="line">echo $skyline</span><br><span class="line"><span class="meta">#</span><span class="bash"> 1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=1; (skyline=2);</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$skyline</span></span><br><span class="line"><span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
 <p>当()前面加上$时，表示 Command-Substitution，与<code>command</code>一致，表示其运行结果充当所在命令行的一部分</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo 'skyline'| cut -c`echo 2`-3</span><br><span class="line"><span class="meta">#</span><span class="bash"> ky</span></span><br><span class="line">echo 'skyline'| cut -c$(echo 2)-3</span><br><span class="line"><span class="meta">#</span><span class="bash"> ky</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'skyline'</span>| cut -c`<span class="built_in">echo</span> 2`-3</span><br><span class="line"><span class="comment"># ky</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'skyline'</span>| cut -c$(<span class="built_in">echo</span> 2)-3</span><br><span class="line"><span class="comment"># ky</span></span><br></pre></td></tr></table></figure>
 <h3 id="expression-2"><a href="#expression-2" class="headerlink" title="((expression))"></a>((expression))</h3><p>表示验证<strong>算数表达式</strong>是否成立。<br>(())内部进行算数表达式的计算。<br>算数表达式包含常见的一元二元运算符，逻辑运算符等。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">if (("$VAR1" == "$VAR2")); then</span><br><span class="line">    echo "Strings are equal."</span><br><span class="line">else</span><br><span class="line">    echo "Strings are not equal."</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> Strings are equal.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> ((<span class="string">"<span class="variable">$VAR1</span>"</span> == <span class="string">"<span class="variable">$VAR2</span>"</span>)); <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are equal."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are not equal."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Strings are equal.</span></span><br></pre></td></tr></table></figure>
 <p><a href="http://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic" target="_blank" rel="noopener">Shell-Arithmetic</a><br>当(())前面加上$时，表示得到的算数结果充当所在命令行的一部分.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo 'skyline'| cut -c$((1 + 1))-3</span><br><span class="line"><span class="meta">#</span><span class="bash"> ky</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'skyline'</span>| cut -c$((1 + 1))-3</span><br><span class="line"><span class="comment"># ky</span></span><br></pre></td></tr></table></figure>
 <p>上述代码实现的效果可以使用 expr 实现</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo 'skyline'| cut -c$(expr 1 + 1)-3</span><br><span class="line"><span class="meta">#</span><span class="bash"> ky</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'skyline'</span>| cut -c$(expr 1 + 1)-3</span><br><span class="line"><span class="comment"># ky</span></span><br></pre></td></tr></table></figure>
 <p>注意，expr 通常与<code></code>一起使用，或与$()使用，注意expr中空格的使用，否则报错<br>也可使用 let 来实现计算</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">start=1</span><br><span class="line">let start+=1</span><br><span class="line">echo $start</span><br><span class="line">echo 'skyline'| cut -c$start-3</span><br></pre></td></tr></table></figure>
-<h2 id="三元"><a href="#三元" class="headerlink" title="三元"></a>三元</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">test "$VAR1" == "$VAR2" &amp;&amp; echo "Strings are equal." || echo "Strings are not equal."</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">start=1</span><br><span class="line"><span class="built_in">let</span> start+=1</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$start</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'skyline'</span>| cut -c<span class="variable">$start</span>-3</span><br></pre></td></tr></table></figure>
+<h2 id="三元"><a href="#三元" class="headerlink" title="三元"></a>三元</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">test</span> <span class="string">"<span class="variable">$VAR1</span>"</span> == <span class="string">"<span class="variable">$VAR2</span>"</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"Strings are equal."</span> || <span class="built_in">echo</span> <span class="string">"Strings are not equal."</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -275,6 +291,8 @@ var a = new Donate({
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
     </footer>
   </div>
   
@@ -291,9 +309,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/SSH使用.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Linux系统信息.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">SSH使用</div>
+      <div class="article-nav-title">Linux系统信息</div>
     </a>
   
 </nav>

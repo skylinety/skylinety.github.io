@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Skyline&#39;s blog">
 <meta property="og:description" content="firewalld[^1] Concepts Zones Services Runtime State Port Source   BMW WARNING Bulletin Material Warrant     firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。  zones services  firewalld 是 CentOS 7/">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-03T09:39:34.000Z">
+<meta property="og:updated_time" content="2022-06-03T09:41:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS防火墙">
 <meta name="twitter:description" content="firewalld[^1] Concepts Zones Services Runtime State Port Source   BMW WARNING Bulletin Material Warrant     firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。  zones services  firewalld 是 CentOS 7/">
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:34.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-03T09:41:58.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
@@ -279,51 +279,51 @@
 <ul>
 <li>新建防火墙区域策略</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --new-zone=memcached --permanent</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --new-zone=memcached --permanent</span><br></pre></td></tr></table></figure>
 <ul>
 <li>查看系统默认区</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-default-zone</span><br><span class="line"><span class="meta">#</span><span class="bash"> public</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-default-zone</span><br><span class="line"><span class="comment"># public</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>调整系统默认区</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --set-default-zone=home</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --<span class="built_in">set</span>-default-zone=home</span><br></pre></td></tr></table></figure>
 <ul>
 <li>系统中配置的所有区</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> block dmz drop external home internal public trusted work</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> 上述命令会打印所有区与其详细的配置，输出内容较长</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-zones</span><br><span class="line"><span class="comment"># block dmz drop external home internal public trusted work</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br><span class="line"><span class="comment"># 上述命令会打印所有区与其详细的配置，输出内容较长</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>查看系统使用区</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-active-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> public</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   interfaces: eth0 eth1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-active-zones</span><br><span class="line"><span class="comment"># public</span></span><br><span class="line"><span class="comment">#   interfaces: eth0 eth1</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>查看指定区的详细配置</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-all</span><br><span class="line"><span class="meta">#</span><span class="bash"> public (active)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   target: default</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   icmp-block-inversion: no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   interfaces: eth0 eth1</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   sources:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   services: ssh dhcpv6-client</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   protocols:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   masquerade: no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   forward-ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   <span class="built_in">source</span>-ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   icmp-blocks:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   rich rules:</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-all</span><br><span class="line"><span class="comment"># public (active)</span></span><br><span class="line"><span class="comment">#   target: default</span></span><br><span class="line"><span class="comment">#   icmp-block-inversion: no</span></span><br><span class="line"><span class="comment">#   interfaces: eth0 eth1</span></span><br><span class="line"><span class="comment">#   sources:</span></span><br><span class="line"><span class="comment">#   services: ssh dhcpv6-client</span></span><br><span class="line"><span class="comment">#   ports:</span></span><br><span class="line"><span class="comment">#   protocols:</span></span><br><span class="line"><span class="comment">#   masquerade: no</span></span><br><span class="line"><span class="comment">#   forward-ports:</span></span><br><span class="line"><span class="comment">#   source-ports:</span></span><br><span class="line"><span class="comment">#   icmp-blocks:</span></span><br><span class="line"><span class="comment">#   rich rules:</span></span><br></pre></td></tr></table></figure>
 <h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p>services 在 zones 中为不同的服务预设不同的配置。<br>例如，可以为服务提供不同的端口等配置</p>
 <ul>
 <li>查看所有的服务</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --get-services</span><br><span class="line"><span class="meta">#</span><span class="bash"> RH-Satellite-6 RH-Satellite-6-capsule amanda-client amanda-k5-client amqp amqps... git... ssh ...dhcpv6-client</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --get-services</span><br><span class="line"><span class="comment"># RH-Satellite-6 RH-Satellite-6-capsule amanda-client amanda-k5-client amqp amqps... git... ssh ...dhcpv6-client</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>查看当前开放的服务</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --list-services</span><br><span class="line"><span class="meta">#</span><span class="bash"> dhcpv6-client ssh</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --list-services</span><br><span class="line"><span class="comment"># dhcpv6-client ssh</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>增加开放服务</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br></pre></td></tr></table></figure>
 <ul>
 <li>移除开放的服务</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久配置需要添加 --permanent后缀</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br><span class="line"><span class="comment"># 永久配置需要添加 --permanent后缀</span></span><br></pre></td></tr></table></figure>
 <p>所有服务的配置都在/usr/lib/firewalld/services 目录下<br>例如 http 服务的配置为</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">short</span>&gt;</span>WWW (HTTP)<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>HTTP is the protocol used to serve Web pages. If you plan to make your Web server publicly available, enable this option. This option is not required for viewing pages locally or developing Web pages.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"80"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>自定义服务</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/diyservice.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/diyservice.xml</span><br></pre></td></tr></table></figure>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">short</span>&gt;</span>diyservice<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">description</span>&gt;</span>Plex is a streaming media server that brings all your video, music and photo collections together and stream them to your devices at anytime and from anywhere.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"udp"</span> <span class="attr">port</span>=<span class="string">"1900"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"32400"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>重启防火墙后就可以看到该服务。</p>
 <h3 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h3><a id="more"></a>
@@ -333,91 +333,91 @@
 <li>permanent</li>
 </ul>
 <p>runtime 只有当次开机有效，重启会恢复到默认配置，permanent 会让配置永久生效。<br>默认指定防火墙相关配置时使用的是 runtime。<br>要让指定的配置永久有效，需要指定 –permanent</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd &lt;options&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd &lt;options&gt;</span><br></pre></td></tr></table></figure>
 <p>上述配置生效后只在 runtime 有效</p>
 <ul>
 <li>要使其永久有效</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent &lt;options&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent &lt;options&gt;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>使当前 runtime 的所有配置永久有效</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --runtime-to-permanent</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --runtime-to-permanent</span><br></pre></td></tr></table></figure>
 <ul>
 <li>要让配置立即生效，需要重启进程</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 <h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><ul>
 <li>查看防火墙状态</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --state</span><br><span class="line"><span class="meta">#</span><span class="bash"> running <span class="comment">#打开状态</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> not running <span class="comment">#关闭状态</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd --state</span><br><span class="line"><span class="comment"># running #打开状态</span></span><br><span class="line"><span class="comment"># not running #关闭状态</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>防火墙完整信息</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --list-all</span><br><span class="line"><span class="meta">#</span><span class="bash"> public (active)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   target: default</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   icmp-block-inversion: no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   interfaces: eth0</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   sources:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   services: dhcpv6-client ssh</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   protocols:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   masquerade: no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   forward-ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   <span class="built_in">source</span>-ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   icmp-blocks:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   rich rules:</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd --list-all</span><br><span class="line"><span class="comment"># public (active)</span></span><br><span class="line"><span class="comment">#   target: default</span></span><br><span class="line"><span class="comment">#   icmp-block-inversion: no</span></span><br><span class="line"><span class="comment">#   interfaces: eth0</span></span><br><span class="line"><span class="comment">#   sources:</span></span><br><span class="line"><span class="comment">#   services: dhcpv6-client ssh</span></span><br><span class="line"><span class="comment">#   ports:</span></span><br><span class="line"><span class="comment">#   protocols:</span></span><br><span class="line"><span class="comment">#   masquerade: no</span></span><br><span class="line"><span class="comment">#   forward-ports:</span></span><br><span class="line"><span class="comment">#   source-ports:</span></span><br><span class="line"><span class="comment">#   icmp-blocks:</span></span><br><span class="line"><span class="comment">#   rich rules:</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>临时关闭防火墙</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop firewalld</span><br></pre></td></tr></table></figure>
 <p>上述操作只对当前运行时有效</p>
 <ul>
 <li>永久关闭防火墙</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop firewalld</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop firewalld</span><br></pre></td></tr></table></figure>
 <p>零时关闭防火墙并防止开机重启</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl disable firewalld</span><br><span class="line"><span class="meta">#</span><span class="bash"> Removed symlink /etc/systemd/system/multi-user.target.wants/firewalld.service.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">disable</span> firewalld</span><br><span class="line"><span class="comment"># Removed symlink /etc/systemd/system/multi-user.target.wants/firewalld.service.</span></span><br><span class="line"><span class="comment"># Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.</span></span><br></pre></td></tr></table></figure>
 <p>防止其他程序启动防火墙</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl mask --now firewalld</span><br><span class="line"><span class="meta">#</span><span class="bash"> Created symlink from /etc/systemd/system/firewalld.service to /dev/null.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo systemctl mask --now firewalld</span><br><span class="line"><span class="comment"># Created symlink from /etc/systemd/system/firewalld.service to /dev/null.</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>打开防火墙</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl start firewalld</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo systemctl start firewalld</span><br></pre></td></tr></table></figure>
 <h3 id="Port"><a href="#Port" class="headerlink" title="Port"></a>Port</h3><ul>
 <li>暴露端口段</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port 8300-8400/tcp</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port 8300-8400/tcp</span><br></pre></td></tr></table></figure>
 <p>协议可选 tcp, udp, sctp, or dccp</p>
 <ul>
 <li>暴露端口</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port 1191/tcp</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --add-port 1191/tcp</span><br></pre></td></tr></table></figure>
 <p>临时暴露需要去除 <code>--permanent</code>，重启后端口暴露将会失效。<br>执行暴露端口的命令后，需要重启防火墙</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 <ul>
 <li>查看暴露的端口</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd  --list-ports</span><br><span class="line"><span class="meta">#</span><span class="bash"> 8300-8400/tcp</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd  --list-ports</span><br><span class="line"><span class="comment"># 8300-8400/tcp</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>移除暴露的端口</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --remove-port 8300-8400/tcp --permanent</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd --remove-port 8300-8400/tcp --permanent</span><br></pre></td></tr></table></figure>
 <p>注意开启时添加了<code>--permanent</code>，关闭时也需要</p>
 <ul>
 <li>查询允许暴露端口的服务</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-services</span><br><span class="line"><span class="meta">#</span><span class="bash"> ssh dhcpv6-client http</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-services</span><br><span class="line"><span class="comment"># ssh dhcpv6-client http</span></span><br></pre></td></tr></table></figure>
 <h3 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h3><ul>
 <li>指定允许访问的 IP</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-source=192.168.100.30/32 --permanent</span><br><span class="line"><span class="meta">#</span><span class="bash"> sudo firewall-cmd --add-source=192.168.100.30 --permanent</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-source=192.168.100.30/32 --permanent</span><br><span class="line"><span class="comment"># sudo firewall-cmd --add-source=192.168.100.30 --permanent</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>查看允许访问的 IP</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-sources</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-sources</span><br></pre></td></tr></table></figure>
 <ul>
 <li>移除指定的 IP</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --remove-source=192.168.1.10</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --remove-source=192.168.1.10</span><br></pre></td></tr></table></figure>
 <ul>
 <li>转发</li>
 </ul>
 <p>在进行转发前，需要开启转发支持</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=external --add-masquerade --permanent</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=external --add-masquerade --permanent</span><br></pre></td></tr></table></figure>
 <p>同主机</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=external --add-forward-port=port=80:proto=tcp:toport=8080</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=external --add-forward-port=port=80:proto=tcp:toport=8080</span><br></pre></td></tr></table></figure>
 <p>上述命令会把 80 端口的 tcp 全部转发到当前服务器的 8080 端口</p>
 <p>转发到其他主机</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=external --add-forward-port=port=80:proto=tcp:toaddr=10.10.10.2</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=external --add-forward-port=port=80:proto=tcp:toaddr=10.10.10.2</span><br></pre></td></tr></table></figure>
 <p>上述命令会把 80 端口的 tcp 全部转发到服务器 10.10.10.2 的 80 端口<br>[^1]: 本节命令在 centos7 下验证</p>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
@@ -484,19 +484,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/frp内网穿透.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/VSCode相关问题汇总.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          frp内网穿透
+          VSCode相关问题汇总
         
       </div>
     </a>
   
   
-    <a href="/VSCode相关问题汇总.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/黑群晖常见问题.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">VSCode相关问题汇总</div>
+      <div class="article-nav-title">黑群晖常见问题</div>
     </a>
   
 </nav>

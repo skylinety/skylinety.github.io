@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Skyline&#39;s blog">
 <meta property="og:description" content="location 基础使用 URL-match modifier   proxy_pass 简述 URI / 问题 \$uri \$request_uri   BMW WARNING Bulletin Material Warrant     location基础使用location 位于 server 下或位于另一个 location 中，基本使用如下 location [modifier">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-03T09:39:34.000Z">
+<meta property="og:updated_time" content="2022-06-03T09:41:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx基础">
 <meta name="twitter:description" content="location 基础使用 URL-match modifier   proxy_pass 简述 URI / 问题 \$uri \$request_uri   BMW WARNING Bulletin Material Warrant     location基础使用location 位于 server 下或位于另一个 location 中，基本使用如下 location [modifier">
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:34.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-03T09:41:57.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
@@ -229,7 +229,7 @@
 <h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3><p>匹配所有路径</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>优先级最低，所有都不匹配时，才会命中</p>
 <h3 id="modifier"><a href="#modifier" class="headerlink" title="modifier"></a>modifier</h3><p>URI 这里指 URL 除了 server:port 的部分。</p>
 <p><strong>命中优先级</strong><br>优先级由上依次降低。</p>
@@ -273,23 +273,23 @@
 <p>^~ 与(none)都 进行字符匹配（非正则），^~ 相对于(none) ，提高了命中优先级。</p>
 <p><strong>典型示例</strong></p>
 <p>示例 1</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location ^~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>^~ 进行字符匹配<br><a href="http://domain2.com/file/" target="_blank" rel="noopener">http://domain2.com/file/</a>* 可以命中<br><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 不能命中</p>
 <p>示例 2</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location ~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 根据优先级命中<code>^~ /file/</code></p>
 <h2 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h2><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3><a id="more"></a>
 <p>proxy_pass 通常位于 location 下，用于接口转发。</p>
 <h3 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h3><p>一般把 server:port 后的部分叫做 URI，proxy_pass 在其后加不加 URI 表现完全不同。<br>location 非正则匹配时，对于 proxy_pass 有如下规则：<br>proxy_pass 有 URI<br>替换请求中匹配的 URI 并替换成 proxy_pass 中的 URI 并向上游服务转发。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com/src;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com/src;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a href="http://aaa.com/file/search" target="_blank" rel="noopener">http://aaa.com/file/search</a> 真实访问地址为<a href="http://bbb.com/src/search" target="_blank" rel="noopener">http://bbb.com/src/search</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a href="http://aaa.com/file/search" target="_blank" rel="noopener">http://aaa.com/file/search</a> 真实访问地址为<a href="http://bbb.com//search" target="_blank" rel="noopener">http://bbb.com//search</a></p>
 <p>proxy_pass 无 URI<br>保留请求 URI 并将其转发到上游服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a href="http://aaa.com/file/search" target="_blank" rel="noopener">http://aaa.com/file/search</a> 真实访问地址为<a href="http://bbb.com/file/search" target="_blank" rel="noopener">http://bbb.com/file/search</a></p>
 <p>location 为正则匹配时，由于 nginx 不知道替换哪些字符，<br>proxy_pass 的 URI 不起作用，保留原 URI，转发到上上游服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ~ /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com/src;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location ~ /file &#123;</span><br><span class="line">    proxy_pass http://bbb.com/src;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a href="http://aaa.com/file/search" target="_blank" rel="noopener">http://aaa.com/file/search</a> 真实访问地址为<a href="http://bbb.com/file/search" target="_blank" rel="noopener">http://bbb.com/file/search</a></p>
 <h3 id="问题"><a href="#问题" class="headerlink" title="/ 问题"></a>/ 问题</h3><p>location 非正则匹配时，当 proxy_pass 有 URI 时，需要注意 URI 的尾斜杠，具体表现为如下<br>location 正则匹配时，不需要考虑 proxy_pass 的 URI</p>
 <table>
@@ -446,19 +446,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Nginx常见问题汇总.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/黑群晖常见问题.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Nginx常见问题汇总
+          黑群晖常见问题
         
       </div>
     </a>
   
   
-    <a href="/MacOS基本操作.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/黑群晖安装.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">MacOS基本操作</div>
+      <div class="article-nav-title">黑群晖安装</div>
     </a>
   
 </nav>

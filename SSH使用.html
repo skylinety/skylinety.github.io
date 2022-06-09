@@ -23,7 +23,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/SSH%E4%BD%BF%E7%94%A820220314155021.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/SSH%E4%BD%BF%E7%94%A820220314162422.png">
-<meta property="og:updated_time" content="2022-06-03T09:39:34.000Z">
+<meta property="og:updated_time" content="2022-06-03T09:41:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSH使用">
 <meta name="twitter:description" content="SSH 登陆 SSH 连接历史 方法集 who &amp;amp; w last netstat &amp;amp; ss   BMW WARNING Bulletin Material Warrant     SSH 登陆对于默认使用了默认 SSH 配置的服务器，可以直接如下登陆 ssh root@10.2.160.12 根据提示输入密码即可。上述使用了 SSH 常用的 root 用户，默认的 22 端口">
@@ -191,7 +191,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:34.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-03T09:41:57.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
@@ -225,9 +225,9 @@
 </ul>
 <!-- /code_chunk_output -->
 <h2 id="SSH-登陆"><a href="#SSH-登陆" class="headerlink" title="SSH 登陆"></a>SSH 登陆</h2><p>对于默认使用了默认 SSH 配置的服务器，可以直接如下登陆</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh root@10.2.160.12</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ssh root@10.2.160.12</span><br></pre></td></tr></table></figure>
 <p>根据提示输入密码即可。<br>上述使用了 SSH 常用的 root 用户，默认的 22 端口</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -i /a/b/c/d.private -p 50777 root@10.2.160.12</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ssh -i /a/b/c/d.private -p 50777 root@10.2.160.12</span><br></pre></td></tr></table></figure>
 <p>i 指定秘钥位置，p 指定端口。</p>
 <h2 id="SSH-连接历史"><a href="#SSH-连接历史" class="headerlink" title="SSH 连接历史"></a>SSH 连接历史</h2><h3 id="方法集"><a href="#方法集" class="headerlink" title="方法集"></a>方法集</h3><p>常用如下命令查看 SSH 连接。</p>
 <table>
@@ -262,11 +262,11 @@
 </table>
 <h3 id="who-amp-w"><a href="#who-amp-w" class="headerlink" title="who &amp; w"></a>who &amp; w</h3><p>相比于 who，w 可以获取登陆用户当前正在进行的进程操作(对应命令)<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/SSH%E4%BD%BF%E7%94%A820220314155021.png" alt="SSH使用20220314155021"></p>
 <h3 id="last"><a href="#last" class="headerlink" title="last"></a>last</h3><p>last 其实质是读取/var/log/wtmp(从该文件创建开始)中的内容并整理成输出。<br>wtmp 日志文件主要记录系统登入、 重启等关键信息。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/SSH%E4%BD%BF%E7%94%A820220314162422.png" alt="SSH使用20220314162422"><br>last 输出内容较多，当在普通个人电脑上执行该命令的由于经常开关机内容更加庞杂，可通过如下方式进行筛选。<br>last 命令参数</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">last shutdown</span><br><span class="line">last reboot</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">last shutdown</span><br><span class="line">last reboot</span><br></pre></td></tr></table></figure>
 <p>grep 查找</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">last | grep reboot</span><br><span class="line">last | grep still</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">last | grep reboot</span><br><span class="line">last | grep still</span><br></pre></td></tr></table></figure>
 <h3 id="netstat-amp-ss"><a href="#netstat-amp-ss" class="headerlink" title="netstat &amp; ss"></a>netstat &amp; ss</h3><a id="more"></a>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat | grep ssh</span><br><span class="line">ss | grep ssh</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">netstat | grep ssh</span><br><span class="line">ss | grep ssh</span><br></pre></td></tr></table></figure>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
@@ -331,19 +331,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Shell条件判定.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Linux系统信息.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          (no title)
+          Linux系统信息
         
       </div>
     </a>
   
   
-    <a href="/JS内存泄漏与处理.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/TS语法校验常见错误.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">JS内存泄漏与处理</div>
+      <div class="article-nav-title">TS语法校验常见错误</div>
     </a>
   
 </nav>
