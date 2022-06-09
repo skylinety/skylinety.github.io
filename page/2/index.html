@@ -319,169 +319,6 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/排序算法.html">排序算法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-05-27T07:41:02.000Z" itemprop="datePublished">2022-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#排序算法">排序算法</a><ul>
-<li><a href="#选择排序">选择排序</a><ul>
-<li><a href="#选排的思想">选排的思想</a></li>
-<li><a href="#时间复杂度">时间复杂度</a></li>
-</ul>
-</li>
-<li><a href="#冒泡排序">冒泡排序</a><ul>
-<li><a href="#基本思路">基本思路</a></li>
-<li><a href="#时间复杂度-1">时间复杂度</a></li>
-<li><a href="#交换判定优化">交换判定优化</a></li>
-</ul>
-</li>
-<li><a href="#插入排序">插入排序</a><ul>
-<li><a href="#插排的思想">插排的思想</a></li>
-<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
-<li><a href="#哨兵优化">哨兵优化</a></li>
-<li><a href="#折半优化">折半优化</a></li>
-</ul>
-</li>
-<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
-<li><a href="#归并排序思路">归并排序思路</a></li>
-<li><a href="#合并">合并</a></li>
-<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
-</ul>
-</li>
-<li><a href="#快速排序">快速排序</a><ul>
-<li><a href="#快排思路">快排思路</a></li>
-<li><a href="#选值优化">选值优化</a></li>
-<li><a href="#多路快排">多路快排</a></li>
-</ul>
-</li>
-<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
-<li><a href="#关键思路">关键思路</a></li>
-<li><a href="#时间复杂度-2">时间复杂度</a></li>
-</ul>
-</li>
-<li><a href="#计数排序">计数排序</a><ul>
-<li><a href="#关键思路-1">关键思路</a></li>
-<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
-</ul>
-</li>
-<li><a href="#堆排序">堆排序</a><ul>
-<li><a href="#完全二叉树">完全二叉树</a></li>
-<li><a href="#堆">堆</a></li>
-<li><a href="#构造堆">构造堆</a></li>
-<li><a href="#排序">排序</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>选择排序的比较次数 = (n - 1) + (n - 2) + … + 2 + 1 = n * (n - 1) / 2，因此时间复杂度为：O(n²)。</p>
-<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>每一轮通过不断对比交换位置来将该轮最大（小）值上浮（下沉）到对应轮位置<br>核心思想是<strong>每轮换位置</strong><br><strong>外层循环确定轮次，内层循环<code>交换位置</code></strong>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<p>每一轮都进行了<strong>多次交换</strong>，故相较于选择排序耗时</p>
-<h3 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
-        <!-- 排序算法
-
-
-排序算法
-选择排序
-选排的思想
-时间复杂度
-
-
-冒泡排序
-基本思路
-时间复杂度
-交换判定优化
-
-
-插入排序
-插排的思想
-时间复杂度分析
-哨兵优化
-折半优化
-
-
-归并排序（Merge Sort）
-归并排序思路
-合并
-时间复杂度分析
-
-
-快速排序
-快排思路
-选值优化
-多路快排
-
-
-希尔排序（缩小增量排序）
-关键思路
-时间复杂度
-
-
-计数排序
-关键思路
-时间复杂度分析
-
-
-堆排序
-完......  -->
-        <p class="article-more-link">
-          <a href="/排序算法.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -640,6 +477,169 @@ Warrant
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/排序算法.html">排序算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-05-27T07:41:02.000Z" itemprop="datePublished">2022-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#排序算法">排序算法</a><ul>
+<li><a href="#选择排序">选择排序</a><ul>
+<li><a href="#选排的思想">选排的思想</a></li>
+<li><a href="#时间复杂度">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#冒泡排序">冒泡排序</a><ul>
+<li><a href="#基本思路">基本思路</a></li>
+<li><a href="#时间复杂度-1">时间复杂度</a></li>
+<li><a href="#交换判定优化">交换判定优化</a></li>
+</ul>
+</li>
+<li><a href="#插入排序">插入排序</a><ul>
+<li><a href="#插排的思想">插排的思想</a></li>
+<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
+<li><a href="#哨兵优化">哨兵优化</a></li>
+<li><a href="#折半优化">折半优化</a></li>
+</ul>
+</li>
+<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
+<li><a href="#归并排序思路">归并排序思路</a></li>
+<li><a href="#合并">合并</a></li>
+<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#快速排序">快速排序</a><ul>
+<li><a href="#快排思路">快排思路</a></li>
+<li><a href="#选值优化">选值优化</a></li>
+<li><a href="#多路快排">多路快排</a></li>
+</ul>
+</li>
+<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
+<li><a href="#关键思路">关键思路</a></li>
+<li><a href="#时间复杂度-2">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#计数排序">计数排序</a><ul>
+<li><a href="#关键思路-1">关键思路</a></li>
+<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#堆排序">堆排序</a><ul>
+<li><a href="#完全二叉树">完全二叉树</a></li>
+<li><a href="#堆">堆</a></li>
+<li><a href="#构造堆">构造堆</a></li>
+<li><a href="#排序">排序</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>选择排序的比较次数 = (n - 1) + (n - 2) + … + 2 + 1 = n * (n - 1) / 2，因此时间复杂度为：O(n²)。</p>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>每一轮通过不断对比交换位置来将该轮最大（小）值上浮（下沉）到对应轮位置<br>核心思想是<strong>每轮换位置</strong><br><strong>外层循环确定轮次，内层循环<code>交换位置</code></strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<p>每一轮都进行了<strong>多次交换</strong>，故相较于选择排序耗时</p>
+<h3 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
+        <!-- 排序算法
+
+
+排序算法
+选择排序
+选排的思想
+时间复杂度
+
+
+冒泡排序
+基本思路
+时间复杂度
+交换判定优化
+
+
+插入排序
+插排的思想
+时间复杂度分析
+哨兵优化
+折半优化
+
+
+归并排序（Merge Sort）
+归并排序思路
+合并
+时间复杂度分析
+
+
+快速排序
+快排思路
+选值优化
+多路快排
+
+
+希尔排序（缩小增量排序）
+关键思路
+时间复杂度
+
+
+计数排序
+关键思路
+时间复杂度分析
+
+
+堆排序
+完......  -->
+        <p class="article-more-link">
+          <a href="/排序算法.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
 
     </footer>
   </div>
@@ -899,191 +899,6 @@ HTTPS超文本传输......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#firewalld1">firewalld[^1]</a><ul>
-<li><a href="#concepts">Concepts</a></li>
-<li><a href="#zones">Zones</a></li>
-<li><a href="#services">Services</a></li>
-<li><a href="#runtime">Runtime</a></li>
-<li><a href="#state">State</a></li>
-<li><a href="#port">Port</a></li>
-<li><a href="#source">Source</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="firewalld-1"><a href="#firewalld-1" class="headerlink" title="firewalld[^1]"></a>firewalld[^1]</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld 采用区域与服务的概念来控制流量的出入。</p>
-<ul>
-<li>zones</li>
-<li>services</li>
-</ul>
-<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
-<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3><p>zones 预设级别不同的防火墙策略，用户可以自定义 zones，也可以使用预设的 zones。<br>默认使用 public zone<br>根据拦截级别严格程度，预设 zones 如下</p>
-<table>
-<thead>
-<tr>
-<th>zone</th>
-<th>拦截说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>drop</td>
-<td>丢弃区，所有接入连接都会进行无消息响应拦截，只有输出连接被允许。</td>
-</tr>
-<tr>
-<td>block</td>
-<td>拦截区，接入连接都会被拦截，会响应 icmp-host-prohibited 等拦截消息，只有输出连接被允许。</td>
-</tr>
-<tr>
-<td>public</td>
-<td>公共区，用于不受信任的公共区域，仅允许自选接入连接，默认允许 ssh 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>external</td>
-<td>外部区，用于外部网络，系统充当网关角色，仅允许自选接入连接，默认允许 ssh</td>
-</tr>
-<tr>
-<td>internal</td>
-<td>内部区，用于内部网络，系统充当网关角色，仅允许自选接入连接</td>
-</tr>
-<tr>
-<td>dmz</td>
-<td>隔离区，demilitarized zone（隔离区，军事缓冲区），用于允许部分服务被外网访问，仅允许自选接入连接</td>
-</tr>
-<tr>
-<td>work</td>
-<td>工作区，用于工作网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>home</td>
-<td>家庭区，用于工作家庭网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client，mdns，samba-client 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>trusted</td>
-<td>信任区，并接受所有网络连接</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>新建防火墙区域策略</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --new-zone=memcached --permanent</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看系统默认区</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-default-zone</span><br><span class="line"><span class="meta">#</span><span class="bash"> public</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>调整系统默认区</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --set-default-zone=home</span><br></pre></td></tr></table></figure>
-<ul>
-<li>系统中配置的所有区</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> block dmz drop external home internal public trusted work</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> 上述命令会打印所有区与其详细的配置，输出内容较长</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看系统使用区</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-active-zones</span><br><span class="line"><span class="meta">#</span><span class="bash"> public</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   interfaces: eth0 eth1</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看指定区的详细配置</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-all</span><br><span class="line"><span class="meta">#</span><span class="bash"> public (active)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   target: default</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   icmp-block-inversion: no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   interfaces: eth0 eth1</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   sources:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   services: ssh dhcpv6-client</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   protocols:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   masquerade: no</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   forward-ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   <span class="built_in">source</span>-ports:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   icmp-blocks:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   rich rules:</span></span><br></pre></td></tr></table></figure>
-<h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p>services 在 zones 中为不同的服务预设不同的配置。<br>例如，可以为服务提供不同的端口等配置</p>
-<ul>
-<li>查看所有的服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --get-services</span><br><span class="line"><span class="meta">#</span><span class="bash"> RH-Satellite-6 RH-Satellite-6-capsule amanda-client amanda-k5-client amqp amqps... git... ssh ...dhcpv6-client</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看当前开放的服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --list-services</span><br><span class="line"><span class="meta">#</span><span class="bash"> dhcpv6-client ssh</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>增加开放服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br></pre></td></tr></table></figure>
-<ul>
-<li>移除开放的服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br><span class="line"><span class="meta">#</span><span class="bash"> 永久配置需要添加 --permanent后缀</span></span><br></pre></td></tr></table></figure>
-<p>所有服务的配置都在/usr/lib/firewalld/services 目录下<br>例如 http 服务的配置为</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">short</span>&gt;</span>WWW (HTTP)<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>HTTP is the protocol used to serve Web pages. If you plan to make your Web server publicly available, enable this option. This option is not required for viewing pages locally or developing Web pages.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"80"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>自定义服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/diyservice.xml</span><br></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">short</span>&gt;</span>diyservice<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">description</span>&gt;</span>Plex is a streaming media server that brings all your video, music and photo collections together and stream them to your devices at anytime and from anywhere.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"udp"</span> <span class="attr">port</span>=<span class="string">"1900"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"32400"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>重启防火墙后就可以看到该服务。</p>
-<h3 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h3>
-        <!-- 
-
-
-firewalld[^1]
-Concepts
-Zones
-Services
-Runtime
-State
-Port
-Source
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。
-
-zones
-services
-
-firewalld 是 CentOS......  -->
-        <p class="article-more-link">
-          <a href="/CentOS防火墙.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-HTTPS加密方式$"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1148,7 +963,7 @@ HTTPS超文本传输安全协议（（HyperText Transfer Protocol Secure）也�
 <!-- Table of Contents -->
 
   
-    <article id="post-Husky使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES对象创建"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1156,7 +971,7 @@ HTTPS超文本传输安全协议（（HyperText Transfer Protocol Secure）也�
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Husky使用.html">Husky使用</a>
+      <a class="article-title" href="/ES对象创建.html">ES对象创建</a>
     </h1>
   
 
@@ -1177,35 +992,243 @@ HTTPS超文本传输安全协议（（HyperText Transfer Protocol Secure）也�
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="Husky-使用"><a href="#Husky-使用" class="headerlink" title="Husky 使用"></a>Husky 使用</h1><h2 id="Husky-使用配置"><a href="#Husky-使用配置" class="headerlink" title="Husky 使用配置"></a>Husky 使用配置</h2><h3 id="husky-简述"><a href="#husky-简述" class="headerlink" title="husky 简述"></a>husky 简述</h3><p>husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。</p>
-<p>以代码校验为例来说明</p>
-<p>代码校验 lint-staged 相关配置如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">		<span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	...,</span><br><span class="line">	<span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>后续代码中，其余配置为 husky 相关，通过这些配置，我们在 commit 代码时，会校验代码错误与格式，校验不通过会有提示。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Husky%E4%BD%BF%E7%94%A820210924150933.png" alt="Husky使用20210924150933"></p>
-<p>Husky 在版本 5 中配置做了大变动，具体前后的配置以版本来说明。</p>
-<h3 id="V5"><a href="#V5" class="headerlink" title="V5+"></a>V5+</h3><p>yarn add husky -D</p>
-<p>安装 husky 最新包</p>
-<p>npx husky-init &amp;&amp; yarn</p>
-<p>在 package.json 会自动添加如下选项</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>汇总其他相关配置选项，如下<br><code>package.json</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"precommit"</span>: <span class="string">"lint-staged"</span>,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">    <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同时会在项目目录下自动生成 .husky 目录，包含最基础的 pre-commit bash 脚本，将 bash 脚本的默认 npm test 改为 npm run precommit 即可</p>
-<p><code>pre-commit</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">. <span class="string">"$(dirname "</span>$<span class="number">0</span><span class="string">")/_/husky.sh"</span></span><br><span class="line"></span><br><span class="line">npm run precommit</span><br></pre></td></tr></table></figure>
-<h3 id="V4"><a href="#V4" class="headerlink" title="V4"></a>V4</h3><p>yarn add <a href="mailto:husky@v4.3.8" target="_blank" rel="noopener">husky@v4.3.8</a> -D</p>
-<p>package.json</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">            ...,</span><br><span class="line">            <span class="string">"husky"</span>: <span class="string">"4.3.8"</span>,</span><br><span class="line">            <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"husky"</span>: &#123;</span><br><span class="line">        <span class="string">"hooks"</span>: &#123;</span><br><span class="line">        <span class="string">"pre-commit"</span>: <span class="string">"lint-staged"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Husky-配置更新"><a href="#Husky-配置更新" class="headerlink" title="Husky 配置更新"></a>Husky 配置更新</h2><h3 id="git-hooks-说明"><a href="#git-hooks-说明" class="headerlink" title="git hooks 说明"></a>git hooks 说明</h3>
+<h1 id="JS-对象的创建"><a href="#JS-对象的创建" class="headerlink" title="JS 对象的创建"></a>JS 对象的创建</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#js-对象的创建">JS 对象的创建</a><ul>
+<li><a href="#工厂模式">工厂模式</a></li>
+<li><a href="#构造函数模式">构造函数模式</a><ul>
+<li><a href="#实现">实现</a></li>
+<li><a href="#优化">优化</a></li>
+</ul>
+</li>
+<li><a href="#原型模式">原型模式</a><ul>
+<li><a href="#实现-1">实现</a></li>
+<li><a href="#原型判定">原型判定</a></li>
+<li><a href="#原型重写">原型重写</a></li>
+<li><a href="#原型模式问题">原型模式问题</a></li>
+</ul>
+</li>
+<li><a href="#组合构造与原型">组合构造与原型</a></li>
+<li><a href="#动态原型">动态原型</a><ul>
+<li><a href="#实现-2">实现</a></li>
+<li><a href="#重写原型">重写原型</a></li>
+</ul>
+</li>
+<li><a href="#寄生构造函数">寄生构造函数</a></li>
+<li><a href="#稳妥构造函数">稳妥构造函数</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  p.name = name;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">"skyline"</span>);</span><br><span class="line">me.name; <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
+<h2 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>解决了对象识别问题</p>
+<p>构造函数首字母都要大写，非构造函数小写字母开头</p>
+<p>构造函数主要问题是方法会在实例中各自创建，me.say === you.say 说明了这个问题</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>优化方案解决了方法不能复用的问题，但破坏了封装</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = sayName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>ES 中，无论何时创建的新函数，都会根据一组特定的规则来为函数添加一个指向原型对象名为 prototype 的指针属性，该原型对象自动获得一个 constructor 属性，属性指向该函数，而后基于原型对象添置实例共享的属性和方法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = <span class="string">"skyline"</span>;</span><br><span class="line">Person.prototype.age = <span class="number">27</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line">skyline.sayName(); <span class="comment">// My name is skyline</span></span><br><span class="line">skyline <span class="keyword">instanceof</span> Person; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="原型判定"><a href="#原型判定" class="headerlink" title="原型判定"></a>原型判定</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-Husky 使用Husky 使用配置husky 简述husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。
-以代码校验为例来说明
-代码校验 lint-staged 相关配置如下
-&#123;	"devDependencies": &#123;		"lint-stag......  -->
+JS 对象的创建
+
+
+JS 对象的创建
+工厂模式
+构造函数模式
+实现
+优化
+
+
+原型模式
+实现
+原型判定
+原型重写
+原型模式问题
+
+
+组合构造与原型
+动态原型
+实现
+重写原型
+
+
+寄生构造函数
+稳妥构造函数
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+工厂模式工厂模式解......  -->
         <p class="article-more-link">
-          <a href="/Husky使用.html#more">阅读全文</a>
+          <a href="/ES对象创建.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Vue基础使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Vue基础使用.html">Vue基础使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="Vue-基础使用"><a href="#Vue-基础使用" class="headerlink" title="Vue 基础使用"></a>Vue 基础使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#vue-基础使用">Vue 基础使用</a><ul>
+<li><a href="#vue-router-model">Vue Router model</a></li>
+<li><a href="#img-图片错误默认处理">img 图片错误默认处理</a></li>
+<li><a href="#extend">extend</a><ul>
+<li><a href="#获取vue-组件的构造函数">获取.vue 组件的构造函数</a></li>
+<li><a href="#使用示例">使用示例</a></li>
+<li><a href="#无法挂载错误">无法挂载错误</a></li>
+</ul>
+</li>
+<li><a href="#mixin">mixin</a><ul>
+<li><a href="#混入规则">混入规则</a></li>
+</ul>
+</li>
+<li><a href="#组件挂载顺序">组件挂载顺序</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#总结">总结</a></li>
+</ul>
+</li>
+<li><a href="#computed">computed</a><ul>
+<li><a href="#简单说明">简单说明</a></li>
+<li><a href="#setter">setter</a></li>
+</ul>
+</li>
+<li><a href="#watch">$watch</a><ul>
+<li><a href="#用法">用法</a></li>
+<li><a href="#注意">注意</a></li>
+<li><a href="#返回值">返回值</a></li>
+<li><a href="#深度监听">深度监听</a></li>
+</ul>
+</li>
+<li><a href="#资源引用">资源引用</a></li>
+<li><a href="#refs-使用">refs 使用</a></li>
+<li><a href="#动态组件">动态组件</a></li>
+<li><a href="#attrs-与listeners">\$attrs 与\$listeners</a></li>
+<li><a href="#生命周期函数">生命周期函数</a><ul>
+<li><a href="#监听">监听</a></li>
+</ul>
+</li>
+<li><a href="#vueobservable">Vue.observable</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Vue-Router-model"><a href="#Vue-Router-model" class="headerlink" title="Vue Router model"></a>Vue Router model</h2><p>Vue 有两种路由模式:</p>
+<ul>
+<li>Hash</li>
+<li>History</li>
+</ul>
+<p>默认情况下使用 Hash 模式。<br>哈希模式利用 URL Hash 保证单页系统不进行页面重载。<br>但是，传统 URL 的 Hash 中即常见的<code>site#thing</code>是来定位页面内容的，<br>使用<code>site/thing</code>来跳转页面<br>Hash 模式虽然保证了页面不跳转，但是’#’的出现破坏了传统规则。<br>在一些项目中，会使用 History 模式。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  mode: <span class="string">'history'</span>,</span><br><span class="line">  routes: [...]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>History 模式通过 history.pushState 防止路由重载。<br>由于单页问题，History 在对应路由在服务器中位置并没有 HTML 入口文件，<br>这需要我们进行额外的服务配置。<br>若不进行配置，刷新页面会报错。<br>Nginx 配置如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  try_files $uri $uri/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其余服务端配置参考<br><a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations</a></p>
+<h2 id="img-图片错误默认处理"><a href="#img-图片错误默认处理" class="headerlink" title="img 图片错误默认处理"></a>img 图片错误默认处理</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;img</span><br><span class="line">    width=<span class="string">"98"</span></span><br><span class="line">    height=<span class="string">"112"</span></span><br><span class="line">    :src=<span class="string">"m.imgAddr || '~@img/suspect.png'"</span></span><br><span class="line">    @error=<span class="string">"slotimg"</span></span><br><span class="line">    alt</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> defaultImg = <span class="built_in">require</span>(<span class="string">"@img/suspect.png"</span>);</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">    slotimg(event) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"HotFocus.vue第211行:::err img"</span>);</span><br><span class="line">      <span class="keyword">let</span> img = event.srcElement;</span><br><span class="line">      img.src = defaultImg;</span><br><span class="line">      img.onerror = <span class="literal">null</span>; <span class="comment">//防止闪图</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>html 原生是 οnerrοr 来监听图片渲染错误事件</p>
+<h2 id="extend"><a href="#extend" class="headerlink" title="extend"></a>extend</h2><h3 id="获取-vue-组件的构造函数"><a href="#获取-vue-组件的构造函数" class="headerlink" title="获取.vue 组件的构造函数"></a>获取.vue 组件的构造函数</h3><h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><p>Vue.extend</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> button = Vue.extend(FullScreenButton)</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> button()</span><br><span class="line">b.$mount()</span><br></pre></td></tr></table></figure>
+<h3 id="无法挂载错误"><a href="#无法挂载错误" class="headerlink" title="无法挂载错误"></a>无法挂载错误</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A820211202165231.png" alt="Vue基础使用20211202165231"></p>
+<p>出现这种错误是由于首字母大写导致，具体缘由待查，如下图中注释所示</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A820211202165302.png" alt="Vue基础使用20211202165302"></p>
+<h2 id="mixin"><a href="#mixin" class="headerlink" title="mixin"></a>mixin</h2><h3 id="混入规则"><a href="#混入规则" class="headerlink" title="混入规则"></a>混入规则</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+Vue 基础使用
+
+
+Vue 基础使用
+Vue Router model
+img 图片错误默认处理
+extend
+获取.vue 组件的构造函数
+使用示例
+无法挂载错误
+
+
+mixin
+混入规则
+
+
+组件挂载顺序
+简述
+总结
+
+
+computed
+简单说明
+setter
+
+
+$watch
+用法
+注意
+返回值
+深度监......  -->
+        <p class="article-more-link">
+          <a href="/Vue基础使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1297,7 +1320,7 @@ Husky 使用Husky 使用配置husky 简述husky 支持所有 git 相关钩子，
 <!-- Table of Contents -->
 
   
-    <article id="post-Shadowsocks服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-康定周边2日"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1305,7 +1328,7 @@ Husky 使用Husky 使用配置husky 简述husky 支持所有 git 相关钩子，
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shadowsocks服务搭建与访问.html">Shadowsocks服务搭建与访问</a>
+      <a class="article-title" href="/康定周边2日.html">康定周边2日</a>
     </h1>
   
 
@@ -1326,23 +1349,20 @@ Husky 使用Husky 使用配置husky 简述husky 支持所有 git 相关钩子，
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="Shadowsocks-服务搭建与访问"><a href="#Shadowsocks-服务搭建与访问" class="headerlink" title="Shadowsocks 服务搭建与访问"></a>Shadowsocks 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h1 id="康定周边-2-日"><a href="#康定周边-2-日" class="headerlink" title="康定周边 2 日"></a>康定周边 2 日</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#shadowsocks-服务搭建与访问">Shadowsocks 服务搭建与访问</a><ul>
-<li><a href="#ss-server">SS server</a><ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#配置文件">配置文件</a></li>
-<li><a href="#开启服务">开启服务</a></li>
-<li><a href="#开机启动">开机启动</a></li>
+<li><a href="#康定周边-2-日">康定周边 2 日</a><ul>
+<li><a href="#准备">准备</a><ul>
+<li><a href="#时间">时间</a></li>
+<li><a href="#物品清单">物品清单</a></li>
+<li><a href="#路线">路线</a></li>
 </ul>
 </li>
-<li><a href="#ss-client">SS client</a></li>
-<li><a href="#添加自定代理规则">添加自定代理规则</a></li>
-<li><a href="#常见问题">常见问题</a><ul>
-<li><a href="#配置完成无法访问墙外">配置完成无法访问墙外</a></li>
-<li><a href="#syn_recv">SYN_RECV</a></li>
-<li><a href="#ip或端口被封">IP或端口被封</a></li>
+<li><a href="#主要地点">主要地点</a><ul>
+<li><a href="#海螺沟">海螺沟</a></li>
+<li><a href="#折多山">折多山</a></li>
+<li><a href="#新都桥">新都桥</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -1355,85 +1375,42 @@ Husky 使用Husky 使用配置husky 简述husky 支持所有 git 相关钩子，
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="SS-server"><a href="#SS-server" class="headerlink" title="SS server"></a>SS server</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>SS server 服务端有多语言版本支持<br>此处采用 python 版本<br>首先安装 pip 包管理器</p>
-<p>Debian / Ubuntu</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br></pre></td></tr></table></figure>
-<p>CentOS</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install epel-release # 添加Enterprise Linux企业源</span><br><span class="line">sudo yum install python-pip</span><br></pre></td></tr></table></figure>
-<p>查看是否安装成功</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip --version</span><br><span class="line"><span class="meta">#</span><span class="bash"> pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</span></span><br></pre></td></tr></table></figure>
-<p>然后直接输入以下命令安装</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>新增配置文件<br><code>/etc/shadowsocks.json</code></p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"server"</span>: <span class="string">"23.234.212.12"</span>,</span><br><span class="line">  <span class="attr">"port_password"</span>: &#123;</span><br><span class="line">    <span class="attr">"8388"</span>: <span class="string">"123"</span>,</span><br><span class="line">    <span class="attr">"8389"</span>: <span class="string">"456"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"timeout"</span>: <span class="number">300</span>,</span><br><span class="line">  <span class="attr">"method"</span>: <span class="string">"rc4-md5"</span>,</span><br><span class="line">  <span class="attr">"fast_open"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"workers"</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>server</td>
-<td>vps ip 地址</td>
-</tr>
-<tr>
-<td>port_password</td>
-<td>服务端口和对应密码</td>
-</tr>
-<tr>
-<td>method</td>
-<td>加密方法</td>
-</tr>
-<tr>
-<td>workers</td>
-<td>线程数</td>
-</tr>
-</tbody>
-</table>
-<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><p>调用命令开启服务。<br>相关命令如下</p>
-<ul>
-<li>指定配置文件开启服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
-<ul>
-<li>指定配置文件重启</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d restart</span><br></pre></td></tr></table></figure>
-<ul>
-<li>关闭服务</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ssserver -d stop</span><br></pre></td></tr></table></figure>
-<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。<br>周五晚出发建议在泸定留宿，直接前往磨西古镇也可，需要多一个小时车程。<br>注意 3 岁以下小朋友容易高反，带过去需要有人专职陪伴，备足氧气瓶，折多山上和去沿途有氧气卖。</p>
+<h3 id="物品清单"><a href="#物品清单" class="headerlink" title="物品清单"></a>物品清单</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">氧气瓶</span><br><span class="line">血氧仪</span><br><span class="line">防滑链（时间定）</span><br><span class="line">墨镜</span><br><span class="line">巧克力</span><br><span class="line">葡萄糖</span><br><span class="line">鸭舌帽</span><br></pre></td></tr></table></figure>
+<h3 id="路线"><a href="#路线" class="headerlink" title="路线"></a>路线</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%BA%B7%E5%AE%9A%E5%91%A8%E8%BE%B92%E6%97%A520211026104129.png" alt="康定周边2日20211026104129"><br>推荐一天去一个选框中相关地点，标红为海拔高度，连线中为不堵时两地驾车时长。<br>路线图采用 sketch 制作。<br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Life/Travel/travel.sketch" target="_blank" rel="noopener">路线图</a></p>
+<h2 id="主要地点"><a href="#主要地点" class="headerlink" title="主要地点"></a>主要地点</h2><h3 id="海螺沟"><a href="#海螺沟" class="headerlink" title="海螺沟"></a>海螺沟</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-Shadowsocks 服务搭建与访问
+康定周边 2 日
 
 
-Shadowsocks 服务搭建与访问
-SS server
-安装
-配置文件
-开启服务
-开机启动
+康定周边 2 日
+准备
+时间
+物品清单
+路线
 
 
-SS client
-添加自定代理规则
-常见问题
-配置完成无法访问墙外
-SYN_RECV
-IP或端口被封
+主要地点
+海螺沟
+折多山
+新都桥
 
 
 BMW WARNING
 Bulletin
 Material
-W......  -->
+Warrant
+
+
+
+
+
+
+准备时间本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。周五晚出发建议在泸定留宿，直接前往磨......  -->
         <p class="article-more-link">
-          <a href="/Shadowsocks服务搭建与访问.html#more">阅读全文</a>
+          <a href="/康定周边2日.html#more">阅读全文</a>
         </p>
       
     </div>
