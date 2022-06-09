@@ -11,19 +11,17 @@
   
   
   
-  <meta name="description" content="sed 的使用 简介 选项参数 -n -e -i   命令参数 i/a d p s/c   常见用法 文末插入 替换字符 行数 字符行号   BMW WARNING Bulletin Material Warrant       简介流编辑器，sed 用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。 选项参数-n默认情况下，在所有的标准输">
+  <meta name="description" content="不瓜，也不怎么爱吃瓜，不好好写字的程序猿不是合格的农民，所以要多爬爬东坡，多亲近方块呀">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Skyline&#39;s blog">
 <meta property="og:url" content="http://www.skyline.show/Shell中sed的使用.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="sed 的使用 简介 选项参数 -n -e -i   命令参数 i/a d p s/c   常见用法 文末插入 替换字符 行数 字符行号   BMW WARNING Bulletin Material Warrant       简介流编辑器，sed 用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。 选项参数-n默认情况下，在所有的标准输">
+<meta property="og:description" content="不瓜，也不怎么爱吃瓜，不好好写字的程序猿不是合格的农民，所以要多爬爬东坡，多亲近方块呀">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADsed%E7%9A%84%E4%BD%BF%E7%94%A820220609113948.png">
-<meta property="og:updated_time" content="2022-06-09T06:28:53.000Z">
+<meta property="og:updated_time" content="2022-06-09T08:38:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Skyline&#39;s blog">
-<meta name="twitter:description" content="sed 的使用 简介 选项参数 -n -e -i   命令参数 i/a d p s/c   常见用法 文末插入 替换字符 行数 字符行号   BMW WARNING Bulletin Material Warrant       简介流编辑器，sed 用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。 选项参数-n默认情况下，在所有的标准输">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADsed%E7%9A%84%E4%BD%BF%E7%94%A820220609113948.png">
+<meta name="twitter:description" content="不瓜，也不怎么爱吃瓜，不好好写字的程序猿不是合格的农民，所以要多爬爬东坡，多亲近方块呀">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -177,7 +175,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-09T06:28:53.000Z" itemprop="datePublished">2022-06-09</time>
+      <time datetime="2022-06-09T08:38:21.000Z" itemprop="datePublished">2022-06-09</time>
     </a><span style="color: #999">|</span>
 
       
@@ -185,85 +183,7 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#sed-的使用">sed 的使用</a><ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#选项参数">选项参数</a><ul>
-<li><a href="#-n">-n</a></li>
-<li><a href="#-e">-e</a></li>
-<li><a href="#-i">-i</a></li>
-</ul>
-</li>
-<li><a href="#命令参数">命令参数</a><ul>
-<li><a href="#ia">i/a</a></li>
-<li><a href="#d">d</a></li>
-<li><a href="#p">p</a></li>
-<li><a href="#sc">s/c</a></li>
-</ul>
-</li>
-<li><a href="#常见用法">常见用法</a><ul>
-<li><a href="#文末插入">文末插入</a></li>
-<li><a href="#替换字符">替换字符</a></li>
-<li><a href="#行数">行数</a></li>
-<li><a href="#字符行号">字符行号</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>流编辑器，sed 用于读取指定文件或标准输入。<br>如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。</p>
-<h2 id="选项参数"><a href="#选项参数" class="headerlink" title="选项参数"></a>选项参数</h2><h3 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h3><p>默认情况下，在所有的标准输出都会被打印到屏幕上。 -n 选项用于指定输出内容。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出100到200行</span></span><br><span class="line">sed -n <span class="string">'100,200p'</span> skyline.txt</span><br><span class="line"><span class="comment"># 输出文件行数</span></span><br><span class="line">sed -n <span class="string">'$='</span> skyline.txt</span><br><span class="line"><span class="comment"># cat skyline.txt | wc -l</span></span><br></pre></td></tr></table></figure>
-<p>多个地址用逗号隔开</p>
-<h3 id="e"><a href="#e" class="headerlink" title="-e"></a>-e</h3><p>-e 是编辑命令，用于执行多个编辑任务。<br><code>sed -e &#39;1,10d&#39; -e &#39;s/skyline/lty/g&#39; skyline.txt</code><br>skyline.txt 将依次执行之后的命令，删除一到十行，并且全局替换’skyline’为’lty’</p>
-<h3 id="i"><a href="#i" class="headerlink" title="-i"></a>-i</h3><p>-i 指定备份，指定空字符串或不指定内容直接修改源文件(linux 下可以不指定，mac 下需指定空字符)。<br>没有指定该选项将直接标准输出，不进行任何实质修改</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定skyline.txt.bak的备份</span></span><br><span class="line">sed -i <span class="string">'.bak'</span> <span class="string">'s/skyline/lty/g'</span> ./skyline.txt</span><br></pre></td></tr></table></figure>
-<p>skyline.txt 源文件内容将会备份到 skyline.txt.bak 文件中</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">''</span> <span class="string">'s/skyline/lty/g'</span> ./skyline.txt</span><br></pre></td></tr></table></figure>
-<p>将不备份直接修改源文件</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">'s/skyline/lty/g'</span> ./skyline.txt</span><br></pre></td></tr></table></figure>
-<p>linux 可以直接执行修改源文件，mac 下需要如上指定空字符方可<br>在 Mac 上，sed 命令直接操作文件的时候，必须指定备份的格式，而在 linux 上，却并没有这个要求</p>
-<h2 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h2><h3 id="i-a"><a href="#i-a" class="headerlink" title="i/a"></a>i/a</h3><a id="more"></a>
-<p>i 与 a 都是插入参数，后面可以接字串，用 a 插入的字串会在行的下一行行首出现，用 i 插入的字串会在当前行的行首，出现单独一行需要在字符后加上\n</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Mac/Linux</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'9i\</span></span><br><span class="line"><span class="string">6666666'</span> skyline.txt</span><br><span class="line"><span class="comment"># Linux</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'9a\6666666'</span> skyline.txt</span><br></pre></td></tr></table></figure>
-<ul>
-<li>注意 mac 下\后需要换行</li>
-</ul>
-<h3 id="d"><a href="#d" class="headerlink" title="d"></a>d</h3><p>删除，之后不接内容<br><code>sed -i &#39;&#39; &#39;1,2d&#39; skyline.txt</code></p>
-<h3 id="p"><a href="#p" class="headerlink" title="p"></a>p</h3><p>标准输出内容</p>
-<p><code>sed -n &#39;3p&#39; skyline</code></p>
-<h3 id="s-c"><a href="#s-c" class="headerlink" title="s/c"></a>s/c</h3><p>替换部分内容，s 来替换，通常这个 s 搭配正则表达式。 c 替换通常指定行，之后用这些字串取代 n1,n2 之间的行内容</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 替换1到5行的内容为lalala</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'1,5c\</span></span><br><span class="line"><span class="string">lalala'</span> skyline.txt</span><br><span class="line"><span class="comment"># 替换</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'s/666/222/g'</span> skyline.txt</span><br></pre></td></tr></table></figure>
-<h2 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h2><h3 id="文末插入"><a href="#文末插入" class="headerlink" title="文末插入"></a>文末插入</h3><p>注意 mac 下\后需要换行</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">''</span> <span class="string">'$a\skyline'</span> skyline.txt</span><br></pre></td></tr></table></figure>
-<h3 id="替换字符"><a href="#替换字符" class="headerlink" title="替换字符"></a>替换字符</h3><p>替换第 n 个匹配的字符</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> sksksksksksk | sed <span class="string">'s/sk/SK/3'</span></span><br></pre></td></tr></table></figure>
-<h3 id="行数"><a href="#行数" class="headerlink" title="行数"></a>行数</h3><p>输出文件行数</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -n <span class="string">'$='</span> skyline.txt</span><br></pre></td></tr></table></figure>
-<h3 id="字符行号"><a href="#字符行号" class="headerlink" title="字符行号"></a>字符行号</h3><p>输出文件第 n 个匹配字符所在行号<br>在本项目的根目录执行如下代码</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出所有skyline的行号</span></span><br><span class="line">sed -n /skyline/=  Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#输出第2个skyline所在行号</span></span><br><span class="line">sed -n /skyline/= Demos/Major/Shell/skyline.txt | sed -n 2p</span><br><span class="line"><span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADsed%E7%9A%84%E4%BD%BF%E7%94%A820220609113948.png" alt="Shell中sed的使用20220609113948"></p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-<blockquote>
-<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
-</blockquote>
-
+        
       
     </div>
     <footer class="article-footer">
@@ -340,7 +260,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选项参数"><span class="nav-number">2.</span> <span class="nav-text">选项参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#n"><span class="nav-number">2.1.</span> <span class="nav-text">-n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e"><span class="nav-number">2.2.</span> <span class="nav-text">-e</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#i"><span class="nav-number">2.3.</span> <span class="nav-text">-i</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令参数"><span class="nav-number">3.</span> <span class="nav-text">命令参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#i-a"><span class="nav-number">3.1.</span> <span class="nav-text">i/a</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d"><span class="nav-number">3.2.</span> <span class="nav-text">d</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p"><span class="nav-number">3.3.</span> <span class="nav-text">p</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#s-c"><span class="nav-number">3.4.</span> <span class="nav-text">s/c</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见用法"><span class="nav-number">4.</span> <span class="nav-text">常见用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文末插入"><span class="nav-number">4.1.</span> <span class="nav-text">文末插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换字符"><span class="nav-number">4.2.</span> <span class="nav-text">替换字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行数"><span class="nav-number">4.3.</span> <span class="nav-text">行数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符行号"><span class="nav-number">4.4.</span> <span class="nav-text">字符行号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">5.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">5.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">5.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav">无</ol>
     
     </div>
   </aside>
