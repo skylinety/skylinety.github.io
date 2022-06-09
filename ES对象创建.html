@@ -8,22 +8,25 @@
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
+  <meta name="keywords" content="JSES复杂类型">
   
   
   
-  <meta name="description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  JS 对象的创建   JS 对象的创建 工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING Bulletin Material Warrant       工厂模式工厂模式解决了创">
+  
+  <meta name="description" content="工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING Bulletin Material Warrant     工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？） function person(name) &amp;#1">
+<meta name="keywords" content="JS,ES,复杂类型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES对象创建">
 <meta property="og:url" content="http://www.skyline.show/ES对象创建.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  JS 对象的创建   JS 对象的创建 工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING Bulletin Material Warrant       工厂模式工厂模式解决了创">
+<meta property="og:description" content="工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING Bulletin Material Warrant     工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？） function person(name) &amp;#1">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA20210928110402.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA20210928110309.png">
-<meta property="og:updated_time" content="2022-01-20T07:47:16.000Z">
+<meta property="og:updated_time" content="2022-06-03T09:39:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES对象创建">
-<meta name="twitter:description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  JS 对象的创建   JS 对象的创建 工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING Bulletin Material Warrant       工厂模式工厂模式解决了创">
+<meta name="twitter:description" content="工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING Bulletin Material Warrant     工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？） function person(name) &amp;#1">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA20210928110402.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -188,21 +191,23 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="JS-对象的创建"><a href="#JS-对象的创建" class="headerlink" title="JS 对象的创建"></a>JS 对象的创建</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#js-对象的创建">JS 对象的创建</a><ul>
 <li><a href="#工厂模式">工厂模式</a></li>
 <li><a href="#构造函数模式">构造函数模式</a><ul>
 <li><a href="#实现">实现</a></li>
@@ -228,8 +233,6 @@
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
 <li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -276,7 +279,7 @@
 <li>稳妥构造函数模式也跟工厂模式一样，无法识别对象所属类型</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  <span class="keyword">var</span> age = <span class="number">27</span>;</span><br><span class="line">  p.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;name&#125;</span> and I am <span class="subst">$&#123;age&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = Person(<span class="string">"skyline"</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
@@ -333,25 +336,27 @@ var a = new Donate({
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂类型/">复杂类型</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/HTTPS加密方式$.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Shadowsocks服务搭建与访问.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          HTTPS加密方式$
+          Shadowsocks服务搭建与访问
         
       </div>
     </a>
   
   
-    <a href="/Vue基础使用.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/frp内网穿透.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Vue基础使用</div>
+      <div class="article-nav-title">frp内网穿透</div>
     </a>
   
 </nav>
@@ -365,7 +370,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JS-对象的创建"><span class="nav-number">1.</span> <span class="nav-text">JS 对象的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂模式"><span class="nav-number">1.1.</span> <span class="nav-text">工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数模式"><span class="nav-number">1.2.</span> <span class="nav-text">构造函数模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">1.2.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">1.2.2.</span> <span class="nav-text">优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型模式"><span class="nav-number">1.3.</span> <span class="nav-text">原型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型判定"><span class="nav-number">1.3.2.</span> <span class="nav-text">原型判定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型重写"><span class="nav-number">1.3.3.</span> <span class="nav-text">原型重写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型模式问题"><span class="nav-number">1.3.4.</span> <span class="nav-text">原型模式问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合构造与原型"><span class="nav-number">1.4.</span> <span class="nav-text">组合构造与原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态原型"><span class="nav-number">1.5.</span> <span class="nav-text">动态原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-2"><span class="nav-number">1.5.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写原型"><span class="nav-number">1.5.2.</span> <span class="nav-text">重写原型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄生构造函数"><span class="nav-number">1.6.</span> <span class="nav-text">寄生构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#稳妥构造函数"><span class="nav-number">1.7.</span> <span class="nav-text">稳妥构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">1.8.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">1.8.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">1.8.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">1.8.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂模式"><span class="nav-number">1.</span> <span class="nav-text">工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数模式"><span class="nav-number">2.</span> <span class="nav-text">构造函数模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">2.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">2.2.</span> <span class="nav-text">优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型模式"><span class="nav-number">3.</span> <span class="nav-text">原型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-1"><span class="nav-number">3.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型判定"><span class="nav-number">3.2.</span> <span class="nav-text">原型判定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型重写"><span class="nav-number">3.3.</span> <span class="nav-text">原型重写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型模式问题"><span class="nav-number">3.4.</span> <span class="nav-text">原型模式问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合构造与原型"><span class="nav-number">4.</span> <span class="nav-text">组合构造与原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态原型"><span class="nav-number">5.</span> <span class="nav-text">动态原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-2"><span class="nav-number">5.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写原型"><span class="nav-number">5.2.</span> <span class="nav-text">重写原型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄生构造函数"><span class="nav-number">6.</span> <span class="nav-text">寄生构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#稳妥构造函数"><span class="nav-number">7.</span> <span class="nav-text">稳妥构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">8.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">8.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">8.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">8.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
     
     </div>
   </aside>

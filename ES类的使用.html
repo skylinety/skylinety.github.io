@@ -8,20 +8,23 @@
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
+  <meta name="keywords" content="JSES复杂类型">
   
   
   
-  <meta name="description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  ES 类的使用   ES 类的使用 静态（类）、实例、原型属性与方法 ES5 ES6 属性访问结论   Class 原型方法语法糖 Class 中属性与方法的枚举性质   BMW WARNING Bulletin Material Warrant       静态（类）、实例、原型属性与方法ES5Baby 类 //对象">
+  
+  <meta name="description" content="静态（类）、实例、原型属性与方法 ES5 ES6 属性访问结论   Class 原型方法语法糖 Class 中属性与方法的枚举性质   BMW WARNING Bulletin Material Warrant     静态（类）、实例、原型属性与方法ES5Baby 类 //对象构造函数function Baby(name) &amp;#123;  var className = &quot;Baby&quot;;">
+<meta name="keywords" content="JS,ES,复杂类型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES类的使用">
 <meta property="og:url" content="http://www.skyline.show/ES类的使用.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  ES 类的使用   ES 类的使用 静态（类）、实例、原型属性与方法 ES5 ES6 属性访问结论   Class 原型方法语法糖 Class 中属性与方法的枚举性质   BMW WARNING Bulletin Material Warrant       静态（类）、实例、原型属性与方法ES5Baby 类 //对象">
+<meta property="og:description" content="静态（类）、实例、原型属性与方法 ES5 ES6 属性访问结论   Class 原型方法语法糖 Class 中属性与方法的枚举性质   BMW WARNING Bulletin Material Warrant     静态（类）、实例、原型属性与方法ES5Baby 类 //对象构造函数function Baby(name) &amp;#123;  var className = &quot;Baby&quot;;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-01-20T07:47:16.000Z">
+<meta property="og:updated_time" content="2022-06-03T09:39:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES类的使用">
-<meta name="twitter:description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  ES 类的使用   ES 类的使用 静态（类）、实例、原型属性与方法 ES5 ES6 属性访问结论   Class 原型方法语法糖 Class 中属性与方法的枚举性质   BMW WARNING Bulletin Material Warrant       静态（类）、实例、原型属性与方法ES5Baby 类 //对象">
+<meta name="twitter:description" content="静态（类）、实例、原型属性与方法 ES5 ES6 属性访问结论   Class 原型方法语法糖 Class 中属性与方法的枚举性质   BMW WARNING Bulletin Material Warrant     静态（类）、实例、原型属性与方法ES5Baby 类 //对象构造函数function Baby(name) &amp;#123;  var className = &quot;Baby&quot;;">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -185,22 +188,24 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="ES-类的使用"><a href="#ES-类的使用" class="headerlink" title="ES 类的使用"></a>ES 类的使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#es-类的使用">ES 类的使用</a><ul>
-<li><a href="#静态类实例原型属性与方法">静态（类）、实例、原型属性与方法</a><ul>
+<li><a href="#静态类-实例-原型属性与方法">静态（类）、实例、原型属性与方法</a><ul>
 <li><a href="#es5">ES5</a></li>
 <li><a href="#es6">ES6</a></li>
 <li><a href="#属性访问结论">属性访问结论</a></li>
@@ -214,9 +219,7 @@
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
+<li><a href="#Warrant">Warrant</a></li>
 </ul>
 </li>
 </ul>
@@ -243,7 +246,7 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> skyline = <span class="keyword">new</span> Baby(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="built_in">Reflect</span>.ownKeys(skyline);</span><br><span class="line"><span class="comment">// (4) ['eat', 'firstName', 'lastName', 'say']</span></span><br><span class="line"><span class="built_in">Object</span>.keys(skyline);</span><br><span class="line"><span class="comment">// (4) ['eat', 'firstName', 'lastName', 'say']</span></span><br></pre></td></tr></table></figure>
 <p>原型属性与方法不可枚举，这与 ES5 中原型属性方法不同，其是可枚举的。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Reflect</span>.ownKeys(skyline.__proto__);</span><br><span class="line"><span class="comment">// (3) ['constructor', 'prop', 'toString']</span></span><br><span class="line"><span class="built_in">Object</span>.keys(skyline.__proto__);</span><br><span class="line"><span class="comment">//[]</span></span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
@@ -299,25 +302,27 @@ var a = new Donate({
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂类型/">复杂类型</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/ES对象属性.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Husky使用.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          ES对象属性
+          Husky使用
         
       </div>
     </a>
   
   
-    <a href="/Husky使用.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/康定周边2日.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Husky使用</div>
+      <div class="article-nav-title">康定周边2日</div>
     </a>
   
 </nav>
@@ -331,7 +336,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ES-类的使用"><span class="nav-number">1.</span> <span class="nav-text">ES 类的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态（类）、实例、原型属性与方法"><span class="nav-number">1.1.</span> <span class="nav-text">静态（类）、实例、原型属性与方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES5"><span class="nav-number">1.1.1.</span> <span class="nav-text">ES5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6"><span class="nav-number">1.1.2.</span> <span class="nav-text">ES6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性访问结论"><span class="nav-number">1.1.3.</span> <span class="nav-text">属性访问结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class"><span class="nav-number">1.2.</span> <span class="nav-text">Class</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型方法语法糖"><span class="nav-number">1.2.1.</span> <span class="nav-text">原型方法语法糖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-中属性与方法的枚举性质"><span class="nav-number">1.2.2.</span> <span class="nav-text">Class 中属性与方法的枚举性质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">1.3.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">1.3.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">1.3.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">1.3.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态（类）、实例、原型属性与方法"><span class="nav-number">1.</span> <span class="nav-text">静态（类）、实例、原型属性与方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES5"><span class="nav-number">1.1.</span> <span class="nav-text">ES5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6"><span class="nav-number">1.2.</span> <span class="nav-text">ES6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性访问结论"><span class="nav-number">1.3.</span> <span class="nav-text">属性访问结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class"><span class="nav-number">2.</span> <span class="nav-text">Class</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型方法语法糖"><span class="nav-number">2.1.</span> <span class="nav-text">原型方法语法糖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-中属性与方法的枚举性质"><span class="nav-number">2.2.</span> <span class="nav-text">Class 中属性与方法的枚举性质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">3.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">3.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">3.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
     
     </div>
   </aside>

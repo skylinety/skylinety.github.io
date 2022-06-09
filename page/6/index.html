@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-Generator函数"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-JavaScript隐式类型转换小结"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Generator函数.html">Generator函数</a>
+      <a class="article-title" href="/JavaScript隐式类型转换小结.html">JavaScript隐式类型转换小结</a>
     </h1>
   
 
@@ -336,7 +336,7 @@
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-11-29T12:58:25.000Z" itemprop="datePublished">2017-11-29</time>
+      <time datetime="2018-01-26T12:49:44.000Z" itemprop="datePublished">2018-01-26</time>
     </a>
 
 
@@ -349,327 +349,80 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><h5 id="代码1"><a href="#代码1" class="headerlink" title="代码1"></a>代码1</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="keyword">yield</span> x + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(y, <span class="string">'y'</span>); <span class="comment">// 12 "y"</span></span><br><span class="line">  <span class="keyword">const</span> z = <span class="keyword">yield</span> y + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(z, <span class="string">'z'</span>); <span class="comment">// 12 "z"</span></span><br><span class="line">  <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> value = g.next().value; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(value); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 13, done: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 12, done: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">//12 "y"</span></span><br><span class="line"><span class="comment">// &#123;value: 13, done: false&#125;</span></span><br><span class="line"><span class="comment">//12 "z"</span></span><br><span class="line"><span class="comment">// &#123;value: 12, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="代码2"><a href="#代码2" class="headerlink" title="代码2"></a>代码2</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next())</span><br><span class="line"><span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line"><span class="comment">// z is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: 3, done: false&#125;</span></span><br><span class="line"><span class="comment">// y is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="代码3"><a href="#代码3" class="headerlink" title="代码3"></a>代码3</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line">g <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">g[<span class="built_in">Symbol</span>.iterator] <span class="comment">// ƒ [Symbol.iterator]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="keyword">var</span> x = g[<span class="built_in">Symbol</span>.iterator]()</span><br><span class="line">x <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">x.next() <span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// z is undefined &#123;value: 3, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// y is undefined &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
-<li><strong>Generator 函数不同于普通函数执行它不会返回结果，返回的是一个指针对象（包含iterator接口，即拥有Symbol.iterator属性）</strong></li>
-<li>iterator 对象通过调用自身的 next 方法，保证游标后移，并且next方法返回一个包含了 value和 done（迭代器是否完成的布尔值）的对象。</li>
-<li>关于next返回对象中的value值，假设有n个yield语句，<strong>第n个value的值是第n个yield 语句后面表达式的值，第n+1个value的值是Generator函数的返回值，第n+2个以上的value值是undefined</strong></li>
-<li>yield 语句的值，比如上面代码1中的 y与z，是<strong>下一次调用 next 传入的参数的值</strong>，也就是 value + 10,如果此处next不传值，如代码2中，y与z就是undefined。反过来说，next 方法带有的参数可以传入 Generator 函数，作为上个阶段异步任务的返回结果（上一个yield 语句的值）<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/Generator函数.html">http://www.skyline.show/Generator函数.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-</li>
-</ul>
+<h3 id="转换规则"><a href="#转换规则" class="headerlink" title="转换规则"></a>转换规则</h3><h4 id="隐式转换为布尔值"><a href="#隐式转换为布尔值" class="headerlink" title="隐式转换为布尔值"></a>隐式转换为布尔值</h4><h5 id="如表"><a href="#如表" class="headerlink" title="如表"></a>如表</h5><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转化成true</th>
+<th>转化成false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>非空字符</td>
+<td>“”(空字符）</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>非零</td>
+<td>0与NaN</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>非Null对象</td>
+<td>null           </td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>无</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<p>（注：调用Boolean()方法得到结果相同）</p>
+<hr>
+<h4 id="对象隐式转换规则"><a href="#对象隐式转换规则" class="headerlink" title="对象隐式转换规则"></a>对象隐式转换规则</h4>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-vue-router子路由path写法"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/vue-router子路由path写法.html">vue-router子路由path写法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-10-30T07:14:56.000Z" itemprop="datePublished">2017-10-30</time>
-    </a>
+转换规则隐式转换为布尔值如表
 
 
-      
-    
-    <a class="article-category-link" href="/categories/Vue/">Vue</a>
-    <!--  -->
+数据类型
+转化成true
+转化成false
 
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h6 id="☞-不推荐写法"><a href="#☞-不推荐写法" class="headerlink" title="☞ 不推荐写法"></a>☞ 不推荐写法</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/index'</span>,</span><br><span class="line">    component: Index,</span><br><span class="line">    children: [&#123;</span><br><span class="line">            path: <span class="string">'/home'</span>,</span><br><span class="line">            name: <span class="string">'home'</span>,</span><br><span class="line">            component: Home</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="☞-子路由"><a href="#☞-子路由" class="headerlink" title="☞ 子路由"></a>☞ 子路由</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/index'</span>,</span><br><span class="line">    component: Index,</span><br><span class="line">    children: [&#123;</span><br><span class="line">            path: <span class="string">'home'</span>,</span><br><span class="line">            name: <span class="string">'home'</span>,</span><br><span class="line">            component: Home</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>子路由中不建议在path前加’/‘绝对路径，容易造成误解（本意可能想要第二种结果）。如果需要在路由中隐藏’index’，改成如下写法</p>
-<h6 id="☞-路由隐藏index"><a href="#☞-路由隐藏index" class="headerlink" title="☞ 路由隐藏index"></a>☞ 路由隐藏index</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/'</span>,</span><br><span class="line">    component: Index,</span><br><span class="line">    children: [&#123;</span><br><span class="line">            path: <span class="string">'home'</span>,</span><br><span class="line">            name: <span class="string">'home'</span>,</span><br><span class="line">            component: Home</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4>
-        <!-- 代码☞ 不推荐写法&#123;    path: '/index',    component: Index,    children: [&#123;            path: '/home',            name: 'home',            component: Home        &#125;    ]&#125;
-☞ 子路由&#123;    pa......  -->
+
+
+
+String
+非空字符
+“”(空字符）
+
+
+Number
+非零
+0与NaN
+
+
+Object
+非Null对象
+null           
+
+
+undefined
+无
+undefined
+
+
+
+（注：调用Boolean()方法......  -->
         <p class="article-more-link">
-          <a href="/vue-router子路由path写法.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-鹧鸪天·九月西湖雨入情（新韵）"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/鹧鸪天·九月西湖雨入情（新韵）.html">鹧鸪天·九月西湖雨入情（新韵）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-09-23T06:15:40.000Z" itemprop="datePublished">2017-09-23</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/词·自作/">词·自作</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>&nbsp;<br>&nbsp;</p>
-<p>九月西湖雨入情，一人饮酒廿杯明。形成秋叶怜枝瘦，影化微风惜夜清。</p>
-<p>形伴影，叶随风，谢家庭院在西东？危楼伫望空千里，今夜无人入梦中。<br>&nbsp;<br>&nbsp;</p>
-<hr>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/鹧鸪天·九月西湖雨入情（新韵）.html">http://www.skyline.show/鹧鸪天·九月西湖雨入情（新韵）.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/练笔/">练笔</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词/">词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鹧鸪天/">鹧鸪天</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-JS字符串截取substr、substring、slice"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/JS字符串截取substr、substring、slice.html">JS字符串截取substr、substring、slice</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T08:02:42.000Z" itemprop="datePublished">2017-07-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"skylinety"</span></span><br><span class="line"></span><br><span class="line">a.slice(<span class="number">2</span>,<span class="number">5</span>)<span class="comment">//"yli"</span></span><br><span class="line"></span><br><span class="line">a.substr(<span class="number">2</span>,<span class="number">5</span>)<span class="comment">//"yline"</span></span><br><span class="line"></span><br><span class="line">a.substring(<span class="number">2</span>,<span class="number">5</span>)<span class="comment">//"yli"</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="截取规则"><a href="#截取规则" class="headerlink" title="截取规则"></a>截取规则</h4><ol>
-<li>0s1k2y3l4i5n6e7t8y9</li>
-<li>-9s-8k-7y-6l-5i-4n-3e-2t-1y0</li>
-</ol>
-<p>s k y l i n e t y</p>
-<p>0 1 2 3 4 5 6 7 8 9</p>
-<h4 id="异同"><a href="#异同" class="headerlink" title="异同"></a>异同</h4><ul>
-<li>slice与substring截取规则基本相同，start,end</li>
-<li>substr截取规则，start,length</li>
-<li><p>slice中的start如果为负数，会从尾部算起，-1表示倒数第一个，-2表示倒数第2个</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.slice(-2,-5)//&quot;&quot;</span><br><span class="line"></span><br><span class="line">a.slice(-5,-2)//&quot;ine&quot;</span><br><span class="line"></span><br><span class="line">a.slice(-5,8)//&quot;inet&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>slice的start如果为正数,end如果为负数，end同样从尾部算起，如果其位置超过开始位置，返回空字符串</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.slice(5,-2)//&quot;ne&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>substr第一个参数可正负，第二个参数表示，要截取的长度,若该参数为负数或0，都将返回空字符串</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.substr(-5,6)//&quot;inety</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>substring会取start和end中较小的值为start,二者相等返回空字符串，任何一个参数为负数被替换为0(即该值会成为start参数)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.substring(-5,5)//&quot;skyli&quot;</span><br><span class="line"></span><br><span class="line">a.substring(5,-5)//&quot;skyli&quot;</span><br><span class="line"></span><br><span class="line">a.substring(-5,-4)//&quot;&quot;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/JS字符串截取substr、substring、slice.html">http://www.skyline.show/JS字符串截取substr、substring、slice.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Jquery中的extend"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Jquery中的extend.html">Jquery中的extend</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:56:13.000Z" itemprop="datePublished">2017-07-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Jquery源码"><a href="#Jquery源码" class="headerlink" title="Jquery源码"></a>Jquery源码</h4><p><a href="https://github.com/jquery/jquery/blob/1472290917f17af05e98007136096784f9051fab/src/core.js#L121" target="_blank" rel="noopener">Jquery extend 源码地址</a></p>
-<hr>
-<h4 id="代码使用"><a href="#代码使用" class="headerlink" title="代码使用"></a>代码使用</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">    b: &#123; <span class="attr">f</span>: &#123; <span class="attr">g</span>: <span class="number">1</span> &#125; &#125;,</span><br><span class="line">    c: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> y = $.extend(&#123;&#125;, x),          <span class="comment">//shallow copy</span></span><br><span class="line">    z = $.extend(<span class="literal">true</span>, &#123;&#125;, x);    <span class="comment">//deep copy</span></span><br><span class="line"></span><br><span class="line">y.b.f === x.b.f       <span class="comment">// true</span></span><br><span class="line">z.b.f === x.b.f       <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">jQuery.extend = jQuery.fn.extend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> src, <span class="comment">//缓存目标对象属性</span></span><br><span class="line">        copyIsArray, <span class="comment">//标记被复制对象属性是否是数组</span></span><br><span class="line">        copy, <span class="comment">//缓存被复制对象属性</span></span><br><span class="line">        name, options, clone,</span><br><span class="line">        target = <span class="built_in">arguments</span>[<span class="number">0</span>] || &#123;&#125;, <span class="comment">//目标对象，如果没有传入参数，则默认为空对象</span></span><br><span class="line">        i = <span class="number">1</span>, <span class="comment">//标记参数的位置</span></span><br><span class="line">        length = <span class="built_in">arguments</span>.length,</span><br><span class="line">        deep = <span class="literal">false</span>; <span class="comment">//深浅克隆标志</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理深克隆</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> target === <span class="string">"boolean"</span>) &#123;</span><br><span class="line">        deep = target;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果第一个参数为布尔值，则目标对象顺移值第二个参数</span></span><br><span class="line">        target = <span class="built_in">arguments</span>[i] || &#123;&#125;;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理目标参数是非对象情况（注意第二个判断条件是由于typeof用于function返回的是'Function')</span></span><br><span class="line">    <span class="comment">// Handle case when target is a string or something (possible in deep copy)</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> target !== <span class="string">"object"</span> &amp;&amp; !jQuery.isFunction(target)) &#123;</span><br><span class="line">        target = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果传入参数只有一个（任意）则直接赋值Jquery对象</span></span><br><span class="line">    <span class="keyword">if</span> (i === length) &#123;</span><br><span class="line">        target = <span class="keyword">this</span>;</span><br><span class="line">        i--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (; i &lt; length; i++) &#123;</span><br><span class="line">        <span class="comment">//undefined == null true</span></span><br><span class="line">        <span class="comment">// 处理非null与undefined值</span></span><br><span class="line">        <span class="keyword">if</span> ((options = <span class="built_in">arguments</span>[i]) != <span class="literal">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (name <span class="keyword">in</span> options) &#123;</span><br><span class="line">                src = target[name];</span><br><span class="line">                copy = options[name];</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 如果目标属性与被复制对象属性相等</span></span><br><span class="line">                <span class="keyword">if</span> (target === copy) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 如果是纯粹对象或数组，则递归调用。（通过 "&#123;&#125;" 或者 "new Object" 创建的是纯粹对象）</span></span><br><span class="line">                <span class="keyword">if</span> (deep &amp;&amp; copy &amp;&amp; (jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)))) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (copyIsArray) &#123;</span><br><span class="line">                        copyIsArray = <span class="literal">false</span>;</span><br><span class="line">                        clone = src &amp;&amp; jQuery.isArray(src) ? src : [];</span><br><span class="line"></span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        clone = src &amp;&amp; jQuery.isPlainObject(src) ? src : &#123;&#125;;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    target[name] = jQuery.extend(deep, clone, copy);</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (copy !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">                    target[name] = copy;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<hr>
-<p>####参考资料<br><a href="http://jerryzou.com/posts/dive-into-deep-clone-in-javascript/" target="_blank" rel="noopener">深入剖析 JavaScript 的深复制</a></p>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/Jquery中的extend.html">http://www.skyline.show/Jquery中的extend.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分析/">分析</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Javascript对象扩展、封印与冻结"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Javascript对象扩展、封印与冻结.html">Javascript对象扩展、封印与冻结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h4><h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><ul>
-<li>Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展</li>
-<li>Object.seal()封印对象，Object.isSealed()检查是否被封印</li>
-<li>Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结</li>
-<li>被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符writable改为false时，那么此时它也是被冻结的，通过isFrozen返回true</li>
-<li>被冻结对象的访问器属性如果有set描述符，则它仍旧是可写的</li>
-<li>冻结与封印只针对首层属性，如果对象包含对象属性，该属性下对象仍旧是乐意改变的</li>
-</ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/8284EEDA9E61CD4DA3CA8A04281F2AB7.png-content" alt="freeze.png-content"></p>
-<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p><code>var c = d = {name: &quot;skyline liu&quot;, age: &quot;21&quot;, phone: &quot;10086&quot;}</code><br><code>Object.getOwnPropertyDescriptors(c)</code><br><code>Object.getOwnPropertyDescriptors(d)</code></p>
-<h6 id="☞-c、d属性的描述符"><a href="#☞-c、d属性的描述符" class="headerlink" title="☞ c、d属性的描述符"></a>☞ c、d属性的描述符</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    age: &#123;</span><br><span class="line">        value: <span class="string">"21"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    name: &#123;</span><br><span class="line">        value: <span class="string">"skyline liu"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    phone: &#123;</span><br><span class="line">        value: <span class="string">"10086"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>Object.freeze(c)</code><br><code>Object.getOwnPropertyDescriptors(c)</code></p>
-<h6 id="☞c属性的描述符"><a href="#☞c属性的描述符" class="headerlink" title="☞c属性的描述符"></a>☞c属性的描述符</h6>
-        <!-- 扩展、封印与冻结要点
-Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展
-Object.seal()封印对象，Object.isSealed()检查是否被封印
-Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
-被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符wr......  -->
-        <p class="article-more-link">
-          <a href="/Javascript对象扩展、封印与冻结.html#more">阅读全文</a>
+          <a href="/JavaScript隐式类型转换小结.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -687,7 +440,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
 <!-- Table of Contents -->
 
   
-    <article id="post-Cssnth-child与nth-of-type"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Js隐式类型转换需要注意的地方"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -695,7 +448,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Cssnth-child与nth-of-type.html">Css中nth-child与nth-of-type</a>
+      <a class="article-title" href="/Js隐式类型转换需要注意的地方.html">Js隐式类型转换需要注意的地方</a>
     </h1>
   
 
@@ -704,7 +457,301 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+      <time datetime="2018-01-26T07:14:56.000Z" itemprop="datePublished">2018-01-26</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h3 id="转换规则"><a href="#转换规则" class="headerlink" title="转换规则"></a>转换规则</h3><h4 id="隐式转换为布尔值"><a href="#隐式转换为布尔值" class="headerlink" title="隐式转换为布尔值"></a>隐式转换为布尔值</h4><h5 id="如表"><a href="#如表" class="headerlink" title="如表"></a>如表</h5><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转化成true</th>
+<th>转化成false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>非空字符</td>
+<td>“”(空字符）</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>非零</td>
+<td>0与NaN</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>非Null对象</td>
+<td>null           </td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>无</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<p>（注：调用Boolean()方法得到结果相同）</p>
+<hr>
+<h4 id="对象隐式转换规则"><a href="#对象隐式转换规则" class="headerlink" title="对象隐式转换规则"></a>对象隐式转换规则</h4>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+转换规则隐式转换为布尔值如表
+
+
+数据类型
+转化成true
+转化成false
+
+
+
+
+String
+非空字符
+“”(空字符）
+
+
+Number
+非零
+0与NaN
+
+
+Object
+非Null对象
+null           
+
+
+undefined
+无
+undefined
+
+
+
+（注：调用Boolean()方法......  -->
+        <p class="article-more-link">
+          <a href="/Js隐式类型转换需要注意的地方.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-采桑子（丑奴儿）"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/采桑子（丑奴儿）.html">采桑子（丑奴儿）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-25T12:55:34.000Z" itemprop="datePublished">2018-01-25</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/词·搜集/">词·搜集</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="简介（摘自度娘百科）"><a href="#简介（摘自度娘百科）" class="headerlink" title="简介（摘自度娘百科）"></a>简介（摘自度娘百科）</h3><p>采桑子，又名《丑奴儿》，《丑奴儿令》，《罗敷媚》，《罗敷艳歌》等。采桑子格律为双调四十四字，上下片各四句三平韵。另有添字格，两结句各添二字，两平韵，一叠韵。</p>
+<hr>
+<h3 id="名家名作"><a href="#名家名作" class="headerlink" title="名家名作"></a>名家名作</h3><h4 id="欧阳修"><a href="#欧阳修" class="headerlink" title="欧阳修"></a>欧阳修</h4><p>轻舟短棹西湖好，<strong>绿水逶迤，芳草长堤，隐隐笙歌处处随</strong>。</p>
+<p><strong>无风水面琉璃滑，不觉船移，微动涟漪，惊起沙禽掠岸飞</strong>。</p>
+<hr>
+<p>群芳过后西湖好，狼籍残红，飞絮濛濛。垂柳阑干尽日风。</p>
+<p><strong>笙歌散尽游人去，始觉春空。垂下帘栊，双燕归来细雨中</strong>。</p>
+<hr>
+<h4 id="纳兰性德"><a href="#纳兰性德" class="headerlink" title="纳兰性德"></a>纳兰性德</h4><p>谢家庭院残更立，燕宿雕梁，月度银墙，不辨花丛那辨香。</p>
+<p><strong>此情已自成追忆，零落鸳鸯，雨歇微凉，十一年前梦一场</strong>。</p>
+<hr>
+<p>谁翻乐府凄凉曲？<strong>风也萧萧，雨也萧萧，瘦尽灯花又一宵</strong>。</p>
+<p><strong>不知何事萦怀抱，醒也无聊，醉也无聊，梦也何曾到谢桥</strong>。</p>
+<hr>
+<p><strong>彤霞久绝飞琼字，人在谁边。人在谁边，今夜玉清眠不眠</strong>。</p>
+<p><strong>香销被冷残灯灭，静数秋天。静数秋天，又误心期到下弦。</strong></p>
+<hr>
+<h4 id="吕本中（宋）"><a href="#吕本中（宋）" class="headerlink" title="吕本中（宋）"></a>吕本中（宋）</h4><p>恨君不似江楼月，南北东西，南北东西，只有相随无别离。</p>
+<p>恨君却似江楼月，暂满还亏，暂满还亏，待得团圆是几时？</p>
+<hr>
+<h4 id="晏几道"><a href="#晏几道" class="headerlink" title="晏几道"></a>晏几道</h4><p>西楼月下当时见，泪粉偷匀。歌罢还颦。恨隔炉烟看未真。</p>
+<p>别来楼外垂杨缕，几换青春。倦客红尘，长记楼中粉泪人。</p>
+<hr>
+<p>昭华凤管知名久，长闭帘栊。日日春慵。闲倚庭花晕脸红。</p>
+<p>应说金谷无人后，此会相逢。三弄临风。送得当筵玉盏空。</p>
+<hr>
+<h4 id="辛弃疾"><a href="#辛弃疾" class="headerlink" title="辛弃疾"></a>辛弃疾</h4>
+        <!-- 简介（摘自度娘百科）采桑子，又名《丑奴儿》，《丑奴儿令》，《罗敷媚》，《罗敷艳歌》等。采桑子格律为双调四十四字，上下片各四句三平韵。另有添字格，两结句各添二字，两平韵，一叠韵。
+
+名家名作欧阳修轻舟短棹西湖好，绿水逶迤，芳草长堤，隐隐笙歌处处随。
+无风水面琉璃滑，不觉船移，微动涟漪，惊起沙禽掠岸飞。
+
+群芳过后西湖好，狼籍残红，飞絮濛濛。垂柳阑干尽日风。
+笙歌散尽游人去，始觉春空。垂下帘栊，......  -->
+        <p class="article-more-link">
+          <a href="/采桑子（丑奴儿）.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词/">词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/采桑子/">采桑子</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-浣溪沙"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/浣溪沙.html">浣溪沙</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-25T12:53:12.000Z" itemprop="datePublished">2018-01-25</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/词·搜集/">词·搜集</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="简介（摘自度娘百科）"><a href="#简介（摘自度娘百科）" class="headerlink" title="简介（摘自度娘百科）"></a>简介（摘自度娘百科）</h3><p>浣溪沙，唐代教坊曲名，后用为词牌。分平仄两体，字数以四十二字居多，还有四十四字和四十六字两种。全词分两片，上片三句全用韵，下片末二句用韵（多用平韵）。</p>
+<hr>
+<h3 id="名家名作"><a href="#名家名作" class="headerlink" title="名家名作"></a>名家名作</h3><h4 id="晏殊"><a href="#晏殊" class="headerlink" title="晏殊"></a>晏殊</h4><p>一曲新词酒一杯,去年天气旧亭台。夕阳西下几时回? </p>
+<p><strong>无可奈何花落去,似曾相识燕归来。</strong>小园香径独徘徊。</p>
+<hr>
+<p>青杏园林煮酒香，佳人初试薄罗裳。柳丝无力燕飞忙。</p>
+<p><strong>乍雨乍晴花自落，闲愁闲闷日偏长</strong>。为谁消瘦减容光。</p>
+<hr>
+<p>一向年光有限身，等闲离别易销魂，酒筵歌席莫辞频。</p>
+<p><strong>满目山河空念远，落花风雨更伤春，不如怜取眼前人。</strong></p>
+<hr>
+<h4 id="苏轼"><a href="#苏轼" class="headerlink" title="苏轼"></a>苏轼</h4><p>簌簌衣巾落枣花,村南村北响缲车。牛衣古柳卖黄瓜。</p>
+<p>酒困路长惟欲睡,日高人渴漫思茶。敲门试问野人家。</p>
+<hr>
+<p>（游蕲水清泉寺,寺临兰溪,溪水西流。）</p>
+<p>山下兰芽短浸溪，松间沙路净无泥，潇潇暮雨子规啼。</p>
+<p><strong>谁道人生无再少？门前流水尚能西！休将白发唱黄鸡。</strong></p>
+<hr>
+<p>（咏橘）</p>
+<p>橘暗荷枯一夜霜，新苞绿叶照林光。竹林茅舍出青黄。</p>
+<p>香雾噀（xùn）人惊半破，清泉流齿怯初尝。吴姬三日手犹香。</p>
+<hr>
+<h4 id="纳兰性德"><a href="#纳兰性德" class="headerlink" title="纳兰性德"></a>纳兰性德</h4><p>谁念西风独自凉，萧萧黄叶闭疏窗。沉思往事立残阳。</p>
+<p><strong>被酒莫惊春睡重，赌书消得泼茶香。当时只道是寻常。</strong></p>
+<hr>
+<p>雨歇梧桐泪乍收，遣怀翻自忆从头，摘花销恨旧风流。</p>
+<p>帘影碧桃人已去，屧（xiè）痕苍藓径空留。两眉何处月如钩？</p>
+<hr>
+<h4 id="秦观"><a href="#秦观" class="headerlink" title="秦观"></a>秦观</h4><p>漠漠轻寒上小楼，晓阴无赖似穷秋。淡烟流水画屏幽。</p>
+<p><strong>自在飞花轻似梦，无边丝雨细如愁</strong>。宝帘闲挂小银钩。</p>
+<hr>
+<h4 id="王安石"><a href="#王安石" class="headerlink" title="王安石"></a>王安石</h4>
+        <!-- 简介（摘自度娘百科）浣溪沙，唐代教坊曲名，后用为词牌。分平仄两体，字数以四十二字居多，还有四十四字和四十六字两种。全词分两片，上片三句全用韵，下片末二句用韵（多用平韵）。
+
+名家名作晏殊一曲新词酒一杯,去年天气旧亭台。夕阳西下几时回? 
+无可奈何花落去,似曾相识燕归来。小园香径独徘徊。
+
+青杏园林煮酒香，佳人初试薄罗裳。柳丝无力燕飞忙。
+乍雨乍晴花自落，闲愁闲闷日偏长。为谁消瘦减容光。
+
+一......  -->
+        <p class="article-more-link">
+          <a href="/浣溪沙.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/浣溪沙/">浣溪沙</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词/">词</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CSS兄弟选择器"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS兄弟选择器.html">CSS兄弟选择器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-25T12:13:37.000Z" itemprop="datePublished">2018-01-25</time>
     </a>
 
 
@@ -717,13 +764,50 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li>E:nth-child(n) 是指找到E,并且E是他父亲的生出来的n儿子 <a href="https://jsfiddle.net/skylinety/Lhs9pg6w/1/" target="_blank" rel="noopener">:nth-child demo</a></li>
-<li>E:nth-of-type(n) 是指找到E,并且E是他父亲的生出来的第n个E儿子 <a href="https://jsfiddle.net/skylinety/zsx4j03g/" target="_blank" rel="noopener">:nth-of-type demo</a></li>
+        <h4 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h4><ul>
+<li>兄弟选择器包括 + ~</li>
+<li>‘+’ 是相邻兄弟选择器</li>
+<li>‘~’ 是通用兄弟选择器</li>
 </ul>
-<p>其中n可以是整数（1，2，3）、关键字（even，odd）、可以是公式2n+1(奇数），n+5(大于等于5)，-n+5(小于等于5),而且<strong>n值起始值0</strong>.</p>
+<hr>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ul>
+<li>相邻兄弟选择器 + 选择紧接在另一元素后的元素，且二者有相同父元素</li>
+<li>通用兄弟选择器 ~ 连接两个元素,它会匹配第二个元素,它必须跟(不一定是紧跟)在第一个元素之后,且他们都有一个共同的父元素 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>表示</th>
+<th>阐述</th>
+<th>同父</th>
+<th>紧接老哥</th>
+<th>选中元素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘+’</td>
+<td>相邻</td>
+<td>是</td>
+<td>是</td>
+<td>最多一个（非紧邻不选中）</td>
+</tr>
+<tr>
+<td>‘~’</td>
+<td>通用</td>
+<td>是</td>
+<td>否</td>
+<td>多个</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h4><ul>
+<li><code>h1 + p {color: red;}</code><br>紧邻h1的第一个p兄弟标签中招，h1之后没有紧邻的p，就白搭</li>
+<li><code>h1 ~ p {color: red;}</code><br>比h1小（在其后面）的p兄弟标签全部中招，h1之后没有p，就白搭</li>
+</ul>
 <blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/Cssnth-child与nth-of-type.html">http://www.skyline.show/Cssnth-child与nth-of-type.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/CSS兄弟选择器.html">http://www.skyline.show/CSS兄弟选择器.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
 </blockquote>
 
       
@@ -742,7 +826,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
 <!-- Table of Contents -->
 
   
-    <article id="post-js数组去重"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-鹧鸪天·新寒（新韵）"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -750,7 +834,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/js数组去重.html">js数组去重</a>
+      <a class="article-title" href="/鹧鸪天·新寒（新韵）.html">鹧鸪天·新寒（新韵）</a>
     </h1>
   
 
@@ -759,7 +843,145 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+      <time datetime="2018-01-24T12:51:03.000Z" itemprop="datePublished">2018-01-24</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/词·自作/">词·自作</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>&nbsp;<br>&nbsp;</p>
+<p>乍起新寒风又嚎，厦间不见杜家茅。落棋柯烂朝兴替，弹指风挥花盛飘。</p>
+<p>梦缥缈，路遥迢，随流逐浪几多豪？待心足了即名了，斜雨泥丫印土桥。<br>&nbsp;<br>&nbsp;</p>
+<hr>
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/1946DC1A5434ADA6A50853E8282FAAF3.jpg-content" alt="1946DC1A5434ADA6A50853E8282FAAF3.jpg-content"></p>
+<blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/鹧鸪天·新寒（新韵）.html">http://www.skyline.show/鹧鸪天·新寒（新韵）.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/练笔/">练笔</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词/">词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鹧鸪天/">鹧鸪天</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-displaynone和visibilityhidden的区别"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/displaynone和visibilityhidden的区别.html">displaynone和visibilityhidden的区别</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/CSS-HTML/">CSS/HTML</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="口述"><a href="#口述" class="headerlink" title="口述"></a>口述</h4><p>简单来说都是用于隐藏元素。表现形式大有不同</p>
+<p>display会被文档流给移除，会影响页面布局，页面重新排版，浏览器重绘，原本位置被其他元素占据。</p>
+<p>visilibity:hidden不会被文档流给移除，不会影响布局，页面不会重新排版，浏览器只是重绘出一片空白</p>
+<p>display不是继承属性，而visibility是继承属性。当子元素的visibility为visible时可以重置由先辈继承的visibility:hidden而变得可见。而元素的display属性设为none后子元素无力挣扎。</p>
+<hr>
+<h4 id="表述"><a href="#表述" class="headerlink" title="表述"></a>表述</h4><table>
+<thead>
+<tr>
+<th>样式</th>
+<th>页面重绘</th>
+<th>页面重排</th>
+<th>显示效果</th>
+<th>所在css属性是否继承</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>display:none</td>
+<td>是</td>
+<td>是</td>
+<td>无显示</td>
+<td>否</td>
+</tr>
+<tr>
+<td>visibility:hidden</td>
+<td>是</td>
+<td>否</td>
+<td>所处区域空白</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/displaynone和visibilityhidden的区别.html">http://www.skyline.show/displaynone和visibilityhidden的区别.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ES5与ES6中的argments"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES5与ES6中的argments.html">ES5与ES6中的argments</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
     </a>
 
 
@@ -772,35 +994,15 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="首先定义几个变量"><a href="#首先定义几个变量" class="headerlink" title="首先定义几个变量"></a>首先定义几个变量</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> papa = &#123;<span class="attr">name</span>: <span class="string">'me'</span>, <span class="attr">sex</span>: <span class="string">'male'</span>&#125;,</span><br><span class="line">    mama = &#123;<span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span>&#125;,</span><br><span class="line">    age = [<span class="number">18</span>, <span class="number">28</span>],</span><br><span class="line">    family = [<span class="number">1</span>, <span class="number">1</span>, <span class="string">'1'</span>, <span class="string">'skyline'</span>, <span class="string">'skyline'</span>, papa, papa, mama, &#123;<span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span>&#125;, &#123;&#125;, age, [<span class="number">18</span>, <span class="number">28</span>], []]</span><br><span class="line">    </span><br><span class="line">family.length<span class="comment">//13</span></span><br></pre></td></tr></table></figure>
+        <h4 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArray5</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span> <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">arguments</span>;</span><br><span class="line">&#125;</span><br><span class="line">createArray5(<span class="number">11</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="comment">//(3) [11, 2, 3, callee: function, Symbol(Symbol.iterator): function]</span></span><br><span class="line"><span class="comment">//false</span></span><br></pre></td></tr></table></figure>
 <hr>
-<h4 id="我是一个正常人"><a href="#我是一个正常人" class="headerlink" title="我是一个正常人"></a>我是一个正常人</h4><p>使用循环</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> ret = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = arr.length; i &lt; j; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ret.indexOf(arr[i]) === <span class="number">-1</span>) &#123;</span><br><span class="line">            ret.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition2</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> ret = [];</span><br><span class="line"></span><br><span class="line">    arr.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">e, i, arr</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (arr.indexOf(e) === i) &#123;</span><br><span class="line">            ret.push(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>解析：indexOf比较参数与数组每一项时候，使用的是严格等于，所以会少一个papa</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeRepetition(family)</span><br><span class="line"><span class="comment">//(10) [1, "1", "skyline", &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, Array(2), Array(2), Array(0)]</span></span><br><span class="line">removeRepetition2(family)</span><br><span class="line"><span class="comment">//(10) [1, "1", "skyline", &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, Array(2), Array(2), Array(0)]</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/098FB62D522D7EF6E6A0FF816F4AB094.png-content" alt="Screen Shot 2017-08-22 at 16.15.25.png-content"></p>
-<hr>
-<h4 id="我有想法"><a href="#我有想法" class="headerlink" title="我有想法"></a>我有想法</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//使用对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition3</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tmp = &#123;&#125;,</span><br><span class="line">        ret = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = arr.length; i &lt; j; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!tmp[arr[i]]) &#123;</span><br><span class="line">            tmp[arr[i]] = <span class="number">1</span>;</span><br><span class="line">            ret.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//先排序</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition4</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> ret = [],</span><br><span class="line">        end;</span><br><span class="line"></span><br><span class="line">    arr.sort();</span><br><span class="line">    end = arr[<span class="number">0</span>];</span><br><span class="line">    ret.push(arr[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] !== end) &#123;</span><br><span class="line">            ret.push(arr[i]);</span><br><span class="line">            end = arr[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>解析：</p>
-<ul>
-<li>removeRepetition3仅适用于简单类型，对象产生的属性相同，是<code>{[object Object]: 1}</code>,所以只会保留第一个出现的对象， 数组产生的是[xx,xx,xx].toString()作为属性，[1,2]产生的是<code>{1,2: 1}</code>，同时数字型字符串会被干掉，仅适用于纯数字去重，灰常不推荐.将对象换成es6的map结构即可。参看removeRepetition6。</li>
-<li>removeRepetition4采用的是sort方法，该方法在不带参数的情况下，默认使用的是unicode字符表顺序，由此可能出现未知的问题，不推荐</li>
+<h4 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArray6</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(args)</span><br><span class="line">    <span class="built_in">console</span>.log(args <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br><span class="line">    <span class="keyword">return</span> args;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray6(<span class="number">11</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="comment">//  (3) [11, 2, 3]</span></span><br><span class="line"><span class="comment">//  true</span></span><br></pre></td></tr></table></figure>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><ul>
+<li>ES5的arguments是一种类数组。</li>
+<li>ES6通过扩展运算符获取到的参数是一个数组</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeRepetition3(family)</span><br><span class="line"><span class="comment">//(5) [1, "skyline", &#123;…&#125;, Array(2), Array(0)]</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/F0C137C8DC05D1FB2F4465FF48022AFC.png-content" alt="Screen Shot 2017-08-22 at 16.15.40.png-content"></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeRepetition4(family)</span><br><span class="line"><span class="comment">//(11) [Array(0), "1", 1, Array(2), Array(2), &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, "skyline"]</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/0A84B572DB69A3E819B9B3A0C2F2A8B5.png-content" alt="Screen Shot 2017-08-22 at 16.23.08.png-content"></p>
-<hr>
-<h4 id="我会es6"><a href="#我会es6" class="headerlink" title="我会es6"></a>我会es6</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition5</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [...new <span class="built_in">Set</span>(arr)]</span><br><span class="line">    <span class="comment">// return Array.from(new Set(array));</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition6</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tmp = <span class="keyword">new</span> <span class="built_in">Map</span>(),</span><br><span class="line">        ret = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = arr.length; i &lt; j; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!tmp.has(arr[i])) &#123;</span><br><span class="line">            tmp.set(arr[i], <span class="number">1</span>)</span><br><span class="line">            ret.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">removeRepetition5(family)</span><br><span class="line"><span class="comment">//(10) [1, "1", "skyline", &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, Array(2), Array(2), Array(0)]</span></span><br><span class="line">removeRepetition6(family)</span><br><span class="line"><span class="comment">//(10) [1, "1", "skyline", &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, Array(2), Array(2), Array(0)]</span></span><br></pre></td></tr></table></figure>
-<p>解析： </p>
-<ul>
-<li>ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</li>
-<li>ES6 提供了新的数据结构 Map。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键。</li>
-<li>参考阮一峰大大的<a href="http://es6.ruanyifeng.com/#docs/set-map" target="_blank" rel="noopener">Set和Map数据结构</a></li>
-</ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/476D2C7EDEBB793FF91022A7903C89A2.png-content" alt="Screen Shot 2017-08-22 at 16.56.13.png-content"></p>
 <blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/js数组去重.html">http://www.skyline.show/js数组去重.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ES5与ES6中的argments.html">http://www.skyline.show/ES5与ES6中的argments.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
 </blockquote>
 
       
@@ -809,7 +1011,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/题目/">题目</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
@@ -819,7 +1021,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
 <!-- Table of Contents -->
 
   
-    <article id="post-html5+移动支付配置（微信）"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Sed命令"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -827,7 +1029,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/html5+移动支付配置（微信）.html">html5+移动支付配置（微信）</a>
+      <a class="article-title" href="/Sed命令.html">Sed命令</a>
     </h1>
   
 
@@ -836,41 +1038,41 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+      <time datetime="2018-01-22T07:14:56.000Z" itemprop="datePublished">2018-01-22</time>
     </a>
 
 
       
     
-    <a class="article-category-link" href="/categories/H5/">H5+</a>
+    <a class="article-category-link" href="/categories/Linux-Unix/">Linux/Unix</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p><a href="https://ask.dcloud.net.cn/article/71" target="_blank" rel="noopener">先看官方文档，支付插件配置</a></p>
-<h4 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h4><p>（框架vue)</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      payType: <span class="string">'2'</span>,</span><br><span class="line">      payTypes: [</span><br><span class="line">       &#123;</span><br><span class="line">         <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">         key: <span class="string">'1'</span>,</span><br><span class="line">         value: <span class="string">'支付宝'</span></span><br><span class="line">       &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">        key: <span class="string">'2'</span>,</span><br><span class="line">        value: <span class="string">'微信支付'</span></span><br><span class="line">      &#125;],</span><br><span class="line">      channels: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取服务</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    getSerivces() &#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">      plus.payment.getChannels(<span class="function"><span class="keyword">function</span>(<span class="params">channels</span>)</span>&#123;</span><br><span class="line">          me.channels=channels;</span><br><span class="line">      &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">          alert(<span class="string">"获取支付通道失败："</span>+e.message);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 支付 */</span></span><br><span class="line">    pay()&#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line">      SelectPayType(&#123;<span class="attr">orderNum</span>: <span class="keyword">this</span>.activeOrderNum, <span class="attr">payType</span>: <span class="keyword">this</span>.payType&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.code == <span class="number">101</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> channel,</span><br><span class="line">            data = <span class="built_in">JSON</span>.parse(res.data);</span><br><span class="line"></span><br><span class="line">          <span class="keyword">var</span> payType = me.payType == <span class="string">'1'</span> ? <span class="string">'alipay'</span> : <span class="string">'wxpay'</span>;</span><br><span class="line"></span><br><span class="line">          me.channels.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">            val.id == payType &amp;&amp; (channel = val)</span><br><span class="line">          &#125;)</span><br><span class="line"></span><br><span class="line">          plus.payment.request(channel, data, <span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">            me.isShowPayTypes = <span class="literal">false</span>;</span><br><span class="line">            plus.nativeUI.alert(<span class="string">"支付成功！订单状态将在稍后更新，请不要重复付款"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                back();</span><br><span class="line">            &#125;);</span><br><span class="line">            me.jump(&#123;<span class="attr">name</span>:<span class="string">'订单详情'</span>,<span class="attr">query</span>:&#123;<span class="attr">orderNum</span>: me.activeOrderNum&#125;&#125;)</span><br><span class="line">          &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">              plus.nativeUI.alert(<span class="string">"支付失败："</span> + error.code);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          me.$vux.toast.show(&#123;</span><br><span class="line">            text: res.message,</span><br><span class="line">            type: <span class="string">'warn'</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  mounted()&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</span><br><span class="line">     <span class="keyword">this</span>.getSerivces()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// getSerivces()</span></span><br><span class="line">     <span class="comment">// document.addEventListener('plusready', this.getSerivces,false)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//selectPayType是请求支付需要相关字段，需要查看相关平台接口文档，本文为微信，返回的字段如下</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"package"</span>: <span class="string">"Sign=WXPay"</span>,</span><br><span class="line">    <span class="string">"appid"</span>: <span class="string">"wx7xxxxxx4987f28"</span>,</span><br><span class="line">    <span class="string">"sign"</span>: <span class="string">"51B0ADxxxxx4E480486C70BD64BF44E1D"</span>,</span><br><span class="line">    <span class="string">"partnerid"</span>: <span class="string">"148xxx722"</span>,</span><br><span class="line">    <span class="string">"prepayid"</span>: <span class="string">"wx2017xxxxxx2fc85d2cc3c0205143628"</span>,</span><br><span class="line">    <span class="string">"noncestr"</span>: <span class="string">"k2xxxxx3X2D1O4YCz7Hn4s"</span>,</span><br><span class="line">    <span class="string">"timestamp"</span>: <span class="string">"1503312709"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h4><p>提示 支付失败：-100支付失败：[payment微信：-1] 的问题</p>
-<ul>
-<li>微信支付不能真机调试，只能打包安装测试，因为要你app的真实签名，真机调试用的是dcloud的调试基座app的wx0411fa6a39d61297,如果嫌打包麻烦，你可以把后端返回的数据appid换成wx0411fa6a39d61297</li>
-<li>安卓平台下，首先查看微信开放平台配置的参数与提交打包的参数是否一致，主要包括(应用签名、包名)，其中应用签名如果使用的DCloud公用证书则必须是“59201CF6589202CB2CDAB26752472112”。</li>
-</ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/D001D4A36782781AB0AB75A09E572E34.jpg-content" alt=":Users:skyline:Desktop:Screen Shot 2017-08-21 at 19.26.08.jpg-content"></p>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/ED1EE7E39B541D59C9849CDE59BC21A2.jpg-content" alt=":Users:skyline:Desktop:Screen Shot 2017-08-21 at 19.25.59.jpg-content"></p>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/html5+移动支付配置（微信）.html">http://www.skyline.show/html5+移动支付配置（微信）.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>流编辑器，sed用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。</p>
+<hr>
+<h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><h4 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h4><h5 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h5><p>默认情况下，在所有的标准输出都会被打印到屏幕上。 -n选项用于指定输出内容。</p>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><h6 id="☞-代码"><a href="#☞-代码" class="headerlink" title="☞ 代码"></a>☞ 代码</h6><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出100到200行</span></span><br><span class="line">sed -n <span class="string">'100,200p'</span> skyline.txt</span><br><span class="line"><span class="comment"># 输出文件行数</span></span><br><span class="line">sed -n <span class="string">'$='</span> skyline.txt</span><br></pre></td></tr></table></figure>
+<h6 id="☞-说明"><a href="#☞-说明" class="headerlink" title="☞ 说明"></a>☞ 说明</h6>
+        <!-- 简介流编辑器，sed用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。
 
+选项-n概述默认情况下，在所有的标准输出都会被打印到屏幕上。 -n选项用于指定输出内容。
+示例☞ 代码# 输出100到200行sed -n '100,200p' skyline.txt# 输出文件行数sed -n '$=' skyline.txt
+☞ 说明
+
+地址逗号......  -->
+        <p class="article-more-link">
+          <a href="/Sed命令.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/示例/">示例</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
@@ -880,7 +1082,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
 <!-- Table of Contents -->
 
   
-    <article id="post-Hbuilder打ipa包注意事项"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-对象的私有、静态（类）、自有（实例）、原型属性与方法"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -888,7 +1090,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Hbuilder打ipa包注意事项.html">Hbuilder打ipa包注意事项</a>
+      <a class="article-title" href="/对象的私有、静态（类）、自有（实例）、原型属性与方法.html">对象的私有、静态（类）、自有（实例）、原型属性与方法</a>
     </h1>
   
 
@@ -897,33 +1099,30 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+      <time datetime="2018-01-02T07:14:56.000Z" itemprop="datePublished">2018-01-02</time>
     </a>
 
 
       
     
-    <a class="article-category-link" href="/categories/H5/">H5+</a>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p>在用hbuilder进行ipa打包之前，需要按照官方文档步骤生成证书文件</p>
-<p><a href="http://ask.dcloud.net.cn/article/152" target="_blank" rel="noopener">iOS证书(.p12)和描述文件(.mobileprovision)申请</a></p>
+        <h4 id="es5代码"><a href="#es5代码" class="headerlink" title="es5代码"></a>es5代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对象构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Baby</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> className = <span class="string">"Baby"</span>;</span><br><span class="line">    <span class="comment">//私有属性，只能在对象构造函数内部使用</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.weight = <span class="string">'3kg'</span>;</span><br><span class="line">    <span class="comment">//自有属性，每个实例私有，在对象实例化后调用，实例属性在对象实力化后创建</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg()); <span class="comment">//使用原型方法扩充的方法可以在类内部使用</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.sex); <span class="comment">//使用原型方法扩充的属性可以在类内部使用</span></span><br><span class="line">        <span class="built_in">console</span>.log(Baby.age, <span class="keyword">this</span>.age); <span class="comment">//静态属性调用时格式为[对象.静态属性]</span></span><br><span class="line">    &#125;<span class="comment">//对象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Baby.Run = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"跑起来！！！"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//类方法 (实际是静态方法直接调用)，只有类才能访问类方法，实例不能访问 ，在类方法中通过this只能访问类属性不能访问其他属性，即在本例中，Run方法只能访问到this.age</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我叫："</span> + <span class="keyword">this</span>.name); </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//原型方法，如果原型方法当作静态方法直接调用时，this.name无法被调用</span></span><br><span class="line"></span><br><span class="line">Baby.age = <span class="number">20</span>; </span><br><span class="line"><span class="comment">//类属性 在类的外部。公有静态属性不能使用 【this.属性】，只能使用 【对象.属性】 调用，只有类才能访问类属性，实例不能访问  </span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex = <span class="string">"男娃娃"</span></span><br><span class="line"><span class="comment">//原型属性，所有实例共有，【this.属性】这种写法访问时，先会访问实例对象属性，没有实例对象属性就会访问原型属性 ，也可以当成公有静态属性使用【对象.prototype.原型属性。 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bob = <span class="keyword">new</span> Baby(<span class="string">"bob"</span>); </span><br><span class="line"><span class="comment">//自有方法和原型方法需要实例化对象后才可以使</span></span><br><span class="line"></span><br><span class="line">Baby.name</span><br><span class="line"><span class="comment">//"Baby" :每一个类都有一个基本的name属性</span></span><br><span class="line"></span><br><span class="line">bob.name</span><br><span class="line"><span class="comment">//"bob"</span></span><br><span class="line"></span><br><span class="line">Baby.weight</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line">bob.weight</span><br><span class="line"><span class="comment">//"3kg"</span></span><br><span class="line"></span><br><span class="line">Baby.hello()</span><br><span class="line"><span class="comment">//Uncaught TypeError: Baby.hello is not a function</span></span><br><span class="line"></span><br><span class="line">bob.hello()</span><br><span class="line"><span class="comment">// bob</span></span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">// undefined :this.msg没有返回所以undefined</span></span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">// 20 undefined</span></span><br><span class="line"></span><br><span class="line">Baby.Run(); <span class="comment">//跑起来！！！</span></span><br><span class="line"><span class="comment">//类方法也是静态方法，可以直接使用 【对象.静态方法()】</span></span><br><span class="line"></span><br><span class="line">bob.run()<span class="comment">// TypeError: bob.run is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.msg()</span><br><span class="line"><span class="comment">// Uncaught TypeError: Baby.msg is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg()</span><br><span class="line"><span class="comment">// 我叫：undefined</span></span><br><span class="line"><span class="comment">//原型方法当成静态方法使用时【对象.prototype.方法()】 </span></span><br><span class="line"></span><br><span class="line">bob.msg();</span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">//原型方法必须实例化对象</span></span><br><span class="line"></span><br><span class="line">bob.age;</span><br><span class="line"><span class="comment">// undefined </span></span><br><span class="line"><span class="comment">//错误，公有静态属性只能使用 【对象.属性】调用</span></span><br><span class="line"></span><br><span class="line">Baby.age</span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">//原型属性当作静态属性使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">Baby.sex</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">bob.sex</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br></pre></td></tr></table></figure>
 <hr>
-<h4 id="问题与解决方案"><a href="#问题与解决方案" class="headerlink" title="问题与解决方案"></a>问题与解决方案</h4><ul>
-<li>打包之后ipa文件通过iTunes安装，开始正常，安装到最后，图标消失，安装失败<br>请确保设备在开发中心被添加，如下图所示</li>
-</ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/0ADA9EA02A43EB51D53D55635CB805E7.jpg-content" alt=":Users:skyline:Desktop:Screen Shot 2017-08-21 at 17.40.52.jpg-content"></p>
+<h4 id="es6代码"><a href="#es6代码" class="headerlink" title="es6代码"></a>es6代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="comment">//对象属性、方法</span></span><br><span class="line">    <span class="keyword">this</span>.x = x;</span><br><span class="line">    <span class="keyword">this</span>.y = y;</span><br><span class="line">    <span class="keyword">this</span>.fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'skyline'</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//自有属性，使用存取器</span></span><br><span class="line">  <span class="keyword">get</span> prop() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'skyline getter'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> prop(value) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'skyline setter: '</span>+value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型方法</span></span><br><span class="line">  <span class="comment">//Point.prototype.toString = function () &#123;</span></span><br><span class="line">  <span class="comment">//  return '(' + this.x + ', ' + this.y + ')';</span></span><br><span class="line">  <span class="comment">//&#125;;</span></span><br><span class="line">  <span class="comment">//的语法糖</span></span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'('</span> + <span class="keyword">this</span>.x + <span class="string">', '</span> + <span class="keyword">this</span>.y + <span class="string">')'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//类方法</span></span><br><span class="line">  <span class="keyword">static</span> classMethod() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'hello skyline'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类属性，ES6 明确规定，Class 内部只有静态方法，没有静态属性，不过有其他提案，不拓展</span></span><br><span class="line">Point.prop = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 <hr>
-<ul>
-<li>iOS开发者证书信息有误，请重新填写相关信息,iOS profile文件与私钥证书文件不匹配</li>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>静态属性方法，可以直接通过类进行访问的</li>
+<li>实例属性方法是需要创建实例对象进行访问的</li>
+<li>相互之间不能串访</li>
 </ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/FF5BC2D570E96D42D0D5F12CED92285C.png-content" alt="Screen Shot 2017-08-21 at 17.57.36.png-content">如果重新添加了账号，请重新生成证书相关文件，而不是使用原有的证书文件，按照官方文档生成证书步骤，重新来过。</p>
 <blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/Hbuilder打ipa包注意事项.html">http://www.skyline.show/Hbuilder打ipa包注意事项.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/对象的私有、静态（类）、自有（实例）、原型属性与方法.html">http://www.skyline.show/对象的私有、静态（类）、自有（实例）、原型属性与方法.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
 </blockquote>
 
       
@@ -932,7 +1131,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/示例/">示例</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
@@ -946,7 +1145,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/5/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/">下一页 &raquo;</a>
   </nav>
 
 </section>

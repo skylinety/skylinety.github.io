@@ -13,13 +13,13 @@
   
   
   
-  <meta name="description" content="Webpack 中 DllPlugin 使用   Webpack 中 DllPlugin 使用 DllPlugin 概述 实质 DllPlugin 配置   引入 dll 库 手动引入 dll 文件（不推荐） 手动引入注意 自动引入(推荐) 自动引入常见问题   成果分析 优化前 优化后：   BMW WARNING Bulletin Material Warrant       DllPlugi">
+  <meta name="description" content="DllPlugin 概述 实质 DllPlugin 配置   引入 dll 库 手动引入 dll 文件（不推荐） 手动引入注意 自动引入(推荐) 自动引入常见问题   成果分析 优化前 优化后：   BMW WARNING Bulletin Material Warrant     DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程">
 <meta name="keywords" content="JS,Packages,Webpack">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Webpack中DllPlugin使用">
 <meta property="og:url" content="http://www.skyline.show/Webpack中DllPlugin使用.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="Webpack 中 DllPlugin 使用   Webpack 中 DllPlugin 使用 DllPlugin 概述 实质 DllPlugin 配置   引入 dll 库 手动引入 dll 文件（不推荐） 手动引入注意 自动引入(推荐) 自动引入常见问题   成果分析 优化前 优化后：   BMW WARNING Bulletin Material Warrant       DllPlugi">
+<meta property="og:description" content="DllPlugin 概述 实质 DllPlugin 配置   引入 dll 库 手动引入 dll 文件（不推荐） 手动引入注意 自动引入(推荐) 自动引入常见问题   成果分析 优化前 优化后：   BMW WARNING Bulletin Material Warrant     DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144435.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144509.png">
@@ -27,10 +27,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144558.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144752.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144800.png">
-<meta property="og:updated_time" content="2022-06-02T02:55:08.000Z">
+<meta property="og:updated_time" content="2022-06-03T09:39:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Webpack中DllPlugin使用">
-<meta name="twitter:description" content="Webpack 中 DllPlugin 使用   Webpack 中 DllPlugin 使用 DllPlugin 概述 实质 DllPlugin 配置   引入 dll 库 手动引入 dll 文件（不推荐） 手动引入注意 自动引入(推荐) 自动引入常见问题   成果分析 优化前 优化后：   BMW WARNING Bulletin Material Warrant       DllPlugi">
+<meta name="twitter:description" content="DllPlugin 概述 实质 DllPlugin 配置   引入 dll 库 手动引入 dll 文件（不推荐） 手动引入注意 自动引入(推荐) 自动引入常见问题   成果分析 优化前 优化后：   BMW WARNING Bulletin Material Warrant     DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144435.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -195,7 +195,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-02T02:55:08.000Z" itemprop="datePublished">2022-06-02</time>
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
     </a><span style="color: #999">|</span>
 
       
@@ -209,10 +209,9 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Webpack-中-DllPlugin-使用"><a href="#Webpack-中-DllPlugin-使用" class="headerlink" title="Webpack 中 DllPlugin 使用"></a>Webpack 中 DllPlugin 使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#webpack-中-dllplugin-使用">Webpack 中 DllPlugin 使用</a><ul>
 <li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
 <li><a href="#实质">实质</a></li>
 <li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
@@ -234,8 +233,6 @@
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
 <li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -271,7 +268,7 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">plugins: [</span><br><span class="line">  <span class="keyword">new</span> webpack.DllReferencePlugin(&#123;</span><br><span class="line">    context: __dirname, <span class="comment">//这个上下文对应DllPlugin</span></span><br><span class="line">    manifest: <span class="built_in">require</span>(<span class="string">'./vendor-manifest.json'</span>),</span><br><span class="line">  &#125;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <h2 id="成果分析"><a href="#成果分析" class="headerlink" title="成果分析"></a>成果分析</h2><h3 id="优化前"><a href="#优化前" class="headerlink" title="优化前"></a>优化前</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144752.png" alt="Webpack中DllPlugin使用20220411144752"></p>
 <h3 id="优化后："><a href="#优化后：" class="headerlink" title="优化后："></a>优化后：</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144800.png" alt="Webpack中DllPlugin使用20220411144800"></p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
@@ -346,9 +343,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/HTTPS加密方式1.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ES_Module&CommonJS.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">ES_Module&amp;CommonJS</div>
     </a>
   
 </nav>
@@ -362,7 +359,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Webpack-中-DllPlugin-使用"><span class="nav-number">1.</span> <span class="nav-text">Webpack 中 DllPlugin 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DllPlugin-概述"><span class="nav-number">1.1.</span> <span class="nav-text">DllPlugin 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实质"><span class="nav-number">1.1.1.</span> <span class="nav-text">实质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DllPlugin-配置"><span class="nav-number">1.1.2.</span> <span class="nav-text">DllPlugin 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入-dll-库"><span class="nav-number">1.2.</span> <span class="nav-text">引入 dll 库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#手动引入-dll-文件（不推荐）"><span class="nav-number">1.2.1.</span> <span class="nav-text">手动引入 dll 文件（不推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动引入注意"><span class="nav-number">1.2.2.</span> <span class="nav-text">手动引入注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动引入-推荐"><span class="nav-number">1.2.3.</span> <span class="nav-text">自动引入(推荐)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动引入常见问题"><span class="nav-number">1.2.4.</span> <span class="nav-text">自动引入常见问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成果分析"><span class="nav-number">1.3.</span> <span class="nav-text">成果分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化前"><span class="nav-number">1.3.1.</span> <span class="nav-text">优化前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化后："><span class="nav-number">1.3.2.</span> <span class="nav-text">优化后：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">1.4.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">1.4.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">1.4.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">1.4.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DllPlugin-概述"><span class="nav-number">1.</span> <span class="nav-text">DllPlugin 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实质"><span class="nav-number">1.1.</span> <span class="nav-text">实质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DllPlugin-配置"><span class="nav-number">1.2.</span> <span class="nav-text">DllPlugin 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入-dll-库"><span class="nav-number">2.</span> <span class="nav-text">引入 dll 库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#手动引入-dll-文件（不推荐）"><span class="nav-number">2.1.</span> <span class="nav-text">手动引入 dll 文件（不推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动引入注意"><span class="nav-number">2.2.</span> <span class="nav-text">手动引入注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动引入-推荐"><span class="nav-number">2.3.</span> <span class="nav-text">自动引入(推荐)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动引入常见问题"><span class="nav-number">2.4.</span> <span class="nav-text">自动引入常见问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成果分析"><span class="nav-number">3.</span> <span class="nav-text">成果分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化前"><span class="nav-number">3.1.</span> <span class="nav-text">优化前</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化后："><span class="nav-number">3.2.</span> <span class="nav-text">优化后：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">4.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">4.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">4.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
     
     </div>
   </aside>
