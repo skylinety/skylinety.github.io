@@ -575,130 +575,6 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#formatting-context">Formatting Context</a></li>
-<li><a href="#bfc">BFC</a><ul>
-<li><a href="#bfc-定义">BFC 定义</a></li>
-<li><a href="#常见-bfc">常见 BFC</a></li>
-<li><a href="#常见应用">常见应用</a></li>
-<li><a href="#display-flow-root">display: flow-root</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
-<ul>
-<li>块级格式化上下文（block formatting contexts）</li>
-<li>内联格式化上下文（inline formatting contexts）</li>
-<li>弹性格式化上下文（grid formatting context）</li>
-<li>网格格式化上下文（flex formatting context）</li>
-</ul>
-<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
-<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3><p>正如上文所说格式化上下文只是约定了自身与内部元素的展示规则。<br>这些规则据定了父子元素、兄弟元素等等元素之间在展示时相互影响。<br>BFC 一样，只是约定了一套规则，没有所谓的定义。<br>在 CSS2.1 规范 中，这套规则描述如下：</p>
-<blockquote>
-<p>In a block formatting context, boxes are laid out one after the other, vertically, beginning at the top of a containing block. The vertical distance between two sibling boxes is determined by the ‘margin’ properties. Vertical margins between adjacent block-level boxes in a block formatting context collapse.<br>In a block formatting context, each box’s left outer edge touches the left edge of the containing block (for right-to-left formatting, right edges touch). This is true even in the presence of floats (although a box’s line boxes may shrink due to the floats), unless the box establishes a new block formatting context (in which case the box itself may become narrower due to the floats).</p>
-</blockquote>
-<p>上述规则规定了 BFC 内部元素的排列方向为由上而下，由左至右。<br>兄弟元素之间的间距由 margin 定，上下毗邻块级元素 marign 会合并。</p>
-<p>在这套规则描述中，没有提到但 BFC 有的最大的特征是：<br>BFC 容器内部的元素无论如何不会影响容器外部的元素。</p>
-<h3 id="常见-BFC"><a href="#常见-BFC" class="headerlink" title="常见 BFC"></a>常见 BFC</h3><p>最外层的的页面元素（即 html 元素）创建初始的块级格式化上下文。</p>
-<ul>
-<li>html 元素</li>
-<li>浮动（float != none）</li>
-<li>绝对位置元素（position: fixed, absolute）</li>
-<li>table 及其部分子属性（ display: table, table-cell, table-caption, table-row, table-row-group, table-header-group, table-footer-group）</li>
-<li>内联块级元素（display: inline-block）</li>
-<li>overflow 非默认</li>
-<li>flex 子元素</li>
-<li>grid 子元素</li>
-<li>display: flow-root</li>
-</ul>
-<h3 id="常见应用"><a href="#常见应用" class="headerlink" title="常见应用"></a>常见应用</h3><p>由 BFC 常用于如下场景中：</p>
-<ul>
-<li>包含内部浮动元素（contain internal floats）</li>
-<li>排斥外部浮动元素（exclude external floats）</li>
-<li>抑制边距合并（suppress margin collapsing）</li>
-</ul>
-<p>在内联上下文中，浮动无法将容器撑开。</p>
-<h3 id="display-flow-root"><a href="#display-flow-root" class="headerlink" title="display: flow-root"></a>display: flow-root</h3>
-        <!-- 
-
-
-Formatting Context
-BFC
-BFC 定义
-常见 BFC
-常见应用
-display: flow-root
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
-
-块级格式化上下文（block formatting c......  -->
-        <p class="article-more-link">
-          <a href="/CSS格式化上下文.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-CSS常用伪类伪元素"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -813,6 +689,130 @@ EG
 p:......  -->
         <p class="article-more-link">
           <a href="/CSS常用伪类伪元素.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#formatting-context">Formatting Context</a></li>
+<li><a href="#bfc">BFC</a><ul>
+<li><a href="#bfc-定义">BFC 定义</a></li>
+<li><a href="#常见-bfc">常见 BFC</a></li>
+<li><a href="#常见应用">常见应用</a></li>
+<li><a href="#display-flow-root">display: flow-root</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
+<ul>
+<li>块级格式化上下文（block formatting contexts）</li>
+<li>内联格式化上下文（inline formatting contexts）</li>
+<li>弹性格式化上下文（grid formatting context）</li>
+<li>网格格式化上下文（flex formatting context）</li>
+</ul>
+<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
+<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3><p>正如上文所说格式化上下文只是约定了自身与内部元素的展示规则。<br>这些规则据定了父子元素、兄弟元素等等元素之间在展示时相互影响。<br>BFC 一样，只是约定了一套规则，没有所谓的定义。<br>在 CSS2.1 规范 中，这套规则描述如下：</p>
+<blockquote>
+<p>In a block formatting context, boxes are laid out one after the other, vertically, beginning at the top of a containing block. The vertical distance between two sibling boxes is determined by the ‘margin’ properties. Vertical margins between adjacent block-level boxes in a block formatting context collapse.<br>In a block formatting context, each box’s left outer edge touches the left edge of the containing block (for right-to-left formatting, right edges touch). This is true even in the presence of floats (although a box’s line boxes may shrink due to the floats), unless the box establishes a new block formatting context (in which case the box itself may become narrower due to the floats).</p>
+</blockquote>
+<p>上述规则规定了 BFC 内部元素的排列方向为由上而下，由左至右。<br>兄弟元素之间的间距由 margin 定，上下毗邻块级元素 marign 会合并。</p>
+<p>在这套规则描述中，没有提到但 BFC 有的最大的特征是：<br>BFC 容器内部的元素无论如何不会影响容器外部的元素。</p>
+<h3 id="常见-BFC"><a href="#常见-BFC" class="headerlink" title="常见 BFC"></a>常见 BFC</h3><p>最外层的的页面元素（即 html 元素）创建初始的块级格式化上下文。</p>
+<ul>
+<li>html 元素</li>
+<li>浮动（float != none）</li>
+<li>绝对位置元素（position: fixed, absolute）</li>
+<li>table 及其部分子属性（ display: table, table-cell, table-caption, table-row, table-row-group, table-header-group, table-footer-group）</li>
+<li>内联块级元素（display: inline-block）</li>
+<li>overflow 非默认</li>
+<li>flex 子元素</li>
+<li>grid 子元素</li>
+<li>display: flow-root</li>
+</ul>
+<h3 id="常见应用"><a href="#常见应用" class="headerlink" title="常见应用"></a>常见应用</h3><p>由 BFC 常用于如下场景中：</p>
+<ul>
+<li>包含内部浮动元素（contain internal floats）</li>
+<li>排斥外部浮动元素（exclude external floats）</li>
+<li>抑制边距合并（suppress margin collapsing）</li>
+</ul>
+<p>在内联上下文中，浮动无法将容器撑开。</p>
+<h3 id="display-flow-root"><a href="#display-flow-root" class="headerlink" title="display: flow-root"></a>display: flow-root</h3>
+        <!-- 
+
+
+Formatting Context
+BFC
+BFC 定义
+常见 BFC
+常见应用
+display: flow-root
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
+
+块级格式化上下文（block formatting c......  -->
+        <p class="article-more-link">
+          <a href="/CSS格式化上下文.html#more">阅读全文</a>
         </p>
       
     </div>

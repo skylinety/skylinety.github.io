@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-chapter1-3《JavaScript高级程序设计》笔记"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES函数"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/chapter1-3《JavaScript高级程序设计》笔记.html">chapter1-3《JavaScript高级程序设计》笔记</a>
+      <a class="article-title" href="/ES函数.html">ES函数</a>
     </h1>
   
 
@@ -342,83 +342,72 @@
 
       
     
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><blockquote>
-<p>《JavaScript高级程序设计》</p>
-</blockquote>
-<hr>
-<h4 id="JaveScript-由三部分构成"><a href="#JaveScript-由三部分构成" class="headerlink" title="JaveScript 由三部分构成"></a>JaveScript 由三部分构成</h4><h5 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h5><p><img src="http://ovhnd57o6.bkt.clouddn.com/19FC542247208E8D24C54AAC64D5A679.png-content" alt="js.png-content"></p>
-<hr>
-<h4 id="script元素"><a href="#script元素" class="headerlink" title="script元素"></a>script元素</h4><h5 id="async与defer"><a href="#async与defer" class="headerlink" title="async与defer"></a>async与defer</h5><table>
-<thead>
-<tr>
-<th>&nbsp;</th>
-<th>async</th>
-<th>defer</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>描述</td>
-<td>立即下载脚本，不妨碍其他操作，不依赖其他脚本，不阻塞文档</td>
-<td>延迟脚本到文档被解析与显示之后</td>
-</tr>
-<tr>
-<td>适用范围</td>
-<td>外部引入脚本</td>
-<td>外部引入脚本</td>
-</tr>
-<tr>
-<td>多个执行顺序</td>
-<td>不保证顺序</td>
-<td>先后顺序</td>
-</tr>
-</tbody>
-</table>
-<p>多个执行顺序：同时出现多个async或defer脚本</p>
-<hr>
-<h4 id="Null类型"><a href="#Null类型" class="headerlink" title="Null类型"></a>Null类型</h4>
-        <!-- 参考资料
-《JavaScript高级程序设计》
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#arguments">arguments</a></li>
+<li><a href="#参数传递">参数传递</a><ul>
+<li><a href="#按值传递">按值传递</a></li>
+<li><a href="#引用传递">引用传递</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><ul>
+<li>arguments 是一个类数组</li>
+<li>它的值永远与对应命名参数的值保持同步。<br>设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值</li>
+<li>arguments 得长度是由运行时传入参数个数决定的，而不是定义时</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">0</span>] = &#123; <span class="attr">name</span>: <span class="string">'skyline'</span> &#125;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">1</span>] = <span class="number">2</span></span><br><span class="line">  c = <span class="number">5</span></span><br><span class="line">  <span class="built_in">console</span>.log(</span><br><span class="line">    <span class="string">`a=<span class="subst">$&#123;a&#125;</span>, b=<span class="subst">$&#123;b&#125;</span>, 第三个参数的值是：<span class="subst">$&#123;<span class="built_in">arguments</span>[<span class="number">2</span>]&#125;</span>, 参数的长度：<span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">      <span class="built_in">arguments</span>.length</span></span></span><br><span class="line"><span class="string"><span class="subst">    &#125;</span>, 第一个参数与a是否相等：<span class="subst">$&#123;<span class="built_in">arguments</span>[<span class="number">0</span>] === a&#125;</span>`</span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test(<span class="number">1</span>, &#123; <span class="attr">firstName</span>: <span class="string">'liu'</span> &#125;, <span class="string">'3'</span>, <span class="number">3</span>)</span><br><span class="line"><span class="comment">// a=[object Object], b=2, 第三个参数的值是：5, 参数的长度：4, 第一个参数与a是否相等：true</span></span><br></pre></td></tr></table></figure>
+<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><h3 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h3><p><strong>函数的参数都是按值传递的，当传递引用类型的值时，会把这个值在内存中的地址复制给局部变量</strong>。<br>其实质就是把实参在内存中的数据传递给形参，基本类型拷贝了本身，引用类型拷贝的是引用的地址。</p>
+<ul>
+<li>示例一</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 = <span class="string">'aaa'</span></span><br><span class="line"><span class="keyword">var</span> num2 = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">  value: <span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj2</span>) </span>&#123;</span><br><span class="line">  obj2.value = <span class="number">2</span></span><br><span class="line">  <span class="built_in">console</span>.log(obj2.value) <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj1)</span><br><span class="line"><span class="built_in">console</span>.log(obj1.value) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>上述进入函数时，通过值传递，形参 obj2 拷贝了实参 obj1 的内存数据，即拷贝一个引用地址。</p>
+<p>在函数执行<code>obj2.value = 2;</code>前后的内存状态<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613193938.png" alt="ES函数20220613193938"><br>（说明：图解与说明仅为了解释参数传递，计算机内存远比此复杂）</p>
+<ul>
+<li>示例二</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 = <span class="string">'aaa'</span></span><br><span class="line"><span class="keyword">var</span> num2 = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">  value: <span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj2</span>) </span>&#123;</span><br><span class="line">  obj2 = <span class="number">2</span></span><br><span class="line">  <span class="built_in">console</span>.log(obj2) <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj1)</span><br><span class="line"><span class="built_in">console</span>.log(obj1.value) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>在函数执行<code>obj2 = 2;</code>前后的内存状态<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613194012.png" alt="ES函数20220613194012"></p>
+<h3 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h3>
+        <!-- 
 
 
-JaveScript 由三部分构成图示
-
-script元素async与defer
-
-
-&nbsp;
-async
-defer
+arguments
+参数传递
+按值传递
+引用传递
 
 
-
-
-描述
-立即下载脚本，不妨碍其他操作，不依赖其他脚本，不阻塞文档
-延迟脚本到文档被解析与显示之后
-
-
-适用范围
-外部引入脚本
-外部引入脚本
-
-
-多个执行顺序
-不保证顺序
-先后顺序
+BMW WARNING
+Bulletin
+Material
+Warrant
 
 
 
-多个执行顺序：同时出现多个......  -->
+
+arguments
+arguments 是一个类数组
+它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值
+arguments 得长度是由运行时传入参数个......  -->
         <p class="article-more-link">
-          <a href="/chapter1-3《JavaScript高级程序设计》笔记.html#more">阅读全文</a>
+          <a href="/ES函数.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -426,7 +415,7 @@ defer
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/高程/">高程</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
 
     </footer>
   </div>

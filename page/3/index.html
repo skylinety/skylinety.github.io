@@ -1093,7 +1093,7 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1101,7 +1101,7 @@ Warrant
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES_Module&CommonJS.html">ES_Module&amp;CommonJS</a>
+      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
     </h1>
   
 
@@ -1126,14 +1126,23 @@ Warrant
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#模块系统">模块系统</a></li>
-<li><a href="#esm-vs-cjs">ESM VS CJS</a></li>
-<li><a href="#esm-vs-cjs-要点解析">ESM VS CJS 要点解析</a><ul>
-<li><a href="#模块输出">模块输出</a></li>
-<li><a href="#模块加载">模块加载</a></li>
+<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
+<li><a href="#实质">实质</a></li>
+<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
 </ul>
 </li>
-<li><a href="#tree-shaking">tree shaking</a></li>
+<li><a href="#引入-dll-库">引入 dll 库</a><ul>
+<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
+<li><a href="#手动引入注意">手动引入注意</a></li>
+<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
+<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
+</ul>
+</li>
+<li><a href="#成果分析">成果分析</a><ul>
+<li><a href="#优化前">优化前</a></li>
+<li><a href="#优化后">优化后：</a></li>
+</ul>
+</li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
@@ -1142,90 +1151,42 @@ Warrant
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
-<ul>
-<li>模块隔离（私有代码权限访问控制）</li>
-<li>模块间依赖</li>
-<li>代码传递到执行环境</li>
-</ul>
-<p>早期解决方案如下：</p>
-<ul>
-<li>命名空间</li>
-<li>立即执行匿名函数 + 闭包</li>
-</ul>
-<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，在 ES6 模块系统后使用频率降低，如下简单对比。</p>
-<p>AMD 典型示例</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>CMD 典型示例</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">define(<span class="string">'main'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'a'</span>) <span class="comment">//依赖就近</span></span><br><span class="line">  a.someFn()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'b'</span>)</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>ES6 兼容 Node.js 模块方案</p>
-<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><table>
-<thead>
-<tr>
-<th>标准</th>
-<th>输出</th>
-<th>加载时机</th>
-<th>加载方式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ES6 模块</td>
-<td>值引用（只读）</td>
-<td>编译</td>
-<td>import 异步</td>
-</tr>
-<tr>
-<td>CommonJS</td>
-<td>值浅拷贝</td>
-<td>运行</td>
-<td>require 同步</td>
-</tr>
-</tbody>
-</table>
-<h2 id="ESM-VS-CJS-要点解析"><a href="#ESM-VS-CJS-要点解析" class="headerlink" title="ESM VS CJS 要点解析"></a>ESM VS CJS 要点解析</h2><h3 id="模块输出"><a href="#模块输出" class="headerlink" title="模块输出"></a>模块输出</h3><ul>
-<li>ES6</li>
-</ul>
-<p>ES6 模块输出的是对值的引用，<strong>即便是简单类型，模块内值的改变也会引起之后值得改变</strong><br>JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个只读引用。<br>等到脚本真正执行时，再根据这个<strong>只读引用</strong>，到被加载的那个模块里面去取值（对象存在于导出模块的文件）。<br>ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</p>
-<p>例 1</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> counter = <span class="number">3</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">incCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  counter++</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; counter, incCounter &#125; <span class="keyword">from</span> <span class="string">'./lib'</span></span><br><span class="line"><span class="built_in">console</span>.log(counter) <span class="comment">// 3</span></span><br><span class="line">incCounter()</span><br><span class="line"><span class="built_in">console</span>.log(counter) <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-<p>例 2</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// mod.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">C</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.sum = <span class="number">0</span></span><br><span class="line">  <span class="keyword">this</span>.add = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.sum += <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>.show = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.sum)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> c = <span class="keyword">new</span> C()</span><br><span class="line"></span><br><span class="line"><span class="comment">// x.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; c &#125; <span class="keyword">from</span> <span class="string">'./mod'</span></span><br><span class="line">c.add()</span><br><span class="line"></span><br><span class="line"><span class="comment">// y.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; c &#125; <span class="keyword">from</span> <span class="string">'./mod'</span></span><br><span class="line">c.show()</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./x'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./y'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出1</span></span><br></pre></td></tr></table></figure>
-<p>引用只读</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; obj &#125; <span class="keyword">from</span> <span class="string">'./lib'</span></span><br><span class="line"></span><br><span class="line">obj.prop = <span class="number">123</span> <span class="comment">// OK</span></span><br><span class="line">obj = &#123;&#125; <span class="comment">// TypeError</span></span><br></pre></td></tr></table></figure>
-<p>main.js 从 lib.js 输入变量 obj，可以对 obj 添加属性，但是重新赋值就会报错。<br>因为变量 obj 指向的地址是只读的，不能重新赋值，这就好比 main.js 创造了一个名为 obj 的 const 变量</p>
-<ul>
-<li>CommonJS</li>
-</ul>
-<p>对应 CommonJS 规范中，导出的是一个对象，引入时采用的是对象的浅拷贝（在导出和导入时各有一个对象生成）。<br>该对象的属性如果是简单类型，模块内部值得改变则不会对之后引用产生影响</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">var</span> counter = <span class="number">3</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">incCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  counter++</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  counter: counter,</span><br><span class="line">  incCounter: incCounter,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">var</span> mod = <span class="built_in">require</span>(<span class="string">'./lib'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(mod.counter) <span class="comment">// 3</span></span><br><span class="line">mod.incCounter() <span class="comment">// 引起lib.js中counter 值改变为4</span></span><br><span class="line"><span class="built_in">console</span>.log(mod.counter) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-<h3 id="模块加载"><a href="#模块加载" class="headerlink" title="模块加载"></a>模块加载</h3><ul>
-<li>加载时机</li>
-</ul>
-<p>CommonJS 导出的是一个对象（即 module.exports 属性），该对象只有在脚本运行完才会生成。<br>而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成</p>
-<ul>
-<li>加载方式</li>
-</ul>
-<p>commonJS 规范用同步的方式加载模块.<br>例如实现该规范的 nodeJS，因为在服务端，模块文件都存在本地磁盘，可以进行快速度读取，等待模块加载不会耗费过多的时间，所以这样做不会有问题。<br>但是在浏览器端，限于网络等各种原因，需要使用异步加载获取更好的体验。</p>
-<h2 id="tree-shaking"><a href="#tree-shaking" class="headerlink" title="tree shaking"></a>tree shaking</h2><p>由于 ES6 的模块暴露的是引用而不是生成一个对象.<br>从加载时机来看，ES6 的 import 命令会被 JavaScript 引擎静态分析编译时就分析是否被引用，而不是在代码运行时加载。<br>编译时加载使得对 ES6 静态分析并进行无用代码删除成为可能。<br>这就是为什么 ES6 出来之后，tree shaking 才成为可能，这也是为什么要使用 tree shaking，必须使用 ES6 模块。</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
 <blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
+<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
 </blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
+<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3><p>webpack.dll.config.js 配置</p>
+<p>新建单独的配置文件</p>
+<p>webpack.dll.config.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 你想要打包的模块的数组</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: [</span><br><span class="line">      <span class="string">'vue/dist/vue.esm.js'</span>,</span><br><span class="line">      <span class="string">'vuex'</span>,</span><br><span class="line">      <span class="string">'axios'</span>,</span><br><span class="line">      <span class="string">'vue-router'</span>,</span><br><span class="line">      <span class="string">'element-ui'</span>,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">'../static/js'</span>), <span class="comment">// 打包后文件输出的位置</span></span><br><span class="line">    filename: <span class="string">'[name].dll.js'</span>,</span><br><span class="line">    library: <span class="string">'[name]_library'</span>,</span><br><span class="line">    <span class="comment">// vendor.dll.js中暴露出的全局变量名。</span></span><br><span class="line">    <span class="comment">// 主要是给DllPlugin中的name使用，</span></span><br><span class="line">    <span class="comment">// 故这里需要和webpack.DllPlugin中的`name: '[name]_library',`保持一致。</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.DllPlugin(&#123;</span><br><span class="line">      path: path.join(__dirname, <span class="string">'../'</span>, <span class="string">'[name]-manifest.json'</span>),</span><br><span class="line">      name: <span class="string">'[name]_library'</span>,</span><br><span class="line">      context: __dirname,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="comment">// 压缩打包的文件</span></span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">      compress: &#123;</span><br><span class="line">        warnings: <span class="literal">false</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置说明</p>
+<p>path：manifest.json 生成的文件夹及名字，该项目让它生成在了根目录下。<br>name：和 output. library 保持一致即可。<br>context：选填，manifest 文件中请求的上下文，默认为该 webpack 文件上下文。</p>
+<p>在 package.json 中添加执行脚本</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"dll"</span>: <span class="string">"webpack --config build/webpack.dll.conf.js"</span>,</span><br></pre></td></tr></table></figure>
+<p>执行 yarn dll<br>生成 dll 文件和 manifest.json 文件<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144435.png" alt="Webpack中DllPlugin使用20220411144435"><br>manifest.json 文件包含了引用模块的 id 映射，为 DllReferencePlugin 引用做准备</p>
+<h2 id="引入-dll-库"><a href="#引入-dll-库" class="headerlink" title="引入 dll 库"></a>引入 dll 库</h2><h3 id="手动引入-dll-文件（不推荐）"><a href="#手动引入-dll-文件（不推荐）" class="headerlink" title="手动引入 dll 文件（不推荐）"></a>手动引入 dll 文件（不推荐）</h3><p>在根目录的 index.html 里引入所生成的 dll 库</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xx市城市综合管理基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/vendor.dll.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="手动引入注意"><a href="#手动引入注意" class="headerlink" title="手动引入注意"></a>手动引入注意</h3>
         <!-- 
 
 
-模块系统
-ESM VS CJS
-ESM VS CJS 要点解析
-模块输出
-模块加载
+DllPlugin 概述
+实质
+DllPlugin 配置
 
 
-tree shaking
+引入 dll 库
+手动引入 dll 文件（不推荐）
+手动引入注意
+自动引入(推荐)
+自动引入常见问题
+
+
+成果分析
+优化前
+优化后：
+
+
 BMW WARNING
 Bulletin
 Material
@@ -1234,9 +1195,9 @@ Warrant
 
 
 
-模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS ......  -->
+DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由......  -->
         <p class="article-more-link">
-          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
+          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1244,7 +1205,7 @@ Warrant
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
 
     </footer>
   </div>
@@ -1415,7 +1376,7 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1423,7 +1384,7 @@ Warrant
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
+      <a class="article-title" href="/ES_Module&CommonJS.html">ES_Module&amp;CommonJS</a>
     </h1>
   
 
@@ -1448,23 +1409,14 @@ Warrant
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
-<li><a href="#实质">实质</a></li>
-<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
+<li><a href="#模块系统">模块系统</a></li>
+<li><a href="#esm-vs-cjs">ESM VS CJS</a></li>
+<li><a href="#esm-vs-cjs-要点解析">ESM VS CJS 要点解析</a><ul>
+<li><a href="#模块输出">模块输出</a></li>
+<li><a href="#模块加载">模块加载</a></li>
 </ul>
 </li>
-<li><a href="#引入-dll-库">引入 dll 库</a><ul>
-<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
-<li><a href="#手动引入注意">手动引入注意</a></li>
-<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
-<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
-</ul>
-</li>
-<li><a href="#成果分析">成果分析</a><ul>
-<li><a href="#优化前">优化前</a></li>
-<li><a href="#优化后">优化后：</a></li>
-</ul>
-</li>
+<li><a href="#tree-shaking">tree shaking</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
@@ -1473,42 +1425,90 @@ Warrant
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
+<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
+<ul>
+<li>模块隔离（私有代码权限访问控制）</li>
+<li>模块间依赖</li>
+<li>代码传递到执行环境</li>
+</ul>
+<p>早期解决方案如下：</p>
+<ul>
+<li>命名空间</li>
+<li>立即执行匿名函数 + 闭包</li>
+</ul>
+<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，在 ES6 模块系统后使用频率降低，如下简单对比。</p>
+<p>AMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>CMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">define(<span class="string">'main'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'a'</span>) <span class="comment">//依赖就近</span></span><br><span class="line">  a.someFn()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'b'</span>)</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>ES6 兼容 Node.js 模块方案</p>
+<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><table>
+<thead>
+<tr>
+<th>标准</th>
+<th>输出</th>
+<th>加载时机</th>
+<th>加载方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ES6 模块</td>
+<td>值引用（只读）</td>
+<td>编译</td>
+<td>import 异步</td>
+</tr>
+<tr>
+<td>CommonJS</td>
+<td>值浅拷贝</td>
+<td>运行</td>
+<td>require 同步</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ESM-VS-CJS-要点解析"><a href="#ESM-VS-CJS-要点解析" class="headerlink" title="ESM VS CJS 要点解析"></a>ESM VS CJS 要点解析</h2><h3 id="模块输出"><a href="#模块输出" class="headerlink" title="模块输出"></a>模块输出</h3><ul>
+<li>ES6</li>
+</ul>
+<p>ES6 模块输出的是对值的引用，<strong>即便是简单类型，模块内值的改变也会引起之后值得改变</strong><br>JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个只读引用。<br>等到脚本真正执行时，再根据这个<strong>只读引用</strong>，到被加载的那个模块里面去取值（对象存在于导出模块的文件）。<br>ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</p>
+<p>例 1</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> counter = <span class="number">3</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">incCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  counter++</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; counter, incCounter &#125; <span class="keyword">from</span> <span class="string">'./lib'</span></span><br><span class="line"><span class="built_in">console</span>.log(counter) <span class="comment">// 3</span></span><br><span class="line">incCounter()</span><br><span class="line"><span class="built_in">console</span>.log(counter) <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<p>例 2</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// mod.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">C</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.sum = <span class="number">0</span></span><br><span class="line">  <span class="keyword">this</span>.add = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.sum += <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>.show = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.sum)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> c = <span class="keyword">new</span> C()</span><br><span class="line"></span><br><span class="line"><span class="comment">// x.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; c &#125; <span class="keyword">from</span> <span class="string">'./mod'</span></span><br><span class="line">c.add()</span><br><span class="line"></span><br><span class="line"><span class="comment">// y.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; c &#125; <span class="keyword">from</span> <span class="string">'./mod'</span></span><br><span class="line">c.show()</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./x'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./y'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出1</span></span><br></pre></td></tr></table></figure>
+<p>引用只读</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; obj &#125; <span class="keyword">from</span> <span class="string">'./lib'</span></span><br><span class="line"></span><br><span class="line">obj.prop = <span class="number">123</span> <span class="comment">// OK</span></span><br><span class="line">obj = &#123;&#125; <span class="comment">// TypeError</span></span><br></pre></td></tr></table></figure>
+<p>main.js 从 lib.js 输入变量 obj，可以对 obj 添加属性，但是重新赋值就会报错。<br>因为变量 obj 指向的地址是只读的，不能重新赋值，这就好比 main.js 创造了一个名为 obj 的 const 变量</p>
+<ul>
+<li>CommonJS</li>
+</ul>
+<p>对应 CommonJS 规范中，导出的是一个对象，引入时采用的是对象的浅拷贝（在导出和导入时各有一个对象生成）。<br>该对象的属性如果是简单类型，模块内部值得改变则不会对之后引用产生影响</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">var</span> counter = <span class="number">3</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">incCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  counter++</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  counter: counter,</span><br><span class="line">  incCounter: incCounter,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">var</span> mod = <span class="built_in">require</span>(<span class="string">'./lib'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(mod.counter) <span class="comment">// 3</span></span><br><span class="line">mod.incCounter() <span class="comment">// 引起lib.js中counter 值改变为4</span></span><br><span class="line"><span class="built_in">console</span>.log(mod.counter) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<h3 id="模块加载"><a href="#模块加载" class="headerlink" title="模块加载"></a>模块加载</h3><ul>
+<li>加载时机</li>
+</ul>
+<p>CommonJS 导出的是一个对象（即 module.exports 属性），该对象只有在脚本运行完才会生成。<br>而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成</p>
+<ul>
+<li>加载方式</li>
+</ul>
+<p>commonJS 规范用同步的方式加载模块.<br>例如实现该规范的 nodeJS，因为在服务端，模块文件都存在本地磁盘，可以进行快速度读取，等待模块加载不会耗费过多的时间，所以这样做不会有问题。<br>但是在浏览器端，限于网络等各种原因，需要使用异步加载获取更好的体验。</p>
+<h2 id="tree-shaking"><a href="#tree-shaking" class="headerlink" title="tree shaking"></a>tree shaking</h2><p>由于 ES6 的模块暴露的是引用而不是生成一个对象.<br>从加载时机来看，ES6 的 import 命令会被 JavaScript 引擎静态分析编译时就分析是否被引用，而不是在代码运行时加载。<br>编译时加载使得对 ES6 静态分析并进行无用代码删除成为可能。<br>这就是为什么 ES6 出来之后，tree shaking 才成为可能，这也是为什么要使用 tree shaking，必须使用 ES6 模块。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
-<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
-<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3><p>webpack.dll.config.js 配置</p>
-<p>新建单独的配置文件</p>
-<p>webpack.dll.config.js</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 你想要打包的模块的数组</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: [</span><br><span class="line">      <span class="string">'vue/dist/vue.esm.js'</span>,</span><br><span class="line">      <span class="string">'vuex'</span>,</span><br><span class="line">      <span class="string">'axios'</span>,</span><br><span class="line">      <span class="string">'vue-router'</span>,</span><br><span class="line">      <span class="string">'element-ui'</span>,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">'../static/js'</span>), <span class="comment">// 打包后文件输出的位置</span></span><br><span class="line">    filename: <span class="string">'[name].dll.js'</span>,</span><br><span class="line">    library: <span class="string">'[name]_library'</span>,</span><br><span class="line">    <span class="comment">// vendor.dll.js中暴露出的全局变量名。</span></span><br><span class="line">    <span class="comment">// 主要是给DllPlugin中的name使用，</span></span><br><span class="line">    <span class="comment">// 故这里需要和webpack.DllPlugin中的`name: '[name]_library',`保持一致。</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.DllPlugin(&#123;</span><br><span class="line">      path: path.join(__dirname, <span class="string">'../'</span>, <span class="string">'[name]-manifest.json'</span>),</span><br><span class="line">      name: <span class="string">'[name]_library'</span>,</span><br><span class="line">      context: __dirname,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="comment">// 压缩打包的文件</span></span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">      compress: &#123;</span><br><span class="line">        warnings: <span class="literal">false</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>配置说明</p>
-<p>path：manifest.json 生成的文件夹及名字，该项目让它生成在了根目录下。<br>name：和 output. library 保持一致即可。<br>context：选填，manifest 文件中请求的上下文，默认为该 webpack 文件上下文。</p>
-<p>在 package.json 中添加执行脚本</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"dll"</span>: <span class="string">"webpack --config build/webpack.dll.conf.js"</span>,</span><br></pre></td></tr></table></figure>
-<p>执行 yarn dll<br>生成 dll 文件和 manifest.json 文件<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Webpack%E4%B8%ADDllPlugin%E4%BD%BF%E7%94%A820220411144435.png" alt="Webpack中DllPlugin使用20220411144435"><br>manifest.json 文件包含了引用模块的 id 映射，为 DllReferencePlugin 引用做准备</p>
-<h2 id="引入-dll-库"><a href="#引入-dll-库" class="headerlink" title="引入 dll 库"></a>引入 dll 库</h2><h3 id="手动引入-dll-文件（不推荐）"><a href="#手动引入-dll-文件（不推荐）" class="headerlink" title="手动引入 dll 文件（不推荐）"></a>手动引入 dll 文件（不推荐）</h3><p>在根目录的 index.html 里引入所生成的 dll 库</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xx市城市综合管理基础<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/vendor.dll.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- built files will be auto injected --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="手动引入注意"><a href="#手动引入注意" class="headerlink" title="手动引入注意"></a>手动引入注意</h3>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
         <!-- 
 
 
-DllPlugin 概述
-实质
-DllPlugin 配置
+模块系统
+ESM VS CJS
+ESM VS CJS 要点解析
+模块输出
+模块加载
 
 
-引入 dll 库
-手动引入 dll 文件（不推荐）
-手动引入注意
-自动引入(推荐)
-自动引入常见问题
-
-
-成果分析
-优化前
-优化后：
-
-
+tree shaking
 BMW WARNING
 Bulletin
 Material
@@ -1517,9 +1517,9 @@ Warrant
 
 
 
-DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由......  -->
+模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS ......  -->
         <p class="article-more-link">
-          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
+          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1527,7 +1527,7 @@ DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
 
     </footer>
   </div>
@@ -1656,7 +1656,7 @@ Husky 使用配置husky 简述husky 支持所有 git 相关钩子，在对应 gi
 <!-- Table of Contents -->
 
   
-    <article id="post-HTTPS加密方式"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-HTTPS加密方式1"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1673,11 +1673,11 @@ Husky 使用配置husky 简述husky 支持所有 git 相关钩子，在对应 gi
     <div class="article-entry" itemprop="articleBody">
       
         <pre><code>---
-title: HTTPS加密方式
-updated: 2022-02-03    14:21:52
-
-
-
+title: HTTPS加密方式1
+updated: 2022-01-21    17:56:00
+            date: 2022-01-20    15:50:45
+            tags: []
+            categories: []
 ---
 &gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 </code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
@@ -1689,22 +1689,16 @@ updated: 2022-02-03    14:21:52
 <h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
 <h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4>
         <!-- ---
-title: HTTPS加密方式
-updated: 2022-02-03    14:21:52
-
-
-
+title: HTTPS加密方式1
+updated: 2022-01-21    17:56:00
+            date: 2022-01-20    15:50:45
+            tags: []
+            categories: []
 ---
 &gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-HTTPS概述加密缘由明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉容易被中间人攻击，存在以下风险
-
-窃听
-篡改
-冒充
-
-HTTPS超文本传输......  -->
+HTTPS概述加......  -->
         <p class="article-more-link">
-          <a href="/HTTPS加密方式.html#more">阅读全文</a>
+          <a href="/HTTPS加密方式1.html#more">阅读全文</a>
         </p>
       
     </div>
