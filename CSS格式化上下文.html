@@ -13,18 +13,23 @@
   
   
   
-  <meta name="description" content="Formatting Context BFC BFC 定义 常见 BFC 常见应用 display: flow-root   BMW WARNING Bulletin Material Warrant     Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：  块级格式化上下文（block formatting cont">
+  <meta name="description" content="Formatting Context BFC BFC 定义 BFC 触发 常见应用 display: flow-root   BMW WARNING Bulletin Material Warrant     Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：  块级格式化上下文（block formatting cont">
 <meta name="keywords" content="HTML&amp;CSS,CSS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS格式化上下文">
 <meta property="og:url" content="http://www.skyline.show/CSS格式化上下文.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="Formatting Context BFC BFC 定义 常见 BFC 常见应用 display: flow-root   BMW WARNING Bulletin Material Warrant     Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：  块级格式化上下文（block formatting cont">
+<meta property="og:description" content="Formatting Context BFC BFC 定义 BFC 触发 常见应用 display: flow-root   BMW WARNING Bulletin Material Warrant     Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：  块级格式化上下文（block formatting cont">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-03T09:39:32.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%8720220614162419.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%8720220614162504.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%8720220614161445.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%8720220614161403.png">
+<meta property="og:updated_time" content="2022-06-08T08:29:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS格式化上下文">
-<meta name="twitter:description" content="Formatting Context BFC BFC 定义 常见 BFC 常见应用 display: flow-root   BMW WARNING Bulletin Material Warrant     Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：  块级格式化上下文（block formatting cont">
+<meta name="twitter:description" content="Formatting Context BFC BFC 定义 BFC 触发 常见应用 display: flow-root   BMW WARNING Bulletin Material Warrant     Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：  块级格式化上下文（block formatting cont">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%8720220614162419.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -188,7 +193,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-08T08:29:26.000Z" itemprop="datePublished">2022-06-08</time>
     </a><span style="color: #999">|</span>
 
       
@@ -208,7 +213,7 @@
 <li><a href="#formatting-context">Formatting Context</a></li>
 <li><a href="#bfc">BFC</a><ul>
 <li><a href="#bfc-定义">BFC 定义</a></li>
-<li><a href="#常见-bfc">常见 BFC</a></li>
+<li><a href="#bfc-触发">BFC 触发</a></li>
 <li><a href="#常见应用">常见应用</a></li>
 <li><a href="#display-flow-root">display: flow-root</a></li>
 </ul>
@@ -225,17 +230,18 @@
 <ul>
 <li>块级格式化上下文（block formatting contexts）</li>
 <li>内联格式化上下文（inline formatting contexts）</li>
-<li>弹性格式化上下文（grid formatting context）</li>
-<li>网格格式化上下文（flex formatting context）</li>
+<li>弹性格式化上下文（flex formatting context）</li>
+<li>网格格式化上下文（grid formatting context）</li>
 </ul>
 <p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
-<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3><p>正如上文所说格式化上下文只是约定了自身与内部元素的展示规则。<br>这些规则据定了父子元素、兄弟元素等等元素之间在展示时相互影响。<br>BFC 一样，只是约定了一套规则，没有所谓的定义。<br>在 CSS2.1 规范 中，这套规则描述如下：</p>
+<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><a id="more"></a>
+<h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3><p>正如上文所说格式化上下文只是约定了自身与内部元素的展示规则。<br>这些规则据定了父子元素、兄弟元素等等元素之间在展示时相互影响。<br>BFC 一样，只是约定了一套<strong>规则</strong>，没有所谓的定义。<br>在 CSS2.1 规范 中，这套规则描述如下：</p>
 <blockquote>
 <p>In a block formatting context, boxes are laid out one after the other, vertically, beginning at the top of a containing block. The vertical distance between two sibling boxes is determined by the ‘margin’ properties. Vertical margins between adjacent block-level boxes in a block formatting context collapse.<br>In a block formatting context, each box’s left outer edge touches the left edge of the containing block (for right-to-left formatting, right edges touch). This is true even in the presence of floats (although a box’s line boxes may shrink due to the floats), unless the box establishes a new block formatting context (in which case the box itself may become narrower due to the floats).</p>
 </blockquote>
 <p>上述规则规定了 BFC 内部元素的排列方向为由上而下，由左至右。<br>兄弟元素之间的间距由 margin 定，上下毗邻块级元素 marign 会合并。</p>
-<p>在这套规则描述中，没有提到但 BFC 有的最大的特征是：<br>BFC 容器内部的元素无论如何不会影响容器外部的元素。</p>
-<h3 id="常见-BFC"><a href="#常见-BFC" class="headerlink" title="常见 BFC"></a>常见 BFC</h3><p>最外层的的页面元素（即 html 元素）创建初始的块级格式化上下文。</p>
+<p>在这套对 BFC 规则描述中，没有提到但 BFC 却拥有的一个最大的特征（规则）是：<br><strong>BFC 容器内部的元素无论如何不会影响容器外部的元素。</strong></p>
+<h3 id="BFC-触发"><a href="#BFC-触发" class="headerlink" title="BFC 触发"></a>BFC 触发</h3><p>最外层的的页面元素（即 html 元素）创建初始的块级格式化上下文。</p>
 <ul>
 <li>html 元素</li>
 <li>浮动（float != none）</li>
@@ -243,26 +249,43 @@
 <li>table 及其部分子属性（ display: table, table-cell, table-caption, table-row, table-row-group, table-header-group, table-footer-group）</li>
 <li>内联块级元素（display: inline-block）</li>
 <li>overflow 非默认</li>
-<li>flex 子元素</li>
-<li>grid 子元素</li>
+<li>flex <strong>子元素</strong></li>
+<li>grid <strong>子元素</strong></li>
 <li>display: flow-root</li>
 </ul>
 <h3 id="常见应用"><a href="#常见应用" class="headerlink" title="常见应用"></a>常见应用</h3><p>由 BFC 常用于如下场景中：</p>
 <ul>
 <li>包含内部浮动元素（contain internal floats）</li>
+</ul>
+<p>浮动的元素会脱离普通文档流，无法将容器撑开，将容器设定为 BFC 可防止其内部元素影响容器外部。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>包含内部浮动<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border: 2px solid #666;width: 100px"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: left;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border: 2px solid #666;width: 100px; overflow: hidden;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: left;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%8720220614162419.png" alt="CSS格式化上下文20220614162419"></p>
+<ul>
 <li>排斥外部浮动元素（exclude external floats）</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>排除外部浮动<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: left; opacity: 0.5;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border: 2px solid #666;width: 100px;height: 25px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: left; opacity: 0.5;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">      <span class="attr">style</span>=<span class="string">"border: 2px solid #666;width: 100px;height: 25px; overflow: hidden;"</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%8720220614162504.png" alt="CSS格式化上下文20220614162504"></p>
+<ul>
 <li>抑制边距合并（suppress margin collapsing）</li>
 </ul>
-<p>在内联上下文中，浮动无法将容器撑开。</p>
-<h3 id="display-flow-root"><a href="#display-flow-root" class="headerlink" title="display: flow-root"></a>display: flow-root</h3><a id="more"></a>
-<p>初始化一个块级元素，其内部采用流式布局，<strong>并且产生格式化上下文</strong>。<br>与 display: block 块级元素主要差别就是其内部采用格式化上下文的规则。<br>利用该方式产生 BFC 一般不会产生其它副作用。<br>从字面意思来说，其表明创造一个与根元素一样的流式布局元素。</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<p>margin 合并常被称为 margin 穿透。<br>同一个 BFC 内子节点下上外边距会发生合并，要抑制边距合并，可将子节点放在不同的 BFC 中。<br>HTML 根节点本身为就为 BFC，所以我们可以经常遇到 margin 穿透的情况。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>margin穿透<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"margin: 20px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"margin: 20px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"overflow: hidden;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"margin: 20px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"overflow: hidden;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"margin: 20px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%8720220614161445.png" alt="CSS格式化上下文20220614161445"></p>
+<ul>
+<li>双栏及多栏布局</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>排除外部浮动<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: left; opacity: 0.5;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: right; opacity: 0.5;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"background:#eee;height: 100px; "</span>&gt;</span></span><br><span class="line">      I am a bucolic migrant worker but I never walk backwards.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: left; opacity: 0.5;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: right; opacity: 0.5;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"background:#eee;height: 100px; overflow: hidden;"</span>&gt;</span></span><br><span class="line">      I am a bucolic migrant worker but I never walk backwards.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%8720220614161403.png" alt="CSS格式化上下文20220614161403"></p>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/HTML&amp;CSS/CSS/BFC.html" target="_blank" rel="noopener">代码示例</a></p>
+<h3 id="display-flow-root"><a href="#display-flow-root" class="headerlink" title="display: flow-root"></a>display: flow-root</h3><p>初始化一个块级元素，其内部采用流式布局，<strong>并且产生格式化上下文</strong>。<br>与 display: block 块级元素主要差别就是其内部采用格式化上下文的规则。<br>利用该方式产生 BFC 一般不会产生其它副作用。<br>从字面意思来说，其表明创造一个与根元素一样的流式布局元素。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
 <h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
-<p><a href="https://www.w3.org/TR/CSS2/visuren.html#block-formatting" target="_blank" rel="noopener">https://www.w3.org/TR/CSS2/visuren.html#block-formatting</a> &gt; <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context</a></p>
+<p><a href="https://www.w3.org/TR/CSS2/visuren.html#block-formatting" target="_blank" rel="noopener">https://www.w3.org/TR/CSS2/visuren.html#block-formatting</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context</a></p>
 </blockquote>
 <h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
 <blockquote>
@@ -321,11 +344,11 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/CSS常用伪类伪元素.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/设计模式综述.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          CSS常用伪类伪元素
+          设计模式综述
         
       </div>
     </a>
@@ -347,7 +370,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Formatting-Context"><span class="nav-number">1.</span> <span class="nav-text">Formatting Context</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC"><span class="nav-number">2.</span> <span class="nav-text">BFC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC-定义"><span class="nav-number">2.1.</span> <span class="nav-text">BFC 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见-BFC"><span class="nav-number">2.2.</span> <span class="nav-text">常见 BFC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见应用"><span class="nav-number">2.3.</span> <span class="nav-text">常见应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#display-flow-root"><span class="nav-number">2.4.</span> <span class="nav-text">display: flow-root</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">3.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">3.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">3.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Formatting-Context"><span class="nav-number">1.</span> <span class="nav-text">Formatting Context</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC"><span class="nav-number">2.</span> <span class="nav-text">BFC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC-定义"><span class="nav-number">2.1.</span> <span class="nav-text">BFC 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BFC-触发"><span class="nav-number">2.2.</span> <span class="nav-text">BFC 触发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见应用"><span class="nav-number">2.3.</span> <span class="nav-text">常见应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#display-flow-root"><span class="nav-number">2.4.</span> <span class="nav-text">display: flow-root</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">3.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">3.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">3.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
     
     </div>
   </aside>
