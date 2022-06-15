@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-ES对象创建"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Husky使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES对象创建.html">ES对象创建</a>
+      <a class="article-title" href="/Husky使用.html">Husky使用</a>
     </h1>
   
 
@@ -336,7 +336,7 @@
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
     </a>
 
 
@@ -352,27 +352,19 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#工厂模式">工厂模式</a></li>
-<li><a href="#构造函数模式">构造函数模式</a><ul>
-<li><a href="#实现">实现</a></li>
-<li><a href="#优化">优化</a></li>
+<li><a href="#husky-使用配置">Husky 使用配置</a><ul>
+<li><a href="#husky-简述">husky 简述</a></li>
+<li><a href="#v5">V5+</a></li>
+<li><a href="#v4">V4</a></li>
 </ul>
 </li>
-<li><a href="#原型模式">原型模式</a><ul>
-<li><a href="#实现-1">实现</a></li>
-<li><a href="#原型判定">原型判定</a></li>
-<li><a href="#原型重写">原型重写</a></li>
-<li><a href="#原型模式问题">原型模式问题</a></li>
+<li><a href="#husky-配置更新">Husky 配置更新</a><ul>
+<li><a href="#git-hooks-说明">git hooks 说明</a></li>
+<li><a href="#v4-工作原理">V4 工作原理</a></li>
+<li><a href="#v5-原理">V5+ 原理</a></li>
+<li><a href="#后续问题">后续问题</a></li>
 </ul>
 </li>
-<li><a href="#组合构造与原型">组合构造与原型</a></li>
-<li><a href="#动态原型">动态原型</a><ul>
-<li><a href="#实现-2">实现</a></li>
-<li><a href="#重写原型">重写原型</a></li>
-</ul>
-</li>
-<li><a href="#寄生构造函数">寄生构造函数</a></li>
-<li><a href="#稳妥构造函数">稳妥构造函数</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
@@ -381,41 +373,42 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  p.name = name;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">"skyline"</span>);</span><br><span class="line">me.name; <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
-<h2 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>解决了对象识别问题</p>
-<p>构造函数首字母都要大写，非构造函数小写字母开头</p>
-<p>构造函数主要问题是方法会在实例中各自创建，me.say === you.say 说明了这个问题</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>优化方案解决了方法不能复用的问题，但破坏了封装</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = sayName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>ES 中，无论何时创建的新函数，都会根据一组特定的规则来为函数添加一个指向原型对象名为 prototype 的指针属性，该原型对象自动获得一个 constructor 属性，属性指向该函数，而后基于原型对象添置实例共享的属性和方法</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = <span class="string">"skyline"</span>;</span><br><span class="line">Person.prototype.age = <span class="number">27</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line">skyline.sayName(); <span class="comment">// My name is skyline</span></span><br><span class="line">skyline <span class="keyword">instanceof</span> Person; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h3 id="原型判定"><a href="#原型判定" class="headerlink" title="原型判定"></a>原型判定</h3>
+<h2 id="Husky-使用配置"><a href="#Husky-使用配置" class="headerlink" title="Husky 使用配置"></a>Husky 使用配置</h2><h3 id="husky-简述"><a href="#husky-简述" class="headerlink" title="husky 简述"></a>husky 简述</h3><p>husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。</p>
+<p>以代码校验为例来说明</p>
+<p>代码校验 lint-staged 相关配置如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">		<span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	...,</span><br><span class="line">	<span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>后续代码中，其余配置为 husky 相关，通过这些配置，我们在 commit 代码时，会校验代码错误与格式，校验不通过会有提示。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Husky%E4%BD%BF%E7%94%A820210924150933.png" alt="Husky使用20210924150933"></p>
+<p>Husky 在版本 5 中配置做了大变动，具体前后的配置以版本来说明。</p>
+<h3 id="V5"><a href="#V5" class="headerlink" title="V5+"></a>V5+</h3><p>yarn add husky -D</p>
+<p>安装 husky 最新包</p>
+<p>npx husky-init &amp;&amp; yarn</p>
+<p>在 package.json 会自动添加如下选项</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>汇总其他相关配置选项，如下<br><code>package.json</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"precommit"</span>: <span class="string">"lint-staged"</span>,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">    <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时会在项目目录下自动生成 .husky 目录，包含最基础的 pre-commit bash 脚本，将 bash 脚本的默认 npm test 改为 npm run precommit 即可</p>
+<p><code>pre-commit</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">. <span class="string">"$(dirname "</span>$<span class="number">0</span><span class="string">")/_/husky.sh"</span></span><br><span class="line"></span><br><span class="line">npm run precommit</span><br></pre></td></tr></table></figure>
+<h3 id="V4"><a href="#V4" class="headerlink" title="V4"></a>V4</h3><p>yarn add <a href="mailto:husky@v4.3.8" target="_blank" rel="noopener">husky@v4.3.8</a> -D</p>
+<p>package.json</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">            ...,</span><br><span class="line">            <span class="string">"husky"</span>: <span class="string">"4.3.8"</span>,</span><br><span class="line">            <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"husky"</span>: &#123;</span><br><span class="line">        <span class="string">"hooks"</span>: &#123;</span><br><span class="line">        <span class="string">"pre-commit"</span>: <span class="string">"lint-staged"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Husky-配置更新"><a href="#Husky-配置更新" class="headerlink" title="Husky 配置更新"></a>Husky 配置更新</h2><h3 id="git-hooks-说明"><a href="#git-hooks-说明" class="headerlink" title="git hooks 说明"></a>git hooks 说明</h3>
         <!-- 
 
 
-工厂模式
-构造函数模式
-实现
-优化
+Husky 使用配置
+husky 简述
+V5+
+V4
 
 
-原型模式
-实现
-原型判定
-原型重写
-原型模式问题
+Husky 配置更新
+git hooks 说明
+V4 工作原理
+V5+ 原理
+后续问题
 
 
-组合构造与原型
-动态原型
-实现
-重写原型
-
-
-寄生构造函数
-稳妥构造函数
 BMW WARNING
 Bulletin
 Material
@@ -424,10 +417,10 @@ Warrant
 
 
 
-工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）
-function person(name) ......  -->
+Husky 使用配置husky 简述husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。
+以代码校验为例......  -->
         <p class="article-more-link">
-          <a href="/ES对象创建.html#more">阅读全文</a>
+          <a href="/Husky使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -435,8 +428,103 @@ function person(name) ......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂类型/">复杂类型</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-HTTPS加密方式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>---
+title: HTTPS加密方式
+updated: 2022-02-03    14:21:52
+
+
+
+---
+&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+</code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
+<ul>
+<li>窃听</li>
+<li>篡改</li>
+<li>冒充</li>
+</ul>
+<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
+<h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4>
+        <!-- ---
+title: HTTPS加密方式
+updated: 2022-02-03    14:21:52
+
+
+
+---
+&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+HTTPS概述加密缘由明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉容易被中间人攻击，存在以下风险
+
+窃听
+篡改
+冒充
+
+HTTPS超文本传输......  -->
+        <p class="article-more-link">
+          <a href="/HTTPS加密方式.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-鹧鸪天·新寒"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
     </footer>
   </div>
   
@@ -599,114 +687,6 @@ Debian /......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-ES类的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES类的使用.html">ES类的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#静态类-实例-原型属性与方法">静态（类）、实例、原型属性与方法</a><ul>
-<li><a href="#es5">ES5</a></li>
-<li><a href="#es6">ES6</a></li>
-<li><a href="#属性访问结论">属性访问结论</a></li>
-</ul>
-</li>
-<li><a href="#class">Class</a><ul>
-<li><a href="#原型方法语法糖">原型方法语法糖</a></li>
-<li><a href="#class-中属性与方法的枚举性质">Class 中属性与方法的枚举性质</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="静态（类）、实例、原型属性与方法"><a href="#静态（类）、实例、原型属性与方法" class="headerlink" title="静态（类）、实例、原型属性与方法"></a>静态（类）、实例、原型属性与方法</h2><h3 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h3><p>Baby 类</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对象构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Baby</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> className = <span class="string">"Baby"</span>;</span><br><span class="line">  <span class="comment">//实例属性，每个实例私有，在对象实例化后调用，实例属性在对象实力化后创建</span></span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.weight = <span class="string">"3kg"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg()); <span class="comment">//使用原型方法扩充的方法可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.sex); <span class="comment">//使用原型方法扩充的属性可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(Baby.age, <span class="keyword">this</span>.age); <span class="comment">//静态属性调用时格式为[对象.静态属性]</span></span><br><span class="line">  &#125;; <span class="comment">//对象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类方法 (实际是静态方法直接调用)，只有类才能访问类方法，实例不能访问 ，在类方法中通过this只能访问类属性不能访问其他属性，即在本例中，Run方法只能访问到this.age</span></span><br><span class="line">Baby.Run = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"跑起来！！！"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型方法，如果原型方法当作静态方法直接调用时，this.name无法被调用</span></span><br><span class="line">Baby.prototype.msg = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"我叫："</span> + <span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类属性 在类的外部。公有静态属性不能使用 【this.属性】，只能使用 【对象.属性】 调用，只有类才能访问类属性，实例不能访问</span></span><br><span class="line">Baby.age = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型属性，所有实例共有，【this.属性】这种写法访问时，先会访问实例对象属性，没有实例对象属性就会访问原型属性 ，也可以当成公有静态属性使用【对象.prototype.原型属性。</span></span><br><span class="line">Baby.prototype.sex = <span class="string">"男娃娃"</span>;</span><br></pre></td></tr></table></figure>
-<p>使用</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//实例方法和原型方法需要实例化对象后才可以使</span></span><br><span class="line"><span class="keyword">var</span> bob = <span class="keyword">new</span> Baby(<span class="string">"bob"</span>);</span><br><span class="line">Baby.name;</span><br><span class="line"><span class="comment">//"Baby" :每一个类都有一个基本的name属性</span></span><br><span class="line"></span><br><span class="line">bob.name;</span><br><span class="line"><span class="comment">//"bob"</span></span><br><span class="line"></span><br><span class="line">Baby.weight;</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line">bob.weight;</span><br><span class="line"><span class="comment">//"3kg"</span></span><br><span class="line"></span><br><span class="line">Baby.hello();</span><br><span class="line"><span class="comment">//Uncaught TypeError: Baby.hello is not a function</span></span><br><span class="line"></span><br><span class="line">bob.hello();</span><br><span class="line"><span class="comment">// bob</span></span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">// undefined :this.msg没有返回所以undefined</span></span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">// 20 undefined</span></span><br><span class="line"></span><br><span class="line">Baby.Run(); <span class="comment">//跑起来！！！</span></span><br><span class="line"><span class="comment">//类方法也是静态方法，可以直接使用 【对象.静态方法()】</span></span><br><span class="line"></span><br><span class="line">bob.run(); <span class="comment">// TypeError: bob.run is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.msg();</span><br><span class="line"><span class="comment">// Uncaught TypeError: Baby.msg is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg();</span><br><span class="line"><span class="comment">// 我叫：undefined</span></span><br><span class="line"><span class="comment">//原型方法当成静态方法使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">bob.msg();</span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">//原型方法必须实例化对象</span></span><br><span class="line"></span><br><span class="line">bob.age;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="comment">//错误，公有静态属性只能使用 【对象.属性】调用</span></span><br><span class="line"></span><br><span class="line">Baby.age;</span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">//原型属性当作静态属性使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">Baby.sex;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">bob.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br></pre></td></tr></table></figure>
-<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><p>Baby 类</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baby</span> </span>&#123;</span><br><span class="line">  <span class="comment">//实例属性、方法</span></span><br><span class="line">  eat = <span class="string">"meat"</span>;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="comment">//实例属性、方法</span></span><br><span class="line">    <span class="keyword">this</span>.firstName = x;</span><br><span class="line">    <span class="keyword">this</span>.lastName = y;</span><br><span class="line">    <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"skyline"</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型属性，使用存取器</span></span><br><span class="line">  <span class="keyword">get</span> prop() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"skyline getter"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> prop(value) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"skyline setter: "</span> + value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型方法</span></span><br><span class="line"></span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"("</span> + <span class="keyword">this</span>.firstName + <span class="string">", "</span> + <span class="keyword">this</span>.lastName + <span class="string">")"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//类方法</span></span><br><span class="line">  <span class="keyword">static</span> hello() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello skyline"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> hi() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.hello; <span class="comment">//如果静态方法包含this关键字，这个this指的是类，而不是实例</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//类属性，ES6 在当前阶段，Class 内部只有静态方法，没有静态属性，可以直接指定类（静态）属性</span></span><br><span class="line">Baby.age = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="属性访问结论"><a href="#属性访问结论" class="headerlink" title="属性访问结论"></a>属性访问结论</h3><p>不论是那种方式建立，遵循以下结论</p>
-<ul>
-<li>静态属性方法，可以直接通过类进行访问的</li>
-<li>实例属性方法是需要创建实例对象进行访问的</li>
-<li>静态与实例之间的属性与方法不能互访</li>
-</ul>
-<h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><h3 id="原型方法语法糖"><a href="#原型方法语法糖" class="headerlink" title="原型方法语法糖"></a>原型方法语法糖</h3>
-        <!-- 
-
-
-静态（类）、实例、原型属性与方法
-ES5
-ES6
-属性访问结论
-
-
-Class
-原型方法语法糖
-Class 中属性与方法的枚举性质
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-静态（类）、实例、原型属性与方法ES5Baby 类
-//对象构造函数function Baby(name) &#123;  var className = "Baby"......  -->
-        <p class="article-more-link">
-          <a href="/ES类的使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂类型/">复杂类型</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Number相关基础操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -793,102 +773,6 @@ toLocaleString
         <p class="article-more-link">
           <a href="/Number相关基础操作.html#more">阅读全文</a>
         </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-systemd开启后台进程"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/systemd开启后台进程.html">systemd开启后台进程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="利用-Systemd-开启后台进程"><a href="#利用-Systemd-开启后台进程" class="headerlink" title="利用 Systemd 开启后台进程"></a>利用 Systemd 开启后台进程</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#利用-systemd-开启后台进程">利用 Systemd 开启后台进程</a><ul>
-<li><a href="#简介">简介</a><ul>
-<li><a href="#创建新服务">创建新服务</a></li>
-<li><a href="#开启服务">开启服务</a></li>
-</ul>
-</li>
-<li><a href="#systemd服务操作汇总">systemd服务操作汇总</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。<br>systemd 提供多个命令行工具，最基本的为 systemctl<br>systemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。</p>
-<h3 id="创建新服务"><a href="#创建新服务" class="headerlink" title="创建新服务"></a>创建新服务</h3><p>创建服务文件并打开</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/foo.service</span><br></pre></td></tr></table></figure>
-<p>输入以下内容</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My custom service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :992 --password xxxx</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>[Unit]</p>
-<pre><code>提供服务基础信息
-Description 为描述信息
-After
-服务启动的前置条件
-</code></pre><p>[Service]</p>
-<pre><code>提供启动服务的相关信息
-</code></pre><p>[Install]</p>
-<pre><code>WantedBy
-定义服务被谁触发
-</code></pre><blockquote>
-<p>Defines which service triggers the custom service if enabled with systemctl enable. This is mostly used for starting the custom service on boot. In this example, foo.service uses multi-user.target, which starts foo.service when systemd loads multi-user.target on boot.</p>
-</blockquote>
-<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><p>创建该服务后，需要重载 systemd 服务文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启该服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
-<p>查看该服务运行状态</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
-<h2 id="systemd服务操作汇总"><a href="#systemd服务操作汇总" class="headerlink" title="systemd服务操作汇总"></a>systemd服务操作汇总</h2><p>开启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
-<p>关闭服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl stop foo</span><br></pre></td></tr></table></figure>
-<p>重启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl restart foo</span><br></pre></td></tr></table></figure>
-<p>服务状态</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
-<p>开机自启动服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable foo</span><br></pre></td></tr></table></figure>
-<p>禁止开机启动</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl disable foo</span><br></pre></td></tr></table></figure>
-<p>查看是否允许开机启动</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl is-enabled foo</span><br></pre></td></tr></table></figure>
-
       
     </div>
     <footer class="article-footer">
@@ -1159,136 +1043,6 @@ refs 使用
 <!-- Table of Contents -->
 
   
-    <article id="post-ES对象属性"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES对象属性.html">ES对象属性</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="JS-对象的属性"><a href="#JS-对象的属性" class="headerlink" title="JS 对象的属性"></a>JS 对象的属性</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#js-对象的属性">JS 对象的属性</a><ul>
-<li><a href="#属性描述符">属性描述符</a><ul>
-<li><a href="#属性分类">属性分类</a></li>
-<li><a href="#enumerable">Enumerable</a></li>
-<li><a href="#configurable">Configurable</a></li>
-</ul>
-</li>
-<li><a href="#属性创建">属性创建</a><ul>
-<li><a href="#直接创建">直接创建</a></li>
-<li><a href="#objectdefineproperty--objectdefineproperties">Object.defineProperty() &amp; Object.defineProperties()</a></li>
-<li><a href="#objectcreate">Object.create</a></li>
-</ul>
-</li>
-<li><a href="#扩展封印与冻结">扩展、封印与冻结</a><ul>
-<li><a href="#preventextensions">preventExtensions</a></li>
-<li><a href="#seal">seal</a></li>
-<li><a href="#freeze">freeze</a></li>
-</ul>
-</li>
-<li><a href="#屏蔽检测与遍历">屏蔽、检测与遍历</a><ul>
-<li><a href="#属性屏蔽">属性屏蔽</a></li>
-<li><a href="#属性检测">属性检测</a></li>
-<li><a href="#属性遍历">属性遍历</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h2><h3 id="属性分类"><a href="#属性分类" class="headerlink" title="属性分类"></a>属性分类</h3><ul>
-<li>数据属性<ul>
-<li>Configurable</li>
-<li>Enumerable</li>
-<li>Writable</li>
-<li>Value</li>
-</ul>
-</li>
-<li>访问器属性<ul>
-<li>Configurable</li>
-<li>Enumerable</li>
-<li>Get</li>
-<li>Set</li>
-</ul>
-</li>
-</ul>
-<h3 id="Enumerable"><a href="#Enumerable" class="headerlink" title="Enumerable"></a>Enumerable</h3><p>Enumerable 表示能否枚举，常见</p>
-<h3 id="Configurable"><a href="#Configurable" class="headerlink" title="Configurable"></a>Configurable</h3><p>Configurable 表示能否删除属性，能否修改某些属性描述符，能否将属性改为访问器(数据)属性。</p>
-<p>configurable 一旦指定为 false，则 configurable、enumerable、value、get、set 将无法通过 Object.defineProperty()重新配置，删除对应的属性将不产生效果（严格模式导致错误），属性将不能转换（数据与访问器之间）</p>
-<p>configurable 一旦指定为 false,此时的 Writable 如果是 true 则可以修改为 false，但是不能从 false 改为 true（只关不开）</p>
-<p>configurable true，writable false 时，可以通过 Object.defineProperty()修改 value 的值，直接赋值无效；configurable false，writable true 时可以通过赋值直接修改 value 的值，通过 Object.defineProperty()指定 value 值将会报错</p>
-<p>数据属性能否重新直接赋值取决于 writable<br>属性能否重新通过 defineProperty 定义属性描述与值以及被删除取决于 configurable</p>
-<p>忽略 enumerable 为 false 属性的操作</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105422.png" alt="JS对象属性20210928105422"></p>
-<h2 id="属性创建"><a href="#属性创建" class="headerlink" title="属性创建"></a>属性创建</h2><h3 id="直接创建"><a href="#直接创建" class="headerlink" title="直接创建"></a>直接创建</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-JS 对象的属性
-
-
-JS 对象的属性
-属性描述符
-属性分类
-Enumerable
-Configurable
-
-
-属性创建
-直接创建
-Object.defineProperty() &amp; Object.defineProperties()
-Object.create
-
-
-扩展、封印与冻结
-preventEx......  -->
-        <p class="article-more-link">
-          <a href="/ES对象属性.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-康定周边2日"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1395,7 +1149,7 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES类的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1403,7 +1157,7 @@ Warrant
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/黑群晖常见问题.html">黑群晖常见问题</a>
+      <a class="article-title" href="/ES类的使用.html">ES类的使用</a>
     </h1>
   
 
@@ -1412,13 +1166,13 @@ Warrant
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
     </a>
 
 
       
     
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
@@ -1428,31 +1182,162 @@ Warrant
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#黑群晖搜索不到-ip">黑群晖搜索不到 IP</a><ul>
-<li><a href="#网络联通检查">网络联通检查</a></li>
-<li><a href="#网卡驱动问题">网卡驱动问题</a></li>
+<li><a href="#静态类-实例-原型属性与方法">静态（类）、实例、原型属性与方法</a><ul>
+<li><a href="#es5">ES5</a></li>
+<li><a href="#es6">ES6</a></li>
+<li><a href="#属性访问结论">属性访问结论</a></li>
 </ul>
 </li>
-<li><a href="#ssd-缓存问题">SSD 缓存问题</a></li>
-<li><a href="#moments-人物主题无照片">Moments 人物、主题无照片</a></li>
-<li><a href="#群晖添加第三方社群套件源显示无效的位置">群晖添加第三方社群套件源显示无效的位置</a></li>
-<li><a href="#jellufin-plex-扫描不出影片">Jellufin /Plex 扫描不出影片</a></li>
-<li><a href="#黑群晖硬件转码">黑群晖硬件转码</a></li>
+<li><a href="#class">Class</a><ul>
+<li><a href="#原型方法语法糖">原型方法语法糖</a></li>
+<li><a href="#class-中属性与方法的枚举性质">Class 中属性与方法的枚举性质</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#Warrant">Warrant</a></li>
+</ul>
+</li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="黑群晖搜索不到-IP"><a href="#黑群晖搜索不到-IP" class="headerlink" title="黑群晖搜索不到 IP"></a>黑群晖搜索不到 IP</h2><h3 id="网络联通检查"><a href="#网络联通检查" class="headerlink" title="网络联通检查"></a>网络联通检查</h3><p>主板网口灯检查<br>检查主板网口灯，绿灯常亮说明网络连接成功，黄灯闪烁说明有流量传输。<br>若绿灯亮，进入下一步。</p>
-<h3 id="网卡驱动问题"><a href="#网卡驱动问题" class="headerlink" title="网卡驱动问题"></a>网卡驱动问题</h3><p>检查网卡配置，黑群晖默认不支持 2.5G 以及万兆网卡，<br>需要替换引导中的网卡驱动文件。<br>直接 Google<code>DS918+ 6.23 &quot;0.13.3&quot;</code><br>找到 DS918-6.23_1.04b 的扩展驱动 0.13.3.zip<br>解压得到进行两个文件<br><code>extra.lzma extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘。在左侧目录下可以看到一个 分区(1)，右键选择”挂载到 windows”。然后选择确定之后。可以发现这个分区出现在文件管理那边。<br>用上述解压得到的文件替换分区里的文件即可。<br>然后退出 U 盘，重新启动，就能支持 2.5G 网卡了<br>[^1]:<a href="https://post.smzdm.com/p/aoxd6697/" target="_blank" rel="noopener">https://post.smzdm.com/p/aoxd6697/</a></p>
-<h2 id="SSD-缓存问题"><a href="#SSD-缓存问题" class="headerlink" title="SSD 缓存问题"></a>SSD 缓存问题</h2><p>不打补丁的情况下，黑群晖默认不识别 SSD<br>SSD 补丁如下<br>版本 | 补丁 | 操作<br>— | — | —<br>6.22 | libNVMEpatch.sh | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code><br>6.23 | libsynonvme.so.1 | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code></p>
-<p>上述操作需要先远程 ssh user@ip ，操作完成后退出重启即可[^2]<br>[^2]:<a href="https://wp.gxnas.com/6010.html" target="_blank" rel="noopener">https://wp.gxnas.com/6010.html</a></p>
-<h2 id="Moments-人物、主题无照片"><a href="#Moments-人物、主题无照片" class="headerlink" title="Moments 人物、主题无照片"></a>Moments 人物、主题无照片</h2><p>安装 Moments 后人物与主题无法智能识别，进入后显示还有 xxx 张照片待发现。<br>停用 Moments<br>进入 /var/packages/SynologyMoments/target/usr/lib 目录下<br>备份 libsynophoto-plugin-detection.so</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mv ./libsynophoto-plugin-detection.so ./libsynophoto-plugin-detection.so.bak</span><br></pre></td></tr></table></figure>
-<p><a href="http://42.193.201.102:8443/file/Docs/Tools/OS/Nas/黑群晖常见问题/libsynophoto-plugin-detection.so" target="_blank" rel="noopener">libsynophoto-plugin-detection.so</a><br>将下载的新文件放在 /var/packages/SynologyMoments/target/usr/lib 下，对全部用户赋完全权限（777）或对 SynologyMoments 赋控制权限（755）。<br>开启 moments，重建索引。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%BB%91%E7%BE%A4%E6%99%96%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220121102822.png" alt="黑群晖常见问题20220121102822"></p>
-<h2 id="群晖添加第三方社群套件源显示无效的位置"><a href="#群晖添加第三方社群套件源显示无效的位置" class="headerlink" title="群晖添加第三方社群套件源显示无效的位置"></a>群晖添加第三方社群套件源显示无效的位置</h2><p>在套件设置常规中的信任层级允许任何发行者。<br>之后在套件来源中添加 <a href="http://packages.synocommunity.com显示无效地址。" target="_blank" rel="noopener">http://packages.synocommunity.com显示无效地址。</a><br>出现问题的原因是在 DSM6 非最新版本的系统证书过期。<br>在控制面板 Terminal &amp; SNMP 打开允许 SSH 连接。<br>用 SecureCRT 等工具远程连接。<br>输入如下命令</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo mv /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt.bak &amp;&amp; sudo curl -Lko /etc/ssl/certs/ca-certificates.crt https://curl.se/ca/cacert.pem</span><br></pre></td></tr></table></figure>
-<p>执行完毕后重新添加源。<br>其他常用的套件源</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">http://packages.synocommunity.com</span><br><span class="line"></span><br><span class="line">http://packages.pcloadletter.co.uk</span><br><span class="line"></span><br><span class="line">http://www.cphub.net</span><br><span class="line"></span><br><span class="line">http://synology.sysco.ch</span><br><span class="line"></span><br><span class="line">http://packages.quadrat4.de</span><br><span class="line"></span><br><span class="line">http://synology.acmenet.ru</span><br><span class="line"></span><br><span class="line">http://cytec.us/spk</span><br><span class="line"></span><br><span class="line">http://spk.naefmarco.ch/spkrepo/packages/</span><br><span class="line"></span><br><span class="line">http://spk.nas-mirror.de/spkrepo/packages</span><br><span class="line"></span><br><span class="line">http://spk.unzureichende.info/</span><br><span class="line"></span><br><span class="line">http://packages.synocommunity.com/?beta=1</span><br></pre></td></tr></table></figure>
-<h2 id="Jellufin-Plex-扫描不出影片"><a href="#Jellufin-Plex-扫描不出影片" class="headerlink" title="Jellufin /Plex 扫描不出影片"></a>Jellufin /Plex 扫描不出影片</h2><p>这是由于指定的文件夹没有开发读写权限。<br>对于 Plex，安装时会自动创建 Plex 用户，需要为其赋权。<br>Jellufin 三方套件版会创建 sc-jellyfin 用户， 尝试赋权。<br>若都不行，尝试将扫描目录对所有人赋读写权限。</p>
-<h2 id="黑群晖硬件转码"><a href="#黑群晖硬件转码" class="headerlink" title="黑群晖硬件转码"></a>黑群晖硬件转码</h2><p><a href="https://wp.gxnas.com/7952.html" target="_blank" rel="noopener">https://wp.gxnas.com/7952.html</a></p>
+<h2 id="静态（类）、实例、原型属性与方法"><a href="#静态（类）、实例、原型属性与方法" class="headerlink" title="静态（类）、实例、原型属性与方法"></a>静态（类）、实例、原型属性与方法</h2><h3 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h3><p>Baby 类</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对象构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Baby</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> className = <span class="string">"Baby"</span>;</span><br><span class="line">  <span class="comment">//实例属性，每个实例私有，在对象实例化后调用，实例属性在对象实力化后创建</span></span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.weight = <span class="string">"3kg"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg()); <span class="comment">//使用原型方法扩充的方法可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.sex); <span class="comment">//使用原型方法扩充的属性可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(Baby.age, <span class="keyword">this</span>.age); <span class="comment">//静态属性调用时格式为[对象.静态属性]</span></span><br><span class="line">  &#125;; <span class="comment">//对象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类方法 (实际是静态方法直接调用)，只有类才能访问类方法，实例不能访问 ，在类方法中通过this只能访问类属性不能访问其他属性，即在本例中，Run方法只能访问到this.age</span></span><br><span class="line">Baby.Run = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"跑起来！！！"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型方法，如果原型方法当作静态方法直接调用时，this.name无法被调用</span></span><br><span class="line">Baby.prototype.msg = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"我叫："</span> + <span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类属性 在类的外部。公有静态属性不能使用 【this.属性】，只能使用 【对象.属性】 调用，只有类才能访问类属性，实例不能访问</span></span><br><span class="line">Baby.age = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型属性，所有实例共有，【this.属性】这种写法访问时，先会访问实例对象属性，没有实例对象属性就会访问原型属性 ，也可以当成公有静态属性使用【对象.prototype.原型属性。</span></span><br><span class="line">Baby.prototype.sex = <span class="string">"男娃娃"</span>;</span><br></pre></td></tr></table></figure>
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//实例方法和原型方法需要实例化对象后才可以使</span></span><br><span class="line"><span class="keyword">var</span> bob = <span class="keyword">new</span> Baby(<span class="string">"bob"</span>);</span><br><span class="line">Baby.name;</span><br><span class="line"><span class="comment">//"Baby" :每一个类都有一个基本的name属性</span></span><br><span class="line"></span><br><span class="line">bob.name;</span><br><span class="line"><span class="comment">//"bob"</span></span><br><span class="line"></span><br><span class="line">Baby.weight;</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line">bob.weight;</span><br><span class="line"><span class="comment">//"3kg"</span></span><br><span class="line"></span><br><span class="line">Baby.hello();</span><br><span class="line"><span class="comment">//Uncaught TypeError: Baby.hello is not a function</span></span><br><span class="line"></span><br><span class="line">bob.hello();</span><br><span class="line"><span class="comment">// bob</span></span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">// undefined :this.msg没有返回所以undefined</span></span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">// 20 undefined</span></span><br><span class="line"></span><br><span class="line">Baby.Run(); <span class="comment">//跑起来！！！</span></span><br><span class="line"><span class="comment">//类方法也是静态方法，可以直接使用 【对象.静态方法()】</span></span><br><span class="line"></span><br><span class="line">bob.run(); <span class="comment">// TypeError: bob.run is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.msg();</span><br><span class="line"><span class="comment">// Uncaught TypeError: Baby.msg is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg();</span><br><span class="line"><span class="comment">// 我叫：undefined</span></span><br><span class="line"><span class="comment">//原型方法当成静态方法使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">bob.msg();</span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">//原型方法必须实例化对象</span></span><br><span class="line"></span><br><span class="line">bob.age;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="comment">//错误，公有静态属性只能使用 【对象.属性】调用</span></span><br><span class="line"></span><br><span class="line">Baby.age;</span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">//原型属性当作静态属性使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">Baby.sex;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">bob.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br></pre></td></tr></table></figure>
+<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><p>Baby 类</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baby</span> </span>&#123;</span><br><span class="line">  <span class="comment">//实例属性、方法</span></span><br><span class="line">  eat = <span class="string">"meat"</span>;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="comment">//实例属性、方法</span></span><br><span class="line">    <span class="keyword">this</span>.firstName = x;</span><br><span class="line">    <span class="keyword">this</span>.lastName = y;</span><br><span class="line">    <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"skyline"</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型属性，使用存取器</span></span><br><span class="line">  <span class="keyword">get</span> prop() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"skyline getter"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> prop(value) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"skyline setter: "</span> + value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型方法</span></span><br><span class="line"></span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"("</span> + <span class="keyword">this</span>.firstName + <span class="string">", "</span> + <span class="keyword">this</span>.lastName + <span class="string">")"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//类方法</span></span><br><span class="line">  <span class="keyword">static</span> hello() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello skyline"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> hi() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.hello; <span class="comment">//如果静态方法包含this关键字，这个this指的是类，而不是实例</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//类属性，ES6 在当前阶段，Class 内部只有静态方法，没有静态属性，可以直接指定类（静态）属性</span></span><br><span class="line">Baby.age = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="属性访问结论"><a href="#属性访问结论" class="headerlink" title="属性访问结论"></a>属性访问结论</h3><p>不论是那种方式建立，遵循以下结论</p>
+<ul>
+<li>静态属性方法，可以直接通过类进行访问的</li>
+<li>实例属性方法是需要创建实例对象进行访问的</li>
+<li>静态与实例之间的属性与方法不能互访</li>
+</ul>
+<h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><h3 id="原型方法语法糖"><a href="#原型方法语法糖" class="headerlink" title="原型方法语法糖"></a>原型方法语法糖</h3>
+        <!-- 
+
+
+静态（类）、实例、原型属性与方法
+ES5
+ES6
+属性访问结论
+
+
+Class
+原型方法语法糖
+Class 中属性与方法的枚举性质
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+静态（类）、实例、原型属性与方法ES5Baby 类
+//对象构造函数function Baby(name) &#123;  var className = "Baby"......  -->
+        <p class="article-more-link">
+          <a href="/ES类的使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂类型/">复杂类型</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-systemd开启后台进程"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/systemd开启后台进程.html">systemd开启后台进程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="利用-Systemd-开启后台进程"><a href="#利用-Systemd-开启后台进程" class="headerlink" title="利用 Systemd 开启后台进程"></a>利用 Systemd 开启后台进程</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#利用-systemd-开启后台进程">利用 Systemd 开启后台进程</a><ul>
+<li><a href="#简介">简介</a><ul>
+<li><a href="#创建新服务">创建新服务</a></li>
+<li><a href="#开启服务">开启服务</a></li>
+</ul>
+</li>
+<li><a href="#systemd服务操作汇总">systemd服务操作汇总</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。<br>systemd 提供多个命令行工具，最基本的为 systemctl<br>systemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。</p>
+<h3 id="创建新服务"><a href="#创建新服务" class="headerlink" title="创建新服务"></a>创建新服务</h3><p>创建服务文件并打开</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/foo.service</span><br></pre></td></tr></table></figure>
+<p>输入以下内容</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My custom service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :992 --password xxxx</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>[Unit]</p>
+<pre><code>提供服务基础信息
+Description 为描述信息
+After
+服务启动的前置条件
+</code></pre><p>[Service]</p>
+<pre><code>提供启动服务的相关信息
+</code></pre><p>[Install]</p>
+<pre><code>WantedBy
+定义服务被谁触发
+</code></pre><blockquote>
+<p>Defines which service triggers the custom service if enabled with systemctl enable. This is mostly used for starting the custom service on boot. In this example, foo.service uses multi-user.target, which starts foo.service when systemd loads multi-user.target on boot.</p>
+</blockquote>
+<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><p>创建该服务后，需要重载 systemd 服务文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启该服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
+<p>查看该服务运行状态</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
+<h2 id="systemd服务操作汇总"><a href="#systemd服务操作汇总" class="headerlink" title="systemd服务操作汇总"></a>systemd服务操作汇总</h2><p>开启服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
+<p>关闭服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl stop foo</span><br></pre></td></tr></table></figure>
+<p>重启服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl restart foo</span><br></pre></td></tr></table></figure>
+<p>服务状态</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
+<p>开机自启动服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable foo</span><br></pre></td></tr></table></figure>
+<p>禁止开机启动</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl disable foo</span><br></pre></td></tr></table></figure>
+<p>查看是否允许开机启动</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl is-enabled foo</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1460,8 +1345,6 @@ Warrant
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
     </footer>
   </div>
   
