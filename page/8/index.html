@@ -319,192 +319,6 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-js数组去重"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/js数组去重.html">js数组去重</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="首先定义几个变量"><a href="#首先定义几个变量" class="headerlink" title="首先定义几个变量"></a>首先定义几个变量</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> papa = &#123;<span class="attr">name</span>: <span class="string">'me'</span>, <span class="attr">sex</span>: <span class="string">'male'</span>&#125;,</span><br><span class="line">    mama = &#123;<span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span>&#125;,</span><br><span class="line">    age = [<span class="number">18</span>, <span class="number">28</span>],</span><br><span class="line">    family = [<span class="number">1</span>, <span class="number">1</span>, <span class="string">'1'</span>, <span class="string">'skyline'</span>, <span class="string">'skyline'</span>, papa, papa, mama, &#123;<span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span>&#125;, &#123;&#125;, age, [<span class="number">18</span>, <span class="number">28</span>], []]</span><br><span class="line">    </span><br><span class="line">family.length<span class="comment">//13</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="我是一个正常人"><a href="#我是一个正常人" class="headerlink" title="我是一个正常人"></a>我是一个正常人</h4><p>使用循环</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> ret = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = arr.length; i &lt; j; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ret.indexOf(arr[i]) === <span class="number">-1</span>) &#123;</span><br><span class="line">            ret.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition2</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> ret = [];</span><br><span class="line"></span><br><span class="line">    arr.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">e, i, arr</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (arr.indexOf(e) === i) &#123;</span><br><span class="line">            ret.push(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>解析：indexOf比较参数与数组每一项时候，使用的是严格等于，所以会少一个papa</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeRepetition(family)</span><br><span class="line"><span class="comment">//(10) [1, "1", "skyline", &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, Array(2), Array(2), Array(0)]</span></span><br><span class="line">removeRepetition2(family)</span><br><span class="line"><span class="comment">//(10) [1, "1", "skyline", &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, Array(2), Array(2), Array(0)]</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/098FB62D522D7EF6E6A0FF816F4AB094.png-content" alt="Screen Shot 2017-08-22 at 16.15.25.png-content"></p>
-<hr>
-<h4 id="我有想法"><a href="#我有想法" class="headerlink" title="我有想法"></a>我有想法</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//使用对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition3</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tmp = &#123;&#125;,</span><br><span class="line">        ret = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = arr.length; i &lt; j; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!tmp[arr[i]]) &#123;</span><br><span class="line">            tmp[arr[i]] = <span class="number">1</span>;</span><br><span class="line">            ret.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//先排序</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition4</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> ret = [],</span><br><span class="line">        end;</span><br><span class="line"></span><br><span class="line">    arr.sort();</span><br><span class="line">    end = arr[<span class="number">0</span>];</span><br><span class="line">    ret.push(arr[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] !== end) &#123;</span><br><span class="line">            ret.push(arr[i]);</span><br><span class="line">            end = arr[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>解析：</p>
-<ul>
-<li>removeRepetition3仅适用于简单类型，对象产生的属性相同，是<code>{[object Object]: 1}</code>,所以只会保留第一个出现的对象， 数组产生的是[xx,xx,xx].toString()作为属性，[1,2]产生的是<code>{1,2: 1}</code>，同时数字型字符串会被干掉，仅适用于纯数字去重，灰常不推荐.将对象换成es6的map结构即可。参看removeRepetition6。</li>
-<li>removeRepetition4采用的是sort方法，该方法在不带参数的情况下，默认使用的是unicode字符表顺序，由此可能出现未知的问题，不推荐</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeRepetition3(family)</span><br><span class="line"><span class="comment">//(5) [1, "skyline", &#123;…&#125;, Array(2), Array(0)]</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/F0C137C8DC05D1FB2F4465FF48022AFC.png-content" alt="Screen Shot 2017-08-22 at 16.15.40.png-content"></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">removeRepetition4(family)</span><br><span class="line"><span class="comment">//(11) [Array(0), "1", 1, Array(2), Array(2), &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, "skyline"]</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/0A84B572DB69A3E819B9B3A0C2F2A8B5.png-content" alt="Screen Shot 2017-08-22 at 16.23.08.png-content"></p>
-<hr>
-<h4 id="我会es6"><a href="#我会es6" class="headerlink" title="我会es6"></a>我会es6</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition5</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [...new <span class="built_in">Set</span>(arr)]</span><br><span class="line">    <span class="comment">// return Array.from(new Set(array));</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition6</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tmp = <span class="keyword">new</span> <span class="built_in">Map</span>(),</span><br><span class="line">        ret = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = arr.length; i &lt; j; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!tmp.has(arr[i])) &#123;</span><br><span class="line">            tmp.set(arr[i], <span class="number">1</span>)</span><br><span class="line">            ret.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">removeRepetition5(family)</span><br><span class="line"><span class="comment">//(10) [1, "1", "skyline", &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, Array(2), Array(2), Array(0)]</span></span><br><span class="line">removeRepetition6(family)</span><br><span class="line"><span class="comment">//(10) [1, "1", "skyline", &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, Array(2), Array(2), Array(0)]</span></span><br></pre></td></tr></table></figure>
-<p>解析： </p>
-<ul>
-<li>ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</li>
-<li>ES6 提供了新的数据结构 Map。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键。</li>
-<li>参考阮一峰大大的<a href="http://es6.ruanyifeng.com/#docs/set-map" target="_blank" rel="noopener">Set和Map数据结构</a></li>
-</ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/476D2C7EDEBB793FF91022A7903C89A2.png-content" alt="Screen Shot 2017-08-22 at 16.56.13.png-content"></p>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/js数组去重.html">http://www.skyline.show/js数组去重.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/题目/">题目</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Hbuilder打ipa包注意事项"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Hbuilder打ipa包注意事项.html">Hbuilder打ipa包注意事项</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/H5/">H5+</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p>在用hbuilder进行ipa打包之前，需要按照官方文档步骤生成证书文件</p>
-<p><a href="http://ask.dcloud.net.cn/article/152" target="_blank" rel="noopener">iOS证书(.p12)和描述文件(.mobileprovision)申请</a></p>
-<hr>
-<h4 id="问题与解决方案"><a href="#问题与解决方案" class="headerlink" title="问题与解决方案"></a>问题与解决方案</h4><ul>
-<li>打包之后ipa文件通过iTunes安装，开始正常，安装到最后，图标消失，安装失败<br>请确保设备在开发中心被添加，如下图所示</li>
-</ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/0ADA9EA02A43EB51D53D55635CB805E7.jpg-content" alt=":Users:skyline:Desktop:Screen Shot 2017-08-21 at 17.40.52.jpg-content"></p>
-<hr>
-<ul>
-<li>iOS开发者证书信息有误，请重新填写相关信息,iOS profile文件与私钥证书文件不匹配</li>
-</ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/FF5BC2D570E96D42D0D5F12CED92285C.png-content" alt="Screen Shot 2017-08-21 at 17.57.36.png-content">如果重新添加了账号，请重新生成证书相关文件，而不是使用原有的证书文件，按照官方文档生成证书步骤，重新来过。</p>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/Hbuilder打ipa包注意事项.html">http://www.skyline.show/Hbuilder打ipa包注意事项.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/示例/">示例</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Cssnth-child与nth-of-type"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Cssnth-child与nth-of-type.html">Css中nth-child与nth-of-type</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/CSS-HTML/">CSS/HTML</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Javascript对象扩展、封印与冻结"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -563,6 +377,215 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ES数组去重"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES数组去重.html">ES数组去重</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#举个栗子">举个栗子</a></li>
+<li><a href="#正常人">正常人</a></li>
+<li><a href="#我有想法">我有想法</a></li>
+<li><a href="#我会-es6">我会 es6</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> he = &#123; <span class="attr">name</span>: <span class="string">'he'</span>, <span class="attr">sex</span>: <span class="string">'male'</span> &#125;,</span><br><span class="line">  she = &#123; <span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span> &#125;,</span><br><span class="line">  age = [<span class="number">18</span>, <span class="number">28</span>],</span><br><span class="line">  family = [</span><br><span class="line">    <span class="number">1</span>,</span><br><span class="line">    <span class="number">1</span>,</span><br><span class="line">    <span class="string">'1'</span>,</span><br><span class="line">    <span class="string">'skyline'</span>,</span><br><span class="line">    <span class="string">'skyline'</span>,</span><br><span class="line">    he,</span><br><span class="line">    he,</span><br><span class="line">    she,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span> &#125;,</span><br><span class="line">    age,</span><br><span class="line">    [<span class="number">18</span>, <span class="number">28</span>],</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">family.length <span class="comment">//11</span></span><br></pre></td></tr></table></figure>
+<h2 id="正常人"><a href="#正常人" class="headerlink" title="正常人"></a>正常人</h2><p>使用循环</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition1</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> ret = []</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = arr.length; i &lt; j; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ret.indexOf(arr[i]) === <span class="number">-1</span>) &#123;</span><br><span class="line">      ret.push(arr[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition2</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> ret = []</span><br><span class="line"></span><br><span class="line">  arr.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">e, i, arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr.indexOf(e) === i) &#123;</span><br><span class="line">      ret.push(e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line">removeRepetition1(family)</span><br><span class="line">removeRepetition2(family)</span><br></pre></td></tr></table></figure>
+<p>indexOf 比较参数与数组每一项时候，使用的是严格等于。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D20220615145414.png" alt="ES数组去重20220615145414"></p>
+<h2 id="我有想法"><a href="#我有想法" class="headerlink" title="我有想法"></a>我有想法</h2>
+        <!-- 
+
+
+举个栗子
+正常人
+我有想法
+我会 es6
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+举个栗子var he = &#123; name: 'he', sex: 'male' &#125;,  she = &#123; name: 'she', sex: 'female' &#125;,  age = [18, 28],  family = [  ......  -->
+        <p class="article-more-link">
+          <a href="/ES数组去重.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂类型/">复杂类型</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-html5+移动支付配置（微信）"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/html5+移动支付配置（微信）.html">html5+移动支付配置（微信）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/H5/">H5+</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p><a href="https://ask.dcloud.net.cn/article/71" target="_blank" rel="noopener">先看官方文档，支付插件配置</a></p>
+<h4 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h4><p>（框架vue)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      payType: <span class="string">'2'</span>,</span><br><span class="line">      payTypes: [</span><br><span class="line">       &#123;</span><br><span class="line">         <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">         key: <span class="string">'1'</span>,</span><br><span class="line">         value: <span class="string">'支付宝'</span></span><br><span class="line">       &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">        key: <span class="string">'2'</span>,</span><br><span class="line">        value: <span class="string">'微信支付'</span></span><br><span class="line">      &#125;],</span><br><span class="line">      channels: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取服务</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    getSerivces() &#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">      plus.payment.getChannels(<span class="function"><span class="keyword">function</span>(<span class="params">channels</span>)</span>&#123;</span><br><span class="line">          me.channels=channels;</span><br><span class="line">      &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">          alert(<span class="string">"获取支付通道失败："</span>+e.message);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 支付 */</span></span><br><span class="line">    pay()&#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line">      SelectPayType(&#123;<span class="attr">orderNum</span>: <span class="keyword">this</span>.activeOrderNum, <span class="attr">payType</span>: <span class="keyword">this</span>.payType&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.code == <span class="number">101</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> channel,</span><br><span class="line">            data = <span class="built_in">JSON</span>.parse(res.data);</span><br><span class="line"></span><br><span class="line">          <span class="keyword">var</span> payType = me.payType == <span class="string">'1'</span> ? <span class="string">'alipay'</span> : <span class="string">'wxpay'</span>;</span><br><span class="line"></span><br><span class="line">          me.channels.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">            val.id == payType &amp;&amp; (channel = val)</span><br><span class="line">          &#125;)</span><br><span class="line"></span><br><span class="line">          plus.payment.request(channel, data, <span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">            me.isShowPayTypes = <span class="literal">false</span>;</span><br><span class="line">            plus.nativeUI.alert(<span class="string">"支付成功！订单状态将在稍后更新，请不要重复付款"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                back();</span><br><span class="line">            &#125;);</span><br><span class="line">            me.jump(&#123;<span class="attr">name</span>:<span class="string">'订单详情'</span>,<span class="attr">query</span>:&#123;<span class="attr">orderNum</span>: me.activeOrderNum&#125;&#125;)</span><br><span class="line">          &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">              plus.nativeUI.alert(<span class="string">"支付失败："</span> + error.code);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          me.$vux.toast.show(&#123;</span><br><span class="line">            text: res.message,</span><br><span class="line">            type: <span class="string">'warn'</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  mounted()&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</span><br><span class="line">     <span class="keyword">this</span>.getSerivces()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// getSerivces()</span></span><br><span class="line">     <span class="comment">// document.addEventListener('plusready', this.getSerivces,false)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//selectPayType是请求支付需要相关字段，需要查看相关平台接口文档，本文为微信，返回的字段如下</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"package"</span>: <span class="string">"Sign=WXPay"</span>,</span><br><span class="line">    <span class="string">"appid"</span>: <span class="string">"wx7xxxxxx4987f28"</span>,</span><br><span class="line">    <span class="string">"sign"</span>: <span class="string">"51B0ADxxxxx4E480486C70BD64BF44E1D"</span>,</span><br><span class="line">    <span class="string">"partnerid"</span>: <span class="string">"148xxx722"</span>,</span><br><span class="line">    <span class="string">"prepayid"</span>: <span class="string">"wx2017xxxxxx2fc85d2cc3c0205143628"</span>,</span><br><span class="line">    <span class="string">"noncestr"</span>: <span class="string">"k2xxxxx3X2D1O4YCz7Hn4s"</span>,</span><br><span class="line">    <span class="string">"timestamp"</span>: <span class="string">"1503312709"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h4><p>提示 支付失败：-100支付失败：[payment微信：-1] 的问题</p>
+<ul>
+<li>微信支付不能真机调试，只能打包安装测试，因为要你app的真实签名，真机调试用的是dcloud的调试基座app的wx0411fa6a39d61297,如果嫌打包麻烦，你可以把后端返回的数据appid换成wx0411fa6a39d61297</li>
+<li>安卓平台下，首先查看微信开放平台配置的参数与提交打包的参数是否一致，主要包括(应用签名、包名)，其中应用签名如果使用的DCloud公用证书则必须是“59201CF6589202CB2CDAB26752472112”。</li>
+</ul>
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/D001D4A36782781AB0AB75A09E572E34.jpg-content" alt=":Users:skyline:Desktop:Screen Shot 2017-08-21 at 19.26.08.jpg-content"></p>
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/ED1EE7E39B541D59C9849CDE59BC21A2.jpg-content" alt=":Users:skyline:Desktop:Screen Shot 2017-08-21 at 19.25.59.jpg-content"></p>
+<blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/html5+移动支付配置（微信）.html">http://www.skyline.show/html5+移动支付配置（微信）.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/示例/">示例</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-vue中使用ueditor"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/vue中使用ueditor.html">vue中使用ueditor</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Vue/">Vue</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="主要问题"><a href="#主要问题" class="headerlink" title="主要问题"></a>主要问题</h3><p>可以使用vue-ueditor插件，<strong>但是需要单独解决上传文件后端配置的问题</strong>。本文主要探讨上传配置的问题。</p>
+<h3 id="ueditor组件"><a href="#ueditor组件" class="headerlink" title="ueditor组件"></a>ueditor组件</h3><h4 id="创建ueditor组件"><a href="#创建ueditor组件" class="headerlink" title="创建ueditor组件"></a>创建ueditor组件</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;!--下面通过传递进来的id完成初始化--&gt;</span><br><span class="line">    &lt;script :id=<span class="string">"randomId"</span>  type=<span class="string">"text/plain"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/主体文件引入</span></span><br><span class="line"><span class="regexp">import '../</span>../../<span class="keyword">static</span>/utf8-jsp/ueditor.config<span class="string">'</span></span><br><span class="line"><span class="string">import '</span>../../../<span class="keyword">static</span>/utf8-jsp/ueditor.all<span class="string">'</span></span><br><span class="line"><span class="string">import '</span>../../../<span class="keyword">static</span>/utf8-jsp/lang/zh-cn/zh-cn<span class="string">'</span></span><br><span class="line"><span class="string">import api from '</span>service/apiConfig<span class="string">'</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">export default &#123;</span></span><br><span class="line"><span class="string">  props: &#123;</span></span><br><span class="line"><span class="string">    //配置可以传递进来</span></span><br><span class="line"><span class="string">    // ueditorConfig:&#123;&#125;</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  data() &#123;</span></span><br><span class="line"><span class="string">    return &#123;</span></span><br><span class="line"><span class="string">      //每个编辑器生成不同的id,以防止冲突</span></span><br><span class="line"><span class="string">      randomId: '</span>editor_<span class="string">' + (Math.random() * 100000000000000000),</span></span><br><span class="line"><span class="string">      //编辑器实例</span></span><br><span class="line"><span class="string">      instance: null,</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">      /*</span></span><br><span class="line"><span class="string">      ueditor配置，如果有不同需求，也可从父组件传入，如这里去除了头部的地图，单图上传等功能</span></span><br><span class="line"><span class="string">       */</span></span><br><span class="line"><span class="string">      ueditorConfig: &#123;</span></span><br><span class="line"><span class="string">        toolbars: [</span></span><br><span class="line"><span class="string">          [</span></span><br><span class="line"><span class="string">            '</span>fullscreen<span class="string">', '</span>source<span class="string">', '</span>|<span class="string">', '</span>undo<span class="string">', '</span>redo<span class="string">', '</span>|<span class="string">',</span></span><br><span class="line"><span class="string">            '</span>bold<span class="string">', '</span>italic<span class="string">', '</span>underline<span class="string">', '</span>fontborder<span class="string">', '</span>strikethrough<span class="string">', '</span>superscript<span class="string">', '</span>subscript<span class="string">', '</span>removeformat<span class="string">', '</span>formatmatch<span class="string">', '</span>autotypeset<span class="string">', '</span>blockquote<span class="string">', '</span>pasteplain<span class="string">', '</span>|<span class="string">', '</span>forecolor<span class="string">', '</span>backcolor<span class="string">', '</span>insertorderedlist<span class="string">', '</span>insertunorderedlist<span class="string">', '</span>selectall<span class="string">', '</span>cleardoc<span class="string">', '</span>|<span class="string">',</span></span><br><span class="line"><span class="string">            '</span>rowspacingtop<span class="string">', '</span>rowspacingbottom<span class="string">', '</span>lineheight<span class="string">', '</span>|<span class="string">',</span></span><br><span class="line"><span class="string">            '</span>customstyle<span class="string">', '</span>paragraph<span class="string">', '</span>fontfamily<span class="string">', '</span>fontsize<span class="string">', '</span>|<span class="string">',</span></span><br><span class="line"><span class="string">            '</span>directionalityltr<span class="string">', '</span>directionalityrtl<span class="string">', '</span>indent<span class="string">', '</span>|<span class="string">',</span></span><br><span class="line"><span class="string">            '</span>justifyleft<span class="string">', '</span>justifycenter<span class="string">', '</span>justifyright<span class="string">', '</span>justifyjustify<span class="string">', '</span>|<span class="string">', '</span>touppercase<span class="string">', '</span>tolowercase<span class="string">', '</span>|<span class="string">',</span></span><br><span class="line"><span class="string">            '</span>link<span class="string">', '</span>unlink<span class="string">', '</span>anchor<span class="string">', '</span>|<span class="string">', '</span>imagenone<span class="string">', '</span>imageleft<span class="string">', '</span>imageright<span class="string">', '</span>imagecenter<span class="string">', '</span>|<span class="string">', '</span>insertimage<span class="string">', '</span>emotion<span class="string">', '</span>scrawl<span class="string">', '</span>attachment<span class="string">', '</span>insertframe<span class="string">', '</span>insertcode<span class="string">', '</span>webapp<span class="string">', '</span>pagebreak<span class="string">', '</span>template<span class="string">', '</span>background<span class="string">', '</span>|<span class="string">',</span></span><br><span class="line"><span class="string">            '</span>horizontal<span class="string">', '</span>date<span class="string">', '</span>time<span class="string">', '</span>spechars<span class="string">', '</span>snapscreen<span class="string">', '</span>wordimage<span class="string">', '</span>|<span class="string">',</span></span><br><span class="line"><span class="string">            '</span>inserttable<span class="string">', '</span>deletetable<span class="string">', '</span>insertparagraphbeforetable<span class="string">', '</span>insertrow<span class="string">', '</span>deleterow<span class="string">', '</span>insertcol<span class="string">', '</span>deletecol<span class="string">', '</span>mergecells<span class="string">', '</span>mergeright<span class="string">', '</span>mergedown<span class="string">', '</span>splittocells<span class="string">', '</span>splittorows<span class="string">', '</span>splittocols<span class="string">', '</span>charts<span class="string">', '</span>|<span class="string">',</span></span><br><span class="line"><span class="string">            '</span>print<span class="string">', '</span>preview<span class="string">', '</span>searchreplace<span class="string">', '</span>drafts<span class="string">', '</span>help<span class="string">'</span></span><br><span class="line"><span class="string">          ]</span></span><br><span class="line"><span class="string">        ]</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;;</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  //此时--el挂载到实例上去了,可以初始化对应的编辑器了</span></span><br><span class="line"><span class="string">  mounted() &#123;</span></span><br><span class="line"><span class="string">    /*</span></span><br><span class="line"><span class="string">    重写上传路径，需要与服务器上传地址接口一致</span></span><br><span class="line"><span class="string">     */</span></span><br><span class="line"><span class="string">    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;</span></span><br><span class="line"><span class="string">    UE.Editor.prototype.getActionUrl = function(action) &#123;</span></span><br><span class="line"><span class="string">      if (action == '</span>uploadimage<span class="string">' || action == '</span>uploadscrawl<span class="string">') &#123;</span></span><br><span class="line"><span class="string">        return api.apiItem + '</span>/images/upload<span class="string">';</span></span><br><span class="line"><span class="string">        // &#125; else if (action == '</span>uploadvideo<span class="string">') &#123;</span></span><br><span class="line"><span class="string">        // return '</span>http:<span class="comment">//a.b.com/video.php';</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._bkGetActionUrl.call(<span class="keyword">this</span>, action);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.initEditor()</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  beforeDestroy() &#123;</span><br><span class="line">    <span class="comment">// 组件销毁的时候，要销毁 UEditor 实例</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.instance !== <span class="literal">null</span> &amp;&amp; <span class="keyword">this</span>.instance.destroy) &#123;</span><br><span class="line">      <span class="keyword">this</span>.instance.destroy();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    initEditor() &#123;</span><br><span class="line">      <span class="comment">//dom元素已经挂载上去了</span></span><br><span class="line">      <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.instance = UE.getEditor(<span class="keyword">this</span>.randomId, <span class="keyword">this</span>.ueditorConfig);</span><br><span class="line">        <span class="comment">// 绑定事件，当 UEditor 初始化完成后，将编辑器实例通过自定义的 ready 事件交出去</span></span><br><span class="line">        <span class="keyword">this</span>.instance.addListener(<span class="string">'ready'</span>, () =&gt; &#123;</span><br><span class="line">          <span class="keyword">this</span>.$emit(<span class="string">'ready'</span>, <span class="keyword">this</span>.instance);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="使用ueditor组件"><a href="#使用ueditor组件" class="headerlink" title="使用ueditor组件"></a>使用ueditor组件</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;Ueditor @ready=<span class="string">"editorReady"</span> style=<span class="string">"display:inline-block;width: 800px; height: 500px; margin: 0px auto;"</span>&gt;&lt;<span class="regexp">/Ueditor&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="配置ueditor"><a href="#配置ueditor" class="headerlink" title="配置ueditor"></a>配置ueditor</h3><p>github下载未经编译过的源码，因为会涉及修改打包前的代码。之后按照仓库readme用grunt打包生成代码即可。以下是主要文件的修改</p>
+<h4 id="ueditor-config-js"><a href="#ueditor-config-js" class="headerlink" title="ueditor.config.js"></a><code>ueditor.config.js</code></h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 编辑器资源文件根路径。它所表示的含义是：以编辑器实例化页面为当前路径，指向编辑器资源文件（即dialog等文件夹）的路径。</span></span><br><span class="line"><span class="comment"> * 鉴于很多同学在使用编辑器的时候出现的种种路径问题，此处强烈建议大家使用"相对于网站根目录的相对路径"进行配置。</span></span><br><span class="line"><span class="comment"> * "相对于网站根目录的相对路径"也就是以斜杠开头的形如"/myProject/ueditor/"这样的路径。</span></span><br><span class="line"><span class="comment"> * 如果站点中有多个不在同一层级的页面需要实例化编辑器，且引用了同一UEditor的时候，此处的URL可能不适用于每个页面的编辑器。</span></span><br><span class="line"><span class="comment"> * 因此，UEditor提供了针对不同页面的编辑器可单独配置的根路径，具体来说，在需要实例化编辑器的页面最顶部写上如下代码即可。当然，需要令此处的URL等于对应的配置。</span></span><br><span class="line"><span class="comment"> * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//根据如上提示，修改路径为ueditor代码放置路径</span></span><br><span class="line"><span class="keyword">var</span> URL = <span class="built_in">window</span>.UEDITOR_HOME_URL || (process.env.NODE_ENV === <span class="string">'production'</span> ? <span class="string">'/dist/static/utf8-jsp/'</span> : <span class="string">'/static/utf8-jsp/'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">window</span>.UEDITOR_CONFIG = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为编辑器实例添加一个路径，这个不能被注释</span></span><br><span class="line">    UEDITOR_HOME_URL: URL</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * serverUrl这里直接改成请求配置文件的地址，便于去除老的后台代码。</span></span><br><span class="line"><span class="comment">     * 对于上传文件等其他请求直接在ueditor组件修改即可。</span></span><br><span class="line"><span class="comment">     * 在打包后的ueditor代码，其中主目录下的jsp或php那一个目录将config.json提出放在根目录下后可删除，也可保留。</span></span><br><span class="line"><span class="comment">     * 如果删除文件夹，配置是serverUrl: URL + "config.json"</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    , <span class="attr">serverUrl</span>: URL + <span class="string">"jsp/config.json"</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="请求的处理"><a href="#请求的处理" class="headerlink" title="请求的处理"></a>请求的处理</h3><p>上面完成了基本的操作。但是对于跨域，请求参数设置还没有处理。<br>跨域问题。如果你的项目使用了代理(我的项目用的是”http-proxy-middleware”）不需要jsonp来实现跨域，你需要修改_src/core/utils.js</p>
+<h4 id="utils-js"><a href="#utils-js" class="headerlink" title="utils.js"></a>utils.js</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">isCrossDomainUrl:<span class="function"><span class="keyword">function</span> (<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">    a.href = url;</span><br><span class="line">    <span class="keyword">if</span> (browser.ie) &#123;</span><br><span class="line">        a.href = a.href;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">// return !(a.protocol == location.protocol &amp;&amp; a.hostname == location.hostname &amp;&amp;</span></span><br><span class="line">    <span class="comment">// (a.port == location.port || (a.port == '80' &amp;&amp; location.port == '') || (a.port == '' &amp;&amp; location.port == '80')));</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其他参数设置（对于多数上传，在dialogs文件夹下，在图片上传中，多图上传是dialogs里的image,单图上传是_src/plugins/simpleupload.js。以image为例说明。（ueditor上传私用的是webuploader这个插件，如果请求参数是公共的，可以在webuploader.js修改源码，但是ueditor引入的是webuploader.min.js,注意）</p>
+<h4 id="image-js"><a href="#image-js" class="headerlink" title="image.js"></a>image.js</h4>
+        <!-- 主要问题可以使用vue-ueditor插件，但是需要单独解决上传文件后端配置的问题。本文主要探讨上传配置的问题。
+ueditor组件创建ueditor组件&lt;template&gt;  &lt;div&gt;    &lt;!--下面通过传递进来的id完成初始化--&gt;    &lt;script :id="randomId"  type="text/plain"&gt;&lt;/s......  -->
+        <p class="article-more-link">
+          <a href="/vue中使用ueditor.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ueditor/">ueditor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/示例/">示例</a></li></ul>
 
     </footer>
   </div>
