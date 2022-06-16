@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-ES对象属性"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Brook服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES对象属性.html">ES对象属性</a>
+      <a class="article-title" href="/Brook服务搭建与访问.html">Brook服务搭建与访问</a>
     </h1>
   
 
@@ -341,492 +341,43 @@
 
 
       
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="JS-对象的属性"><a href="#JS-对象的属性" class="headerlink" title="JS 对象的属性"></a>JS 对象的属性</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#js-对象的属性">JS 对象的属性</a><ul>
-<li><a href="#属性描述符">属性描述符</a><ul>
-<li><a href="#属性分类">属性分类</a></li>
-<li><a href="#enumerable">Enumerable</a></li>
-<li><a href="#configurable">Configurable</a></li>
-</ul>
-</li>
-<li><a href="#属性创建">属性创建</a><ul>
-<li><a href="#直接创建">直接创建</a></li>
-<li><a href="#objectdefineproperty--objectdefineproperties">Object.defineProperty() &amp; Object.defineProperties()</a></li>
-<li><a href="#objectcreate">Object.create</a></li>
-</ul>
-</li>
-<li><a href="#扩展封印与冻结">扩展、封印与冻结</a><ul>
-<li><a href="#preventextensions">preventExtensions</a></li>
-<li><a href="#seal">seal</a></li>
-<li><a href="#freeze">freeze</a></li>
-</ul>
-</li>
-<li><a href="#屏蔽检测与遍历">屏蔽、检测与遍历</a><ul>
-<li><a href="#属性屏蔽">属性屏蔽</a></li>
-<li><a href="#属性检测">属性检测</a></li>
-<li><a href="#属性遍历">属性遍历</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h2><h3 id="属性分类"><a href="#属性分类" class="headerlink" title="属性分类"></a>属性分类</h3><ul>
-<li>数据属性<ul>
-<li>Configurable</li>
-<li>Enumerable</li>
-<li>Writable</li>
-<li>Value</li>
-</ul>
-</li>
-<li>访问器属性<ul>
-<li>Configurable</li>
-<li>Enumerable</li>
-<li>Get</li>
-<li>Set</li>
-</ul>
-</li>
-</ul>
-<h3 id="Enumerable"><a href="#Enumerable" class="headerlink" title="Enumerable"></a>Enumerable</h3><p>Enumerable 表示能否枚举，常见</p>
-<h3 id="Configurable"><a href="#Configurable" class="headerlink" title="Configurable"></a>Configurable</h3><p>Configurable 表示能否删除属性，能否修改某些属性描述符，能否将属性改为访问器(数据)属性。</p>
-<p>configurable 一旦指定为 false，则 configurable、enumerable、value、get、set 将无法通过 Object.defineProperty()重新配置，删除对应的属性将不产生效果（严格模式导致错误），属性将不能转换（数据与访问器之间）</p>
-<p>configurable 一旦指定为 false,此时的 Writable 如果是 true 则可以修改为 false，但是不能从 false 改为 true（只关不开）</p>
-<p>configurable true，writable false 时，可以通过 Object.defineProperty()修改 value 的值，直接赋值无效；configurable false，writable true 时可以通过赋值直接修改 value 的值，通过 Object.defineProperty()指定 value 值将会报错</p>
-<p>数据属性能否重新直接赋值取决于 writable<br>属性能否重新通过 defineProperty 定义属性描述与值以及被删除取决于 configurable</p>
-<p>忽略 enumerable 为 false 属性的操作</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105422.png" alt="JS对象属性20210928105422"></p>
-<h2 id="属性创建"><a href="#属性创建" class="headerlink" title="属性创建"></a>属性创建</h2><h3 id="直接创建"><a href="#直接创建" class="headerlink" title="直接创建"></a>直接创建</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-JS 对象的属性
-
-
-JS 对象的属性
-属性描述符
-属性分类
-Enumerable
-Configurable
-
-
-属性创建
-直接创建
-Object.defineProperty() &amp; Object.defineProperties()
-Object.create
-
-
-扩展、封印与冻结
-preventEx......  -->
-        <p class="article-more-link">
-          <a href="/ES对象属性.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
     
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <a class="article-category-link" href="/categories/APPs/">APPs</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <h1 id="Brook-服务搭建与访问"><a href="#Brook-服务搭建与访问" class="headerlink" title="Brook 服务搭建与访问"></a>Brook 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#location">location</a><ul>
-<li><a href="#基础使用">基础使用</a></li>
-<li><a href="#url-match">URL-match</a></li>
-<li><a href="#modifier">modifier</a></li>
+<li><a href="#brook-服务搭建与访问">Brook 服务搭建与访问</a><ul>
+<li><a href="#server-配置">Server 配置</a><ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#后台运行">后台运行</a></li>
 </ul>
 </li>
-<li><a href="#proxy_pass">proxy_pass</a><ul>
-<li><a href="#简述">简述</a></li>
-<li><a href="#uri">URI</a></li>
-<li><a href="#问题">/ 问题</a></li>
-<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
+<li><a href="#client">client</a></li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3><p>匹配所有路径</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>优先级最低，所有都不匹配时，才会命中</p>
-<h3 id="modifier"><a href="#modifier" class="headerlink" title="modifier"></a>modifier</h3><p>URI 这里指 URL 除了 server:port 的部分。</p>
-<p><strong>命中优先级</strong><br>优先级由上依次降低。</p>
-<table>
-<thead>
-<tr>
-<th>modifier</th>
-<th>desc</th>
-<th>example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>=</td>
-<td>exact (精确匹配)</td>
-<td>location = /site</td>
-</tr>
-<tr>
-<td>^~</td>
-<td>priority prefix (优先字符)</td>
-<td>location ^~ /site</td>
-</tr>
-<tr>
-<td>~</td>
-<td>case sensitive regex (大小写敏感正则)</td>
-<td>location ~ /site</td>
-</tr>
-<tr>
-<td>~*</td>
-<td>case insensitive regex(忽略大小写)</td>
-<td>location ~* /site</td>
-</tr>
-<tr>
-<td>(none)</td>
-<td>prefix(字符匹配，无修饰符，由 URI 头字符开始匹配)</td>
-<td>location /site</td>
-</tr>
-</tbody>
-</table>
-<p>在如下网址可进行匹配测试 <a href="https://nginx.viraptor.info/" target="_blank" rel="noopener">https://nginx.viraptor.info/</a></p>
-<p>^~ 与(none)都 进行字符匹配（非正则），^~ 相对于(none) ，提高了命中优先级。</p>
-<p><strong>典型示例</strong></p>
-<p>示例 1</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location ^~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>^~ 进行字符匹配<br><a href="http://domain2.com/file/" target="_blank" rel="noopener">http://domain2.com/file/</a>* 可以命中<br><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 不能命中</p>
-<p>示例 2</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location ~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 根据优先级命中<code>^~ /file/</code></p>
-<h2 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h2><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3>
-        <!-- 
-
-
-location
-基础使用
-URL-match
-modifier
-
-
-proxy_pass
-简述
-URI
-/ 问题
-\$uri \$request_uri
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-location基础使用location 位于 server 下或位于另一个 location 中，基本使用如下
-location [modif......  -->
-        <p class="article-more-link">
-          <a href="/Nginx基础.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-黑群晖安装"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/黑群晖安装.html">黑群晖安装</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#硬件准备">硬件准备</a><ul>
-<li><a href="#nas-主机">Nas 主机</a></li>
-<li><a href="#u-盘">u 盘</a></li>
-<li><a href="#电脑">电脑</a></li>
-</ul>
-</li>
-<li><a href="#软件准备">软件准备</a><ul>
-<li><a href="#系统选择">系统选择</a></li>
-<li><a href="#相关软件">相关软件</a></li>
-</ul>
-</li>
-<li><a href="#引导盘准备">引导盘准备</a><ul>
-<li><a href="#获取-vid-与-pid">获取 VID 与 PID</a></li>
-<li><a href="#替换-vid-与-pid">替换 VID 与 PID</a></li>
-<li><a href="#格式化硬盘">格式化硬盘</a></li>
-<li><a href="#引导盘制作">引导盘制作</a></li>
-</ul>
-</li>
-<li><a href="#安装系统">安装系统</a><ul>
-<li><a href="#nas-进入">Nas 进入</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h2><table>
-<thead>
-<tr>
-<th>硬件</th>
-<th>要求</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Nas 主机</td>
-<td>Intel CPU</td>
-</tr>
-<tr>
-<td>u 盘</td>
-<td>&gt; 50M</td>
-</tr>
-<tr>
-<td>电脑</td>
-<td>Windows 系统</td>
-</tr>
-<tr>
-<td>键鼠</td>
-<td>进 BIOS 等</td>
-</tr>
-<tr>
-<td>硬盘</td>
-<td>大大的好</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Nas-主机"><a href="#Nas-主机" class="headerlink" title="Nas 主机"></a>Nas 主机</h3><p>黑群晖对主机的要求不是很高，不需要硬解软路由+移动硬盘都可运行。<br>主机一般推荐使用 10 代以下的 Intel CPU.<br>新代 Intel 与 AMD 等其他 CPU 主机核显硬解不友好，视硬解需求而定。</p>
-<h3 id="u-盘"><a href="#u-盘" class="headerlink" title="u 盘"></a>u 盘</h3><p>U 盘用于做系统引导，引导程序的大小为 50M。<br>大于这个容量即可，现在 U 盘基本都满足要求。</p>
-<h3 id="电脑"><a href="#电脑" class="headerlink" title="电脑"></a>电脑</h3><p>需要一台 windows 电脑来安装系统引导程序。<br>键鼠需要插入 Nas 主机操作 BIOS。</p>
-<h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><h3 id="系统选择"><a href="#系统选择" class="headerlink" title="系统选择"></a>系统选择</h3>
-        <!-- 
-
-
-硬件准备
-Nas 主机
-u 盘
-电脑
-
-
-软件准备
-系统选择
-相关软件
-
-
-引导盘准备
-获取 VID 与 PID
-替换 VID 与 PID
-格式化硬盘
-引导盘制作
-
-
-安装系统
-Nas 进入
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-硬件准备
-
-
-硬件
-要求
-
-
-
-
-Nas 主机
-Intel CPU
-
-
-u 盘
-&gt; 50M
-
-
-电脑
-......  -->
-        <p class="article-more-link">
-          <a href="/黑群晖安装.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/黑群晖常见问题.html">黑群晖常见问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#黑群晖搜索不到-ip">黑群晖搜索不到 IP</a><ul>
-<li><a href="#网络联通检查">网络联通检查</a></li>
-<li><a href="#网卡驱动问题">网卡驱动问题</a></li>
-</ul>
-</li>
-<li><a href="#ssd-缓存问题">SSD 缓存问题</a></li>
-<li><a href="#moments-人物主题无照片">Moments 人物、主题无照片</a></li>
-<li><a href="#群晖添加第三方社群套件源显示无效的位置">群晖添加第三方社群套件源显示无效的位置</a></li>
-<li><a href="#jellufin-plex-扫描不出影片">Jellufin /Plex 扫描不出影片</a></li>
-<li><a href="#黑群晖硬件转码">黑群晖硬件转码</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="黑群晖搜索不到-IP"><a href="#黑群晖搜索不到-IP" class="headerlink" title="黑群晖搜索不到 IP"></a>黑群晖搜索不到 IP</h2><h3 id="网络联通检查"><a href="#网络联通检查" class="headerlink" title="网络联通检查"></a>网络联通检查</h3><p>主板网口灯检查<br>检查主板网口灯，绿灯常亮说明网络连接成功，黄灯闪烁说明有流量传输。<br>若绿灯亮，进入下一步。</p>
-<h3 id="网卡驱动问题"><a href="#网卡驱动问题" class="headerlink" title="网卡驱动问题"></a>网卡驱动问题</h3><p>检查网卡配置，黑群晖默认不支持 2.5G 以及万兆网卡，<br>需要替换引导中的网卡驱动文件。<br>直接 Google<code>DS918+ 6.23 &quot;0.13.3&quot;</code><br>找到 DS918-6.23_1.04b 的扩展驱动 0.13.3.zip<br>解压得到进行两个文件<br><code>extra.lzma extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘。在左侧目录下可以看到一个 分区(1)，右键选择”挂载到 windows”。然后选择确定之后。可以发现这个分区出现在文件管理那边。<br>用上述解压得到的文件替换分区里的文件即可。<br>然后退出 U 盘，重新启动，就能支持 2.5G 网卡了<br>[^1]:<a href="https://post.smzdm.com/p/aoxd6697/" target="_blank" rel="noopener">https://post.smzdm.com/p/aoxd6697/</a></p>
-<h2 id="SSD-缓存问题"><a href="#SSD-缓存问题" class="headerlink" title="SSD 缓存问题"></a>SSD 缓存问题</h2><p>不打补丁的情况下，黑群晖默认不识别 SSD<br>SSD 补丁如下<br>版本 | 补丁 | 操作<br>— | — | —<br>6.22 | libNVMEpatch.sh | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code><br>6.23 | libsynonvme.so.1 | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code></p>
-<p>上述操作需要先远程 ssh user@ip ，操作完成后退出重启即可[^2]<br>[^2]:<a href="https://wp.gxnas.com/6010.html" target="_blank" rel="noopener">https://wp.gxnas.com/6010.html</a></p>
-<h2 id="Moments-人物、主题无照片"><a href="#Moments-人物、主题无照片" class="headerlink" title="Moments 人物、主题无照片"></a>Moments 人物、主题无照片</h2><p>安装 Moments 后人物与主题无法智能识别，进入后显示还有 xxx 张照片待发现。<br>停用 Moments<br>进入 /var/packages/SynologyMoments/target/usr/lib 目录下<br>备份 libsynophoto-plugin-detection.so</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mv ./libsynophoto-plugin-detection.so ./libsynophoto-plugin-detection.so.bak</span><br></pre></td></tr></table></figure>
-<p><a href="http://42.193.201.102:8443/file/Docs/Tools/OS/Nas/黑群晖常见问题/libsynophoto-plugin-detection.so" target="_blank" rel="noopener">libsynophoto-plugin-detection.so</a><br>将下载的新文件放在 /var/packages/SynologyMoments/target/usr/lib 下，对全部用户赋完全权限（777）或对 SynologyMoments 赋控制权限（755）。<br>开启 moments，重建索引。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%BB%91%E7%BE%A4%E6%99%96%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220121102822.png" alt="黑群晖常见问题20220121102822"></p>
-<h2 id="群晖添加第三方社群套件源显示无效的位置"><a href="#群晖添加第三方社群套件源显示无效的位置" class="headerlink" title="群晖添加第三方社群套件源显示无效的位置"></a>群晖添加第三方社群套件源显示无效的位置</h2><p>在套件设置常规中的信任层级允许任何发行者。<br>之后在套件来源中添加 <a href="http://packages.synocommunity.com显示无效地址。" target="_blank" rel="noopener">http://packages.synocommunity.com显示无效地址。</a><br>出现问题的原因是在 DSM6 非最新版本的系统证书过期。<br>在控制面板 Terminal &amp; SNMP 打开允许 SSH 连接。<br>用 SecureCRT 等工具远程连接。<br>输入如下命令</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo mv /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt.bak &amp;&amp; sudo curl -Lko /etc/ssl/certs/ca-certificates.crt https://curl.se/ca/cacert.pem</span><br></pre></td></tr></table></figure>
-<p>执行完毕后重新添加源。<br>其他常用的套件源</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">http://packages.synocommunity.com</span><br><span class="line"></span><br><span class="line">http://packages.pcloadletter.co.uk</span><br><span class="line"></span><br><span class="line">http://www.cphub.net</span><br><span class="line"></span><br><span class="line">http://synology.sysco.ch</span><br><span class="line"></span><br><span class="line">http://packages.quadrat4.de</span><br><span class="line"></span><br><span class="line">http://synology.acmenet.ru</span><br><span class="line"></span><br><span class="line">http://cytec.us/spk</span><br><span class="line"></span><br><span class="line">http://spk.naefmarco.ch/spkrepo/packages/</span><br><span class="line"></span><br><span class="line">http://spk.nas-mirror.de/spkrepo/packages</span><br><span class="line"></span><br><span class="line">http://spk.unzureichende.info/</span><br><span class="line"></span><br><span class="line">http://packages.synocommunity.com/?beta=1</span><br></pre></td></tr></table></figure>
-<h2 id="Jellufin-Plex-扫描不出影片"><a href="#Jellufin-Plex-扫描不出影片" class="headerlink" title="Jellufin /Plex 扫描不出影片"></a>Jellufin /Plex 扫描不出影片</h2><p>这是由于指定的文件夹没有开发读写权限。<br>对于 Plex，安装时会自动创建 Plex 用户，需要为其赋权。<br>Jellufin 三方套件版会创建 sc-jellyfin 用户， 尝试赋权。<br>若都不行，尝试将扫描目录对所有人赋读写权限。</p>
-<h2 id="黑群晖硬件转码"><a href="#黑群晖硬件转码" class="headerlink" title="黑群晖硬件转码"></a>黑群晖硬件转码</h2><p><a href="https://wp.gxnas.com/7952.html" target="_blank" rel="noopener">https://wp.gxnas.com/7952.html</a></p>
+<h2 id="Server-配置"><a href="#Server-配置" class="headerlink" title="Server 配置"></a>Server 配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brook</span><br><span class="line">chmod +x /usr/bin/brook</span><br><span class="line">brook server --listen :9999 --password hello</span><br></pre></td></tr></table></figure>
+<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/brook.service</span><br></pre></td></tr></table></figure>
+<p>输入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=brook vpn</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :2000 --password mima</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>要开启多个服务，只需要创建多个 service 文件监听不同端口即可。</p>
+<p>重置守护进程服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start brook</span><br></pre></td></tr></table></figure>
+<p>检查服务是否开启成功，查看 2000 端口是否开启服务即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 2000</span><br></pre></td></tr></table></figure>
+<p>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable brook</span><br></pre></td></tr></table></figure>
+<p>即可。</p>
+<h2 id="client"><a href="#client" class="headerlink" title="client"></a>client</h2><p>在如下地址下载客户端界面：<br><a href="https://txthinking.github.io/brook/#/install-gui-client" target="_blank" rel="noopener">https://txthinking.github.io/brook/#/install-gui-client</a><br>下载后连接成功如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Brook%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20220118111315.png" alt="Brook服务搭建与访问20220118111315"></p>
 
       
     </div>
@@ -834,7 +385,7 @@ u 盘
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN1/">VPN1</a></li></ul>
 
     </footer>
   </div>
@@ -954,207 +505,6 @@ Macos Beta 系统更新开启在apple beta 地址上登录h......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#firewalld1">firewalld[^1]</a><ul>
-<li><a href="#concepts">Concepts</a></li>
-<li><a href="#zones">Zones</a></li>
-<li><a href="#services">Services</a></li>
-<li><a href="#runtime">Runtime</a></li>
-<li><a href="#state">State</a></li>
-<li><a href="#port">Port</a></li>
-<li><a href="#source">Source</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="firewalld-1"><a href="#firewalld-1" class="headerlink" title="firewalld[^1]"></a>firewalld[^1]</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld 采用区域与服务的概念来控制流量的出入。</p>
-<ul>
-<li>zones</li>
-<li>services</li>
-</ul>
-<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
-<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3><p>zones 预设级别不同的防火墙策略，用户可以自定义 zones，也可以使用预设的 zones。<br>默认使用 public zone<br>根据拦截级别严格程度，预设 zones 如下</p>
-<table>
-<thead>
-<tr>
-<th>zone</th>
-<th>拦截说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>drop</td>
-<td>丢弃区，所有接入连接都会进行无消息响应拦截，只有输出连接被允许。</td>
-</tr>
-<tr>
-<td>block</td>
-<td>拦截区，接入连接都会被拦截，会响应 icmp-host-prohibited 等拦截消息，只有输出连接被允许。</td>
-</tr>
-<tr>
-<td>public</td>
-<td>公共区，用于不受信任的公共区域，仅允许自选接入连接，默认允许 ssh 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>external</td>
-<td>外部区，用于外部网络，系统充当网关角色，仅允许自选接入连接，默认允许 ssh</td>
-</tr>
-<tr>
-<td>internal</td>
-<td>内部区，用于内部网络，系统充当网关角色，仅允许自选接入连接</td>
-</tr>
-<tr>
-<td>dmz</td>
-<td>隔离区，demilitarized zone（隔离区，军事缓冲区），用于允许部分服务被外网访问，仅允许自选接入连接</td>
-</tr>
-<tr>
-<td>work</td>
-<td>工作区，用于工作网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>home</td>
-<td>家庭区，用于工作家庭网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client，mdns，samba-client 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>trusted</td>
-<td>信任区，并接受所有网络连接</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>新建防火墙区域策略</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --new-zone=memcached --permanent</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看系统默认区</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-default-zone</span><br><span class="line"><span class="comment"># public</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>调整系统默认区</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --<span class="built_in">set</span>-default-zone=home</span><br></pre></td></tr></table></figure>
-<ul>
-<li>系统中配置的所有区</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-zones</span><br><span class="line"><span class="comment"># block dmz drop external home internal public trusted work</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br><span class="line"><span class="comment"># 上述命令会打印所有区与其详细的配置，输出内容较长</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看系统使用区</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-active-zones</span><br><span class="line"><span class="comment"># public</span></span><br><span class="line"><span class="comment">#   interfaces: eth0 eth1</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看指定区的详细配置</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-all</span><br><span class="line"><span class="comment"># public (active)</span></span><br><span class="line"><span class="comment">#   target: default</span></span><br><span class="line"><span class="comment">#   icmp-block-inversion: no</span></span><br><span class="line"><span class="comment">#   interfaces: eth0 eth1</span></span><br><span class="line"><span class="comment">#   sources:</span></span><br><span class="line"><span class="comment">#   services: ssh dhcpv6-client</span></span><br><span class="line"><span class="comment">#   ports:</span></span><br><span class="line"><span class="comment">#   protocols:</span></span><br><span class="line"><span class="comment">#   masquerade: no</span></span><br><span class="line"><span class="comment">#   forward-ports:</span></span><br><span class="line"><span class="comment">#   source-ports:</span></span><br><span class="line"><span class="comment">#   icmp-blocks:</span></span><br><span class="line"><span class="comment">#   rich rules:</span></span><br></pre></td></tr></table></figure>
-<h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p>services 在 zones 中为不同的服务预设不同的配置。<br>例如，可以为服务提供不同的端口等配置</p>
-<ul>
-<li>查看所有的服务</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --get-services</span><br><span class="line"><span class="comment"># RH-Satellite-6 RH-Satellite-6-capsule amanda-client amanda-k5-client amqp amqps... git... ssh ...dhcpv6-client</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看当前开放的服务</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --list-services</span><br><span class="line"><span class="comment"># dhcpv6-client ssh</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>增加开放服务</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br></pre></td></tr></table></figure>
-<ul>
-<li>移除开放的服务</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br><span class="line"><span class="comment"># 永久配置需要添加 --permanent后缀</span></span><br></pre></td></tr></table></figure>
-<p>所有服务的配置都在/usr/lib/firewalld/services 目录下<br>例如 http 服务的配置为</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">short</span>&gt;</span>WWW (HTTP)<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>HTTP is the protocol used to serve Web pages. If you plan to make your Web server publicly available, enable this option. This option is not required for viewing pages locally or developing Web pages.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"80"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>自定义服务</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/diyservice.xml</span><br></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">short</span>&gt;</span>diyservice<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">description</span>&gt;</span>Plex is a streaming media server that brings all your video, music and photo collections together and stream them to your devices at anytime and from anywhere.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"udp"</span> <span class="attr">port</span>=<span class="string">"1900"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"32400"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>重启防火墙后就可以看到该服务。</p>
-<h3 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h3>
-        <!-- 
-
-
-firewalld[^1]
-Concepts
-Zones
-Services
-Runtime
-State
-Port
-Source
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。
-
-zones
-services
-
-firewalld 是 CentOS......  -->
-        <p class="article-more-link">
-          <a href="/CentOS防火墙.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
 
     </footer>
   </div>
@@ -1407,6 +757,602 @@ proxy_pass 代理接口不能访问问题描述客户端访问接口，发起请
       
       
       
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#firewalld1">firewalld[^1]</a><ul>
+<li><a href="#concepts">Concepts</a></li>
+<li><a href="#zones">Zones</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#runtime">Runtime</a></li>
+<li><a href="#state">State</a></li>
+<li><a href="#port">Port</a></li>
+<li><a href="#source">Source</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="firewalld-1"><a href="#firewalld-1" class="headerlink" title="firewalld[^1]"></a>firewalld[^1]</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld 采用区域与服务的概念来控制流量的出入。</p>
+<ul>
+<li>zones</li>
+<li>services</li>
+</ul>
+<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
+<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3><p>zones 预设级别不同的防火墙策略，用户可以自定义 zones，也可以使用预设的 zones。<br>默认使用 public zone<br>根据拦截级别严格程度，预设 zones 如下</p>
+<table>
+<thead>
+<tr>
+<th>zone</th>
+<th>拦截说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>drop</td>
+<td>丢弃区，所有接入连接都会进行无消息响应拦截，只有输出连接被允许。</td>
+</tr>
+<tr>
+<td>block</td>
+<td>拦截区，接入连接都会被拦截，会响应 icmp-host-prohibited 等拦截消息，只有输出连接被允许。</td>
+</tr>
+<tr>
+<td>public</td>
+<td>公共区，用于不受信任的公共区域，仅允许自选接入连接，默认允许 ssh 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>external</td>
+<td>外部区，用于外部网络，系统充当网关角色，仅允许自选接入连接，默认允许 ssh</td>
+</tr>
+<tr>
+<td>internal</td>
+<td>内部区，用于内部网络，系统充当网关角色，仅允许自选接入连接</td>
+</tr>
+<tr>
+<td>dmz</td>
+<td>隔离区，demilitarized zone（隔离区，军事缓冲区），用于允许部分服务被外网访问，仅允许自选接入连接</td>
+</tr>
+<tr>
+<td>work</td>
+<td>工作区，用于工作网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>home</td>
+<td>家庭区，用于工作家庭网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client，mdns，samba-client 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>trusted</td>
+<td>信任区，并接受所有网络连接</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>新建防火墙区域策略</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --new-zone=memcached --permanent</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看系统默认区</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-default-zone</span><br><span class="line"><span class="comment"># public</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>调整系统默认区</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --<span class="built_in">set</span>-default-zone=home</span><br></pre></td></tr></table></figure>
+<ul>
+<li>系统中配置的所有区</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-zones</span><br><span class="line"><span class="comment"># block dmz drop external home internal public trusted work</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br><span class="line"><span class="comment"># 上述命令会打印所有区与其详细的配置，输出内容较长</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看系统使用区</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-active-zones</span><br><span class="line"><span class="comment"># public</span></span><br><span class="line"><span class="comment">#   interfaces: eth0 eth1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看指定区的详细配置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-all</span><br><span class="line"><span class="comment"># public (active)</span></span><br><span class="line"><span class="comment">#   target: default</span></span><br><span class="line"><span class="comment">#   icmp-block-inversion: no</span></span><br><span class="line"><span class="comment">#   interfaces: eth0 eth1</span></span><br><span class="line"><span class="comment">#   sources:</span></span><br><span class="line"><span class="comment">#   services: ssh dhcpv6-client</span></span><br><span class="line"><span class="comment">#   ports:</span></span><br><span class="line"><span class="comment">#   protocols:</span></span><br><span class="line"><span class="comment">#   masquerade: no</span></span><br><span class="line"><span class="comment">#   forward-ports:</span></span><br><span class="line"><span class="comment">#   source-ports:</span></span><br><span class="line"><span class="comment">#   icmp-blocks:</span></span><br><span class="line"><span class="comment">#   rich rules:</span></span><br></pre></td></tr></table></figure>
+<h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p>services 在 zones 中为不同的服务预设不同的配置。<br>例如，可以为服务提供不同的端口等配置</p>
+<ul>
+<li>查看所有的服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --get-services</span><br><span class="line"><span class="comment"># RH-Satellite-6 RH-Satellite-6-capsule amanda-client amanda-k5-client amqp amqps... git... ssh ...dhcpv6-client</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看当前开放的服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --list-services</span><br><span class="line"><span class="comment"># dhcpv6-client ssh</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>增加开放服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br></pre></td></tr></table></figure>
+<ul>
+<li>移除开放的服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br><span class="line"><span class="comment"># 永久配置需要添加 --permanent后缀</span></span><br></pre></td></tr></table></figure>
+<p>所有服务的配置都在/usr/lib/firewalld/services 目录下<br>例如 http 服务的配置为</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">short</span>&gt;</span>WWW (HTTP)<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>HTTP is the protocol used to serve Web pages. If you plan to make your Web server publicly available, enable this option. This option is not required for viewing pages locally or developing Web pages.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"80"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>自定义服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/diyservice.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">short</span>&gt;</span>diyservice<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">description</span>&gt;</span>Plex is a streaming media server that brings all your video, music and photo collections together and stream them to your devices at anytime and from anywhere.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"udp"</span> <span class="attr">port</span>=<span class="string">"1900"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"32400"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>重启防火墙后就可以看到该服务。</p>
+<h3 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h3>
+        <!-- 
+
+
+firewalld[^1]
+Concepts
+Zones
+Services
+Runtime
+State
+Port
+Source
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。
+
+zones
+services
+
+firewalld 是 CentOS......  -->
+        <p class="article-more-link">
+          <a href="/CentOS防火墙.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/黑群晖常见问题.html">黑群晖常见问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#黑群晖搜索不到-ip">黑群晖搜索不到 IP</a><ul>
+<li><a href="#网络联通检查">网络联通检查</a></li>
+<li><a href="#网卡驱动问题">网卡驱动问题</a></li>
+</ul>
+</li>
+<li><a href="#ssd-缓存问题">SSD 缓存问题</a></li>
+<li><a href="#moments-人物主题无照片">Moments 人物、主题无照片</a></li>
+<li><a href="#群晖添加第三方社群套件源显示无效的位置">群晖添加第三方社群套件源显示无效的位置</a></li>
+<li><a href="#jellufin-plex-扫描不出影片">Jellufin /Plex 扫描不出影片</a></li>
+<li><a href="#黑群晖硬件转码">黑群晖硬件转码</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="黑群晖搜索不到-IP"><a href="#黑群晖搜索不到-IP" class="headerlink" title="黑群晖搜索不到 IP"></a>黑群晖搜索不到 IP</h2><h3 id="网络联通检查"><a href="#网络联通检查" class="headerlink" title="网络联通检查"></a>网络联通检查</h3><p>主板网口灯检查<br>检查主板网口灯，绿灯常亮说明网络连接成功，黄灯闪烁说明有流量传输。<br>若绿灯亮，进入下一步。</p>
+<h3 id="网卡驱动问题"><a href="#网卡驱动问题" class="headerlink" title="网卡驱动问题"></a>网卡驱动问题</h3><p>检查网卡配置，黑群晖默认不支持 2.5G 以及万兆网卡，<br>需要替换引导中的网卡驱动文件。<br>直接 Google<code>DS918+ 6.23 &quot;0.13.3&quot;</code><br>找到 DS918-6.23_1.04b 的扩展驱动 0.13.3.zip<br>解压得到进行两个文件<br><code>extra.lzma extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘。在左侧目录下可以看到一个 分区(1)，右键选择”挂载到 windows”。然后选择确定之后。可以发现这个分区出现在文件管理那边。<br>用上述解压得到的文件替换分区里的文件即可。<br>然后退出 U 盘，重新启动，就能支持 2.5G 网卡了<br>[^1]:<a href="https://post.smzdm.com/p/aoxd6697/" target="_blank" rel="noopener">https://post.smzdm.com/p/aoxd6697/</a></p>
+<h2 id="SSD-缓存问题"><a href="#SSD-缓存问题" class="headerlink" title="SSD 缓存问题"></a>SSD 缓存问题</h2><p>不打补丁的情况下，黑群晖默认不识别 SSD<br>SSD 补丁如下<br>版本 | 补丁 | 操作<br>— | — | —<br>6.22 | libNVMEpatch.sh | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code><br>6.23 | libsynonvme.so.1 | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code></p>
+<p>上述操作需要先远程 ssh user@ip ，操作完成后退出重启即可[^2]<br>[^2]:<a href="https://wp.gxnas.com/6010.html" target="_blank" rel="noopener">https://wp.gxnas.com/6010.html</a></p>
+<h2 id="Moments-人物、主题无照片"><a href="#Moments-人物、主题无照片" class="headerlink" title="Moments 人物、主题无照片"></a>Moments 人物、主题无照片</h2><p>安装 Moments 后人物与主题无法智能识别，进入后显示还有 xxx 张照片待发现。<br>停用 Moments<br>进入 /var/packages/SynologyMoments/target/usr/lib 目录下<br>备份 libsynophoto-plugin-detection.so</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mv ./libsynophoto-plugin-detection.so ./libsynophoto-plugin-detection.so.bak</span><br></pre></td></tr></table></figure>
+<p><a href="http://42.193.201.102:8443/file/Docs/Tools/OS/Nas/黑群晖常见问题/libsynophoto-plugin-detection.so" target="_blank" rel="noopener">libsynophoto-plugin-detection.so</a><br>将下载的新文件放在 /var/packages/SynologyMoments/target/usr/lib 下，对全部用户赋完全权限（777）或对 SynologyMoments 赋控制权限（755）。<br>开启 moments，重建索引。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%BB%91%E7%BE%A4%E6%99%96%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220121102822.png" alt="黑群晖常见问题20220121102822"></p>
+<h2 id="群晖添加第三方社群套件源显示无效的位置"><a href="#群晖添加第三方社群套件源显示无效的位置" class="headerlink" title="群晖添加第三方社群套件源显示无效的位置"></a>群晖添加第三方社群套件源显示无效的位置</h2><p>在套件设置常规中的信任层级允许任何发行者。<br>之后在套件来源中添加 <a href="http://packages.synocommunity.com显示无效地址。" target="_blank" rel="noopener">http://packages.synocommunity.com显示无效地址。</a><br>出现问题的原因是在 DSM6 非最新版本的系统证书过期。<br>在控制面板 Terminal &amp; SNMP 打开允许 SSH 连接。<br>用 SecureCRT 等工具远程连接。<br>输入如下命令</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo mv /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt.bak &amp;&amp; sudo curl -Lko /etc/ssl/certs/ca-certificates.crt https://curl.se/ca/cacert.pem</span><br></pre></td></tr></table></figure>
+<p>执行完毕后重新添加源。<br>其他常用的套件源</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">http://packages.synocommunity.com</span><br><span class="line"></span><br><span class="line">http://packages.pcloadletter.co.uk</span><br><span class="line"></span><br><span class="line">http://www.cphub.net</span><br><span class="line"></span><br><span class="line">http://synology.sysco.ch</span><br><span class="line"></span><br><span class="line">http://packages.quadrat4.de</span><br><span class="line"></span><br><span class="line">http://synology.acmenet.ru</span><br><span class="line"></span><br><span class="line">http://cytec.us/spk</span><br><span class="line"></span><br><span class="line">http://spk.naefmarco.ch/spkrepo/packages/</span><br><span class="line"></span><br><span class="line">http://spk.nas-mirror.de/spkrepo/packages</span><br><span class="line"></span><br><span class="line">http://spk.unzureichende.info/</span><br><span class="line"></span><br><span class="line">http://packages.synocommunity.com/?beta=1</span><br></pre></td></tr></table></figure>
+<h2 id="Jellufin-Plex-扫描不出影片"><a href="#Jellufin-Plex-扫描不出影片" class="headerlink" title="Jellufin /Plex 扫描不出影片"></a>Jellufin /Plex 扫描不出影片</h2><p>这是由于指定的文件夹没有开发读写权限。<br>对于 Plex，安装时会自动创建 Plex 用户，需要为其赋权。<br>Jellufin 三方套件版会创建 sc-jellyfin 用户， 尝试赋权。<br>若都不行，尝试将扫描目录对所有人赋读写权限。</p>
+<h2 id="黑群晖硬件转码"><a href="#黑群晖硬件转码" class="headerlink" title="黑群晖硬件转码"></a>黑群晖硬件转码</h2><p><a href="https://wp.gxnas.com/7952.html" target="_blank" rel="noopener">https://wp.gxnas.com/7952.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-黑群晖安装"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/黑群晖安装.html">黑群晖安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#硬件准备">硬件准备</a><ul>
+<li><a href="#nas-主机">Nas 主机</a></li>
+<li><a href="#u-盘">u 盘</a></li>
+<li><a href="#电脑">电脑</a></li>
+</ul>
+</li>
+<li><a href="#软件准备">软件准备</a><ul>
+<li><a href="#系统选择">系统选择</a></li>
+<li><a href="#相关软件">相关软件</a></li>
+</ul>
+</li>
+<li><a href="#引导盘准备">引导盘准备</a><ul>
+<li><a href="#获取-vid-与-pid">获取 VID 与 PID</a></li>
+<li><a href="#替换-vid-与-pid">替换 VID 与 PID</a></li>
+<li><a href="#格式化硬盘">格式化硬盘</a></li>
+<li><a href="#引导盘制作">引导盘制作</a></li>
+</ul>
+</li>
+<li><a href="#安装系统">安装系统</a><ul>
+<li><a href="#nas-进入">Nas 进入</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h2><table>
+<thead>
+<tr>
+<th>硬件</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nas 主机</td>
+<td>Intel CPU</td>
+</tr>
+<tr>
+<td>u 盘</td>
+<td>&gt; 50M</td>
+</tr>
+<tr>
+<td>电脑</td>
+<td>Windows 系统</td>
+</tr>
+<tr>
+<td>键鼠</td>
+<td>进 BIOS 等</td>
+</tr>
+<tr>
+<td>硬盘</td>
+<td>大大的好</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Nas-主机"><a href="#Nas-主机" class="headerlink" title="Nas 主机"></a>Nas 主机</h3><p>黑群晖对主机的要求不是很高，不需要硬解软路由+移动硬盘都可运行。<br>主机一般推荐使用 10 代以下的 Intel CPU.<br>新代 Intel 与 AMD 等其他 CPU 主机核显硬解不友好，视硬解需求而定。</p>
+<h3 id="u-盘"><a href="#u-盘" class="headerlink" title="u 盘"></a>u 盘</h3><p>U 盘用于做系统引导，引导程序的大小为 50M。<br>大于这个容量即可，现在 U 盘基本都满足要求。</p>
+<h3 id="电脑"><a href="#电脑" class="headerlink" title="电脑"></a>电脑</h3><p>需要一台 windows 电脑来安装系统引导程序。<br>键鼠需要插入 Nas 主机操作 BIOS。</p>
+<h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><h3 id="系统选择"><a href="#系统选择" class="headerlink" title="系统选择"></a>系统选择</h3>
+        <!-- 
+
+
+硬件准备
+Nas 主机
+u 盘
+电脑
+
+
+软件准备
+系统选择
+相关软件
+
+
+引导盘准备
+获取 VID 与 PID
+替换 VID 与 PID
+格式化硬盘
+引导盘制作
+
+
+安装系统
+Nas 进入
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+硬件准备
+
+
+硬件
+要求
+
+
+
+
+Nas 主机
+Intel CPU
+
+
+u 盘
+&gt; 50M
+
+
+电脑
+......  -->
+        <p class="article-more-link">
+          <a href="/黑群晖安装.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#location">location</a><ul>
+<li><a href="#基础使用">基础使用</a></li>
+<li><a href="#url-match">URL-match</a></li>
+<li><a href="#modifier">modifier</a></li>
+</ul>
+</li>
+<li><a href="#proxy_pass">proxy_pass</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#uri">URI</a></li>
+<li><a href="#问题">/ 问题</a></li>
+<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3><p>匹配所有路径</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优先级最低，所有都不匹配时，才会命中</p>
+<h3 id="modifier"><a href="#modifier" class="headerlink" title="modifier"></a>modifier</h3><p>URI 这里指 URL 除了 server:port 的部分。</p>
+<p><strong>命中优先级</strong><br>优先级由上依次降低。</p>
+<table>
+<thead>
+<tr>
+<th>modifier</th>
+<th>desc</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>exact (精确匹配)</td>
+<td>location = /site</td>
+</tr>
+<tr>
+<td>^~</td>
+<td>priority prefix (优先字符)</td>
+<td>location ^~ /site</td>
+</tr>
+<tr>
+<td>~</td>
+<td>case sensitive regex (大小写敏感正则)</td>
+<td>location ~ /site</td>
+</tr>
+<tr>
+<td>~*</td>
+<td>case insensitive regex(忽略大小写)</td>
+<td>location ~* /site</td>
+</tr>
+<tr>
+<td>(none)</td>
+<td>prefix(字符匹配，无修饰符，由 URI 头字符开始匹配)</td>
+<td>location /site</td>
+</tr>
+</tbody>
+</table>
+<p>在如下网址可进行匹配测试 <a href="https://nginx.viraptor.info/" target="_blank" rel="noopener">https://nginx.viraptor.info/</a></p>
+<p>^~ 与(none)都 进行字符匹配（非正则），^~ 相对于(none) ，提高了命中优先级。</p>
+<p><strong>典型示例</strong></p>
+<p>示例 1</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location ^~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>^~ 进行字符匹配<br><a href="http://domain2.com/file/" target="_blank" rel="noopener">http://domain2.com/file/</a>* 可以命中<br><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 不能命中</p>
+<p>示例 2</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location ~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 根据优先级命中<code>^~ /file/</code></p>
+<h2 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h2><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3>
+        <!-- 
+
+
+location
+基础使用
+URL-match
+modifier
+
+
+proxy_pass
+简述
+URI
+/ 问题
+\$uri \$request_uri
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+location基础使用location 位于 server 下或位于另一个 location 中，基本使用如下
+location [modif......  -->
+        <p class="article-more-link">
+          <a href="/Nginx基础.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+
     </footer>
   </div>
   

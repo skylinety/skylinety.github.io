@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-CSS常用伪类伪元素"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-UML类图画图图解"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS常用伪类伪元素.html">CSS常用伪类伪元素</a>
+      <a class="article-title" href="/UML类图画图图解.html">UML类图画图图解</a>
     </h1>
   
 
@@ -352,17 +352,21 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#伪类">伪类</a><ul>
-<li><a href="#综述">综述</a></li>
-<li><a href="#详解">详解</a></li>
+<li><a href="#简介">简介</a></li>
+<li><a href="#object">Object</a><ul>
+<li><a href="#classes">Classes</a></li>
+<li><a href="#interface">Interface</a></li>
+<li><a href="#abstract-classes">Abstract Classes</a></li>
 </ul>
 </li>
-<li><a href="#伪元素">伪元素</a><ul>
-<li><a href="#综述-1">综述</a></li>
-<li><a href="#详解-1">详解</a></li>
+<li><a href="#relations">Relations</a><ul>
+<li><a href="#dependency">Dependency</a></li>
+<li><a href="#association">Association</a></li>
+<li><a href="#aggregation">Aggregation</a></li>
+<li><a href="#composition">Composition</a></li>
+<li><a href="#inheritance">Inheritance</a></li>
 </ul>
 </li>
-<li><a href="#区分">区分</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
@@ -371,44 +375,43 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="伪类"><a href="#伪类" class="headerlink" title="伪类"></a>伪类</h2><h3 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h3><p>伪类即伪造一个类来为选定元素来描述特殊状态下的样式。<br>通过伪类实现的效果可以直接在选定元素添加一个 class 来模拟实现。<br>伪类通过:前缀来表示</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Desc</th>
-<th>EG</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>:nth-of-type</td>
-<td>指定标签在相同类型标签的位置</td>
-<td>p:nth-of-type(2n)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h3><p><strong>:nth-of-type</strong><br>以标签和伪类作为前置条件进行筛选，选后添加类等其他条件进一步筛选。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* This will match the 3rd paragraph as it will match elements which are 2n+1 AND have a class of fancy.</span></span><br><span class="line"><span class="comment">The second paragraph has a class of fancy but is not matched as it is not :nth-of-type(2n+1) */</span></span><br><span class="line">p.fancy:nth-<span class="keyword">of</span>-type(<span class="number">2n</span>+<span class="number">1</span>) &#123;</span><br><span class="line">  text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述代码首先选出奇数的 p 标签集合 A，然后进一步在 A 中筛选有 fancy 类的标签。<br>容易错误理解成选出有 fancy 类的 p 标签，然后选出其中的奇数。<br>用下述代码更加不容易出错</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">p:nth-<span class="keyword">of</span>-type(<span class="number">2n</span>+<span class="number">1</span>).fancy &#123;</span><br><span class="line">    text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-of-type" target="_blank" rel="noopener">详细代码示例参考</a></p>
-<h2 id="伪元素"><a href="#伪元素" class="headerlink" title="伪元素"></a>伪元素</h2><h3 id="综述-1"><a href="#综述-1" class="headerlink" title="综述"></a>综述</h3><p>伪元素表现为向 HTML 中添加了一个新的元素，而不是向已有元素中适配一个类的样式。<br>通过伪元素实现的效果可以直接添加一个新的元素来模拟实现。<br>伪元素通过::前缀来表示（标准），但也可通过:表示。<br>| Name | Desc | EG |<br>| ———— | —————————- | —————– |<br>| ::after | 指定标签后插入样式元素(content 非 none) | |<br>| ::before | 指定标签前插入样式元素(content 非 none) | |<br>| ::first-line | 选中标签的第一行 | |<br>| ::first-letter | 选中标签的第一个字 | |<br>| ::marker | 选中列表前修饰类容，一般为数字或圆点。 |li::marker |<br>| ::selection | 选中选择的文档。 | |</p>
-<h3 id="详解-1"><a href="#详解-1" class="headerlink" title="详解"></a>详解</h3>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>统一建模语言（Unified Modeling Language）简写 UML</p>
+<h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><h3 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h3><p>在面向对象编程语言中，常使用 UML 画对象关系图。<br>Class 图包含三个部分(三行)</p>
+<ul>
+<li>类名</li>
+<li>属性与属性类型</li>
+<li>方法名、方法参数与返回值类型</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/UML%E7%94%BB%E5%9B%BE%E5%9B%BE%E8%A7%A320211027144207.png" alt="UML画图图解20211027144207"><br>属性方法访问符标记</p>
+<ul>
+<li>Public (+)</li>
+<li>Private (-)</li>
+<li>Protected (#)</li>
+<li>Package (~)</li>
+<li>Derived (/)</li>
+<li>Static (underlined)</li>
+</ul>
+<h3 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h3><p>Interface 与 Class 类似，只需在第一层类名头部加上 <code>&lt;&lt;interface&gt;&gt;</code>即可，接口第二层一般为空。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/UML%E7%B1%BB%E5%9B%BE%E7%94%BB%E5%9B%BE%E5%9B%BE%E8%A7%A320211101113439.png" alt="UML类图画图图解20211101113439"></p>
+<h3 id="Abstract-Classes"><a href="#Abstract-Classes" class="headerlink" title="Abstract Classes"></a>Abstract Classes</h3><p>Abstract Classes 与 Interface 类似，只需在第一层类名头部加上 <code>&lt;&lt;abstract&gt;&gt;</code>即可</p>
+<h2 id="Relations"><a href="#Relations" class="headerlink" title="Relations"></a>Relations</h2><h3 id="Dependency"><a href="#Dependency" class="headerlink" title="Dependency"></a>Dependency</h3>
         <!-- 
 
 
-伪类
-综述
-详解
+简介
+Object
+Classes
+Interface
+Abstract Classes
 
 
-伪元素
-综述
-详解
+Relations
+Dependency
+Association
+Aggregation
+Composition
+Inheritance
 
 
-区分
 BMW WARNING
 Bulletin
 Material
@@ -417,22 +420,9 @@ Warrant
 
 
 
-伪类综述伪类即伪造一个类来为选定元素来描述特殊状态下的样式。通过伪类实现的效果可以直接在选定元素添加一个 class 来模拟实现。伪类通过:前缀来表示
-
-
-
-Name
-Desc
-EG
-
-
-
-
-:nth-of-type
-指定标签在相同类型标签的位置
-p:......  -->
+简介统一建模语言（Unified Modeling Language......  -->
         <p class="article-more-link">
-          <a href="/CSS常用伪类伪元素.html#more">阅读全文</a>
+          <a href="/UML类图画图图解.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -440,7 +430,7 @@ p:......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
 
     </footer>
   </div>
