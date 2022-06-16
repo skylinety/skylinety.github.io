@@ -1150,6 +1150,118 @@ ssh root@10.2.160.12
 <!-- Table of Contents -->
 
   
+    <article id="post-Interface与AbstractClass"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Interface与AbstractClass.html">Interface与AbstractClass</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#interface">Interface</a></li>
+<li><a href="#abstract-class">Abstract Class</a></li>
+<li><a href="#综述">综述</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#Warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h2><p>在 JS 中，在没有技术文档或找到对应函数(对象)定义在代码中位置的情况下，我们很难确认：</p>
+<ul>
+<li>函数参数方式</li>
+<li>函数参数的类型</li>
+<li>使用参数的方式</li>
+<li>对象提供的方法与属性</li>
+</ul>
+<p>同时，在对象中，多层嵌套时，需要写如下代码：<br><code>a &amp;&amp; a.b ** a.b.c()</code><br>在 TS 中，与大多数面向对象编程语言一样，引入了 Interface。<br>Interface 用以描述对象结构<br>Interface 的职责在于签订契约，即使用该接口则必须实现该接口中的属性和方法。<br>使用时只需要知道接口，就可知道使用该接口对象的一些基础的构造。</p>
+<h2 id="Abstract-Class"><a href="#Abstract-Class" class="headerlink" title="Abstract Class"></a>Abstract Class</h2><p>虚拟类不能直接实例化。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">abstract <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line">  abstract getName(): string;</span><br><span class="line"></span><br><span class="line">  printName() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello, "</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Base() <span class="comment">// Cannot create an instance of an abstract class.(</span></span><br></pre></td></tr></table></figure>
+<p>虚拟方法与虚拟属性只能存在与虚拟类中，均使用 abstract 关键字。<br>虽然 TS 未做错误校验，但虚拟类至少有一个虚拟方法，否则应该定义为实体类。<br>虚拟方法的主要职责是为其派生的实体类提供蓝图，后续实体类需要实现的方法与属性提供参考（需要实现其中定义的虚拟方法属性等）。</p>
+<h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><table>
+<thead>
+<tr>
+<th>type</th>
+<th>继承数</th>
+<th>使用时机</th>
+<th>可否拥有实体方法</th>
+<th>主要职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interface</td>
+<td>implements 多个接口</td>
+<td>编译时</td>
+<td>false</td>
+<td>签订契约</td>
+</tr>
+<tr>
+<td>Abstract Class</td>
+<td>extends 一个基类（不管虚实）</td>
+<td>运行时</td>
+<td>true</td>
+<td>绘制蓝图</td>
+</tr>
+</tbody>
+</table>
+<p>虚拟类可在运行时使用，而接口只在编译时使用。例如对于接口，你不能使用 instanceof</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">abstract <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line">  abstract getName(): string;</span><br><span class="line"></span><br><span class="line">  printName() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello, "</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">interface IBase &#123;</span><br><span class="line">  getName(): string;</span><br><span class="line"></span><br><span class="line">  printName():<span class="keyword">void</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> x: any;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (x <span class="keyword">instanceof</span> IBase) &#123; <span class="comment">// Error: 'IBase' only refers to a type, but is being used as a value here.</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (x <span class="keyword">instanceof</span> Base) &#123; <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<blockquote>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-JS内存泄漏与处理"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1258,112 +1370,6 @@ Bulle......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-TS语法校验常见错误"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/TS语法校验常见错误.html">TS语法校验常见错误</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#property-does-not-exist-on-type-object">property does not exist on type Object</a><ul>
-<li><a href="#复现">复现</a></li>
-<li><a href="#解决">解决</a></li>
-</ul>
-</li>
-<li><a href="#expression-of-type-string-cant-be-used-to-index-type">Expression of type ‘string’ can’t be used to index type</a><ul>
-<li><a href="#复现-1">复现</a></li>
-<li><a href="#解决-1">解决</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="property-does-not-exist-on-type-Object"><a href="#property-does-not-exist-on-type-Object" class="headerlink" title="property does not exist on type Object"></a>property does not exist on type Object</h2><h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>Property ‘length’ does not exist on type’Object’.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>; <span class="comment">//[ts] Property 'length' does not exist on type'Object'.</span></span><br></pre></td></tr></table></figure>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p><strong>将对象类型设置为 any</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: any = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>;</span><br></pre></td></tr></table></figure>
-<p><strong>通过字符方式获取对象属性</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj[<span class="string">"value"</span>] = <span class="string">"value"</span>;</span><br></pre></td></tr></table></figure>
-<p><strong>通过接口定义对象所具有的属性</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: ValueObject = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>;</span><br><span class="line"></span><br><span class="line">interface ValueObject &#123;</span><br><span class="line">  value?: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>使用断言强制执行</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">(obj <span class="keyword">as</span> any).value = <span class="string">"value"</span></span><br></pre></td></tr></table></figure>
-<h2 id="Expression-of-type-‘string’-can’t-be-used-to-index-type"><a href="#Expression-of-type-‘string’-can’t-be-used-to-index-type" class="headerlink" title="Expression of type ‘string’ can’t be used to index type"></a>Expression of type ‘string’ can’t be used to index type</h2><h3 id="复现-1"><a href="#复现-1" class="headerlink" title="复现"></a>复现</h3><p>Element implicitly has an ‘any’ type because expression of type ‘string’ can’t be used to index type</p>
-<p>person 并未明确指定键值类型（即隐式指定为任意类型），任意类型与 getValue 传参的 string 类型冲突。</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">"sk"</span>,</span><br><span class="line">  age: <span class="number">22</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">arg: string</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> person[arg]; <span class="comment">// Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '&#123; name: string; age: number; &#125;'.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h3>
-        <!-- 
-
-
-property does not exist on type Object
-复现
-解决
-
-
-Expression of type ‘string’ can’t be used to index type
-复现
-解决
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-property does not exist on type Object复现P......  -->
-        <p class="article-more-link">
-          <a href="/TS语法校验常见错误.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
 
     </footer>
   </div>
