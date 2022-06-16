@@ -319,6 +319,195 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-CSS常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS常见问题汇总.html">CSS常见问题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#displaynone-vs-visibilityhidden">display:none vs visibility:hidden</a></li>
+<li><a href="#媒体查询失效">媒体查询失效</a></li>
+<li><a href="#img-标签是行内还是块级元素">img 标签是行内还是块级元素</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="display-none-vs-visibility-hidden"><a href="#display-none-vs-visibility-hidden" class="headerlink" title="display:none vs visibility:hidden"></a>display:none vs visibility:hidden</h2><p>两者虽简单来说都是用于隐藏元素，表现形式大有不同。</p>
+<p>display 会被文档流给移除，影响页面布局，导致重排重绘，原本位置会被其他元素占据。</p>
+<p>visilibity:hidden 不会被文档流给移除，不会影响布局，页面重绘出一片空白，但不会重新排版。</p>
+<p>display 不是继承属性，而 visibility 是继承属性。<br>若祖先设定为 visibility:hidden，后代元素会继承该属性不可见。<br>此时，若重置后代元素的 visibility 为 visible，其后代元素将可见。<br>若祖先设定的 display 属性设为 none 时，其不可继承，后代元素无力通过改变该属性重现。<br>总结如下表格所示：</p>
+<table>
+<thead>
+<tr>
+<th>样式</th>
+<th>页面重绘</th>
+<th>页面重排</th>
+<th>显示效果</th>
+<th>对应 css 属性是否继承</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>display:none</td>
+<td>是</td>
+<td>是</td>
+<td>无显示</td>
+<td>否（display）</td>
+</tr>
+<tr>
+<td>visibility:hidden</td>
+<td>是</td>
+<td>否</td>
+<td>所处区域空白</td>
+<td>是（visibility）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="媒体查询失效"><a href="#媒体查询失效" class="headerlink" title="媒体查询失效"></a>媒体查询失效</h2><p>媒体查询的常见用法为</p>
+<p>设置屏幕在 300px 到 900px 时的背景</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">300px</span>) <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">900px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当设置不生效时，检查在 <code>&lt;head&gt;</code> 中是否添加了如下 <code>&lt;meta&gt;</code> 标签</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="img-标签是行内还是块级元素"><a href="#img-标签是行内还是块级元素" class="headerlink" title="img 标签是行内还是块级元素"></a>img 标签是行内还是块级元素</h2><p>img 标签是行内元素。<br>打开控制台查看：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB20220421165556.png" alt="CSS常见问题汇总20220421165556"><br>但是，作为行内元素，img 标签为什么可以设定其宽高属性？<br><strong>img 标签准确来说，是行内可替换元素。</strong><br>所谓的可替换元素，简单来说，就是除了位置和大小，其自己内部的内容不受当前页面获取的样式所影响。<br>img 标签可能不太好理解，另一个常见的行内可替换元素是 iframe 标签，其内部有自己一套样式来决定展现的内容。<br>常见的行内可替换元素有：</p>
+<ul>
+<li>img</li>
+<li>video</li>
+<li>iframe</li>
+<li>embed</li>
+</ul>
+<p>总体来看，行内可替换元素趋向于 display:inline-block 的表现</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
+        <!-- 
+
+
+display:none vs visibility:hidden
+媒体查询失效
+img 标签是行内还是块级元素
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+display:none vs visibility:hidden两者虽简单来说都是用于隐藏元素，表现形式大有不同。
+display 会被文档流给移除，影响页面布局，导致重排重绘，原本位置会......  -->
+        <p class="article-more-link">
+          <a href="/CSS常见问题汇总.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Sed命令"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Sed命令.html">Sed命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-22T07:14:56.000Z" itemprop="datePublished">2018-01-22</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Linux-Unix/">Linux/Unix</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>流编辑器，sed用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。</p>
+<hr>
+<h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><h4 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h4><h5 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h5><p>默认情况下，在所有的标准输出都会被打印到屏幕上。 -n选项用于指定输出内容。</p>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><h6 id="☞-代码"><a href="#☞-代码" class="headerlink" title="☞ 代码"></a>☞ 代码</h6><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出100到200行</span></span><br><span class="line">sed -n <span class="string">'100,200p'</span> skyline.txt</span><br><span class="line"><span class="comment"># 输出文件行数</span></span><br><span class="line">sed -n <span class="string">'$='</span> skyline.txt</span><br></pre></td></tr></table></figure>
+<h6 id="☞-说明"><a href="#☞-说明" class="headerlink" title="☞ 说明"></a>☞ 说明</h6>
+        <!-- 简介流编辑器，sed用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。
+
+选项-n概述默认情况下，在所有的标准输出都会被打印到屏幕上。 -n选项用于指定输出内容。
+示例☞ 代码# 输出100到200行sed -n '100,200p' skyline.txt# 输出文件行数sed -n '$=' skyline.txt
+☞ 说明
+
+地址逗号......  -->
+        <p class="article-more-link">
+          <a href="/Sed命令.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-对象的私有、静态（类）、自有（实例）、原型属性与方法"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -519,6 +708,78 @@ ls -d# .
 <!-- Table of Contents -->
 
   
+    <article id="post-vue里面的小坑"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/vue里面的小坑.html">vue里面的小坑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Vue/">Vue</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><a href="https://cn.vuejs.org" target="_blank" rel="noopener">部分代码与文字源于官网，详情与变更参见官网，本文仅作参考</a></p>
+</blockquote>
+<h4 id="组件挂载顺序"><a href="#组件挂载顺序" class="headerlink" title="组件挂载顺序"></a>组件挂载顺序</h4><h5 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h5><ul>
+<li>vue子组件与父组件之间，父组件首先加载完成（beforeCreate-&gt;beforeMount率先执行）之后是子组件加载，最后由子向父组件挂载</li>
+<li>要在所有组件生命周期完成后执行某个函数，只需要在父组件加入nextTick即可</li>
+</ul>
+<p>vue代码结构如下</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'papa'</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">c1</span>&gt;</span><span class="tag">&lt;/<span class="name">c1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">c2</span>&gt;</span><span class="tag">&lt;/<span class="name">c2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">'PaPa'</span>,</span></span><br><span class="line">    </span><br><span class="line">    components: &#123;</span><br><span class="line">        c1,</span><br><span class="line">        c2</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    beforeCreate() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa beforeCreate'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    created() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa created'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    beforeMount() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa beforeMount'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    mounted()&#123;</span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'papa mounted'</span>)</span></span><br><span class="line"><span class="javascript">        <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'papa nextTick'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"><span class="javascript">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'papa setTimeout'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>打印结果如下：<br>其中nextTick与setTimeout在生命周期的位置无关</p>
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/20981C34C327CF8ED10EE433FA51FE19.png-content" alt="Screen Shot 2017-11-08 at 15.21.37.png-content"></p>
+<hr>
+<h4 id="关于computed"><a href="#关于computed" class="headerlink" title="关于computed"></a>关于computed</h4><h5 id="简单说明"><a href="#简单说明" class="headerlink" title="简单说明"></a>简单说明</h5><p>计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。这就意味着只要依赖还没有发生改变，多次访问计算属性会立即返回之前的计算结果，这一定程度上节约了开销。</p>
+<h5 id="关于setter"><a href="#关于setter" class="headerlink" title="关于setter"></a>关于setter</h5>
+        <!-- 
+部分代码与文字源于官网，详情与变更参见官网，本文仅作参考
+
+组件挂载顺序注意点
+vue子组件与父组件之间，父组件首先加载完成（beforeCreate-&gt;beforeMount率先执行）之后是子组件加载，最后由子向父组件挂载
+要在所有组件生命周期完成后执行某个函数，只需要在父组件加入nextTick即可
+
+vue代码结构如下
+&lt;template&gt;    &lt;div c......  -->
+        <p class="article-more-link">
+          <a href="/vue里面的小坑.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-word-break、overflow-wrap(word-wrap)、white-space"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -623,78 +884,6 @@ ls -d# .
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-vue里面的小坑"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/vue里面的小坑.html">vue里面的小坑</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Vue/">Vue</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p><a href="https://cn.vuejs.org" target="_blank" rel="noopener">部分代码与文字源于官网，详情与变更参见官网，本文仅作参考</a></p>
-</blockquote>
-<h4 id="组件挂载顺序"><a href="#组件挂载顺序" class="headerlink" title="组件挂载顺序"></a>组件挂载顺序</h4><h5 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h5><ul>
-<li>vue子组件与父组件之间，父组件首先加载完成（beforeCreate-&gt;beforeMount率先执行）之后是子组件加载，最后由子向父组件挂载</li>
-<li>要在所有组件生命周期完成后执行某个函数，只需要在父组件加入nextTick即可</li>
-</ul>
-<p>vue代码结构如下</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'papa'</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">c1</span>&gt;</span><span class="tag">&lt;/<span class="name">c1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">c2</span>&gt;</span><span class="tag">&lt;/<span class="name">c2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">'PaPa'</span>,</span></span><br><span class="line">    </span><br><span class="line">    components: &#123;</span><br><span class="line">        c1,</span><br><span class="line">        c2</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    beforeCreate() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa beforeCreate'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    created() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa created'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    beforeMount() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa beforeMount'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    mounted()&#123;</span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'papa mounted'</span>)</span></span><br><span class="line"><span class="javascript">        <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'papa nextTick'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"><span class="javascript">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'papa setTimeout'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>打印结果如下：<br>其中nextTick与setTimeout在生命周期的位置无关</p>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/20981C34C327CF8ED10EE433FA51FE19.png-content" alt="Screen Shot 2017-11-08 at 15.21.37.png-content"></p>
-<hr>
-<h4 id="关于computed"><a href="#关于computed" class="headerlink" title="关于computed"></a>关于computed</h4><h5 id="简单说明"><a href="#简单说明" class="headerlink" title="简单说明"></a>简单说明</h5><p>计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。这就意味着只要依赖还没有发生改变，多次访问计算属性会立即返回之前的计算结果，这一定程度上节约了开销。</p>
-<h5 id="关于setter"><a href="#关于setter" class="headerlink" title="关于setter"></a>关于setter</h5>
-        <!-- 
-部分代码与文字源于官网，详情与变更参见官网，本文仅作参考
-
-组件挂载顺序注意点
-vue子组件与父组件之间，父组件首先加载完成（beforeCreate-&gt;beforeMount率先执行）之后是子组件加载，最后由子向父组件挂载
-要在所有组件生命周期完成后执行某个函数，只需要在父组件加入nextTick即可
-
-vue代码结构如下
-&lt;template&gt;    &lt;div c......  -->
-        <p class="article-more-link">
-          <a href="/vue里面的小坑.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
@@ -810,61 +999,6 @@ vue代码结构如下
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-鹧鸪天·九月西湖雨入情"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/鹧鸪天·九月西湖雨入情.html">鹧鸪天·九月西湖雨入情（新韵）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-09-23T06:15:40.000Z" itemprop="datePublished">2017-09-23</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/词·自作/">词·自作</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>&nbsp;<br>&nbsp;</p>
-<p>九月西湖雨入情，一人饮酒廿杯明。形成秋叶怜枝瘦，影化微风惜夜清。</p>
-<p>形伴影，叶随风，谢家庭院在西东？危楼伫望空千里，今夜无人入梦中。<br>&nbsp;<br>&nbsp;</p>
-<hr>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/鹧鸪天·九月西湖雨入情（新韵）.html">http://www.skyline.show/鹧鸪天·九月西湖雨入情（新韵）.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/练笔/">练笔</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词/">词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鹧鸪天/">鹧鸪天</a></li></ul>
 
     </footer>
   </div>
@@ -1005,58 +1139,11 @@ vue代码结构如下
 <!-- Table of Contents -->
 
   
-    <article id="post-Cssnth-child与nth-of-type"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Cssnth-child与nth-of-type.html">Css中nth-child与nth-of-type</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/CSS-HTML/">CSS/HTML</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/6/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">下一页 &raquo;</a>
   </nav>
 
 </section>
