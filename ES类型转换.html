@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>es类型转换 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="JSES">
+  
+  
+  
+  
+  <meta name="description" content="类型转换 类型转换概述 to boolean to number to string to object   ToPrimitive 隐式转换场景 隐式转换场景概述 一元操作符 二元加 乘、除、取余、二元减 比较运算符   Expression or Statement 几个有意思的输出 AST {}语法解析分析   JSON.stringify 处理规则 参数   BMW WARNING">
+<meta name="keywords" content="JS,ES">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES类型转换">
+<meta property="og:url" content="http://www.skyline.show/ES类型转换.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="类型转换 类型转换概述 to boolean to number to string to object   ToPrimitive 隐式转换场景 隐式转换场景概述 一元操作符 二元加 乘、除、取余、二元减 比较运算符   Expression or Statement 几个有意思的输出 AST {}语法解析分析   JSON.stringify 处理规则 参数   BMW WARNING">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%20e5ac0e3f765948ac86725eaa7decec19Untitled.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%20e5ac0e3f765948ac86725eaa7decec1920220613161239.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%20e5ac0e3f765948ac86725eaa7decec1920220613161404.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192434.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192801.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192825.png">
+<meta property="og:updated_time" content="2022-06-08T08:37:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES类型转换">
+<meta name="twitter:description" content="类型转换 类型转换概述 to boolean to number to string to object   ToPrimitive 隐式转换场景 隐式转换场景概述 一元操作符 二元加 乘、除、取余、二元减 比较运算符   Expression or Statement 几个有意思的输出 AST {}语法解析分析   JSON.stringify 处理规则 参数   BMW WARNING">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%20e5ac0e3f765948ac86725eaa7decec19Untitled.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ES类型转换" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      ES类型转换
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-26T07:14:56.000Z" itemprop="datePublished">2018-01-26</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-08T08:37:38.000Z" itemprop="datePublished">2022-06-08</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#类型转换">类型转换</a><ul>
+<li><a href="#类型转换概述">类型转换概述</a></li>
+<li><a href="#to-boolean">to boolean</a></li>
+<li><a href="#to-number">to number</a></li>
+<li><a href="#to-string">to string</a></li>
+<li><a href="#to-object">to object</a></li>
+</ul>
+</li>
+<li><a href="#toprimitive">ToPrimitive</a></li>
+<li><a href="#隐式转换场景">隐式转换场景</a><ul>
+<li><a href="#隐式转换场景概述">隐式转换场景概述</a></li>
+<li><a href="#一元操作符">一元操作符</a></li>
+<li><a href="#二元加">二元加</a></li>
+<li><a href="#乘除取余二元减">乘、除、取余、二元减</a></li>
+<li><a href="#比较运算符">比较运算符</a></li>
+</ul>
+</li>
+<li><a href="#expression-or-statement">Expression or Statement</a><ul>
+<li><a href="#几个有意思的输出">几个有意思的输出</a></li>
+<li><a href="#ast">AST</a></li>
+<li><a href="#语法解析分析">{}语法解析分析</a></li>
+</ul>
+</li>
+<li><a href="#jsonstringify">JSON.stringify</a><ul>
+<li><a href="#处理规则">处理规则</a></li>
+<li><a href="#参数">参数</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><h3 id="类型转换概述"><a href="#类型转换概述" class="headerlink" title="类型转换概述"></a>类型转换概述</h3><a id="more"></a>
+<ul>
+<li>隐式转换<br>JS 是弱类型语言，在使用运算符时，多个参与其中的数据类型可以是任意的，最终得到的结果却只是一种类型。<br>结果的类型可能是参与运算操作类型中的一种，也可能并非其中任何一种。<br>这就涉及到运算过程中，进行过的隐式类型转换。</li>
+<li>强制转换<br>JS 中每一种类型都有自己的构造函数，直接调用该构造函数可以强制获得该类型的值，同时 JS 还提供了其他显示调用函数转换类型的方法。</li>
+</ul>
+<h3 id="to-boolean"><a href="#to-boolean" class="headerlink" title="to boolean"></a>to boolean</h3><p>其他类型转换为布尔值。</p>
+<ul>
+<li>隐式转换</li>
+</ul>
+<p>隐式转换为布尔值</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转化成 true</th>
+<th>转化成 false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>非空字符</td>
+<td>“”(空字符）</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>非零</td>
+<td>0 与 NaN</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>非 Null 对象</td>
+<td>null</td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>无</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>强制转换</li>
+</ul>
+<p>强制转换为布尔值<br>调用 Boolean()与隐式转换规则转换一致，当不传参数时为 false</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Boolean</span>()) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="to-number"><a href="#to-number" class="headerlink" title="to number"></a>to number</h3><p>其他类型转换成数字</p>
+<ul>
+<li>隐式转换</li>
+</ul>
+<p>隐式转换成数字</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转化成数字</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>undefined</td>
+<td>NaN</td>
+<td></td>
+</tr>
+<tr>
+<td>null</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>Number</td>
+<td>等值</td>
+<td></td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>true: 1,false:0</td>
+<td></td>
+</tr>
+<tr>
+<td>String</td>
+<td>忽略前导 0，转换成的 10 进制数，有一个字符不是数字（进制标识除外），则为 NaN，空串为 0</td>
+<td><code>&quot;0x11&quot; - 1 // 16;</code>;<code>&quot;100a&quot; - 1 // NaN</code>; <code>- &#39;&#39; // -0</code></td>
+</tr>
+<tr>
+<td>Object</td>
+<td>调用 ToPrimitive</td>
+<td><code>var a = {valueOf: function() {return 1}}</code>; <code>a + 1 // 2</code></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="string">'0x11'</span> - <span class="number">1</span> <span class="comment">// 16</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">  valueOf: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line">a + <span class="number">1</span> <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>强制转换</p>
+<ul>
+<li><strong>Number()</strong><br>其他类型转换为数字时调用的是 Number()，故参考上述隐式转换。<br>要返回数字，只接收<strong>纯数字</strong>字符串作为参数，允许前后有空格，中间不能有，否则返回 NaN</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">  valueOf: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Number</span>(a) <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'0x11'</span>) <span class="comment">// 17</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'100a'</span>) <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>parseInt()</strong><br>只要非空格的第一个字符是<strong>数字</strong>，它就会尽可能长地进行转换，直到遇到空格会或非字母<br>如果第一个非空格字符是其他，则返回 NaN<br>可接受两个参数，第二个参数指定进制</li>
+<li><strong>parseFloat()</strong><br>只要非空格的第一个字符是<strong>数字或小数点</strong>，它就会尽可能长地进行转换，直到遇到空格会或非字母<br>如果第一个非空格字符是其他，则返回 NaN<br>接受一个参数，<strong>只解析十进制</strong><br>只解析一个小数点，第二个小数点号以后字符忽略</li>
+</ul>
+</li>
+</ul>
+<h3 id="to-string"><a href="#to-string" class="headerlink" title="to string"></a>to string</h3><p>其他类型转换成字符</p>
+<ul>
+<li>隐式转换</li>
+</ul>
+<p>隐式转换成字符</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转化成字符</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>undefined</td>
+<td>“undefined”</td>
+<td></td>
+</tr>
+<tr>
+<td>null</td>
+<td>“null”</td>
+<td></td>
+</tr>
+<tr>
+<td>Number</td>
+<td>数值字符串形式</td>
+<td></td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>true: ‘true’,false:’false’</td>
+<td></td>
+</tr>
+<tr>
+<td>Object</td>
+<td>调用 ToPrimitive</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>强制转换<ul>
+<li>toString()</li>
+<li>String()<br>规则同隐式转换,，null 和 underfined 没有.toString 方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="to-object"><a href="#to-object" class="headerlink" title="to object"></a>to object</h3><p>隐式转换<br>Boolean、Number、String 三种简单类型在设置和访问其属性时会隐式转换成基本包装类型，在使用完后会马上销毁</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">'skyline'</span></span><br><span class="line">s.age = <span class="number">23</span></span><br><span class="line"><span class="built_in">console</span>.log(s.age)</span><br></pre></td></tr></table></figure>
+<p>上述代码的 JS 执行可以简单看成<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%20e5ac0e3f765948ac86725eaa7decec19Untitled.png" alt="JS 类型转换 e5ac0e3f765948ac86725eaa7decec19Untitled"></p>
+<ul>
+<li>强制转换</li>
+</ul>
+<p>直接<strong>new</strong>关键字调用各类型构造函数，得到对应类型的基本包装类型，调用 Object 得到类似的基本包装对象<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%20e5ac0e3f765948ac86725eaa7decec1920220613161239.png" alt="JS 类型转换 e5ac0e3f765948ac86725eaa7decec1920220613161239"></p>
+<h2 id="ToPrimitive"><a href="#ToPrimitive" class="headerlink" title="ToPrimitive"></a>ToPrimitive</h2><ul>
+<li><p>ToPrimitive 综述</p>
+<p>在 JS 中，使用 ToPrimitive 将对象转为原始值<br>ToPrimitive 大致的处理逻辑如下图所示<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%20e5ac0e3f765948ac86725eaa7decec1920220613161404.png" alt="JS 类型转换 e5ac0e3f765948ac86725eaa7decec1920220613161404"></p>
+</li>
+<li><p>toString()</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>调用 toString()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通对象</td>
+<td>“[object Object]”</td>
+</tr>
+<tr>
+<td>数组 arr</td>
+<td>arr.join(‘,’)</td>
+</tr>
+<tr>
+<td>函数类</td>
+<td>定义函数的代码</td>
+</tr>
+<tr>
+<td>日期类</td>
+<td>可读日期</td>
+</tr>
+<tr>
+<td>正则对象</td>
+<td>正则对象字面量的字符</td>
+</tr>
+<tr>
+<td>基本包装类型的引用类型</td>
+<td>用其字面量形式的值调用 toString()</td>
+</tr>
+</tbody>
+</table>
+<p><strong>如果数组的某一项的值是 null 或者 undefined，join()方法返回的结果以空字符串连接</strong></p>
+<ul>
+<li>valueOf()<br>大多数对象，包括普通对象、数组、函数、正则简单返回对象本身<br>日期对象返回 19700101 以来的毫秒数值<br>基本包装类型的引用类型返回其字面量形式的值，该值存在于内部属性 PrimitiveValue 中<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192434.png" alt="ES类型转换20220613192434"></li>
+</ul>
+<h2 id="隐式转换场景"><a href="#隐式转换场景" class="headerlink" title="隐式转换场景"></a>隐式转换场景</h2><h3 id="隐式转换场景概述"><a href="#隐式转换场景概述" class="headerlink" title="隐式转换场景概述"></a>隐式转换场景概述</h3><p>JS 隐式转换规则大致为简单类型调用目标类型的构造函数，复杂类型由内部方法 ToPrimitive 处理，见上述章节。触发隐式转换，通常是以下场景</p>
+<h3 id="一元操作符"><a href="#一元操作符" class="headerlink" title="一元操作符"></a>一元操作符</h3><p>一元+运算符将其操作数转换为 Number 类型。一元减号同理但是反转正负</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">;+<span class="string">'3'</span> - <span class="comment">// 数字3</span></span><br><span class="line">  <span class="string">'-3'</span> + <span class="comment">// 数字3</span></span><br><span class="line">  [] + <span class="comment">//0</span></span><br><span class="line">  [<span class="number">1</span>] + <span class="comment">//1</span></span><br><span class="line">  [<span class="number">1</span>, <span class="number">2</span>] <span class="comment">//NaN</span></span><br></pre></td></tr></table></figure>
+<h3 id="二元加"><a href="#二元加" class="headerlink" title="二元加"></a>二元加</h3><p>规范地址：<a href="http://es5.github.io/#x11.6.1" target="_blank" rel="noopener">http://es5.github.io/#x11.6.1</a><br>当计算 value1 + value2 时：</p>
+<ol>
+<li>lprim = ToPrimitive(value1)</li>
+<li>rprim = ToPrimitive(value2)</li>
+<li>如果 lprim 是字符串或者 rprim 是字符串，那么返回 ToString(lprim) 和 ToString(rprim)的拼接结果</li>
+<li>返回 ToNumber(lprim) 和 ToNumber(rprim)的运算结果</li>
+</ol>
+<p>将加号两边值转换成原始值，原始值中有字符串则转换成字符串拼接，无则转换成数字相加；简单口诀记下：<br>先转原始，有字符转字符，没有字符转数字</p>
+<p>多个加号时，按照从左到右的顺序，两两进行计算</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span> + <span class="string">'3'</span> <span class="comment">// "23"</span></span><br><span class="line"><span class="number">1</span> + <span class="number">2</span> + <span class="string">'3'</span> <span class="comment">// "33"</span></span><br><span class="line"><span class="literal">true</span> + <span class="number">2</span> + <span class="string">'3'</span> <span class="comment">// "33"</span></span><br><span class="line"><span class="number">1</span> + <span class="string">'2'</span> + <span class="number">3</span> <span class="comment">// "123"</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span> + [] <span class="comment">//"1"</span></span><br><span class="line"><span class="number">1</span> + [<span class="number">1</span>] <span class="comment">//"11"</span></span><br><span class="line"><span class="number">1</span> + &#123; <span class="attr">a</span>: <span class="string">'a'</span> &#125; <span class="comment">//"1[object Object]"</span></span><br><span class="line"><span class="literal">null</span> + <span class="literal">null</span> <span class="comment">//0</span></span><br><span class="line"><span class="literal">true</span> + &#123; <span class="attr">a</span>: <span class="string">'a'</span> &#125; <span class="comment">//"true[object Object]"</span></span><br><span class="line"></span><br><span class="line"><span class="literal">null</span> + <span class="literal">undefined</span> <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> + <span class="literal">undefined</span> <span class="comment">//NaN</span></span><br></pre></td></tr></table></figure>
+<h3 id="乘、除、取余、二元减"><a href="#乘、除、取余、二元减" class="headerlink" title="乘、除、取余、二元减"></a>乘、除、取余、二元减</h3><p>隐式转换为数字</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span> - <span class="string">'5'</span> <span class="comment">//-4</span></span><br><span class="line"><span class="number">1</span> - [<span class="number">2</span>, <span class="number">2</span>] <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> - &#123; <span class="attr">a</span>: <span class="number">1</span> &#125; <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> - <span class="literal">undefined</span> <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> - [] <span class="comment">//1</span></span><br><span class="line"><span class="number">1</span> - [<span class="number">2</span>, <span class="number">2</span>] <span class="comment">//NaN</span></span><br><span class="line"><span class="number">1</span> - <span class="literal">null</span> <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+<h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><p>包括&gt; &lt; &gt;= &lt;= ==，这里主要以==来说明</p>
+<ul>
+<li>规范<br>关于使用”==”进行比较的时候，具体步骤可以查看<a href="http://es5.github.io/#x11.9.3" target="_blank" rel="noopener">规范 11.9.5</a>：<br>当执行 x == y 时：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1. 如果 x 与 y 是同一类型：</span><br><span class="line">   1. x 是 Undefined，返回 true</span><br><span class="line">   2. x 是 Null，返回 true</span><br><span class="line">   3. x 是数字：</span><br><span class="line">      1. x 是 NaN，返回 false</span><br><span class="line">      2. y 是 NaN，返回 false</span><br><span class="line">      3. x 与 y 相等，返回 true</span><br><span class="line">      4. x 是+0，y 是-0，返回 true</span><br><span class="line">      5. x 是-0，y 是+0，返回 true</span><br><span class="line">      6. 返回 false</span><br><span class="line">   4. x 是字符串，完全相等返回 true,否则返回 false</span><br><span class="line">   5. x 是布尔值，x 和 y 都是 true 或者 false，返回 true，否则返回 false</span><br><span class="line">   6. x 和 y 指向同一个对象，返回 true，否则返回 false</span><br><span class="line">2. x 是 null 并且 y 是 undefined，返回 true</span><br><span class="line">3. x 是 undefined 并且 y 是 null，返回 true</span><br><span class="line">4. x 是数字，y 是字符串，判断 x == ToNumber(y)</span><br><span class="line">5. x 是字符串，y 是数字，判断 ToNumber(x) == y</span><br><span class="line">6. x 是布尔值，判断 ToNumber(x) == y</span><br><span class="line">7. y 是布尔值，判断 x ==ToNumber(y)</span><br><span class="line">8. x 不是字符串或者数字，y 是对象，判断 x == ToPrimitive(y)</span><br><span class="line">9. x 是对象，y 不是字符串或者数字，判断 ToPrimitive(x) == y</span><br><span class="line">10. 返回 false</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>总结</p>
+<ul>
+<li>数字 vs 其他（其他 vs 数字，忽略顺序，下同），其他转化为数字</li>
+<li>布尔值 vs 其他，布尔值转数字，数字 vs 其他</li>
+<li>字符串 vs 字符串，按 unicode 依次比较(大写字母总是在小写字母之后)</li>
+<li>对象 vs 数字，对象 vs 字符串，将对象转化为转换成原始值，再进行比较。</li>
+<li>操作数含 NaN，直接返回 false(NaN 和 NaN 是不相等的)</li>
+<li>null 只和 undefined 是好基友（互相相等）</li>
+</ul>
+<p><strong>总结起来一句话，先转原始，有数字转数字，布尔值也转数字</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="literal">NaN</span> === <span class="literal">NaN</span>; <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="literal">undefined</span> == <span class="string">"undefined"</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="string">"null"</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="number">0</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="literal">false</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">undefined</span> == <span class="number">0</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">undefined</span> == <span class="literal">false</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">true</span> == <span class="string">'2'</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">false</span> == [] <span class="comment">// true</span></span><br><span class="line">[] == ![] <span class="comment">// true</span></span><br><span class="line"><span class="comment">// ![]会先执行为false 即比较 ([] == false) =&gt; ([] == 0) =&gt; ('' == 0) =&gt; (0 == 0)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>其他情况<br>除了上述情景，if 语句，三元运算符，逻辑与或都会触发隐式转换，这些情况一般简单分析即可</li>
+</ul>
+<h2 id="Expression-or-Statement"><a href="#Expression-or-Statement" class="headerlink" title="Expression or Statement"></a>Expression or Statement</h2><h3 id="几个有意思的输出"><a href="#几个有意思的输出" class="headerlink" title="几个有意思的输出"></a>几个有意思的输出</h3><p>chrome/firefox</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[] + &#123;&#125; <span class="comment">//"[object Object]"</span></span><br><span class="line"></span><br><span class="line">&#123;&#125; + [] <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">[] + &#123;&#125; === &#123;&#125; + [] <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">&#123;&#125; + [] === [] + &#123;&#125; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="attr">a</span>: <span class="number">1</span>&#125; <span class="comment">// &#123;a: 1&#125;</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="attr">a</span>: <span class="number">1</span>&#125;; <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">'a'</span>: <span class="number">1</span>&#125; <span class="comment">// &#123;a: 1&#125;</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">'a'</span>: <span class="number">1</span>&#125;; <span class="comment">// SyntaxError</span></span><br><span class="line"></span><br><span class="line">&#123;&#125; + <span class="number">0</span> + &#123;&#125;; <span class="comment">// "0[object Object]"</span></span><br><span class="line"></span><br><span class="line">&#123;&#125; + <span class="number">0</span> + &#123;&#125; <span class="comment">// "[object Object]0[object Object]"</span></span><br></pre></td></tr></table></figure>
+<p>firefox</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[] + &#123;&#125; <span class="comment">//"[object Object]"</span></span><br><span class="line"></span><br><span class="line">&#123;&#125; + [] <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">[] + &#123;&#125; === &#123;&#125; + [] <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">&#123;&#125; + [] === [] + &#123;&#125; <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="attr">a</span>: <span class="number">1</span>&#125; <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="attr">a</span>: <span class="number">1</span>&#125;; <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">'a'</span>: <span class="number">1</span>&#125; <span class="comment">// SyntaxError</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">'a'</span>: <span class="number">1</span>&#125;; <span class="comment">// SyntaxError</span></span><br><span class="line"></span><br><span class="line">&#123;&#125; + <span class="number">0</span> + &#123;&#125;; <span class="comment">// "0[object Object]"</span></span><br><span class="line"></span><br><span class="line">&#123;&#125; + <span class="number">0</span> + &#123;&#125; <span class="comment">// "0[object Object]"</span></span><br></pre></td></tr></table></figure>
+<h3 id="AST"><a href="#AST" class="headerlink" title="AST"></a>AST</h3><p><strong><a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree" target="_blank" rel="noopener">wikipedia: Abstract_syntax_tree</a></strong></p>
+<blockquote>
+<p>In computer science, an abstract syntax tree (AST), or just syntax tree, is a tree representation of the abstract syntactic structure of source code written in a programming language. Each node of the tree denotes a construct occurring in the source code. The syntax is “abstract” in not representing every detail appearing in the real syntax. For instance, grouping parentheses are implicit in the tree structure, and a syntactic construct like an if-condition-then expression may be denoted by means of a single node with three branches.<br>其实就是将源代码分析成所对应的树状结构，便于之后的语法分析，代码检查等。现在的很多热门工具如 webpack、vue、UglifyJS、Lint 等都会用到这个技术，各个浏览器引擎也会使用自家定义的一套语法书生成树规范，生成相应的语法树。</p>
+</blockquote>
+<h3 id="语法解析分析"><a href="#语法解析分析" class="headerlink" title="{}语法解析分析"></a>{}语法解析分析</h3><p>其实由于浏览器厂商众多，每个与解析情况不一致，平常代码中基本不会遇到{}+这种问题，我们也没有精力研究各厂商预解析源码，从 Chrome 和 Firefox 来看，总结出来有下面几点：</p>
+<ul>
+<li>{…}的前面有运算符号的时候，{…}都会被解析成对象字面量。</li>
+<li>{…}前面没有运算符时候但有;结尾的时候，{…}都会被解析成代码块。</li>
+<li>{…}前面什么运算符都没有，{…}后面也没有分号(;)结尾<ul>
+<li>Firefox 会始终如一的解析为代码块</li>
+<li>chrome 在这种情况下需要被扒一下历史<br>大概在 chrome 版本 49 之前，Chrome 控制台上面的输出结果基本和 Firefox 一致，之后在 chrome 上有人提出 bug，<strong><a href="https://bugs.chromium.org/p/chromium/issues/detail?id=499864" target="_blank" rel="noopener">Issue 499864</a></strong>，大概意思就是说我在控制台输入<code>{a: 4, b: 5}</code>你给我报个错干嘛，我就是想要一个对象而已。Chrome 确实该近几年大火，没过多久就修复了，修复的方式也特别 666，就是凡是语句以{开头，以}结尾，我解析的时候就包裹一层括号在外面。<strong><a href="https://chromium.googlesource.com/chromium/src.git/+/4fd348fdb9c0b3842829acdfb2b82c86dacd8e0a%5E!/#F2" target="_blank" rel="noopener">git 记录</a></strong>，里面的关键代码如下:</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+    if (/^\s*\&#123;/.test(text) &amp;&amp; /\&#125;\s*$/.test(text))</span><br><span class="line"></span><br><span class="line">+        text = &apos;(&apos; + text + &apos;)&apos;;</span><br></pre></td></tr></table></figure>
+<p>也就是说{} + 0 + {}其实是({} + 0 + {}), {a: 1}其实是({a: 1})</p>
+<ul>
+<li>语法树图示<br>以{} + 0 + {}为例来看<ul>
+<li>Chrome<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192801.png" alt="ES类型转换20220613192801"><br>此时，Chrome 将第一个{}解析成对象</li>
+<li>firefox<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192825.png" alt="ES类型转换20220613192825"><br>此时，firefox 将第一个{}解析成代码块<br><strong><a href="http://resources.jointjs.com/demos/javascript-ast" target="_blank" rel="noopener">看 AST 的网站</a></strong><br>分析之后不难得出如上的结果</li>
+</ul>
+</li>
+</ul>
+<h2 id="JSON-stringify"><a href="#JSON-stringify" class="headerlink" title="JSON.stringify"></a>JSON.stringify</h2><h3 id="处理规则"><a href="#处理规则" class="headerlink" title="处理规则"></a>处理规则</h3><ul>
+<li>简单类型<br>处理基本类型时，与使用 toString 基本相同，结果都是字符串，除了 undefined</li>
+<li>undefined<br>只有 undefined 时返回 undefined，其他地方被忽略</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">String</span>(<span class="literal">undefined</span>) <span class="comment">// 'undefined'</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(<span class="literal">undefined</span>) <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(&#123; <span class="attr">a</span>: <span class="literal">undefined</span> &#125;) <span class="comment">// '&#123;&#125;'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>简单类型包装对象<br>布尔值、数字、字符串的包装对象在序列化过程中会自动转换成对应的原始值</li>
+<li>部分复杂类型<br>任意的函数以及 symbol 值，在序列化过程中会被忽略（出现在非数组对象的属性值中时）或者被转换成 null（出现在数组中时）</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(&#123; <span class="attr">x</span>: <span class="literal">undefined</span>, <span class="attr">y</span>: <span class="built_in">Object</span>, <span class="attr">z</span>: <span class="built_in">Symbol</span>(<span class="string">''</span>) &#125;)</span><br><span class="line"><span class="comment">// "&#123;&#125;"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify([<span class="literal">undefined</span>, <span class="built_in">Object</span>, <span class="built_in">Symbol</span>(<span class="string">''</span>)])</span><br><span class="line"><span class="comment">// "[null,null,null]"</span></span><br></pre></td></tr></table></figure>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>该函数接收三个参数，第二、三参数可选</p>
+<ul>
+<li><p>第一参数（待处理对象）</p>
+<p>如果第一个参数的某个对象拥有 toJSON 方法，那么结果为该函数返回值的序列化</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> skyline = &#123;</span><br><span class="line">  name: &#123;</span><br><span class="line">    toJSON: <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">'skyline'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  age: <span class="number">18</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">JSON</span>.stringify(skyline) <span class="comment">// '&#123;"name":"skyline","age":18&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二参数（替换者）</p>
+<p>MDN</p>
+<blockquote>
+<p>The JSON.stringify() method converts a JavaScript object or value to a JSON string, optionally replacing values if a replacer function is specified or optionally including only the specified properties if a replacer array is specified<br>第二参数可以是数组或函数</p>
+</blockquote>
+<ul>
+<li><p>数组<br>数组列出要序列化输出的键值</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(foo, [<span class="string">'week'</span>, <span class="string">'month'</span>])</span><br><span class="line"><span class="comment">// '&#123;"week":45,"month":7&#125;', only keep "week" and "month" properties</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数<br>指定序列化的方式，根据返回值输出<br>函数返回 Number, String, Boolean, null 直接输出返回值得序列化<br>undefined Symbol 函数 则忽略输出<br>其他对象则递归对对象调用该函数并输出其返回</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">replacer</span>(<span class="params">key, value</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Filtering out properties</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> value === <span class="string">'string'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (value === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'---'</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  foundation: <span class="string">'Mozilla'</span>,</span><br><span class="line">  model: <span class="string">'box'</span>,</span><br><span class="line">  week: <span class="number">45</span>,</span><br><span class="line">  transport: <span class="string">'car'</span>,</span><br><span class="line">  month: <span class="number">7</span>,</span><br><span class="line">  child: &#123;</span><br><span class="line">    foundation: <span class="literal">undefined</span>,</span><br><span class="line">    model: <span class="string">'box'</span>,</span><br><span class="line">    week: <span class="number">45</span>,</span><br><span class="line">    transport: <span class="string">'car'</span>,</span><br><span class="line">    month: <span class="number">7</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">JSON</span>.stringify(foo, replacer) <span class="comment">// '&#123;"week":45,"month":7,"child":&#123;"foundation":"---","week":45,"month":7&#125;&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>第三参数（缩进字符与长度）</p>
+<ul>
+<li>数字<br>若参数为数字，则指定缩进长度，最多为 10</li>
+<li>字符<br>若参数为字母，则指定缩进字符，最多为 10</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(&#123; <span class="attr">uno</span>: <span class="number">1</span>, <span class="attr">dos</span>: <span class="number">2</span> &#125;, <span class="literal">null</span>, <span class="number">100</span>)</span><br><span class="line"><span class="comment">// '&#123;\n          "uno": 1,\n          "dos": 2\n&#125;'</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(&#123; <span class="attr">uno</span>: <span class="number">1</span>, <span class="attr">dos</span>: <span class="number">2</span> &#125;, <span class="literal">null</span>, <span class="number">10</span>)</span><br><span class="line"><span class="comment">// '&#123;\n          "uno": 1,\n          "dos": 2\n&#125;'</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(&#123; <span class="attr">uno</span>: <span class="number">1</span>, <span class="attr">dos</span>: <span class="number">2</span> &#125;, <span class="literal">null</span>, <span class="string">'abcdefghijklmn'</span>)</span><br><span class="line"><span class="comment">// '&#123;\nabcdefghij"uno": 1,\nabcdefghij"dos": 2\n&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+<p><a href="https://github.com/mqyqingfeng/Blog/issues/164" target="_blank" rel="noopener">https://github.com/mqyqingfeng/Blog/issues/164</a></p>
+</blockquote>
+<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<blockquote>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/JavaScript隐式类型转换小结.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          JavaScript隐式类型转换小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/采桑子（丑奴儿）.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">采桑子（丑奴儿）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型转换"><span class="nav-number">1.</span> <span class="nav-text">类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型转换概述"><span class="nav-number">1.1.</span> <span class="nav-text">类型转换概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-boolean"><span class="nav-number">1.2.</span> <span class="nav-text">to boolean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-number"><span class="nav-number">1.3.</span> <span class="nav-text">to number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-string"><span class="nav-number">1.4.</span> <span class="nav-text">to string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-object"><span class="nav-number">1.5.</span> <span class="nav-text">to object</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ToPrimitive"><span class="nav-number">2.</span> <span class="nav-text">ToPrimitive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式转换场景"><span class="nav-number">3.</span> <span class="nav-text">隐式转换场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式转换场景概述"><span class="nav-number">3.1.</span> <span class="nav-text">隐式转换场景概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一元操作符"><span class="nav-number">3.2.</span> <span class="nav-text">一元操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二元加"><span class="nav-number">3.3.</span> <span class="nav-text">二元加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乘、除、取余、二元减"><span class="nav-number">3.4.</span> <span class="nav-text">乘、除、取余、二元减</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较运算符"><span class="nav-number">3.5.</span> <span class="nav-text">比较运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Expression-or-Statement"><span class="nav-number">4.</span> <span class="nav-text">Expression or Statement</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#几个有意思的输出"><span class="nav-number">4.1.</span> <span class="nav-text">几个有意思的输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AST"><span class="nav-number">4.2.</span> <span class="nav-text">AST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法解析分析"><span class="nav-number">4.3.</span> <span class="nav-text">{}语法解析分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON-stringify"><span class="nav-number">5.</span> <span class="nav-text">JSON.stringify</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#处理规则"><span class="nav-number">5.1.</span> <span class="nav-text">处理规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">5.2.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">6.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">6.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">6.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">6.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2022 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2022 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

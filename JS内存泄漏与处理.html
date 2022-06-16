@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>js内存泄漏与处理 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="Refactor&Optimization">
+  
+  
+  
+  
+  <meta name="description" content="垃圾回收(GC:Garbage Collecation) 简介 引用计数（Reference Counting） 标记清除（Mark &amp;amp; Sweep）   内存泄漏（Memory Leaks） 简介 常见内存泄漏情况 常见情况示例   内存泄漏处理 Chrome Memory 调试 内存泄漏监测 泄漏内存对比 泄漏内存对象详情 对象引用链   BMW WARNING Bulletin">
+<meta name="keywords" content="Refactor&amp;Optimization">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS内存泄漏与处理">
+<meta property="og:url" content="http://www.skyline.show/JS内存泄漏与处理.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="垃圾回收(GC:Garbage Collecation) 简介 引用计数（Reference Counting） 标记清除（Mark &amp;amp; Sweep）   内存泄漏（Memory Leaks） 简介 常见内存泄漏情况 常见情况示例   内存泄漏处理 Chrome Memory 调试 内存泄漏监测 泄漏内存对比 泄漏内存对象详情 对象引用链   BMW WARNING Bulletin">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211227190852.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211217112531.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211217114604.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211217140701.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211217104829.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216202518.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216195654.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216195848.png">
+<meta property="og:updated_time" content="2022-06-03T09:39:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS内存泄漏与处理">
+<meta name="twitter:description" content="垃圾回收(GC:Garbage Collecation) 简介 引用计数（Reference Counting） 标记清除（Mark &amp;amp; Sweep）   内存泄漏（Memory Leaks） 简介 常见内存泄漏情况 常见情况示例   内存泄漏处理 Chrome Memory 调试 内存泄漏监测 泄漏内存对比 泄漏内存对象详情 对象引用链   BMW WARNING Bulletin">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211227190852.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-JS内存泄漏与处理" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JS内存泄漏与处理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a><ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
+<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
+</ul>
+</li>
+<li><a href="#内存泄漏memory-leaks">内存泄漏（Memory Leaks）</a><ul>
+<li><a href="#简介-1">简介</a></li>
+<li><a href="#常见内存泄漏情况">常见内存泄漏情况</a></li>
+<li><a href="#常见情况示例">常见情况示例</a></li>
+</ul>
+</li>
+<li><a href="#内存泄漏处理">内存泄漏处理</a><ul>
+<li><a href="#chrome-memory-调试">Chrome Memory 调试</a></li>
+<li><a href="#内存泄漏监测">内存泄漏监测</a></li>
+<li><a href="#泄漏内存对比">泄漏内存对比</a></li>
+<li><a href="#泄漏内存对象详情">泄漏内存对象详情</a></li>
+<li><a href="#对象引用链">对象引用链</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JS 自动进行垃圾回收，不需要如 C 语言等一般需要代码中指定回收。<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>回收垃圾时，需要将那些被标记的清除掉，垃圾标记器会跟踪无用内存并打上标记，以供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
+<h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3><p>传统的引用计数方式简单来说就是记录内存引用的总数，当总数为 0 时，该内存将被回收。<br>该方式最大的弊端是循环引用对应的内存将不能被回收。<br>循环引用代码示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  a.child = b</span><br><span class="line">  b.child = a</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="标记清除（Mark-amp-Sweep）"><a href="#标记清除（Mark-amp-Sweep）" class="headerlink" title="标记清除（Mark &amp; Sweep）"></a>标记清除（Mark &amp; Sweep）</h3><ul>
+<li>标记阶段</li>
+</ul>
+<p>JavaScript 由根对象开始，例如浏览器中的 window，定期遍历找出其所有关联引用的对象。<br>即找所有从这个全局对象开始引用的对象，再找这些对象引用的对象…<br>对这些存在引用关系的对象进行标记，这是标记阶段。</p>
+<ul>
+<li>清除阶段</li>
+</ul>
+<p>清除阶段就是垃圾收集器清除那些没有被标记的对象，释放其内存。</p>
+<h2 id="内存泄漏（Memory-Leaks）"><a href="#内存泄漏（Memory-Leaks）" class="headerlink" title="内存泄漏（Memory Leaks）"></a>内存泄漏（Memory Leaks）</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><a id="more"></a>
+<p>JS 为复杂对象分配堆内存，对象被引用，该堆内存存在。<br>一旦对象不再被引用，此时 JS 垃圾回收机制将回收该堆内存。<br>内存泄漏（Memory Leak）一般指当代码中不再使用该对象而未及时解除引用关系时（对象指针没有被置为 null），该内存分配将一直存在。<br>造成 JS 内存泄漏的主要原因就是非正常引用。<br>现代浏览器一般采用标记清除方式清理内存，故内存泄漏也可认为是：<br><strong>开发者不再使用的对象但标记阶段仍可以由根节点关联到。</strong></p>
+<h3 id="常见内存泄漏情况"><a href="#常见内存泄漏情况" class="headerlink" title="常见内存泄漏情况"></a>常见内存泄漏情况</h3><ul>
+<li><p>意外全局对象</p>
+</li>
+<li><p>DOM 多方引用</p>
+</li>
+<li><p>绑定的事件未销毁</p>
+</li>
+<li><p>定时器未清除</p>
+</li>
+<li><p>闭包未销毁</p>
+</li>
+<li><p>EventBus 事件没解绑</p>
+</li>
+<li><p>Vuex $store watch 后没 unwatch</p>
+</li>
+<li><p>三方库函数对象未调用销毁函数</p>
+</li>
+<li><p>单页应用跳转原组件未销毁（即 Keep-alive 需要按需使用）</p>
+</li>
+</ul>
+<h3 id="常见情况示例"><a href="#常见情况示例" class="headerlink" title="常见情况示例"></a>常见情况示例</h3><ul>
+<li>意外全局对象</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">arg</span>) </span>&#123;</span><br><span class="line">  skyline = <span class="string">'skyline 是全局变量'</span></span><br><span class="line">  <span class="keyword">this</span>.haha = <span class="string">'haha 也是全局变量'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数执行完成后 skyline 与 haha 并不会被销毁</p>
+<ul>
+<li>DOM 多方引用</li>
+</ul>
+<p>在 JS 代码中引用了 DOM 对象，DOM 对象被移除，引用未解除，造成该 DOM 对象一直存在内存中。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.test = &#123;</span><br><span class="line">  node: <span class="built_in">document</span>.getElementById(<span class="string">'home'</span>),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.removeChild(<span class="built_in">document</span>.getElementById(<span class="string">'home'</span>))</span><br></pre></td></tr></table></figure>
+<p>上述例子中，移除 home 节点前，对于 home 节点对象，存在两个引用。<br>一个是 DOM Tree 中的引用，另一个是全局变量 test 的引用。<br>移除 home 节点，只是将 DOM Tree 中的引用解除掉。<br>在全局变量 test 中仍旧存在对 home 的引用，造成 home 节点在 removeChild（人为废弃）后仍旧游离于内存之中。<br>需要特别注意的是，如果上述情况发生在 li、tr 等节点上，那么其关联的 ul 以及 table 等节点也将一致保存在内存中。<br>一个更加常见的例子是在使用 echarts 的单页面项目中，图表容器与某个 DOM 节点绑定。<br>如果图表在路由切换后不再使用，<br>需要在 unmount，destroy 等生命周期中调用 echarts 实例的 dispose 方法。</p>
+<ul>
+<li>绑定的事件未销毁</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> element = <span class="built_in">document</span>.getElementById(<span class="string">'button'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onClick</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  element.innerHtml = <span class="string">'text'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">element.addEventListener(<span class="string">'click'</span>, onClick)</span><br><span class="line"><span class="comment">// element.removeEventListener('click', onClick); // 加入此行代码解除事件监听</span></span><br><span class="line">element.parentNode.removeChild(element)</span><br></pre></td></tr></table></figure>
+<p>上述代码中 element 被引用两次且被点击事件的回调函数使用。<br>将 DOM Tree 中的引用解除掉后，节点引用并未完全解除。<br>需要调用<code>element.removeEventListener(&#39;click&#39;, onClick)</code>将事件监听销毁来解除 element 对节点的引用。<br>这种内存泄漏常见于老一代（IE6 等）浏览器中。<br>现代浏览器或一些三方库（JQuery 等），能够在移除节点前，自动将所有节点上的监听事件移除掉，避免内存泄漏。</p>
+<ul>
+<li>定时器未清除</li>
+</ul>
+<p>另一个回调内引用节点的常见例子是 timeout 与 interval 中</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> someResource = <span class="string">'I am skyline'</span></span><br><span class="line"><span class="keyword">var</span> node = <span class="built_in">document</span>.getElementById(<span class="string">'Node'</span>)</span><br><span class="line">setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (node) &#123;</span><br><span class="line">    node.innerHTML = someResource</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br><span class="line">element.parentNode.removeChild(node)</span><br></pre></td></tr></table></figure>
+<p>上诉代码不调用 clearInterval，node 变量将常驻内存中。</p>
+<ul>
+<li>闭包未销毁</li>
+</ul>
+<p>一个内存泄漏更加严重的例子如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> theThing = <span class="literal">null</span></span><br><span class="line"><span class="keyword">var</span> replaceThing = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> originalThing = theThing</span><br><span class="line">  <span class="keyword">var</span> unused = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (originalThing) <span class="built_in">console</span>.log(<span class="string">'hi'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  theThing = &#123;</span><br><span class="line">    longStr: <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1000000</span>).join(<span class="string">'*'</span>),</span><br><span class="line">    someMethod: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(someMessage)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">setInterval(replaceThing, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+<p>由于 unused 与 someMethod 的作用域链都引用了 replaceThing 的活动对象 AO。<br>unused 的作用域链为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[unusedContext.AO, replaceThingContext.AO, globalContext.VO]</span><br></pre></td></tr></table></figure>
+<p>someMethod 的作用域链为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[someMethodContext.AO, replaceThingContext.AO, globalContext.VO]</span><br></pre></td></tr></table></figure>
+<p>unused 与 someMethod 作用域链引用同一个 replaceThingContext.AO<br>由于 unused 引用 originalThing 导致 replaceThingContext 即便执行完成，<br>其 replaceThingContext.AO 仍旧会被保留。<br>由于 someMethod 保留在全局变量 theThing 中故而其作用域链也并不会被销毁<br>上述代码造成内存泄漏的效果与如下代码一致，下述代码更易于理解。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> theThing = <span class="literal">null</span></span><br><span class="line"><span class="keyword">var</span> replaceThing = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> originalThing = theThing</span><br><span class="line">  theThing = &#123;</span><br><span class="line">    longStr: <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1000000</span>).join(<span class="string">'*'</span>),</span><br><span class="line">    someMethod: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (originalThing) <span class="built_in">console</span>.log(<span class="string">'hi'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">setInterval(replaceThing, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211227190852.png" alt="JS内存泄漏与处理20211227190852"><br>从 Chrome 内存分析工具可以看到，由于 originalThing 的闭包使用，导致 originalThing 引用上一轮的 theThing 而造成内存泄漏链条。<br>详细分析参考 <a href="https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156" target="_blank" rel="noopener">An interesting kind of JavaScript memory leak</a></p>
+<h2 id="内存泄漏处理"><a href="#内存泄漏处理" class="headerlink" title="内存泄漏处理"></a>内存泄漏处理</h2><h3 id="Chrome-Memory-调试"><a href="#Chrome-Memory-调试" class="headerlink" title="Chrome Memory 调试"></a>Chrome Memory 调试</h3><p>Chrome 控制台的 Memory 板块提供 3 个功能选项。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211217112531.png" alt="JS内存泄漏与处理20211217112531"></p>
+<ul>
+<li>Heap snapshot</li>
+</ul>
+<p>堆快照。<br>堆快照提供 JS 对象与关联 DOM 节点的内存分配情况。</p>
+<ul>
+<li>Allocation instrumentation on timeline</li>
+</ul>
+<p>内存分配时间轴。<br>通过内存分配时间轴可以监测内存在时间轴上随着时间变化的分配情况。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211217114604.png" alt="JS内存泄漏与处理20211217114604"><br>如上图<br>A 可以选部分时间段。<br>B 处悬浮 2S 查看内存中的对象。<br>C 处查看内存分配调用栈。</p>
+<ul>
+<li>Allocation sampling</li>
+</ul>
+<p>内存分配抽样<br>抽样获取最耗损内存的操作（函数等），性能开销最小，通过采样方法记录内存分配，提供 JS 执行堆栈的近似分配值。<br>默认以 Heavy 排序，即耗损排序。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211217140701.png" alt="JS内存泄漏与处理20211217140701"></p>
+<h3 id="内存泄漏监测"><a href="#内存泄漏监测" class="headerlink" title="内存泄漏监测"></a>内存泄漏监测</h3><p>当页面卡顿或者直接卡死报错页面无响应时，一般都是内存泄漏造成的。<br>定位内存泄漏，首先定位造成内存泄漏的页面或者操作。<br>在浏览器控制台，打开 Performance Monitor 查看内存状态，定位内存激增的操作。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211217104829.png" alt="JS内存泄漏与处理20211217104829"><br>建议用此方式排查，也可以通过 Allocation instrumentation on timeline 来找到内存泄漏的地方。</p>
+<h3 id="泄漏内存对比"><a href="#泄漏内存对比" class="headerlink" title="泄漏内存对比"></a>泄漏内存对比</h3><p>在内存泄漏的操作前拍下快照，执行操作，拍下快照，对比两次快照。<br>在搜索框输入 detached 过滤泄漏的对象，选择 Comparison。<br>可以看到泄漏的 DIV DOM 对象新增了 88 个（截图是将代码置于项目中测试，有干扰，忽略）。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216202518.png" alt="JS内存泄漏与处理20211216202518"></p>
+<h3 id="泄漏内存对象详情"><a href="#泄漏内存对象详情" class="headerlink" title="泄漏内存对象详情"></a>泄漏内存对象详情</h3><p>查看泄漏内存对应对象详情，只需将 鼠标移动到对应的节点上等待两秒。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216195654.png" alt="JS内存泄漏与处理20211216195654"></p>
+<h3 id="对象引用链"><a href="#对象引用链" class="headerlink" title="对象引用链"></a>对象引用链</h3><p>在 Object 板块，可以查看该对象引用链，可以看到泄漏的对象位于一个 test 对象的 node 属性上，test 对象位于 window 当中<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216195848.png" alt="JS内存泄漏与处理20211216195848"></p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+<p><a href="https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156" target="_blank" rel="noopener">An interesting kind of JavaScript memory leak</a></p>
+</blockquote>
+<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<blockquote>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/SSH使用.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          SSH使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/TS语法校验常见错误.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">TS语法校验常见错误</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收-GC-Garbage-Collecation"><span class="nav-number">1.</span> <span class="nav-text">垃圾回收(GC:Garbage Collecation)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用计数（Reference-Counting）"><span class="nav-number">1.2.</span> <span class="nav-text">引用计数（Reference Counting）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记清除（Mark-amp-Sweep）"><span class="nav-number">1.3.</span> <span class="nav-text">标记清除（Mark &amp; Sweep）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏（Memory-Leaks）"><span class="nav-number">2.</span> <span class="nav-text">内存泄漏（Memory Leaks）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介-1"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见内存泄漏情况"><span class="nav-number">2.2.</span> <span class="nav-text">常见内存泄漏情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见情况示例"><span class="nav-number">2.3.</span> <span class="nav-text">常见情况示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏处理"><span class="nav-number">3.</span> <span class="nav-text">内存泄漏处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Chrome-Memory-调试"><span class="nav-number">3.1.</span> <span class="nav-text">Chrome Memory 调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存泄漏监测"><span class="nav-number">3.2.</span> <span class="nav-text">内存泄漏监测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泄漏内存对比"><span class="nav-number">3.3.</span> <span class="nav-text">泄漏内存对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泄漏内存对象详情"><span class="nav-number">3.4.</span> <span class="nav-text">泄漏内存对象详情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象引用链"><span class="nav-number">3.5.</span> <span class="nav-text">对象引用链</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">4.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">4.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">4.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2022 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2022 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

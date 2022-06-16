@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  
+  
+  
+  <meta name="description" content="--- title: HTTPS加密方式 updated: 2022-02-03    14:21:52    --- &amp;gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激 HTTPS概述加密缘由明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉容易被中间人攻击，存在以下风险  窃听 篡改 冒充  HTTPS超文本传输安全协">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Skyline&#39;s blog">
+<meta property="og:url" content="http://www.skyline.show/HTTPS加密方式.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="--- title: HTTPS加密方式 updated: 2022-02-03    14:21:52    --- &amp;gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激 HTTPS概述加密缘由明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉容易被中间人攻击，存在以下风险  窃听 篡改 冒充  HTTPS超文本传输安全协">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/206E0D3B34F008B147F154636E11CDD7.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/5B02C61921A0B6F1A5678D0F74D4F022.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/50E14FEDDD279C38F6E0F02E7589BDEC.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/C6CE0D53E606C13393E7CBA6E76AACC4.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/1ADC3A5F4D04361EF2FF96840720329D.gif">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/5DC872B3801F62A3077D9D473631545A.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/13397A6392668084153F342B1A3C8DC3.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/5BB52CC17D71512B6205349B19751BD1.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/88AE731196443B8898EAA56C0EACB2D0.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/E66B1F91FA33704AA7642ECC6EDA6DBD.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/7585846312F7C656F13A459AADC43B50.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/D0DC36E595FCD4FC1F563AE67917853E.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/95585823EED7AA6BF3D447928A82BBD2.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/52D49F4E0B961719AF0FD35F97F2AFC6.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/1706630D2F6DDCBF7002BAFFAEE2D75E.jpg">
+<meta property="og:updated_time" content="2022-06-08T03:09:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Skyline&#39;s blog">
+<meta name="twitter:description" content="--- title: HTTPS加密方式 updated: 2022-02-03    14:21:52    --- &amp;gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激 HTTPS概述加密缘由明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉容易被中间人攻击，存在以下风险  窃听 篡改 冒充  HTTPS超文本传输安全协">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/206E0D3B34F008B147F154636E11CDD7.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-HTTPS加密方式" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-08T03:09:13.000Z" itemprop="datePublished">2022-06-08</time>
+    </a><span style="color: #999">|</span>
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>---
+title: HTTPS加密方式
+updated: 2022-02-03    14:21:52
+
+
+
+---
+&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+</code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
+<ul>
+<li>窃听</li>
+<li>篡改</li>
+<li>冒充</li>
+</ul>
+<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
+<h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4><a id="more"></a>
+<ul>
+<li>端口：HTTPS 443，HTTP 80</li>
+<li>传输： HTTPS密文， HTTP 明文</li>
+<li>证书：HTTPS需要，HTTP 不需要</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/206E0D3B34F008B147F154636E11CDD7.jpg" alt></p>
+<p>（图源：<a href="https://juejin.im/post/6844903604868874247" target="_blank" rel="noopener">https://juejin.im/post/6844903604868874247</a>）</p>
+<hr>
+<h3 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h3><p>常见的加密方式中，是选择对称加密，非对称加密还是算不上加密的摘要算法？<br>以下进行加密方式选择的讨论</p>
+<h4 id="摘要算法"><a href="#摘要算法" class="headerlink" title="摘要算法"></a>摘要算法</h4><p>摘要算法无法逆向获取原文内容，没有可行性。</p>
+<h4 id="对称加密（共享密钥加密算法）"><a href="#对称加密（共享密钥加密算法）" class="headerlink" title="对称加密（共享密钥加密算法）"></a>对称加密（共享密钥加密算法）</h4><p>对称加密算法 中，使用的密钥只有一个，发送 和 接收 双方都使用这个密钥对数据进行 加密 和 解密</p>
+<h5 id="可行性"><a href="#可行性" class="headerlink" title="可行性"></a>可行性</h5><h6 id="存在密钥传输问题"><a href="#存在密钥传输问题" class="headerlink" title="存在密钥传输问题"></a>存在密钥传输问题</h6><p>如何保证密钥传输给众多客户端过程中不被泄露？<br>网络存在通信实体庞大，不是单单的一对一的问题，往往一台服务器对应众多的访问客户，如何把密钥传递给庞大的客户群并在传输过程不被泄露，是关键问题。</p>
+<h4 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h4><p>公钥加密，私钥解密</p>
+<h5 id="可行性-1"><a href="#可行性-1" class="headerlink" title="可行性"></a>可行性</h5><h6 id="单组非对称加密密钥"><a href="#单组非对称加密密钥" class="headerlink" title="单组非对称加密密钥"></a>单组非对称加密密钥</h6><p>只能保证单边通信可靠性<br>使用一组非对称加密密钥，存在如下问题。客户端公钥加密，服务器私钥解密，客户端到服务器的通信是可靠的，但是反之，服务器向客户端传递信息，如果用私钥加密，则公开的公钥都能解密</p>
+<h6 id="两组公钥私钥"><a href="#两组公钥私钥" class="headerlink" title="两组公钥私钥"></a>两组公钥私钥</h6><p>客户端服务器分别保留一把公钥，一把私钥，公钥加密，私钥解密<br><strong>可行性差的主要原因是非对称加密非常耗时</strong></p>
+<h4 id="对称-非对称"><a href="#对称-非对称" class="headerlink" title="对称 + 非对称"></a>对称 + 非对称</h4><h5 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h5><p><strong>采用用非对称算法传递对称密钥，采用对称加密算法加密传输数据</strong></p>
+<h5 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h5><ul>
+<li>客户端发起请求</li>
+<li>服务器明文发送公钥A，客户端获取公钥A</li>
+<li>客户端生成密钥X，用公钥A加密密钥X得到密文XXXA后传给服务器</li>
+<li>服务器私钥A’解密密文XXXA获取密钥X</li>
+<li>双方用密钥X对称加解密进行通信</li>
+</ul>
+<h5 id="过程图示"><a href="#过程图示" class="headerlink" title="过程图示"></a>过程图示</h5><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/5B02C61921A0B6F1A5678D0F74D4F022.gif" alt="anigif.gif"></p>
+<hr>
+<h3 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>非对称加密算法在传递公钥过程中存在公钥被中间人截取篡改的风险。<br>只要是采用了非对称加密算法，都会存在中间人攻击的风险。</p>
+<h5 id="非对称加密中间人攻击"><a href="#非对称加密中间人攻击" class="headerlink" title="非对称加密中间人攻击"></a>非对称加密中间人攻击</h5><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/50E14FEDDD279C38F6E0F02E7589BDEC.jpg" alt></p>
+<ul>
+<li>中间人获取服务器的公钥A拦截</li>
+<li>中间人把自己生产的公钥B返给客户端</li>
+<li>客户端用公钥B加密明文”QQ:123 密码：123”成密文XXXB</li>
+<li>中间人用私钥B’解密获取明文</li>
+<li>中间人用公钥A加密明文为XXXA并传给服务器</li>
+</ul>
+<p>上述过程中，客户端与服务器正常通信，难以发觉信息已经被泄露。</p>
+<h5 id="信息抵赖"><a href="#信息抵赖" class="headerlink" title="信息抵赖"></a>信息抵赖</h5><p>由于存在中间人的已知风险，如果不解决非对称中的这个漏洞，即便不存在中间人攻击，对于错误的消息，服务器可以不承认。<br>（中间过程传递的是密文，为了便于理解直接明文展示）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/C6CE0D53E606C13393E7CBA6E76AACC4.jpg" alt></p>
+<h5 id="非对称与对称方案中的中间人攻击"><a href="#非对称与对称方案中的中间人攻击" class="headerlink" title="非对称与对称方案中的中间人攻击"></a>非对称与对称方案中的中间人攻击</h5><p>上述非对称与对称方案并没有解决针对非对称加密算法的此项漏洞，中间人可以在上述非对称与对称方案中进行攻击。具体过程如下</p>
+<ul>
+<li>客户端发起请求</li>
+<li>服务器发送公钥A，被拦截，中间人获取公钥A</li>
+<li>中间人生成公钥B，私钥B’</li>
+<li>中间人发送公钥B，客户端获取公钥B</li>
+<li>客户端生成密钥X，用公钥B加密密钥X得到密文XXXB</li>
+<li>客户端发送密文XXXB，中间人截取密文</li>
+<li>中间人用私钥B’解密获取密钥X</li>
+<li>中间人用公钥A加密密钥X得到XXXA，并发送给服务器</li>
+<li>服务器私钥A’解密XXXA获取密钥X</li>
+<li>双方用密钥X对称加解密进行通信</li>
+</ul>
+<h6 id="过程图示-1"><a href="#过程图示-1" class="headerlink" title="过程图示"></a>过程图示</h6><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/1ADC3A5F4D04361EF2FF96840720329D.gif" alt="anigif.gif"></p>
+<p>最终中间人成功的获取了客户端与服务器此次通信的密钥X，此次通行中所用信息都可被中间人解密获取</p>
+<h4 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h4><p><strong>中间人成功攻击的根本原因是浏览器无法确认获取的公钥真实性</strong></p>
+<hr>
+<h3 id="数字证书与签名"><a href="#数字证书与签名" class="headerlink" title="数字证书与签名"></a>数字证书与签名</h3><h4 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h4><p>为了保证公钥的正确真实性，需要权威CA机构(证书授权中心/Certificate Authority )来颁发数字证书，数字证书里有证书持有者（持有网站）、持有者公钥等信息。<br>在传输过程中，服务器传输公钥A改为传输数字证书，客户端从证书里获取取公钥A</p>
+<h4 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h4><p>如何保证数字证书文件的真实性？<br>数字证书既然通过网络传输，那么中间人也可以直接拦截后篡改内容之后再返回。同样，中间人也可以向同一家机构申请证书然后换成自己的证书。<br>如何避免这些问题？<br>世界没有完全相同的一片叶子，也没有完全相同的一个人。<br>人有指纹，有虹膜，还可以用签名来标识身份信息，在这个场景中，有没有可以借鉴的地方？<br>通过数字签名</p>
+<h5 id="签发证书"><a href="#签发证书" class="headerlink" title="签发证书"></a>签发证书</h5><p>CA机构用非对称加密算法拥有一对公私钥，用摘要算法对证书明文信息获取摘要，然后用私钥对摘要进行加密形成签名，最后将签名与使用的摘要算法置入证书当中。这里，不直接用私钥加密明文主要是因为非对称加密算法存在性能问题，加密内容不宜过长，加密摘要显然优于加密明文。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/5DC872B3801F62A3077D9D473631545A.jpg" alt></p>
+<h5 id="验证签名"><a href="#验证签名" class="headerlink" title="验证签名"></a>验证签名</h5><ol>
+<li>客户端用CA机构公钥解密数字签名得到摘要A（<strong>由于是客户端（浏览器等）信任的机构，所以其保有对应证书签发机构的公钥</strong>）</li>
+<li>客户端用证书中的摘要算法对明文进行摘要得到摘要B</li>
+<li>对比摘要A与摘要B是否一致</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/13397A6392668084153F342B1A3C8DC3.jpg" alt></p>
+<p>如果摘要对比一致，则验证成功。</p>
+<h5 id="不可篡改"><a href="#不可篡改" class="headerlink" title="不可篡改"></a>不可篡改</h5><p>为什么数字签名可以保证证书不被篡改？<br>中间人即便篡改明文信息并按照摘要算法重新生成摘要，但是由于没有CA机构的私钥，无法对摘要加密形成有效签名。<br>在客户端验证签名过程中（上节步骤1中），无法正确获取摘要A，验证失败！</p>
+<h5 id="证书掉包"><a href="#证书掉包" class="headerlink" title="证书掉包"></a>证书掉包</h5><p>既然签名不可伪造，证书内容不可篡改，那么，是否可以将证书整体掉包？<br>证书是可以被掉包的，但是由于证书里包含了申请者的信息比如域名，浏览器等客户端会把证书里的域名与请求时的域名进行比对，掉包随即就被发现。<br>证书被掉包时，浏览器会有如下警告</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/5BB52CC17D71512B6205349B19751BD1.png" alt><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/88AE731196443B8898EAA56C0EACB2D0.jpg" alt></p>
+<h5 id="签名本质"><a href="#签名本质" class="headerlink" title="签名本质"></a>签名本质</h5><p><strong>采用摘要算法获取明文摘要，采用非对称加密算法私钥加密摘要</strong></p>
+<h5 id="证书实例"><a href="#证书实例" class="headerlink" title="证书实例"></a>证书实例</h5><p>证书通常包含以下信息：</p>
+<ul>
+<li>申请者公钥</li>
+<li>申请者的组织信息和个人信息</li>
+<li>签发机构CA的信息</li>
+<li>有效时间、证书序列号等信息明文</li>
+<li>签名与签名算法</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/E66B1F91FA33704AA7642ECC6EDA6DBD.jpg" alt></p>
+<h5 id="证书申请"><a href="#证书申请" class="headerlink" title="证书申请"></a>证书申请</h5><p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/7585846312F7C656F13A459AADC43B50.png" alt></p>
+<p>（出自：<a href="http://yunlaiwu.github.io/" target="_blank" rel="noopener">http://yunlaiwu.github.io/</a>）</p>
+<h5 id="本地CA机构公钥"><a href="#本地CA机构公钥" class="headerlink" title="本地CA机构公钥"></a>本地CA机构公钥</h5><p>加入数字证书是为了让客户端准确获取服务器的公钥。但是要想解开证书中的签名，必须有签发机构的公钥，这些公钥从何而来？<br>事实上，操作系统、浏览器等会在安装时附带其认为安全的 CA机构的根证书列表。<br>例如，在HTTPS通信中使用的服务端证书是CA机构W签发的，如果在浏览器中存在W的根证书，那么就可以直接拿到其公钥。<br>在实际过程中根证书往往不直接颁发服务端证书，而是授权给中间证书。</p>
+<h5 id="证书链"><a href="#证书链" class="headerlink" title="证书链"></a>证书链</h5><p>完整的证书链一般有三级</p>
+<ul>
+<li>服务端证书（end-user certificates）</li>
+<li>中间证书（intermediates Certificates）</li>
+<li>根证书（root Certificates）</li>
+</ul>
+<p>点击chrome上这个锁图标，可以看一个https网站经过了几级证书认证，并可以查看每一级证书详细信息</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/D0DC36E595FCD4FC1F563AE67917853E.jpg" alt></p>
+<p><strong>不管存在多少级证书，其最终的目的都是为了验证服务端证书未篡改。</strong><br>中间证书可以存在多级，中间证书不会影响验证结果，证书的签发与验证原理不变，最终只要通过证书链最终被CA根证书验证通过即可<br>中间证书的优势：</p>
+<ul>
+<li>分级管理，减少根证书管理量，高效签发与管理证书</li>
+<li>根证书内置与客户端中，一旦根证书对应的私钥泄露，吊销根证书非常困难，而中间证书私钥泄露，可先在线吊销</li>
+</ul>
+<p>常见证书链如下所示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/95585823EED7AA6BF3D447928A82BBD2.jpg" alt></p>
+<h5 id="不被信任证书"><a href="#不被信任证书" class="headerlink" title="不被信任证书"></a>不被信任证书</h5><p>当证书不是由受信任的机构颁发的，浏览器也会警告，用户可以根据网站提示安装证书或进行其他进一步操作。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/52D49F4E0B961719AF0FD35F97F2AFC6.jpg" alt></p>
+<h5 id="服务端如何找到正确的密钥X？"><a href="#服务端如何找到正确的密钥X？" class="headerlink" title="服务端如何找到正确的密钥X？"></a>服务端如何找到正确的密钥X？</h5><p>一台服务器一般情况是与多个客户端保持连接的，每一个连接都有自己的密钥，如何对对应的客户端用正确的密钥X呢？<br>真正的数据传输前，需要进行SSL/TSL握手，密钥X的传递包含其中。当连接建立后，服务器会为每个客户端维护一个session ID，客户端的每一个请求都会携带该sessionID，而服务器正是通过sessionID找到正确的密钥来解密内容</p>
+<hr>
+<h3 id="HTTPS请求流程图解"><a href="#HTTPS请求流程图解" class="headerlink" title="HTTPS请求流程图解"></a>HTTPS请求流程图解</h3><p>HTTPS请求的大致流程如下所示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/1706630D2F6DDCBF7002BAFFAEE2D75E.jpg" alt></p>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><h4 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h4><p>常用的SSH协议中(Secure Shell安全外壳协议，简称SSH)，采用的就是非对称加密。<br>SSH不像https协议，SSH协议的公钥是没有证书中心（CA）公证，都是自己签发的，那么远程登录使用SSH时是如何防止中间人攻击的？<br>SSH登录有两种方式：</p>
+<ul>
+<li>口令登录</li>
+<li>公钥登录</li>
+</ul>
+<h5 id="口令登录"><a href="#口令登录" class="headerlink" title="口令登录"></a>口令登录</h5><p>第一次登录时服务器会返回公钥并会给出公钥指纹（摘要算法获取公钥的摘要），用户可以拿到指纹与服务器提供商提供的指纹做对比，验证是否一致<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">　　$ ssh user@host</span><br><span class="line"></span><br><span class="line">　　The authenticity of host &apos;host (12.18.429.21)&apos; can&apos;t be established.</span><br><span class="line"></span><br><span class="line">　　RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.</span><br><span class="line"></span><br><span class="line">　　Are you sure you want to continue connecting (yes/no)?</span><br></pre></td></tr></table></figure></p>
+<p>如果一致，用户确认之后，公钥将会加密用户输入的密码给服务器，让后建立连接</p>
+<h5 id="公钥登录"><a href="#公钥登录" class="headerlink" title="公钥登录"></a>公钥登录</h5><p>使用口令登录，每次都要输入用户名密码，非常繁琐。<br>在公钥登录方式中，用户自己生成一堆非对称密钥。私钥存于本地，公钥拷贝到服务器，建立连接即可。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><blockquote>
+<p><a href="https://juejin.im/post/6844903670044164109" target="_blank" rel="noopener">彻底搞懂HTTPS的加密机制</a><br><a href="http://yunlaiwu.github.io/blog/2016/12/18/HTTPS%E5%AE%89%E5%85%A8%E6%80%A7%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E5%85%B6%E5%AF%B9%E5%89%8D%E7%AB%AF%E7%9A%84%E5%BD%B1%E5%93%8D/" target="_blank" rel="noopener">HTTPS安全性原理以及其对前端的影响</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/ES_Module&CommonJS.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          ES_Module&amp;CommonJS
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Husky使用.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Husky使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS概述"><span class="nav-number">1.</span> <span class="nav-text">HTTPS概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加密缘由"><span class="nav-number">1.1.</span> <span class="nav-text">加密缘由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTPS"><span class="nav-number">1.2.</span> <span class="nav-text">HTTPS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与HTTP对比"><span class="nav-number">1.3.</span> <span class="nav-text">与HTTP对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加密方式"><span class="nav-number">2.</span> <span class="nav-text">加密方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#摘要算法"><span class="nav-number">2.1.</span> <span class="nav-text">摘要算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对称加密（共享密钥加密算法）"><span class="nav-number">2.2.</span> <span class="nav-text">对称加密（共享密钥加密算法）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#可行性"><span class="nav-number">2.2.1.</span> <span class="nav-text">可行性</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#存在密钥传输问题"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">存在密钥传输问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非对称加密"><span class="nav-number">2.3.</span> <span class="nav-text">非对称加密</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#可行性-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">可行性</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#单组非对称加密密钥"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">单组非对称加密密钥</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#两组公钥私钥"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">两组公钥私钥</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对称-非对称"><span class="nav-number">2.4.</span> <span class="nav-text">对称 + 非对称</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#本质"><span class="nav-number">2.4.1.</span> <span class="nav-text">本质</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#过程"><span class="nav-number">2.4.2.</span> <span class="nav-text">过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#过程图示"><span class="nav-number">2.4.3.</span> <span class="nav-text">过程图示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间人攻击"><span class="nav-number">3.</span> <span class="nav-text">中间人攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">3.1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#非对称加密中间人攻击"><span class="nav-number">3.1.1.</span> <span class="nav-text">非对称加密中间人攻击</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#信息抵赖"><span class="nav-number">3.1.2.</span> <span class="nav-text">信息抵赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非对称与对称方案中的中间人攻击"><span class="nav-number">3.1.3.</span> <span class="nav-text">非对称与对称方案中的中间人攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#过程图示-1"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">过程图示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根本原因"><span class="nav-number">3.2.</span> <span class="nav-text">根本原因</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字证书与签名"><span class="nav-number">4.</span> <span class="nav-text">数字证书与签名</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数字证书"><span class="nav-number">4.1.</span> <span class="nav-text">数字证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数字签名"><span class="nav-number">4.2.</span> <span class="nav-text">数字签名</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#签发证书"><span class="nav-number">4.2.1.</span> <span class="nav-text">签发证书</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#验证签名"><span class="nav-number">4.2.2.</span> <span class="nav-text">验证签名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不可篡改"><span class="nav-number">4.2.3.</span> <span class="nav-text">不可篡改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#证书掉包"><span class="nav-number">4.2.4.</span> <span class="nav-text">证书掉包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#签名本质"><span class="nav-number">4.2.5.</span> <span class="nav-text">签名本质</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#证书实例"><span class="nav-number">4.2.6.</span> <span class="nav-text">证书实例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#证书申请"><span class="nav-number">4.2.7.</span> <span class="nav-text">证书申请</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#本地CA机构公钥"><span class="nav-number">4.2.8.</span> <span class="nav-text">本地CA机构公钥</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#证书链"><span class="nav-number">4.2.9.</span> <span class="nav-text">证书链</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不被信任证书"><span class="nav-number">4.2.10.</span> <span class="nav-text">不被信任证书</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#服务端如何找到正确的密钥X？"><span class="nav-number">4.2.11.</span> <span class="nav-text">服务端如何找到正确的密钥X？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS请求流程图解"><span class="nav-number">5.</span> <span class="nav-text">HTTPS请求流程图解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拓展"><span class="nav-number">6.</span> <span class="nav-text">拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH"><span class="nav-number">6.1.</span> <span class="nav-text">SSH</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#口令登录"><span class="nav-number">6.1.1.</span> <span class="nav-text">口令登录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#公钥登录"><span class="nav-number">6.1.2.</span> <span class="nav-text">公钥登录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2022 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2022 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

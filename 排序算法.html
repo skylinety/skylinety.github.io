@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>排序算法 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="DataStructure&Algorithm">
+  
+  
+  
+  
+  <meta name="description" content="选择排序 选排的思想 时间复杂度   冒泡排序 基本思路 时间复杂度 交换判定优化   插入排序 插排的思想 时间复杂度分析 哨兵优化 折半优化   归并排序（Merge Sort） 归并排序思路 合并 时间复杂度分析   快速排序 快排思路 选值优化 多路快排   希尔排序（缩小增量排序） 关键思路 时间复杂度   计数排序 关键思路 时间复杂度分析   堆排序 完全二叉树 堆 构造堆 排">
+<meta name="keywords" content="DataStructure&amp;Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序算法">
+<meta property="og:url" content="http://www.skyline.show/排序算法.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="选择排序 选排的思想 时间复杂度   冒泡排序 基本思路 时间复杂度 交换判定优化   插入排序 插排的思想 时间复杂度分析 哨兵优化 折半优化   归并排序（Merge Sort） 归并排序思路 合并 时间复杂度分析   快速排序 快排思路 选值优化 多路快排   希尔排序（缩小增量排序） 关键思路 时间复杂度   计数排序 关键思路 时间复杂度分析   堆排序 完全二叉树 堆 构造堆 排">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2022-06-03T09:39:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="排序算法">
+<meta name="twitter:description" content="选择排序 选排的思想 时间复杂度   冒泡排序 基本思路 时间复杂度 交换判定优化   插入排序 插排的思想 时间复杂度分析 哨兵优化 折半优化   归并排序（Merge Sort） 归并排序思路 合并 时间复杂度分析   快速排序 快排思路 选值优化 多路快排   希尔排序（缩小增量排序） 关键思路 时间复杂度   计数排序 关键思路 时间复杂度分析   堆排序 完全二叉树 堆 构造堆 排">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-排序算法" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      排序算法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-05-27T07:41:02.000Z" itemprop="datePublished">2022-05-27</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#选择排序">选择排序</a><ul>
+<li><a href="#选排的思想">选排的思想</a></li>
+<li><a href="#时间复杂度">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#冒泡排序">冒泡排序</a><ul>
+<li><a href="#基本思路">基本思路</a></li>
+<li><a href="#时间复杂度-1">时间复杂度</a></li>
+<li><a href="#交换判定优化">交换判定优化</a></li>
+</ul>
+</li>
+<li><a href="#插入排序">插入排序</a><ul>
+<li><a href="#插排的思想">插排的思想</a></li>
+<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
+<li><a href="#哨兵优化">哨兵优化</a></li>
+<li><a href="#折半优化">折半优化</a></li>
+</ul>
+</li>
+<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
+<li><a href="#归并排序思路">归并排序思路</a></li>
+<li><a href="#合并">合并</a></li>
+<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#快速排序">快速排序</a><ul>
+<li><a href="#快排思路">快排思路</a></li>
+<li><a href="#选值优化">选值优化</a></li>
+<li><a href="#多路快排">多路快排</a></li>
+</ul>
+</li>
+<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
+<li><a href="#关键思路">关键思路</a></li>
+<li><a href="#时间复杂度-2">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#计数排序">计数排序</a><ul>
+<li><a href="#关键思路-1">关键思路</a></li>
+<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#堆排序">堆排序</a><ul>
+<li><a href="#完全二叉树">完全二叉树</a></li>
+<li><a href="#堆">堆</a></li>
+<li><a href="#构造堆">构造堆</a></li>
+<li><a href="#排序">排序</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>选择排序的比较次数 = (n - 1) + (n - 2) + … + 2 + 1 = n * (n - 1) / 2，因此时间复杂度为：O(n²)。</p>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>每一轮通过不断对比交换位置来将该轮最大（小）值上浮（下沉）到对应轮位置<br>核心思想是<strong>每轮换位置</strong><br><strong>外层循环确定轮次，内层循环<code>交换位置</code></strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<p>每一轮都进行了<strong>多次交换</strong>，故相较于选择排序耗时</p>
+<h3 id="时间复杂度-1"><a href="#时间复杂度-1" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><a id="more"></a>
+<p>冒泡排序的比较次数 = (n - 1) + (n - 2) + … + 2 + 1，即：n * (n - 1) / 2，所以冒泡排序的时间复杂度为：O(n²)<br>冒泡排序最优情况的时间复杂度是：O(n) 要达到这个复杂度，上述代码需要进一步优化</p>
+<h3 id="交换判定优化"><a href="#交换判定优化" class="headerlink" title="交换判定优化"></a>交换判定优化</h3><p>对于已经有序的数列，进行了冗余的循环操作，通过在<strong>每轮进行交换标记</strong>来进行优化</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 冒泡交换判定优化</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">optimizeBubbleSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        swap = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; nums[j]:</span><br><span class="line">                nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line">                swap = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> swap:</span><br><span class="line">            <span class="keyword">return</span> nums</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><h3 id="插排的思想"><a href="#插排的思想" class="headerlink" title="插排的思想"></a>插排的思想</h3><p>将 list 分为两部分，前部分作为已排序部分并向其中插入值，注意插入值之后值的移动<br><strong>外层循环确定插入值，内层循环确定插入位置</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 插入排序</span></span><br><span class="line"><span class="comment"># 外层循环确定插入值，内层循环确定插入位置</span></span><br><span class="line"><span class="comment"># 将list分为两部分，前部分作为已排序部分并向其中插入值，注意值的移动</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(nums)):</span><br><span class="line">        <span class="keyword">if</span> nums[i] &lt; nums[i - <span class="number">1</span>]:</span><br><span class="line">            j = i - <span class="number">1</span></span><br><span class="line">            aim = nums[i]</span><br><span class="line">            <span class="keyword">while</span> aim &lt; nums[j] <span class="keyword">and</span> j &gt; <span class="number">-1</span>:</span><br><span class="line">                nums[j + <span class="number">1</span>] = nums[j]</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            nums[j + <span class="number">1</span>] = aim</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>最坏的情况下，即整个数组是倒序的，比较次数 = 1 + 2 + 3 + … + (n - 2) + (n - 1) = n * (n - 1) / 2，此时的时间复杂度为：O(n²)。<br>在最好的情况下，即整个数组是正序的，比较次数 = n - 1，此时的时间复杂度为：O(n)</p>
+<h3 id="哨兵优化"><a href="#哨兵优化" class="headerlink" title="哨兵优化"></a>哨兵优化</h3><p>在插入排序循环判定中，<strong>aim &lt; nums[j] and j &gt; -1</strong>，即既要保证不越界又要判断数据是否符合条件，用哨兵代替上述两个条件，每次循环只需一次比较，可以减少一半的比较次数。</p>
+<p>哨兵的作用</p>
+<ul>
+<li>暂时存放待插入的元素</li>
+<li>监视数组下标越界</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sentryInsertionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    nums.append(nums[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(nums)):</span><br><span class="line">        <span class="keyword">if</span> nums[i] &lt; nums[i - <span class="number">1</span>]:</span><br><span class="line">            j = i - <span class="number">1</span></span><br><span class="line">            nums[<span class="number">0</span>] = nums[i]</span><br><span class="line">            <span class="keyword">while</span> nums[<span class="number">0</span>] &lt; nums[j]:</span><br><span class="line">                nums[j + <span class="number">1</span>] = nums[j]</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line">            nums[j + <span class="number">1</span>] = nums[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> nums[<span class="number">1</span>:]</span><br></pre></td></tr></table></figure>
+<h3 id="折半优化"><a href="#折半优化" class="headerlink" title="折半优化"></a>折半优化</h3><p>前半部分由于已经排序，故可通过二分查找找出插入位置</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 插入排序折半优化</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binaryInsertionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(nums)):</span><br><span class="line">        <span class="keyword">if</span> nums[i] &lt; nums[i - <span class="number">1</span>]:</span><br><span class="line">            aim = nums[i]</span><br><span class="line">            s,m,e = <span class="number">0</span>, <span class="number">0</span>, i - <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> s &lt; e:</span><br><span class="line">                m = s + e &gt;&gt; <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> aim &gt; nums[m]:</span><br><span class="line">                    s = m + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    e = m</span><br><span class="line">            j = i</span><br><span class="line">            <span class="keyword">while</span> j &gt; e:</span><br><span class="line">                nums[j] = nums[j - <span class="number">1</span>]</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line">            nums[e] = aim</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<h2 id="归并排序（Merge-Sort）"><a href="#归并排序（Merge-Sort）" class="headerlink" title="归并排序（Merge Sort）"></a>归并排序（Merge Sort）</h2><h3 id="归并排序思路"><a href="#归并排序思路" class="headerlink" title="归并排序思路"></a>归并排序思路</h3><p>归并排序是一种分治算法。<br>其思想是将原始数组切分成较小的数组，直到每个小数组只有一个元素，接着将小数组归并成有序的较大的数组，最后变成一个排序完成的大数组。<br>归并排序中，归是指递归，并即合并<br><strong>递归进行拆分，合并进行排序</strong>（两个有序数组合为新的有序数组）<br>归并排序与快排最大的不同在于<strong>重合并不重划分</strong>，归并需要合并两个有序数列，在划分时，无脑取中位即可。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 归并排序</span></span><br><span class="line"><span class="comment"># 归并排序的主要思想是分治</span></span><br><span class="line"><span class="comment"># 将n个元素从中间切开，分成两部分。（左右可能长度差1）</span></span><br><span class="line"><span class="comment"># 递归分解，直到所有部分的元素个数都为1</span></span><br><span class="line"><span class="comment"># 从最底层开始逐步向上合并两个排好序的数列</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 并</span></span><br><span class="line"><span class="comment"># 合并两个有序数组为新的有序数组</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeSorted</span><span class="params">(nums1, nums2)</span>:</span></span><br><span class="line">    nums = []</span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    l = len(nums2)</span><br><span class="line">    <span class="keyword">while</span> i &lt; len(nums1):</span><br><span class="line">        <span class="keyword">if</span> nums1[i] &lt;= nums2[j]: <span class="comment">#判定条件为 nums1[i] &lt; nums2[j]时不稳定</span></span><br><span class="line">            nums.append(nums1[i])</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            nums.append(nums2[j])</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> (j == l):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> nums + nums1[i:] + nums2[j:]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 归</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">recursionMergeSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    l = len(nums)</span><br><span class="line">    <span class="keyword">if</span> l &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> nums</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 整除</span></span><br><span class="line">        m = l // <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> mergeSorted(recursionMergeSort(nums[:m]), recursionMergeSort(nums[m:]))</span><br></pre></td></tr></table></figure>
+<p>mergeSorted 方法里面的 <code>nums1[i] &lt;= nums2[j]</code> ，保证了值相同的元素，在合并前后的先后顺序不变。归并排序是一种稳定的排序方法</p>
+<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p>如何将两个有序数组合并成一个新的有序数组?<br>轮番比较两个数列的最低位，直到一方全部比较完毕</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mergeSorted</span><span class="params">(nums1, nums2)</span>:</span></span><br><span class="line">    nums = []</span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    l = len(nums2)</span><br><span class="line">    <span class="keyword">while</span> i &lt; len(nums1):</span><br><span class="line">        <span class="keyword">if</span> nums1[i] &lt; nums2[j]:</span><br><span class="line">            nums.append(nums1[i])</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            nums.append(nums2[j])</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> (j == l):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> nums + nums1[i:] + nums2[j:]</span><br></pre></td></tr></table></figure>
+<p>由于合并函数需要另开内存空间存储新的数组，归并排序不是原地排序算法。</p>
+<h3 id="时间复杂度分析-1"><a href="#时间复杂度分析-1" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>递归中的时间复杂度为 logn，合并数组最多循环 n 次<br>归并排序的时间复杂度为 O(nlogn)</p>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h3 id="快排思路"><a href="#快排思路" class="headerlink" title="快排思路"></a>快排思路</h3><p>采用分治的思想，选取一个值为基准值，假设其放在正确顺序位置 pos，将比其小的放在其前面，比其大的放在其后面，从 pos 处将数列砍成两半，对子序列递归执行前述操作<br><strong>递归进行拆分，双指针进行排序</strong><br>快排<strong>重划分，不需要合并</strong>，在划分时，可以随意选择一个值，但选值得大小将影响排序的效率<br>通过<strong>双指针找到选择值在数列中的正确位置</strong></p>
+<ul>
+<li>取中位</li>
+</ul>
+<p>取中位，在将中位交换到对应位置时，对比取边界，需要做比较多的处理，容易出错</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span><span class="params">(nums, start, end)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> end - start &lt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="comment"># m可取数列中任意数，此处取中位</span></span><br><span class="line">    s, m, e = start, start + end &gt;&gt; <span class="number">1</span>, end</span><br><span class="line">        <span class="comment"># 通过双指针找到nums[m]正确位置</span></span><br><span class="line">    <span class="keyword">while</span> s &lt;= e:</span><br><span class="line">        <span class="comment"># 取值判定加等号，防止nums[m]值被交换</span></span><br><span class="line">        <span class="keyword">while</span> s &lt;= e <span class="keyword">and</span>  nums[s] &lt;= nums[m]:</span><br><span class="line">            s += <span class="number">1</span></span><br><span class="line">                <span class="comment"># 取值判定加等号，防止nums[m]值被交换，针对中位取值</span></span><br><span class="line">        <span class="keyword">while</span> s &lt;= e <span class="keyword">and</span> nums[e] &gt;= nums[m]:</span><br><span class="line">            e -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> s &lt; e:</span><br><span class="line">            nums[s], nums[e] = nums[e], nums[s]</span><br><span class="line">        <span class="comment"># 通过交换将nums[m]放在正确的位置</span></span><br><span class="line">    <span class="keyword">if</span> m &gt; s:</span><br><span class="line">        nums[s], nums[m] = nums[m], nums[s]</span><br><span class="line">        <span class="comment"># 移动位置，缩减nums[m]位置，防止某些情况死循环（如所有值一致）</span></span><br><span class="line">        s += <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        nums[e], nums[m] = nums[m], nums[e]</span><br><span class="line">        e -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> start &lt; e:</span><br><span class="line">        quickSort(nums, start, e)</span><br><span class="line">    <span class="keyword">if</span> s &lt; end:</span><br><span class="line">        quickSort(nums, s, end)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>取边界</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span><span class="params">(nums, start, end)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> end - start &lt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    s, m, e = start + <span class="number">1</span>, start, end <span class="comment"># 选取第一个值为基准值</span></span><br><span class="line">    <span class="keyword">while</span> s &lt;= e:</span><br><span class="line">        <span class="keyword">while</span> s &lt;= e <span class="keyword">and</span>  nums[s] &lt; nums[m]: <span class="comment"># 找出左边以一个比基准大的数的位置</span></span><br><span class="line">            s += <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> s &lt;= e <span class="keyword">and</span> nums[e] &gt;= nums[m]: <span class="comment"># 找出右边以一个比基准小的数的位置</span></span><br><span class="line">            e -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> s &lt; e: <span class="comment"># 交换双方位置，并进入中间尚未比较位置继续对比交换</span></span><br><span class="line">            nums[s], nums[e] = nums[e], nums[s]</span><br><span class="line"></span><br><span class="line">    nums[e], nums[m] = nums[m], nums[e]</span><br><span class="line">    <span class="keyword">if</span> start &lt; e:</span><br><span class="line">        quickSort(nums, start, e - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> s &lt; end:</span><br><span class="line">        quickSort(nums, s, end)</span><br></pre></td></tr></table></figure>
+<h3 id="选值优化"><a href="#选值优化" class="headerlink" title="选值优化"></a>选值优化</h3><ul>
+<li>随机选值<br>基准值随机地选取，而不是每次都取第一个数。这样就不会受正序或逆序的数组的干扰</li>
+<li>三数取中<br>前中后选三个值选取三数的中位数，以降低取到最大或最小值的概率。三数取中时，比较的同时应将三个元素按中间，小，大的顺序重新排好位置</li>
+</ul>
+<h3 id="多路快排"><a href="#多路快排" class="headerlink" title="多路快排"></a>多路快排</h3><p>在遍历数列时选用指针的数量</p>
+<ul>
+<li>单路<br><del>基准值 base 左边的都比 base 小，而 base 右边的都大于等于 base。等于 base 的这些会聚集到右侧(或者稍微改改大小关系就会聚集到左侧)。总之就会聚集到一边。这样在数组中重复数字很多的时候，就又会导致两边子递归规模差距悬殊的情况</del></li>
+<li>双路<br>上述代码采用的就是双路</li>
+<li>三路<br>对于大于小于等于分别选用一个指针<br>在当前值小于目标值时，s 与 c 齐头并进，直到等于出现时，s 停留在第一个相等的位置，c 开始往后移动，通过 c 做中介来交换 s 与 e 位置的值</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quickSort</span><span class="params">(nums, start, end)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> end - start &lt; <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    s, c, m, e = start + <span class="number">1</span>, start + <span class="number">1</span>, start, end</span><br><span class="line">    <span class="keyword">while</span> c &lt;= e:</span><br><span class="line">        <span class="keyword">if</span> nums[c] == nums[m]:</span><br><span class="line">            c += <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> nums[c] &lt; nums[m]:</span><br><span class="line">            nums[s], nums[c] = nums[c], nums[s]</span><br><span class="line">            s += <span class="number">1</span></span><br><span class="line">            c += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            nums[e], nums[c] = nums[c], nums[e]</span><br><span class="line">            e -= <span class="number">1</span></span><br><span class="line">    nums[e], nums[m] = nums[m], nums[e]</span><br><span class="line">    <span class="keyword">if</span> start &lt; e:</span><br><span class="line">        quickSort(nums, start, e - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> s &lt; end:</span><br><span class="line">        quickSort(nums, s, end)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>时间复杂度分析<br>待排序为正序或逆序，取值也为最值，这样每次分割后的子序列一个之比上一次序列少一个元素,最终 O(n²)<br>平均为 O(nlogn)</li>
+</ul>
+<h2 id="希尔排序（缩小增量排序）"><a href="#希尔排序（缩小增量排序）" class="headerlink" title="希尔排序（缩小增量排序）"></a>希尔排序（缩小增量排序）</h2><h3 id="关键思路"><a href="#关键思路" class="headerlink" title="关键思路"></a>关键思路</h3><p>希尔排序又叫<strong>缩小增量排序</strong><br>希尔排序是插入排序的优化版本，在插入排序中，将数列分为有序与无序部分，若无序部分的头部每次都需要插入到有序部分的头部，那么最终的总复杂度会到 n²<br>希尔排序将数列每一轮分为多个子数列，对每个子数列进行插入排序，直至整体基本有序时（增量为 1 前），再对全体记录进行插入排序（增量为 1）起来就容易了(由于最后一次基本有序无须多次移位或交换)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shellSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    span = len(nums)</span><br><span class="line">    <span class="keyword">while</span> span &gt; <span class="number">1</span>:</span><br><span class="line">        span //= <span class="number">2</span>  <span class="comment"># span取数跨度，先将整个待排序的记录序列分割成为若干子序列，每轮缩小取数跨度，子数列长度</span></span><br><span class="line">        insertionSort(nums, span)</span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insertionSort</span><span class="params">(nums, span)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> pos <span class="keyword">in</span> range(span, len(nums), <span class="number">1</span>):  <span class="comment"># 由span位置开始，到len(nums) - 1位置结束， 循环步长为1</span></span><br><span class="line">        <span class="keyword">if</span> nums[pos] &lt; nums[pos - span]:</span><br><span class="line">            pre = pos - span</span><br><span class="line">            aim = nums[pos]</span><br><span class="line">            <span class="keyword">while</span> aim &lt; nums[pre] <span class="keyword">and</span> pre &gt; <span class="number">-1</span>:</span><br><span class="line">                nums[pos] = nums[pre]  <span class="comment"># 数后移</span></span><br><span class="line">                pre -= span</span><br><span class="line">            nums[pre + span] = aim</span><br></pre></td></tr></table></figure>
+<h3 id="时间复杂度-2"><a href="#时间复杂度-2" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>希尔排序的时间复杂度最佳情况：O(n logn)。 最差情况：O(n (log(n))²)。 平均情况：取决于间隙序列</p>
+<h2 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h2><h3 id="关键思路-1"><a href="#关键思路-1" class="headerlink" title="关键思路"></a>关键思路</h3><p>对于一个自然数数组 A，选取数组中的最大值 m，然后初始化一个长度为 m + 1 的备用数组 B。<br>对于数组 B<br>B 的索引对应数组 A 的值<br>B 的值对应数组 A 中相应值的个数<br>C 的值记录 A 顺序后前面出现值的个数<br>例如</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A = [<span class="number">3</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>]</span><br><span class="line"><span class="comment"># B = [1, 0, 3, 2, 0, 0, 0, 0, 0, 1]</span></span><br><span class="line"><span class="comment"># C = [1, 1, 4, 6, 6, 6, 6, 6, 6, 7]</span></span><br><span class="line"><span class="comment"># 以3为例</span></span><br><span class="line"><span class="comment"># B: 3有两个</span></span><br><span class="line"><span class="comment"># C: 如果有3，最后一个3位于第6位，即索引为5</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">countingSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    counts = [<span class="number">0</span>] * (max(nums) + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">        counts[i] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    accumulation = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> index, value <span class="keyword">in</span> enumerate(counts):</span><br><span class="line">        accumulation += value</span><br><span class="line">        counts[index] = accumulation</span><br><span class="line"></span><br><span class="line">    rets = [<span class="number">0</span>] * len(nums)</span><br><span class="line">    <span class="keyword">for</span> v <span class="keyword">in</span> nums:</span><br><span class="line">        rets[counts[v] - <span class="number">1</span>] = v</span><br><span class="line">        counts[v] -= <span class="number">1</span>  <span class="comment"># 下一个相同值索引减1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rets</span><br></pre></td></tr></table></figure>
+<h3 id="时间复杂度分析-2"><a href="#时间复杂度分析-2" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>计数排序利用了空间换时间，对于不同的实现（比如最大值判定循环等），其内部始终是遍历两个定长的数组。<br>O(max)+O(len)+… = O(max+len)<br>即其时间复杂度为 O(n + k)</p>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><h3 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h3><p>二叉树是指最多只存在两个子节点的树形数据结构。<br>完全二叉树是指除了最后一层的叶子节点，每一层节点都存在，且最后一层的叶子节点由左起依次排列不能留空。</p>
+<p>数组可以表示一个典型的完全二叉树。<br>i（索引） 为 0 的节点为根节点。<br>所有左子节点的索引为 <code>2i+1</code>，右子节点的索引为 <code>2i+2</code>。<br>同时，可以通过<code>(i-1)/2</code> 获取其父节点的值</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆是一颗完全二叉树，且对于所有节点，都要满足父节点的值大于等于（或小于等于）子节点的值。<br>父节点大于等于子节点时，称为大顶堆<br>父节点小于等于子节点时，称为小顶堆</p>
+<h3 id="构造堆"><a href="#构造堆" class="headerlink" title="构造堆"></a>构造堆</h3><p>当跟节点的左子树和右子树已经为堆时，加入父节点构造堆。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 当跟节点的左子树和右子树已经为堆时，加入父节点构造堆</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapify</span><span class="params">(nums, pos)</span>:</span></span><br><span class="line">    length = len(nums)</span><br><span class="line">    mark = pos</span><br><span class="line">    left = <span class="number">2</span> * pos + <span class="number">1</span></span><br><span class="line">    right = <span class="number">2</span> * pos + <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(left &lt; length <span class="keyword">and</span> nums[pos] &lt; nums[left]):</span><br><span class="line">        pos = left</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(right &lt; length <span class="keyword">and</span> nums[pos] &lt; nums[right]):</span><br><span class="line">        pos = right</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(mark != pos):</span><br><span class="line">        nums[mark], nums[pos] = nums[pos], nums[mark]</span><br><span class="line">        heapify(nums, pos) <span class="comment"># 交换位置后，子树需要重新构造堆</span></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<p>对于任意完全二叉树（数组）构造堆</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 对于任意完全二叉树（数组）构造堆</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapifyArr</span><span class="params">(nums)</span>:</span></span><br><span class="line">    start = (len(nums) - <span class="number">1</span>) // <span class="number">2</span> <span class="comment"># 大于此索引的其他节点是叶子节点</span></span><br><span class="line">    <span class="keyword">while</span> (start &gt; <span class="number">-1</span>):</span><br><span class="line">        heapify(nums, start) <span class="comment">#所有非叶子节点，由下到上，从右到左依次遍历构造堆</span></span><br><span class="line">        start -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>对于任意数组，当调用上述方法构造堆后，可得其最值位于根节点（索引为 0）<br>利用该特性，堆排序思路如下</p>
+<ol>
+<li>将数组构造成堆</li>
+<li>交换堆的首节点与尾节点，移除此时处于最后的根节点（或记录偏移位置）。</li>
+<li>对于剩下的完全二叉树，根节点的左右子树仍为堆，采用 heapify 来将剩下的完全二叉树构造成堆。</li>
+<li>重复 2、3 步，直到移除完所有节点</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 堆排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    pos = len(nums) - <span class="number">1</span></span><br><span class="line">    heapifyArr(nums)</span><br><span class="line">    ret = []</span><br><span class="line">    arr = nums</span><br><span class="line">    <span class="keyword">while</span> pos &gt; <span class="number">-1</span>:</span><br><span class="line">        arr = heapify(arr[:pos + <span class="number">1</span>], <span class="number">0</span>)</span><br><span class="line">        ret.append(arr[<span class="number">0</span>])</span><br><span class="line">        arr[<span class="number">0</span>], arr[pos] = arr[pos], arr[<span class="number">0</span>]</span><br><span class="line">        pos -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<p>上述排序引入了多余的数组来最后存储与中间存储相关结果，通过对偏移量的记录，所有操作可以源数组进行（原地排序）<br>进一步优化</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 当跟节点的左子树和右子树已经为堆时，加入父节点构造堆</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapify</span><span class="params">(nums, offset, pos)</span>:</span></span><br><span class="line">    <span class="comment"># length = len(nums)</span></span><br><span class="line">    mark = pos</span><br><span class="line">    left = <span class="number">2</span> * pos + <span class="number">1</span></span><br><span class="line">    right = <span class="number">2</span> * pos + <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(left &lt; offset <span class="keyword">and</span> nums[pos] &lt; nums[left]):</span><br><span class="line">        pos = left</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(right &lt; offset <span class="keyword">and</span> nums[pos] &lt; nums[right]):</span><br><span class="line">        pos = right</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(mark != pos):</span><br><span class="line">        nums[mark], nums[pos] = nums[pos], nums[mark]</span><br><span class="line">        heapify(nums, offset, pos)  <span class="comment"># 交换位置后，子树需要重新构造堆</span></span><br><span class="line">    <span class="comment"># return nums</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于任意完全二叉树（数组）构造堆</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapifyArr</span><span class="params">(nums)</span>:</span></span><br><span class="line">    start = (len(nums) - <span class="number">1</span>) // <span class="number">2</span>  <span class="comment"># 大于此索引的其他节点是叶子节点</span></span><br><span class="line">    <span class="keyword">while</span> (start &gt; <span class="number">-1</span>):</span><br><span class="line">        heapify(nums, len(nums), start)  <span class="comment"># 所有非叶子节点，由下到上，从右到左依次遍历构造堆</span></span><br><span class="line">        start -= <span class="number">1</span></span><br><span class="line">    <span class="comment"># return nums</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 堆排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heapSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    offset = len(nums) - <span class="number">1</span></span><br><span class="line">    heapifyArr(nums)</span><br><span class="line">    <span class="comment"># ret = []</span></span><br><span class="line">    <span class="comment"># arr = nums</span></span><br><span class="line">    <span class="keyword">while</span> offset &gt; <span class="number">-1</span>:</span><br><span class="line">        heapify(nums, offset, <span class="number">0</span>)</span><br><span class="line">        nums[<span class="number">0</span>], nums[offset] = nums[offset], nums[<span class="number">0</span>]</span><br><span class="line">        offset -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line"></span><br><span class="line">nums = [<span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">2</span>]</span><br><span class="line"><span class="comment"># nums = [1, 12, 9, 5, 6, 10]</span></span><br><span class="line">heapSort(nums)</span><br><span class="line">print(nums)</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/36075856" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/36075856</a></p>
+</blockquote>
+<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<blockquote>
+<p>[CC BY - NC - SA 3.0](<a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Git常见操作.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Git常见操作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Webpack中DllPlugin使用.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Webpack中DllPlugin使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#选择排序"><span class="nav-number">1.</span> <span class="nav-text">选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选排的思想"><span class="nav-number">1.1.</span> <span class="nav-text">选排的思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冒泡排序"><span class="nav-number">2.</span> <span class="nav-text">冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本思路"><span class="nav-number">2.1.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度-1"><span class="nav-number">2.2.</span> <span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换判定优化"><span class="nav-number">2.3.</span> <span class="nav-text">交换判定优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入排序"><span class="nav-number">3.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插排的思想"><span class="nav-number">3.1.</span> <span class="nav-text">插排的思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">3.2.</span> <span class="nav-text">时间复杂度分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哨兵优化"><span class="nav-number">3.3.</span> <span class="nav-text">哨兵优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折半优化"><span class="nav-number">3.4.</span> <span class="nav-text">折半优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归并排序（Merge-Sort）"><span class="nav-number">4.</span> <span class="nav-text">归并排序（Merge Sort）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#归并排序思路"><span class="nav-number">4.1.</span> <span class="nav-text">归并排序思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并"><span class="nav-number">4.2.</span> <span class="nav-text">合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度分析-1"><span class="nav-number">4.3.</span> <span class="nav-text">时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序"><span class="nav-number">5.</span> <span class="nav-text">快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#快排思路"><span class="nav-number">5.1.</span> <span class="nav-text">快排思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选值优化"><span class="nav-number">5.2.</span> <span class="nav-text">选值优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多路快排"><span class="nav-number">5.3.</span> <span class="nav-text">多路快排</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#希尔排序（缩小增量排序）"><span class="nav-number">6.</span> <span class="nav-text">希尔排序（缩小增量排序）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关键思路"><span class="nav-number">6.1.</span> <span class="nav-text">关键思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度-2"><span class="nav-number">6.2.</span> <span class="nav-text">时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计数排序"><span class="nav-number">7.</span> <span class="nav-text">计数排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关键思路-1"><span class="nav-number">7.1.</span> <span class="nav-text">关键思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度分析-2"><span class="nav-number">7.2.</span> <span class="nav-text">时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆排序"><span class="nav-number">8.</span> <span class="nav-text">堆排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#完全二叉树"><span class="nav-number">8.1.</span> <span class="nav-text">完全二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆"><span class="nav-number">8.2.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造堆"><span class="nav-number">8.3.</span> <span class="nav-text">构造堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序"><span class="nav-number">8.4.</span> <span class="nav-text">排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">9.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">9.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">9.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">9.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2022 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2022 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
