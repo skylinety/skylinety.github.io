@@ -319,37 +319,6 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-鹧鸪天·九月西湖雨入情"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-HTTPS加密方式"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -414,7 +383,7 @@ HTTPS超文本传输......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-Husky使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Brook服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -422,7 +391,7 @@ HTTPS超文本传输......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Husky使用.html">Husky使用</a>
+      <a class="article-title" href="/Brook服务搭建与访问.html">Brook服务搭建与访问</a>
     </h1>
   
 
@@ -431,7 +400,83 @@ HTTPS超文本传输......  -->
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/APPs/">APPs</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Brook-服务搭建与访问"><a href="#Brook-服务搭建与访问" class="headerlink" title="Brook 服务搭建与访问"></a>Brook 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#brook-服务搭建与访问">Brook 服务搭建与访问</a><ul>
+<li><a href="#server-配置">Server 配置</a><ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#后台运行">后台运行</a></li>
+</ul>
+</li>
+<li><a href="#client">client</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Server-配置"><a href="#Server-配置" class="headerlink" title="Server 配置"></a>Server 配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brook</span><br><span class="line">chmod +x /usr/bin/brook</span><br><span class="line">brook server --listen :9999 --password hello</span><br></pre></td></tr></table></figure>
+<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/brook.service</span><br></pre></td></tr></table></figure>
+<p>输入如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=brook vpn</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :2000 --password mima</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>要开启多个服务，只需要创建多个 service 文件监听不同端口即可。</p>
+<p>重置守护进程服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start brook</span><br></pre></td></tr></table></figure>
+<p>检查服务是否开启成功，查看 2000 端口是否开启服务即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 2000</span><br></pre></td></tr></table></figure>
+<p>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable brook</span><br></pre></td></tr></table></figure>
+<p>即可。</p>
+<h2 id="client"><a href="#client" class="headerlink" title="client"></a>client</h2><p>在如下地址下载客户端界面：<br><a href="https://txthinking.github.io/brook/#/install-gui-client" target="_blank" rel="noopener">https://txthinking.github.io/brook/#/install-gui-client</a><br>下载后连接成功如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Brook%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20220118111315.png" alt="Brook服务搭建与访问20220118111315"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN1/">VPN1</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Vue基础使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Vue基础使用.html">Vue基础使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
     </a>
 
 
@@ -447,17 +492,199 @@ HTTPS超文本传输......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#husky-使用配置">Husky 使用配置</a><ul>
-<li><a href="#husky-简述">husky 简述</a></li>
-<li><a href="#v5">V5+</a></li>
-<li><a href="#v4">V4</a></li>
+<li><a href="#transition">transition</a><ul>
+<li><a href="#基本使用">基本使用</a></li>
+<li><a href="#使用限制">使用限制</a></li>
 </ul>
 </li>
-<li><a href="#husky-配置更新">Husky 配置更新</a><ul>
-<li><a href="#git-hooks-说明">git hooks 说明</a></li>
-<li><a href="#v4-工作原理">V4 工作原理</a></li>
-<li><a href="#v5-原理">V5+ 原理</a></li>
-<li><a href="#后续问题">后续问题</a></li>
+<li><a href="#设定元素背景">设定元素背景</a></li>
+<li><a href="#vue-router-model">Vue Router model</a></li>
+<li><a href="#img-图片错误默认处理">img 图片错误默认处理</a></li>
+<li><a href="#extend">extend</a><ul>
+<li><a href="#获取vue-组件的构造函数">获取.vue 组件的构造函数</a></li>
+<li><a href="#使用示例">使用示例</a></li>
+<li><a href="#无法挂载错误">无法挂载错误</a></li>
+</ul>
+</li>
+<li><a href="#mixin">mixin</a><ul>
+<li><a href="#混入规则">混入规则</a></li>
+</ul>
+</li>
+<li><a href="#组件挂载顺序">组件挂载顺序</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#总结">总结</a></li>
+</ul>
+</li>
+<li><a href="#computed">computed</a><ul>
+<li><a href="#简单说明">简单说明</a></li>
+<li><a href="#setter">setter</a></li>
+</ul>
+</li>
+<li><a href="#watch">$watch</a><ul>
+<li><a href="#用法">用法</a></li>
+<li><a href="#注意">注意</a></li>
+<li><a href="#返回值">返回值</a></li>
+<li><a href="#深度监听">深度监听</a></li>
+</ul>
+</li>
+<li><a href="#资源引用">资源引用</a></li>
+<li><a href="#refs-使用">refs 使用</a></li>
+<li><a href="#动态组件">动态组件</a></li>
+<li><a href="#attrs-与listeners">\$attrs 与\$listeners</a></li>
+<li><a href="#生命周期函数">生命周期函数</a><ul>
+<li><a href="#监听">监听</a></li>
+</ul>
+</li>
+<li><a href="#vueobservable">Vue.observable</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>将 transition name 命名后书写对应的类来自动生成的对应的类</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transition</span> <span class="attr">name</span>=<span class="string">"fade"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"show"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.fade-enter-active</span>,</span></span><br><span class="line"><span class="css">  <span class="selector-class">.fade-leave-active</span> &#123;</span></span><br><span class="line">    transition: width 3s, opacity 1s;</span><br><span class="line">    width: 100%;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="css">  <span class="selector-class">.fade-enter</span>,</span></span><br><span class="line"><span class="css">  <span class="selector-class">.fade-leave-to</span> &#123;</span></span><br><span class="line">    width: 0;</span><br><span class="line">    display: none;</span><br><span class="line">    opacity: 0;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用限制"><a href="#使用限制" class="headerlink" title="使用限制"></a>使用限制</h3><p>transition 仅限用于如下组件上</p>
+<ul>
+<li>条件渲染 (使用 v-if)</li>
+<li>条件展示 (使用 v-show)</li>
+<li>动态组件</li>
+<li>组件根节点</li>
+</ul>
+<p>对于 v-for 使用不会有任何效果， 需要改为使用 <code>&lt;transition-group&gt;</code><br><code>&lt;transition-group&gt;</code> 元素作为多个元素/组件的过渡效果</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transition-group</span> <span class="attr">name</span>=<span class="string">"fade"</span> <span class="attr">tag</span>=<span class="string">"div"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">"(item, index) in sources"</span> <span class="attr">:key</span>=<span class="string">"index"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;item.skyline&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">transition-group</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当使用 v-for 并对 key 值进行 index 绑定，会出现如下警告</p>
+<blockquote>
+<p>Do not use v-for index as key on <code>&lt;transition-group&gt;</code> children, this is the same as not using keys.</p>
+</blockquote>
+<p>处理方式如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">:key=<span class="string">"index + 0"</span></span><br><span class="line"><span class="comment">//或使用 :key="item"</span></span><br></pre></td></tr></table></figure>
+<h2 id="设定元素背景"><a href="#设定元素背景" class="headerlink" title="设定元素背景"></a>设定元素背景</h2><p>在 Vue 文件中，设定元素的样式可在 CSS 中或 使用JS对象进行。<br>涉及到背景时，如下所示：<br>CSS</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">background-image: url('~@/assets/imgs/img_bg.png');</span><br></pre></td></tr></table></figure>
+<p>JS</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">:style=<span class="string">"&#123;</span></span><br><span class="line"><span class="string">  width: '100%',</span></span><br><span class="line"><span class="string">  height: '100%',</span></span><br><span class="line"><span class="string">  backgroundImage: 'url(' + require('@/assets/imgs/img_bg.jpg') + ')'</span></span><br><span class="line"><span class="string">  // background: `center no-repeat url('@/assets/imgs/img_bg.jpg') ` //或使用此方式，注意url中的引号</span></span><br><span class="line"><span class="string">&#125;"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Vue-Router-model"><a href="#Vue-Router-model" class="headerlink" title="Vue Router model"></a>Vue Router model</h2><p>Vue 有两种路由模式:</p>
+<ul>
+<li>Hash</li>
+<li>History</li>
+</ul>
+<p>默认情况下使用 Hash 模式。<br>哈希模式利用 URL Hash 保证单页系统不进行页面重载。<br>但是，传统 URL 的 Hash 中即常见的<code>site#thing</code>是来定位页面内容的，<br>使用<code>site/thing</code>来跳转页面<br>Hash 模式虽然保证了页面不跳转，但是’#’的出现破坏了传统规则。<br>在一些项目中，会使用 History 模式。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  mode: <span class="string">'history'</span>,</span><br><span class="line">  routes: [...]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>History 模式通过 history.pushState 防止路由重载。<br>由于单页问题，History 在对应路由在服务器中位置并没有 HTML 入口文件，<br>这需要我们进行额外的服务配置。<br>若不进行配置，刷新页面会报错。<br>Nginx 配置如下</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其余服务端配置参考<br><a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations</a></p>
+<h2 id="img-图片错误默认处理"><a href="#img-图片错误默认处理" class="headerlink" title="img 图片错误默认处理"></a>img 图片错误默认处理</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;img</span><br><span class="line">    width=<span class="string">"98"</span></span><br><span class="line">    height=<span class="string">"112"</span></span><br><span class="line">    :src=<span class="string">"m.imgAddr || '~@img/suspect.png'"</span></span><br><span class="line">    @error=<span class="string">"slotimg"</span></span><br><span class="line">    alt</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> defaultImg = <span class="built_in">require</span>(<span class="string">"@img/suspect.png"</span>);</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">    slotimg(event) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"HotFocus.vue第211行:::err img"</span>);</span><br><span class="line">      <span class="keyword">let</span> img = event.srcElement;</span><br><span class="line">      img.src = defaultImg;</span><br><span class="line">      img.onerror = <span class="literal">null</span>; <span class="comment">//防止闪图</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>html 原生是 οnerrοr 来监听图片渲染错误事件</p>
+<h2 id="extend"><a href="#extend" class="headerlink" title="extend"></a>extend</h2><h3 id="获取-vue-组件的构造函数"><a href="#获取-vue-组件的构造函数" class="headerlink" title="获取.vue 组件的构造函数"></a>获取.vue 组件的构造函数</h3><h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3>
+        <!-- 
+
+
+transition
+基本使用
+使用限制
+
+
+设定元素背景
+Vue Router model
+img 图片错误默认处理
+extend
+获取.vue 组件的构造函数
+使用示例
+无法挂载错误
+
+
+mixin
+混入规则
+
+
+组件挂载顺序
+简述
+总结
+
+
+computed
+简单说明
+setter
+
+
+$watch
+用法
+注意
+返回值
+深度监听
+
+
+资源引用
+refs 使用
+动态组件
+\$att......  -->
+        <p class="article-more-link">
+          <a href="/Vue基础使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shadowsocks服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shadowsocks服务搭建与访问.html">Shadowsocks服务搭建与访问</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#ss-server">SS server</a><ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#配置文件">配置文件</a></li>
+<li><a href="#开启服务">开启服务</a></li>
+<li><a href="#开机启动">开机启动</a></li>
+</ul>
+</li>
+<li><a href="#ss-client">SS client</a></li>
+<li><a href="#添加自定代理规则">添加自定代理规则</a></li>
+<li><a href="#常见问题">常见问题</a><ul>
+<li><a href="#配置完成无法访问墙外">配置完成无法访问墙外</a></li>
+<li><a href="#syn_recv">SYN_RECV</a></li>
+<li><a href="#ip或端口被封">IP或端口被封</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -468,40 +695,73 @@ HTTPS超文本传输......  -->
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="Husky-使用配置"><a href="#Husky-使用配置" class="headerlink" title="Husky 使用配置"></a>Husky 使用配置</h2><h3 id="husky-简述"><a href="#husky-简述" class="headerlink" title="husky 简述"></a>husky 简述</h3><p>husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。</p>
-<p>以代码校验为例来说明</p>
-<p>代码校验 lint-staged 相关配置如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">		<span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	...,</span><br><span class="line">	<span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>后续代码中，其余配置为 husky 相关，通过这些配置，我们在 commit 代码时，会校验代码错误与格式，校验不通过会有提示。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Husky%E4%BD%BF%E7%94%A820210924150933.png" alt="Husky使用20210924150933"></p>
-<p>Husky 在版本 5 中配置做了大变动，具体前后的配置以版本来说明。</p>
-<h3 id="V5"><a href="#V5" class="headerlink" title="V5+"></a>V5+</h3><p>yarn add husky -D</p>
-<p>安装 husky 最新包</p>
-<p>npx husky-init &amp;&amp; yarn</p>
-<p>在 package.json 会自动添加如下选项</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>汇总其他相关配置选项，如下<br><code>package.json</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"precommit"</span>: <span class="string">"lint-staged"</span>,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">    <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同时会在项目目录下自动生成 .husky 目录，包含最基础的 pre-commit bash 脚本，将 bash 脚本的默认 npm test 改为 npm run precommit 即可</p>
-<p><code>pre-commit</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">. <span class="string">"$(dirname "</span>$<span class="number">0</span><span class="string">")/_/husky.sh"</span></span><br><span class="line"></span><br><span class="line">npm run precommit</span><br></pre></td></tr></table></figure>
-<h3 id="V4"><a href="#V4" class="headerlink" title="V4"></a>V4</h3><p>yarn add <a href="mailto:husky@v4.3.8" target="_blank" rel="noopener">husky@v4.3.8</a> -D</p>
-<p>package.json</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">            ...,</span><br><span class="line">            <span class="string">"husky"</span>: <span class="string">"4.3.8"</span>,</span><br><span class="line">            <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"husky"</span>: &#123;</span><br><span class="line">        <span class="string">"hooks"</span>: &#123;</span><br><span class="line">        <span class="string">"pre-commit"</span>: <span class="string">"lint-staged"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Husky-配置更新"><a href="#Husky-配置更新" class="headerlink" title="Husky 配置更新"></a>Husky 配置更新</h2><h3 id="git-hooks-说明"><a href="#git-hooks-说明" class="headerlink" title="git hooks 说明"></a>git hooks 说明</h3>
+<h2 id="SS-server"><a href="#SS-server" class="headerlink" title="SS server"></a>SS server</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>SS server 服务端有多语言版本支持<br>此处采用 python 版本<br>首先安装 pip 包管理器</p>
+<p>Debian / Ubuntu</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br></pre></td></tr></table></figure>
+<p>CentOS</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo yum install epel-release <span class="comment"># 添加Enterprise Linux企业源</span></span><br><span class="line">sudo yum install python-pip</span><br></pre></td></tr></table></figure>
+<p>查看是否安装成功</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip --version</span><br><span class="line"><span class="comment"># pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</span></span><br></pre></td></tr></table></figure>
+<p>然后直接输入以下命令安装</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>新增配置文件<br><code>/etc/shadowsocks.json</code></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"server"</span>: <span class="string">"23.234.212.12"</span>,</span><br><span class="line">  <span class="attr">"port_password"</span>: &#123;</span><br><span class="line">    <span class="attr">"8388"</span>: <span class="string">"123"</span>,</span><br><span class="line">    <span class="attr">"8389"</span>: <span class="string">"456"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"timeout"</span>: <span class="number">300</span>,</span><br><span class="line">  <span class="attr">"method"</span>: <span class="string">"rc4-md5"</span>,</span><br><span class="line">  <span class="attr">"fast_open"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"workers"</span>: <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server</td>
+<td>vps ip 地址</td>
+</tr>
+<tr>
+<td>port_password</td>
+<td>服务端口和对应密码</td>
+</tr>
+<tr>
+<td>method</td>
+<td>加密方法</td>
+</tr>
+<tr>
+<td>workers</td>
+<td>线程数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><p>调用命令开启服务。<br>相关命令如下</p>
+<ul>
+<li>指定配置文件开启服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
+<ul>
+<li>指定配置文件重启</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d restart</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关闭服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo ssserver -d stop</span><br></pre></td></tr></table></figure>
+<h3 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h3>
         <!-- 
 
 
-Husky 使用配置
-husky 简述
-V5+
-V4
+SS server
+安装
+配置文件
+开启服务
+开机启动
 
 
-Husky 配置更新
-git hooks 说明
-V4 工作原理
-V5+ 原理
-后续问题
+SS client
+添加自定代理规则
+常见问题
+配置完成无法访问墙外
+SYN_RECV
+IP或端口被封
 
 
 BMW WARNING
@@ -512,10 +772,10 @@ Warrant
 
 
 
-Husky 使用配置husky 简述husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。
-以代码校验为例......  -->
+SS server安装SS server 服务端有多语言版本支持此处采用 python 版本首先安装 pip 包管理器
+Debian /......  -->
         <p class="article-more-link">
-          <a href="/Husky使用.html#more">阅读全文</a>
+          <a href="/Shadowsocks服务搭建与访问.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -523,7 +783,7 @@ Husky 使用配置husky 简述husky 支持所有 git 相关钩子，在对应 gi
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li></ul>
 
     </footer>
   </div>
@@ -633,6 +893,112 @@ Warrant
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂类型/">复杂类型</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-康定周边2日"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/康定周边2日.html">康定周边2日</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="康定周边-2-日"><a href="#康定周边-2-日" class="headerlink" title="康定周边 2 日"></a>康定周边 2 日</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#康定周边-2-日">康定周边 2 日</a><ul>
+<li><a href="#准备">准备</a><ul>
+<li><a href="#时间">时间</a></li>
+<li><a href="#物品清单">物品清单</a></li>
+<li><a href="#路线">路线</a></li>
+</ul>
+</li>
+<li><a href="#主要地点">主要地点</a><ul>
+<li><a href="#海螺沟">海螺沟</a></li>
+<li><a href="#折多山">折多山</a></li>
+<li><a href="#新都桥">新都桥</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。<br>周五晚出发建议在泸定留宿，直接前往磨西古镇也可，需要多一个小时车程。<br>注意 3 岁以下小朋友容易高反，带过去需要有人专职陪伴，备足氧气瓶，折多山上和去沿途有氧气卖。</p>
+<h3 id="物品清单"><a href="#物品清单" class="headerlink" title="物品清单"></a>物品清单</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">氧气瓶</span><br><span class="line">血氧仪</span><br><span class="line">防滑链（时间定）</span><br><span class="line">墨镜</span><br><span class="line">巧克力</span><br><span class="line">葡萄糖</span><br><span class="line">鸭舌帽</span><br></pre></td></tr></table></figure>
+<h3 id="路线"><a href="#路线" class="headerlink" title="路线"></a>路线</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%BA%B7%E5%AE%9A%E5%91%A8%E8%BE%B92%E6%97%A520211026104129.png" alt="康定周边2日20211026104129"><br>推荐一天去一个选框中相关地点，标红为海拔高度，连线中为不堵时两地驾车时长。<br>路线图采用 sketch 制作。<br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Life/Travel/travel.sketch" target="_blank" rel="noopener">路线图</a></p>
+<h2 id="主要地点"><a href="#主要地点" class="headerlink" title="主要地点"></a>主要地点</h2><h3 id="海螺沟"><a href="#海螺沟" class="headerlink" title="海螺沟"></a>海螺沟</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+康定周边 2 日
+
+
+康定周边 2 日
+准备
+时间
+物品清单
+路线
+
+
+主要地点
+海螺沟
+折多山
+新都桥
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+准备时间本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。周五晚出发建议在泸定留宿，直接前往磨......  -->
+        <p class="article-more-link">
+          <a href="/康定周边2日.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
     </footer>
   </div>
   
@@ -871,7 +1237,7 @@ preventEx......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-Brook服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-systemd开启后台进程"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -879,7 +1245,7 @@ preventEx......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Brook服务搭建与访问.html">Brook服务搭建与访问</a>
+      <a class="article-title" href="/systemd开启后台进程.html">systemd开启后台进程</a>
     </h1>
   
 
@@ -893,43 +1259,65 @@ preventEx......  -->
 
 
       
-    
-    <a class="article-category-link" href="/categories/APPs/">APPs</a>
-    <!--  -->
-
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Brook-服务搭建与访问"><a href="#Brook-服务搭建与访问" class="headerlink" title="Brook 服务搭建与访问"></a>Brook 服务搭建与访问</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="利用-Systemd-开启后台进程"><a href="#利用-Systemd-开启后台进程" class="headerlink" title="利用 Systemd 开启后台进程"></a>利用 Systemd 开启后台进程</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#brook-服务搭建与访问">Brook 服务搭建与访问</a><ul>
-<li><a href="#server-配置">Server 配置</a><ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#后台运行">后台运行</a></li>
+<li><a href="#利用-systemd-开启后台进程">利用 Systemd 开启后台进程</a><ul>
+<li><a href="#简介">简介</a><ul>
+<li><a href="#创建新服务">创建新服务</a></li>
+<li><a href="#开启服务">开启服务</a></li>
 </ul>
 </li>
-<li><a href="#client">client</a></li>
+<li><a href="#systemd服务操作汇总">systemd服务操作汇总</a></li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="Server-配置"><a href="#Server-配置" class="headerlink" title="Server 配置"></a>Server 配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brook</span><br><span class="line">chmod +x /usr/bin/brook</span><br><span class="line">brook server --listen :9999 --password hello</span><br></pre></td></tr></table></figure>
-<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/brook.service</span><br></pre></td></tr></table></figure>
-<p>输入如下内容：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=brook vpn</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :2000 --password mima</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>要开启多个服务，只需要创建多个 service 文件监听不同端口即可。</p>
-<p>重置守护进程服务</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。<br>systemd 提供多个命令行工具，最基本的为 systemctl<br>systemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。</p>
+<h3 id="创建新服务"><a href="#创建新服务" class="headerlink" title="创建新服务"></a>创建新服务</h3><p>创建服务文件并打开</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/foo.service</span><br></pre></td></tr></table></figure>
+<p>输入以下内容</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My custom service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :992 --password xxxx</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>[Unit]</p>
+<pre><code>提供服务基础信息
+Description 为描述信息
+After
+服务启动的前置条件
+</code></pre><p>[Service]</p>
+<pre><code>提供启动服务的相关信息
+</code></pre><p>[Install]</p>
+<pre><code>WantedBy
+定义服务被谁触发
+</code></pre><blockquote>
+<p>Defines which service triggers the custom service if enabled with systemctl enable. This is mostly used for starting the custom service on boot. In this example, foo.service uses multi-user.target, which starts foo.service when systemd loads multi-user.target on boot.</p>
+</blockquote>
+<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><p>创建该服务后，需要重载 systemd 服务文件</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start brook</span><br></pre></td></tr></table></figure>
-<p>检查服务是否开启成功，查看 2000 端口是否开启服务即可。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 2000</span><br></pre></td></tr></table></figure>
-<p>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable brook</span><br></pre></td></tr></table></figure>
-<p>即可。</p>
-<h2 id="client"><a href="#client" class="headerlink" title="client"></a>client</h2><p>在如下地址下载客户端界面：<br><a href="https://txthinking.github.io/brook/#/install-gui-client" target="_blank" rel="noopener">https://txthinking.github.io/brook/#/install-gui-client</a><br>下载后连接成功如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Brook%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20220118111315.png" alt="Brook服务搭建与访问20220118111315"></p>
+<p>开启该服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
+<p>查看该服务运行状态</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
+<h2 id="systemd服务操作汇总"><a href="#systemd服务操作汇总" class="headerlink" title="systemd服务操作汇总"></a>systemd服务操作汇总</h2><p>开启服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
+<p>关闭服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl stop foo</span><br></pre></td></tr></table></figure>
+<p>重启服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl restart foo</span><br></pre></td></tr></table></figure>
+<p>服务状态</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
+<p>开机自启动服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable foo</span><br></pre></td></tr></table></figure>
+<p>禁止开机启动</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl disable foo</span><br></pre></td></tr></table></figure>
+<p>查看是否允许开机启动</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl is-enabled foo</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -937,8 +1325,6 @@ preventEx......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN1/">VPN1</a></li></ul>
-
     </footer>
   </div>
   
@@ -1065,292 +1451,6 @@ function person(name) ......  -->
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂类型/">复杂类型</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Vue基础使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Vue基础使用.html">Vue基础使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#transition">transition</a><ul>
-<li><a href="#基本使用">基本使用</a></li>
-<li><a href="#使用限制">使用限制</a></li>
-</ul>
-</li>
-<li><a href="#设定元素背景">设定元素背景</a></li>
-<li><a href="#vue-router-model">Vue Router model</a></li>
-<li><a href="#img-图片错误默认处理">img 图片错误默认处理</a></li>
-<li><a href="#extend">extend</a><ul>
-<li><a href="#获取vue-组件的构造函数">获取.vue 组件的构造函数</a></li>
-<li><a href="#使用示例">使用示例</a></li>
-<li><a href="#无法挂载错误">无法挂载错误</a></li>
-</ul>
-</li>
-<li><a href="#mixin">mixin</a><ul>
-<li><a href="#混入规则">混入规则</a></li>
-</ul>
-</li>
-<li><a href="#组件挂载顺序">组件挂载顺序</a><ul>
-<li><a href="#简述">简述</a></li>
-<li><a href="#总结">总结</a></li>
-</ul>
-</li>
-<li><a href="#computed">computed</a><ul>
-<li><a href="#简单说明">简单说明</a></li>
-<li><a href="#setter">setter</a></li>
-</ul>
-</li>
-<li><a href="#watch">$watch</a><ul>
-<li><a href="#用法">用法</a></li>
-<li><a href="#注意">注意</a></li>
-<li><a href="#返回值">返回值</a></li>
-<li><a href="#深度监听">深度监听</a></li>
-</ul>
-</li>
-<li><a href="#资源引用">资源引用</a></li>
-<li><a href="#refs-使用">refs 使用</a></li>
-<li><a href="#动态组件">动态组件</a></li>
-<li><a href="#attrs-与listeners">\$attrs 与\$listeners</a></li>
-<li><a href="#生命周期函数">生命周期函数</a><ul>
-<li><a href="#监听">监听</a></li>
-</ul>
-</li>
-<li><a href="#vueobservable">Vue.observable</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>将 transition name 命名后书写对应的类来自动生成的对应的类</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transition</span> <span class="attr">name</span>=<span class="string">"fade"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"show"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.fade-enter-active</span>,</span></span><br><span class="line"><span class="css">  <span class="selector-class">.fade-leave-active</span> &#123;</span></span><br><span class="line">    transition: width 3s, opacity 1s;</span><br><span class="line">    width: 100%;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="css">  <span class="selector-class">.fade-enter</span>,</span></span><br><span class="line"><span class="css">  <span class="selector-class">.fade-leave-to</span> &#123;</span></span><br><span class="line">    width: 0;</span><br><span class="line">    display: none;</span><br><span class="line">    opacity: 0;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用限制"><a href="#使用限制" class="headerlink" title="使用限制"></a>使用限制</h3><p>transition 仅限用于如下组件上</p>
-<ul>
-<li>条件渲染 (使用 v-if)</li>
-<li>条件展示 (使用 v-show)</li>
-<li>动态组件</li>
-<li>组件根节点</li>
-</ul>
-<p>对于 v-for 使用不会有任何效果， 需要改为使用 <code>&lt;transition-group&gt;</code><br><code>&lt;transition-group&gt;</code> 元素作为多个元素/组件的过渡效果</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transition-group</span> <span class="attr">name</span>=<span class="string">"fade"</span> <span class="attr">tag</span>=<span class="string">"div"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">"(item, index) in sources"</span> <span class="attr">:key</span>=<span class="string">"index"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;item.skyline&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">transition-group</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>当使用 v-for 并对 key 值进行 index 绑定，会出现如下警告</p>
-<blockquote>
-<p>Do not use v-for index as key on <code>&lt;transition-group&gt;</code> children, this is the same as not using keys.</p>
-</blockquote>
-<p>处理方式如下：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">:key=<span class="string">"index + 0"</span></span><br><span class="line"><span class="comment">//或使用 :key="item"</span></span><br></pre></td></tr></table></figure>
-<h2 id="设定元素背景"><a href="#设定元素背景" class="headerlink" title="设定元素背景"></a>设定元素背景</h2><p>在 Vue 文件中，设定元素的样式可在 CSS 中或 使用JS对象进行。<br>涉及到背景时，如下所示：<br>CSS</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">background-image: url('~@/assets/imgs/img_bg.png');</span><br></pre></td></tr></table></figure>
-<p>JS</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">:style=<span class="string">"&#123;</span></span><br><span class="line"><span class="string">  width: '100%',</span></span><br><span class="line"><span class="string">  height: '100%',</span></span><br><span class="line"><span class="string">  backgroundImage: 'url(' + require('@/assets/imgs/img_bg.jpg') + ')'</span></span><br><span class="line"><span class="string">  // background: `center no-repeat url('@/assets/imgs/img_bg.jpg') ` //或使用此方式，注意url中的引号</span></span><br><span class="line"><span class="string">&#125;"</span></span><br></pre></td></tr></table></figure>
-<h2 id="Vue-Router-model"><a href="#Vue-Router-model" class="headerlink" title="Vue Router model"></a>Vue Router model</h2><p>Vue 有两种路由模式:</p>
-<ul>
-<li>Hash</li>
-<li>History</li>
-</ul>
-<p>默认情况下使用 Hash 模式。<br>哈希模式利用 URL Hash 保证单页系统不进行页面重载。<br>但是，传统 URL 的 Hash 中即常见的<code>site#thing</code>是来定位页面内容的，<br>使用<code>site/thing</code>来跳转页面<br>Hash 模式虽然保证了页面不跳转，但是’#’的出现破坏了传统规则。<br>在一些项目中，会使用 History 模式。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  mode: <span class="string">'history'</span>,</span><br><span class="line">  routes: [...]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>History 模式通过 history.pushState 防止路由重载。<br>由于单页问题，History 在对应路由在服务器中位置并没有 HTML 入口文件，<br>这需要我们进行额外的服务配置。<br>若不进行配置，刷新页面会报错。<br>Nginx 配置如下</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其余服务端配置参考<br><a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations</a></p>
-<h2 id="img-图片错误默认处理"><a href="#img-图片错误默认处理" class="headerlink" title="img 图片错误默认处理"></a>img 图片错误默认处理</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;img</span><br><span class="line">    width=<span class="string">"98"</span></span><br><span class="line">    height=<span class="string">"112"</span></span><br><span class="line">    :src=<span class="string">"m.imgAddr || '~@img/suspect.png'"</span></span><br><span class="line">    @error=<span class="string">"slotimg"</span></span><br><span class="line">    alt</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> defaultImg = <span class="built_in">require</span>(<span class="string">"@img/suspect.png"</span>);</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">    slotimg(event) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"HotFocus.vue第211行:::err img"</span>);</span><br><span class="line">      <span class="keyword">let</span> img = event.srcElement;</span><br><span class="line">      img.src = defaultImg;</span><br><span class="line">      img.onerror = <span class="literal">null</span>; <span class="comment">//防止闪图</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>html 原生是 οnerrοr 来监听图片渲染错误事件</p>
-<h2 id="extend"><a href="#extend" class="headerlink" title="extend"></a>extend</h2><h3 id="获取-vue-组件的构造函数"><a href="#获取-vue-组件的构造函数" class="headerlink" title="获取.vue 组件的构造函数"></a>获取.vue 组件的构造函数</h3><h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3>
-        <!-- 
-
-
-transition
-基本使用
-使用限制
-
-
-设定元素背景
-Vue Router model
-img 图片错误默认处理
-extend
-获取.vue 组件的构造函数
-使用示例
-无法挂载错误
-
-
-mixin
-混入规则
-
-
-组件挂载顺序
-简述
-总结
-
-
-computed
-简单说明
-setter
-
-
-$watch
-用法
-注意
-返回值
-深度监听
-
-
-资源引用
-refs 使用
-动态组件
-\$att......  -->
-        <p class="article-more-link">
-          <a href="/Vue基础使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-康定周边2日"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/康定周边2日.html">康定周边2日</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="康定周边-2-日"><a href="#康定周边-2-日" class="headerlink" title="康定周边 2 日"></a>康定周边 2 日</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#康定周边-2-日">康定周边 2 日</a><ul>
-<li><a href="#准备">准备</a><ul>
-<li><a href="#时间">时间</a></li>
-<li><a href="#物品清单">物品清单</a></li>
-<li><a href="#路线">路线</a></li>
-</ul>
-</li>
-<li><a href="#主要地点">主要地点</a><ul>
-<li><a href="#海螺沟">海螺沟</a></li>
-<li><a href="#折多山">折多山</a></li>
-<li><a href="#新都桥">新都桥</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。<br>周五晚出发建议在泸定留宿，直接前往磨西古镇也可，需要多一个小时车程。<br>注意 3 岁以下小朋友容易高反，带过去需要有人专职陪伴，备足氧气瓶，折多山上和去沿途有氧气卖。</p>
-<h3 id="物品清单"><a href="#物品清单" class="headerlink" title="物品清单"></a>物品清单</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">氧气瓶</span><br><span class="line">血氧仪</span><br><span class="line">防滑链（时间定）</span><br><span class="line">墨镜</span><br><span class="line">巧克力</span><br><span class="line">葡萄糖</span><br><span class="line">鸭舌帽</span><br></pre></td></tr></table></figure>
-<h3 id="路线"><a href="#路线" class="headerlink" title="路线"></a>路线</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%BA%B7%E5%AE%9A%E5%91%A8%E8%BE%B92%E6%97%A520211026104129.png" alt="康定周边2日20211026104129"><br>推荐一天去一个选框中相关地点，标红为海拔高度，连线中为不堵时两地驾车时长。<br>路线图采用 sketch 制作。<br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Life/Travel/travel.sketch" target="_blank" rel="noopener">路线图</a></p>
-<h2 id="主要地点"><a href="#主要地点" class="headerlink" title="主要地点"></a>主要地点</h2><h3 id="海螺沟"><a href="#海螺沟" class="headerlink" title="海螺沟"></a>海螺沟</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-康定周边 2 日
-
-
-康定周边 2 日
-准备
-时间
-物品清单
-路线
-
-
-主要地点
-海螺沟
-折多山
-新都桥
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-
-
-准备时间本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。周五晚出发建议在泸定留宿，直接前往磨......  -->
-        <p class="article-more-link">
-          <a href="/康定周边2日.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
     </footer>
   </div>
   
