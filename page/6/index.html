@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-MacOS基本操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
+      <a class="article-title" href="/MacOS基本操作.html">MacOS基本操作</a>
     </h1>
   
 
@@ -352,157 +352,75 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#firewalld1">firewalld[^1]</a><ul>
-<li><a href="#concepts">Concepts</a></li>
-<li><a href="#zones">Zones</a></li>
-<li><a href="#services">Services</a></li>
-<li><a href="#runtime">Runtime</a></li>
-<li><a href="#state">State</a></li>
-<li><a href="#port">Port</a></li>
-<li><a href="#source">Source</a></li>
+<li><a href="#macos-beta-系统更新开启">Macos Beta 系统更新开启</a></li>
+<li><a href="#网络磁盘映射">网络磁盘映射</a></li>
+<li><a href="#剪切移动">剪切（移动）</a><ul>
+<li><a href="#常规">常规</a></li>
+<li><a href="#快捷键">快捷键</a></li>
 </ul>
 </li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
+<li><a href="#直接删除文件">直接删除文件</a></li>
+<li><a href="#修改终端用户名">修改终端用户名</a></li>
+<li><a href="#启用-ssd-的-trim-支持">启用 SSD 的 TRIM 支持</a></li>
+<li><a href="#关闭-sip">关闭 SIP</a></li>
+<li><a href="#设定文件默认打开方式">设定文件默认打开方式</a><ul>
+<li><a href="#常规-1">常规</a></li>
+<li><a href="#其他方式">其他方式</a></li>
+</ul>
+</li>
+<li><a href="#打开允许未知来源-app-选项">打开允许未知来源 app 选项</a></li>
+<li><a href="#设定快捷打开程序快捷键">设定快捷打开程序快捷键</a><ul>
+<li><a href="#设置-automator-任务">设置 automator 任务</a></li>
+<li><a href="#设置程序打开快捷键">设置程序打开快捷键</a></li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="firewalld-1"><a href="#firewalld-1" class="headerlink" title="firewalld[^1]"></a>firewalld[^1]</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld 采用区域与服务的概念来控制流量的出入。</p>
-<ul>
-<li>zones</li>
-<li>services</li>
-</ul>
-<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
-<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3><p>zones 预设级别不同的防火墙策略，用户可以自定义 zones，也可以使用预设的 zones。<br>默认使用 public zone<br>根据拦截级别严格程度，预设 zones 如下</p>
-<table>
-<thead>
-<tr>
-<th>zone</th>
-<th>拦截说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>drop</td>
-<td>丢弃区，所有接入连接都会进行无消息响应拦截，只有输出连接被允许。</td>
-</tr>
-<tr>
-<td>block</td>
-<td>拦截区，接入连接都会被拦截，会响应 icmp-host-prohibited 等拦截消息，只有输出连接被允许。</td>
-</tr>
-<tr>
-<td>public</td>
-<td>公共区，用于不受信任的公共区域，仅允许自选接入连接，默认允许 ssh 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>external</td>
-<td>外部区，用于外部网络，系统充当网关角色，仅允许自选接入连接，默认允许 ssh</td>
-</tr>
-<tr>
-<td>internal</td>
-<td>内部区，用于内部网络，系统充当网关角色，仅允许自选接入连接</td>
-</tr>
-<tr>
-<td>dmz</td>
-<td>隔离区，demilitarized zone（隔离区，军事缓冲区），用于允许部分服务被外网访问，仅允许自选接入连接</td>
-</tr>
-<tr>
-<td>work</td>
-<td>工作区，用于工作网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>home</td>
-<td>家庭区，用于工作家庭网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client，mdns，samba-client 和 dhcpv6-client</td>
-</tr>
-<tr>
-<td>trusted</td>
-<td>信任区，并接受所有网络连接</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>新建防火墙区域策略</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --new-zone=memcached --permanent</span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看系统默认区</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-default-zone</span><br><span class="line"><span class="comment"># public</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>调整系统默认区</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --<span class="built_in">set</span>-default-zone=home</span><br></pre></td></tr></table></figure>
-<ul>
-<li>系统中配置的所有区</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-zones</span><br><span class="line"><span class="comment"># block dmz drop external home internal public trusted work</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br><span class="line"><span class="comment"># 上述命令会打印所有区与其详细的配置，输出内容较长</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看系统使用区</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-active-zones</span><br><span class="line"><span class="comment"># public</span></span><br><span class="line"><span class="comment">#   interfaces: eth0 eth1</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看指定区的详细配置</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-all</span><br><span class="line"><span class="comment"># public (active)</span></span><br><span class="line"><span class="comment">#   target: default</span></span><br><span class="line"><span class="comment">#   icmp-block-inversion: no</span></span><br><span class="line"><span class="comment">#   interfaces: eth0 eth1</span></span><br><span class="line"><span class="comment">#   sources:</span></span><br><span class="line"><span class="comment">#   services: ssh dhcpv6-client</span></span><br><span class="line"><span class="comment">#   ports:</span></span><br><span class="line"><span class="comment">#   protocols:</span></span><br><span class="line"><span class="comment">#   masquerade: no</span></span><br><span class="line"><span class="comment">#   forward-ports:</span></span><br><span class="line"><span class="comment">#   source-ports:</span></span><br><span class="line"><span class="comment">#   icmp-blocks:</span></span><br><span class="line"><span class="comment">#   rich rules:</span></span><br></pre></td></tr></table></figure>
-<h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p>services 在 zones 中为不同的服务预设不同的配置。<br>例如，可以为服务提供不同的端口等配置</p>
-<ul>
-<li>查看所有的服务</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --get-services</span><br><span class="line"><span class="comment"># RH-Satellite-6 RH-Satellite-6-capsule amanda-client amanda-k5-client amqp amqps... git... ssh ...dhcpv6-client</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>查看当前开放的服务</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --list-services</span><br><span class="line"><span class="comment"># dhcpv6-client ssh</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>增加开放服务</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br></pre></td></tr></table></figure>
-<ul>
-<li>移除开放的服务</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br><span class="line"><span class="comment"># 永久配置需要添加 --permanent后缀</span></span><br></pre></td></tr></table></figure>
-<p>所有服务的配置都在/usr/lib/firewalld/services 目录下<br>例如 http 服务的配置为</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">short</span>&gt;</span>WWW (HTTP)<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>HTTP is the protocol used to serve Web pages. If you plan to make your Web server publicly available, enable this option. This option is not required for viewing pages locally or developing Web pages.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"80"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>自定义服务</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/diyservice.xml</span><br></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">short</span>&gt;</span>diyservice<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">description</span>&gt;</span>Plex is a streaming media server that brings all your video, music and photo collections together and stream them to your devices at anytime and from anywhere.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"udp"</span> <span class="attr">port</span>=<span class="string">"1900"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"32400"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>重启防火墙后就可以看到该服务。</p>
-<h3 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h3>
+<h2 id="Macos-Beta-系统更新开启"><a href="#Macos-Beta-系统更新开启" class="headerlink" title="Macos Beta 系统更新开启"></a>Macos Beta 系统更新开启</h2><p>在apple beta 地址上登录<br><a href="https://beta.apple.com" target="_blank" rel="noopener">https://beta.apple.com</a></p>
+<p>在如下网站下载 <a href="https://beta.apple.com/sp/betaprogram/enroll#macos" target="_blank" rel="noopener">MacOS Public Beta Access Utility</a>工具<br>注意开启前在Time Mechine中进行系统备份<br>下载工具安装后即可开启。</p>
+<h2 id="网络磁盘映射"><a href="#网络磁盘映射" class="headerlink" title="网络磁盘映射"></a>网络磁盘映射</h2><p>在 finder 下操作 ⌘ + k<br>在弹出框中输入网络共享服务地址<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/MacOS%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211227153214.png" alt="MacOS基本操作20211227153214"><br>一般有 Samba 或 AFP 等方式共享服务<br>常见地址如下</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">afp://192.168.2.20</span><br><span class="line">smb://192.168.2.20</span><br></pre></td></tr></table></figure>
+<h2 id="剪切（移动）"><a href="#剪切（移动）" class="headerlink" title="剪切（移动）"></a>剪切（移动）</h2><h3 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h3><p>复制需要移动的文件。<br>在目标位置右击鼠标，一般出现粘贴项目选项。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211118165151.png" alt="Macos基本操作20211118165151"><br>此时按住 ⌥ 键，菜单会变为将项目移动到此处。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211118165216.png" alt="Macos基本操作20211118165216"></p>
+<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">⌘ + c</span><br><span class="line">⌘ + ⌥ + v</span><br></pre></td></tr></table></figure>
+<p>⌘ + c 复制文件<br>在目标目录 ⌘ + ⌥ + v 即可移动成功</p>
+<h2 id="直接删除文件"><a href="#直接删除文件" class="headerlink" title="直接删除文件"></a>直接删除文件</h2><p>放进垃圾桶<br>【Command】+【Backspace】/【Delete】<br>永久删除<br>【Option】+【Command】+【Backspace】/【Delete】</p>
+<h2 id="修改终端用户名"><a href="#修改终端用户名" class="headerlink" title="修改终端用户名"></a>修改终端用户名</h2><p>修改前图示</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CE77BBFF51DF4A64E8C6FA24BFEF8D2AF.jpg" alt="Macos基本操作E77BBFF51DF4A64E8C6FA24BFEF8D2AF"></p>
+<p>输入<br><code>sudo scutil --set HostName &lt;name&gt;</code><br>改后图示<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CF5C2146E34383DB6E8EE91DC7AD8EC82.jpg" alt="Macos基本操作F5C2146E34383DB6E8EE91DC7AD8EC82"></p>
+<h2 id="启用-SSD-的-TRIM-支持"><a href="#启用-SSD-的-TRIM-支持" class="headerlink" title="启用 SSD 的 TRIM 支持"></a>启用 SSD 的 TRIM 支持</h2><p>mac 更换非官方固态和默认不启动 TRIM 硬盘优化，可输入<br><code>sudo trimforce enable</code><br>打开</p>
+<h2 id="关闭-SIP"><a href="#关闭-SIP" class="headerlink" title="关闭 SIP"></a>关闭 SIP</h2><p>mac 关闭系统完整性保护 System Integrity Protection<br>重启时，出现 apple logo 时按住<br><code>⌘+R</code><br>进入恢复模式<br>点击工具中的终端<br>输入<br><code>csrutil disable</code><br>输出<br>Successfully disabled System Integrity Protection. Please restart the machine for the changes to take effect.<br>表示关闭 SIP 成功<br>开启命令为<br><code>csrutil enable</code></p>
+<h2 id="设定文件默认打开方式"><a href="#设定文件默认打开方式" class="headerlink" title="设定文件默认打开方式"></a>设定文件默认打开方式</h2><h3 id="常规-1"><a href="#常规-1" class="headerlink" title="常规"></a>常规</h3><p>按住 option 键，鼠标右击，查看菜单栏变化</p>
+<h3 id="其他方式"><a href="#其他方式" class="headerlink" title="其他方式"></a>其他方式</h3>
         <!-- 
 
 
-firewalld[^1]
-Concepts
-Zones
-Services
-Runtime
-State
-Port
-Source
+Macos Beta 系统更新开启
+网络磁盘映射
+剪切（移动）
+常规
+快捷键
 
 
-BMW WARNING
-Bulletin
-Material
-Warrant
+直接删除文件
+修改终端用户名
+启用 SSD 的 TRIM 支持
+关闭 SIP
+设定文件默认打开方式
+常规
+其他方式
+
+
+打开允许未知来源 app 选项
+设定快捷打开程序快捷键
+设置 automator 任务
+设置程序打开快捷键
 
 
 
 
-firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。
-
-zones
-services
-
-firewalld 是 CentOS......  -->
+Macos Beta 系统更新开启在apple beta 地址上登录h......  -->
         <p class="article-more-link">
-          <a href="/CentOS防火墙.html#more">阅读全文</a>
+          <a href="/MacOS基本操作.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -510,7 +428,7 @@ firewalld 是 CentOS......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
 
     </footer>
   </div>
@@ -520,7 +438,7 @@ firewalld 是 CentOS......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-VSCode相关问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-MacOS应用清单"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -528,7 +446,7 @@ firewalld 是 CentOS......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/VSCode相关问题汇总.html">VSCode相关问题汇总</a>
+      <a class="article-title" href="/MacOS应用清单.html">MacOS应用清单</a>
     </h1>
   
 
@@ -549,17 +467,221 @@ firewalld 是 CentOS......  -->
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="VSCode-相关问题汇总"><a href="#VSCode-相关问题汇总" class="headerlink" title="VSCode 相关问题汇总"></a>VSCode 相关问题汇总</h1><h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="markdown-文件-Snippets-不生效"><a href="#markdown-文件-Snippets-不生效" class="headerlink" title="markdown 文件 Snippets 不生效"></a>markdown 文件 Snippets 不生效</h3><p><strong>问题描述</strong><br>通过 File -&gt; Preferences -&gt; User Snippets -&gt; Markdown<br>写相关代码块如下<br><code>markdown.json</code></p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and</span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the</span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="attr">"JS code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cjs"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:js&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"JS code block"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"PY code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cpy"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:python&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"PY code block"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在 markdown 文件中敲击:cjs 不自动提示。<br><strong>解决方案</strong><br>尝试 CTRL + Space 强制开启。<br>在用户配置<code>setting.json</code>中添加如下配置项</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"[markdown]": &#123;</span><br><span class="line">    "editor.quickSuggestions": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="MacOS-应用清单"><a href="#MacOS-应用清单" class="headerlink" title="MacOS 应用清单"></a>MacOS 应用清单</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#macos-应用清单">MacOS 应用清单</a><ul>
+<li><a href="#开发">开发</a></li>
+<li><a href="#学习">学习</a></li>
+<li><a href="#效率">效率</a><ul>
+<li><a href="#汇总">汇总</a></li>
+<li><a href="#barrier">barrier</a></li>
+</ul>
+</li>
+<li><a href="#娱乐">娱乐</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><h2 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h2><h3 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h3><table>
+<thead>
+<tr>
+<th>APP</th>
+<th>DESC</th>
+<th>Free</th>
+<th>Web</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sharemouse</td>
+<td>跨端键鼠共用工具</td>
+<td>trial</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+<tr>
+<td>Synergy</td>
+<td>跨端键鼠共用工具</td>
+<td>false</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+<tr>
+<td>barrier</td>
+<td>基于 Synergy-core 1.9 的开源跨端键鼠共用工具</td>
+<td>true</td>
+<td><a href="https://github.com/debauchee/barrier" target="_blank" rel="noopener">https://github.com/debauchee/barrier</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="barrier"><a href="#barrier" class="headerlink" title="barrier"></a>barrier</h3><p>barrier 是一款基于 Synergy-core 1.9 的开源跨端键鼠共用工具，拥有 Synergy 基本的跨平台共享键鼠，复制粘贴等基础功能。<br>其他类似的软件还有 Sharemouse 和 Synergy。<br>Synergy 目前已闭源收费，功能上与 barrier 差距不大，<br>Synergy 与 barrier 采用主副机设定。只有主机的键鼠可共享，其他设备的键鼠不能共享试用。<br>Sharemouse 相比，所有键鼠都可共享，但是，Sharemouse 提供的免费试用版本，试用版只支持两台电脑，且两台电脑各自只能有一台内置显示器。<br>目前了解到的类似软件还有，</p>
+<ul>
+<li>Mouse without Borders</li>
+<li>Input Director</li>
+</ul>
+<p>未安装试用验证。</p>
+<h2 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h2><h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
+MacOS 应用清单
+
+
+MacOS 应用清单
+开发
+学习
+效率
+汇总
+barrier
+
+
+娱乐
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+开发学习效率汇总
+
+
+APP
+DESC
+Free
+Web
+
+
+
+
+Sharemouse
+跨端键鼠共用工具
+trial
+https......  -->
+        <p class="article-more-link">
+          <a href="/MacOS应用清单.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
       
       
       
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CSS弹性布局主轴元素设置单独对齐方式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS弹性布局主轴元素设置单独对齐方式.html">CSS弹性布局主轴元素设置单独对齐方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-07-30T07:14:56.000Z" itemprop="datePublished">2018-07-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#效果图示">效果图示</a></li>
+<li><a href="#效果实现">效果实现</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="效果图示"><a href="#效果图示" class="headerlink" title="效果图示"></a>效果图示</h2><p>灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。<br>通过设置特定属性将最后红框圈出的元素置于容器最右侧。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145752.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145752"><br>实现效果<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145350.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145350"></p>
+<h2 id="效果实现"><a href="#效果实现" class="headerlink" title="效果实现"></a>效果实现</h2><ul>
+<li>方案 1<br>为红框子元素设定如下属性</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  flex-grow: 1; //红框子项目将占据了所有剩余空间</span><br><span class="line">  display: flex; //将自身设置为flex,作为容器之后就可以单独对内部文字项目进行右对齐</span><br><span class="line">  justify-content: flex-end; // 单独对内部文字项目进行右对齐</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过浏览器检视如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617150203.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617150203"></p>
+<ul>
+<li>方案 2</li>
+</ul>
+<p>将前 3 个子元素进行一层包裹，然后调整容器的 justify-content<br><code>justify-content: space-between</code></p>
+<ul>
+<li>方案 3</li>
+</ul>
+<p>为红框子项目添加如下属性</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">margin-left</span>: <span class="selector-tag">auto</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方案 4</li>
+</ul>
+<p>为红框子项目添加如下属性</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
+        <!-- 
+
+
+效果图示
+效果实现
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+效果图示灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。通过设置特定属性将最后红框圈出的元素置于容器最右侧。
+实现效果
+效果实现
+方案 1为红框子元素设定如下属性
+
+.red &#123;  flex-grow: 1; //红框子项目将占据了所有剩余空间  displa......  -->
+        <p class="article-more-link">
+          <a href="/CSS弹性布局主轴元素设置单独对齐方式.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+
     </footer>
   </div>
   
@@ -1097,56 +1219,6 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-ES5与ES6中的argments"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES5与ES6中的argments.html">ES5与ES6中的argments</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ES5与ES6中的argments.html">http://www.skyline.show/ES5 与 ES6 中的 argments.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-CSS常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1275,7 +1347,7 @@ display 会被文档流给移除，影响页面布局，导致重排重绘，原
 <!-- Table of Contents -->
 
   
-    <article id="post-Sed命令"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES5与ES6中的argments"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1283,7 +1355,7 @@ display 会被文档流给移除，影响页面布局，导致重排重绘，原
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Sed命令.html">Sed命令</a>
+      <a class="article-title" href="/ES5与ES6中的argments.html">ES5与ES6中的argments</a>
     </h1>
   
 
@@ -1292,41 +1364,30 @@ display 会被文档流给移除，影响页面布局，导致重排重绘，原
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-22T07:14:56.000Z" itemprop="datePublished">2018-01-22</time>
+      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
     </a>
 
 
       
     
-    <a class="article-category-link" href="/categories/Linux-Unix/">Linux/Unix</a>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>流编辑器，sed用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。</p>
-<hr>
-<h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><h4 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h4><h5 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h5><p>默认情况下，在所有的标准输出都会被打印到屏幕上。 -n选项用于指定输出内容。</p>
-<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><h6 id="☞-代码"><a href="#☞-代码" class="headerlink" title="☞ 代码"></a>☞ 代码</h6><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出100到200行</span></span><br><span class="line">sed -n <span class="string">'100,200p'</span> skyline.txt</span><br><span class="line"><span class="comment"># 输出文件行数</span></span><br><span class="line">sed -n <span class="string">'$='</span> skyline.txt</span><br></pre></td></tr></table></figure>
-<h6 id="☞-说明"><a href="#☞-说明" class="headerlink" title="☞ 说明"></a>☞ 说明</h6>
-        <!-- 简介流编辑器，sed用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。
+        <blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ES5与ES6中的argments.html">http://www.skyline.show/ES5 与 ES6 中的 argments.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
 
-选项-n概述默认情况下，在所有的标准输出都会被打印到屏幕上。 -n选项用于指定输出内容。
-示例☞ 代码# 输出100到200行sed -n '100,200p' skyline.txt# 输出文件行数sed -n '$=' skyline.txt
-☞ 说明
-
-地址逗号......  -->
-        <p class="article-more-link">
-          <a href="/Sed命令.html#more">阅读全文</a>
-        </p>
       
     </div>
     <footer class="article-footer">
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>

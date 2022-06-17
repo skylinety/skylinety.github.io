@@ -3,28 +3,32 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>css中nth-child与nth-of-type | Skyline&#39;s blog</title>
+  <title>css弹性布局主轴元素设置单独对齐方式 | Skyline&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
-  <meta name="keywords" content="css总结">
+  <meta name="keywords" content="HTML&CSSCSS">
   
   
   
   
-  <meta name="description" content="不瓜，也不怎么爱吃瓜，不好好写字的程序猿不是合格的农民，所以要多爬爬东坡，多亲近方块呀">
-<meta name="keywords" content="css,总结">
+  <meta name="description" content="效果图示 效果实现 BMW WARNING Bulletin Material Warrant     效果图示灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。通过设置特定属性将最后红框圈出的元素置于容器最右侧。 实现效果 效果实现 方案 1为红框子元素设定如下属性  .red &amp;#123;  flex-grow: 1; //红框子项目将占据了所有剩余空间  display:">
+<meta name="keywords" content="HTML&amp;CSS,CSS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Css中nth-child与nth-of-type">
-<meta property="og:url" content="http://www.skyline.show/Cssnth-child与nth-of-type.html">
+<meta property="og:title" content="CSS弹性布局主轴元素设置单独对齐方式">
+<meta property="og:url" content="http://www.skyline.show/CSS弹性布局主轴元素设置单独对齐方式.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="不瓜，也不怎么爱吃瓜，不好好写字的程序猿不是合格的农民，所以要多爬爬东坡，多亲近方块呀">
+<meta property="og:description" content="效果图示 效果实现 BMW WARNING Bulletin Material Warrant     效果图示灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。通过设置特定属性将最后红框圈出的元素置于容器最右侧。 实现效果 效果实现 方案 1为红框子元素设定如下属性  .red &amp;#123;  flex-grow: 1; //红框子项目将占据了所有剩余空间  display:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-07-30T07:14:56.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145752.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145350.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617150203.png">
+<meta property="og:updated_time" content="2022-06-11T07:07:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Css中nth-child与nth-of-type">
-<meta name="twitter:description" content="不瓜，也不怎么爱吃瓜，不好好写字的程序猿不是合格的农民，所以要多爬爬东坡，多亲近方块呀">
+<meta name="twitter:title" content="CSS弹性布局主轴元素设置单独对齐方式">
+<meta name="twitter:description" content="效果图示 效果实现 BMW WARNING Bulletin Material Warrant     效果图示灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。通过设置特定属性将最后红框圈出的元素置于容器最右侧。 实现效果 效果实现 方案 1为红框子元素设定如下属性  .red &amp;#123;  flex-grow: 1; //红框子项目将占据了所有剩余空间  display:">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145752.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -164,7 +168,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Cssnth-child与nth-of-type" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-CSS弹性布局主轴元素设置单独对齐方式" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -172,7 +176,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      Css中nth-child与nth-of-type
+      CSS弹性布局主轴元素设置单独对齐方式
     </h1>
   
 
@@ -183,26 +187,71 @@
     
     <span style="color: #999">发表于</span>
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+      <time datetime="2018-07-30T07:14:56.000Z" itemprop="datePublished">2018-07-30</time>
     </a><span style="color: #999">|</span>
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+      <time datetime="2022-06-11T07:07:23.000Z" itemprop="datePublished">2022-06-11</time>
     </a><span style="color: #999">|</span>
 
       
     
     <span style="color: #999">分类于</span>
     
-    <a class="article-category-link" href="/categories/CSS-HTML/">CSS/HTML</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!-- <span style="color: #999">|</span> -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#效果图示">效果图示</a></li>
+<li><a href="#效果实现">效果实现</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="效果图示"><a href="#效果图示" class="headerlink" title="效果图示"></a>效果图示</h2><p>灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。<br>通过设置特定属性将最后红框圈出的元素置于容器最右侧。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145752.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145752"><br>实现效果<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145350.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145350"></p>
+<h2 id="效果实现"><a href="#效果实现" class="headerlink" title="效果实现"></a>效果实现</h2><ul>
+<li>方案 1<br>为红框子元素设定如下属性</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  flex-grow: 1; //红框子项目将占据了所有剩余空间</span><br><span class="line">  display: flex; //将自身设置为flex,作为容器之后就可以单独对内部文字项目进行右对齐</span><br><span class="line">  justify-content: flex-end; // 单独对内部文字项目进行右对齐</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过浏览器检视如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617150203.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617150203"></p>
+<ul>
+<li>方案 2</li>
+</ul>
+<p>将前 3 个子元素进行一层包裹，然后调整容器的 justify-content<br><code>justify-content: space-between</code></p>
+<ul>
+<li>方案 3</li>
+</ul>
+<p>为红框子项目添加如下属性</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">margin-left</span>: <span class="selector-tag">auto</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方案 4</li>
+</ul>
+<p>为红框子项目添加如下属性</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><a id="more"></a>
+<h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http: //www.skyline.show" target="_blank" rel="noopener">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/CSS弹性布局flex主轴元素设置单独对齐方式.html">http://www.skyline.show/CSS 弹性布局 flex 主轴元素设置单独对齐方式.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
       
     </div>
     <footer class="article-footer">
@@ -247,7 +296,7 @@ var a = new Donate({
 
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>
@@ -255,19 +304,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Jquery中的extend.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/MacOS应用清单.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Jquery中的extend
+          MacOS应用清单
         
       </div>
     </a>
   
   
-    <a href="/html5+移动支付配置（微信）.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/JavaScript隐式类型转换小结.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">html5+移动支付配置（微信）</div>
+      <div class="article-nav-title">JavaScript隐式类型转换小结</div>
     </a>
   
 </nav>
@@ -281,7 +330,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav">无</ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#效果图示"><span class="nav-number">1.</span> <span class="nav-text">效果图示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果实现"><span class="nav-number">2.</span> <span class="nav-text">效果实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">3.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">3.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">3.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
     
     </div>
   </aside>
