@@ -436,112 +436,6 @@ Bulle......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-TS语法校验常见错误"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/TS语法校验常见错误.html">TS语法校验常见错误</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#property-does-not-exist-on-type-object">property does not exist on type Object</a><ul>
-<li><a href="#复现">复现</a></li>
-<li><a href="#解决">解决</a></li>
-</ul>
-</li>
-<li><a href="#expression-of-type-string-cant-be-used-to-index-type">Expression of type ‘string’ can’t be used to index type</a><ul>
-<li><a href="#复现-1">复现</a></li>
-<li><a href="#解决-1">解决</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="property-does-not-exist-on-type-Object"><a href="#property-does-not-exist-on-type-Object" class="headerlink" title="property does not exist on type Object"></a>property does not exist on type Object</h2><h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>Property ‘length’ does not exist on type’Object’.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>; <span class="comment">//[ts] Property 'length' does not exist on type'Object'.</span></span><br></pre></td></tr></table></figure>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p><strong>将对象类型设置为 any</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: any = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>;</span><br></pre></td></tr></table></figure>
-<p><strong>通过字符方式获取对象属性</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj[<span class="string">"value"</span>] = <span class="string">"value"</span>;</span><br></pre></td></tr></table></figure>
-<p><strong>通过接口定义对象所具有的属性</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: ValueObject = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>;</span><br><span class="line"></span><br><span class="line">interface ValueObject &#123;</span><br><span class="line">  value?: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>使用断言强制执行</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">(obj <span class="keyword">as</span> any).value = <span class="string">"value"</span></span><br></pre></td></tr></table></figure>
-<h2 id="Expression-of-type-‘string’-can’t-be-used-to-index-type"><a href="#Expression-of-type-‘string’-can’t-be-used-to-index-type" class="headerlink" title="Expression of type ‘string’ can’t be used to index type"></a>Expression of type ‘string’ can’t be used to index type</h2><h3 id="复现-1"><a href="#复现-1" class="headerlink" title="复现"></a>复现</h3><p>Element implicitly has an ‘any’ type because expression of type ‘string’ can’t be used to index type</p>
-<p>person 并未明确指定键值类型（即隐式指定为任意类型），任意类型与 getValue 传参的 string 类型冲突。</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">"sk"</span>,</span><br><span class="line">  age: <span class="number">22</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">arg: string</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> person[arg]; <span class="comment">// Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '&#123; name: string; age: number; &#125;'.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h3>
-        <!-- 
-
-
-property does not exist on type Object
-复现
-解决
-
-
-Expression of type ‘string’ can’t be used to index type
-复现
-解决
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-property does not exist on type Object复现P......  -->
-        <p class="article-more-link">
-          <a href="/TS语法校验常见错误.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Interface与AbstractClass"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -654,7 +548,7 @@ property does not exist on type Object复现P......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-TS语法校验常见错误"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -662,7 +556,113 @@ property does not exist on type Object复现P......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
+      <a class="article-title" href="/TS语法校验常见错误.html">TS语法校验常见错误</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#property-does-not-exist-on-type-object">property does not exist on type Object</a><ul>
+<li><a href="#复现">复现</a></li>
+<li><a href="#解决">解决</a></li>
+</ul>
+</li>
+<li><a href="#expression-of-type-string-cant-be-used-to-index-type">Expression of type ‘string’ can’t be used to index type</a><ul>
+<li><a href="#复现-1">复现</a></li>
+<li><a href="#解决-1">解决</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#Warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="property-does-not-exist-on-type-Object"><a href="#property-does-not-exist-on-type-Object" class="headerlink" title="property does not exist on type Object"></a>property does not exist on type Object</h2><h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>Property ‘length’ does not exist on type’Object’.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>; <span class="comment">//[ts] Property 'length' does not exist on type'Object'.</span></span><br></pre></td></tr></table></figure>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p><strong>将对象类型设置为 any</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: any = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>通过字符方式获取对象属性</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj[<span class="string">"value"</span>] = <span class="string">"value"</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>通过接口定义对象所具有的属性</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: ValueObject = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>;</span><br><span class="line"></span><br><span class="line">interface ValueObject &#123;</span><br><span class="line">  value?: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>使用断言强制执行</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">(obj <span class="keyword">as</span> any).value = <span class="string">"value"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Expression-of-type-‘string’-can’t-be-used-to-index-type"><a href="#Expression-of-type-‘string’-can’t-be-used-to-index-type" class="headerlink" title="Expression of type ‘string’ can’t be used to index type"></a>Expression of type ‘string’ can’t be used to index type</h2><h3 id="复现-1"><a href="#复现-1" class="headerlink" title="复现"></a>复现</h3><p>Element implicitly has an ‘any’ type because expression of type ‘string’ can’t be used to index type</p>
+<p>person 并未明确指定键值类型（即隐式指定为任意类型），任意类型与 getValue 传参的 string 类型冲突。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">"sk"</span>,</span><br><span class="line">  age: <span class="number">22</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">arg: string</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> person[arg]; <span class="comment">// Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '&#123; name: string; age: number; &#125;'.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h3>
+        <!-- 
+
+
+property does not exist on type Object
+复现
+解决
+
+
+Expression of type ‘string’ can’t be used to index type
+复现
+解决
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+property does not exist on type Object复现P......  -->
+        <p class="article-more-link">
+          <a href="/TS语法校验常见错误.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-设计模式综述"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/设计模式综述.html">设计模式综述</a>
     </h1>
   
 
@@ -687,55 +687,91 @@ property does not exist on type Object复现P......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#formatting-context">Formatting Context</a></li>
-<li><a href="#bfc">BFC</a><ul>
-<li><a href="#bfc-定义">BFC 定义</a></li>
-<li><a href="#bfc-触发">BFC 触发</a></li>
-<li><a href="#常见应用">常见应用</a></li>
-<li><a href="#display-flow-root">display: flow-root</a></li>
+<li><a href="#简介">简介</a></li>
+<li><a href="#设计模式原则">设计模式原则</a><ul>
+<li><a href="#single-responsibility-principle">Single Responsibility Principle</a></li>
+<li><a href="#open-closed-principle">Open-closed Principle</a></li>
+<li><a href="#liskov-substitution-principle">Liskov substitution principle</a></li>
+<li><a href="#interface-segregation-principle">Interface segregation principle</a></li>
+<li><a href="#dependency-inversion-principle">Dependency Inversion Principle</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
+<li><a href="#Warrant">Warrant</a></li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
-<ul>
-<li>块级格式化上下文（block formatting contexts）</li>
-<li>内联格式化上下文（inline formatting contexts）</li>
-<li>弹性格式化上下文（flex formatting context）</li>
-<li>网格格式化上下文（grid formatting context）</li>
-</ul>
-<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
-<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>设计模式是在软件工程多年的发展中，经过前人不断挖坑填埋总结而来。<br>一般认为有 23 种，其他多是基于这 23 种延伸。<br>在面向对象编程语言中，<br>设计模式一般遵循 SOLID 原则<br>Acronym | EN | CN | DESC<br>– | – | – | –<br>S |Single Responsibility Principle | 单一职责原则 |一个程序只做好一件事，复杂功能拆开<br>O | Open-closed Principle| 开放/封闭原则 | 对扩展开放，对修改封闭，增加需求时，扩展新代码，而非修改已有代码<br>L |Liskov Substitution Principle | 里氏替换原则 |子类能覆盖父类，父类能出现的地方子类就能出现<br>I | Interface Segregation Principle| 接口隔离原则 |接口职责单一，防止接入不使用的接口与方法<br>D |Dependency Inversion Principle | 依赖倒转原则 | 面向接口编程，依赖于抽象而不依赖于具体，使用方只关注接口而不关注具体类的实现</p>
+<h2 id="设计模式原则"><a href="#设计模式原则" class="headerlink" title="设计模式原则"></a>设计模式原则</h2><h3 id="Single-Responsibility-Principle"><a href="#Single-Responsibility-Principle" class="headerlink" title="Single Responsibility Principle"></a>Single Responsibility Principle</h3><blockquote>
+<p>A class should have one and only one reason to change, meaning that a class should have only one job.</p>
+</blockquote>
+<p>思考如下一个例子：<br>计算给定的基本图形的面积总和，以圆形正方形为例。<br>形状</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> circle = <span class="function">(<span class="params">radius</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Circle"</span>,</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; radius &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> square = <span class="function">(<span class="params">length</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Square"</span>,</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; length &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>计算面积</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> areaCalculator = <span class="function">(<span class="params">shapes</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    sum() &#123;</span><br><span class="line">      <span class="keyword">return</span> shapes.reduce(<span class="function">(<span class="params">p, n</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n.type == <span class="string">"Circle"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">Math</span>.PI * n.radius * n.radius + p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n.type == <span class="string">"Square"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> n.length * n.length + p;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="number">0</span>);</span><br><span class="line">      <span class="comment">// logic to sum</span></span><br><span class="line">    &#125;,</span><br><span class="line">    output() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`</span></span><br><span class="line"><span class="string">       &lt;h1&gt;</span></span><br><span class="line"><span class="string">         Sum of the areas of provided shapes:</span></span><br><span class="line"><span class="string">         <span class="subst">$&#123;<span class="keyword">this</span>.sum()&#125;</span></span></span><br><span class="line"><span class="string">       &lt;/h1&gt;</span></span><br><span class="line"><span class="string">       `</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123;</span><br><span class="line">    shapes,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> shapes = [circle(<span class="number">2</span>), square(<span class="number">5</span>), square(<span class="number">6</span>)];</span><br><span class="line"><span class="keyword">const</span> areas = areaCalculator(shapes);</span><br><span class="line"><span class="built_in">console</span>.log(areas.output());</span><br></pre></td></tr></table></figure>
+<p>上述方式违反单 SRP 原则。<br>在计算面积并输出的过程中，存在一个问题：<br>计算面积工厂产出的产品只提供 HTML 一种格式的输出，如果后续需求是输出 JSON 或者 XML?<br>原因在于计算面积工厂承担过多的职责，在计算面积的同时，需要承担输出。<br>将输出单独用一个工厂，并简化计算面积工厂，进行优化</p>
+<p>计算面积</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> areaCalculator = <span class="function">(<span class="params">shapes</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    sum() &#123;</span><br><span class="line">      <span class="keyword">return</span> shapes.reduce(<span class="function">(<span class="params">p, n</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n.type == <span class="string">"Circle"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">Math</span>.PI * n.radius * n.radius + p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n.type == <span class="string">"Square"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> n.length * n.length + p;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="number">0</span>);</span><br><span class="line">      <span class="comment">// logic to sum</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123;</span><br><span class="line">    shapes,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>输出面积</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> sumCalculatorOutputter = <span class="function">(<span class="params">sum</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    HTML() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`</span></span><br><span class="line"><span class="string">       &lt;h1&gt;</span></span><br><span class="line"><span class="string">         Sum of the areas of provided shapes:</span></span><br><span class="line"><span class="string">         <span class="subst">$&#123;sum&#125;</span></span></span><br><span class="line"><span class="string">       &lt;/h1&gt;</span></span><br><span class="line"><span class="string">       `</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">JSON</span>() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">        sum,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; sum &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> shapes = [circle(<span class="number">2</span>), square(<span class="number">5</span>), square(<span class="number">6</span>)];</span><br><span class="line"><span class="keyword">const</span> areas = areaCalculator(shapes);</span><br><span class="line"><span class="keyword">const</span> output = sumCalculatorOutputter(areas.sum());</span><br><span class="line"><span class="built_in">console</span>.log(output.JSON());</span><br><span class="line"><span class="built_in">console</span>.log(output.HTML());</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/srpExample.js" target="_blank" rel="noopener">完整代码示例</a></p>
+<p>如果将 sumCalculatorOutputter 中 HTML 与 JSON 放在 areaCalculator 中，看起好像也没什么大问题。<br>考虑如下情况：<br>当需求不断扩张，当我们需要计算图形面积差，输出多种格式，计算特定图形的面积的时候……<br>如果所有职责都放在一个工厂里面，那么这个函数将会变得臃肿和不可维护，上千行的函数，上万行的文件也就这样诞生。</p>
+<h3 id="Open-closed-Principle"><a href="#Open-closed-Principle" class="headerlink" title="Open-closed Principle"></a>Open-closed Principle</h3><blockquote>
+<p>Objects or entities should be open for extension, but closed for modification.</p>
+</blockquote>
+<p>预留需求扩展接口（方法），禁止修改已有接口与方法。<br>在计算面积的工厂中 sum 方法存在如下问题：<br>如果后续有新的图形需求，我们需要不断地修改 sum 方法，sum 方法将变得非常臃肿。<br>这样写肯定违反 OCP 原则。<br>如果该图形不具备通用性，只在某个需求中计算一次面积，那么放在 sum 方法中，所有用 sum 方法的地方都会多余的执行该判定条件，造成多余的开销。<br>计算面积应该属于对应图形的方法，优化代码，将各自的计算面积 area 方法放在对应的图形工厂。<br>square</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> square = <span class="function">(<span class="params">length</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Square"</span>,</span><br><span class="line">    area() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.length ** <span class="number">2</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; length &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>circle</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> circle = <span class="function">(<span class="params">radius</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Circle"</span>,</span><br><span class="line">    area() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Math</span>.PI * <span class="keyword">this</span>.radius ** <span class="number">2</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; radius &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>rect</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> rect = <span class="function">(<span class="params">length, width</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Rect"</span>,</span><br><span class="line">    area() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.length * <span class="keyword">this</span>.width;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; length, width &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>计算面积</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> areaCalculator = <span class="function">(<span class="params">shapes</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    sum() &#123;</span><br><span class="line">      <span class="keyword">return</span> shapes.reduce(<span class="function">(<span class="params">p, n</span>) =&gt;</span> n.area() + p, <span class="number">0</span>);</span><br><span class="line">      <span class="comment">// logic to sum</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123;</span><br><span class="line">    shapes,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> shapes = [circle(<span class="number">2</span>), square(<span class="number">5</span>), square(<span class="number">6</span>), rect(<span class="number">3</span>, <span class="number">4</span>)];</span><br><span class="line"><span class="keyword">const</span> areas = areaCalculator(shapes);</span><br><span class="line"><span class="keyword">const</span> output = sumCalculatorOutputter(areas.sum());</span><br><span class="line"><span class="built_in">console</span>.log(output.JSON());</span><br><span class="line"><span class="comment">// &#123;"sum":85.56637061435917&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(output.HTML());</span><br><span class="line"><span class="comment">// &lt;h1&gt;</span></span><br><span class="line"><span class="comment">//     Sum of the areas of provided shapes:</span></span><br><span class="line"><span class="comment">//     85.56637061435917</span></span><br><span class="line"><span class="comment">// &lt;/h1&gt;</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/ocpExample.js" target="_blank" rel="noopener">完整代码示例</a></p>
+<p>当遇到多个判定条件的时候，可以思考其是否违反了 OCP 原则。</p>
+<h3 id="Liskov-substitution-principle"><a href="#Liskov-substitution-principle" class="headerlink" title="Liskov substitution principle"></a>Liskov substitution principle</h3><blockquote>
+<p>Let q(x) be a property provable about objects of x of type T. Then q(y) should be provable for objects y of type S where S is a subtype of T.</p>
+</blockquote>
+<p>如果 q(x)对 T 类型的 x 实例成立，那么对 T 的子类 S 的实例 y，q(y)必成立。<br>子类可替代父类，代替后表现一致，即子类要对父类的特性保持兼容性。<br>后三个原则涉及到接口与类，用新的 TS 示例代码来说明。<br>在几何中，正方形被看做一个特殊的长方形，即其长宽相等。在抽象化的时候，我们趋向于让其继承与长方形。<br>Rectangle</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(private width: number, private length: number = 10) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  public setWidth(width: number) &#123;</span><br><span class="line">    <span class="keyword">this</span>.width = width;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public setWidth(length: number) &#123;</span><br><span class="line">    <span class="keyword">this</span>.length = length;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public getArea() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.width * <span class="keyword">this</span>.length;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Square</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Rectangle</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(side: number) &#123;</span><br><span class="line">    <span class="keyword">super</span>(side, side);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public setWidth(width: number) &#123;</span><br><span class="line">    <span class="comment">// A square must maintain equal sides</span></span><br><span class="line">    <span class="keyword">super</span>.setWidth(width);</span><br><span class="line">    <span class="keyword">super</span>.setLength(width);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public setLength(length: number) &#123;</span><br><span class="line">    <span class="keyword">super</span>.setWidth(length);</span><br><span class="line">    <span class="keyword">super</span>.setLength(length);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> rect: Rectangle = <span class="keyword">new</span> Rectangle(<span class="number">10</span>); <span class="comment">// Can be either a Rectangle or a Square</span></span><br><span class="line">rect.setWidth(<span class="number">20</span>);</span><br><span class="line"><span class="keyword">if</span> (rect.getArea() &gt; <span class="number">300</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"It is big!"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"It is small!"</span>);</span><br><span class="line">&#125; <span class="comment">// 200</span></span><br></pre></td></tr></table></figure>
+<p>用 Square 替换</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> rect: Rectangle = <span class="keyword">new</span> Square(<span class="number">10</span>); <span class="comment">// Can be either a Rectangle or a Square</span></span><br><span class="line">rect.setWidth(<span class="number">20</span>);</span><br><span class="line"><span class="keyword">if</span> (rect.getArea() &gt; <span class="number">300</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"It is big!"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"It is small!"</span>);</span><br><span class="line">&#125; <span class="comment">// 400</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/lspExample.ts" target="_blank" rel="noopener">完整代码示例</a><br>用子类替换父类后，表现不一致，不符合 LSP。<br>可见，Square 作为 Rectangle 并不是一个好的方案。<br>一个更好的方案为抽象出一个 Shape 接口。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">interface Shape &#123;</span><br><span class="line">  getArea: <span class="function"><span class="params">()</span> =&gt;</span> number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调整代码后如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">interface Shape &#123;</span><br><span class="line">   getArea: <span class="function"><span class="params">()</span> =&gt;</span> number;</span><br><span class="line">   setWidth: <span class="function">(<span class="params">width: number</span>) =&gt;</span> <span class="keyword">void</span>;</span><br><span class="line">   setLength: <span class="function">(<span class="params">length: number</span>) =&gt;</span> <span class="keyword">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="title">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   width: number</span><br><span class="line">   length: number</span><br><span class="line">   <span class="keyword">constructor</span>(width: number, length: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">      <span class="keyword">this</span>.length = length;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public setWidth(width: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public setLength(length: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.length = length;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public getArea() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.width * <span class="keyword">this</span>.length;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="title">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   width: number;</span><br><span class="line">   <span class="keyword">constructor</span>(width: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">   &#125;</span><br><span class="line">   public setWidth(width: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">   &#125;</span><br><span class="line">   public setLength(length: number) &#123;</span><br><span class="line">   &#125;</span><br><span class="line">   public getArea() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.width * <span class="keyword">this</span>.width;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> square: Shape = <span class="keyword">new</span> Square(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (square.getArea() &gt; <span class="number">300</span>) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">'It is big!'</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(square.getArea(), <span class="string">'It is small!'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// const rect: Shape = new Rectangle(20, 20);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// if (rect.getArea() &gt; 300) &#123;</span></span><br><span class="line"><span class="comment">//    console.log('It is big!')</span></span><br><span class="line"><span class="comment">// &#125; else &#123;</span></span><br><span class="line"><span class="comment">//    console.log(rect.getArea(), 'It is small!')</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Interface-segregation-principle"><a href="#Interface-segregation-principle" class="headerlink" title="Interface segregation principle"></a>Interface segregation principle</h3>
         <!-- 
 
 
-Formatting Context
-BFC
-BFC 定义
-BFC 触发
-常见应用
-display: flow-root
+简介
+设计模式原则
+Single Responsibility Principle
+Open-closed Principle
+Liskov substitution principle
+Interface segregation principle
+Dependency Inversion Principle
 
 
 BMW WARNING
 Bulletin
 Material
-Warrant
-
-
-
-
-Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
-
-块级格式化上下文（block formatting c......  -->
+Warra......  -->
         <p class="article-more-link">
-          <a href="/CSS格式化上下文.html#more">阅读全文</a>
+          <a href="/设计模式综述.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -743,7 +779,7 @@ Formatting Context页面的元素或是格式化上下文的一部分，或本�
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
 
     </footer>
   </div>
@@ -897,6 +933,105 @@ Warrant
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#formatting-context">Formatting Context</a></li>
+<li><a href="#bfc">BFC</a><ul>
+<li><a href="#bfc-定义">BFC 定义</a></li>
+<li><a href="#bfc-触发">BFC 触发</a></li>
+<li><a href="#常见应用">常见应用</a></li>
+<li><a href="#display-flow-root">display: flow-root</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
+<ul>
+<li>块级格式化上下文（block formatting contexts）</li>
+<li>内联格式化上下文（inline formatting contexts）</li>
+<li>弹性格式化上下文（flex formatting context）</li>
+<li>网格格式化上下文（grid formatting context）</li>
+</ul>
+<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
+<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2>
+        <!-- 
+
+
+Formatting Context
+BFC
+BFC 定义
+BFC 触发
+常见应用
+display: flow-root
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
+
+块级格式化上下文（block formatting c......  -->
+        <p class="article-more-link">
+          <a href="/CSS格式化上下文.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>
@@ -1361,141 +1496,6 @@ MRLMRLongitudinal Magnetic Recordi......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardware/">Hardware</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/硬盘/">硬盘</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-设计模式综述"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/设计模式综述.html">设计模式综述</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#设计模式原则">设计模式原则</a><ul>
-<li><a href="#single-responsibility-principle">Single Responsibility Principle</a></li>
-<li><a href="#open-closed-principle">Open-closed Principle</a></li>
-<li><a href="#liskov-substitution-principle">Liskov substitution principle</a></li>
-<li><a href="#interface-segregation-principle">Interface segregation principle</a></li>
-<li><a href="#dependency-inversion-principle">Dependency Inversion Principle</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>设计模式是在软件工程多年的发展中，经过前人不断挖坑填埋总结而来。<br>一般认为有 23 种，其他多是基于这 23 种延伸。<br>在面向对象编程语言中，<br>设计模式一般遵循 SOLID 原则<br>Acronym | EN | CN | DESC<br>– | – | – | –<br>S |Single Responsibility Principle | 单一职责原则 |一个程序只做好一件事，复杂功能拆开<br>O | Open-closed Principle| 开放/封闭原则 | 对扩展开放，对修改封闭，增加需求时，扩展新代码，而非修改已有代码<br>L |Liskov Substitution Principle | 里氏替换原则 |子类能覆盖父类，父类能出现的地方子类就能出现<br>I | Interface Segregation Principle| 接口隔离原则 |接口职责单一，防止接入不使用的接口与方法<br>D |Dependency Inversion Principle | 依赖倒转原则 | 面向接口编程，依赖于抽象而不依赖于具体，使用方只关注接口而不关注具体类的实现</p>
-<h2 id="设计模式原则"><a href="#设计模式原则" class="headerlink" title="设计模式原则"></a>设计模式原则</h2><h3 id="Single-Responsibility-Principle"><a href="#Single-Responsibility-Principle" class="headerlink" title="Single Responsibility Principle"></a>Single Responsibility Principle</h3><blockquote>
-<p>A class should have one and only one reason to change, meaning that a class should have only one job.</p>
-</blockquote>
-<p>思考如下一个例子：<br>计算给定的基本图形的面积总和，以圆形正方形为例。<br>形状</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> circle = <span class="function">(<span class="params">radius</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Circle"</span>,</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; radius &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> square = <span class="function">(<span class="params">length</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Square"</span>,</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; length &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>计算面积</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> areaCalculator = <span class="function">(<span class="params">shapes</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    sum() &#123;</span><br><span class="line">      <span class="keyword">return</span> shapes.reduce(<span class="function">(<span class="params">p, n</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n.type == <span class="string">"Circle"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">Math</span>.PI * n.radius * n.radius + p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n.type == <span class="string">"Square"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> n.length * n.length + p;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="number">0</span>);</span><br><span class="line">      <span class="comment">// logic to sum</span></span><br><span class="line">    &#125;,</span><br><span class="line">    output() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`</span></span><br><span class="line"><span class="string">       &lt;h1&gt;</span></span><br><span class="line"><span class="string">         Sum of the areas of provided shapes:</span></span><br><span class="line"><span class="string">         <span class="subst">$&#123;<span class="keyword">this</span>.sum()&#125;</span></span></span><br><span class="line"><span class="string">       &lt;/h1&gt;</span></span><br><span class="line"><span class="string">       `</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123;</span><br><span class="line">    shapes,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>使用</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> shapes = [circle(<span class="number">2</span>), square(<span class="number">5</span>), square(<span class="number">6</span>)];</span><br><span class="line"><span class="keyword">const</span> areas = areaCalculator(shapes);</span><br><span class="line"><span class="built_in">console</span>.log(areas.output());</span><br></pre></td></tr></table></figure>
-<p>上述方式违反单 SRP 原则。<br>在计算面积并输出的过程中，存在一个问题：<br>计算面积工厂产出的产品只提供 HTML 一种格式的输出，如果后续需求是输出 JSON 或者 XML?<br>原因在于计算面积工厂承担过多的职责，在计算面积的同时，需要承担输出。<br>将输出单独用一个工厂，并简化计算面积工厂，进行优化</p>
-<p>计算面积</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> areaCalculator = <span class="function">(<span class="params">shapes</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    sum() &#123;</span><br><span class="line">      <span class="keyword">return</span> shapes.reduce(<span class="function">(<span class="params">p, n</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (n.type == <span class="string">"Circle"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">Math</span>.PI * n.radius * n.radius + p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n.type == <span class="string">"Square"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> n.length * n.length + p;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;, <span class="number">0</span>);</span><br><span class="line">      <span class="comment">// logic to sum</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123;</span><br><span class="line">    shapes,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>输出面积</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> sumCalculatorOutputter = <span class="function">(<span class="params">sum</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    HTML() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`</span></span><br><span class="line"><span class="string">       &lt;h1&gt;</span></span><br><span class="line"><span class="string">         Sum of the areas of provided shapes:</span></span><br><span class="line"><span class="string">         <span class="subst">$&#123;sum&#125;</span></span></span><br><span class="line"><span class="string">       &lt;/h1&gt;</span></span><br><span class="line"><span class="string">       `</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">JSON</span>() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">        sum,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; sum &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>使用</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> shapes = [circle(<span class="number">2</span>), square(<span class="number">5</span>), square(<span class="number">6</span>)];</span><br><span class="line"><span class="keyword">const</span> areas = areaCalculator(shapes);</span><br><span class="line"><span class="keyword">const</span> output = sumCalculatorOutputter(areas.sum());</span><br><span class="line"><span class="built_in">console</span>.log(output.JSON());</span><br><span class="line"><span class="built_in">console</span>.log(output.HTML());</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/srpExample.js" target="_blank" rel="noopener">完整代码示例</a></p>
-<p>如果将 sumCalculatorOutputter 中 HTML 与 JSON 放在 areaCalculator 中，看起好像也没什么大问题。<br>考虑如下情况：<br>当需求不断扩张，当我们需要计算图形面积差，输出多种格式，计算特定图形的面积的时候……<br>如果所有职责都放在一个工厂里面，那么这个函数将会变得臃肿和不可维护，上千行的函数，上万行的文件也就这样诞生。</p>
-<h3 id="Open-closed-Principle"><a href="#Open-closed-Principle" class="headerlink" title="Open-closed Principle"></a>Open-closed Principle</h3><blockquote>
-<p>Objects or entities should be open for extension, but closed for modification.</p>
-</blockquote>
-<p>预留需求扩展接口（方法），禁止修改已有接口与方法。<br>在计算面积的工厂中 sum 方法存在如下问题：<br>如果后续有新的图形需求，我们需要不断地修改 sum 方法，sum 方法将变得非常臃肿。<br>这样写肯定违反 OCP 原则。<br>如果该图形不具备通用性，只在某个需求中计算一次面积，那么放在 sum 方法中，所有用 sum 方法的地方都会多余的执行该判定条件，造成多余的开销。<br>计算面积应该属于对应图形的方法，优化代码，将各自的计算面积 area 方法放在对应的图形工厂。<br>square</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> square = <span class="function">(<span class="params">length</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Square"</span>,</span><br><span class="line">    area() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.length ** <span class="number">2</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; length &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>circle</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> circle = <span class="function">(<span class="params">radius</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Circle"</span>,</span><br><span class="line">    area() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Math</span>.PI * <span class="keyword">this</span>.radius ** <span class="number">2</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; radius &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>rect</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> rect = <span class="function">(<span class="params">length, width</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Rect"</span>,</span><br><span class="line">    area() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.length * <span class="keyword">this</span>.width;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; length, width &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>计算面积</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> areaCalculator = <span class="function">(<span class="params">shapes</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    sum() &#123;</span><br><span class="line">      <span class="keyword">return</span> shapes.reduce(<span class="function">(<span class="params">p, n</span>) =&gt;</span> n.area() + p, <span class="number">0</span>);</span><br><span class="line">      <span class="comment">// logic to sum</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123;</span><br><span class="line">    shapes,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>使用</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> shapes = [circle(<span class="number">2</span>), square(<span class="number">5</span>), square(<span class="number">6</span>), rect(<span class="number">3</span>, <span class="number">4</span>)];</span><br><span class="line"><span class="keyword">const</span> areas = areaCalculator(shapes);</span><br><span class="line"><span class="keyword">const</span> output = sumCalculatorOutputter(areas.sum());</span><br><span class="line"><span class="built_in">console</span>.log(output.JSON());</span><br><span class="line"><span class="comment">// &#123;"sum":85.56637061435917&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(output.HTML());</span><br><span class="line"><span class="comment">// &lt;h1&gt;</span></span><br><span class="line"><span class="comment">//     Sum of the areas of provided shapes:</span></span><br><span class="line"><span class="comment">//     85.56637061435917</span></span><br><span class="line"><span class="comment">// &lt;/h1&gt;</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/ocpExample.js" target="_blank" rel="noopener">完整代码示例</a></p>
-<p>当遇到多个判定条件的时候，可以思考其是否违反了 OCP 原则。</p>
-<h3 id="Liskov-substitution-principle"><a href="#Liskov-substitution-principle" class="headerlink" title="Liskov substitution principle"></a>Liskov substitution principle</h3><blockquote>
-<p>Let q(x) be a property provable about objects of x of type T. Then q(y) should be provable for objects y of type S where S is a subtype of T.</p>
-</blockquote>
-<p>如果 q(x)对 T 类型的 x 实例成立，那么对 T 的子类 S 的实例 y，q(y)必成立。<br>子类可替代父类，代替后表现一致，即子类要对父类的特性保持兼容性。<br>后三个原则涉及到接口与类，用新的 TS 示例代码来说明。<br>在几何中，正方形被看做一个特殊的长方形，即其长宽相等。在抽象化的时候，我们趋向于让其继承与长方形。<br>Rectangle</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(private width: number, private length: number = 10) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  public setWidth(width: number) &#123;</span><br><span class="line">    <span class="keyword">this</span>.width = width;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public setWidth(length: number) &#123;</span><br><span class="line">    <span class="keyword">this</span>.length = length;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public getArea() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.width * <span class="keyword">this</span>.length;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Square</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Rectangle</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(side: number) &#123;</span><br><span class="line">    <span class="keyword">super</span>(side, side);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public setWidth(width: number) &#123;</span><br><span class="line">    <span class="comment">// A square must maintain equal sides</span></span><br><span class="line">    <span class="keyword">super</span>.setWidth(width);</span><br><span class="line">    <span class="keyword">super</span>.setLength(width);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public setLength(length: number) &#123;</span><br><span class="line">    <span class="keyword">super</span>.setWidth(length);</span><br><span class="line">    <span class="keyword">super</span>.setLength(length);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> rect: Rectangle = <span class="keyword">new</span> Rectangle(<span class="number">10</span>); <span class="comment">// Can be either a Rectangle or a Square</span></span><br><span class="line">rect.setWidth(<span class="number">20</span>);</span><br><span class="line"><span class="keyword">if</span> (rect.getArea() &gt; <span class="number">300</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"It is big!"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"It is small!"</span>);</span><br><span class="line">&#125; <span class="comment">// 200</span></span><br></pre></td></tr></table></figure>
-<p>用 Square 替换</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> rect: Rectangle = <span class="keyword">new</span> Square(<span class="number">10</span>); <span class="comment">// Can be either a Rectangle or a Square</span></span><br><span class="line">rect.setWidth(<span class="number">20</span>);</span><br><span class="line"><span class="keyword">if</span> (rect.getArea() &gt; <span class="number">300</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"It is big!"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"It is small!"</span>);</span><br><span class="line">&#125; <span class="comment">// 400</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/lspExample.ts" target="_blank" rel="noopener">完整代码示例</a><br>用子类替换父类后，表现不一致，不符合 LSP。<br>可见，Square 作为 Rectangle 并不是一个好的方案。<br>一个更好的方案为抽象出一个 Shape 接口。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">interface Shape &#123;</span><br><span class="line">  getArea: <span class="function"><span class="params">()</span> =&gt;</span> number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>调整代码后如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">interface Shape &#123;</span><br><span class="line">   getArea: <span class="function"><span class="params">()</span> =&gt;</span> number;</span><br><span class="line">   setWidth: <span class="function">(<span class="params">width: number</span>) =&gt;</span> <span class="keyword">void</span>;</span><br><span class="line">   setLength: <span class="function">(<span class="params">length: number</span>) =&gt;</span> <span class="keyword">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="title">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   width: number</span><br><span class="line">   length: number</span><br><span class="line">   <span class="keyword">constructor</span>(width: number, length: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">      <span class="keyword">this</span>.length = length;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public setWidth(width: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public setLength(length: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.length = length;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public getArea() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.width * <span class="keyword">this</span>.length;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="title">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   width: number;</span><br><span class="line">   <span class="keyword">constructor</span>(width: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">   &#125;</span><br><span class="line">   public setWidth(width: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">   &#125;</span><br><span class="line">   public setLength(length: number) &#123;</span><br><span class="line">   &#125;</span><br><span class="line">   public getArea() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.width * <span class="keyword">this</span>.width;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> square: Shape = <span class="keyword">new</span> Square(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (square.getArea() &gt; <span class="number">300</span>) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">'It is big!'</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(square.getArea(), <span class="string">'It is small!'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// const rect: Shape = new Rectangle(20, 20);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// if (rect.getArea() &gt; 300) &#123;</span></span><br><span class="line"><span class="comment">//    console.log('It is big!')</span></span><br><span class="line"><span class="comment">// &#125; else &#123;</span></span><br><span class="line"><span class="comment">//    console.log(rect.getArea(), 'It is small!')</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="Interface-segregation-principle"><a href="#Interface-segregation-principle" class="headerlink" title="Interface segregation principle"></a>Interface segregation principle</h3>
-        <!-- 
-
-
-简介
-设计模式原则
-Single Responsibility Principle
-Open-closed Principle
-Liskov substitution principle
-Interface segregation principle
-Dependency Inversion Principle
-
-
-BMW WARNING
-Bulletin
-Material
-Warra......  -->
-        <p class="article-more-link">
-          <a href="/设计模式综述.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
 
     </footer>
   </div>
