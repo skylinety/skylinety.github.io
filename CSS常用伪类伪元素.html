@@ -13,18 +13,18 @@
   
   
   
-  <meta name="description" content="伪类 综述 详解   伪元素 综述 详解   区分 BMW WARNING Bulletin Material Warrant     伪类综述伪类即伪造一个类来为选定元素来描述特殊状态下的样式。通过伪类实现的效果可以直接在选定元素添加一个 class 来模拟实现。伪类通过:前缀来表示    Name Desc EG     :nth-of-type 指定标签在相同类型标签的位置 p:nth">
+  <meta name="description" content="伪类 综述 详解   伪元素 综述 详解   区分 BMW WARNING Bulletin Material Warrant     伪类综述伪类即伪造一个类来为选定元素来描述特殊状态下的样式。通过伪类实现的效果可以直接在选定元素添加一个 class 来模拟实现。伪类通过:前缀来表示    Name Desc EG     :nth-of-type 指定标签在相同类型同级标签的位置 p:n">
 <meta name="keywords" content="HTML&amp;CSS,CSS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS常用伪类伪元素">
 <meta property="og:url" content="http://www.skyline.show/CSS常用伪类伪元素.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="伪类 综述 详解   伪元素 综述 详解   区分 BMW WARNING Bulletin Material Warrant     伪类综述伪类即伪造一个类来为选定元素来描述特殊状态下的样式。通过伪类实现的效果可以直接在选定元素添加一个 class 来模拟实现。伪类通过:前缀来表示    Name Desc EG     :nth-of-type 指定标签在相同类型标签的位置 p:nth">
+<meta property="og:description" content="伪类 综述 详解   伪元素 综述 详解   区分 BMW WARNING Bulletin Material Warrant     伪类综述伪类即伪造一个类来为选定元素来描述特殊状态下的样式。通过伪类实现的效果可以直接在选定元素添加一个 class 来模拟实现。伪类通过:前缀来表示    Name Desc EG     :nth-of-type 指定标签在相同类型同级标签的位置 p:n">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-03T09:39:32.000Z">
+<meta property="og:updated_time" content="2022-06-15T07:58:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS常用伪类伪元素">
-<meta name="twitter:description" content="伪类 综述 详解   伪元素 综述 详解   区分 BMW WARNING Bulletin Material Warrant     伪类综述伪类即伪造一个类来为选定元素来描述特殊状态下的样式。通过伪类实现的效果可以直接在选定元素添加一个 class 来模拟实现。伪类通过:前缀来表示    Name Desc EG     :nth-of-type 指定标签在相同类型标签的位置 p:nth">
+<meta name="twitter:description" content="伪类 综述 详解   伪元素 综述 详解   区分 BMW WARNING Bulletin Material Warrant     伪类综述伪类即伪造一个类来为选定元素来描述特殊状态下的样式。通过伪类实现的效果可以直接在选定元素添加一个 class 来模拟实现。伪类通过:前缀来表示    Name Desc EG     :nth-of-type 指定标签在相同类型同级标签的位置 p:n">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-15T07:58:53.000Z" itemprop="datePublished">2022-06-15</time>
     </a><span style="color: #999">|</span>
 
       
@@ -219,7 +219,7 @@
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
+<li><a href="#warrant">Warrant</a></li>
 </ul>
 </li>
 </ul>
@@ -236,25 +236,78 @@
 <tbody>
 <tr>
 <td>:nth-of-type</td>
-<td>指定标签在相同类型标签的位置</td>
-<td>p:nth-of-type(2n)</td>
+<td>指定标签在相同类型同级标签的位置</td>
+<td>p:nth-of-type(n)</td>
+</tr>
+<tr>
+<td>:nth-child</td>
+<td>指定标签在所有类型同级标签的位置</td>
+<td>p:nth-child(n)</td>
 </tr>
 </tbody>
 </table>
-<h3 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h3><p><strong>:nth-of-type</strong><br>以标签和伪类作为前置条件进行筛选，选后添加类等其他条件进一步筛选。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* This will match the 3rd paragraph as it will match elements which are 2n+1 AND have a class of fancy.</span></span><br><span class="line"><span class="comment">The second paragraph has a class of fancy but is not matched as it is not :nth-of-type(2n+1) */</span></span><br><span class="line">p.fancy:nth-<span class="keyword">of</span>-type(<span class="number">2n</span>+<span class="number">1</span>) &#123;</span><br><span class="line">  text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述代码首先选出奇数的 p 标签集合 A，然后进一步在 A 中筛选有 fancy 类的标签。<br>容易错误理解成选出有 fancy 类的 p 标签，然后选出其中的奇数。<br>用下述代码更加不容易出错</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">p:nth-<span class="keyword">of</span>-type(<span class="number">2n</span>+<span class="number">1</span>).fancy &#123;</span><br><span class="line">    text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-of-type" target="_blank" rel="noopener">详细代码示例参考</a></p>
-<h2 id="伪元素"><a href="#伪元素" class="headerlink" title="伪元素"></a>伪元素</h2><h3 id="综述-1"><a href="#综述-1" class="headerlink" title="综述"></a>综述</h3><p>伪元素表现为向 HTML 中添加了一个新的元素，而不是向已有元素中适配一个类的样式。<br>通过伪元素实现的效果可以直接添加一个新的元素来模拟实现。<br>伪元素通过::前缀来表示（标准），但也可通过:表示。<br>| Name | Desc | EG |<br>| ———— | —————————- | —————– |<br>| ::after | 指定标签后插入样式元素(content 非 none) | |<br>| ::before | 指定标签前插入样式元素(content 非 none) | |<br>| ::first-line | 选中标签的第一行 | |<br>| ::first-letter | 选中标签的第一个字 | |<br>| ::marker | 选中列表前修饰类容，一般为数字或圆点。 |li::marker |<br>| ::selection | 选中选择的文档。 | |</p>
-<h3 id="详解-1"><a href="#详解-1" class="headerlink" title="详解"></a>详解</h3><a id="more"></a>
-<p><strong>::marker</strong></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">::marker</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">"✪"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 n 可以是整数（1，2，3）、关键字（even，odd）、可以是公式 2n+1(奇数），n+5(大于等于 5)，-n+5(小于等于 5),而且<strong>n 值起始值 0</strong>.</p>
+<h3 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h3><a id="more"></a>
+<ul>
+<li>nth-of-type</li>
+</ul>
+<p>以标签和伪类作为前置条件进行筛选，选后添加类等其他条件进一步筛选。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">p.skyline:nth-<span class="keyword">of</span>-type(<span class="number">2n</span>+<span class="number">1</span>) &#123;</span><br><span class="line">  text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码首先选出奇数的 p 标签集合 A，然后进一步在 A 中筛选有 skyline 类的标签。<br>容易错误理解成选出有 skyline 类的 p 标签，然后选出其中的奇数。<br>用下述代码更加不容易出错</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">p:nth-<span class="keyword">of</span>-type(<span class="number">2n</span>+<span class="number">1</span>).skyline &#123;</span><br><span class="line">    text-decoration: underline;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://jsfiddle.net/skylinety/zsx4j03g/" target="_blank" rel="noopener">:nth-of-type demo</a></p>
+<ul>
+<li>nth-child</li>
+</ul>
+<p><a href="https://jsfiddle.net/skylinety/Lhs9pg6w/1/" target="_blank" rel="noopener">:nth-child demo</a></p>
+<h2 id="伪元素"><a href="#伪元素" class="headerlink" title="伪元素"></a>伪元素</h2><h3 id="综述-1"><a href="#综述-1" class="headerlink" title="综述"></a>综述</h3><p>伪元素表现为向 HTML 中添加了一个新的元素，而不是向已有元素中适配一个类的样式。<br>通过伪元素实现的效果可以直接添加一个新的元素来模拟实现。<br>伪元素通过::前缀来表示（标准），但也可通过:表示。</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Desc</th>
+<th>EG</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>::after</td>
+<td>指定标签后插入样式元素(content 非 none)</td>
+<td></td>
+</tr>
+<tr>
+<td>::before</td>
+<td>指定标签前插入样式元素(content 非 none)</td>
+<td></td>
+</tr>
+<tr>
+<td>::first-line</td>
+<td>选中标签的第一行</td>
+<td></td>
+</tr>
+<tr>
+<td>::first-letter</td>
+<td>选中标签的第一个字</td>
+<td></td>
+</tr>
+<tr>
+<td>::marker</td>
+<td>选中列表前修饰类容，一般为数字或圆点。</td>
+<td>li::marker</td>
+</tr>
+<tr>
+<td>::selection</td>
+<td>选中选择的文档。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="详解-1"><a href="#详解-1" class="headerlink" title="详解"></a>详解</h3><p><strong>::marker</strong></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">::marker</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">'✪'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="区分"><a href="#区分" class="headerlink" title="区分"></a>区分</h2><p>伪元素目前不多，最常见的为::after 和::before<br>通过字面，其最大的区别就在于伪造类和伪造元素。<br>以伪类:first-child 和伪元素::first-letter 来说明</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">i</span><span class="selector-pseudo">:first-child</span> &#123;<span class="attribute">color</span>: red&#125;</span><br><span class="line">&lt;<span class="selector-tag">p</span>&gt;</span><br><span class="line">    &lt;i&gt;first&lt;/i&gt;</span><br><span class="line">    &lt;i&gt;second&lt;/i&gt;</span><br><span class="line">&lt;/p&gt;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">::first-letter</span> &#123;<span class="attribute">color</span>: red&#125;</span><br><span class="line">&lt;<span class="selector-tag">p</span>&gt;</span><br><span class="line">    <span class="selector-tag">first</span> <span class="selector-tag">second</span></span><br><span class="line">&lt;/p&gt;</span><br></pre></td></tr></table></figure>
 <p>模拟实现</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.first-child</span> &#123;<span class="attribute">color</span>: red&#125;</span><br><span class="line">&lt;<span class="selector-tag">p</span>&gt;</span><br><span class="line">    &lt;i class="first-child"&gt;first&lt;/i&gt;</span><br><span class="line">    &lt;i&gt;second&lt;/i&gt;</span><br><span class="line">&lt;/p&gt;</span><br><span class="line"><span class="selector-tag">span</span> &#123;<span class="attribute">color</span>: red&#125;</span><br><span class="line">&lt;<span class="selector-tag">p</span>&gt;</span><br><span class="line">    &lt;span&gt;first&lt;/span&gt; second</span><br><span class="line">&lt;/p&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
@@ -319,19 +372,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/CSS格式化上下文.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/硬盘MR技术.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          CSS格式化上下文
+          硬盘MR技术
         
       </div>
     </a>
   
   
-    <a href="/硬盘MR技术.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/CSS格式化上下文.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">硬盘MR技术</div>
+      <div class="article-nav-title">CSS格式化上下文</div>
     </a>
   
 </nav>
