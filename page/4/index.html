@@ -319,421 +319,6 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES_Module&CommonJS.html">ES_Module&amp;CommonJS</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-05-27T07:41:02.000Z" itemprop="datePublished">2022-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#模块系统">模块系统</a></li>
-<li><a href="#esm-vs-cjs">ESM VS CJS</a></li>
-<li><a href="#esm-vs-cjs-要点解析">ESM VS CJS 要点解析</a><ul>
-<li><a href="#模块输出">模块输出</a></li>
-<li><a href="#模块加载">模块加载</a></li>
-</ul>
-</li>
-<li><a href="#tree-shaking">tree shaking</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
-<ul>
-<li>模块隔离（私有代码权限访问控制）</li>
-<li>模块间依赖</li>
-<li>代码传递到执行环境</li>
-</ul>
-<p>早期解决方案如下：</p>
-<ul>
-<li>命名空间</li>
-<li>立即执行匿名函数 + 闭包</li>
-</ul>
-<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，在 ES6 模块系统后使用频率降低，如下简单对比。</p>
-<p>AMD 典型示例</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>CMD 典型示例</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">define(<span class="string">'main'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'a'</span>) <span class="comment">//依赖就近</span></span><br><span class="line">  a.someFn()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'b'</span>)</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>ES6 兼容 Node.js 模块方案</p>
-<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><table>
-<thead>
-<tr>
-<th>标准</th>
-<th>输出</th>
-<th>加载时机</th>
-<th>加载方式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ES6 模块</td>
-<td>值引用（只读）</td>
-<td>编译</td>
-<td>import 异步</td>
-</tr>
-<tr>
-<td>CommonJS</td>
-<td>值浅拷贝</td>
-<td>运行</td>
-<td>require 同步</td>
-</tr>
-</tbody>
-</table>
-<h2 id="ESM-VS-CJS-要点解析"><a href="#ESM-VS-CJS-要点解析" class="headerlink" title="ESM VS CJS 要点解析"></a>ESM VS CJS 要点解析</h2><h3 id="模块输出"><a href="#模块输出" class="headerlink" title="模块输出"></a>模块输出</h3><ul>
-<li>ES6</li>
-</ul>
-<p>ES6 模块输出的是对值的引用，<strong>即便是简单类型，模块内值的改变也会引起之后值得改变</strong><br>JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个只读引用。<br>等到脚本真正执行时，再根据这个<strong>只读引用</strong>，到被加载的那个模块里面去取值（对象存在于导出模块的文件）。<br>ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</p>
-<p>例 1</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> counter = <span class="number">3</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">incCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  counter++</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; counter, incCounter &#125; <span class="keyword">from</span> <span class="string">'./lib'</span></span><br><span class="line"><span class="built_in">console</span>.log(counter) <span class="comment">// 3</span></span><br><span class="line">incCounter()</span><br><span class="line"><span class="built_in">console</span>.log(counter) <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-<p>例 2</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// mod.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">C</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.sum = <span class="number">0</span></span><br><span class="line">  <span class="keyword">this</span>.add = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.sum += <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>.show = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.sum)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> c = <span class="keyword">new</span> C()</span><br><span class="line"></span><br><span class="line"><span class="comment">// x.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; c &#125; <span class="keyword">from</span> <span class="string">'./mod'</span></span><br><span class="line">c.add()</span><br><span class="line"></span><br><span class="line"><span class="comment">// y.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; c &#125; <span class="keyword">from</span> <span class="string">'./mod'</span></span><br><span class="line">c.show()</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./x'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./y'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出1</span></span><br></pre></td></tr></table></figure>
-<p>引用只读</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; obj &#125; <span class="keyword">from</span> <span class="string">'./lib'</span></span><br><span class="line"></span><br><span class="line">obj.prop = <span class="number">123</span> <span class="comment">// OK</span></span><br><span class="line">obj = &#123;&#125; <span class="comment">// TypeError</span></span><br></pre></td></tr></table></figure>
-<p>main.js 从 lib.js 输入变量 obj，可以对 obj 添加属性，但是重新赋值就会报错。<br>因为变量 obj 指向的地址是只读的，不能重新赋值，这就好比 main.js 创造了一个名为 obj 的 const 变量</p>
-<ul>
-<li>CommonJS</li>
-</ul>
-<p>对应 CommonJS 规范中，导出的是一个对象，引入时采用的是对象的浅拷贝（在导出和导入时各有一个对象生成）。<br>该对象的属性如果是简单类型，模块内部值得改变则不会对之后引用产生影响</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">var</span> counter = <span class="number">3</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">incCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  counter++</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  counter: counter,</span><br><span class="line">  incCounter: incCounter,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">var</span> mod = <span class="built_in">require</span>(<span class="string">'./lib'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(mod.counter) <span class="comment">// 3</span></span><br><span class="line">mod.incCounter() <span class="comment">// 引起lib.js中counter 值改变为4</span></span><br><span class="line"><span class="built_in">console</span>.log(mod.counter) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-<h3 id="模块加载"><a href="#模块加载" class="headerlink" title="模块加载"></a>模块加载</h3><ul>
-<li>加载时机</li>
-</ul>
-<p>CommonJS 导出的是一个对象（即 module.exports 属性），该对象只有在脚本运行完才会生成。<br>而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成</p>
-<ul>
-<li>加载方式</li>
-</ul>
-<p>commonJS 规范用同步的方式加载模块.<br>例如实现该规范的 nodeJS，因为在服务端，模块文件都存在本地磁盘，可以进行快速度读取，等待模块加载不会耗费过多的时间，所以这样做不会有问题。<br>但是在浏览器端，限于网络等各种原因，需要使用异步加载获取更好的体验。</p>
-<h2 id="tree-shaking"><a href="#tree-shaking" class="headerlink" title="tree shaking"></a>tree shaking</h2><p>由于 ES6 的模块暴露的是引用而不是生成一个对象.<br>从加载时机来看，ES6 的 import 命令会被 JavaScript 引擎静态分析编译时就分析是否被引用，而不是在代码运行时加载。<br>编译时加载使得对 ES6 静态分析并进行无用代码删除成为可能。<br>这就是为什么 ES6 出来之后，tree shaking 才成为可能，这也是为什么要使用 tree shaking，必须使用 ES6 模块。</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
-        <!-- 
-
-
-模块系统
-ESM VS CJS
-ESM VS CJS 要点解析
-模块输出
-模块加载
-
-
-tree shaking
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS ......  -->
-        <p class="article-more-link">
-          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-HTTPS加密方式"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>---
-title: HTTPS加密方式
-updated: 2022-02-03    14:21:52
-
-
-
----
-&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-</code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
-<ul>
-<li>窃听</li>
-<li>篡改</li>
-<li>冒充</li>
-</ul>
-<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
-<h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4>
-        <!-- ---
-title: HTTPS加密方式
-updated: 2022-02-03    14:21:52
-
-
-
----
-&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-HTTPS概述加密缘由明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉容易被中间人攻击，存在以下风险
-
-窃听
-篡改
-冒充
-
-HTTPS超文本传输......  -->
-        <p class="article-more-link">
-          <a href="/HTTPS加密方式.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Husky使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Husky使用.html">Husky使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#husky-使用配置">Husky 使用配置</a><ul>
-<li><a href="#husky-简述">husky 简述</a></li>
-<li><a href="#v5">V5+</a></li>
-<li><a href="#v4">V4</a></li>
-</ul>
-</li>
-<li><a href="#husky-配置更新">Husky 配置更新</a><ul>
-<li><a href="#git-hooks-说明">git hooks 说明</a></li>
-<li><a href="#v4-工作原理">V4 工作原理</a></li>
-<li><a href="#v5-原理">V5+ 原理</a></li>
-<li><a href="#后续问题">后续问题</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Husky-使用配置"><a href="#Husky-使用配置" class="headerlink" title="Husky 使用配置"></a>Husky 使用配置</h2><h3 id="husky-简述"><a href="#husky-简述" class="headerlink" title="husky 简述"></a>husky 简述</h3><p>husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。</p>
-<p>以代码校验为例来说明</p>
-<p>代码校验 lint-staged 相关配置如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">		<span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	...,</span><br><span class="line">	<span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>后续代码中，其余配置为 husky 相关，通过这些配置，我们在 commit 代码时，会校验代码错误与格式，校验不通过会有提示。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Husky%E4%BD%BF%E7%94%A820210924150933.png" alt="Husky使用20210924150933"></p>
-<p>Husky 在版本 5 中配置做了大变动，具体前后的配置以版本来说明。</p>
-<h3 id="V5"><a href="#V5" class="headerlink" title="V5+"></a>V5+</h3><p>yarn add husky -D</p>
-<p>安装 husky 最新包</p>
-<p>npx husky-init &amp;&amp; yarn</p>
-<p>在 package.json 会自动添加如下选项</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>汇总其他相关配置选项，如下<br><code>package.json</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"scripts"</span>: &#123;</span><br><span class="line">        ...,</span><br><span class="line">        <span class="string">"precommit"</span>: <span class="string">"lint-staged"</span>,</span><br><span class="line">        <span class="string">"prepare"</span>: <span class="string">"husky install"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">        <span class="string">"husky"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">        <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">    <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同时会在项目目录下自动生成 .husky 目录，包含最基础的 pre-commit bash 脚本，将 bash 脚本的默认 npm test 改为 npm run precommit 即可</p>
-<p><code>pre-commit</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">. <span class="string">"$(dirname "</span>$<span class="number">0</span><span class="string">")/_/husky.sh"</span></span><br><span class="line"></span><br><span class="line">npm run precommit</span><br></pre></td></tr></table></figure>
-<h3 id="V4"><a href="#V4" class="headerlink" title="V4"></a>V4</h3><p>yarn add <a href="mailto:husky@v4.3.8" target="_blank" rel="noopener">husky@v4.3.8</a> -D</p>
-<p>package.json</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">            ...,</span><br><span class="line">            <span class="string">"husky"</span>: <span class="string">"4.3.8"</span>,</span><br><span class="line">            <span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"husky"</span>: &#123;</span><br><span class="line">        <span class="string">"hooks"</span>: &#123;</span><br><span class="line">        <span class="string">"pre-commit"</span>: <span class="string">"lint-staged"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Husky-配置更新"><a href="#Husky-配置更新" class="headerlink" title="Husky 配置更新"></a>Husky 配置更新</h2><h3 id="git-hooks-说明"><a href="#git-hooks-说明" class="headerlink" title="git hooks 说明"></a>git hooks 说明</h3>
-        <!-- 
-
-
-Husky 使用配置
-husky 简述
-V5+
-V4
-
-
-Husky 配置更新
-git hooks 说明
-V4 工作原理
-V5+ 原理
-后续问题
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-Husky 使用配置husky 简述husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。
-以代码校验为例......  -->
-        <p class="article-more-link">
-          <a href="/Husky使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-鹧鸪天（花重蓉城）"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/鹧鸪天（花重蓉城）.html">鹧鸪天（花重蓉城）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-04-10T08:57:40.000Z" itemprop="datePublished">2022-04-10</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Subject/">Subject</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>&nbsp;<br>&nbsp;</p>
-<p>花重蓉城三月天，倚栏红袖醉氲烟。<br>句芒折柳拂新靥，崔护携桃唤旧颜。</p>
-<p>天晏晏，水涟涟，风轻丹落漫飞妍。<br>稚童不晓春光贵，尤与林鹃笑客眠。</p>
-<p>&nbsp;<br>&nbsp;</p>
-<hr>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http: //www.skyline.show" target="_blank" rel="noopener">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
-        <!-- 
-&nbsp;&nbsp;
-花重蓉城三月天，倚栏红袖醉氲烟。句芒折柳拂新靥，崔护携桃唤旧颜。
-天晏晏，水涟涟，风轻丹落漫飞妍。稚童不晓春光贵，尤与林鹃笑客眠。
-&nbsp;&nbsp;
-
-BMW WARNINGBulletin本文首发于 skyline.show 欢迎访问。
-
-I am a bucolic migant worker but I never walk backwards.
-
-......  -->
-        <p class="article-more-link">
-          <a href="/鹧鸪天（花重蓉城）.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Literature/">Literature</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/诗词/">诗词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鹧鸪天/">鹧鸪天</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Shadowsocks服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -888,7 +473,7 @@ Debian /......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-Vue基础使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-康定周边2日"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -896,7 +481,7 @@ Debian /......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Vue基础使用.html">Vue基础使用</a>
+      <a class="article-title" href="/康定周边2日.html">康定周边2日</a>
     </h1>
   
 
@@ -910,218 +495,29 @@ Debian /......  -->
 
 
       
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#transition">transition</a><ul>
-<li><a href="#基本使用">基本使用</a></li>
-<li><a href="#使用限制">使用限制</a></li>
-</ul>
-</li>
-<li><a href="#设定元素背景">设定元素背景</a></li>
-<li><a href="#vue-router-model">Vue Router model</a></li>
-<li><a href="#img-图片错误默认处理">img 图片错误默认处理</a></li>
-<li><a href="#extend">extend</a><ul>
-<li><a href="#获取vue-组件的构造函数">获取.vue 组件的构造函数</a></li>
-<li><a href="#使用示例">使用示例</a></li>
-<li><a href="#无法挂载错误">无法挂载错误</a></li>
-</ul>
-</li>
-<li><a href="#mixin">mixin</a><ul>
-<li><a href="#混入规则">混入规则</a></li>
-</ul>
-</li>
-<li><a href="#组件挂载顺序">组件挂载顺序</a><ul>
-<li><a href="#简述">简述</a></li>
-<li><a href="#总结">总结</a></li>
-</ul>
-</li>
-<li><a href="#computed">computed</a><ul>
-<li><a href="#简单说明">简单说明</a></li>
-<li><a href="#setter">setter</a></li>
-</ul>
-</li>
-<li><a href="#watch">$watch</a><ul>
-<li><a href="#用法">用法</a></li>
-<li><a href="#注意">注意</a></li>
-<li><a href="#返回值">返回值</a></li>
-<li><a href="#深度监听">深度监听</a></li>
-</ul>
-</li>
-<li><a href="#资源引用">资源引用</a></li>
-<li><a href="#refs-使用">refs 使用</a></li>
-<li><a href="#动态组件">动态组件</a></li>
-<li><a href="#attrs-与listeners">\$attrs 与\$listeners</a></li>
-<li><a href="#生命周期函数">生命周期函数</a><ul>
-<li><a href="#监听">监听</a></li>
-</ul>
-</li>
-<li><a href="#vueobservable">Vue.observable</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>将 transition name 命名后书写对应的类来自动生成的对应的类</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transition</span> <span class="attr">name</span>=<span class="string">"fade"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"show"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.fade-enter-active</span>,</span></span><br><span class="line"><span class="css">  <span class="selector-class">.fade-leave-active</span> &#123;</span></span><br><span class="line">    transition: width 3s, opacity 1s;</span><br><span class="line">    width: 100%;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="css">  <span class="selector-class">.fade-enter</span>,</span></span><br><span class="line"><span class="css">  <span class="selector-class">.fade-leave-to</span> &#123;</span></span><br><span class="line">    width: 0;</span><br><span class="line">    display: none;</span><br><span class="line">    opacity: 0;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用限制"><a href="#使用限制" class="headerlink" title="使用限制"></a>使用限制</h3><p>transition 仅限用于如下组件上</p>
-<ul>
-<li>条件渲染 (使用 v-if)</li>
-<li>条件展示 (使用 v-show)</li>
-<li>动态组件</li>
-<li>组件根节点</li>
-</ul>
-<p>对于 v-for 使用不会有任何效果， 需要改为使用 <code>&lt;transition-group&gt;</code><br><code>&lt;transition-group&gt;</code> 元素作为多个元素/组件的过渡效果</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transition-group</span> <span class="attr">name</span>=<span class="string">"fade"</span> <span class="attr">tag</span>=<span class="string">"div"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">"(item, index) in sources"</span> <span class="attr">:key</span>=<span class="string">"index"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;item.skyline&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">transition-group</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>当使用 v-for 并对 key 值进行 index 绑定，会出现如下警告</p>
-<blockquote>
-<p>Do not use v-for index as key on <code>&lt;transition-group&gt;</code> children, this is the same as not using keys.</p>
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<p>处理方式如下：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">:key=<span class="string">"index + 0"</span></span><br><span class="line"><span class="comment">//或使用 :key="item"</span></span><br></pre></td></tr></table></figure>
-<h2 id="设定元素背景"><a href="#设定元素背景" class="headerlink" title="设定元素背景"></a>设定元素背景</h2><p>在 Vue 文件中，设定元素的样式可在 CSS 中或 使用JS对象进行。<br>涉及到背景时，如下所示：<br>CSS</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">background-image: url('~@/assets/imgs/img_bg.png');</span><br></pre></td></tr></table></figure>
-<p>JS</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">:style=<span class="string">"&#123;</span></span><br><span class="line"><span class="string">  width: '100%',</span></span><br><span class="line"><span class="string">  height: '100%',</span></span><br><span class="line"><span class="string">  backgroundImage: 'url(' + require('@/assets/imgs/img_bg.jpg') + ')'</span></span><br><span class="line"><span class="string">  // background: `center no-repeat url('@/assets/imgs/img_bg.jpg') ` //或使用此方式，注意url中的引号</span></span><br><span class="line"><span class="string">&#125;"</span></span><br></pre></td></tr></table></figure>
-<h2 id="Vue-Router-model"><a href="#Vue-Router-model" class="headerlink" title="Vue Router model"></a>Vue Router model</h2><p>Vue 有两种路由模式:</p>
-<ul>
-<li>Hash</li>
-<li>History</li>
-</ul>
-<p>默认情况下使用 Hash 模式。<br>哈希模式利用 URL Hash 保证单页系统不进行页面重载。<br>但是，传统 URL 的 Hash 中即常见的<code>site#thing</code>是来定位页面内容的，<br>使用<code>site/thing</code>来跳转页面<br>Hash 模式虽然保证了页面不跳转，但是’#’的出现破坏了传统规则。<br>在一些项目中，会使用 History 模式。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  mode: <span class="string">'history'</span>,</span><br><span class="line">  routes: [...]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>History 模式通过 history.pushState 防止路由重载。<br>由于单页问题，History 在对应路由在服务器中位置并没有 HTML 入口文件，<br>这需要我们进行额外的服务配置。<br>若不进行配置，刷新页面会报错。<br>Nginx 配置如下</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其余服务端配置参考<br><a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations</a></p>
-<h2 id="img-图片错误默认处理"><a href="#img-图片错误默认处理" class="headerlink" title="img 图片错误默认处理"></a>img 图片错误默认处理</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;img</span><br><span class="line">    width=<span class="string">"98"</span></span><br><span class="line">    height=<span class="string">"112"</span></span><br><span class="line">    :src=<span class="string">"m.imgAddr || '~@img/suspect.png'"</span></span><br><span class="line">    @error=<span class="string">"slotimg"</span></span><br><span class="line">    alt</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> defaultImg = <span class="built_in">require</span>(<span class="string">"@img/suspect.png"</span>);</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">    slotimg(event) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"HotFocus.vue第211行:::err img"</span>);</span><br><span class="line">      <span class="keyword">let</span> img = event.srcElement;</span><br><span class="line">      img.src = defaultImg;</span><br><span class="line">      img.onerror = <span class="literal">null</span>; <span class="comment">//防止闪图</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>html 原生是 οnerrοr 来监听图片渲染错误事件</p>
-<h2 id="extend"><a href="#extend" class="headerlink" title="extend"></a>extend</h2><h3 id="获取-vue-组件的构造函数"><a href="#获取-vue-组件的构造函数" class="headerlink" title="获取.vue 组件的构造函数"></a>获取.vue 组件的构造函数</h3><h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3>
-        <!-- 
-
-
-transition
-基本使用
-使用限制
-
-
-设定元素背景
-Vue Router model
-img 图片错误默认处理
-extend
-获取.vue 组件的构造函数
-使用示例
-无法挂载错误
-
-
-mixin
-混入规则
-
-
-组件挂载顺序
-简述
-总结
-
-
-computed
-简单说明
-setter
-
-
-$watch
-用法
-注意
-返回值
-深度监听
-
-
-资源引用
-refs 使用
-动态组件
-\$att......  -->
-        <p class="article-more-link">
-          <a href="/Vue基础使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ES对象创建"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES对象创建.html">ES对象创建</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h1 id="康定周边-2-日"><a href="#康定周边-2-日" class="headerlink" title="康定周边 2 日"></a>康定周边 2 日</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#工厂模式">工厂模式</a></li>
-<li><a href="#构造函数模式">构造函数模式</a><ul>
-<li><a href="#实现">实现</a></li>
-<li><a href="#优化">优化</a></li>
+<li><a href="#康定周边-2-日">康定周边 2 日</a><ul>
+<li><a href="#准备">准备</a><ul>
+<li><a href="#时间">时间</a></li>
+<li><a href="#物品清单">物品清单</a></li>
+<li><a href="#路线">路线</a></li>
 </ul>
 </li>
-<li><a href="#原型模式">原型模式</a><ul>
-<li><a href="#实现-1">实现</a></li>
-<li><a href="#原型判定">原型判定</a></li>
-<li><a href="#原型重写">原型重写</a></li>
-<li><a href="#原型模式问题">原型模式问题</a></li>
+<li><a href="#主要地点">主要地点</a><ul>
+<li><a href="#海螺沟">海螺沟</a></li>
+<li><a href="#折多山">折多山</a></li>
+<li><a href="#新都桥">新都桥</a></li>
 </ul>
 </li>
-<li><a href="#组合构造与原型">组合构造与原型</a></li>
-<li><a href="#动态原型">动态原型</a><ul>
-<li><a href="#实现-2">实现</a></li>
-<li><a href="#重写原型">重写原型</a></li>
-</ul>
-</li>
-<li><a href="#寄生构造函数">寄生构造函数</a></li>
-<li><a href="#稳妥构造函数">稳妥构造函数</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
@@ -1129,42 +525,32 @@ refs 使用
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 <!-- /code_chunk_output -->
-<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  p.name = name;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">"skyline"</span>);</span><br><span class="line">me.name; <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
-<h2 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>解决了对象识别问题</p>
-<p>构造函数首字母都要大写，非构造函数小写字母开头</p>
-<p>构造函数主要问题是方法会在实例中各自创建，me.say === you.say 说明了这个问题</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>优化方案解决了方法不能复用的问题，但破坏了封装</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.say = sayName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = <span class="keyword">new</span> Person(<span class="string">"skyline"</span>);</span><br><span class="line"><span class="keyword">var</span> you = <span class="keyword">new</span> Person(<span class="string">"hahaha"</span>);</span><br><span class="line">me.say(); <span class="comment">// My name is skyline</span></span><br><span class="line">you.say(); <span class="comment">// My name is hahaha</span></span><br><span class="line">me.say === you.say; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>ES 中，无论何时创建的新函数，都会根据一组特定的规则来为函数添加一个指向原型对象名为 prototype 的指针属性，该原型对象自动获得一个 constructor 属性，属性指向该函数，而后基于原型对象添置实例共享的属性和方法</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name = <span class="string">"skyline"</span>;</span><br><span class="line">Person.prototype.age = <span class="number">27</span>;</span><br><span class="line">Person.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Person();</span><br><span class="line">skyline.sayName(); <span class="comment">// My name is skyline</span></span><br><span class="line">skyline <span class="keyword">instanceof</span> Person; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h3 id="原型判定"><a href="#原型判定" class="headerlink" title="原型判定"></a>原型判定</h3>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。<br>周五晚出发建议在泸定留宿，直接前往磨西古镇也可，需要多一个小时车程。<br>注意 3 岁以下小朋友容易高反，带过去需要有人专职陪伴，备足氧气瓶，折多山上和去沿途有氧气卖。</p>
+<h3 id="物品清单"><a href="#物品清单" class="headerlink" title="物品清单"></a>物品清单</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">氧气瓶</span><br><span class="line">血氧仪</span><br><span class="line">防滑链（时间定）</span><br><span class="line">墨镜</span><br><span class="line">巧克力</span><br><span class="line">葡萄糖</span><br><span class="line">鸭舌帽</span><br></pre></td></tr></table></figure>
+<h3 id="路线"><a href="#路线" class="headerlink" title="路线"></a>路线</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%BA%B7%E5%AE%9A%E5%91%A8%E8%BE%B92%E6%97%A520211026104129.png" alt="康定周边2日20211026104129"><br>推荐一天去一个选框中相关地点，标红为海拔高度，连线中为不堵时两地驾车时长。<br>路线图采用 sketch 制作。<br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Life/Travel/travel.sketch" target="_blank" rel="noopener">路线图</a></p>
+<h2 id="主要地点"><a href="#主要地点" class="headerlink" title="主要地点"></a>主要地点</h2><h3 id="海螺沟"><a href="#海螺沟" class="headerlink" title="海螺沟"></a>海螺沟</h3>
         <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+康定周边 2 日
 
 
-工厂模式
-构造函数模式
-实现
-优化
+康定周边 2 日
+准备
+时间
+物品清单
+路线
 
 
-原型模式
-实现
-原型判定
-原型重写
-原型模式问题
+主要地点
+海螺沟
+折多山
+新都桥
 
 
-组合构造与原型
-动态原型
-实现
-重写原型
-
-
-寄生构造函数
-稳妥构造函数
 BMW WARNING
 Bulletin
 Material
@@ -1173,10 +559,117 @@ Warrant
 
 
 
-工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）
-function person(name) ......  -->
+
+
+准备时间本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。周五晚出发建议在泸定留宿，直接前往磨......  -->
         <p class="article-more-link">
-          <a href="/ES对象创建.html#more">阅读全文</a>
+          <a href="/康定周边2日.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ES类的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES类的使用.html">ES类的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#静态类-实例-原型属性与方法">静态（类）、实例、原型属性与方法</a><ul>
+<li><a href="#es5">ES5</a></li>
+<li><a href="#es6">ES6</a></li>
+<li><a href="#属性访问结论">属性访问结论</a></li>
+</ul>
+</li>
+<li><a href="#class">Class</a><ul>
+<li><a href="#原型方法语法糖">原型方法语法糖</a></li>
+<li><a href="#class-中属性与方法的枚举性质">Class 中属性与方法的枚举性质</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#Warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="静态（类）、实例、原型属性与方法"><a href="#静态（类）、实例、原型属性与方法" class="headerlink" title="静态（类）、实例、原型属性与方法"></a>静态（类）、实例、原型属性与方法</h2><h3 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h3><p>Baby 类</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对象构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Baby</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> className = <span class="string">"Baby"</span>;</span><br><span class="line">  <span class="comment">//实例属性，每个实例私有，在对象实例化后调用，实例属性在对象实力化后创建</span></span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.weight = <span class="string">"3kg"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg()); <span class="comment">//使用原型方法扩充的方法可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.sex); <span class="comment">//使用原型方法扩充的属性可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(Baby.age, <span class="keyword">this</span>.age); <span class="comment">//静态属性调用时格式为[对象.静态属性]</span></span><br><span class="line">  &#125;; <span class="comment">//对象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类方法 (实际是静态方法直接调用)，只有类才能访问类方法，实例不能访问 ，在类方法中通过this只能访问类属性不能访问其他属性，即在本例中，Run方法只能访问到this.age</span></span><br><span class="line">Baby.Run = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"跑起来！！！"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型方法，如果原型方法当作静态方法直接调用时，this.name无法被调用</span></span><br><span class="line">Baby.prototype.msg = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"我叫："</span> + <span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类属性 在类的外部。公有静态属性不能使用 【this.属性】，只能使用 【对象.属性】 调用，只有类才能访问类属性，实例不能访问</span></span><br><span class="line">Baby.age = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型属性，所有实例共有，【this.属性】这种写法访问时，先会访问实例对象属性，没有实例对象属性就会访问原型属性 ，也可以当成公有静态属性使用【对象.prototype.原型属性。</span></span><br><span class="line">Baby.prototype.sex = <span class="string">"男娃娃"</span>;</span><br></pre></td></tr></table></figure>
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//实例方法和原型方法需要实例化对象后才可以使</span></span><br><span class="line"><span class="keyword">var</span> bob = <span class="keyword">new</span> Baby(<span class="string">"bob"</span>);</span><br><span class="line">Baby.name;</span><br><span class="line"><span class="comment">//"Baby" :每一个类都有一个基本的name属性</span></span><br><span class="line"></span><br><span class="line">bob.name;</span><br><span class="line"><span class="comment">//"bob"</span></span><br><span class="line"></span><br><span class="line">Baby.weight;</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line">bob.weight;</span><br><span class="line"><span class="comment">//"3kg"</span></span><br><span class="line"></span><br><span class="line">Baby.hello();</span><br><span class="line"><span class="comment">//Uncaught TypeError: Baby.hello is not a function</span></span><br><span class="line"></span><br><span class="line">bob.hello();</span><br><span class="line"><span class="comment">// bob</span></span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">// undefined :this.msg没有返回所以undefined</span></span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">// 20 undefined</span></span><br><span class="line"></span><br><span class="line">Baby.Run(); <span class="comment">//跑起来！！！</span></span><br><span class="line"><span class="comment">//类方法也是静态方法，可以直接使用 【对象.静态方法()】</span></span><br><span class="line"></span><br><span class="line">bob.run(); <span class="comment">// TypeError: bob.run is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.msg();</span><br><span class="line"><span class="comment">// Uncaught TypeError: Baby.msg is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg();</span><br><span class="line"><span class="comment">// 我叫：undefined</span></span><br><span class="line"><span class="comment">//原型方法当成静态方法使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">bob.msg();</span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">//原型方法必须实例化对象</span></span><br><span class="line"></span><br><span class="line">bob.age;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="comment">//错误，公有静态属性只能使用 【对象.属性】调用</span></span><br><span class="line"></span><br><span class="line">Baby.age;</span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">//原型属性当作静态属性使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">Baby.sex;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">bob.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br></pre></td></tr></table></figure>
+<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><p>Baby 类</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baby</span> </span>&#123;</span><br><span class="line">  <span class="comment">//实例属性、方法</span></span><br><span class="line">  eat = <span class="string">"meat"</span>;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="comment">//实例属性、方法</span></span><br><span class="line">    <span class="keyword">this</span>.firstName = x;</span><br><span class="line">    <span class="keyword">this</span>.lastName = y;</span><br><span class="line">    <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"skyline"</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型属性，使用存取器</span></span><br><span class="line">  <span class="keyword">get</span> prop() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"skyline getter"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> prop(value) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"skyline setter: "</span> + value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型方法</span></span><br><span class="line"></span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"("</span> + <span class="keyword">this</span>.firstName + <span class="string">", "</span> + <span class="keyword">this</span>.lastName + <span class="string">")"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//类方法</span></span><br><span class="line">  <span class="keyword">static</span> hello() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello skyline"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> hi() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.hello; <span class="comment">//如果静态方法包含this关键字，这个this指的是类，而不是实例</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//类属性，ES6 在当前阶段，Class 内部只有静态方法，没有静态属性，可以直接指定类（静态）属性</span></span><br><span class="line">Baby.age = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="属性访问结论"><a href="#属性访问结论" class="headerlink" title="属性访问结论"></a>属性访问结论</h3><p>不论是那种方式建立，遵循以下结论</p>
+<ul>
+<li>静态属性方法，可以直接通过类进行访问的</li>
+<li>实例属性方法是需要创建实例对象进行访问的</li>
+<li>静态与实例之间的属性与方法不能互访</li>
+</ul>
+<h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><h3 id="原型方法语法糖"><a href="#原型方法语法糖" class="headerlink" title="原型方法语法糖"></a>原型方法语法糖</h3>
+        <!-- 
+
+
+静态（类）、实例、原型属性与方法
+ES5
+ES6
+属性访问结论
+
+
+Class
+原型方法语法糖
+Class 中属性与方法的枚举性质
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+静态（类）、实例、原型属性与方法ES5Baby 类
+//对象构造函数function Baby(name) &#123;  var className = "Baby"......  -->
+        <p class="article-more-link">
+          <a href="/ES类的使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1295,7 +788,7 @@ toLocaleStr......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-ES类的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1303,7 +796,7 @@ toLocaleStr......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES类的使用.html">ES类的使用</a>
+      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
     </h1>
   
 
@@ -1312,13 +805,13 @@ toLocaleStr......  -->
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
     </a>
 
 
       
     
-    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
     <!--  -->
 
       <!--  -->
@@ -1328,50 +821,94 @@ toLocaleStr......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#静态类-实例-原型属性与方法">静态（类）、实例、原型属性与方法</a><ul>
-<li><a href="#es5">ES5</a></li>
-<li><a href="#es6">ES6</a></li>
-<li><a href="#属性访问结论">属性访问结论</a></li>
+<li><a href="#location">location</a><ul>
+<li><a href="#基础使用">基础使用</a></li>
+<li><a href="#url-match">URL-match</a></li>
+<li><a href="#modifier">modifier</a></li>
 </ul>
 </li>
-<li><a href="#class">Class</a><ul>
-<li><a href="#原型方法语法糖">原型方法语法糖</a></li>
-<li><a href="#class-中属性与方法的枚举性质">Class 中属性与方法的枚举性质</a></li>
+<li><a href="#proxy_pass">proxy_pass</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#uri">URI</a></li>
+<li><a href="#问题">/ 问题</a></li>
+<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
+<li><a href="#warrant">Warrant</a></li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="静态（类）、实例、原型属性与方法"><a href="#静态（类）、实例、原型属性与方法" class="headerlink" title="静态（类）、实例、原型属性与方法"></a>静态（类）、实例、原型属性与方法</h2><h3 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h3><p>Baby 类</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对象构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Baby</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> className = <span class="string">"Baby"</span>;</span><br><span class="line">  <span class="comment">//实例属性，每个实例私有，在对象实例化后调用，实例属性在对象实力化后创建</span></span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.weight = <span class="string">"3kg"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg()); <span class="comment">//使用原型方法扩充的方法可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.sex); <span class="comment">//使用原型方法扩充的属性可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(Baby.age, <span class="keyword">this</span>.age); <span class="comment">//静态属性调用时格式为[对象.静态属性]</span></span><br><span class="line">  &#125;; <span class="comment">//对象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类方法 (实际是静态方法直接调用)，只有类才能访问类方法，实例不能访问 ，在类方法中通过this只能访问类属性不能访问其他属性，即在本例中，Run方法只能访问到this.age</span></span><br><span class="line">Baby.Run = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"跑起来！！！"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型方法，如果原型方法当作静态方法直接调用时，this.name无法被调用</span></span><br><span class="line">Baby.prototype.msg = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"我叫："</span> + <span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类属性 在类的外部。公有静态属性不能使用 【this.属性】，只能使用 【对象.属性】 调用，只有类才能访问类属性，实例不能访问</span></span><br><span class="line">Baby.age = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型属性，所有实例共有，【this.属性】这种写法访问时，先会访问实例对象属性，没有实例对象属性就会访问原型属性 ，也可以当成公有静态属性使用【对象.prototype.原型属性。</span></span><br><span class="line">Baby.prototype.sex = <span class="string">"男娃娃"</span>;</span><br></pre></td></tr></table></figure>
-<p>使用</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//实例方法和原型方法需要实例化对象后才可以使</span></span><br><span class="line"><span class="keyword">var</span> bob = <span class="keyword">new</span> Baby(<span class="string">"bob"</span>);</span><br><span class="line">Baby.name;</span><br><span class="line"><span class="comment">//"Baby" :每一个类都有一个基本的name属性</span></span><br><span class="line"></span><br><span class="line">bob.name;</span><br><span class="line"><span class="comment">//"bob"</span></span><br><span class="line"></span><br><span class="line">Baby.weight;</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line">bob.weight;</span><br><span class="line"><span class="comment">//"3kg"</span></span><br><span class="line"></span><br><span class="line">Baby.hello();</span><br><span class="line"><span class="comment">//Uncaught TypeError: Baby.hello is not a function</span></span><br><span class="line"></span><br><span class="line">bob.hello();</span><br><span class="line"><span class="comment">// bob</span></span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">// undefined :this.msg没有返回所以undefined</span></span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">// 20 undefined</span></span><br><span class="line"></span><br><span class="line">Baby.Run(); <span class="comment">//跑起来！！！</span></span><br><span class="line"><span class="comment">//类方法也是静态方法，可以直接使用 【对象.静态方法()】</span></span><br><span class="line"></span><br><span class="line">bob.run(); <span class="comment">// TypeError: bob.run is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.msg();</span><br><span class="line"><span class="comment">// Uncaught TypeError: Baby.msg is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg();</span><br><span class="line"><span class="comment">// 我叫：undefined</span></span><br><span class="line"><span class="comment">//原型方法当成静态方法使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">bob.msg();</span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">//原型方法必须实例化对象</span></span><br><span class="line"></span><br><span class="line">bob.age;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="comment">//错误，公有静态属性只能使用 【对象.属性】调用</span></span><br><span class="line"></span><br><span class="line">Baby.age;</span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">//原型属性当作静态属性使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">Baby.sex;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">bob.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br></pre></td></tr></table></figure>
-<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><p>Baby 类</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baby</span> </span>&#123;</span><br><span class="line">  <span class="comment">//实例属性、方法</span></span><br><span class="line">  eat = <span class="string">"meat"</span>;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="comment">//实例属性、方法</span></span><br><span class="line">    <span class="keyword">this</span>.firstName = x;</span><br><span class="line">    <span class="keyword">this</span>.lastName = y;</span><br><span class="line">    <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"skyline"</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型属性，使用存取器</span></span><br><span class="line">  <span class="keyword">get</span> prop() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"skyline getter"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> prop(value) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"skyline setter: "</span> + value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型方法</span></span><br><span class="line"></span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"("</span> + <span class="keyword">this</span>.firstName + <span class="string">", "</span> + <span class="keyword">this</span>.lastName + <span class="string">")"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//类方法</span></span><br><span class="line">  <span class="keyword">static</span> hello() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello skyline"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> hi() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.hello; <span class="comment">//如果静态方法包含this关键字，这个this指的是类，而不是实例</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//类属性，ES6 在当前阶段，Class 内部只有静态方法，没有静态属性，可以直接指定类（静态）属性</span></span><br><span class="line">Baby.age = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="属性访问结论"><a href="#属性访问结论" class="headerlink" title="属性访问结论"></a>属性访问结论</h3><p>不论是那种方式建立，遵循以下结论</p>
-<ul>
-<li>静态属性方法，可以直接通过类进行访问的</li>
-<li>实例属性方法是需要创建实例对象进行访问的</li>
-<li>静态与实例之间的属性与方法不能互访</li>
-</ul>
-<h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><h3 id="原型方法语法糖"><a href="#原型方法语法糖" class="headerlink" title="原型方法语法糖"></a>原型方法语法糖</h3>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3><p>匹配所有路径</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>优先级最低，所有都不匹配时，才会命中</p>
+<h3 id="modifier"><a href="#modifier" class="headerlink" title="modifier"></a>modifier</h3><p>URI 这里指 URL 除了 server:port 的部分。</p>
+<p><strong>命中优先级</strong><br>优先级由上依次降低。</p>
+<table>
+<thead>
+<tr>
+<th>modifier</th>
+<th>desc</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>exact (精确匹配)</td>
+<td>location = /site</td>
+</tr>
+<tr>
+<td>^~</td>
+<td>priority prefix (优先字符)</td>
+<td>location ^~ /site</td>
+</tr>
+<tr>
+<td>~</td>
+<td>case sensitive regex (大小写敏感正则)</td>
+<td>location ~ /site</td>
+</tr>
+<tr>
+<td>~*</td>
+<td>case insensitive regex(忽略大小写)</td>
+<td>location ~* /site</td>
+</tr>
+<tr>
+<td>(none)</td>
+<td>prefix(字符匹配，无修饰符，由 URI 头字符开始匹配)</td>
+<td>location /site</td>
+</tr>
+</tbody>
+</table>
+<p>在如下网址可进行匹配测试 <a href="https://nginx.viraptor.info/" target="_blank" rel="noopener">https://nginx.viraptor.info/</a></p>
+<p>^~ 与(none)都 进行字符匹配（非正则），^~ 相对于(none) ，提高了命中优先级。</p>
+<p><strong>典型示例</strong></p>
+<p>示例 1</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location ^~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>^~ 进行字符匹配<br><a href="http://domain2.com/file/" target="_blank" rel="noopener">http://domain2.com/file/</a>* 可以命中<br><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 不能命中</p>
+<p>示例 2</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">location ~ /file/* &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://domain2.com/file/1" target="_blank" rel="noopener">http://domain2.com/file/1</a> 根据优先级命中<code>^~ /file/</code></p>
+<h2 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h2><h3 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h3>
         <!-- 
 
 
-静态（类）、实例、原型属性与方法
-ES5
-ES6
-属性访问结论
+location
+基础使用
+URL-match
+modifier
 
 
-Class
-原型方法语法糖
-Class 中属性与方法的枚举性质
+proxy_pass
+简述
+URI
+/ 问题
+\$uri \$request_uri
 
 
 BMW WARNING
@@ -1382,10 +919,10 @@ Warrant
 
 
 
-静态（类）、实例、原型属性与方法ES5Baby 类
-//对象构造函数function Baby(name) &#123;  var className = "Baby"......  -->
+location基础使用location 位于 server 下或位于另一个 location 中，基本使用如下
+location [modif......  -->
         <p class="article-more-link">
-          <a href="/ES类的使用.html#more">阅读全文</a>
+          <a href="/Nginx基础.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1393,7 +930,7 @@ Warrant
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂类型/">复杂类型</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
 
     </footer>
   </div>
@@ -1403,7 +940,7 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-康定周边2日"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Nginx常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1411,7 +948,7 @@ Warrant
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/康定周边2日.html">康定周边2日</a>
+      <a class="article-title" href="/Nginx常见问题汇总.html">Nginx常见问题汇总</a>
     </h1>
   
 
@@ -1420,7 +957,7 @@ Warrant
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
     </a>
 
 
@@ -1432,22 +969,16 @@ Warrant
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="康定周边-2-日"><a href="#康定周边-2-日" class="headerlink" title="康定周边 2 日"></a>康定周边 2 日</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h1 id="Nginx-常见问题汇总"><a href="#Nginx-常见问题汇总" class="headerlink" title="Nginx 常见问题汇总"></a>Nginx 常见问题汇总</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#康定周边-2-日">康定周边 2 日</a><ul>
-<li><a href="#准备">准备</a><ul>
-<li><a href="#时间">时间</a></li>
-<li><a href="#物品清单">物品清单</a></li>
-<li><a href="#路线">路线</a></li>
+<li><a href="#nginx-常见问题汇总">Nginx 常见问题汇总</a><ul>
+<li><a href="#proxy_pass-代理接口不能访问">proxy_pass 代理接口不能访问</a><ul>
+<li><a href="#问题描述">问题描述</a></li>
+<li><a href="#配置">配置</a></li>
 </ul>
 </li>
-<li><a href="#主要地点">主要地点</a><ul>
-<li><a href="#海螺沟">海螺沟</a></li>
-<li><a href="#折多山">折多山</a></li>
-<li><a href="#新都桥">新都桥</a></li>
-</ul>
-</li>
+<li><a href="#页面刷新不能进入">页面刷新不能进入</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
@@ -1458,29 +989,31 @@ Warrant
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。<br>周五晚出发建议在泸定留宿，直接前往磨西古镇也可，需要多一个小时车程。<br>注意 3 岁以下小朋友容易高反，带过去需要有人专职陪伴，备足氧气瓶，折多山上和去沿途有氧气卖。</p>
-<h3 id="物品清单"><a href="#物品清单" class="headerlink" title="物品清单"></a>物品清单</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">氧气瓶</span><br><span class="line">血氧仪</span><br><span class="line">防滑链（时间定）</span><br><span class="line">墨镜</span><br><span class="line">巧克力</span><br><span class="line">葡萄糖</span><br><span class="line">鸭舌帽</span><br></pre></td></tr></table></figure>
-<h3 id="路线"><a href="#路线" class="headerlink" title="路线"></a>路线</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%BA%B7%E5%AE%9A%E5%91%A8%E8%BE%B92%E6%97%A520211026104129.png" alt="康定周边2日20211026104129"><br>推荐一天去一个选框中相关地点，标红为海拔高度，连线中为不堵时两地驾车时长。<br>路线图采用 sketch 制作。<br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Life/Travel/travel.sketch" target="_blank" rel="noopener">路线图</a></p>
-<h2 id="主要地点"><a href="#主要地点" class="headerlink" title="主要地点"></a>主要地点</h2><h3 id="海螺沟"><a href="#海螺沟" class="headerlink" title="海螺沟"></a>海螺沟</h3>
+<h2 id="proxy-pass-代理接口不能访问"><a href="#proxy-pass-代理接口不能访问" class="headerlink" title="proxy_pass 代理接口不能访问"></a>proxy_pass 代理接口不能访问</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>客户端访问接口，发起请求<br><a href="http://aaa.com/file/123.png" target="_blank" rel="noopener">http://aaa.com/file/123.png</a></p>
+<p>真实接口地址为<br><a href="http://bbb.com/123.png" target="_blank" rel="noopener">http://bbb.com/123.png</a></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>检查配置，正确的配置如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /file/ &#123;</span><br><span class="line">    proxy_pass http://bbb.com/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>检查地址，注意后缀’/‘都不能去掉。<br>一般把 server:port 后的部分叫做 URI，proxy_pass 在其后加不加 URI 表现完全不同。<br>location 非正则匹配时，proxy_pass 有 URI 直接用 URI 把 location 对应的字符替换，无 URI 则直接替换 server:port<br>详细解析查看<a href="https://github.com/skylinety/Blog/blob/bf27769f7e637edbb12e2bac320d4dd8b73692e5/Docs/Tools/DEVs/Nginx/Nginx%E5%9F%BA%E7%A1%80.md" target="_blank" rel="noopener">Nginx 基础</a></p>
+<h2 id="页面刷新不能进入"><a href="#页面刷新不能进入" class="headerlink" title="页面刷新不能进入"></a>页面刷新不能进入</h2><p>检查页面的路由模式。<br>特别是在 Vue 项目中，具体查看 <a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">HTML5 History Mode</a><br>vue 默认的是 hash 路由模式，使用此种模式，页面路由变化时，并不会重载页面<br>在配置网站根文件的位置加入<br><code>try_files $uri $uri/ /index.html;</code><br>一般如下配置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">location ^~ /skyline&#123;</span><br><span class="line">    alias /data/wwwroot/skyline/dist;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">    try_files $uri $uri/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+</blockquote>
+<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-康定周边 2 日
+Nginx 常见问题汇总
 
 
-康定周边 2 日
-准备
-时间
-物品清单
-路线
+Nginx 常见问题汇总
+proxy_pass 代理接口不能访问
+问题描述
+配置
 
 
-主要地点
-海螺沟
-折多山
-新都桥
-
-
+页面刷新不能进入
 BMW WARNING
 Bulletin
 Material
@@ -1491,9 +1024,9 @@ Warrant
 
 
 
-准备时间本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好与周五晚出发。周五晚出发建议在泸定留宿，直接前往磨......  -->
+proxy_pass 代理接口不能访问问题描述客户端访问接口，发起请求http://aaa.......  -->
         <p class="article-more-link">
-          <a href="/康定周边2日.html#more">阅读全文</a>
+          <a href="/Nginx常见问题汇总.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1501,6 +1034,569 @@ Warrant
       
       
       
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#firewalld1">firewalld[^1]</a><ul>
+<li><a href="#concepts">Concepts</a></li>
+<li><a href="#zones">Zones</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#runtime">Runtime</a></li>
+<li><a href="#state">State</a></li>
+<li><a href="#port">Port</a></li>
+<li><a href="#source">Source</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="firewalld-1"><a href="#firewalld-1" class="headerlink" title="firewalld[^1]"></a>firewalld[^1]</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld 采用区域与服务的概念来控制流量的出入。</p>
+<ul>
+<li>zones</li>
+<li>services</li>
+</ul>
+<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
+<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3><p>zones 预设级别不同的防火墙策略，用户可以自定义 zones，也可以使用预设的 zones。<br>默认使用 public zone<br>根据拦截级别严格程度，预设 zones 如下</p>
+<table>
+<thead>
+<tr>
+<th>zone</th>
+<th>拦截说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>drop</td>
+<td>丢弃区，所有接入连接都会进行无消息响应拦截，只有输出连接被允许。</td>
+</tr>
+<tr>
+<td>block</td>
+<td>拦截区，接入连接都会被拦截，会响应 icmp-host-prohibited 等拦截消息，只有输出连接被允许。</td>
+</tr>
+<tr>
+<td>public</td>
+<td>公共区，用于不受信任的公共区域，仅允许自选接入连接，默认允许 ssh 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>external</td>
+<td>外部区，用于外部网络，系统充当网关角色，仅允许自选接入连接，默认允许 ssh</td>
+</tr>
+<tr>
+<td>internal</td>
+<td>内部区，用于内部网络，系统充当网关角色，仅允许自选接入连接</td>
+</tr>
+<tr>
+<td>dmz</td>
+<td>隔离区，demilitarized zone（隔离区，军事缓冲区），用于允许部分服务被外网访问，仅允许自选接入连接</td>
+</tr>
+<tr>
+<td>work</td>
+<td>工作区，用于工作网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>home</td>
+<td>家庭区，用于工作家庭网络，信任网络中其他机器，仅允许自选接入连接，默认允许 ssh，ipp-client，mdns，samba-client 和 dhcpv6-client</td>
+</tr>
+<tr>
+<td>trusted</td>
+<td>信任区，并接受所有网络连接</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>新建防火墙区域策略</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --new-zone=memcached --permanent</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看系统默认区</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-default-zone</span><br><span class="line"><span class="comment"># public</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>调整系统默认区</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --<span class="built_in">set</span>-default-zone=home</span><br></pre></td></tr></table></figure>
+<ul>
+<li>系统中配置的所有区</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-zones</span><br><span class="line"><span class="comment"># block dmz drop external home internal public trusted work</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br><span class="line"><span class="comment"># 上述命令会打印所有区与其详细的配置，输出内容较长</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看系统使用区</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-active-zones</span><br><span class="line"><span class="comment"># public</span></span><br><span class="line"><span class="comment">#   interfaces: eth0 eth1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看指定区的详细配置</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --list-all</span><br><span class="line"><span class="comment"># public (active)</span></span><br><span class="line"><span class="comment">#   target: default</span></span><br><span class="line"><span class="comment">#   icmp-block-inversion: no</span></span><br><span class="line"><span class="comment">#   interfaces: eth0 eth1</span></span><br><span class="line"><span class="comment">#   sources:</span></span><br><span class="line"><span class="comment">#   services: ssh dhcpv6-client</span></span><br><span class="line"><span class="comment">#   ports:</span></span><br><span class="line"><span class="comment">#   protocols:</span></span><br><span class="line"><span class="comment">#   masquerade: no</span></span><br><span class="line"><span class="comment">#   forward-ports:</span></span><br><span class="line"><span class="comment">#   source-ports:</span></span><br><span class="line"><span class="comment">#   icmp-blocks:</span></span><br><span class="line"><span class="comment">#   rich rules:</span></span><br></pre></td></tr></table></figure>
+<h3 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h3><p>services 在 zones 中为不同的服务预设不同的配置。<br>例如，可以为服务提供不同的端口等配置</p>
+<ul>
+<li>查看所有的服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --get-services</span><br><span class="line"><span class="comment"># RH-Satellite-6 RH-Satellite-6-capsule amanda-client amanda-k5-client amqp amqps... git... ssh ...dhcpv6-client</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看当前开放的服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"> sudo firewall-cmd --list-services</span><br><span class="line"><span class="comment"># dhcpv6-client ssh</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>增加开放服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br></pre></td></tr></table></figure>
+<ul>
+<li>移除开放的服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br><span class="line"><span class="comment"># 永久配置需要添加 --permanent后缀</span></span><br></pre></td></tr></table></figure>
+<p>所有服务的配置都在/usr/lib/firewalld/services 目录下<br>例如 http 服务的配置为</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">short</span>&gt;</span>WWW (HTTP)<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>HTTP is the protocol used to serve Web pages. If you plan to make your Web server publicly available, enable this option. This option is not required for viewing pages locally or developing Web pages.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"80"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>自定义服务</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/diyservice.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">short</span>&gt;</span>diyservice<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">description</span>&gt;</span>Plex is a streaming media server that brings all your video, music and photo collections together and stream them to your devices at anytime and from anywhere.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"udp"</span> <span class="attr">port</span>=<span class="string">"1900"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">"tcp"</span> <span class="attr">port</span>=<span class="string">"32400"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>重启防火墙后就可以看到该服务。</p>
+<h3 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h3>
+        <!-- 
+
+
+firewalld[^1]
+Concepts
+Zones
+Services
+Runtime
+State
+Port
+Source
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。
+
+zones
+services
+
+firewalld 是 CentOS......  -->
+        <p class="article-more-link">
+          <a href="/CentOS防火墙.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-MacOS基本操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/MacOS基本操作.html">MacOS基本操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#macos-beta-系统更新开启">Macos Beta 系统更新开启</a></li>
+<li><a href="#网络磁盘映射">网络磁盘映射</a></li>
+<li><a href="#剪切移动">剪切（移动）</a><ul>
+<li><a href="#常规">常规</a></li>
+<li><a href="#快捷键">快捷键</a></li>
+</ul>
+</li>
+<li><a href="#直接删除文件">直接删除文件</a></li>
+<li><a href="#修改终端用户名">修改终端用户名</a></li>
+<li><a href="#启用-ssd-的-trim-支持">启用 SSD 的 TRIM 支持</a></li>
+<li><a href="#关闭-sip">关闭 SIP</a></li>
+<li><a href="#设定文件默认打开方式">设定文件默认打开方式</a><ul>
+<li><a href="#常规-1">常规</a></li>
+<li><a href="#其他方式">其他方式</a></li>
+</ul>
+</li>
+<li><a href="#打开允许未知来源-app-选项">打开允许未知来源 app 选项</a></li>
+<li><a href="#设定快捷打开程序快捷键">设定快捷打开程序快捷键</a><ul>
+<li><a href="#设置-automator-任务">设置 automator 任务</a></li>
+<li><a href="#设置程序打开快捷键">设置程序打开快捷键</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Macos-Beta-系统更新开启"><a href="#Macos-Beta-系统更新开启" class="headerlink" title="Macos Beta 系统更新开启"></a>Macos Beta 系统更新开启</h2><p>在apple beta 地址上登录<br><a href="https://beta.apple.com" target="_blank" rel="noopener">https://beta.apple.com</a></p>
+<p>在如下网站下载 <a href="https://beta.apple.com/sp/betaprogram/enroll#macos" target="_blank" rel="noopener">MacOS Public Beta Access Utility</a>工具<br>注意开启前在Time Mechine中进行系统备份<br>下载工具安装后即可开启。</p>
+<h2 id="网络磁盘映射"><a href="#网络磁盘映射" class="headerlink" title="网络磁盘映射"></a>网络磁盘映射</h2><p>在 finder 下操作 ⌘ + k<br>在弹出框中输入网络共享服务地址<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/MacOS%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211227153214.png" alt="MacOS基本操作20211227153214"><br>一般有 Samba 或 AFP 等方式共享服务<br>常见地址如下</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">afp://192.168.2.20</span><br><span class="line">smb://192.168.2.20</span><br></pre></td></tr></table></figure>
+<h2 id="剪切（移动）"><a href="#剪切（移动）" class="headerlink" title="剪切（移动）"></a>剪切（移动）</h2><h3 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h3><p>复制需要移动的文件。<br>在目标位置右击鼠标，一般出现粘贴项目选项。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211118165151.png" alt="Macos基本操作20211118165151"><br>此时按住 ⌥ 键，菜单会变为将项目移动到此处。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211118165216.png" alt="Macos基本操作20211118165216"></p>
+<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">⌘ + c</span><br><span class="line">⌘ + ⌥ + v</span><br></pre></td></tr></table></figure>
+<p>⌘ + c 复制文件<br>在目标目录 ⌘ + ⌥ + v 即可移动成功</p>
+<h2 id="直接删除文件"><a href="#直接删除文件" class="headerlink" title="直接删除文件"></a>直接删除文件</h2><p>放进垃圾桶<br>【Command】+【Backspace】/【Delete】<br>永久删除<br>【Option】+【Command】+【Backspace】/【Delete】</p>
+<h2 id="修改终端用户名"><a href="#修改终端用户名" class="headerlink" title="修改终端用户名"></a>修改终端用户名</h2><p>修改前图示</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CE77BBFF51DF4A64E8C6FA24BFEF8D2AF.jpg" alt="Macos基本操作E77BBFF51DF4A64E8C6FA24BFEF8D2AF"></p>
+<p>输入<br><code>sudo scutil --set HostName &lt;name&gt;</code><br>改后图示<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Macos%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9CF5C2146E34383DB6E8EE91DC7AD8EC82.jpg" alt="Macos基本操作F5C2146E34383DB6E8EE91DC7AD8EC82"></p>
+<h2 id="启用-SSD-的-TRIM-支持"><a href="#启用-SSD-的-TRIM-支持" class="headerlink" title="启用 SSD 的 TRIM 支持"></a>启用 SSD 的 TRIM 支持</h2><p>mac 更换非官方固态和默认不启动 TRIM 硬盘优化，可输入<br><code>sudo trimforce enable</code><br>打开</p>
+<h2 id="关闭-SIP"><a href="#关闭-SIP" class="headerlink" title="关闭 SIP"></a>关闭 SIP</h2><p>mac 关闭系统完整性保护 System Integrity Protection<br>重启时，出现 apple logo 时按住<br><code>⌘+R</code><br>进入恢复模式<br>点击工具中的终端<br>输入<br><code>csrutil disable</code><br>输出<br>Successfully disabled System Integrity Protection. Please restart the machine for the changes to take effect.<br>表示关闭 SIP 成功<br>开启命令为<br><code>csrutil enable</code></p>
+<h2 id="设定文件默认打开方式"><a href="#设定文件默认打开方式" class="headerlink" title="设定文件默认打开方式"></a>设定文件默认打开方式</h2><h3 id="常规-1"><a href="#常规-1" class="headerlink" title="常规"></a>常规</h3><p>按住 option 键，鼠标右击，查看菜单栏变化</p>
+<h3 id="其他方式"><a href="#其他方式" class="headerlink" title="其他方式"></a>其他方式</h3>
+        <!-- 
+
+
+Macos Beta 系统更新开启
+网络磁盘映射
+剪切（移动）
+常规
+快捷键
+
+
+直接删除文件
+修改终端用户名
+启用 SSD 的 TRIM 支持
+关闭 SIP
+设定文件默认打开方式
+常规
+其他方式
+
+
+打开允许未知来源 app 选项
+设定快捷打开程序快捷键
+设置 automator 任务
+设置程序打开快捷键
+
+
+
+
+Macos Beta 系统更新开启在apple beta 地址上登录h......  -->
+        <p class="article-more-link">
+          <a href="/MacOS基本操作.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/黑群晖常见问题.html">黑群晖常见问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#黑群晖搜索不到-ip">黑群晖搜索不到 IP</a><ul>
+<li><a href="#网络联通检查">网络联通检查</a></li>
+<li><a href="#网卡驱动问题">网卡驱动问题</a></li>
+</ul>
+</li>
+<li><a href="#ssd-缓存问题">SSD 缓存问题</a></li>
+<li><a href="#moments-人物主题无照片">Moments 人物、主题无照片</a></li>
+<li><a href="#群晖添加第三方社群套件源显示无效的位置">群晖添加第三方社群套件源显示无效的位置</a></li>
+<li><a href="#jellufin-plex-扫描不出影片">Jellufin /Plex 扫描不出影片</a></li>
+<li><a href="#黑群晖硬件转码">黑群晖硬件转码</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="黑群晖搜索不到-IP"><a href="#黑群晖搜索不到-IP" class="headerlink" title="黑群晖搜索不到 IP"></a>黑群晖搜索不到 IP</h2><h3 id="网络联通检查"><a href="#网络联通检查" class="headerlink" title="网络联通检查"></a>网络联通检查</h3><p>主板网口灯检查<br>检查主板网口灯，绿灯常亮说明网络连接成功，黄灯闪烁说明有流量传输。<br>若绿灯亮，进入下一步。</p>
+<h3 id="网卡驱动问题"><a href="#网卡驱动问题" class="headerlink" title="网卡驱动问题"></a>网卡驱动问题</h3><p>检查网卡配置，黑群晖默认不支持 2.5G 以及万兆网卡，<br>需要替换引导中的网卡驱动文件。<br>直接 Google<code>DS918+ 6.23 &quot;0.13.3&quot;</code><br>找到 DS918-6.23_1.04b 的扩展驱动 0.13.3.zip<br>解压得到进行两个文件<br><code>extra.lzma extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘。在左侧目录下可以看到一个 分区(1)，右键选择”挂载到 windows”。然后选择确定之后。可以发现这个分区出现在文件管理那边。<br>用上述解压得到的文件替换分区里的文件即可。<br>然后退出 U 盘，重新启动，就能支持 2.5G 网卡了<br>[^1]:<a href="https://post.smzdm.com/p/aoxd6697/" target="_blank" rel="noopener">https://post.smzdm.com/p/aoxd6697/</a></p>
+<h2 id="SSD-缓存问题"><a href="#SSD-缓存问题" class="headerlink" title="SSD 缓存问题"></a>SSD 缓存问题</h2><p>不打补丁的情况下，黑群晖默认不识别 SSD<br>SSD 补丁如下<br>版本 | 补丁 | 操作<br>— | — | —<br>6.22 | libNVMEpatch.sh | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code><br>6.23 | libsynonvme.so.1 | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code></p>
+<p>上述操作需要先远程 ssh user@ip ，操作完成后退出重启即可[^2]<br>[^2]:<a href="https://wp.gxnas.com/6010.html" target="_blank" rel="noopener">https://wp.gxnas.com/6010.html</a></p>
+<h2 id="Moments-人物、主题无照片"><a href="#Moments-人物、主题无照片" class="headerlink" title="Moments 人物、主题无照片"></a>Moments 人物、主题无照片</h2><p>安装 Moments 后人物与主题无法智能识别，进入后显示还有 xxx 张照片待发现。<br>停用 Moments<br>进入 /var/packages/SynologyMoments/target/usr/lib 目录下<br>备份 libsynophoto-plugin-detection.so</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mv ./libsynophoto-plugin-detection.so ./libsynophoto-plugin-detection.so.bak</span><br></pre></td></tr></table></figure>
+<p><a href="http://42.193.201.102:8443/file/Docs/Tools/OS/Nas/黑群晖常见问题/libsynophoto-plugin-detection.so" target="_blank" rel="noopener">libsynophoto-plugin-detection.so</a><br>将下载的新文件放在 /var/packages/SynologyMoments/target/usr/lib 下，对全部用户赋完全权限（777）或对 SynologyMoments 赋控制权限（755）。<br>开启 moments，重建索引。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%BB%91%E7%BE%A4%E6%99%96%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220121102822.png" alt="黑群晖常见问题20220121102822"></p>
+<h2 id="群晖添加第三方社群套件源显示无效的位置"><a href="#群晖添加第三方社群套件源显示无效的位置" class="headerlink" title="群晖添加第三方社群套件源显示无效的位置"></a>群晖添加第三方社群套件源显示无效的位置</h2><p>在套件设置常规中的信任层级允许任何发行者。<br>之后在套件来源中添加 <a href="http://packages.synocommunity.com显示无效地址。" target="_blank" rel="noopener">http://packages.synocommunity.com显示无效地址。</a><br>出现问题的原因是在 DSM6 非最新版本的系统证书过期。<br>在控制面板 Terminal &amp; SNMP 打开允许 SSH 连接。<br>用 SecureCRT 等工具远程连接。<br>输入如下命令</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo mv /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt.bak &amp;&amp; sudo curl -Lko /etc/ssl/certs/ca-certificates.crt https://curl.se/ca/cacert.pem</span><br></pre></td></tr></table></figure>
+<p>执行完毕后重新添加源。<br>其他常用的套件源</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">http://packages.synocommunity.com</span><br><span class="line"></span><br><span class="line">http://packages.pcloadletter.co.uk</span><br><span class="line"></span><br><span class="line">http://www.cphub.net</span><br><span class="line"></span><br><span class="line">http://synology.sysco.ch</span><br><span class="line"></span><br><span class="line">http://packages.quadrat4.de</span><br><span class="line"></span><br><span class="line">http://synology.acmenet.ru</span><br><span class="line"></span><br><span class="line">http://cytec.us/spk</span><br><span class="line"></span><br><span class="line">http://spk.naefmarco.ch/spkrepo/packages/</span><br><span class="line"></span><br><span class="line">http://spk.nas-mirror.de/spkrepo/packages</span><br><span class="line"></span><br><span class="line">http://spk.unzureichende.info/</span><br><span class="line"></span><br><span class="line">http://packages.synocommunity.com/?beta=1</span><br></pre></td></tr></table></figure>
+<h2 id="Jellufin-Plex-扫描不出影片"><a href="#Jellufin-Plex-扫描不出影片" class="headerlink" title="Jellufin /Plex 扫描不出影片"></a>Jellufin /Plex 扫描不出影片</h2><p>这是由于指定的文件夹没有开发读写权限。<br>对于 Plex，安装时会自动创建 Plex 用户，需要为其赋权。<br>Jellufin 三方套件版会创建 sc-jellyfin 用户， 尝试赋权。<br>若都不行，尝试将扫描目录对所有人赋读写权限。</p>
+<h2 id="黑群晖硬件转码"><a href="#黑群晖硬件转码" class="headerlink" title="黑群晖硬件转码"></a>黑群晖硬件转码</h2><p><a href="https://wp.gxnas.com/7952.html" target="_blank" rel="noopener">https://wp.gxnas.com/7952.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-黑群晖安装"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/黑群晖安装.html">黑群晖安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#硬件准备">硬件准备</a><ul>
+<li><a href="#nas-主机">Nas 主机</a></li>
+<li><a href="#u-盘">u 盘</a></li>
+<li><a href="#电脑">电脑</a></li>
+</ul>
+</li>
+<li><a href="#软件准备">软件准备</a><ul>
+<li><a href="#系统选择">系统选择</a></li>
+<li><a href="#相关软件">相关软件</a></li>
+</ul>
+</li>
+<li><a href="#引导盘准备">引导盘准备</a><ul>
+<li><a href="#获取-vid-与-pid">获取 VID 与 PID</a></li>
+<li><a href="#替换-vid-与-pid">替换 VID 与 PID</a></li>
+<li><a href="#格式化硬盘">格式化硬盘</a></li>
+<li><a href="#引导盘制作">引导盘制作</a></li>
+</ul>
+</li>
+<li><a href="#安装系统">安装系统</a><ul>
+<li><a href="#nas-进入">Nas 进入</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h2><table>
+<thead>
+<tr>
+<th>硬件</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nas 主机</td>
+<td>Intel CPU</td>
+</tr>
+<tr>
+<td>u 盘</td>
+<td>&gt; 50M</td>
+</tr>
+<tr>
+<td>电脑</td>
+<td>Windows 系统</td>
+</tr>
+<tr>
+<td>键鼠</td>
+<td>进 BIOS 等</td>
+</tr>
+<tr>
+<td>硬盘</td>
+<td>大大的好</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Nas-主机"><a href="#Nas-主机" class="headerlink" title="Nas 主机"></a>Nas 主机</h3><p>黑群晖对主机的要求不是很高，不需要硬解软路由+移动硬盘都可运行。<br>主机一般推荐使用 10 代以下的 Intel CPU.<br>新代 Intel 与 AMD 等其他 CPU 主机核显硬解不友好，视硬解需求而定。</p>
+<h3 id="u-盘"><a href="#u-盘" class="headerlink" title="u 盘"></a>u 盘</h3><p>U 盘用于做系统引导，引导程序的大小为 50M。<br>大于这个容量即可，现在 U 盘基本都满足要求。</p>
+<h3 id="电脑"><a href="#电脑" class="headerlink" title="电脑"></a>电脑</h3><p>需要一台 windows 电脑来安装系统引导程序。<br>键鼠需要插入 Nas 主机操作 BIOS。</p>
+<h2 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h2><h3 id="系统选择"><a href="#系统选择" class="headerlink" title="系统选择"></a>系统选择</h3>
+        <!-- 
+
+
+硬件准备
+Nas 主机
+u 盘
+电脑
+
+
+软件准备
+系统选择
+相关软件
+
+
+引导盘准备
+获取 VID 与 PID
+替换 VID 与 PID
+格式化硬盘
+引导盘制作
+
+
+安装系统
+Nas 进入
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+硬件准备
+
+
+硬件
+要求
+
+
+
+
+Nas 主机
+Intel CPU
+
+
+u 盘
+&gt; 50M
+
+
+电脑
+......  -->
+        <p class="article-more-link">
+          <a href="/黑群晖安装.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
     </footer>
   </div>
   
