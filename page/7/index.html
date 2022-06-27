@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-ES5与ES6中的argments"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CSS选择器"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES5与ES6中的argments.html">ES5与ES6中的argments</a>
+      <a class="article-title" href="/CSS选择器.html">CSS选择器</a>
     </h1>
   
 
@@ -336,30 +336,94 @@
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
+      <time datetime="2018-01-25T12:13:37.000Z" itemprop="datePublished">2018-01-25</time>
     </a>
 
 
       
     
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ES5与ES6中的argments.html">http://www.skyline.show/ES5 与 ES6 中的 argments.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#兄弟选择器">兄弟选择器</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="兄弟选择器"><a href="#兄弟选择器" class="headerlink" title="兄弟选择器"></a>兄弟选择器</h2><p>CSS 常见的兄弟选择器包括 <code>+</code> <code>~</code><br>其中<code>+</code> 是相邻兄弟选择器，<code>~</code> 是通用兄弟选择器。<br>选择器前后的标签有有相同父标签。</p>
+<p>相邻兄弟选择器 + 选择的是紧邻在前置标签后的第一个标签。<br>通用兄弟选择器命中的标签必须是(不一定是紧邻)前置标签后面的兄弟标签。</p>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>描述</th>
+<th>同父</th>
+<th>后置标签要求首个</th>
+<th>选中标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘+’</td>
+<td>相邻</td>
+<td>是</td>
+<td>是</td>
+<td>最多一个（非紧邻不选中）</td>
+</tr>
+<tr>
+<td>‘~’</td>
+<td>通用</td>
+<td>是</td>
+<td>否</td>
+<td>多个</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 紧邻 h5 的第一个 p 兄弟标签中招，h5 之后第一个元素不是p，就无命中 */</span></span><br><span class="line"><span class="selector-tag">h5</span> + <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  比 h5 小（在其后面）的 p 兄弟标签全部中招，h5 之后没有 p，就无命中 */</span></span><br><span class="line"><span class="selector-tag">h5</span> ~ <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/HTML&amp;CSS/CSS/CSS_Selector.html" target="_blank" rel="noopener">示例</a></p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
+        <!-- 
 
+
+兄弟选择器
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+兄弟选择器CSS 常见的兄弟选择器包括 + ~其中+ 是相邻兄弟选择器，~ 是通用兄弟选择器。选择器前后的标签有有相同父标签。
+相邻兄弟选择器 + 选择的是紧邻在前置标签后的第一个标签。通用兄弟选择器命中的标签必须是(不一定是紧邻)前置标签后面的兄弟标签。
+
+
+
+选择器
+描述
+同父
+后置标签......  -->
+        <p class="article-more-link">
+          <a href="/CSS选择器.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>
@@ -485,7 +549,7 @@ display 会被文档流给移除，影响页面布局，导致重排重绘，原
 <!-- Table of Contents -->
 
   
-    <article id="post-Sed命令"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES5与ES6中的argments"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -493,7 +557,57 @@ display 会被文档流给移除，影响页面布局，导致重排重绘，原
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Sed命令.html">Sed命令</a>
+      <a class="article-title" href="/ES5与ES6中的argments.html">ES5与ES6中的argments</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ES5与ES6中的argments.html">http://www.skyline.show/ES5 与 ES6 中的 argments.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中查找相关命令"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中查找相关命令.html">Shell中查找相关命令</a>
     </h1>
   
 
@@ -508,27 +622,67 @@ display 会被文档流给移除，影响页面布局，导致重排重绘，原
 
       
     
-    <a class="article-category-link" href="/categories/Linux-Unix/">Linux/Unix</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>流编辑器，sed用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。</p>
-<hr>
-<h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><h4 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h4><h5 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h5><p>默认情况下，在所有的标准输出都会被打印到屏幕上。 -n选项用于指定输出内容。</p>
-<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><h6 id="☞-代码"><a href="#☞-代码" class="headerlink" title="☞ 代码"></a>☞ 代码</h6><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出100到200行</span></span><br><span class="line">sed -n <span class="string">'100,200p'</span> skyline.txt</span><br><span class="line"><span class="comment"># 输出文件行数</span></span><br><span class="line">sed -n <span class="string">'$='</span> skyline.txt</span><br></pre></td></tr></table></figure>
-<h6 id="☞-说明"><a href="#☞-说明" class="headerlink" title="☞ 说明"></a>☞ 说明</h6>
-        <!-- 简介流编辑器，sed用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#whichwhereiswhatis">which/whereis/whatis</a><ul>
+<li><a href="#which">which</a></li>
+<li><a href="#whereis">whereis</a></li>
+<li><a href="#whatis">whatis</a></li>
+</ul>
+</li>
+<li><a href="#find">find</a></li>
+<li><a href="#grep">grep</a></li>
+<li><a href="#汇总">汇总</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="which-whereis-whatis"><a href="#which-whereis-whatis" class="headerlink" title="which/whereis/whatis"></a>which/whereis/whatis</h2><h3 id="which"><a href="#which" class="headerlink" title="which"></a>which</h3><p>搜索某个命令在文件系统中的的位置并展示，若命令为别名，则会展示别名对应的命令。</p>
+<blockquote>
+<p>shows the full path of (shell) commands.</p>
+</blockquote>
+<p>默认使用时，搜索某个系统命令的位置，并且返回第一个搜索结果</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">which</span> netstat</span><br><span class="line"><span class="comment"># /usr/sbin/netstat</span></span><br><span class="line"><span class="built_in">which</span> ls</span><br><span class="line"><span class="comment"># ll: aliased to ls -G</span></span><br></pre></td></tr></table></figure>
+<p>-a 选项，搜索某个系统命令的位置，并且返回所有搜索结果</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">which</span> -a ls</span><br><span class="line"><span class="comment"># ls: aliased to ls -G</span></span><br><span class="line"><span class="comment"># /bin/ls</span></span><br></pre></td></tr></table></figure>
+<h3 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h3>
+        <!-- 
 
-选项-n概述默认情况下，在所有的标准输出都会被打印到屏幕上。 -n选项用于指定输出内容。
-示例☞ 代码# 输出100到200行sed -n '100,200p' skyline.txt# 输出文件行数sed -n '$=' skyline.txt
-☞ 说明
 
-地址逗号......  -->
+which/whereis/whatis
+which
+whereis
+whatis
+
+
+find
+grep
+汇总
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+which/whereis/whatiswhich搜索某个命令在文件系统中的的位置并展示，若命令为别名，则会展示别名对应的命令。
+
+shows the full path of (shell......  -->
         <p class="article-more-link">
-          <a href="/Sed命令.html#more">阅读全文</a>
+          <a href="/Shell中查找相关命令.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -536,7 +690,7 @@ display 会被文档流给移除，影响页面布局，导致重排重绘，原
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
 
     </footer>
   </div>
@@ -589,6 +743,78 @@ display 会被文档流给移除，影响页面布局，导致重排重绘，原
 <p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/对象的私有、静态（类）、自有（实例）、原型属性与方法.html">http://www.skyline.show/对象的私有、静态（类）、自有（实例）、原型属性与方法.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
 </blockquote>
 
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-vue里面的小坑"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/vue里面的小坑.html">vue里面的小坑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Vue/">Vue</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><a href="https://cn.vuejs.org" target="_blank" rel="noopener">部分代码与文字源于官网，详情与变更参见官网，本文仅作参考</a></p>
+</blockquote>
+<h4 id="组件挂载顺序"><a href="#组件挂载顺序" class="headerlink" title="组件挂载顺序"></a>组件挂载顺序</h4><h5 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h5><ul>
+<li>vue子组件与父组件之间，父组件首先加载完成（beforeCreate-&gt;beforeMount率先执行）之后是子组件加载，最后由子向父组件挂载</li>
+<li>要在所有组件生命周期完成后执行某个函数，只需要在父组件加入nextTick即可</li>
+</ul>
+<p>vue代码结构如下</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'papa'</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">c1</span>&gt;</span><span class="tag">&lt;/<span class="name">c1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">c2</span>&gt;</span><span class="tag">&lt;/<span class="name">c2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">'PaPa'</span>,</span></span><br><span class="line">    </span><br><span class="line">    components: &#123;</span><br><span class="line">        c1,</span><br><span class="line">        c2</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    beforeCreate() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa beforeCreate'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    created() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa created'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    beforeMount() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa beforeMount'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    mounted()&#123;</span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'papa mounted'</span>)</span></span><br><span class="line"><span class="javascript">        <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'papa nextTick'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"><span class="javascript">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'papa setTimeout'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>打印结果如下：<br>其中nextTick与setTimeout在生命周期的位置无关</p>
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/20981C34C327CF8ED10EE433FA51FE19.png-content" alt="Screen Shot 2017-11-08 at 15.21.37.png-content"></p>
+<hr>
+<h4 id="关于computed"><a href="#关于computed" class="headerlink" title="关于computed"></a>关于computed</h4><h5 id="简单说明"><a href="#简单说明" class="headerlink" title="简单说明"></a>简单说明</h5><p>计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。这就意味着只要依赖还没有发生改变，多次访问计算属性会立即返回之前的计算结果，这一定程度上节约了开销。</p>
+<h5 id="关于setter"><a href="#关于setter" class="headerlink" title="关于setter"></a>关于setter</h5>
+        <!-- 
+部分代码与文字源于官网，详情与变更参见官网，本文仅作参考
+
+组件挂载顺序注意点
+vue子组件与父组件之间，父组件首先加载完成（beforeCreate-&gt;beforeMount率先执行）之后是子组件加载，最后由子向父组件挂载
+要在所有组件生命周期完成后执行某个函数，只需要在父组件加入nextTick即可
+
+vue代码结构如下
+&lt;template&gt;    &lt;div c......  -->
+        <p class="article-more-link">
+          <a href="/vue里面的小坑.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
@@ -843,78 +1069,6 @@ word-wrap 原始微软私有，css3 统一规范重命......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-vue里面的小坑"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/vue里面的小坑.html">vue里面的小坑</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Vue/">Vue</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p><a href="https://cn.vuejs.org" target="_blank" rel="noopener">部分代码与文字源于官网，详情与变更参见官网，本文仅作参考</a></p>
-</blockquote>
-<h4 id="组件挂载顺序"><a href="#组件挂载顺序" class="headerlink" title="组件挂载顺序"></a>组件挂载顺序</h4><h5 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h5><ul>
-<li>vue子组件与父组件之间，父组件首先加载完成（beforeCreate-&gt;beforeMount率先执行）之后是子组件加载，最后由子向父组件挂载</li>
-<li>要在所有组件生命周期完成后执行某个函数，只需要在父组件加入nextTick即可</li>
-</ul>
-<p>vue代码结构如下</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'papa'</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">c1</span>&gt;</span><span class="tag">&lt;/<span class="name">c1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">c2</span>&gt;</span><span class="tag">&lt;/<span class="name">c2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    name: <span class="string">'PaPa'</span>,</span></span><br><span class="line">    </span><br><span class="line">    components: &#123;</span><br><span class="line">        c1,</span><br><span class="line">        c2</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    beforeCreate() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa beforeCreate'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    created() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa created'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    beforeMount() &#123;</span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'papa beforeMount'</span>)</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    mounted()&#123;</span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'papa mounted'</span>)</span></span><br><span class="line"><span class="javascript">        <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'papa nextTick'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"><span class="javascript">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'papa setTimeout'</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>打印结果如下：<br>其中nextTick与setTimeout在生命周期的位置无关</p>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/20981C34C327CF8ED10EE433FA51FE19.png-content" alt="Screen Shot 2017-11-08 at 15.21.37.png-content"></p>
-<hr>
-<h4 id="关于computed"><a href="#关于computed" class="headerlink" title="关于computed"></a>关于computed</h4><h5 id="简单说明"><a href="#简单说明" class="headerlink" title="简单说明"></a>简单说明</h5><p>计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。这就意味着只要依赖还没有发生改变，多次访问计算属性会立即返回之前的计算结果，这一定程度上节约了开销。</p>
-<h5 id="关于setter"><a href="#关于setter" class="headerlink" title="关于setter"></a>关于setter</h5>
-        <!-- 
-部分代码与文字源于官网，详情与变更参见官网，本文仅作参考
-
-组件挂载顺序注意点
-vue子组件与父组件之间，父组件首先加载完成（beforeCreate-&gt;beforeMount率先执行）之后是子组件加载，最后由子向父组件挂载
-要在所有组件生命周期完成后执行某个函数，只需要在父组件加入nextTick即可
-
-vue代码结构如下
-&lt;template&gt;    &lt;div c......  -->
-        <p class="article-more-link">
-          <a href="/vue里面的小坑.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Generator函数"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1021,75 +1175,6 @@ vue代码结构如下
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-鹧鸪天（新寒）"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/鹧鸪天（新寒）.html">鹧鸪天（新寒）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-09-23T06:15:40.000Z" itemprop="datePublished">2017-09-23</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Subject/">Subject</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>&nbsp;<br>&nbsp;</p>
-<p>乍起新寒风又嚎，厦间不见杜家茅。落棋柯烂朝兴替，弹指风挥花盛飘。</p>
-<p>梦缥缈，路遥迢，随流逐浪几多豪？待心足了即名了，斜雨泥丫印土桥。<br>&nbsp;<br>&nbsp;</p>
-<hr>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http: //www.skyline.show" target="_blank" rel="noopener">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3>
-        <!-- 
-&nbsp;&nbsp;
-乍起新寒风又嚎，厦间不见杜家茅。落棋柯烂朝兴替，弹指风挥花盛飘。
-梦缥缈，路遥迢，随流逐浪几多豪？待心足了即名了，斜雨泥丫印土桥。&nbsp;&nbsp;
-
-BMW WARNINGBulletin本文首发于 skyline.show 欢迎访问。
-
-I am a bucolic migant worker but I never walk backwards.
-
-M......  -->
-        <p class="article-more-link">
-          <a href="/鹧鸪天（新寒）.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Literature/">Literature</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/诗词/">诗词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鹧鸪天/">鹧鸪天</a></li></ul>
 
     </footer>
   </div>

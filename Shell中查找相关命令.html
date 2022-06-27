@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>shell中grep的使用 | Skyline&#39;s blog</title>
+  <title>shell中查找相关命令 | Skyline&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
@@ -13,18 +13,18 @@
   
   
   
-  <meta name="description" content="使用 基础使用 正则 递归查找子目录 忽略大小写 匹配次数 静默查找   选项 BMW WARNING Bulletin Material Warrant     使用基础使用grep 是一个字符搜索命令，使用的基础语法为 grep [options] pattern [files] 正则">
+  <meta name="description" content="which/whereis/whatis which whereis whatis   find grep 汇总 BMW WARNING Bulletin Material Warrant     which/whereis/whatiswhich搜索某个命令在文件系统中的的位置并展示，若命令为别名，则会展示别名对应的命令。  shows the full path of (shell) c">
 <meta name="keywords" content="Shell,Commands">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Shell中grep的使用">
-<meta property="og:url" content="http://www.skyline.show/Shell中grep的使用.html">
+<meta property="og:title" content="Shell中查找相关命令">
+<meta property="og:url" content="http://www.skyline.show/Shell中查找相关命令.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="使用 基础使用 正则 递归查找子目录 忽略大小写 匹配次数 静默查找   选项 BMW WARNING Bulletin Material Warrant     使用基础使用grep 是一个字符搜索命令，使用的基础语法为 grep [options] pattern [files] 正则">
+<meta property="og:description" content="which/whereis/whatis which whereis whatis   find grep 汇总 BMW WARNING Bulletin Material Warrant     which/whereis/whatiswhich搜索某个命令在文件系统中的的位置并展示，若命令为别名，则会展示别名对应的命令。  shows the full path of (shell) c">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2022-06-21T08:48:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Shell中grep的使用">
-<meta name="twitter:description" content="使用 基础使用 正则 递归查找子目录 忽略大小写 匹配次数 静默查找   选项 BMW WARNING Bulletin Material Warrant     使用基础使用grep 是一个字符搜索命令，使用的基础语法为 grep [options] pattern [files] 正则">
+<meta name="twitter:title" content="Shell中查找相关命令">
+<meta name="twitter:description" content="which/whereis/whatis which whereis whatis   find grep 汇总 BMW WARNING Bulletin Material Warrant     which/whereis/whatiswhich搜索某个命令在文件系统中的的位置并展示，若命令为别名，则会展示别名对应的命令。  shows the full path of (shell) c">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -164,7 +164,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Shell中grep的使用" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-Shell中查找相关命令" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -172,7 +172,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      Shell中grep的使用
+      Shell中查找相关命令
     </h1>
   
 
@@ -183,7 +183,7 @@
     
     <span style="color: #999">发表于</span>
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-09T06:54:53.000Z" itemprop="datePublished">2022-06-09</time>
+      <time datetime="2018-01-22T07:14:56.000Z" itemprop="datePublished">2018-01-22</time>
     </a><span style="color: #999">|</span>
 
 
@@ -205,16 +205,15 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#使用">使用</a><ul>
-<li><a href="#基础使用">基础使用</a></li>
-<li><a href="#正则">正则</a></li>
-<li><a href="#递归查找子目录">递归查找子目录</a></li>
-<li><a href="#忽略大小写">忽略大小写</a></li>
-<li><a href="#匹配次数">匹配次数</a></li>
-<li><a href="#静默查找">静默查找</a></li>
+<li><a href="#whichwhereiswhatis">which/whereis/whatis</a><ul>
+<li><a href="#which">which</a></li>
+<li><a href="#whereis">whereis</a></li>
+<li><a href="#whatis">whatis</a></li>
 </ul>
 </li>
-<li><a href="#选项">选项</a></li>
+<li><a href="#find">find</a></li>
+<li><a href="#grep">grep</a></li>
+<li><a href="#汇总">汇总</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
@@ -223,70 +222,113 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>grep 是一个字符搜索命令，使用的基础语法为</p>
+<h2 id="which-whereis-whatis"><a href="#which-whereis-whatis" class="headerlink" title="which/whereis/whatis"></a>which/whereis/whatis</h2><h3 id="which"><a href="#which" class="headerlink" title="which"></a>which</h3><p>搜索某个命令在文件系统中的的位置并展示，若命令为别名，则会展示别名对应的命令。</p>
+<blockquote>
+<p>shows the full path of (shell) commands.</p>
+</blockquote>
+<p>默认使用时，搜索某个系统命令的位置，并且返回第一个搜索结果</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">which</span> netstat</span><br><span class="line"><span class="comment"># /usr/sbin/netstat</span></span><br><span class="line"><span class="built_in">which</span> ls</span><br><span class="line"><span class="comment"># ll: aliased to ls -G</span></span><br></pre></td></tr></table></figure>
+<p>-a 选项，搜索某个系统命令的位置，并且返回所有搜索结果</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">which</span> -a ls</span><br><span class="line"><span class="comment"># ls: aliased to ls -G</span></span><br><span class="line"><span class="comment"># /bin/ls</span></span><br></pre></td></tr></table></figure>
+<h3 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h3><a id="more"></a>
+<p>命令只能用于程序名的搜索，而且只搜索二进制文件（参数-b）、man 说明文件（参数-m）和源代码文件（参数-s）</p>
+<blockquote>
+<p>locate the binary, source, and manual page files for a command</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">whereis ls</span><br><span class="line"><span class="comment"># ls: /bin/ls /usr/share/man/man1/ls.1</span></span><br><span class="line">whereis -b ls</span><br><span class="line"><span class="comment"># ls: /bin/ls</span></span><br><span class="line">whereis -m ls</span><br><span class="line"><span class="comment"># ls: /usr/share/man/man1/ls.1</span></span><br></pre></td></tr></table></figure>
+<h3 id="whatis"><a href="#whatis" class="headerlink" title="whatis"></a>whatis</h3><p>展示命令手册中对应的的简要介绍</p>
+<blockquote>
+<p>display manual page descriptions</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">whatis shutdown</span><br><span class="line"><span class="comment"># shutdown (8)         - Halt, power-off or reboot the machine</span></span><br><span class="line"></span><br><span class="line">whatis whereis</span><br><span class="line"><span class="comment"># whereis (1)          - locate the binary, source, and manual page files for a command</span></span><br><span class="line"></span><br><span class="line">whatis <span class="built_in">which</span></span><br><span class="line"><span class="comment"># which (1)            - shows the full path of (shell) commands.</span></span><br><span class="line"></span><br><span class="line">whatis whatis</span><br><span class="line"><span class="comment"># whatis (1)           - display manual page descriptions</span></span><br></pre></td></tr></table></figure>
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>文件搜索命令。</p>
+<blockquote>
+<p>search for files in a directory hierarchy</p>
+</blockquote>
+<p>在项目根目录下执行如下命令。</p>
+<ul>
+<li>根据文件名称搜索</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">find ./ -name <span class="string">'Nas*'</span></span><br><span class="line"><span class="comment"># .//Demos/Tools/OS/Nas</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/OS/Nas</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/OS/Nas/Nas使用frp内网穿透.md</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/OS/Nas/Nas系统选择.md</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>忽略文件名大小写</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">find ./ -name <span class="string">'nas*'</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">find ./ -iname <span class="string">'nas*'</span></span><br><span class="line"><span class="comment"># .//Demos/Tools/OS/Nas</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/OS/Nas</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/OS/Nas/Nas使用frp内网穿透.md</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/OS/Nas/Nas系统选择.md</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>根据修改日期搜索</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 列出七天内修改的文件</span></span><br><span class="line">find ./ -name <span class="string">'nas*'</span> -mtime -7</span><br></pre></td></tr></table></figure>
+<ul>
+<li>根据文件类型搜索</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">find ./ -name <span class="string">'Nas*'</span> -<span class="built_in">type</span> d</span><br><span class="line"><span class="comment"># .//Demos/Tools/OS/Nas</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/OS/Nas</span></span><br><span class="line">find ./  -name <span class="string">'Git*'</span> -<span class="built_in">type</span> f</span><br><span class="line"><span class="comment"># .//Docs/Tools/DEVs/Git/Git常见命令.md</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/DEVs/Git/Git常见操作.md</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/DEVs/Git/Git常见符号.md</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/DEVs/Git/Git常见问题.md</span></span><br></pre></td></tr></table></figure>
+<p>文件类型</p>
+<ul>
+<li>f: 普通文件</li>
+<li>d: 文件夹</li>
+<li>l: 链接</li>
+<li>c: character devices</li>
+<li>b: block devices</li>
+<li>p: named pipe (FIFO)</li>
+<li>s: socket</li>
+</ul>
+<ul>
+<li>根据文件大小搜索</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">find ./ -name <span class="string">'Git*'</span> -<span class="built_in">type</span> f | xargs ls -lh</span><br><span class="line"><span class="comment"># -rw-r--r--  1 macmini  staff   1.7K Jun  9 17:41 .//Docs/Tools/DEVs/Git/Git常见命令.md</span></span><br><span class="line"><span class="comment"># -rw-r--r--  1 macmini  staff   6.5K Jun 16 11:50 .//Docs/Tools/DEVs/Git/Git常见操作.md</span></span><br><span class="line"><span class="comment"># -rw-r--r--  1 macmini  staff   1.2K Mar  2 16:38 .//Docs/Tools/DEVs/Git/Git常见符号.md</span></span><br><span class="line"><span class="comment"># -rw-r--r--  1 macmini  staff   1.2K Jun  9 17:41 .//Docs/Tools/DEVs/Git/Git常见问题.md</span></span><br><span class="line">find ./ -name <span class="string">'Git*'</span> -<span class="built_in">type</span> f -size +1k -size -2k</span><br><span class="line"><span class="comment"># .//Docs/Tools/DEVs/Git/Git常见命令.md</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/DEVs/Git/Git常见符号.md</span></span><br><span class="line"><span class="comment"># .//Docs/Tools/DEVs/Git/Git常见问题.md</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>多个条件搜索</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">find ./ -name <span class="string">'Nas*'</span> -<span class="built_in">type</span> d -or -name <span class="string">'Git*'</span> -<span class="built_in">type</span> f</span><br><span class="line">.//Demos/Tools/OS/Nas</span><br><span class="line">.//Docs/Tools/DEVs/Git/Git常见命令.md</span><br><span class="line">.//Docs/Tools/DEVs/Git/Git常见操作.md</span><br><span class="line">.//Docs/Tools/DEVs/Git/Git常见符号.md</span><br><span class="line">.//Docs/Tools/DEVs/Git/Git常见问题.md</span><br><span class="line">.//Docs/Tools/OS/Nas</span><br></pre></td></tr></table></figure>
+<ul>
+<li>对找到的多个文件执行命令操作<br><code>{}</code>指代文件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">find ./ -name <span class="string">'Git*'</span> -<span class="built_in">type</span> f -size +1k -size -2k -<span class="built_in">exec</span> wc -l &#123;&#125; \;</span><br><span class="line"><span class="comment">#   54 .//Docs/Tools/DEVs/Git/Git常见命令.md</span></span><br><span class="line"><span class="comment">#   41 .//Docs/Tools/DEVs/Git/Git常见符号.md</span></span><br><span class="line"><span class="comment">#   56 .//Docs/Tools/DEVs/Git/Git常见问题.md</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查找空文件和空目录</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">touch Git.txt;mkdir Git_test;</span><br><span class="line">find ./ -empty -name <span class="string">"Git*"</span></span><br><span class="line"><span class="comment"># .//Git.txt</span></span><br><span class="line"><span class="comment"># .//Git_test</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除搜索结果</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">find ./ -empty -name <span class="string">"Git*"</span> -delete</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Find files matching a given pattern, excluding specific paths:<br>find root<em>path -name ‘</em>.py’ -not -path ‘_/site-packages/*‘</li>
+</ul>
+<h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><p>grep 是一个字符搜索命令，使用的基础语法为</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep [options] pattern [files]</span><br></pre></td></tr></table></figure>
-<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3><a id="more"></a>
-<p>^ 匹配的字符在行首<br>$ 匹配的字符在行尾</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br><span class="line">grep shell$ Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
-<p>可通过 -e 来开启正则匹配模式，-e 参数在使用多次时很有用</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 搜索包含shell 和grep的行</span></span><br><span class="line">grep -e shell -e grep Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
-<h3 id="递归查找子目录"><a href="#递归查找子目录" class="headerlink" title="递归查找子目录"></a>递归查找子目录</h3><p>-r 选项<br>在项目根目录尝试输入如下命令</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep -r shell -e grep Docs/Major/Shell/</span><br></pre></td></tr></table></figure>
-<h3 id="忽略大小写"><a href="#忽略大小写" class="headerlink" title="忽略大小写"></a>忽略大小写</h3><p>-i 选项<br>在项目根目录尝试输入如下命令</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep -i shell Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
-<h3 id="匹配次数"><a href="#匹配次数" class="headerlink" title="匹配次数"></a>匹配次数</h3><p>-c 选项，获取匹配次数<br>在项目根目录尝试输入如下命令</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep -c shell Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br><span class="line"><span class="comment"># 6</span></span><br></pre></td></tr></table></figure>
-<h3 id="静默查找"><a href="#静默查找" class="headerlink" title="静默查找"></a>静默查找</h3><p>-q 选项<br>静默查找，不做打印输出，只有运行结果状态。<br>常用语条件判定等情况<br>不指定时即为关闭静默。<br>关闭静默</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">'GNU/Linux is an operating system'</span></span><br><span class="line">SUB=<span class="string">'Linux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> grep <span class="string">"<span class="variable">$SUB</span>"</span> &lt;&lt;&lt; <span class="string">"<span class="variable">$STR</span>"</span>; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"It's there"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># GNU/Linux is an operating system</span></span><br><span class="line"><span class="comment"># It's there</span></span><br></pre></td></tr></table></figure>
-<p>开启静默</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">'GNU/Linux is an operating system'</span></span><br><span class="line">SUB=<span class="string">'Linux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> grep -q <span class="string">"<span class="variable">$SUB</span>"</span> &lt;&lt;&lt; <span class="string">"<span class="variable">$STR</span>"</span>; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"It's there"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># It's there</span></span><br></pre></td></tr></table></figure>
-<h2 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h2><table>
+<p>具体参考<br><a href="http://www.skyline.show/Shell中grep的使用.html">Shell 中 grep 的使用</a></p>
+<h2 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h2><table>
 <thead>
 <tr>
-<th>选项</th>
+<th>命令</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>q</td>
-<td>静默查找，不做输出，常用语条件判定等情况</td>
+<td>which</td>
+<td>展示命令在系统路径中的位置。</td>
 </tr>
 <tr>
-<td>r</td>
-<td>递归查找子目录文件</td>
+<td>whereis</td>
+<td>用于程序名的搜索</td>
 </tr>
 <tr>
-<td>n</td>
-<td>列出行标</td>
+<td>locate</td>
+<td>通过数据库显示文件或目录</td>
 </tr>
 <tr>
-<td>i</td>
-<td>忽略大小写</td>
+<td>find</td>
+<td>查找硬盘中文件或目录</td>
 </tr>
 <tr>
-<td>e</td>
-<td>搜索时启用正则匹配，可使用多次</td>
+<td>grep</td>
+<td>查找某个文件中匹配项所在行并输出整行</td>
 </tr>
 <tr>
-<td>w</td>
-<td>精确指定单词，需要为单词，英文单词前后有字母不匹配</td>
-</tr>
-<tr>
-<td>l</td>
-<td>只输出匹配的文件名</td>
-</tr>
-<tr>
-<td>c</td>
-<td>输出匹配字符次数</td>
-</tr>
-<tr>
-<td>o</td>
-<td>只输出的匹配字符，多个匹配换行输出</td>
-</tr>
-<tr>
-<td>v</td>
-<td>反转输出，输出不匹配该字符的行</td>
+<td>type</td>
+<td>用来区分某个命令出处，是由 shell 自带的，或外部的独立二进制文件提供的。</td>
 </tr>
 </tbody>
 </table>
@@ -298,7 +340,7 @@
 <blockquote>
 </blockquote>
 <h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)</p>
-<p>文章链接：<a href="http://www.skyline.show/Shell中grep的使用.html">http://www.skyline.show/Shell 中 grep 的使用.html</a></p>
+<p>文章链接：<a href="http://www.skyline.show/Shell中查找相关命令.html">http://www.skyline.show/Shell 中查找相关命令.html</a></p>
 <p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
       
@@ -353,19 +395,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Nas使用frp内网穿透.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/ES5与ES6中的argments.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Nas使用frp内网穿透
+          ES5与ES6中的argments
         
       </div>
     </a>
   
   
-    <a href="/Shell中数组相关操作.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/对象的私有、静态（类）、自有（实例）、原型属性与方法.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Shell中数组相关操作</div>
+      <div class="article-nav-title">对象的私有、静态（类）、自有（实例）、原型属性与方法</div>
     </a>
   
 </nav>
@@ -379,7 +421,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">1.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础使用"><span class="nav-number">1.1.</span> <span class="nav-text">基础使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则"><span class="nav-number">1.2.</span> <span class="nav-text">正则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归查找子目录"><span class="nav-number">1.3.</span> <span class="nav-text">递归查找子目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#忽略大小写"><span class="nav-number">1.4.</span> <span class="nav-text">忽略大小写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配次数"><span class="nav-number">1.5.</span> <span class="nav-text">匹配次数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静默查找"><span class="nav-number">1.6.</span> <span class="nav-text">静默查找</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选项"><span class="nav-number">2.</span> <span class="nav-text">选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">3.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">3.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">3.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#which-whereis-whatis"><span class="nav-number">1.</span> <span class="nav-text">which/whereis/whatis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#which"><span class="nav-number">1.1.</span> <span class="nav-text">which</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#whereis"><span class="nav-number">1.2.</span> <span class="nav-text">whereis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#whatis"><span class="nav-number">1.3.</span> <span class="nav-text">whatis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find"><span class="nav-number">2.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grep"><span class="nav-number">3.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#汇总"><span class="nav-number">4.</span> <span class="nav-text">汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">5.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">5.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">5.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
     
     </div>
   </aside>

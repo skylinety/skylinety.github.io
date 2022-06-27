@@ -13,20 +13,20 @@
   
   
   
-  <meta name="description" content="路径符 重定向符 命令执行符 符号标记 BMW WARNING Bulletin Material Warrant     路径符Shell 中路径相关的符号，如下表所示    符号 使用 说明     ~ cd ~ 用户主页目录   . ls . 当前目录   .. cd .. 上级目录   / cd / 根目录或路径分隔符    重定向符 重定向符表  Shell 中包含输入与输出重定向">
+  <meta name="description" content="引号 路径符 重定向符 命令执行符 符号标记 BMW WARNING Bulletin Material Warrant     引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&amp;#39;进行命令替换。 反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。 skyline=">
 <meta name="keywords" content="Shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shell中的符号">
 <meta property="og:url" content="http://www.skyline.show/Shell中的符号.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="路径符 重定向符 命令执行符 符号标记 BMW WARNING Bulletin Material Warrant     路径符Shell 中路径相关的符号，如下表所示    符号 使用 说明     ~ cd ~ 用户主页目录   . ls . 当前目录   .. cd .. 上级目录   / cd / 根目录或路径分隔符    重定向符 重定向符表  Shell 中包含输入与输出重定向">
+<meta property="og:description" content="引号 路径符 重定向符 命令执行符 符号标记 BMW WARNING Bulletin Material Warrant     引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&amp;#39;进行命令替换。 反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。 skyline=">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%AD%E7%9A%84%E7%AC%A6%E5%8F%B720220322152340.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%AD%E7%9A%84%E7%AC%A6%E5%8F%B720220322165809.png">
-<meta property="og:updated_time" content="2022-06-03T09:41:57.000Z">
+<meta property="og:updated_time" content="2022-06-21T08:48:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell中的符号">
-<meta name="twitter:description" content="路径符 重定向符 命令执行符 符号标记 BMW WARNING Bulletin Material Warrant     路径符Shell 中路径相关的符号，如下表所示    符号 使用 说明     ~ cd ~ 用户主页目录   . ls . 当前目录   .. cd .. 上级目录   / cd / 根目录或路径分隔符    重定向符 重定向符表  Shell 中包含输入与输出重定向">
+<meta name="twitter:description" content="引号 路径符 重定向符 命令执行符 符号标记 BMW WARNING Bulletin Material Warrant     引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&amp;#39;进行命令替换。 反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。 skyline=">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%AD%E7%9A%84%E7%AC%A6%E5%8F%B720220322152340.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -191,7 +191,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:41:57.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-21T08:48:43.000Z" itemprop="datePublished">2022-06-21</time>
     </a><span style="color: #999">|</span>
 
       
@@ -208,6 +208,7 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
+<li><a href="#引号">引号</a></li>
 <li><a href="#路径符">路径符</a></li>
 <li><a href="#重定向符">重定向符</a></li>
 <li><a href="#命令执行符">命令执行符</a></li>
@@ -220,6 +221,9 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
+<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><p>单引号和双引号主要可用于解决字符串中间有空格的问题。<br>单引号将剥夺字符串中特殊字符的含义。<br>双引号中的’$’进行参数替换’<code>&#39;进行命令替换。
+反引号与$()是一样的。 `</code>或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'$skyline`echo 1`'</span></span><br><span class="line"><span class="comment"># $skyline`echo 1`</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$skyline</span>`echo 1`"</span></span><br><span class="line"><span class="comment"># 11</span></span><br></pre></td></tr></table></figure>
 <h2 id="路径符"><a href="#路径符" class="headerlink" title="路径符"></a>路径符</h2><p>Shell 中路径相关的符号，如下表所示</p>
 <table>
 <thead>
@@ -252,7 +256,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2><ul>
+<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2><a id="more"></a>
+<ul>
 <li>重定向符表</li>
 </ul>
 <p>Shell 中包含输入与输出重定向相关的符号，如下表所示</p>
@@ -482,11 +487,11 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Shell中xargs使用.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/浏览器回流与重绘.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Shell中xargs使用
+          浏览器回流与重绘
         
       </div>
     </a>
@@ -508,7 +513,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#路径符"><span class="nav-number">1.</span> <span class="nav-text">路径符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向符"><span class="nav-number">2.</span> <span class="nav-text">重定向符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令执行符"><span class="nav-number">3.</span> <span class="nav-text">命令执行符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#符号标记"><span class="nav-number">4.</span> <span class="nav-text">符号标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">5.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">5.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">5.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引号"><span class="nav-number">1.</span> <span class="nav-text">引号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路径符"><span class="nav-number">2.</span> <span class="nav-text">路径符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向符"><span class="nav-number">3.</span> <span class="nav-text">重定向符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令执行符"><span class="nav-number">4.</span> <span class="nav-text">命令执行符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#符号标记"><span class="nav-number">5.</span> <span class="nav-text">符号标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">6.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">6.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">6.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">6.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
     
     </div>
   </aside>

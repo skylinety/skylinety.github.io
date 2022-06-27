@@ -319,6 +319,69 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Shell基础命令"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell基础命令.html">Shell基础命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T08:48:42.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#echo">echo</a></li>
+<li><a href="#head">head</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h2><p>echo 打印输出命令</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"Hello World"</span></span><br></pre></td></tr></table></figure>
+<p>启用特殊字符转换（\特殊字符）</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">"Column 1\tColumn 2"</span></span><br><span class="line"><span class="comment"># Column 1        Column 2</span></span><br></pre></td></tr></table></figure>
+<h2 id="head"><a href="#head" class="headerlink" title="head"></a>head</h2><p>根据要求展示输入的前置部分</p>
+<blockquote>
+<p>output the first part of files</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls -lh | head -2</span><br><span class="line"><span class="comment"># total 8</span></span><br><span class="line"><span class="comment"># drwxr-xr-x  5 macmini  staff   170B Mar  3 17:06 Demos</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 其他方案</span></span><br><span class="line">ls -lh | sed -n <span class="string">'1,2p'</span></span><br><span class="line"><span class="comment"># total 8</span></span><br><span class="line"><span class="comment"># drwxr-xr-x  5 macmini  staff   170B Mar  3 17:06 Demos</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-CSS基础属性"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -766,17 +829,17 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 .
 </ul>
 </li>
 <li><a href="#选项">选项</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>grep 使用的基础语法为</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>grep 是一个字符搜索命令，使用的基础语法为</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep [options] pattern [files]</span><br></pre></td></tr></table></figure>
-<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3><p>^ 匹配的字符在行首<br>$ 匹配的字符在行尾</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br><span class="line">grep shell$ Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
-<p>可通过 -e 来开启正则匹配模式，-e 参数在使用多次时很有用</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep -e shell -e grep Docs/Major/Shell/Commands/Shell中grep的使用.md</span><br></pre></td></tr></table></figure>
-<h3 id="递归查找子目录"><a href="#递归查找子目录" class="headerlink" title="递归查找子目录"></a>递归查找子目录</h3><p>-r 选项<br>在项目根目录尝试输入如下命令</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep -r shell -e grep Docs/Major/Shell/</span><br></pre></td></tr></table></figure>
-<h3 id="忽略大小写"><a href="#忽略大小写" class="headerlink" title="忽略大小写"></a>忽略大小写</h3>
+<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3>
         <!-- 
 
 
@@ -790,12 +853,19 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 .
 
 
 选项
+BMW WARNING
+Bulletin
+Material
+Warrant
 
 
-使用基础使用grep 使用的基础语法为
+
+
+使用基础使用grep 是一个字符搜索命令，使用的基础语法为
 grep [options] pattern [files]
-正则^ 匹配的字符在行首$ 匹配的字符在行尾
-grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.mdgrep shell$ Docs/Major/Sh......  -->
+正则
+^ 匹配的字符在行首$ 匹配的字符在行尾
+grep ^grep Docs/Major/Shell......  -->
         <p class="article-more-link">
           <a href="/Shell中grep的使用.html#more">阅读全文</a>
         </p>
@@ -1179,138 +1249,6 @@ lshwlshw 即 list hardware 可以查看 cpu, disks, memory, usb contro......  --
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-SSH使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/SSH使用.html">SSH使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:34.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#ssh-登陆">SSH 登陆</a></li>
-<li><a href="#ssh-连接历史">SSH 连接历史</a><ul>
-<li><a href="#方法集">方法集</a></li>
-<li><a href="#who--w">who &amp; w</a></li>
-<li><a href="#last">last</a></li>
-<li><a href="#netstat--ss">netstat &amp; ss</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="SSH-登陆"><a href="#SSH-登陆" class="headerlink" title="SSH 登陆"></a>SSH 登陆</h2><p>对于默认使用了默认 SSH 配置的服务器，可以直接如下登陆</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ssh root@10.2.160.12</span><br></pre></td></tr></table></figure>
-<p>根据提示输入密码即可。<br>上述使用了 SSH 常用的 root 用户，默认的 22 端口</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ssh -i /a/b/c/d.private -p 50777 root@10.2.160.12</span><br></pre></td></tr></table></figure>
-<p>i 指定秘钥位置，p 指定端口。</p>
-<h2 id="SSH-连接历史"><a href="#SSH-连接历史" class="headerlink" title="SSH 连接历史"></a>SSH 连接历史</h2><h3 id="方法集"><a href="#方法集" class="headerlink" title="方法集"></a>方法集</h3><p>常用如下命令查看 SSH 连接。</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>who</td>
-<td>查看当前连接用户、连接 IP、登录时间</td>
-</tr>
-<tr>
-<td>w</td>
-<td>查看当前连接用户与连接 IP、登录时间、当前启动的进程等</td>
-</tr>
-<tr>
-<td>last</td>
-<td>查看登入历史等信息</td>
-</tr>
-<tr>
-<td>netstat</td>
-<td>查看网络状态</td>
-</tr>
-<tr>
-<td>ss</td>
-<td>查看网络连接信息，与 netstat 类似，但可查看根据状态信息</td>
-</tr>
-</tbody>
-</table>
-<h3 id="who-amp-w"><a href="#who-amp-w" class="headerlink" title="who &amp; w"></a>who &amp; w</h3><p>相比于 who，w 可以获取登陆用户当前正在进行的进程操作(对应命令)<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/SSH%E4%BD%BF%E7%94%A820220314155021.png" alt="SSH使用20220314155021"></p>
-<h3 id="last"><a href="#last" class="headerlink" title="last"></a>last</h3><p>last 其实质是读取/var/log/wtmp(从该文件创建开始)中的内容并整理成输出。<br>wtmp 日志文件主要记录系统登入、 重启等关键信息。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/SSH%E4%BD%BF%E7%94%A820220314162422.png" alt="SSH使用20220314162422"><br>last 输出内容较多，当在普通个人电脑上执行该命令的由于经常开关机内容更加庞杂，可通过如下方式进行筛选。<br>last 命令参数</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">last shutdown</span><br><span class="line">last reboot</span><br></pre></td></tr></table></figure>
-<p>grep 查找</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">last | grep reboot</span><br><span class="line">last | grep still</span><br></pre></td></tr></table></figure>
-<h3 id="netstat-amp-ss"><a href="#netstat-amp-ss" class="headerlink" title="netstat &amp; ss"></a>netstat &amp; ss</h3>
-        <!-- 
-
-
-SSH 登陆
-SSH 连接历史
-方法集
-who &amp; w
-last
-netstat &amp; ss
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-SSH 登陆对于默认使用了默认 SSH 配置的服务器，可以直接如下登陆
-ssh root@10.2.160.12
-根据提示输入密码即可。上述使用了 SSH 常用的 root 用户，默认的 22......  -->
-        <p class="article-more-link">
-          <a href="/SSH使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
 
     </footer>
   </div>
