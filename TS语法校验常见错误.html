@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Skyline&#39;s blog">
 <meta property="og:description" content="property does not exist on type Object 复现 解决   Expression of type ‘string’ can’t be used to index type 复现 解决   BMW WARNING Bulletin Material Warrant     property does not exist on type Object复现Prop">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-03T09:39:33.000Z">
+<meta property="og:updated_time" content="2022-06-21T10:02:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TS语法校验常见错误">
 <meta name="twitter:description" content="property does not exist on type Object 复现 解决   Expression of type ‘string’ can’t be used to index type 复现 解决   BMW WARNING Bulletin Material Warrant     property does not exist on type Object复现Prop">
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
     </a><span style="color: #999">|</span>
 
       
@@ -225,7 +225,8 @@
 <!-- /code_chunk_output -->
 <h2 id="property-does-not-exist-on-type-Object"><a href="#property-does-not-exist-on-type-Object" class="headerlink" title="property does not exist on type Object"></a>property does not exist on type Object</h2><h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>Property ‘length’ does not exist on type’Object’.</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>; <span class="comment">//[ts] Property 'length' does not exist on type'Object'.</span></span><br></pre></td></tr></table></figure>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p><strong>将对象类型设置为 any</strong></p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><a id="more"></a>
+<p><strong>将对象类型设置为 any</strong></p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: any = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>;</span><br></pre></td></tr></table></figure>
 <p><strong>通过字符方式获取对象属性</strong></p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj[<span class="string">"value"</span>] = <span class="string">"value"</span>;</span><br></pre></td></tr></table></figure>
@@ -236,19 +237,27 @@
 <h2 id="Expression-of-type-‘string’-can’t-be-used-to-index-type"><a href="#Expression-of-type-‘string’-can’t-be-used-to-index-type" class="headerlink" title="Expression of type ‘string’ can’t be used to index type"></a>Expression of type ‘string’ can’t be used to index type</h2><h3 id="复现-1"><a href="#复现-1" class="headerlink" title="复现"></a>复现</h3><p>Element implicitly has an ‘any’ type because expression of type ‘string’ can’t be used to index type</p>
 <p>person 并未明确指定键值类型（即隐式指定为任意类型），任意类型与 getValue 传参的 string 类型冲突。</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">"sk"</span>,</span><br><span class="line">  age: <span class="number">22</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">arg: string</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> person[arg]; <span class="comment">// Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '&#123; name: string; age: number; &#125;'.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h3><a id="more"></a>
-<p><strong>tsconfig.json</strong></p>
+<h3 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h3><p><strong>tsconfig.json</strong></p>
 <p><code>tsconfig.json</code>中配置<code>suppressImplicitAnyIndexErrors: true</code></p>
 <p><strong>定义接口</strong></p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">    name: <span class="string">'sk'</span>,</span><br><span class="line">    age: <span class="number">22</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">arg: string</span>) </span>&#123;</span><br><span class="line">	interface IPerson &#123;</span><br><span class="line">		[key: string]: any</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">IPerson</span>&gt;</span>person)[arg];</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
 </blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
 <blockquote>
 <p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
 </blockquote>
@@ -305,19 +314,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/SSH使用.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/JS内存泄漏与处理.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          SSH使用
+          JS内存泄漏与处理
         
       </div>
     </a>
   
   
-    <a href="/JS内存泄漏与处理.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Factory工厂模式.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">JS内存泄漏与处理</div>
+      <div class="article-nav-title">Factory工厂模式</div>
     </a>
   
 </nav>
@@ -331,7 +340,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#property-does-not-exist-on-type-Object"><span class="nav-number">1.</span> <span class="nav-text">property does not exist on type Object</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复现"><span class="nav-number">1.1.</span> <span class="nav-text">复现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决"><span class="nav-number">1.2.</span> <span class="nav-text">解决</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Expression-of-type-‘string’-can’t-be-used-to-index-type"><span class="nav-number">2.</span> <span class="nav-text">Expression of type ‘string’ can’t be used to index type</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复现-1"><span class="nav-number">2.1.</span> <span class="nav-text">复现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决-1"><span class="nav-number">2.2.</span> <span class="nav-text">解决</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">3.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">3.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">3.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#property-does-not-exist-on-type-Object"><span class="nav-number">1.</span> <span class="nav-text">property does not exist on type Object</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复现"><span class="nav-number">1.1.</span> <span class="nav-text">复现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决"><span class="nav-number">1.2.</span> <span class="nav-text">解决</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Expression-of-type-‘string’-can’t-be-used-to-index-type"><span class="nav-number">2.</span> <span class="nav-text">Expression of type ‘string’ can’t be used to index type</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复现-1"><span class="nav-number">2.1.</span> <span class="nav-text">复现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决-1"><span class="nav-number">2.2.</span> <span class="nav-text">解决</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192434.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192801.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192825.png">
-<meta property="og:updated_time" content="2022-06-08T08:37:38.000Z">
+<meta property="og:updated_time" content="2022-06-21T10:02:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES类型转换">
 <meta name="twitter:description" content="类型转换 类型转换概述 to boolean to number to string to object   ToPrimitive 隐式转换场景 隐式转换场景概述 一元操作符 二元加 乘、除、取余、二元减 比较运算符   Expression or Statement 几个有意思的输出 AST {}语法解析分析   JSON.stringify 处理规则 参数   BMW WARNING">
@@ -195,7 +195,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-08T08:37:38.000Z" itemprop="datePublished">2022-06-08</time>
+      <time datetime="2022-06-21T10:02:02.000Z" itemprop="datePublished">2022-06-21</time>
     </a><span style="color: #999">|</span>
 
       
@@ -248,12 +248,12 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><h3 id="类型转换概述"><a href="#类型转换概述" class="headerlink" title="类型转换概述"></a>类型转换概述</h3><a id="more"></a>
-<ul>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><h3 id="类型转换概述"><a href="#类型转换概述" class="headerlink" title="类型转换概述"></a>类型转换概述</h3><ul>
 <li>隐式转换<br>JS 是弱类型语言，在使用运算符时，多个参与其中的数据类型可以是任意的，最终得到的结果却只是一种类型。<br>结果的类型可能是参与运算操作类型中的一种，也可能并非其中任何一种。<br>这就涉及到运算过程中，进行过的隐式类型转换。</li>
 <li>强制转换<br>JS 中每一种类型都有自己的构造函数，直接调用该构造函数可以强制获得该类型的值，同时 JS 还提供了其他显示调用函数转换类型的方法。</li>
 </ul>
-<h3 id="to-boolean"><a href="#to-boolean" class="headerlink" title="to boolean"></a>to boolean</h3><p>其他类型转换为布尔值。</p>
+<h3 id="to-boolean"><a href="#to-boolean" class="headerlink" title="to boolean"></a>to boolean</h3><a id="more"></a>
+<p>其他类型转换为布尔值。</p>
 <ul>
 <li>隐式转换</li>
 </ul>
@@ -554,15 +554,24 @@
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(&#123; <span class="attr">uno</span>: <span class="number">1</span>, <span class="attr">dos</span>: <span class="number">2</span> &#125;, <span class="literal">null</span>, <span class="number">100</span>)</span><br><span class="line"><span class="comment">// '&#123;\n          "uno": 1,\n          "dos": 2\n&#125;'</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(&#123; <span class="attr">uno</span>: <span class="number">1</span>, <span class="attr">dos</span>: <span class="number">2</span> &#125;, <span class="literal">null</span>, <span class="number">10</span>)</span><br><span class="line"><span class="comment">// '&#123;\n          "uno": 1,\n          "dos": 2\n&#125;'</span></span><br><span class="line"><span class="built_in">JSON</span>.stringify(&#123; <span class="attr">uno</span>: <span class="number">1</span>, <span class="attr">dos</span>: <span class="number">2</span> &#125;, <span class="literal">null</span>, <span class="string">'abcdefghijklmn'</span>)</span><br><span class="line"><span class="comment">// '&#123;\nabcdefghij"uno": 1,\nabcdefghij"dos": 2\n&#125;'</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
 <p><a href="https://github.com/mqyqingfeng/Blog/issues/164" target="_blank" rel="noopener">https://github.com/mqyqingfeng/Blog/issues/164</a></p>
 </blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
 <blockquote>
 <p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
 </blockquote>
@@ -629,9 +638,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/采桑子（丑奴儿）.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/CSS选择器.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">采桑子（丑奴儿）</div>
+      <div class="article-nav-title">CSS选择器</div>
     </a>
   
 </nav>
@@ -645,7 +654,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型转换"><span class="nav-number">1.</span> <span class="nav-text">类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型转换概述"><span class="nav-number">1.1.</span> <span class="nav-text">类型转换概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-boolean"><span class="nav-number">1.2.</span> <span class="nav-text">to boolean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-number"><span class="nav-number">1.3.</span> <span class="nav-text">to number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-string"><span class="nav-number">1.4.</span> <span class="nav-text">to string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-object"><span class="nav-number">1.5.</span> <span class="nav-text">to object</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ToPrimitive"><span class="nav-number">2.</span> <span class="nav-text">ToPrimitive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式转换场景"><span class="nav-number">3.</span> <span class="nav-text">隐式转换场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式转换场景概述"><span class="nav-number">3.1.</span> <span class="nav-text">隐式转换场景概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一元操作符"><span class="nav-number">3.2.</span> <span class="nav-text">一元操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二元加"><span class="nav-number">3.3.</span> <span class="nav-text">二元加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乘、除、取余、二元减"><span class="nav-number">3.4.</span> <span class="nav-text">乘、除、取余、二元减</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较运算符"><span class="nav-number">3.5.</span> <span class="nav-text">比较运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Expression-or-Statement"><span class="nav-number">4.</span> <span class="nav-text">Expression or Statement</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#几个有意思的输出"><span class="nav-number">4.1.</span> <span class="nav-text">几个有意思的输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AST"><span class="nav-number">4.2.</span> <span class="nav-text">AST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法解析分析"><span class="nav-number">4.3.</span> <span class="nav-text">{}语法解析分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON-stringify"><span class="nav-number">5.</span> <span class="nav-text">JSON.stringify</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#处理规则"><span class="nav-number">5.1.</span> <span class="nav-text">处理规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">5.2.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">6.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">6.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">6.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">6.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型转换"><span class="nav-number">1.</span> <span class="nav-text">类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型转换概述"><span class="nav-number">1.1.</span> <span class="nav-text">类型转换概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-boolean"><span class="nav-number">1.2.</span> <span class="nav-text">to boolean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-number"><span class="nav-number">1.3.</span> <span class="nav-text">to number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-string"><span class="nav-number">1.4.</span> <span class="nav-text">to string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#to-object"><span class="nav-number">1.5.</span> <span class="nav-text">to object</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ToPrimitive"><span class="nav-number">2.</span> <span class="nav-text">ToPrimitive</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式转换场景"><span class="nav-number">3.</span> <span class="nav-text">隐式转换场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式转换场景概述"><span class="nav-number">3.1.</span> <span class="nav-text">隐式转换场景概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一元操作符"><span class="nav-number">3.2.</span> <span class="nav-text">一元操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二元加"><span class="nav-number">3.3.</span> <span class="nav-text">二元加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乘、除、取余、二元减"><span class="nav-number">3.4.</span> <span class="nav-text">乘、除、取余、二元减</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较运算符"><span class="nav-number">3.5.</span> <span class="nav-text">比较运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Expression-or-Statement"><span class="nav-number">4.</span> <span class="nav-text">Expression or Statement</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#几个有意思的输出"><span class="nav-number">4.1.</span> <span class="nav-text">几个有意思的输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AST"><span class="nav-number">4.2.</span> <span class="nav-text">AST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法解析分析"><span class="nav-number">4.3.</span> <span class="nav-text">{}语法解析分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON-stringify"><span class="nav-number">5.</span> <span class="nav-text">JSON.stringify</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#处理规则"><span class="nav-number">5.1.</span> <span class="nav-text">处理规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">5.2.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">6.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

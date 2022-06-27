@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>elementui相关使用 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="JSVue">
+  
+  
+  
+  
+  <meta name="description" content="Form 使用Form 校验validate 函数回调不执行 this.$refs[formName].validate((valid) =&amp;gt; &amp;#123;  if (valid) &amp;#123;    console.log(&apos; submit!!&apos;)  &amp;#125; else &amp;#123;    console.log(&apos;error submit!!&apos;)    return false  &amp;">
+<meta name="keywords" content="JS,Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElementUI相关使用">
+<meta property="og:url" content="http://www.skyline.show/ElementUI相关使用.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="Form 使用Form 校验validate 函数回调不执行 this.$refs[formName].validate((valid) =&amp;gt; &amp;#123;  if (valid) &amp;#123;    console.log(&apos; submit!!&apos;)  &amp;#125; else &amp;#123;    console.log(&apos;error submit!!&apos;)    return false  &amp;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ElementUI%E7%9B%B8%E5%85%B3%E4%BD%BF%E7%94%A820220314204155.png">
+<meta property="og:updated_time" content="2022-06-21T10:02:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ElementUI相关使用">
+<meta name="twitter:description" content="Form 使用Form 校验validate 函数回调不执行 this.$refs[formName].validate((valid) =&amp;gt; &amp;#123;  if (valid) &amp;#123;    console.log(&apos; submit!!&apos;)  &amp;#125; else &amp;#123;    console.log(&apos;error submit!!&apos;)    return false  &amp;">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ElementUI%E7%9B%B8%E5%85%B3%E4%BD%BF%E7%94%A820220314204155.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ElementUI相关使用" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      ElementUI相关使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Form-使用"><a href="#Form-使用" class="headerlink" title="Form 使用"></a>Form 使用</h2><h3 id="Form-校验"><a href="#Form-校验" class="headerlink" title="Form 校验"></a>Form 校验</h3><p>validate 函数回调不执行</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$refs[formName].validate(<span class="function">(<span class="params">valid</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">' submit!!'</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'error submit!!'</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>执行打印后，无相关打印信息。<br>出现这种问题的原因多为自定义校验规则的函数没有执行 callback 回调。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> validatePassword = <span class="function">(<span class="params">rule, value, callback</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (value === <span class="string">''</span>) &#123;</span><br><span class="line">    callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'请输入密码'</span>)) <span class="comment">// 检查</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.ruleForm.checkPass !== <span class="string">''</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$refs.ruleForm.validateField(<span class="string">'checkPass'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    callback() <span class="comment">// 检查</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述检查无问题，检查是否为 JSX 写法，JSX 写法下 model 传值不能如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    v-model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    rules=&#123;<span class="keyword">this</span>.rules&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>通过如上方式，无法将 model 值传入<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ElementUI%E7%9B%B8%E5%85%B3%E4%BD%BF%E7%94%A820220314204155.png" alt="ElementUI相关使用20220314204155"><br>将传值方式更改为 props 传值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    props=&#123;&#123;</span><br><span class="line">        model: <span class="keyword">this</span>.params,</span><br><span class="line">        rules: <span class="keyword">this</span>.rules,</span><br><span class="line">    &#125;&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>原因多在于 Vue 对于 JSX 语法支持的问题。<br>另一个类似而常见的问题在于 ElementUI 占用了 props 传值导致的问题<br>例如一个 ElTree 的例子。<br>其 data 为</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    departments:[</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        children: [],</span><br><span class="line">        deptName: <span class="string">'教育部'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">    defaultProps: &#123;</span><br><span class="line">      children: <span class="string">'children'</span>,</span><br><span class="line">      label: <span class="string">'deptName'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>各属性使用如下方式传值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;<span class="keyword">this</span>.defaultProps&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码并不能将 label 正确地展示出来<br>应调整为如下写法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;&#123;</span><br><span class="line">    props: <span class="keyword">this</span>.defaultProps,</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Form-表单数字"><a href="#Form-表单数字" class="headerlink" title="Form 表单数字"></a>Form 表单数字</h3><a id="more"></a>
+<p>可以通过以下方式来校验数字字段</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">rules: &#123;</span><br><span class="line">  age: [</span><br><span class="line">    &#123;</span><br><span class="line">      type: <span class="string">'number'</span>,</span><br><span class="line">      message: <span class="string">'请输入数字'</span></span><br><span class="line">      transform: <span class="function">(<span class="params">value</span>) =&gt;</span> <span class="built_in">Number</span>(value),</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>若要校验数字长度，使用以下方式</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">rules: &#123;</span><br><span class="line">  age: [</span><br><span class="line">    &#123;</span><br><span class="line">      pattern: <span class="regexp">/\b\d&#123;1,5&#125;\b/</span>,</span><br><span class="line">      message: <span class="string">'请输入5位以下数字'</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h2 id="Dialog-使用"><a href="#Dialog-使用" class="headerlink" title="Dialog 使用"></a>Dialog 使用</h2><h3 id="弹窗-X-点击不关闭"><a href="#弹窗-X-点击不关闭" class="headerlink" title="弹窗 X 点击不关闭"></a>弹窗 X 点击不关闭</h3><p>对于使用 JSX 语法的弹窗，由于不能直接使用.sync 修饰符，导致弹窗不能接收到传递属性变更的事件（update:visible）<br>在点击右上角关闭按钮时，弹窗无反应。<br>需要传递事件绑定属性</p>
+<p>调整后如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-dialog</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'reset-el-dialog reset-el-dialog__body '</span></span><br><span class="line">  title=<span class="string">'申请'</span></span><br><span class="line">  on=&#123;&#123; <span class="string">'update:visible'</span>: <span class="keyword">this</span>.closeAll &#125;&#125;</span><br><span class="line">  visible=&#123;<span class="keyword">this</span>.dialogVisible&#125;</span><br><span class="line">  <span class="comment">// &#123;...&#123; on: &#123; 'update:visible': console.log &#125; &#125;&#125;</span></span><br><span class="line">  <span class="comment">// &#123;...&#123; ['on-update:visible']: this.closeAll &#125;&#125;</span></span><br><span class="line">  width=<span class="string">'30%'</span></span><br><span class="line">&gt;</span><br><span class="line">  &#123;<span class="keyword">this</span>.renderContent()&#125;</span><br><span class="line">&lt;<span class="regexp">/el-dialog&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/JS垃圾回收机制.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          JS垃圾回收机制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/ES基础汇总.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">ES基础汇总</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Form-使用"><span class="nav-number">1.</span> <span class="nav-text">Form 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Form-校验"><span class="nav-number">1.1.</span> <span class="nav-text">Form 校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Form-表单数字"><span class="nav-number">1.2.</span> <span class="nav-text">Form 表单数字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dialog-使用"><span class="nav-number">2.</span> <span class="nav-text">Dialog 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#弹窗-X-点击不关闭"><span class="nav-number">2.1.</span> <span class="nav-text">弹窗 X 点击不关闭</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2022 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2022 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

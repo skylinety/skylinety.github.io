@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104113645.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104113734.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104140334.png">
-<meta property="og:updated_time" content="2022-06-03T09:39:32.000Z">
+<meta property="og:updated_time" content="2022-06-21T10:02:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Builder建筑工模式">
 <meta name="twitter:description" content="概述 实例 修房子 找工人 监工   BMW WARNING Bulletin Material Warrant     概述Builder 模式一般翻译为建造者模式。在重构代码的过程中，我们常看到几百上千行的复杂类。这些类往往由于最初设定不合理以及需求不断增加而壮大。建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。建筑工模式通常支持链式调用。 House.se">
@@ -192,7 +192,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-21T10:02:00.000Z" itemprop="datePublished">2022-06-21</time>
     </a><span style="color: #999">|</span>
 
       
@@ -226,7 +226,8 @@
 <!-- /code_chunk_output -->
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Builder 模式一般翻译为建造者模式。<br>在重构代码的过程中，我们常看到几百上千行的复杂类。<br>这些类往往由于最初设定不合理以及需求不断增加而壮大。<br>建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。<br>建筑工模式通常支持链式调用。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">House.setDoors(<span class="number">1</span>).setRooms(<span class="number">2</span>).getHouse();</span><br></pre></td></tr></table></figure>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="修房子"><a href="#修房子" class="headerlink" title="修房子"></a>修房子</h3><p>现在有一个基础房屋类如下所示</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="修房子"><a href="#修房子" class="headerlink" title="修房子"></a>修房子</h3><a id="more"></a>
+<p>现在有一个基础房屋类如下所示</p>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> House &#123;</span><br><span class="line">  <span class="keyword">public</span> windows: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> doors: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> rooms: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> area: <span class="built_in">number</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">public</span> parts: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setWindows(<span class="string">"window"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setDoors(<span class="string">"door"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setBedRooms(<span class="string">"room"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listWindows(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House windows: <span class="subst">$&#123;<span class="keyword">this</span>.windows.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listDoors(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House doors: <span class="subst">$&#123;<span class="keyword">this</span>.doors.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listRooms(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House rooms: <span class="subst">$&#123;<span class="keyword">this</span>.rooms.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> setWindows(w: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.windows.push(w);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setDoors(d: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.doors.push(d);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setBedRooms(r: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.area += <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setKitchens(r: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.area += <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> capacity(): <span class="built_in">number</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.area / <span class="number">15</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>现在生活水平不断提高，我们开始有不同的要求，有车的人需要有车库的房子，有人需要有花园的，有泳池，有庭院等的房子。<br>一种常用的方法是，基于 House 类派生出 HouseWithGarage、HouseWithPool、HouseWithYard…</p>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> HouseWithGarage <span class="keyword">extends</span> House &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.setGarges(<span class="string">"garage"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listGarges(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House parts: <span class="subst">$&#123;<span class="keyword">this</span>.parts.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setGarges(g: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -253,16 +254,24 @@
 <p>得到如下的结果</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[LOG]: <span class="string">"director.ts第214行:::large base house"</span>,  <span class="attr">House</span>: &#123;</span><br><span class="line">  <span class="string">"windows"</span>: [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"doors"</span>: [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"rooms"</span>: [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"area"</span>: <span class="number">30</span>,</span><br><span class="line">  <span class="string">"parts"</span>: [</span><br><span class="line">    <span class="string">"garage"</span>,</span><br><span class="line">    <span class="string">"yard"</span>,</span><br><span class="line">    <span class="string">"pool"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">[LOG]: <span class="string">"director.ts第214行:::medium diamond house"</span>,  <span class="attr">House</span>: &#123;</span><br><span class="line">  <span class="string">"windows"</span>: [</span><br><span class="line">    <span class="string">"Diamond window"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"doors"</span>: [</span><br><span class="line">    <span class="string">"Diamond door"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"rooms"</span>: [</span><br><span class="line">    <span class="string">"Diamond room"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"area"</span>: <span class="number">300</span>,</span><br><span class="line">  <span class="string">"parts"</span>: [</span><br><span class="line">    <span class="string">"Diamond garage"</span>,</span><br><span class="line">    <span class="string">"Diamond yard"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>监工的引入不是必须的，根据实际的需求，选用简单的建筑工还是引入监工。</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><a id="more"></a>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
 <p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
 <p><a href="https://refactoring.guru/design-patterns/builder" target="_blank" rel="noopener">https://refactoring.guru/design-patterns/builder</a> &gt; <a href="https://refactoring.guru/design-patterns/builder/typescript/example" target="_blank" rel="noopener">https://refactoring.guru/design-patterns/builder/typescript/example</a></p>
 </blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
 <blockquote>
 <p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
 </blockquote>
@@ -319,19 +328,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Cookie、Session与Token.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/设计模式综述.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Cookie、Session与Token
+          设计模式综述
         
       </div>
     </a>
   
   
-    <a href="/CSS常用伪类伪元素.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/HTTPS加密方式.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">CSS常用伪类伪元素</div>
+      <div class="article-nav-title"></div>
     </a>
   
 </nav>
@@ -345,7 +354,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">2.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修房子"><span class="nav-number">2.1.</span> <span class="nav-text">修房子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找工人"><span class="nav-number">2.2.</span> <span class="nav-text">找工人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监工"><span class="nav-number">2.3.</span> <span class="nav-text">监工</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">3.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">3.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">3.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">2.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修房子"><span class="nav-number">2.1.</span> <span class="nav-text">修房子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找工人"><span class="nav-number">2.2.</span> <span class="nav-text">找工人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监工"><span class="nav-number">2.3.</span> <span class="nav-text">监工</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

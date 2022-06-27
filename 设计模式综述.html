@@ -22,7 +22,7 @@
 <meta property="og:description" content="简介 设计模式原则 Single Responsibility Principle Open-closed Principle Liskov substitution principle Interface segregation principle Dependency Inversion Principle   BMW WARNING Bulletin Material Warrant">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%BB%BC%E8%BF%B020211015102130.png">
-<meta property="og:updated_time" content="2022-06-03T09:39:32.000Z">
+<meta property="og:updated_time" content="2022-06-21T10:02:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式综述">
 <meta name="twitter:description" content="简介 设计模式原则 Single Responsibility Principle Open-closed Principle Liskov substitution principle Interface segregation principle Dependency Inversion Principle   BMW WARNING Bulletin Material Warrant">
@@ -190,7 +190,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-21T10:02:00.000Z" itemprop="datePublished">2022-06-21</time>
     </a><span style="color: #999">|</span>
 
       
@@ -225,7 +225,8 @@
 </ul>
 <!-- /code_chunk_output -->
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>设计模式是在软件工程多年的发展中，经过前人不断挖坑填埋总结而来。<br>一般认为有 23 种，其他多是基于这 23 种延伸。<br>在面向对象编程语言中，<br>设计模式一般遵循 SOLID 原则<br>Acronym | EN | CN | DESC<br>– | – | – | –<br>S |Single Responsibility Principle | 单一职责原则 |一个程序只做好一件事，复杂功能拆开<br>O | Open-closed Principle| 开放/封闭原则 | 对扩展开放，对修改封闭，增加需求时，扩展新代码，而非修改已有代码<br>L |Liskov Substitution Principle | 里氏替换原则 |子类能覆盖父类，父类能出现的地方子类就能出现<br>I | Interface Segregation Principle| 接口隔离原则 |接口职责单一，防止接入不使用的接口与方法<br>D |Dependency Inversion Principle | 依赖倒转原则 | 面向接口编程，依赖于抽象而不依赖于具体，使用方只关注接口而不关注具体类的实现</p>
-<h2 id="设计模式原则"><a href="#设计模式原则" class="headerlink" title="设计模式原则"></a>设计模式原则</h2><h3 id="Single-Responsibility-Principle"><a href="#Single-Responsibility-Principle" class="headerlink" title="Single Responsibility Principle"></a>Single Responsibility Principle</h3><blockquote>
+<h2 id="设计模式原则"><a href="#设计模式原则" class="headerlink" title="设计模式原则"></a>设计模式原则</h2><h3 id="Single-Responsibility-Principle"><a href="#Single-Responsibility-Principle" class="headerlink" title="Single Responsibility Principle"></a>Single Responsibility Principle</h3><a id="more"></a>
+<blockquote>
 <p>A class should have one and only one reason to change, meaning that a class should have only one job.</p>
 </blockquote>
 <p>思考如下一个例子：<br>计算给定的基本图形的面积总和，以圆形正方形为例。<br>形状</p>
@@ -273,8 +274,7 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">interface Shape &#123;</span><br><span class="line">  getArea: <span class="function"><span class="params">()</span> =&gt;</span> number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>调整代码后如下</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">interface Shape &#123;</span><br><span class="line">   getArea: <span class="function"><span class="params">()</span> =&gt;</span> number;</span><br><span class="line">   setWidth: <span class="function">(<span class="params">width: number</span>) =&gt;</span> <span class="keyword">void</span>;</span><br><span class="line">   setLength: <span class="function">(<span class="params">length: number</span>) =&gt;</span> <span class="keyword">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="title">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   width: number</span><br><span class="line">   length: number</span><br><span class="line">   <span class="keyword">constructor</span>(width: number, length: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">      <span class="keyword">this</span>.length = length;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public setWidth(width: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public setLength(length: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.length = length;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public getArea() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.width * <span class="keyword">this</span>.length;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="title">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   width: number;</span><br><span class="line">   <span class="keyword">constructor</span>(width: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">   &#125;</span><br><span class="line">   public setWidth(width: number) &#123;</span><br><span class="line">      <span class="keyword">this</span>.width = width;</span><br><span class="line">   &#125;</span><br><span class="line">   public setLength(length: number) &#123;</span><br><span class="line">   &#125;</span><br><span class="line">   public getArea() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.width * <span class="keyword">this</span>.width;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> square: Shape = <span class="keyword">new</span> Square(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (square.getArea() &gt; <span class="number">300</span>) &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">'It is big!'</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(square.getArea(), <span class="string">'It is small!'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// const rect: Shape = new Rectangle(20, 20);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// if (rect.getArea() &gt; 300) &#123;</span></span><br><span class="line"><span class="comment">//    console.log('It is big!')</span></span><br><span class="line"><span class="comment">// &#125; else &#123;</span></span><br><span class="line"><span class="comment">//    console.log(rect.getArea(), 'It is small!')</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="Interface-segregation-principle"><a href="#Interface-segregation-principle" class="headerlink" title="Interface segregation principle"></a>Interface segregation principle</h3><a id="more"></a>
-<blockquote>
+<h3 id="Interface-segregation-principle"><a href="#Interface-segregation-principle" class="headerlink" title="Interface segregation principle"></a>Interface segregation principle</h3><blockquote>
 <p>A Client should not be forced to depend upon interfaces and methods that they do not use.</p>
 </blockquote>
 <p>接口使用方不应该强制接入不使用的接口与方法。</p>
@@ -302,15 +302,24 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// infra/InMemoryClient.ts</span></span><br><span class="line"><span class="keyword">import</span> ApiClient <span class="keyword">from</span> <span class="string">"domain/ApiClient"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">InMemoryClient</span>(<span class="params"></span>): <span class="title">ApiClient</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> users: User[] = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    createUser: <span class="keyword">async</span> (user: User) =&gt; &#123;</span><br><span class="line">      users.push(user);</span><br><span class="line">    &#125;,</span><br><span class="line">    getUserByEmail: <span class="keyword">async</span> (email: string) =&gt; &#123;</span><br><span class="line">      <span class="keyword">return</span> users.find(<span class="function">(<span class="params">user</span>) =&gt;</span> user.email === email);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>tests/SignupService.spec.ts</code></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// tests/SignupService.spec.ts</span></span><br><span class="line"><span class="keyword">import</span> SignupService <span class="keyword">from</span> <span class="string">"domain/signup"</span>;</span><br><span class="line"><span class="keyword">import</span> InMemoryClient <span class="keyword">from</span> <span class="string">"infra/InMemoryClient"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> signup: ReturnType&lt;<span class="keyword">typeof</span> SignupService&gt;;</span><br><span class="line"></span><br><span class="line">beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  signup = SignupService(InMemoryClient());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"it should signup a user"</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> expect(signup(<span class="string">"john@test.com"</span>, <span class="string">"pwd123"</span>)).resolves.toBe(<span class="literal">undefined</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">test(<span class="string">"it should fail to signup the same email twice"</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> signup(<span class="string">"mark@test.com"</span>, <span class="string">"pwd123"</span>);</span><br><span class="line">  <span class="keyword">await</span> expect(signup(<span class="string">"mark@test.com"</span>, <span class="string">"pwd987"</span>)).rejects.toThrow(</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Email already used"</span>)</span><br><span class="line">  );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
 <p><a href="https://medium.com/@cramirez92/s-o-l-i-d-the-first-5-priciples-of-object-oriented-design-with-javascript-790f6ac9b9fa" target="_blank" rel="noopener">S.O.L.I.D The first 5 principles of Object Oriented Design with JavaScript</a> &gt; <a href="https://alexnault.dev/liskov-substitution-principle-in-functional-typescript" target="_blank" rel="noopener">Liskov Substitution Principle in Functional TypeScript</a> &gt; <a href="https://alexnault.dev/dependency-inversion-principle-in-functional-typescript" target="_blank" rel="noopener">Dependency Inversion Principle in Functional TypeScript</a></p>
 </blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
 <blockquote>
 <p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
 </blockquote>
@@ -367,19 +376,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/UML类图画图图解.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/CSS格式化上下文.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          UML类图画图图解
+          CSS格式化上下文
         
       </div>
     </a>
   
   
-    <a href="/Factory工厂模式.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Builder建筑工模式.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Factory工厂模式</div>
+      <div class="article-nav-title">Builder建筑工模式</div>
     </a>
   
 </nav>
@@ -393,7 +402,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模式原则"><span class="nav-number">2.</span> <span class="nav-text">设计模式原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Responsibility-Principle"><span class="nav-number">2.1.</span> <span class="nav-text">Single Responsibility Principle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Open-closed-Principle"><span class="nav-number">2.2.</span> <span class="nav-text">Open-closed Principle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Liskov-substitution-principle"><span class="nav-number">2.3.</span> <span class="nav-text">Liskov substitution principle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interface-segregation-principle"><span class="nav-number">2.4.</span> <span class="nav-text">Interface segregation principle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dependency-Inversion-Principle"><span class="nav-number">2.5.</span> <span class="nav-text">Dependency Inversion Principle</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">3.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">3.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">3.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模式原则"><span class="nav-number">2.</span> <span class="nav-text">设计模式原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Responsibility-Principle"><span class="nav-number">2.1.</span> <span class="nav-text">Single Responsibility Principle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Open-closed-Principle"><span class="nav-number">2.2.</span> <span class="nav-text">Open-closed Principle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Liskov-substitution-principle"><span class="nav-number">2.3.</span> <span class="nav-text">Liskov substitution principle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interface-segregation-principle"><span class="nav-number">2.4.</span> <span class="nav-text">Interface segregation principle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dependency-Inversion-Principle"><span class="nav-number">2.5.</span> <span class="nav-text">Dependency Inversion Principle</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-SSH使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES简单类型"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/SSH使用.html">SSH使用</a>
+      <a class="article-title" href="/ES简单类型.html">ES简单类型</a>
     </h1>
   
 
@@ -336,7 +336,7 @@
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:34.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-21T10:02:02.000Z" itemprop="datePublished">2022-06-21</time>
     </a>
 
 
@@ -352,96 +352,29 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#ssh-登陆">SSH 登陆</a></li>
-<li><a href="#ssh-连接历史">SSH 连接历史</a><ul>
-<li><a href="#方法集">方法集</a></li>
-<li><a href="#who--w">who &amp; w</a></li>
-<li><a href="#last">last</a></li>
-<li><a href="#netstat--ss">netstat &amp; ss</a></li>
+<li><a href="#number">Number</a><ul>
+<li><a href="#nan">NaN</a></li>
 </ul>
 </li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
+<li><a href="#null">Null</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="SSH-登陆"><a href="#SSH-登陆" class="headerlink" title="SSH 登陆"></a>SSH 登陆</h2><p>对于默认使用了默认 SSH 配置的服务器，可以直接如下登陆</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ssh root@10.2.160.12</span><br></pre></td></tr></table></figure>
-<p>根据提示输入密码即可。<br>上述使用了 SSH 常用的 root 用户，默认的 22 端口</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ssh -i /a/b/c/d.private -p 50777 root@10.2.160.12</span><br></pre></td></tr></table></figure>
-<p>i 指定秘钥位置，p 指定端口。</p>
-<h2 id="SSH-连接历史"><a href="#SSH-连接历史" class="headerlink" title="SSH 连接历史"></a>SSH 连接历史</h2><h3 id="方法集"><a href="#方法集" class="headerlink" title="方法集"></a>方法集</h3><p>常用如下命令查看 SSH 连接。</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>who</td>
-<td>查看当前连接用户、连接 IP、登录时间</td>
-</tr>
-<tr>
-<td>w</td>
-<td>查看当前连接用户与连接 IP、登录时间、当前启动的进程等</td>
-</tr>
-<tr>
-<td>last</td>
-<td>查看登入历史等信息</td>
-</tr>
-<tr>
-<td>netstat</td>
-<td>查看网络状态</td>
-</tr>
-<tr>
-<td>ss</td>
-<td>查看网络连接信息，与 netstat 类似，但可查看根据状态信息</td>
-</tr>
-</tbody>
-</table>
-<h3 id="who-amp-w"><a href="#who-amp-w" class="headerlink" title="who &amp; w"></a>who &amp; w</h3><p>相比于 who，w 可以获取登陆用户当前正在进行的进程操作(对应命令)<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/SSH%E4%BD%BF%E7%94%A820220314155021.png" alt="SSH使用20220314155021"></p>
-<h3 id="last"><a href="#last" class="headerlink" title="last"></a>last</h3><p>last 其实质是读取/var/log/wtmp(从该文件创建开始)中的内容并整理成输出。<br>wtmp 日志文件主要记录系统登入、 重启等关键信息。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/SSH%E4%BD%BF%E7%94%A820220314162422.png" alt="SSH使用20220314162422"><br>last 输出内容较多，当在普通个人电脑上执行该命令的由于经常开关机内容更加庞杂，可通过如下方式进行筛选。<br>last 命令参数</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">last shutdown</span><br><span class="line">last reboot</span><br></pre></td></tr></table></figure>
-<p>grep 查找</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">last | grep reboot</span><br><span class="line">last | grep still</span><br></pre></td></tr></table></figure>
-<h3 id="netstat-amp-ss"><a href="#netstat-amp-ss" class="headerlink" title="netstat &amp; ss"></a>netstat &amp; ss</h3>
-        <!-- 
+<h2 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h2><h3 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h3><ul>
+<li>NaN 的特征<br>涉及 NaN 的操作返回 NaN<br>NaN 不等于任何值，包括本身</li>
+<li>isNaN()<br>isNaN 在接收到一个值以后会尝试将这个值转换成数字<br>任何不能转换成数字的值都会导致该函数返回 true。</li>
+</ul>
+<h2 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h2><ul>
+<li>null 表示空对象指针</li>
+<li>如果定义的变量将来用于保存对象，建议初始化为 null 而不是其他值</li>
+</ul>
 
-
-SSH 登陆
-SSH 连接历史
-方法集
-who &amp; w
-last
-netstat &amp; ss
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-SSH 登陆对于默认使用了默认 SSH 配置的服务器，可以直接如下登陆
-ssh root@10.2.160.12
-根据提示输入密码即可。上述使用了 SSH 常用的 root 用户，默认的 22......  -->
-        <p class="article-more-link">
-          <a href="/SSH使用.html#more">阅读全文</a>
-        </p>
       
     </div>
     <footer class="article-footer">
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/简单类型/">简单类型</a></li></ul>
 
     </footer>
   </div>
@@ -451,7 +384,7 @@ ssh root@10.2.160.12
 <!-- Table of Contents -->
 
   
-    <article id="post-TS语法校验常见错误"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-磁盘阵列"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -459,7 +392,7 @@ ssh root@10.2.160.12
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/TS语法校验常见错误.html">TS语法校验常见错误</a>
+      <a class="article-title" href="/磁盘阵列.html">磁盘阵列</a>
     </h1>
   
 
@@ -468,7 +401,7 @@ ssh root@10.2.160.12
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-21T10:02:01.000Z" itemprop="datePublished">2022-06-21</time>
     </a>
 
 
@@ -484,130 +417,15 @@ ssh root@10.2.160.12
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#property-does-not-exist-on-type-object">property does not exist on type Object</a><ul>
-<li><a href="#复现">复现</a></li>
-<li><a href="#解决">解决</a></li>
-</ul>
-</li>
-<li><a href="#expression-of-type-string-cant-be-used-to-index-type">Expression of type ‘string’ can’t be used to index type</a><ul>
-<li><a href="#复现-1">复现</a></li>
-<li><a href="#解决-1">解决</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="property-does-not-exist-on-type-Object"><a href="#property-does-not-exist-on-type-Object" class="headerlink" title="property does not exist on type Object"></a>property does not exist on type Object</h2><h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>Property ‘length’ does not exist on type’Object’.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>; <span class="comment">//[ts] Property 'length' does not exist on type'Object'.</span></span><br></pre></td></tr></table></figure>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p><strong>将对象类型设置为 any</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: any = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>;</span><br></pre></td></tr></table></figure>
-<p><strong>通过字符方式获取对象属性</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj[<span class="string">"value"</span>] = <span class="string">"value"</span>;</span><br></pre></td></tr></table></figure>
-<p><strong>通过接口定义对象所具有的属性</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: ValueObject = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>;</span><br><span class="line"></span><br><span class="line">interface ValueObject &#123;</span><br><span class="line">  value?: string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>使用断言强制执行</strong></p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">(obj <span class="keyword">as</span> any).value = <span class="string">"value"</span></span><br></pre></td></tr></table></figure>
-<h2 id="Expression-of-type-‘string’-can’t-be-used-to-index-type"><a href="#Expression-of-type-‘string’-can’t-be-used-to-index-type" class="headerlink" title="Expression of type ‘string’ can’t be used to index type"></a>Expression of type ‘string’ can’t be used to index type</h2><h3 id="复现-1"><a href="#复现-1" class="headerlink" title="复现"></a>复现</h3><p>Element implicitly has an ‘any’ type because expression of type ‘string’ can’t be used to index type</p>
-<p>person 并未明确指定键值类型（即隐式指定为任意类型），任意类型与 getValue 传参的 string 类型冲突。</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  name: <span class="string">"sk"</span>,</span><br><span class="line">  age: <span class="number">22</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">arg: string</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> person[arg]; <span class="comment">// Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '&#123; name: string; age: number; &#125;'.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="解决-1"><a href="#解决-1" class="headerlink" title="解决"></a>解决</h3>
-        <!-- 
-
-
-property does not exist on type Object
-复现
-解决
-
-
-Expression of type ‘string’ can’t be used to index type
-复现
-解决
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-property does not exist on type Object复现P......  -->
-        <p class="article-more-link">
-          <a href="/TS语法校验常见错误.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-JS内存泄漏与处理"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/JS内存泄漏与处理.html">JS内存泄漏与处理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a><ul>
 <li><a href="#简介">简介</a></li>
-<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
-<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
-</ul>
-</li>
-<li><a href="#内存泄漏memory-leaks">内存泄漏（Memory Leaks）</a><ul>
-<li><a href="#简介-1">简介</a></li>
-<li><a href="#常见内存泄漏情况">常见内存泄漏情况</a></li>
-<li><a href="#常见情况示例">常见情况示例</a></li>
-</ul>
-</li>
-<li><a href="#内存泄漏处理">内存泄漏处理</a><ul>
-<li><a href="#chrome-memory-调试">Chrome Memory 调试</a></li>
-<li><a href="#内存泄漏监测">内存泄漏监测</a></li>
-<li><a href="#泄漏内存对比">泄漏内存对比</a></li>
-<li><a href="#泄漏内存对象详情">泄漏内存对象详情</a></li>
-<li><a href="#对象引用链">对象引用链</a></li>
+<li><a href="#对比">对比</a><ul>
+<li><a href="#总览">总览</a></li>
+<li><a href="#优劣">优劣</a></li>
+<li><a href="#raid-0">RAID 0</a></li>
+<li><a href="#raid-1">RAID 1</a></li>
+<li><a href="#raid-5">RAID 5</a></li>
+<li><a href="#raid-6">RAID 6</a></li>
+<li><a href="#raid-10">RAID 10</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -618,413 +436,20 @@ property does not exist on type Object复现P......  -->
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JS 自动进行垃圾回收，不需要如 C 语言等一般需要代码中指定回收。<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>回收垃圾时，需要将那些被标记的清除掉，垃圾标记器会跟踪无用内存并打上标记，以供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
-<h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3><p>传统的引用计数方式简单来说就是记录内存引用的总数，当总数为 0 时，该内存将被回收。<br>该方式最大的弊端是循环引用对应的内存将不能被回收。<br>循环引用代码示例：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  a.child = b</span><br><span class="line">  b.child = a</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="标记清除（Mark-amp-Sweep）"><a href="#标记清除（Mark-amp-Sweep）" class="headerlink" title="标记清除（Mark &amp; Sweep）"></a>标记清除（Mark &amp; Sweep）</h3><ul>
-<li>标记阶段</li>
-</ul>
-<p>JavaScript 由根对象开始，例如浏览器中的 window，定期遍历找出其所有关联引用的对象。<br>即找所有从这个全局对象开始引用的对象，再找这些对象引用的对象…<br>对这些存在引用关系的对象进行标记，这是标记阶段。</p>
-<ul>
-<li>清除阶段</li>
-</ul>
-<p>清除阶段就是垃圾收集器清除那些没有被标记的对象，释放其内存。</p>
-<h2 id="内存泄漏（Memory-Leaks）"><a href="#内存泄漏（Memory-Leaks）" class="headerlink" title="内存泄漏（Memory Leaks）"></a>内存泄漏（Memory Leaks）</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>独立冗余磁盘阵列(Redundant Arrays Of Independent Disks)，简写 RAID。<br>RAID 技术用以提升存储的性能与可靠性。</p>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><h3 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h3>
         <!-- 
 
 
-垃圾回收(GC:Garbage Collecation)
 简介
-引用计数（Reference Counting）
-标记清除（Mark &amp; Sweep）
-
-
-内存泄漏（Memory Leaks）
-简介
-常见内存泄漏情况
-常见情况示例
-
-
-内存泄漏处理
-Chrome Memory 调试
-内存泄漏监测
-泄漏内存对比
-泄漏内存对象详情
-对象引用链
-
-
-BMW WARNING
-Bulle......  -->
-        <p class="article-more-link">
-          <a href="/JS内存泄漏与处理.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Interface与AbstractClass"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Interface与AbstractClass.html">Interface与AbstractClass</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#interface">Interface</a></li>
-<li><a href="#abstract-class">Abstract Class</a></li>
-<li><a href="#综述">综述</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h2><p>在 JS 中，在没有技术文档或找到对应函数(对象)定义在代码中位置的情况下，我们很难确认：</p>
-<ul>
-<li>函数参数方式</li>
-<li>函数参数的类型</li>
-<li>使用参数的方式</li>
-<li>对象提供的方法与属性</li>
-</ul>
-<p>同时，在对象中，多层嵌套时，需要写如下代码：<br><code>a &amp;&amp; a.b ** a.b.c()</code><br>在 TS 中，与大多数面向对象编程语言一样，引入了 Interface。<br>Interface 用以描述对象结构<br>Interface 的职责在于签订契约，即使用该接口则必须实现该接口中的属性和方法。<br>使用时只需要知道接口，就可知道使用该接口对象的一些基础的构造。</p>
-<h2 id="Abstract-Class"><a href="#Abstract-Class" class="headerlink" title="Abstract Class"></a>Abstract Class</h2><p>虚拟类不能直接实例化。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">abstract <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line">  abstract getName(): string;</span><br><span class="line"></span><br><span class="line">  printName() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello, "</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Base() <span class="comment">// Cannot create an instance of an abstract class.(</span></span><br></pre></td></tr></table></figure>
-<p>虚拟方法与虚拟属性只能存在与虚拟类中，均使用 abstract 关键字。<br>虽然 TS 未做错误校验，但虚拟类至少有一个虚拟方法，否则应该定义为实体类。<br>虚拟方法的主要职责是为其派生的实体类提供蓝图，后续实体类需要实现的方法与属性提供参考（需要实现其中定义的虚拟方法属性等）。</p>
-<h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><table>
-<thead>
-<tr>
-<th>type</th>
-<th>继承数</th>
-<th>使用时机</th>
-<th>可否拥有实体方法</th>
-<th>主要职责</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Interface</td>
-<td>implements 多个接口</td>
-<td>编译时</td>
-<td>false</td>
-<td>签订契约</td>
-</tr>
-<tr>
-<td>Abstract Class</td>
-<td>extends 一个基类（不管虚实）</td>
-<td>运行时</td>
-<td>true</td>
-<td>绘制蓝图</td>
-</tr>
-</tbody>
-</table>
-<p>虚拟类可在运行时使用，而接口只在编译时使用。例如对于接口，你不能使用 instanceof</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">abstract <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line">  abstract getName(): string;</span><br><span class="line"></span><br><span class="line">  printName() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello, "</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">interface IBase &#123;</span><br><span class="line">  getName(): string;</span><br><span class="line"></span><br><span class="line">  printName():<span class="keyword">void</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> x: any;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (x <span class="keyword">instanceof</span> IBase) &#123; <span class="comment">// Error: 'IBase' only refers to a type, but is being used as a value here.</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (x <span class="keyword">instanceof</span> Base) &#123; <span class="comment">// OK</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
-</blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-</blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-<blockquote>
-<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Cookie、Session与Token"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Cookie、Session与Token.html">Cookie、Session与Token</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#请求信息保存">请求信息保存</a></li>
-<li><a href="#cookie">Cookie</a><ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#属性分析">属性分析</a></li>
-<li><a href="#第三方-cookie">第三方 Cookie</a></li>
-<li><a href="#cookie-前缀">Cookie 前缀</a></li>
-</ul>
-</li>
-<li><a href="#session">Session</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="请求信息保存"><a href="#请求信息保存" class="headerlink" title="请求信息保存"></a>请求信息保存</h2><p>Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。<br>这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。<br>Cookie Session 等技术诞生就是为了解决请求信息无法保存的问题。</p>
-<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>当服务端请求响应头包含 Set-Cookie 属性时，Set-Cookie 对应的信息会自动保存在浏览器中。<br>在下次会话请求中，符合条件的请求会自动在请求头中设置 Cookie 属性，并携带之前保存的信息。<br>服务端请求响应携带 Cookie</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: skyline=hello</span><br></pre></td></tr></table></figure>
-<p>客户端发送请求携带 Cookie</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Cookie: skyline = hello</span><br></pre></td></tr></table></figure>
-<p><strong>Cookie 存在于客户端中，不可跨域携带</strong>。</p>
-<p>Cookie 相关属性</p>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>解析</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>name=value</td>
-<td>Cookie 键值对</td>
-</tr>
-<tr>
-<td>domain</td>
-<td>携带 Cookie 的域名，默认当前域名</td>
-</tr>
-<tr>
-<td>path</td>
-<td>指定携带 Cookie 的路径，默认’/‘，所有路径皆携带</td>
-</tr>
-<tr>
-<td>maxAge</td>
-<td>有效期时长，单位 ms</td>
-</tr>
-<tr>
-<td>expires</td>
-<td>有效期截止时间</td>
-</tr>
-<tr>
-<td>secure</td>
-<td>安全传输，开启后 Cookie 只在 Https 中被自动携带</td>
-</tr>
-<tr>
-<td>httpOnly</td>
-<td>仅用户请求携带，禁止 JS 脚本通过 Document.cookie 获取 Cookie，一定程度防止 XSS 攻击</td>
-</tr>
-<tr>
-<td>SameSite</td>
-<td>同站请求设置，防止 CSRF 攻击</td>
-</tr>
-</tbody>
-</table>
-<p>Cookie 常用于临时性的细微信息存储，主要用于如下地方：</p>
-<ul>
-<li>保存会话信息，如用户登录信息，游客购物车，游戏分数等</li>
-<li>保存用户个性化配置，如网站皮肤设置等</li>
-<li>追踪用户习惯，追踪分析用户浏览记录等</li>
-</ul>
-<p>Cookie 在 localStorage、sessionStorage 等现代浏览器存储 API 诞生前曾一度用于存储浏览器端的信息并供脚本使用（即充当现今 localStorage 等角色 1）。<br>但其有一个很严重的弊端就是所有的 Cookie 都会跟随请求携带，影响接口速度与网站性能。<br>在现代浏览器存储 API 诞生后，Cookie 基本不再用于一般的浏览器存储。</p>
-<h3 id="属性分析"><a href="#属性分析" class="headerlink" title="属性分析"></a>属性分析</h3><ul>
-<li>domain<br>指定接收该 Cookie 的主机，默认限制为当前域名（<a href="http://www.example.com），不包含example.com下的其他子域名。" target="_blank" rel="noopener">www.example.com），不包含example.com下的其他子域名。</a><br>若进行指定 example.com，则包含其他子域名如 blog.example.com</li>
-<li>SameSite<br>Strict: 严格模式，不允许其他网站发送的请求携带 Cookie<br>Lax: 宽松模式，遵照在严格模式，但是允许其他网站跳转到本站时携带 Cookie，默认值<br>None: 不做限制，但需要安全传输。故设定为此值时，通常要求设定 secure</li>
-</ul>
-<p>SameSite 是一个较新的属性，目前多数浏览器已支持，用于限制第三方 Cookie。<br>该属性用于告知浏览器源于第三方网站发出的本站请求是否被允许携带 Cookie，可设定 3 种值。<br>SameSite 一般直接使用默认值 Lax，防止第三方网站直接发送本站请求，浏览器自动携带本站 Cookie<br>若使用严格模式，跳转到本站时用户信息会遗失，体验较差。<br>举个例子，假定 github 对用户登录信息校验的 Cookie 使用 Strict，用户在已经登录过 github，当从掘金跳转过来 github 时，仍要重新登录。</p>
-<h3 id="第三方-Cookie"><a href="#第三方-Cookie" class="headerlink" title="第三方 Cookie"></a>第三方 Cookie</h3><p>当携带 Cookie 的请求其协议与域名与当前网站协议域名保持一致时被称为第一方 Cookie<br>当协议或域名不一致时，被称为第三方 Cookie。<br>第三方 Cookie 主要用于用户行为与习惯跟踪，通过分析来给用户更好的体验。<br>当用户在浏览购物网站 A（不一定登陆）时，其搜索，点击等操作请求被网站服务器记录并在响应头中携带有唯一标识的 Cookie 储存在浏览器中。<br>而后用户用同一浏览器访问该购物网站 A 投放广告的其他网站 B 时，其它网站 B 中网页内嵌入的购物网站 A 的请求（链接、图片等）会自动携带浏览器存储的 A 站相关 Cookie。<br>购物网站 A 通过分析 Cookie 来响应定制化的个性广告信息，实现精准广告投放到网站 B 上。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220328140802.png" alt="Cookie、Session与Token20220328140802"><br>由于隐私与安全等缘故，部分浏览器默认禁止了三方 Cookie</p>
-<h3 id="Cookie-前缀"><a href="#Cookie-前缀" class="headerlink" title="Cookie 前缀"></a>Cookie 前缀</h3>
-        <!-- 
-
-
-请求信息保存
-Cookie
-概述
-属性分析
-第三方 Cookie
-Cookie 前缀
-
-
-Session
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-请求信息保存Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户......  -->
-        <p class="article-more-link">
-          <a href="/Cookie、Session与Token.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Builder建筑工模式"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Builder建筑工模式.html">Builder建筑工模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#实例">实例</a><ul>
-<li><a href="#修房子">修房子</a></li>
-<li><a href="#找工人">找工人</a></li>
-<li><a href="#监工">监工</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Builder 模式一般翻译为建造者模式。<br>在重构代码的过程中，我们常看到几百上千行的复杂类。<br>这些类往往由于最初设定不合理以及需求不断增加而壮大。<br>建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。<br>建筑工模式通常支持链式调用。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">House.setDoors(<span class="number">1</span>).setRooms(<span class="number">2</span>).getHouse();</span><br></pre></td></tr></table></figure>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="修房子"><a href="#修房子" class="headerlink" title="修房子"></a>修房子</h3><p>现在有一个基础房屋类如下所示</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> House &#123;</span><br><span class="line">  <span class="keyword">public</span> windows: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> doors: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> rooms: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> area: <span class="built_in">number</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">public</span> parts: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setWindows(<span class="string">"window"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setDoors(<span class="string">"door"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setBedRooms(<span class="string">"room"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listWindows(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House windows: <span class="subst">$&#123;<span class="keyword">this</span>.windows.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listDoors(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House doors: <span class="subst">$&#123;<span class="keyword">this</span>.doors.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listRooms(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House rooms: <span class="subst">$&#123;<span class="keyword">this</span>.rooms.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> setWindows(w: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.windows.push(w);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setDoors(d: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.doors.push(d);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setBedRooms(r: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.area += <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setKitchens(r: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.area += <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> capacity(): <span class="built_in">number</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.area / <span class="number">15</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在生活水平不断提高，我们开始有不同的要求，有车的人需要有车库的房子，有人需要有花园的，有泳池，有庭院等的房子。<br>一种常用的方法是，基于 House 类派生出 HouseWithGarage、HouseWithPool、HouseWithYard…</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> HouseWithGarage <span class="keyword">extends</span> House &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">this</span>.setGarges(<span class="string">"garage"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listGarges(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House parts: <span class="subst">$&#123;<span class="keyword">this</span>.parts.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setGarges(g: <span class="built_in">string</span>): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> hg = <span class="keyword">new</span> HouseWithGarage();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builderProblem.ts第63行:::hg"</span>, hg);</span><br></pre></td></tr></table></figure>
-<p>使用后得到如下的建筑</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"windows"</span>: [<span class="string">"window"</span>],</span><br><span class="line">  <span class="attr">"doors"</span>: [<span class="string">"door"</span>],</span><br><span class="line">  <span class="attr">"rooms"</span>: [<span class="string">"room"</span>],</span><br><span class="line">  <span class="attr">"area"</span>: <span class="number">30</span>,</span><br><span class="line">  <span class="attr">"parts"</span>: [<span class="string">"garage"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/Creational/builder/builderProblem.ts" target="_blank" rel="noopener">详细代码</a><br>当又有智能家居、新风系统等新需求来的时候，相关的派生类变得非常多。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104113645.png" alt="Builder建筑工模式20211104113645"></p>
-<p>另一种基本不会用的方法是直接在构造函数中进行相关配置并初始化。</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> House &#123;</span><br><span class="line">    ...,</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">hasGarage: <span class="built_in">boolean</span>, hasYard: <span class="built_in">boolean</span>, hasPool: <span class="built_in">boolean</span>, ...</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.setWindows(<span class="string">'east-window'</span>);</span><br><span class="line">        <span class="keyword">this</span>.setDoors(<span class="string">'east-door'</span>);</span><br><span class="line">        <span class="keyword">this</span>.setBedRooms(<span class="string">'east-room'</span>);</span><br><span class="line">        <span class="keyword">if</span>(hasGarage) &#123;</span><br><span class="line">            <span class="keyword">this</span>.setGarges(<span class="string">"garage"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>调用的时候会出现如下情况</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> House(<span class="literal">true</span>, <span class="literal">null</span>, <span class="literal">true</span>, ...);</span><br><span class="line"><span class="keyword">new</span> House(<span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">true</span>, ...);</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104113734.png" alt="Builder建筑工模式20211104113734"><br>上述方案虽然可以解决一定的问题，但是在易用性与维护性方面大打折扣。<br>这些场景中的建筑工可以很好地解决问题。</p>
-<h3 id="找工人"><a href="#找工人" class="headerlink" title="找工人"></a>找工人</h3><p>在 House 类中，有最终生产与配置房屋实例相关的方法（set…)。<br>这些方法都为构建产品而立，我们可以把这些工作都交给建筑工。</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> House &#123;</span><br><span class="line">  <span class="keyword">public</span> windows: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> doors: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> rooms: <span class="built_in">string</span>[] = [];</span><br><span class="line">  <span class="keyword">public</span> area: <span class="built_in">number</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">public</span> parts: <span class="built_in">string</span>[] = [];</span><br><span class="line">  [s: <span class="built_in">string</span>]: <span class="built_in">any</span>;</span><br><span class="line">  <span class="keyword">public</span> listWindows(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House windows: <span class="subst">$&#123;<span class="keyword">this</span>.windows.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listDoors(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House doors: <span class="subst">$&#123;<span class="keyword">this</span>.doors.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> listRooms(): House &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`House rooms: <span class="subst">$&#123;<span class="keyword">this</span>.rooms.join(<span class="string">", "</span>)&#125;</span>\n`</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> capacity(): <span class="built_in">number</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.area / <span class="number">15</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 建筑者接口，提供创建产品的基本方法与步骤</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">interface</span> Builder &#123;</span><br><span class="line">  setBase(): Builder;</span><br><span class="line">  setKitchens(r: <span class="built_in">string</span>): Builder;</span><br><span class="line">  setGarges(g: <span class="built_in">string</span>): Builder;</span><br><span class="line">  setPools(g: <span class="built_in">string</span>): Builder;</span><br><span class="line">  setYards(g: <span class="built_in">string</span>): Builder;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 建筑者实体类。不同的建筑者实体类可以对方法进行不同实现</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> HouseABuilder <span class="keyword">implements</span> Builder &#123;</span><br><span class="line">  <span class="keyword">private</span> house!: House;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.reset();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> reset(): House &#123;</span><br><span class="line">    <span class="keyword">this</span>.house = <span class="keyword">new</span> House();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.house;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @returns 提供this 链式调用</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> setBase(): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.setWindows(<span class="string">"window"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setDoors(<span class="string">"door"</span>);</span><br><span class="line">    <span class="keyword">this</span>.setBedRooms(<span class="string">"room"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> setWindows(w: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.windows.push(w);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setDoors(d: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.doors.push(d);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setBedRooms(r: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.house.area += <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> setKitchens(r: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.rooms.push(r);</span><br><span class="line">    <span class="keyword">this</span>.house.area += <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setGarges(g: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setPools(g: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> setYards(g: <span class="built_in">string</span>): Builder &#123;</span><br><span class="line">    <span class="keyword">this</span>.house.parts.push(g);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * 暴露产品的方法。</span></span><br><span class="line"><span class="comment">   * 在将现有产品交付后，建筑工通常需要初始化一个新的产品，供后续调用。</span></span><br><span class="line"><span class="comment">   * 此处通过reset，这不是必须的，可以在客户使用时显示调用reset</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> getHouse(): House &#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">this</span>.house;</span><br><span class="line">    <span class="keyword">this</span>.reset();</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在我们可以请建筑工来帮我们建筑不同的房子。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> builder = <span class="keyword">new</span> HouseABuilder();</span><br><span class="line">builder.setBase().setGarges(<span class="string">"garage"</span>).setYards(<span class="string">"yard"</span>);</span><br><span class="line"><span class="keyword">const</span> gy = builder.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builder.ts第85行:::gy"</span>, gy);</span><br><span class="line">builder.setBase().setGarges(<span class="string">"garage"</span>);</span><br><span class="line"><span class="keyword">const</span> g = builder.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builder.ts第88行:::g"</span>, g);</span><br><span class="line">builder.setBase().setPools(<span class="string">"pool"</span>);</span><br><span class="line"><span class="keyword">const</span> p = builder.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"builder.ts第91行:::p"</span>, p);</span><br></pre></td></tr></table></figure>
-<p>得到如下的结果</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">[LOG]: "builder.ts第85行:::gy",  House: &#123;</span><br><span class="line">  "windows": [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  "doors": [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  "rooms": [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  "area": 30,</span><br><span class="line">  "parts": [</span><br><span class="line">    "garage",</span><br><span class="line">    <span class="string">"yard"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">[LOG]: "builder.ts第88行:::g",  House: &#123;</span><br><span class="line">  "windows": [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  "doors": [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  "rooms": [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  "area": 30,</span><br><span class="line">  "parts": [</span><br><span class="line">    <span class="string">"garage"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">[LOG]: "builder.ts第91行:::p",  House: &#123;</span><br><span class="line">  "windows": [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  "doors": [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  "rooms": [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  "area": 30,</span><br><span class="line">  "parts": [</span><br><span class="line">    <span class="string">"pool"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/CS/DesignPatterns/Creational/builder/builder.ts" target="_blank" rel="noopener">详细代码</a></p>
-<p>通过找建筑工帮忙，我们的产品交付给客户时只剩下客户关心的配置。<br>当客户有不同客制化需求时，我们只需让建筑工工程师帮忙发挥他的技能即可。<br>建筑工模式让我们再构建一个产品时让建筑工来执行一系列步骤，通过执行不同步骤来定制不同的产品。<br>虽然当前的建筑工技能已经比较全面，但是某项特定的需求也可能差异化。<br>例如，建筑普通房子的窗可能只需要挖个洞，而富豪的窗是需要镶钻的。<br>普通的院子大小只能让小孩打滚，富豪的院子则需要能打高尔夫。<br>这时候，我们需要差异化建筑工，用不同的建筑工，构建不同的房子。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Builder%E5%BB%BA%E7%AD%91%E5%B7%A5%E6%A8%A1%E5%BC%8F20211104140334.png" alt="Builder建筑工模式20211104140334"><br>当不同的建筑工越来越多时，什么时候用什么样的工人，需要统一管理，我们引入监工。</p>
-<h3 id="监工"><a href="#监工" class="headerlink" title="监工"></a>监工</h3><figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 引入监工是为指定的需求做定制，</span></span><br><span class="line"><span class="comment"> * 如此处定制基础房屋、小房子、大房子等</span></span><br><span class="line"><span class="comment"> * 另一个用处是调配工人</span></span><br><span class="line"><span class="comment"> * 这不必须的。客户也可去掉这个中间商，直接去找工人</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> Director &#123;</span><br><span class="line">  <span class="keyword">private</span> builder: Builder;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 调配工人</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> setBuilder(builder: Builder): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder = builder;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 建筑基础房子</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> buildMini(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder.setBase();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> buildMedium(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder.setBase().setGarges(<span class="string">"garage"</span>).setYards(<span class="string">"yard"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> buildLarge(): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.builder</span><br><span class="line">      .setBase()</span><br><span class="line">      .setGarges(<span class="string">"garage"</span>)</span><br><span class="line">      .setYards(<span class="string">"yard"</span>)</span><br><span class="line">      .setPools(<span class="string">"pool"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>监工的使用</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> director = <span class="keyword">new</span> Director();</span><br><span class="line"><span class="keyword">const</span> builderA = <span class="keyword">new</span> HouseABuilder();</span><br><span class="line">director.setBuilder(builderA);</span><br><span class="line">director.buildLarge();</span><br><span class="line"><span class="keyword">const</span> f = builderA.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"director.ts第214行:::large base house"</span>, f);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> builderB = <span class="keyword">new</span> HouseBBuilder();</span><br><span class="line">director.setBuilder(builderB);</span><br><span class="line">director.buildMedium();</span><br><span class="line"><span class="keyword">const</span> m = builderB.getHouse();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"director.ts第214行:::medium diamond house"</span>, m);</span><br></pre></td></tr></table></figure>
-<p>得到如下的结果</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[LOG]: <span class="string">"director.ts第214行:::large base house"</span>,  <span class="attr">House</span>: &#123;</span><br><span class="line">  <span class="string">"windows"</span>: [</span><br><span class="line">    <span class="string">"window"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"doors"</span>: [</span><br><span class="line">    <span class="string">"door"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"rooms"</span>: [</span><br><span class="line">    <span class="string">"room"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"area"</span>: <span class="number">30</span>,</span><br><span class="line">  <span class="string">"parts"</span>: [</span><br><span class="line">    <span class="string">"garage"</span>,</span><br><span class="line">    <span class="string">"yard"</span>,</span><br><span class="line">    <span class="string">"pool"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">[LOG]: <span class="string">"director.ts第214行:::medium diamond house"</span>,  <span class="attr">House</span>: &#123;</span><br><span class="line">  <span class="string">"windows"</span>: [</span><br><span class="line">    <span class="string">"Diamond window"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"doors"</span>: [</span><br><span class="line">    <span class="string">"Diamond door"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"rooms"</span>: [</span><br><span class="line">    <span class="string">"Diamond room"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"area"</span>: <span class="number">300</span>,</span><br><span class="line">  <span class="string">"parts"</span>: [</span><br><span class="line">    <span class="string">"Diamond garage"</span>,</span><br><span class="line">    <span class="string">"Diamond yard"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>监工的引入不是必须的，根据实际的需求，选用简单的建筑工还是引入监工。</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
-        <!-- 
-
-
-概述
-实例
-修房子
-找工人
-监工
+对比
+总览
+优劣
+RAID 0
+RAID 1
+RAID 5
+RAID 6
+RAID 10
 
 
 BMW WARNING
@@ -1035,338 +460,17 @@ Warrant
 
 
 
-概述Builder 模式一般翻译为建造者模式。在重构代码的过程中，我们常看到几百上千行的复杂类。这些类往往由于最初设定不合理以及需求不断增加而壮大。建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。建筑工模式通常支持链式调用。
-House......  -->
+简介独立冗余磁盘阵列(Redundant Arrays Of Independent Disks)，简写 RAID。RAID 技术用以提升存储的性能与可靠性。
+对比总览
+
+
+
+阵列
+最少硬盘
+关键词
+原理......  -->
         <p class="article-more-link">
-          <a href="/Builder建筑工模式.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Creational/">Creational</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CSS常用伪类伪元素"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS常用伪类伪元素.html">CSS常用伪类伪元素</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#伪类">伪类</a><ul>
-<li><a href="#综述">综述</a></li>
-<li><a href="#详解">详解</a></li>
-</ul>
-</li>
-<li><a href="#伪元素">伪元素</a><ul>
-<li><a href="#综述-1">综述</a></li>
-<li><a href="#详解-1">详解</a></li>
-</ul>
-</li>
-<li><a href="#区分">区分</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="伪类"><a href="#伪类" class="headerlink" title="伪类"></a>伪类</h2><h3 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h3><p>伪类即伪造一个类来为选定元素来描述特殊状态下的样式。<br>通过伪类实现的效果可以直接在选定元素添加一个 class 来模拟实现。<br>伪类通过:前缀来表示</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Desc</th>
-<th>EG</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>:nth-of-type</td>
-<td>指定标签在相同类型同级标签的位置</td>
-<td>p:nth-of-type(n)</td>
-</tr>
-<tr>
-<td>:nth-child</td>
-<td>指定标签在所有类型同级标签的位置</td>
-<td>p:nth-child(n)</td>
-</tr>
-</tbody>
-</table>
-<p>其中 n 可以是整数（1，2，3）、关键字（even，odd）、可以是公式 2n+1(奇数），n+5(大于等于 5)，-n+5(小于等于 5),而且<strong>n 值起始值 0</strong>.</p>
-<h3 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h3>
-        <!-- 
-
-
-伪类
-综述
-详解
-
-
-伪元素
-综述
-详解
-
-
-区分
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-伪类综述伪类即伪造一个类来为选定元素来描述特殊状态下的样式。通过伪类实现的效果可以直接在选定元素添加一个 class 来模拟实现。伪类通过:前缀来表示
-
-
-
-Name
-Desc
-EG
-
-
-
-
-:nth-of-type
-指定标签在相同类型同级标签的位置
-......  -->
-        <p class="article-more-link">
-          <a href="/CSS常用伪类伪元素.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#formatting-context">Formatting Context</a></li>
-<li><a href="#bfc">BFC</a><ul>
-<li><a href="#bfc-定义">BFC 定义</a></li>
-<li><a href="#bfc-触发">BFC 触发</a></li>
-<li><a href="#常见应用">常见应用</a></li>
-<li><a href="#display-flow-root">display: flow-root</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
-<ul>
-<li>块级格式化上下文（block formatting contexts）</li>
-<li>内联格式化上下文（inline formatting contexts）</li>
-<li>弹性格式化上下文（flex formatting context）</li>
-<li>网格格式化上下文（grid formatting context）</li>
-</ul>
-<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
-<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2>
-        <!-- 
-
-
-Formatting Context
-BFC
-BFC 定义
-BFC 触发
-常见应用
-display: flow-root
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
-
-块级格式化上下文（block formatting c......  -->
-        <p class="article-more-link">
-          <a href="/CSS格式化上下文.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-硬盘MR技术"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/硬盘MR技术.html">硬盘MR技术</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#硬盘原理简述">硬盘原理简述</a></li>
-<li><a href="#mr">MR</a><ul>
-<li><a href="#lmr">LMR</a></li>
-<li><a href="#pmr">PMR</a></li>
-<li><a href="#cmr">CMR</a></li>
-<li><a href="#smr">SMR</a></li>
-<li><a href="#cmr-vs-smr">CMR vs SMR</a></li>
-</ul>
-</li>
-<li><a href="#smr-优势与弊端">SMR 优势与弊端</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="硬盘原理简述"><a href="#硬盘原理简述" class="headerlink" title="硬盘原理简述"></a>硬盘原理简述</h2><p>硬盘通过小磁体来记录信息。<br>硬盘通过写磁头翻转磁体来对应二进制。如南北朝向的磁体可能意味着 1，那么北南朝向的磁体意味着 0。</p>
-<h2 id="MR"><a href="#MR" class="headerlink" title="MR"></a>MR</h2><h3 id="LMR"><a href="#LMR" class="headerlink" title="LMR"></a>LMR</h3><p>Longitudinal Magnetic Recording<br>机械硬盘的磁录密度影响着数据记录的总量（硬盘容量）。<br>早期的硬盘采用的是水平磁记录，如下图所示。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E7%A1%AC%E7%9B%9820211117203703.png" alt="硬盘20211117203703"><br>这种单个磁体水平放置的方式总的容量空间较小。</p>
-<h3 id="PMR"><a href="#PMR" class="headerlink" title="PMR"></a>PMR</h3><p>Perpendicular Magnetic Recording (PMR)<br>perpendicular 意为垂直的，垂直。<br>之后的磁体被立起来，如下，这种方式不会影响数据的存取，同时可以获得更多的容量。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E7%A1%AC%E7%9B%9820211117205112.png" alt="硬盘20211117205112"><br>PMR 目前为止有两种分支，为 CMR 与 SMR。<br>SMR 沿用原先的 PMR 的技术，并进一步对磁录密度进行优化。<br>由于 SMR 也基于 PMR 技术，其中的磁体保持垂直，原有技术继续使用 PMR 名词容易造成混淆。<br>故将原有 PMR 技术另命名为 CMR。<br>但是沿用之前的习惯，CMR 也通常被称作 PMR。<br>故一般 PMR 即指 CMR，新分支就称为 SMR</p>
-<h3 id="CMR"><a href="#CMR" class="headerlink" title="CMR"></a>CMR</h3><p>Conventional Magnetic Recording<br>conventional 传统的，惯例的<br>由于写磁头比磁道要宽，CMR 在磁道之间加入磁道保护区来防止相邻磁道的写覆盖。</p>
-<h3 id="SMR"><a href="#SMR" class="headerlink" title="SMR"></a>SMR</h3>
-        <!-- 
-
-
-硬盘原理简述
-MR
-LMR
-PMR
-CMR
-SMR
-CMR vs SMR
-
-
-SMR 优势与弊端
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-硬盘原理简述硬盘通过小磁体来记录信息。硬盘通过写磁头翻转磁体来对应二进制。如南北朝向的磁体可能意味着 1，那么北南朝向的磁体意味着 0。
-MRLMRLongitudinal Magnetic Recordi......  -->
-        <p class="article-more-link">
-          <a href="/硬盘MR技术.html#more">阅读全文</a>
+          <a href="/磁盘阵列.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1384,7 +488,7 @@ MRLMRLongitudinal Magnetic Recordi......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-Dynamic_Programming"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-跨境物流查询"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1392,7 +496,7 @@ MRLMRLongitudinal Magnetic Recordi......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Dynamic_Programming.html">Dynamic_Programming</a>
+      <a class="article-title" href="/跨境物流查询.html">跨境物流查询</a>
     </h1>
   
 
@@ -1401,7 +505,164 @@ MRLMRLongitudinal Magnetic Recordi......  -->
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-21T10:02:00.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Life/">Life</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#亚马逊">亚马逊</a><ul>
+<li><a href="#物流与订单">物流与订单</a></li>
+<li><a href="#物流查询">物流查询</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="亚马逊"><a href="#亚马逊" class="headerlink" title="亚马逊"></a>亚马逊</h2><h3 id="物流与订单"><a href="#物流与订单" class="headerlink" title="物流与订单"></a>物流与订单</h3><p>亚马逊一般使用如下跨境物流</p>
+<ul>
+<li>UPS</li>
+<li>DHL 物流</li>
+<li>易客满</li>
+<li>HS Code</li>
+</ul>
+<p>HS Code 物流容易遇到通关问题后被退货，其他物流还好。</p>
+<p>当在亚马逊官方查到快递单号时，官方的更新速度较慢，可通过后续方式查询物流详细信息。</p>
+<h3 id="物流查询"><a href="#物流查询" class="headerlink" title="物流查询"></a>物流查询</h3>
+        <!-- 
+
+
+亚马逊
+物流与订单
+物流查询
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+亚马逊物流与订单亚马逊一般使用如下跨境物流
+
+UPS
+DHL 物流
+易客满
+HS Code
+
+HS Code 物流容易遇到通关问题后被退货，其他物流还好。
+当在亚马逊官方查到快递单号时，官方的更新速度较慢，可通过后续方式查询物流详细信息。
+物流查询
+HS Code物流单......  -->
+        <p class="article-more-link">
+          <a href="/跨境物流查询.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tips/">Tips</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-内存基础知识汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/内存基础知识汇总.html">内存基础知识汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:00.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ECC-内存"><a href="#ECC-内存" class="headerlink" title="ECC 内存"></a>ECC 内存</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>ECC 即 Error Correcting Code，错误检查和纠正简写。<br>ECC 内存通过加入一个单独的芯片来校验数据的准确性。</p>
+<h3 id="错误产生"><a href="#错误产生" class="headerlink" title="错误产生"></a>错误产生</h3>
+        <!-- ECC 内存简介ECC 即 Error Correcting Code，错误检查和纠正简写。ECC 内存通过加入一个单独的芯片来校验数据的准确性。
+错误产生
+电脑内部的电磁辐射干扰内存工作，导致动态随机存取内存的单 bit 位数据错误，影响数据的准确性。
+原理ECC 内存在写入数据时，额外引入的芯片会将数据进行编码，并存下编码。当读取时，采用相同的算法对读到的数据编码，从芯片取出之前的编码进......  -->
+        <p class="article-more-link">
+          <a href="/内存基础知识汇总.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardware/">Hardware</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell基础命令"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell基础命令.html">Shell基础命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T08:48:42.000Z" itemprop="datePublished">2022-06-21</time>
     </a>
 
 
@@ -1417,24 +678,328 @@ MRLMRLongitudinal Magnetic Recordi......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#概述">概述</a><ul>
-<li><a href="#常见类型">常见类型</a></li>
-<li><a href="#解题思路">解题思路</a></li>
+<li><a href="#echo">echo</a></li>
+<li><a href="#head">head</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h2><p>echo 打印输出命令</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"Hello World"</span></span><br></pre></td></tr></table></figure>
+<p>启用特殊字符转换（\特殊字符）</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">"Column 1\tColumn 2"</span></span><br><span class="line"><span class="comment"># Column 1        Column 2</span></span><br></pre></td></tr></table></figure>
+<h2 id="head"><a href="#head" class="headerlink" title="head"></a>head</h2><p>根据要求展示输入的前置部分</p>
+<blockquote>
+<p>output the first part of files</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls -lh | head -2</span><br><span class="line"><span class="comment"># total 8</span></span><br><span class="line"><span class="comment"># drwxr-xr-x  5 macmini  staff   170B Mar  3 17:06 Demos</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 其他方案</span></span><br><span class="line">ls -lh | sed -n <span class="string">'1,2p'</span></span><br><span class="line"><span class="comment"># total 8</span></span><br><span class="line"><span class="comment"># drwxr-xr-x  5 macmini  staff   170B Mar  3 17:06 Demos</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CSS样式命中优先级"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS样式命中优先级.html">CSS样式命中优先级</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-15T07:58:53.000Z" itemprop="datePublished">2022-06-15</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#样式命中优先级">样式命中优先级</a></li>
+<li><a href="#其他优先级">其他优先级</a></li>
+<li><a href="#优先级示例">优先级示例</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
 </ul>
 </li>
-<li><a href="#子序列问题">子序列问题</a><ul>
-<li><a href="#问题描述">问题描述</a></li>
-<li><a href="#解题思路-1">解题思路</a></li>
 </ul>
-</li>
-<li><a href="#背包问题">背包问题</a><ul>
-<li><a href="#问题特征">问题特征</a></li>
-<li><a href="#背包问题状态转移方程">背包问题状态转移方程</a></li>
+<!-- /code_chunk_output -->
+<h2 id="样式命中优先级"><a href="#样式命中优先级" class="headerlink" title="样式命中优先级"></a>样式命中优先级</h2><p>样式命中优先级递增表大致如下：</p>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>权重值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>0</td>
+</tr>
+<tr>
+<td>元素/伪元素</td>
+<td>1</td>
+</tr>
+<tr>
+<td>属性选择器</td>
+<td></td>
+</tr>
+<tr>
+<td>类/伪类</td>
+<td>10</td>
+</tr>
+<tr>
+<td>ID</td>
+<td>100</td>
+</tr>
+<tr>
+<td>内联样式</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>!important</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其他优先级"><a href="#其他优先级" class="headerlink" title="其他优先级"></a>其他优先级</h2><p>如果权重一致，最后一个指定的样式命中。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;!<span class="selector-tag">DOCTYPE</span> <span class="selector-tag">html</span>&gt;</span><br><span class="line">&lt;<span class="selector-tag">html</span>&gt;</span><br><span class="line">  &lt;<span class="selector-tag">head</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">      <span class="selector-tag">div</span><span class="selector-class">.skyline</span> &#123;</span><br><span class="line">        <span class="attribute">background-color</span>: blue;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="selector-tag">div</span><span class="selector-class">.liu</span> &#123;</span><br><span class="line">        <span class="attribute">background-color</span>: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">    &lt;div class="skyline liu"&gt;Skyline is red&lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>属性选择器权重介于元素与类选择器之间</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">      <span class="selector-tag">div</span><span class="selector-attr">[id=<span class="string">'skyline'</span>]</span> &#123;</span></span><br><span class="line">        background-color: blue;</span><br><span class="line">      &#125;</span><br><span class="line">      body div &#123;</span><br><span class="line">        background-color: yellow;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"skyline"</span>&gt;</span>Skyline is blue<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="优先级示例"><a href="#优先级示例" class="headerlink" title="优先级示例"></a>优先级示例</h2>
+        <!-- 
+
+
+样式命中优先级
+其他优先级
+优先级示例
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+样式命中优先级样式命中优先级递增表大致如下：
+
+
+
+选择器
+权重值
+
+
+
+
+*
+0
+
+
+元素/伪元素
+1
+
+
+属性选择器
+
+
+
+类/伪类
+10
+
+
+ID
+100
+
+
+内联样式
+1000
+
+
+!important
+
+
+
+其他优先级如果权重一致，最后一个指定的样式命中......  -->
+        <p class="article-more-link">
+          <a href="/CSS样式命中优先级.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CSS基础属性"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS基础属性.html">CSS基础属性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-15T07:58:53.000Z" itemprop="datePublished">2022-06-15</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="background"><a href="#background" class="headerlink" title="background"></a>background</h2><p>background-size</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+<th>特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>contain</td>
+<td>缩放图片直到长或宽延伸到边界，包含（contain）在容器中，background-repeat: no-repeat 会造成背景留白</td>
+<td>留白</td>
+</tr>
+<tr>
+<td>cover</td>
+<td>缩放图片直到覆盖（cover）容器，超出裁剪</td>
+<td>裁剪</td>
+</tr>
+<tr>
+<td>auto</td>
+<td>默认属性，保持图片原有比例</td>
+<td>原比例</td>
+</tr>
+<tr>
+<td>100% 100%</td>
+<td><strong>缩放图片正好填充完宽高</strong></td>
+<td>填充</td>
+</tr>
+</tbody>
+</table>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
 </ul>
-</li>
-<li><a href="#实战">实战</a><ul>
-<li><a href="#最大公共子串">最大公共子串</a></li>
-<li><a href="#一步两步爬楼梯">一步两步爬楼梯</a></li>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/CSS基础属性.html">http://www.skyline.show/CSS 基础属性.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-HTML标签"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/HTML标签.html">HTML标签</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-10T08:10:24.000Z" itemprop="datePublished">2022-06-10</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#script">script</a><ul>
+<li><a href="#type-属性">type 属性</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -1445,32 +1010,45 @@ MRLMRLongitudinal Magnetic Recordi......  -->
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="常见类型"><a href="#常见类型" class="headerlink" title="常见类型"></a>常见类型</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Dynamic_ProgrammingUntitled.png" alt="Dynamic_ProgrammingUntitled"><br>| Name | Leetcode Problems |<br>| — | — |<br>| 基本动态规划: 一维 | 70 |<br>| 基本动态规划:二维 | 64，403 |<br>| 分割类型题 | |<br>| 子序列问题 | 5 |<br>| 背包问题 | 322，416 |<br>| 字符串编辑 | |<br>| 股票交易 | |</p>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Dynamic_ProgrammingUntitled%201.png" alt="Dynamic_ProgrammingUntitled 1"></p>
-<h2 id="子序列问题"><a href="#子序列问题" class="headerlink" title="子序列问题"></a>子序列问题</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>对于子序列涉及的遍历</p>
-<p>通常情况下，遍历子串或者子序列有三种方式<br>以[a, b , c, d , e]为例子</p>
-<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3>
+<h2 id="script"><a href="#script" class="headerlink" title="script"></a>script</h2><h3 id="type-属性"><a href="#type-属性" class="headerlink" title="type 属性"></a>type 属性</h3><p>defer 要等到整个页面在内存中 DOM 渲染结束与其他脚本执行之后，才会执行；<br>async 一旦下载完，渲染引擎就会中断渲染，执行改脚本，再继续渲染。<strong>defer 是“渲染完再执行”，async 是“下载完就执行”</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>type 值</th>
+<th>async</th>
+<th>defer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>立即下载脚本，不妨碍其他操作，不依赖其他脚本，不阻塞文档</td>
+<td>延迟脚本到文档被解析与显示之后</td>
+</tr>
+<tr>
+<td>要点</td>
+<td>下载完就执行</td>
+<td>渲染完再执行</td>
+</tr>
+<tr>
+<td>适用范围</td>
+<td>外部引入脚本</td>
+<td>外部引入脚本</td>
+</tr>
+<tr>
+<td>多个执行顺序</td>
+<td>不保证加载顺序</td>
+<td>先后顺序</td>
+</tr>
+</tbody>
+</table>
+<p>多个执行顺序指同时出现多个 type 设置为 async 或 defer 的 script 标签。<br>type=”module”是表明引入的是一个 ES6 模块脚本，其脚本内的模块需要遵循 ES6 模块规范，其他表现类似于 type 指定为 defer</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
         <!-- 
 
 
-概述
-常见类型
-解题思路
-
-
-子序列问题
-问题描述
-解题思路
-
-
-背包问题
-问题特征
-背包问题状态转移方程
-
-
-实战
-最大公共子串
-一步两步爬楼梯
+script
+type 属性
 
 
 BMW WARNING
@@ -1481,9 +1059,14 @@ Warrant
 
 
 
-概述常见类型| Name | Leetcode Problems || — | — || 基本动态规划: 一维 | 70 || 基本动态规划:二维 | ......  -->
+scripttype 属性defer 要等到整个页面在内存中 DOM 渲染结束与其他脚本执行之后，才会执行；async 一旦下载完，渲染引擎就会中断渲染，执行改脚本，再继续渲染。defer 是“渲染完再执行”，async 是“下载完就执行”。
+
+
+
+type 值
+asy......  -->
         <p class="article-more-link">
-          <a href="/Dynamic_Programming.html#more">阅读全文</a>
+          <a href="/HTML标签.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1491,7 +1074,221 @@ Warrant
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Nas使用frp内网穿透"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Nas使用frp内网穿透.html">Nas使用frp内网穿透</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-09T09:41:58.000Z" itemprop="datePublished">2022-06-09</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#server-端">Server 端</a><ul>
+<li><a href="#下载包">下载包</a></li>
+<li><a href="#试运行">试运行</a></li>
+<li><a href="#后台运行服务">后台运行服务</a></li>
+</ul>
+</li>
+<li><a href="#client-端">Client 端</a><ul>
+<li><a href="#frpc-配置">frpc 配置</a></li>
+<li><a href="#添加-docker-镜像">添加 docker 镜像</a></li>
+<li><a href="#启动容器">启动容器</a></li>
+<li><a href="#套件映射">套件映射</a></li>
+<li><a href="#frpcini">frpc.ini</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
+<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>github 国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
+<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
+<p>尝试启动服务</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
+<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
+<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure>
+<p>修改 frp.service 内容如下：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>重置守护进程服务</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启服务</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
+<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
+<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> frp</span><br></pre></td></tr></table></figure>
+<p>即可。</p>
+<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc-配置"><a href="#frpc-配置" class="headerlink" title="frpc 配置"></a>frpc 配置</h3>
+        <!-- 
+
+
+简介
+Server 端
+下载包
+试运行
+后台运行服务
+
+
+Client 端
+frpc 配置
+添加 docker 镜像
+启动容器
+套件映射
+frpc.ini
+
+
+
+
+简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示：
+Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 ......  -->
+        <p class="article-more-link">
+          <a href="/Nas使用frp内网穿透.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中grep的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中grep的使用.html">Shell中grep的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-09T06:54:53.000Z" itemprop="datePublished">2022-06-09</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#使用">使用</a><ul>
+<li><a href="#基础使用">基础使用</a></li>
+<li><a href="#正则">正则</a></li>
+<li><a href="#递归查找子目录">递归查找子目录</a></li>
+<li><a href="#忽略大小写">忽略大小写</a></li>
+<li><a href="#匹配次数">匹配次数</a></li>
+<li><a href="#静默查找">静默查找</a></li>
+</ul>
+</li>
+<li><a href="#选项">选项</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>grep 是一个字符搜索命令，使用的基础语法为</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep [options] pattern [files]</span><br></pre></td></tr></table></figure>
+<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3>
+        <!-- 
+
+
+使用
+基础使用
+正则
+递归查找子目录
+忽略大小写
+匹配次数
+静默查找
+
+
+选项
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+使用基础使用grep 是一个字符搜索命令，使用的基础语法为
+grep [options] pattern [files]
+正则
+^ 匹配的字符在行首$ 匹配的字符在行尾
+grep ^grep Docs/Major/Shell......  -->
+        <p class="article-more-link">
+          <a href="/Shell中grep的使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
 
     </footer>
   </div>
@@ -1505,7 +1302,7 @@ Warrant
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>

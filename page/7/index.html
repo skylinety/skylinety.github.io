@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-CSS选择器"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Shell常见操作汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS选择器.html">CSS选择器</a>
+      <a class="article-title" href="/Shell常见操作汇总.html">Shell常见操作汇总</a>
     </h1>
   
 
@@ -336,7 +336,7 @@
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-25T12:13:37.000Z" itemprop="datePublished">2018-01-25</time>
+      <time datetime="2021-05-27T10:06:41.000Z" itemprop="datePublished">2021-05-27</time>
     </a>
 
 
@@ -352,7 +352,28 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#兄弟选择器">兄弟选择器</a></li>
+<li><a href="#脚本中断与执行">脚本中断与执行</a></li>
+<li><a href="#判定目录或文件存在">判定目录或文件存在</a></li>
+<li><a href="#算数命令">算数命令</a></li>
+<li><a href="#查看目录下文件夹">查看目录下文件夹</a></li>
+<li><a href="#创建嵌套文件夹并进入">创建嵌套文件夹并进入</a></li>
+<li><a href="#查看远程服务及端口是否开启">查看远程服务及端口是否开启</a></li>
+<li><a href="#设置别名">设置别名</a><ul>
+<li><a href="#临时别名">临时别名</a></li>
+<li><a href="#永久生效">永久生效</a></li>
+</ul>
+</li>
+<li><a href="#查看端口占用">查看端口占用</a></li>
+<li><a href="#删除目录下模糊匹配的文件">删除目录下模糊匹配的文件</a><ul>
+<li><a href="#命令">命令</a></li>
+<li><a href="#解析">解析</a></li>
+</ul>
+</li>
+<li><a href="#查找目录下包含指定字符的文件">查找目录下包含指定字符的文件</a><ul>
+<li><a href="#命令-1">命令</a></li>
+<li><a href="#解析-1">解析</a></li>
+</ul>
+</li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
@@ -361,488 +382,78 @@
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="兄弟选择器"><a href="#兄弟选择器" class="headerlink" title="兄弟选择器"></a>兄弟选择器</h2><p>CSS 常见的兄弟选择器包括 <code>+</code> <code>~</code><br>其中<code>+</code> 是相邻兄弟选择器，<code>~</code> 是通用兄弟选择器。<br>选择器前后的标签有有相同父标签。</p>
-<p>相邻兄弟选择器 + 选择的是紧邻在前置标签后的第一个标签。<br>通用兄弟选择器命中的标签必须是(不一定是紧邻)前置标签后面的兄弟标签。</p>
+<h2 id="脚本中断与执行"><a href="#脚本中断与执行" class="headerlink" title="脚本中断与执行"></a>脚本中断与执行</h2><p>在控制台输入没有的命令来模拟脚本执行出错</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline</span><br><span class="line"><span class="comment"># zsh: command not found: skyline</span></span><br></pre></td></tr></table></figure>
+<p>命令执行出错，继续执行</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline || <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>命令执行出错，终止执行</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline || <span class="built_in">exit</span> 2</span><br></pre></td></tr></table></figure>
+<h2 id="判定目录或文件存在"><a href="#判定目录或文件存在" class="headerlink" title="判定目录或文件存在"></a>判定目录或文件存在</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -d <span class="string">"Docs/Major/Shell/Scripts"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"目录存在"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"目录不存在"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 目录存在</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -f <span class="string">"Docs/Major/Shell/Scripts/Shell常见操作汇总.md"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"文件存在"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"文件不存在"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 文件存在</span></span><br></pre></td></tr></table></figure>
+<p>类似的其他判定</p>
 <table>
 <thead>
 <tr>
-<th>选择器</th>
-<th>描述</th>
-<th>同父</th>
-<th>后置标签要求首个</th>
-<th>选中标签</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>‘+’</td>
-<td>相邻</td>
-<td>是</td>
-<td>是</td>
-<td>最多一个（非紧邻不选中）</td>
-</tr>
-<tr>
-<td>‘~’</td>
-<td>通用</td>
-<td>是</td>
-<td>否</td>
-<td>多个</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 紧邻 h5 的第一个 p 兄弟标签中招，h5 之后第一个元素不是p，就无命中 */</span></span><br><span class="line"><span class="selector-tag">h5</span> + <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  比 h5 小（在其后面）的 p 兄弟标签全部中招，h5 之后没有 p，就无命中 */</span></span><br><span class="line"><span class="selector-tag">h5</span> ~ <span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/HTML&amp;CSS/CSS/CSS_Selector.html" target="_blank" rel="noopener">示例</a></p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
-        <!-- 
-
-
-兄弟选择器
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-兄弟选择器CSS 常见的兄弟选择器包括 + ~其中+ 是相邻兄弟选择器，~ 是通用兄弟选择器。选择器前后的标签有有相同父标签。
-相邻兄弟选择器 + 选择的是紧邻在前置标签后的第一个标签。通用兄弟选择器命中的标签必须是(不一定是紧邻)前置标签后面的兄弟标签。
-
-
-
-选择器
-描述
-同父
-后置标签......  -->
-        <p class="article-more-link">
-          <a href="/CSS选择器.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CSS常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS常见问题汇总.html">CSS常见问题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#displaynone-与-visibilityhidden-区别">display:none 与 visibility:hidden 区别</a></li>
-<li><a href="#媒体查询失效">媒体查询失效</a></li>
-<li><a href="#img-标签是行内还是块级元素">img 标签是行内还是块级元素</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="display-none-与-visibility-hidden-区别"><a href="#display-none-与-visibility-hidden-区别" class="headerlink" title="display:none 与 visibility:hidden 区别"></a>display:none 与 visibility:hidden 区别</h2><p>两者虽简单来说都是用于隐藏元素，表现形式大有不同。</p>
-<p>display 会被文档流给移除，影响页面布局，导致重排重绘，原本位置会被其他元素占据。</p>
-<p>visilibity:hidden 不会被文档流给移除，不会影响布局，页面重绘出一片空白，但不会重新排版。</p>
-<p>display 不是继承属性，而 visibility 是继承属性。<br>若祖先设定为 visibility:hidden，后代元素会继承该属性不可见。<br>此时，若重置后代元素的 visibility 为 visible，其后代元素将可见。<br>若祖先设定的 display 属性设为 none 时，其不可继承，后代元素无力通过改变该属性重现。<br>总结如下表格所示：</p>
-<table>
-<thead>
-<tr>
-<th>样式</th>
-<th>页面重绘</th>
-<th>页面重排</th>
-<th>显示效果</th>
-<th>对应 css 属性是否继承</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>display:none</td>
-<td>是</td>
-<td>是</td>
-<td>无显示</td>
-<td>否（display）</td>
-</tr>
-<tr>
-<td>visibility:hidden</td>
-<td>是</td>
-<td>否</td>
-<td>所处区域空白</td>
-<td>是（visibility）</td>
-</tr>
-</tbody>
-</table>
-<h2 id="媒体查询失效"><a href="#媒体查询失效" class="headerlink" title="媒体查询失效"></a>媒体查询失效</h2><p>媒体查询的常见用法为</p>
-<p>设置屏幕在 300px 到 900px 时的背景</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">300px</span>) <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">900px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当设置不生效时，检查在 <code>&lt;head&gt;</code> 中是否添加了如下 <code>&lt;meta&gt;</code> 标签</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="img-标签是行内还是块级元素"><a href="#img-标签是行内还是块级元素" class="headerlink" title="img 标签是行内还是块级元素"></a>img 标签是行内还是块级元素</h2>
-        <!-- 
-
-
-display:none 与 visibility:hidden 区别
-媒体查询失效
-img 标签是行内还是块级元素
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-display:none 与 visibility:hidden 区别两者虽简单来说都是用于隐藏元素，表现形式大有不同。
-display 会被文档流给移除，影响页面布局，导致重排重绘，原......  -->
-        <p class="article-more-link">
-          <a href="/CSS常见问题汇总.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ES5与ES6中的argments"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES5与ES6中的argments.html">ES5与ES6中的argments</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ES5与ES6中的argments.html">http://www.skyline.show/ES5 与 ES6 中的 argments.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中查找相关命令"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中查找相关命令.html">Shell中查找相关命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-22T07:14:56.000Z" itemprop="datePublished">2018-01-22</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#whichwhereiswhatis">which/whereis/whatis</a><ul>
-<li><a href="#which">which</a></li>
-<li><a href="#whereis">whereis</a></li>
-<li><a href="#whatis">whatis</a></li>
-</ul>
-</li>
-<li><a href="#find">find</a></li>
-<li><a href="#grep">grep</a></li>
-<li><a href="#汇总">汇总</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="which-whereis-whatis"><a href="#which-whereis-whatis" class="headerlink" title="which/whereis/whatis"></a>which/whereis/whatis</h2><h3 id="which"><a href="#which" class="headerlink" title="which"></a>which</h3><p>搜索某个命令在文件系统中的的位置并展示，若命令为别名，则会展示别名对应的命令。</p>
-<blockquote>
-<p>shows the full path of (shell) commands.</p>
-</blockquote>
-<p>默认使用时，搜索某个系统命令的位置，并且返回第一个搜索结果</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">which</span> netstat</span><br><span class="line"><span class="comment"># /usr/sbin/netstat</span></span><br><span class="line"><span class="built_in">which</span> ls</span><br><span class="line"><span class="comment"># ll: aliased to ls -G</span></span><br></pre></td></tr></table></figure>
-<p>-a 选项，搜索某个系统命令的位置，并且返回所有搜索结果</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">which</span> -a ls</span><br><span class="line"><span class="comment"># ls: aliased to ls -G</span></span><br><span class="line"><span class="comment"># /bin/ls</span></span><br></pre></td></tr></table></figure>
-<h3 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h3>
-        <!-- 
-
-
-which/whereis/whatis
-which
-whereis
-whatis
-
-
-find
-grep
-汇总
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-which/whereis/whatiswhich搜索某个命令在文件系统中的的位置并展示，若命令为别名，则会展示别名对应的命令。
-
-shows the full path of (shell......  -->
-        <p class="article-more-link">
-          <a href="/Shell中查找相关命令.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-对象的私有、静态（类）、自有（实例）、原型属性与方法"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/对象的私有、静态（类）、自有（实例）、原型属性与方法.html">对象的私有、静态（类）、自有（实例）、原型属性与方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-02T07:14:56.000Z" itemprop="datePublished">2018-01-02</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="es5代码"><a href="#es5代码" class="headerlink" title="es5代码"></a>es5代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对象构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Baby</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> className = <span class="string">"Baby"</span>;</span><br><span class="line">    <span class="comment">//私有属性，只能在对象构造函数内部使用</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.weight = <span class="string">'3kg'</span>;</span><br><span class="line">    <span class="comment">//自有属性，每个实例私有，在对象实例化后调用，实例属性在对象实力化后创建</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg()); <span class="comment">//使用原型方法扩充的方法可以在类内部使用</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.sex); <span class="comment">//使用原型方法扩充的属性可以在类内部使用</span></span><br><span class="line">        <span class="built_in">console</span>.log(Baby.age, <span class="keyword">this</span>.age); <span class="comment">//静态属性调用时格式为[对象.静态属性]</span></span><br><span class="line">    &#125;<span class="comment">//对象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Baby.Run = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"跑起来！！！"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//类方法 (实际是静态方法直接调用)，只有类才能访问类方法，实例不能访问 ，在类方法中通过this只能访问类属性不能访问其他属性，即在本例中，Run方法只能访问到this.age</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我叫："</span> + <span class="keyword">this</span>.name); </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//原型方法，如果原型方法当作静态方法直接调用时，this.name无法被调用</span></span><br><span class="line"></span><br><span class="line">Baby.age = <span class="number">20</span>; </span><br><span class="line"><span class="comment">//类属性 在类的外部。公有静态属性不能使用 【this.属性】，只能使用 【对象.属性】 调用，只有类才能访问类属性，实例不能访问  </span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex = <span class="string">"男娃娃"</span></span><br><span class="line"><span class="comment">//原型属性，所有实例共有，【this.属性】这种写法访问时，先会访问实例对象属性，没有实例对象属性就会访问原型属性 ，也可以当成公有静态属性使用【对象.prototype.原型属性。 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bob = <span class="keyword">new</span> Baby(<span class="string">"bob"</span>); </span><br><span class="line"><span class="comment">//自有方法和原型方法需要实例化对象后才可以使</span></span><br><span class="line"></span><br><span class="line">Baby.name</span><br><span class="line"><span class="comment">//"Baby" :每一个类都有一个基本的name属性</span></span><br><span class="line"></span><br><span class="line">bob.name</span><br><span class="line"><span class="comment">//"bob"</span></span><br><span class="line"></span><br><span class="line">Baby.weight</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line">bob.weight</span><br><span class="line"><span class="comment">//"3kg"</span></span><br><span class="line"></span><br><span class="line">Baby.hello()</span><br><span class="line"><span class="comment">//Uncaught TypeError: Baby.hello is not a function</span></span><br><span class="line"></span><br><span class="line">bob.hello()</span><br><span class="line"><span class="comment">// bob</span></span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">// undefined :this.msg没有返回所以undefined</span></span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">// 20 undefined</span></span><br><span class="line"></span><br><span class="line">Baby.Run(); <span class="comment">//跑起来！！！</span></span><br><span class="line"><span class="comment">//类方法也是静态方法，可以直接使用 【对象.静态方法()】</span></span><br><span class="line"></span><br><span class="line">bob.run()<span class="comment">// TypeError: bob.run is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.msg()</span><br><span class="line"><span class="comment">// Uncaught TypeError: Baby.msg is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg()</span><br><span class="line"><span class="comment">// 我叫：undefined</span></span><br><span class="line"><span class="comment">//原型方法当成静态方法使用时【对象.prototype.方法()】 </span></span><br><span class="line"></span><br><span class="line">bob.msg();</span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">//原型方法必须实例化对象</span></span><br><span class="line"></span><br><span class="line">bob.age;</span><br><span class="line"><span class="comment">// undefined </span></span><br><span class="line"><span class="comment">//错误，公有静态属性只能使用 【对象.属性】调用</span></span><br><span class="line"></span><br><span class="line">Baby.age</span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">//原型属性当作静态属性使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">Baby.sex</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">bob.sex</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="es6代码"><a href="#es6代码" class="headerlink" title="es6代码"></a>es6代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="comment">//对象属性、方法</span></span><br><span class="line">    <span class="keyword">this</span>.x = x;</span><br><span class="line">    <span class="keyword">this</span>.y = y;</span><br><span class="line">    <span class="keyword">this</span>.fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'skyline'</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//自有属性，使用存取器</span></span><br><span class="line">  <span class="keyword">get</span> prop() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'skyline getter'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> prop(value) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'skyline setter: '</span>+value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型方法</span></span><br><span class="line">  <span class="comment">//Point.prototype.toString = function () &#123;</span></span><br><span class="line">  <span class="comment">//  return '(' + this.x + ', ' + this.y + ')';</span></span><br><span class="line">  <span class="comment">//&#125;;</span></span><br><span class="line">  <span class="comment">//的语法糖</span></span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'('</span> + <span class="keyword">this</span>.x + <span class="string">', '</span> + <span class="keyword">this</span>.y + <span class="string">')'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//类方法</span></span><br><span class="line">  <span class="keyword">static</span> classMethod() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'hello skyline'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类属性，ES6 明确规定，Class 内部只有静态方法，没有静态属性，不过有其他提案，不拓展</span></span><br><span class="line">Point.prop = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
-<li>静态属性方法，可以直接通过类进行访问的</li>
-<li>实例属性方法是需要创建实例对象进行访问的</li>
-<li>相互之间不能串访</li>
-</ul>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/对象的私有、静态（类）、自有（实例）、原型属性与方法.html">http://www.skyline.show/对象的私有、静态（类）、自有（实例）、原型属性与方法.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中ls的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中ls的使用.html">Shell中ls的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#基础使用">基础使用</a><ul>
-<li><a href="#参数">参数</a></li>
-<li><a href="#常见用法">常见用法</a></li>
-</ul>
-</li>
-<li><a href="#权限">权限</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>ls 即 list，列出目录内容</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>使用</th>
+<th>标记</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>ls -1</td>
-<td>换行列出文件</td>
+<td>-L</td>
+<td>文件是否为软连接</td>
 </tr>
 <tr>
-<td>a</td>
-<td>ls -a</td>
-<td>列出所有文件，包括隐藏文件</td>
+<td>-h</td>
+<td>文件是否为软连接</td>
 </tr>
 <tr>
-<td>d</td>
-<td>ls -d</td>
-<td>列出当前目录本身，而不是其下内容</td>
+<td>-d</td>
+<td>目录判定</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>文件可否写入</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>文件可否执行</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>文件可否读取</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>文件存在且占用空间大于 0</td>
 </tr>
 </tbody>
 </table>
-<h3 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h3>
+<h2 id="算数命令"><a href="#算数命令" class="headerlink" title="算数命令"></a>算数命令</h2>
         <!-- 
 
 
-基础使用
-参数
-常见用法
+脚本中断与执行
+判定目录或文件存在
+算数命令
+查看目录下文件夹
+创建嵌套文件夹并进入
+查看远程服务及端口是否开启
+设置别名
+临时别名
+永久生效
 
 
-权限
+查看端口占用
+删除目录下模糊匹配的文件
+命令
+解析
+
+
+查找目录下包含指定字符的文件
+命令
+解析
+
+
 BMW WARNING
 Bulletin
 Material
@@ -851,38 +462,126 @@ Warrant
 
 
 
-基础使用参数ls 即 list，列出目录内容
+脚本中断与执行在控制台输入没有的命令来模拟脚本执行出错......  -->
+        <p class="article-more-link">
+          <a href="/Shell常见操作汇总.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中sed的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中sed的使用.html">Shell中sed的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T08:29:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
 
 
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
 
-参数
-使用
-描述
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#sed-简介">sed 简介</a></li>
+<li><a href="#选项参数">选项参数</a><ul>
+<li><a href="#-n">-n</a></li>
+<li><a href="#-e">-e</a></li>
+<li><a href="#-i">-i</a></li>
+</ul>
+</li>
+<li><a href="#命令参数">命令参数</a><ul>
+<li><a href="#ia">i/a</a></li>
+<li><a href="#d">d</a></li>
+<li><a href="#p">p</a></li>
+<li><a href="#sc">s/c</a></li>
+</ul>
+</li>
+<li><a href="#常见用法">常见用法</a><ul>
+<li><a href="#文末插入">文末插入</a></li>
+<li><a href="#替换字符">替换字符</a></li>
+<li><a href="#获取行数">获取行数</a></li>
+<li><a href="#获取字符行号">获取字符行号</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="sed-简介"><a href="#sed-简介" class="headerlink" title="sed 简介"></a>sed 简介</h2><p>sed 是一种流文本编辑器，用于读取指定文件或标准输入。<br>如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。<br>本文后续内容以<a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/skyline.txt" target="_blank" rel="noopener">skyline.txt</a>示例，可在根目录执行下述脚本。<br>其文本内容为</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">test</span><br><span class="line">skyline</span><br><span class="line">test2</span><br><span class="line">skyline test</span><br></pre></td></tr></table></figure>
+<h2 id="选项参数"><a href="#选项参数" class="headerlink" title="选项参数"></a>选项参数</h2><h3 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h3>
+        <!-- 
 
 
+sed 简介
+选项参数
+-n
+-e
+-i
 
 
-1
-ls -1
-换行列出文件
-
-
-a
-ls -a
-列出所有文件，包括隐藏文件
-
-
+命令参数
+i/a
 d
-ls -d
-列出当前目录本身，而不是其下内容
-
+p
+s/c
 
 
 常见用法
-ls -d# .
-列出的目录为当前目录，结......  -->
+文末插入
+替换字符
+获取行数
+获取字符行号
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。本文后续内容以sky......  -->
         <p class="article-more-link">
-          <a href="/Shell中ls的使用.html#more">阅读全文</a>
+          <a href="/Shell中sed的使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -900,7 +599,7 @@ ls -d# .
 <!-- Table of Contents -->
 
   
-    <article id="post-Vue项目实现rtmp流视频播放"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Shell中xargs使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -908,7 +607,7 @@ ls -d# .
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Vue项目实现rtmp流视频播放.html">Vue项目实现rtmp流视频播放</a>
+      <a class="article-title" href="/Shell中xargs使用.html">Shell中xargs使用</a>
     </h1>
   
 
@@ -917,7 +616,7 @@ ls -d# .
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
+      <time datetime="2021-05-27T08:06:40.000Z" itemprop="datePublished">2021-05-27</time>
     </a>
 
 
@@ -933,91 +632,21 @@ ls -d# .
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#代码实现">代码实现</a></li>
-<li><a href="#常见问题">常见问题</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>rtmp 流需要使用 flash 播放。<br>在 chrome 88 版本及以后的版本，已经移除了 flash 组件。<br>在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。<br>故本方案在次之后可能不再实用。<br>成功引入 rtmp 流，效果如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0rtmp%E6%B5%81%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE20220627173249.png" alt="Vue项目实现rtmp流视频播放20220627173249"></p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>实现需求需要运用的包为 videojs-flash、videojs</p>
-<p><code>main.js</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> videojs <span class="keyword">from</span> <span class="string">'video.js'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'video.js/dist/video-js.css'</span></span><br><span class="line">Vue.prototype.$video = videojs</span><br></pre></td></tr></table></figure>
-<p><code>player.vue</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"demo1-video"</span>&gt;</span><br><span class="line">    &lt;video</span><br><span class="line">      ref=<span class="string">"videoPlayer"</span></span><br><span class="line">      id=<span class="string">"myVideo"</span></span><br><span class="line">      <span class="class"><span class="keyword">class</span></span>=<span class="string">"video-js"</span></span><br><span class="line">      controls</span><br><span class="line">      preload=<span class="string">"auto"</span></span><br><span class="line">      style=<span class="string">"width: 100%"</span></span><br><span class="line">      height=<span class="string">"220"</span></span><br><span class="line">      data-setup=<span class="string">"&#123;&#125;"</span></span><br><span class="line">    &gt;</span><br><span class="line">      &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"vjs-no-js"</span>&gt;</span><br><span class="line">        To view <span class="keyword">this</span> video please enable JavaScript, and consider upgrading to a</span><br><span class="line">        web browser that</span><br><span class="line">        &lt;a</span><br><span class="line">          href=<span class="string">"https://videojs.com/html5-video-support/"</span></span><br><span class="line">          target=<span class="string">"_blank"</span></span><br><span class="line">        &gt;supports HTML5 video&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>p&gt;</span><br><span class="line">    &lt;<span class="regexp">/video&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">import "videojs-flash";</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  name: "VideoPlayer",</span></span><br><span class="line"><span class="regexp">  props: ["type", "detail"],</span></span><br><span class="line"><span class="regexp">  inject: ["gisMap"],</span></span><br><span class="line"><span class="regexp">  data() &#123;</span></span><br><span class="line"><span class="regexp">    return &#123;</span></span><br><span class="line"><span class="regexp">      player: null,</span></span><br><span class="line"><span class="regexp">      videoOptions: &#123;</span></span><br><span class="line"><span class="regexp">        autoplay: true, /</span><span class="regexp">/ 是否自动播放</span></span><br><span class="line"><span class="regexp">        muted: false, /</span><span class="regexp">/ 是否静音</span></span><br><span class="line"><span class="regexp">        controls: false,</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ fluid: true, /</span><span class="regexp">/ 宽高自适应</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ techOrder: ["flash"],</span></span><br><span class="line"><span class="regexp">        sources: [</span></span><br><span class="line"><span class="regexp">          &#123;</span></span><br><span class="line"><span class="regexp">            src: "//vjs.zencdn.net/v/oceans.mp4",</span></span><br><span class="line"><span class="regexp">            type: "video/mp4"</span></span><br><span class="line"><span class="regexp">            // type: "rtmp/flv"</span></span><br><span class="line"><span class="regexp">          &#125;</span></span><br><span class="line"><span class="regexp">        ]</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  computed: &#123;</span></span><br><span class="line"><span class="regexp">    map() &#123;</span></span><br><span class="line"><span class="regexp">      return this.gisMap.map.map || &#123;&#125;;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    endType() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.type) &#123;</span></span><br><span class="line"><span class="regexp">        let end = this.type.split("_")[1];</span></span><br><span class="line"><span class="regexp">        return end;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">      return "";</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  mounted() &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ if (this.gisMap.map &amp;&amp; this.gisMap.map.map) &#123;</span></span><br><span class="line"><span class="regexp">    this.map.on("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.on("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ &#125;</span></span><br><span class="line"><span class="regexp">    this.playVideo();</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  destroyed() &#123;</span></span><br><span class="line"><span class="regexp">    this.map.off("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.off("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  methods: &#123;</span></span><br><span class="line"><span class="regexp">    clearVideo() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.player) &#123;</span></span><br><span class="line"><span class="regexp">        this.player.dispose();</span></span><br><span class="line"><span class="regexp">        this.player = null;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    playVideo() &#123;</span></span><br><span class="line"><span class="regexp">      this.player = this.$video(</span></span><br><span class="line"><span class="regexp">        this.$refs.videoPlayer,</span></span><br><span class="line"><span class="regexp">        &#123;</span></span><br><span class="line"><span class="regexp">          autoplay: true,</span></span><br><span class="line"><span class="regexp">          techOrder: ["flash", "html5"]</span></span><br><span class="line"><span class="regexp">        &#125;,</span></span><br><span class="line"><span class="regexp">        function onPlayerReady() &#123;</span></span><br><span class="line"><span class="regexp">          this.src(&#123;</span></span><br><span class="line"><span class="regexp">            src: "rtmp:/</span><span class="regexp">/58.200.131.2:1935/</span>livetv/hunantv<span class="string">",</span></span><br><span class="line"><span class="string">            type: "</span>rtmp/flv<span class="string">"</span></span><br><span class="line"><span class="string">          &#125;);</span></span><br><span class="line"><span class="string">          this.play();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">          this.on("</span>ended<span class="string">", function() &#123;&#125;);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      );</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;;</span></span><br></pre></td></tr></table></figure>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2>
-        <!-- 
-
-
-前言
-代码实现
-常见问题
-BMW WARNING
-
-
-前言rtmp 流需要使用 flash 播放。在 chrome 88 版本及以后的版本，已经移除了 flash 组件。在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。故本方案在次之后可能不再实用。成功引入 rtmp 流，效果如下
-代码实现实现需求需要运用的包为 videojs-flash、videojs
-m......  -->
-        <p class="article-more-link">
-          <a href="/Vue项目实现rtmp流视频播放.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CSS换行"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS换行.html">CSS换行</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#段落换行">段落换行</a><ul>
-<li><a href="#overflow-wrap">overflow-wrap</a></li>
-<li><a href="#word-break">word-break</a></li>
-<li><a href="#换行总结">换行总结</a></li>
+<li><a href="#概述">概述</a></li>
+<li><a href="#基础使用示例">基础使用示例</a><ul>
+<li><a href="#echo">echo</a></li>
+<li><a href="#wc">wc</a></li>
+<li><a href="#mkdir">mkdir</a></li>
 </ul>
 </li>
-<li><a href="#处理文字空白">处理文字空白</a><ul>
-<li><a href="#white-space">white-space</a></li>
+<li><a href="#参数">参数</a><ul>
+<li><a href="#-0">-0</a></li>
+<li><a href="#-i">-I</a></li>
+<li><a href="#-l">-L</a></li>
+<li><a href="#-n">-n</a></li>
+<li><a href="#-d">-d</a></li>
+<li><a href="#-t">-t</a></li>
+<li><a href="#-p">-p</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
@@ -1028,21 +657,29 @@ m......  -->
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="段落换行"><a href="#段落换行" class="headerlink" title="段落换行"></a>段落换行</h2><h3 id="overflow-wrap"><a href="#overflow-wrap" class="headerlink" title="overflow-wrap"></a>overflow-wrap</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">overflow-wrap: normal;</span><br><span class="line">overflow-wrap: <span class="keyword">break</span>-word;</span><br></pre></td></tr></table></figure>
-<p>word-wrap 原始微软私有，css3 统一规范重命名为 overflow-wrap。</p>
-<p>overflow-wrap 常见取值为 normal 和 break-word。<br>normal，默认值，单词保留完整，<strong>最后一个单词超出也不换行</strong>，直到该单词结束，只在 CJK(汉语系文字) 和空白符换行<br>break-word，尽量保持英文完整，除非一个单词占一行才断开换行，否则从空白或 CJK 换行</p>
-<h3 id="word-break"><a href="#word-break" class="headerlink" title="word-break"></a>word-break</h3>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支持标准输入的命令提供管道操作。<br>通过 xargs 将标准输入转换成参数来完成后续命令。如果转换成的参数有多个（通过标准输入空符分割），后续命令重复执行。</p>
+<blockquote>
+<p>The xargs command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like grep can accept standard input as a parameter, many other tools cannot. Using xargs allows tools like echo and rm and mkdir to accept standard input as arguments.</p>
+</blockquote>
+<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3>
         <!-- 
 
 
-段落换行
-overflow-wrap
-word-break
-换行总结
+概述
+基础使用示例
+echo
+wc
+mkdir
 
 
-处理文字空白
-white-space
+参数
+-0
+-I
+-L
+-n
+-d
+-t
+-p
 
 
 BMW WARNING
@@ -1053,10 +690,865 @@ Warrant
 
 
 
-段落换行overflow-wrapoverflow-wrap: normal;overflow-wrap: break-word;
-word-wrap 原始微软私有，css3 统一规范重命......  -->
+概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 ......  -->
         <p class="article-more-link">
-          <a href="/CSS换行.html#more">阅读全文</a>
+          <a href="/Shell中xargs使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#页面渲染">页面渲染</a><ul>
+<li><a href="#渲染流程">渲染流程</a></li>
+<li><a href="#layout">Layout</a></li>
+<li><a href="#paint">Paint</a></li>
+</ul>
+</li>
+<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
+<li><a href="#回流触发">回流触发</a></li>
+<li><a href="#重绘触发">重绘触发</a></li>
+</ul>
+</li>
+<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
+<li><a href="#浏览器优化">浏览器优化</a></li>
+<li><a href="#代码优化">代码优化</a><ul>
+<li><a href="#html">HTML</a></li>
+<li><a href="#css">CSS</a></li>
+<li><a href="#js">JS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
+<ul>
+<li>解析 HTML 节点，创建 DOM 树</li>
+<li>解析 CSS 创建 CSSOM 树</li>
+<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
+<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
+<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
+<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
+</ul>
+</li>
+<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
+<li>Paint， 绘制 renderTree 到页面上</li>
+</ul>
+<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
+<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3>
+        <!-- 
+
+
+页面渲染
+渲染流程
+Layout
+Paint
+
+
+回流与重绘触发
+回流触发
+重绘触发
+
+
+回流与重绘优化
+浏览器优化
+代码优化
+HTML
+CSS
+JS
+
+
+
+
+总结
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
+
+解析 HTML 节......  -->
+        <p class="article-more-link">
+          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中的符号"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中的符号.html">Shell中的符号</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#引号">引号</a></li>
+<li><a href="#路径符">路径符</a></li>
+<li><a href="#重定向符">重定向符</a></li>
+<li><a href="#命令执行符">命令执行符</a></li>
+<li><a href="#符号标记">符号标记</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><p>单引号和双引号主要可用于解决字符串中间有空格的问题。<br>单引号将剥夺字符串中特殊字符的含义。<br>双引号中的’$’进行参数替换’<code>&#39;进行命令替换。
+反引号与$()是一样的。 `</code>或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'$skyline`echo 1`'</span></span><br><span class="line"><span class="comment"># $skyline`echo 1`</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$skyline</span>`echo 1`"</span></span><br><span class="line"><span class="comment"># 11</span></span><br></pre></td></tr></table></figure>
+<h2 id="路径符"><a href="#路径符" class="headerlink" title="路径符"></a>路径符</h2><p>Shell 中路径相关的符号，如下表所示</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>使用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~</td>
+<td>cd ~</td>
+<td>用户主页目录</td>
+</tr>
+<tr>
+<td>.</td>
+<td>ls .</td>
+<td>当前目录</td>
+</tr>
+<tr>
+<td>..</td>
+<td>cd ..</td>
+<td>上级目录</td>
+</tr>
+<tr>
+<td>/</td>
+<td>cd /</td>
+<td>根目录或路径分隔符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2>
+        <!-- 
+
+
+引号
+路径符
+重定向符
+命令执行符
+符号标记
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&#39;进行命令替换。
+反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。
+skyli......  -->
+        <p class="article-more-link">
+          <a href="/Shell中的符号.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Git常见操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Git常见操作.html">Git常见操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#git-单列已添加到暂存区的文件">git 单列已添加到暂存区的文件</a></li>
+<li><a href="#git-本地分支有提交单独查看并运行远程该分支">Git 本地分支有提交，单独查看并运行远程该分支</a></li>
+<li><a href="#新建仓库时关联远程与本地">新建仓库时关联远程与本地</a></li>
+<li><a href="#git-同时推送多个仓库">git 同时推送多个仓库</a><ul>
+<li><a href="#git-remote-add">git remote add</a></li>
+<li><a href="#git-remote-set-url">git remote set-url</a></li>
+</ul>
+</li>
+<li><a href="#https-方式访问-git-免输密码">https 方式访问 git 免输密码</a></li>
+<li><a href="#git-用户配置">Git 用户配置</a><ul>
+<li><a href="#查看配置">查看配置</a></li>
+<li><a href="#修改全局配置">修改全局配置</a></li>
+</ul>
+</li>
+<li><a href="#git-ssh-免密">GIT SSH 免密</a></li>
+<li><a href="#同步-github-fork-仓库">同步 Github fork 仓库</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="git-单列已添加到暂存区的文件"><a href="#git-单列已添加到暂存区的文件" class="headerlink" title="git 单列已添加到暂存区的文件"></a>git 单列已添加到暂存区的文件</h2><p>通过<code>git status</code>命令可以列出所有增删改的文件，并做了是否添加跟踪，是否加入暂存区的区分。<br>若只看加入暂存区的文件，使用</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git diff --name-only --cached</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602161840.png" alt="Git常见操作20220602161840"><br>如上图所示为某次<code>git status</code>后展示的信息。<br>git diff –name-only –cached 展示的信息如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602162017.png" alt="Git常见操作20220602162017"><br><code>git diff --cached</code>只会展示暂存区文件的变更。</p>
+<h2 id="Git-本地分支有提交，单独查看并运行远程该分支"><a href="#Git-本地分支有提交，单独查看并运行远程该分支" class="headerlink" title="Git 本地分支有提交，单独查看并运行远程该分支"></a>Git 本地分支有提交，单独查看并运行远程该分支</h2><p>本地 dev 分支有自己 commit 的版本，想要获取远端最新代码并运行（不包括本地新 commit 代码）</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">git fetch</span><br><span class="line">git checkout -b test origin/dev</span><br></pre></td></tr></table></figure>
+<p>test 分支即是最新的远程 dev 副本</p>
+<p>git fetch 将本地仓库的所有远程副本更新，但不会更新到工作空间<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302172427.png" alt="Git常见操作20220302172427"></p>
+<h2 id="新建仓库时关联远程与本地"><a href="#新建仓库时关联远程与本地" class="headerlink" title="新建仓库时关联远程与本地"></a>新建仓库时关联远程与本地</h2>
+        <!-- 
+
+
+git 单列已添加到暂存区的文件
+Git 本地分支有提交，单独查看并运行远程该分支
+新建仓库时关联远程与本地
+git 同时推送多个仓库
+git remote add
+git remote set-url
+
+
+https 方式访问 git 免输密码
+Git 用户配置
+查看配置
+修改全局配置
+
+
+GIT SSH 免密
+同步 Github fork 仓库
+
+
+git 单列已添加到暂存区的文件......  -->
+        <p class="article-more-link">
+          <a href="/Git常见操作.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
+<li><a href="#实质">实质</a></li>
+<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
+</ul>
+</li>
+<li><a href="#引入-dll-库">引入 dll 库</a><ul>
+<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
+<li><a href="#手动引入注意">手动引入注意</a></li>
+<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
+<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
+</ul>
+</li>
+<li><a href="#成果分析">成果分析</a><ul>
+<li><a href="#优化前">优化前</a></li>
+<li><a href="#优化后">优化后：</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
+<blockquote>
+<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
+</blockquote>
+<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3>
+        <!-- 
+
+
+DllPlugin 概述
+实质
+DllPlugin 配置
+
+
+引入 dll 库
+手动引入 dll 文件（不推荐）
+手动引入注意
+自动引入(推荐)
+自动引入常见问题
+
+
+成果分析
+优化前
+优化后：
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由......  -->
+        <p class="article-more-link">
+          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/排序算法.html">排序算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#选择排序">选择排序</a><ul>
+<li><a href="#选排的思想">选排的思想</a></li>
+<li><a href="#时间复杂度">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#冒泡排序">冒泡排序</a><ul>
+<li><a href="#基本思路">基本思路</a></li>
+<li><a href="#时间复杂度-1">时间复杂度</a></li>
+<li><a href="#交换判定优化">交换判定优化</a></li>
+</ul>
+</li>
+<li><a href="#插入排序">插入排序</a><ul>
+<li><a href="#插排的思想">插排的思想</a></li>
+<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
+<li><a href="#哨兵优化">哨兵优化</a></li>
+<li><a href="#折半优化">折半优化</a></li>
+</ul>
+</li>
+<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
+<li><a href="#归并排序思路">归并排序思路</a></li>
+<li><a href="#合并">合并</a></li>
+<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#快速排序">快速排序</a><ul>
+<li><a href="#快排思路">快排思路</a></li>
+<li><a href="#选值优化">选值优化</a></li>
+<li><a href="#多路快排">多路快排</a></li>
+</ul>
+</li>
+<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
+<li><a href="#关键思路">关键思路</a></li>
+<li><a href="#时间复杂度-2">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#计数排序">计数排序</a><ul>
+<li><a href="#关键思路-1">关键思路</a></li>
+<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#堆排序">堆排序</a><ul>
+<li><a href="#完全二叉树">完全二叉树</a></li>
+<li><a href="#堆">堆</a></li>
+<li><a href="#构造堆">构造堆</a></li>
+<li><a href="#排序">排序</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
+        <!-- 
+
+
+选择排序
+选排的思想
+时间复杂度
+
+
+冒泡排序
+基本思路
+时间复杂度
+交换判定优化
+
+
+插入排序
+插排的思想
+时间复杂度分析
+哨兵优化
+折半优化
+
+
+归并排序（Merge Sort）
+归并排序思路
+合并
+时间复杂度分析
+
+
+快速排序
+快排思路
+选值优化
+多路快排
+
+
+希尔排序（缩小增量排序）
+关键思路
+时间复杂度
+
+
+计数排序
+关键思路
+时间复杂度分析
+
+
+堆排序
+完全二叉树
+堆
+构造......  -->
+        <p class="article-more-link">
+          <a href="/排序算法.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES_Module&CommonJS.html">ES_Module&amp;CommonJS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#模块系统">模块系统</a></li>
+<li><a href="#esm-vs-cjs">ESM VS CJS</a></li>
+<li><a href="#esm-vs-cjs-要点解析">ESM VS CJS 要点解析</a><ul>
+<li><a href="#模块输出">模块输出</a></li>
+<li><a href="#模块加载">模块加载</a></li>
+</ul>
+</li>
+<li><a href="#tree-shaking">tree shaking</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
+<ul>
+<li>模块隔离（私有代码权限访问控制）</li>
+<li>模块间依赖</li>
+<li>代码传递到执行环境</li>
+</ul>
+<p>早期解决方案如下：</p>
+<ul>
+<li>命名空间</li>
+<li>立即执行匿名函数 + 闭包</li>
+</ul>
+<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，在 ES6 模块系统后使用频率降低，如下简单对比。</p>
+<p>AMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>CMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">define(<span class="string">'main'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'a'</span>) <span class="comment">//依赖就近</span></span><br><span class="line">  a.someFn()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'b'</span>)</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>ES6 兼容 Node.js 模块方案</p>
+<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><table>
+<thead>
+<tr>
+<th>标准</th>
+<th>输出</th>
+<th>加载时机</th>
+<th>加载方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ES6 模块</td>
+<td>值引用（只读）</td>
+<td>编译</td>
+<td>import 异步</td>
+</tr>
+<tr>
+<td>CommonJS</td>
+<td>值浅拷贝</td>
+<td>运行</td>
+<td>require 同步</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ESM-VS-CJS-要点解析"><a href="#ESM-VS-CJS-要点解析" class="headerlink" title="ESM VS CJS 要点解析"></a>ESM VS CJS 要点解析</h2>
+        <!-- 
+
+
+模块系统
+ESM VS CJS
+ESM VS CJS 要点解析
+模块输出
+模块加载
+
+
+tree shaking
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS ......  -->
+        <p class="article-more-link">
+          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CSS弹性布局主轴元素设置单独对齐方式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS弹性布局主轴元素设置单独对齐方式.html">CSS弹性布局主轴元素设置单独对齐方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-07-30T07:14:56.000Z" itemprop="datePublished">2018-07-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#效果图示">效果图示</a></li>
+<li><a href="#效果实现">效果实现</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="效果图示"><a href="#效果图示" class="headerlink" title="效果图示"></a>效果图示</h2><p>灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。<br>通过设置特定属性将最后红框圈出的元素置于容器最右侧。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145752.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145752"><br>实现效果<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145350.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145350"></p>
+<h2 id="效果实现"><a href="#效果实现" class="headerlink" title="效果实现"></a>效果实现</h2><ul>
+<li>方案 1<br>为红框子元素设定如下属性</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  flex-grow: 1; //红框子项目将占据了所有剩余空间</span><br><span class="line">  display: flex; //将自身设置为flex,作为容器之后就可以单独对内部文字项目进行右对齐</span><br><span class="line">  justify-content: flex-end; // 单独对内部文字项目进行右对齐</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过浏览器检视如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617150203.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617150203"></p>
+<ul>
+<li>方案 2</li>
+</ul>
+<p>将前 3 个子元素进行一层包裹，然后调整容器的 justify-content<br><code>justify-content: space-between</code></p>
+<ul>
+<li>方案 3</li>
+</ul>
+<p>为红框子项目添加如下属性</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">margin-left</span>: <span class="selector-tag">auto</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方案 4</li>
+</ul>
+<p>为红框子项目添加如下属性</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
+        <!-- 
+
+
+效果图示
+效果实现
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+效果图示灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。通过设置特定属性将最后红框圈出的元素置于容器最右侧。
+实现效果
+效果实现
+方案 1为红框子元素设定如下属性
+
+.red &#123;  flex-grow: 1; //红框子项目将占据了所有剩余空间  displa......  -->
+        <p class="article-more-link">
+          <a href="/CSS弹性布局主轴元素设置单独对齐方式.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1065,121 +1557,6 @@ word-wrap 原始微软私有，css3 统一规范重命......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Generator函数"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Generator函数.html">Generator函数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-11-29T12:58:25.000Z" itemprop="datePublished">2017-11-29</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><h5 id="代码1"><a href="#代码1" class="headerlink" title="代码1"></a>代码1</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="keyword">yield</span> x + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(y, <span class="string">'y'</span>); <span class="comment">// 12 "y"</span></span><br><span class="line">  <span class="keyword">const</span> z = <span class="keyword">yield</span> y + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(z, <span class="string">'z'</span>); <span class="comment">// 12 "z"</span></span><br><span class="line">  <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> value = g.next().value; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(value); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 13, done: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 12, done: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">//12 "y"</span></span><br><span class="line"><span class="comment">// &#123;value: 13, done: false&#125;</span></span><br><span class="line"><span class="comment">//12 "z"</span></span><br><span class="line"><span class="comment">// &#123;value: 12, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="代码2"><a href="#代码2" class="headerlink" title="代码2"></a>代码2</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next())</span><br><span class="line"><span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line"><span class="comment">// z is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: 3, done: false&#125;</span></span><br><span class="line"><span class="comment">// y is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="代码3"><a href="#代码3" class="headerlink" title="代码3"></a>代码3</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line">g <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">g[<span class="built_in">Symbol</span>.iterator] <span class="comment">// ƒ [Symbol.iterator]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="keyword">var</span> x = g[<span class="built_in">Symbol</span>.iterator]()</span><br><span class="line">x <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">x.next() <span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// z is undefined &#123;value: 3, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// y is undefined &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
-<li><strong>Generator 函数不同于普通函数执行它不会返回结果，返回的是一个指针对象（包含iterator接口，即拥有Symbol.iterator属性）</strong></li>
-<li>iterator 对象通过调用自身的 next 方法，保证游标后移，并且next方法返回一个包含了 value和 done（迭代器是否完成的布尔值）的对象。</li>
-<li>关于next返回对象中的value值，假设有n个yield语句，<strong>第n个value的值是第n个yield 语句后面表达式的值，第n+1个value的值是Generator函数的返回值，第n+2个以上的value值是undefined</strong></li>
-<li>yield 语句的值，比如上面代码1中的 y与z，是<strong>下一次调用 next 传入的参数的值</strong>，也就是 value + 10,如果此处next不传值，如代码2中，y与z就是undefined。反过来说，next 方法带有的参数可以传入 Generator 函数，作为上个阶段异步任务的返回结果（上一个yield 语句的值）<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/Generator函数.html">http://www.skyline.show/Generator函数.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-vue-router子路由path写法"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/vue-router子路由path写法.html">vue-router子路由path写法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-10-30T07:14:56.000Z" itemprop="datePublished">2017-10-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Vue/">Vue</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><h6 id="☞-不推荐写法"><a href="#☞-不推荐写法" class="headerlink" title="☞ 不推荐写法"></a>☞ 不推荐写法</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/index'</span>,</span><br><span class="line">    component: Index,</span><br><span class="line">    children: [&#123;</span><br><span class="line">            path: <span class="string">'/home'</span>,</span><br><span class="line">            name: <span class="string">'home'</span>,</span><br><span class="line">            component: Home</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="☞-子路由"><a href="#☞-子路由" class="headerlink" title="☞ 子路由"></a>☞ 子路由</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/index'</span>,</span><br><span class="line">    component: Index,</span><br><span class="line">    children: [&#123;</span><br><span class="line">            path: <span class="string">'home'</span>,</span><br><span class="line">            name: <span class="string">'home'</span>,</span><br><span class="line">            component: Home</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>子路由中不建议在path前加’/‘绝对路径，容易造成误解（本意可能想要第二种结果）。如果需要在路由中隐藏’index’，改成如下写法</p>
-<h6 id="☞-路由隐藏index"><a href="#☞-路由隐藏index" class="headerlink" title="☞ 路由隐藏index"></a>☞ 路由隐藏index</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/'</span>,</span><br><span class="line">    component: Index,</span><br><span class="line">    children: [&#123;</span><br><span class="line">            path: <span class="string">'home'</span>,</span><br><span class="line">            name: <span class="string">'home'</span>,</span><br><span class="line">            component: Home</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4>
-        <!-- 代码☞ 不推荐写法&#123;    path: '/index',    component: Index,    children: [&#123;            path: '/home',            name: 'home',            component: Home        &#125;    ]&#125;
-☞ 子路由&#123;    pa......  -->
-        <p class="article-more-link">
-          <a href="/vue-router子路由path写法.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
@@ -1193,7 +1570,7 @@ word-wrap 原始微软私有，css3 统一规范重命......  -->
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/6/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/">下一页 &raquo;</a>
   </nav>
 
 </section>

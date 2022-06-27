@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Factory%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F20211123154744.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Factory%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F20211123154758.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Factory%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F20211123162628.png">
-<meta property="og:updated_time" content="2022-06-03T09:39:32.000Z">
+<meta property="og:updated_time" content="2022-06-21T10:02:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Factory工厂模式">
 <meta name="twitter:description" content="概述 工厂 设计模式中的工厂 解耦   简单工厂（静态工厂） 实现   工厂方法 实现 使用 类图图示   抽象工厂 实现 类图图示   BMW WARNING Bulletin Material Warrant     概述工厂工厂这个词往往让人感到困惑，特别是与设计模式中的工厂模式杂糅在一起的时候。一般来说，工厂可以指用于生产产品的一个函数、方法或者类。对于工厂具体所指，一般可以从所读文">
@@ -192,7 +192,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-21T10:02:00.000Z" itemprop="datePublished">2022-06-21</time>
     </a><span style="color: #999">|</span>
 
       
@@ -246,7 +246,8 @@
 <p>另，如下常见的代码中，</p>
 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">  create() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">static</span> createA() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Array</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>其 create 方法往往被叫做工厂方法。<br>于是在这类方法前加入 static 关键字也就被叫做静态工厂方法。<br>上述方法叫做工厂的思想很简单，调用他们都创建了新的产品，故就是工厂。<br>这与设计模式中的工厂模式往往容易混淆。<br>为了区分，我们可以把这种用包裹构造函数创建对象的方法叫做构建方法（Creation method）</p>
-<h3 id="设计模式中的工厂"><a href="#设计模式中的工厂" class="headerlink" title="设计模式中的工厂"></a>设计模式中的工厂</h3><p>虽然 ES 可以通过 new 关键字直接构造对象，但有时候，只有在具体业务场景中才能知道在多个候选对象中具体实例哪一个，我们可以把实例化的任务委托给工厂。</p>
+<h3 id="设计模式中的工厂"><a href="#设计模式中的工厂" class="headerlink" title="设计模式中的工厂"></a>设计模式中的工厂</h3><a id="more"></a>
+<p>虽然 ES 可以通过 new 关键字直接构造对象，但有时候，只有在具体业务场景中才能知道在多个候选对象中具体实例哪一个，我们可以把实例化的任务委托给工厂。</p>
 <p>工厂的关键在于可扩展性，用于生成与管理包含部分相同特性的不同对象。<br>注意本文后续的工厂模式（工厂方法）指的是设计模式中的工厂。<br>『工厂模式』有三个变种，分别是『简单工厂模式』、『工厂方法模式』以及『抽象工厂模式』</p>
 <h3 id="解耦"><a href="#解耦" class="headerlink" title="解耦"></a>解耦</h3><p>工厂模式最大的好处就是解耦。<br>假设当前有多个页面都有造车的需求。<br>根据用户选择来造具体的车辆。<br>A 页面为华北工厂使用，B 页面为华南工厂使用。则存在如下代码。<br><code>bmw.js</code></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">Bmw</span>(<span class="params">model, price, maxSpeed</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.model = model</span><br><span class="line">  <span class="keyword">this</span>.price = price</span><br><span class="line">  <span class="keyword">this</span>.maxSpeed = maxSpeed</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -255,8 +256,7 @@
 <p><code>b.js</code></p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Bmw &#125; <span class="keyword">from</span> <span class="string">'./bmw.js'</span></span><br><span class="line"><span class="keyword">var</span> type = $(<span class="string">'#input'</span>).val()</span><br><span class="line"><span class="keyword">if</span> (type === <span class="string">'X5'</span>) <span class="keyword">new</span> Bmw(type, <span class="number">108000</span>, <span class="number">300</span>)</span><br><span class="line"><span class="keyword">if</span> (type === <span class="string">'X6'</span>) <span class="keyword">new</span> Bmw(type, <span class="number">111000</span>, <span class="number">320</span>)</span><br></pre></td></tr></table></figure>
 <p>如果此时需求进行调整，需要新生产 X100 型号轿车？<br>如果工厂合作方调整，开始生产 Benz 轿车？<br>那么我们除了替换 Bmw 类，还要在各个使用 Bmw 的页面进行替换或修改对应代码。<br>如果很多地方都用到，那么替换就是一场灾难。<br>上述代码使用简单工厂很容易就规避这些问题。</p>
-<h2 id="简单工厂（静态工厂）"><a href="#简单工厂（静态工厂）" class="headerlink" title="简单工厂（静态工厂）"></a>简单工厂（静态工厂）</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><a id="more"></a>
-<p><strong>ES5</strong></p>
+<h2 id="简单工厂（静态工厂）"><a href="#简单工厂（静态工厂）" class="headerlink" title="简单工厂（静态工厂）"></a>简单工厂（静态工厂）</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p><strong>ES5</strong></p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bmwFactory</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (type === <span class="string">'X5'</span>) <span class="keyword">return</span> <span class="keyword">new</span> Bmw(type, <span class="number">108000</span>, <span class="number">300</span>)</span><br><span class="line">  <span class="keyword">if</span> (type === <span class="string">'X6'</span>) <span class="keyword">return</span> <span class="keyword">new</span> Bmw(type, <span class="number">111000</span>, <span class="number">320</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bmw</span>(<span class="params">model, price, maxSpeed</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.model = model</span><br><span class="line">  <span class="keyword">this</span>.price = price</span><br><span class="line">  <span class="keyword">this</span>.maxSpeed = maxSpeed</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = bmwFactory</span><br></pre></td></tr></table></figure>
 <p><strong>ES6</strong></p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BmwFactory</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> create(type) &#123;</span><br><span class="line">    <span class="keyword">if</span> (type === <span class="string">'X5'</span>) <span class="keyword">return</span> <span class="keyword">new</span> Bmw(type, <span class="number">108000</span>, <span class="number">300</span>)</span><br><span class="line">    <span class="keyword">if</span> (type === <span class="string">'X6'</span>) <span class="keyword">return</span> <span class="keyword">new</span> Bmw(type, <span class="number">111000</span>, <span class="number">320</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bmw</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(model, price, maxSpeed) &#123;</span><br><span class="line">    <span class="keyword">this</span>.model = model</span><br><span class="line">    <span class="keyword">this</span>.price = price</span><br><span class="line">    <span class="keyword">this</span>.maxSpeed = maxSpeed</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> BmwFactory</span><br></pre></td></tr></table></figure>
@@ -279,15 +279,24 @@
 <p>使用工厂模式还是抽象工厂取决于需要是某种产品还是产品系列的需求。<br>工厂模式对应的需求是买车还是买自行车<br>抽象工厂对应的是山村客户还是城市客户买系列交通工具的需求</p>
 <h3 id="类图图示-1"><a href="#类图图示-1" class="headerlink" title="类图图示"></a>类图图示</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Factory%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F20211123162628.png" alt="Factory工厂模式20211123162628"></p>
 <p><a href="https://github.com/skylinety/Blog/blob/54a10cfbabd061ae15c5afb1914fb749238c0bed/Demos/Major/CS/DesignPatterns/Creational/abstractFactory.drawio" target="_blank" rel="noopener">类图图源</a></p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
 <p><a href="https://github.com/fbeline/design-patterns-JS/blob/master/docs.md#factory" target="_blank" rel="noopener">fbeline/design-patterns-JS/blob</a> &gt; <a href="https://www.zhihu.com/question/27125796" target="_blank" rel="noopener">https://www.zhihu.com/question/27125796</a></p>
 </blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
 <blockquote>
 <p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
 </blockquote>
@@ -344,19 +353,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/设计模式综述.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/TS语法校验常见错误.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          设计模式综述
+          TS语法校验常见错误
         
       </div>
     </a>
   
   
-    <a href="/Husky使用.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Dynamic_Programming.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Husky使用</div>
+      <div class="article-nav-title">Dynamic_Programming</div>
     </a>
   
 </nav>
@@ -370,7 +379,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂"><span class="nav-number">1.1.</span> <span class="nav-text">工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计模式中的工厂"><span class="nav-number">1.2.</span> <span class="nav-text">设计模式中的工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解耦"><span class="nav-number">1.3.</span> <span class="nav-text">解耦</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂（静态工厂）"><span class="nav-number">2.</span> <span class="nav-text">简单工厂（静态工厂）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">2.1.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法"><span class="nav-number">3.</span> <span class="nav-text">工厂方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-1"><span class="nav-number">3.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">3.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图图示"><span class="nav-number">3.3.</span> <span class="nav-text">类图图示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工厂"><span class="nav-number">4.</span> <span class="nav-text">抽象工厂</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-2"><span class="nav-number">4.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图图示-1"><span class="nav-number">4.2.</span> <span class="nav-text">类图图示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">5.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">5.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">5.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂"><span class="nav-number">1.1.</span> <span class="nav-text">工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计模式中的工厂"><span class="nav-number">1.2.</span> <span class="nav-text">设计模式中的工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解耦"><span class="nav-number">1.3.</span> <span class="nav-text">解耦</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂（静态工厂）"><span class="nav-number">2.</span> <span class="nav-text">简单工厂（静态工厂）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">2.1.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法"><span class="nav-number">3.</span> <span class="nav-text">工厂方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-1"><span class="nav-number">3.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">3.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图图示"><span class="nav-number">3.3.</span> <span class="nav-text">类图图示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工厂"><span class="nav-number">4.</span> <span class="nav-text">抽象工厂</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-2"><span class="nav-number">4.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图图示-1"><span class="nav-number">4.2.</span> <span class="nav-text">类图图示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

@@ -23,7 +23,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D20220615145414.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D20220615150043.png">
-<meta property="og:updated_time" content="2022-06-09T07:02:00.000Z">
+<meta property="og:updated_time" content="2022-06-21T10:02:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES数组去重">
 <meta name="twitter:description" content="举个栗子 正常人 我有想法 我会 es6 BMW WARNING Bulletin Material Warrant     举个栗子var he = &amp;#123; name: &apos;he&apos;, sex: &apos;male&apos; &amp;#125;,  she = &amp;#123; name: &apos;she&apos;, sex: &apos;female&apos; &amp;#125;,  age = [18, 28],  family = [    1">
@@ -191,7 +191,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-09T07:02:00.000Z" itemprop="datePublished">2022-06-09</time>
+      <time datetime="2022-06-21T10:02:02.000Z" itemprop="datePublished">2022-06-21</time>
     </a><span style="color: #999">|</span>
 
       
@@ -232,14 +232,23 @@
 <h2 id="我会-es6"><a href="#我会-es6" class="headerlink" title="我会 es6"></a>我会 es6</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition5</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [...new <span class="built_in">Set</span>(arr)]</span><br><span class="line">  <span class="comment">// return Array.from(new Set(array));</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition6</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> tmp = <span class="keyword">new</span> <span class="built_in">Map</span>(),</span><br><span class="line">    ret = []</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = arr.length; i &lt; j; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!tmp.has(arr[i])) &#123;</span><br><span class="line">      tmp.set(arr[i], <span class="number">1</span>)</span><br><span class="line">      ret.push(arr[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">removeRepetition5(family)</span><br><span class="line"><span class="comment">//(10) [1, "1", "skyline", &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, Array(2), Array(2), Array(0)]</span></span><br><span class="line">removeRepetition6(family)</span><br><span class="line"><span class="comment">//(10) [1, "1", "skyline", &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, &#123;…&#125;, Array(2), Array(2), Array(0)]</span></span><br></pre></td></tr></table></figure>
 <p>ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。<br>ES6 提供了新的数据结构 Map。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。<br>Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键。<br>可进一步参考<a href="http://es6.ruanyifeng.com/#docs/set-map" target="_blank" rel="noopener">Set 和 Map 数据结构</a></p>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D20220615150043.png" alt="ES数组去重20220615150043"></p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http: //www.skyline.show" target="_blank" rel="noopener">skyline.show</a> 欢迎访问。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migant worker but I never walk backwards.</p>
 </blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
 </blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)</p>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
 <p>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
 <blockquote>
 <p><a href="https: //creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
@@ -323,7 +332,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#举个栗子"><span class="nav-number">1.</span> <span class="nav-text">举个栗子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正常人"><span class="nav-number">2.</span> <span class="nav-text">正常人</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我有想法"><span class="nav-number">3.</span> <span class="nav-text">我有想法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我会-es6"><span class="nav-number">4.</span> <span class="nav-text">我会 es6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">5.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">5.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">5.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#举个栗子"><span class="nav-number">1.</span> <span class="nav-text">举个栗子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正常人"><span class="nav-number">2.</span> <span class="nav-text">正常人</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我有想法"><span class="nav-number">3.</span> <span class="nav-text">我有想法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我会-es6"><span class="nav-number">4.</span> <span class="nav-text">我会 es6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

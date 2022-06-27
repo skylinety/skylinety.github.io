@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8QQ20210922-174329-HD.gif">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8QQ20210923-105617-HD.gif">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8QQ20210923-170939-HD.gif">
-<meta property="og:updated_time" content="2022-06-03T09:41:56.000Z">
+<meta property="og:updated_time" content="2022-06-21T10:02:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell中xargs使用">
 <meta name="twitter:description" content="概述 基础使用示例 echo wc mkdir   参数 -0 -I -L -n -d -t -p   BMW WARNING Bulletin Material Warrant     概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 ech">
@@ -192,7 +192,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:41:56.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
     </a><span style="color: #999">|</span>
 
       
@@ -238,7 +238,8 @@
 <blockquote>
 <p>The xargs command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like grep can accept standard input as a parameter, many other tools cannot. Using xargs allows tools like echo and rm and mkdir to accept standard input as arguments.</p>
 </blockquote>
-<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo skyline | echo</span><br><span class="line">#output</span><br></pre></td></tr></table></figure>
+<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo skyline | echo</span><br><span class="line">#output</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo skyline | xargs echo</span><br><span class="line"># output</span><br><span class="line">skyline</span><br></pre></td></tr></table></figure>
 <p>在未指定后续操作的情况下，xargs 默认执行 echo 操作</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo skyline | xargs</span><br><span class="line"># output</span><br><span class="line">skyline</span><br></pre></td></tr></table></figure>
@@ -250,8 +251,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">find . -name &quot;*.md&quot; | wc -l</span><br><span class="line"># output</span><br><span class="line">       8</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">find . -name &quot;*.md&quot; | xargs wc -l</span><br><span class="line"># output</span><br><span class="line">      84 ./Major/Mobile/Flutter/Flutter基础使用汇总.md</span><br><span class="line">     109 ./Major/Mobile/Flutter/Flutter基础控件使用.md</span><br><span class="line">       0 ./Major/Shell/Shell中xargs使用.md</span><br><span class="line">     131 ./Major/Shell/Shell中的符号.md</span><br><span class="line">      13 ./Major/Shell/Shell常见操作汇总.md</span><br><span class="line">       4 ./README.md</span><br><span class="line">      44 ./Tools/DEVs/VSCode/Extensions/PicGo.md</span><br><span class="line">       5 ./Tools/OS/ipadOS使用.md</span><br><span class="line">     390 total</span><br></pre></td></tr></table></figure>
 <h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">echo 1 2 3 | xargs mkdir</span><br><span class="line">ls</span><br><span class="line"># output</span><br><span class="line">1 2 3</span><br></pre></td></tr></table></figure>
-<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><h3 id="0"><a href="#0" class="headerlink" title="-0"></a>-0</h3><a id="more"></a>
-<p>用 null 作为分隔符，与 find 中 -print0 意义一致，且需一起使用</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><h3 id="0"><a href="#0" class="headerlink" title="-0"></a>-0</h3><p>用 null 作为分隔符，与 find 中 -print0 意义一致，且需一起使用</p>
 <h3 id="I"><a href="#I" class="headerlink" title="-I"></a>-I</h3><p>将标准输入以指定字符缓存，方便后续使用。类似于正则中()的作用。</p>
 <p>将当前目录下文件统一加后缀</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># input</span></span><br><span class="line">ls</span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="comment"># one           two         three</span></span><br><span class="line"><span class="comment"># input</span></span><br><span class="line">find . -<span class="built_in">type</span> f -name <span class="string">'*'</span> -print0 | xargs -0 -I&#123;&#125; mv &#123;&#125; &#123;&#125;.txt &amp;&amp; ls</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># one.txt           two.txt         three.txt</span></span><br><span class="line"><span class="comment"># input</span></span><br><span class="line">ls | xargs -I_ mv _ _.bak &amp;&amp; ls</span><br><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="comment"># one.txt.bak   three.txt.bak two.txt.bak</span></span><br></pre></td></tr></table></figure>
@@ -267,11 +267,20 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># input</span><br><span class="line">ls</span><br><span class="line"># output</span><br><span class="line">one   three two</span><br><span class="line"># input</span><br><span class="line">echo &apos;one two three&apos; | xargs -p rm -rf</span><br><span class="line"># input &amp; output</span><br><span class="line">rm -rf one two three?...y</span><br><span class="line"># input</span><br><span class="line">ls</span><br><span class="line"># output</span><br></pre></td></tr></table></figure>
 <p>上述确认操作中除了输入 y，其他任何输入都不会进行删除操作</p>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8QQ20210923-170939-HD.gif" alt="Shell中xargs使用QQ20210923-170939-HD"></p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>I am a bucolic migrant worker but I never walk backwards.</p>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><blockquote>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>I am a bucolic migrant worker but I never walk backwards.</p>
+<ul>
+<li>Material</li>
+</ul>
+<blockquote>
 <p><a href="https://shapeshed.com/unix-xargs/" target="_blank" rel="noopener">Linux and Unix xargs command tutorial with examples</a> &gt; <a href="https://www.howtoforge.com/tutorial/linux-xargs-command/" target="_blank" rel="noopener">8 Practical Examples of Linux Xargs Command for Beginners</a></p>
 </blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<blockquote>
 <p>本文作者： Skyline(lty)<br>版权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
 </blockquote>
 
@@ -337,9 +346,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/Shell中的符号.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/浏览器回流与重绘.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Shell中的符号</div>
+      <div class="article-nav-title">浏览器回流与重绘</div>
     </a>
   
 </nav>
@@ -353,7 +362,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础使用示例"><span class="nav-number">2.</span> <span class="nav-text">基础使用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#echo"><span class="nav-number">2.1.</span> <span class="nav-text">echo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wc"><span class="nav-number">2.2.</span> <span class="nav-text">wc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir"><span class="nav-number">2.3.</span> <span class="nav-text">mkdir</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数"><span class="nav-number">3.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0"><span class="nav-number">3.1.</span> <span class="nav-text">-0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I"><span class="nav-number">3.2.</span> <span class="nav-text">-I</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#L"><span class="nav-number">3.3.</span> <span class="nav-text">-L</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#n"><span class="nav-number">3.4.</span> <span class="nav-text">-n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d"><span class="nav-number">3.5.</span> <span class="nav-text">-d</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t"><span class="nav-number">3.6.</span> <span class="nav-text">-t</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p"><span class="nav-number">3.7.</span> <span class="nav-text">-p</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">4.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">4.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">4.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础使用示例"><span class="nav-number">2.</span> <span class="nav-text">基础使用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#echo"><span class="nav-number">2.1.</span> <span class="nav-text">echo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wc"><span class="nav-number">2.2.</span> <span class="nav-text">wc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir"><span class="nav-number">2.3.</span> <span class="nav-text">mkdir</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数"><span class="nav-number">3.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0"><span class="nav-number">3.1.</span> <span class="nav-text">-0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I"><span class="nav-number">3.2.</span> <span class="nav-text">-I</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#L"><span class="nav-number">3.3.</span> <span class="nav-text">-L</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#n"><span class="nav-number">3.4.</span> <span class="nav-text">-n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d"><span class="nav-number">3.5.</span> <span class="nav-text">-d</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#t"><span class="nav-number">3.6.</span> <span class="nav-text">-t</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#p"><span class="nav-number">3.7.</span> <span class="nav-text">-p</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

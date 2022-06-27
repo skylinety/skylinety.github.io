@@ -13,20 +13,20 @@
   
   
   
-  <meta name="description" content="arguments 参数传递 按值传递 引用传递   BMW WARNING Bulletin Material Warrant     arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值 arguments 得长度是由运行时传入参数个数决定">
+  <meta name="description" content="arguments 参数传递 按值传递 引用传递   BMW WARNING Bulletin Material Warrant     arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值 arguments 的长度是由运行时传入参数个数决定">
 <meta name="keywords" content="JS,ES">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES函数">
 <meta property="og:url" content="http://www.skyline.show/ES函数.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="arguments 参数传递 按值传递 引用传递   BMW WARNING Bulletin Material Warrant     arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值 arguments 得长度是由运行时传入参数个数决定">
+<meta property="og:description" content="arguments 参数传递 按值传递 引用传递   BMW WARNING Bulletin Material Warrant     arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值 arguments 的长度是由运行时传入参数个数决定">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613193938.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613194012.png">
-<meta property="og:updated_time" content="2022-06-07T11:55:09.000Z">
+<meta property="og:updated_time" content="2022-06-21T10:02:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES函数">
-<meta name="twitter:description" content="arguments 参数传递 按值传递 引用传递   BMW WARNING Bulletin Material Warrant     arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值 arguments 得长度是由运行时传入参数个数决定">
+<meta name="twitter:description" content="arguments 参数传递 按值传递 引用传递   BMW WARNING Bulletin Material Warrant     arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值 arguments 的长度是由运行时传入参数个数决定">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613193938.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -191,7 +191,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-07T11:55:09.000Z" itemprop="datePublished">2022-06-07</time>
+      <time datetime="2022-06-21T10:02:02.000Z" itemprop="datePublished">2022-06-21</time>
     </a><span style="color: #999">|</span>
 
       
@@ -225,10 +225,14 @@
 <h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><ul>
 <li>arguments 是一个类数组</li>
 <li>它的值永远与对应命名参数的值保持同步。<br>设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值</li>
-<li>arguments 得长度是由运行时传入参数个数决定的，而不是定义时</li>
+<li>arguments 的长度是由运行时传入参数个数决定的，而不是定义时</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">0</span>] = &#123; <span class="attr">name</span>: <span class="string">'skyline'</span> &#125;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">1</span>] = <span class="number">2</span></span><br><span class="line">  c = <span class="number">5</span></span><br><span class="line">  <span class="built_in">console</span>.log(</span><br><span class="line">    <span class="string">`a=<span class="subst">$&#123;a&#125;</span>, b=<span class="subst">$&#123;b&#125;</span>, 第三个参数的值是：<span class="subst">$&#123;<span class="built_in">arguments</span>[<span class="number">2</span>]&#125;</span>, 参数的长度：<span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">      <span class="built_in">arguments</span>.length</span></span></span><br><span class="line"><span class="string"><span class="subst">    &#125;</span>, 第一个参数与a是否相等：<span class="subst">$&#123;<span class="built_in">arguments</span>[<span class="number">0</span>] === a&#125;</span>`</span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test(<span class="number">1</span>, &#123; <span class="attr">firstName</span>: <span class="string">'liu'</span> &#125;, <span class="string">'3'</span>, <span class="number">3</span>)</span><br><span class="line"><span class="comment">// a=[object Object], b=2, 第三个参数的值是：5, 参数的长度：4, 第一个参数与a是否相等：true</span></span><br></pre></td></tr></table></figure>
-<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><h3 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h3><p><strong>函数的参数都是按值传递的，当传递引用类型的值时，会把这个值在内存中的地址复制给局部变量</strong>。<br>其实质就是把实参在内存中的数据传递给形参，基本类型拷贝了本身，引用类型拷贝的是引用的地址。</p>
+<p>对于 ES6 中通过扩展运算符获取参数，示例如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArray6</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(args)</span><br><span class="line">  <span class="built_in">console</span>.log(args <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br><span class="line">  <span class="keyword">return</span> args</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray6(<span class="number">11</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="comment">//  (3) [11, 2, 3]</span></span><br><span class="line"><span class="comment">//  true</span></span><br></pre></td></tr></table></figure>
+<p>不同于 ES5 的 arguments 是一种类数组，ES6 拓展运算符获取 args 是一个数组。</p>
+<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><h3 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h3><a id="more"></a>
+<p><strong>函数的参数都是按值传递的，当传递引用类型的值时，会把这个值在内存中的地址复制给局部变量</strong>。<br>其实质就是把实参在内存中的数据传递给形参，基本类型拷贝了本身，引用类型拷贝的是引用的地址。</p>
 <ul>
 <li>示例一</li>
 </ul>
@@ -240,18 +244,26 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 = <span class="string">'aaa'</span></span><br><span class="line"><span class="keyword">var</span> num2 = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">  value: <span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj2</span>) </span>&#123;</span><br><span class="line">  obj2 = <span class="number">2</span></span><br><span class="line">  <span class="built_in">console</span>.log(obj2) <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj1)</span><br><span class="line"><span class="built_in">console</span>.log(obj1.value) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
 <p>在函数执行<code>obj2 = 2;</code>前后的内存状态<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613194012.png" alt="ES函数20220613194012"></p>
-<h3 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h3><a id="more"></a>
-<p>以上述示例二为例，若函数 foo 参数按引用传递，则传入是形参 obj2 直接记录实参 obj1 的内存地址。<br>故而后续不管两者谁变化，都将影响另一方。<br>即上述代码执行到最后，obj1 的值将会被变更为数字 2。<br>在 C#中，区分值传递和引用传递是方法参数前加 ref，加 ref 就是引用传递, 不加就是值传递。</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<h3 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h3><p>ES 函数的参数时按值传递的，部分语言支持参数按引用传递。<br>以上述示例二为例，若函数 foo 参数按引用传递，则传入是形参 obj2 直接记录实参 obj1 的内存地址。<br>故而后续不管两者谁变化，都将影响另一方。<br>即上述代码执行到最后，obj1 的值将会被变更为数字 2。<br>在 C#中，区分值传递和引用传递是方法参数前加 ref，加 ref 就是引用传递, 不加就是值传递。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
 </blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
 <blockquote>
-<p>[CC BY - NC - SA 3.0](<a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh</a></p>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
 </blockquote>
 
       
@@ -327,7 +339,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#arguments"><span class="nav-number">1.</span> <span class="nav-text">arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数传递"><span class="nav-number">2.</span> <span class="nav-text">参数传递</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按值传递"><span class="nav-number">2.1.</span> <span class="nav-text">按值传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用传递"><span class="nav-number">2.2.</span> <span class="nav-text">引用传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">3.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">3.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">3.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#arguments"><span class="nav-number">1.</span> <span class="nav-text">arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数传递"><span class="nav-number">2.</span> <span class="nav-text">参数传递</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按值传递"><span class="nav-number">2.1.</span> <span class="nav-text">按值传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用传递"><span class="nav-number">2.2.</span> <span class="nav-text">引用传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

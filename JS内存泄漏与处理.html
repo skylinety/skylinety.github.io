@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216202518.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216195654.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216195848.png">
-<meta property="og:updated_time" content="2022-06-03T09:39:33.000Z">
+<meta property="og:updated_time" content="2022-06-21T10:02:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS内存泄漏与处理">
 <meta name="twitter:description" content="垃圾回收(GC:Garbage Collecation) 简介 引用计数（Reference Counting） 标记清除（Mark &amp;amp; Sweep）   内存泄漏（Memory Leaks） 简介 常见内存泄漏情况 常见情况示例   内存泄漏处理 Chrome Memory 调试 内存泄漏监测 泄漏内存对比 泄漏内存对象详情 对象引用链   BMW WARNING Bulletin">
@@ -197,7 +197,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
     </a><span style="color: #999">|</span>
 
       
@@ -243,7 +243,8 @@
 </ul>
 <!-- /code_chunk_output -->
 <h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JS 自动进行垃圾回收，不需要如 C 语言等一般需要代码中指定回收。<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>回收垃圾时，需要将那些被标记的清除掉，垃圾标记器会跟踪无用内存并打上标记，以供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
-<h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3><p>传统的引用计数方式简单来说就是记录内存引用的总数，当总数为 0 时，该内存将被回收。<br>该方式最大的弊端是循环引用对应的内存将不能被回收。<br>循环引用代码示例：</p>
+<h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3><a id="more"></a>
+<p>传统的引用计数方式简单来说就是记录内存引用的总数，当总数为 0 时，该内存将被回收。<br>该方式最大的弊端是循环引用对应的内存将不能被回收。<br>循环引用代码示例：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  a.child = b</span><br><span class="line">  b.child = a</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="标记清除（Mark-amp-Sweep）"><a href="#标记清除（Mark-amp-Sweep）" class="headerlink" title="标记清除（Mark &amp; Sweep）"></a>标记清除（Mark &amp; Sweep）</h3><ul>
 <li>标记阶段</li>
@@ -253,8 +254,7 @@
 <li>清除阶段</li>
 </ul>
 <p>清除阶段就是垃圾收集器清除那些没有被标记的对象，释放其内存。</p>
-<h2 id="内存泄漏（Memory-Leaks）"><a href="#内存泄漏（Memory-Leaks）" class="headerlink" title="内存泄漏（Memory Leaks）"></a>内存泄漏（Memory Leaks）</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><a id="more"></a>
-<p>JS 为复杂对象分配堆内存，对象被引用，该堆内存存在。<br>一旦对象不再被引用，此时 JS 垃圾回收机制将回收该堆内存。<br>内存泄漏（Memory Leak）一般指当代码中不再使用该对象而未及时解除引用关系时（对象指针没有被置为 null），该内存分配将一直存在。<br>造成 JS 内存泄漏的主要原因就是非正常引用。<br>现代浏览器一般采用标记清除方式清理内存，故内存泄漏也可认为是：<br><strong>开发者不再使用的对象但标记阶段仍可以由根节点关联到。</strong></p>
+<h2 id="内存泄漏（Memory-Leaks）"><a href="#内存泄漏（Memory-Leaks）" class="headerlink" title="内存泄漏（Memory Leaks）"></a>内存泄漏（Memory Leaks）</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>JS 为复杂对象分配堆内存，对象被引用，该堆内存存在。<br>一旦对象不再被引用，此时 JS 垃圾回收机制将回收该堆内存。<br>内存泄漏（Memory Leak）一般指当代码中不再使用该对象而未及时解除引用关系时（对象指针没有被置为 null），该内存分配将一直存在。<br>造成 JS 内存泄漏的主要原因就是非正常引用。<br>现代浏览器一般采用标记清除方式清理内存，故内存泄漏也可认为是：<br><strong>开发者不再使用的对象但标记阶段仍可以由根节点关联到。</strong></p>
 <h3 id="常见内存泄漏情况"><a href="#常见内存泄漏情况" class="headerlink" title="常见内存泄漏情况"></a>常见内存泄漏情况</h3><ul>
 <li><p>意外全局对象</p>
 </li>
@@ -326,15 +326,24 @@
 <h3 id="泄漏内存对比"><a href="#泄漏内存对比" class="headerlink" title="泄漏内存对比"></a>泄漏内存对比</h3><p>在内存泄漏的操作前拍下快照，执行操作，拍下快照，对比两次快照。<br>在搜索框输入 detached 过滤泄漏的对象，选择 Comparison。<br>可以看到泄漏的 DIV DOM 对象新增了 88 个（截图是将代码置于项目中测试，有干扰，忽略）。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216202518.png" alt="JS内存泄漏与处理20211216202518"></p>
 <h3 id="泄漏内存对象详情"><a href="#泄漏内存对象详情" class="headerlink" title="泄漏内存对象详情"></a>泄漏内存对象详情</h3><p>查看泄漏内存对应对象详情，只需将 鼠标移动到对应的节点上等待两秒。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216195654.png" alt="JS内存泄漏与处理20211216195654"></p>
 <h3 id="对象引用链"><a href="#对象引用链" class="headerlink" title="对象引用链"></a>对象引用链</h3><p>在 Object 板块，可以查看该对象引用链，可以看到泄漏的对象位于一个 test 对象的 node 属性上，test 对象位于 window 当中<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216195848.png" alt="JS内存泄漏与处理20211216195848"></p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3><p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
-<h3 id="Material"><a href="#Material" class="headerlink" title="Material"></a>Material</h3><p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
 <p><a href="https://blog.meteor.com/an-interesting-kind-of-javascript-memory-leak-8b47d2e7f156" target="_blank" rel="noopener">An interesting kind of JavaScript memory leak</a></p>
 </blockquote>
-<h3 id="Warrant"><a href="#Warrant" class="headerlink" title="Warrant"></a>Warrant</h3><p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
 <blockquote>
 <p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
 </blockquote>
@@ -391,19 +400,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/TS语法校验常见错误.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Interface与AbstractClass.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          TS语法校验常见错误
+          Interface与AbstractClass
         
       </div>
     </a>
   
   
-    <a href="/Interface与AbstractClass.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/TS语法校验常见错误.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Interface与AbstractClass</div>
+      <div class="article-nav-title">TS语法校验常见错误</div>
     </a>
   
 </nav>
@@ -417,7 +426,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收-GC-Garbage-Collecation"><span class="nav-number">1.</span> <span class="nav-text">垃圾回收(GC:Garbage Collecation)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用计数（Reference-Counting）"><span class="nav-number">1.2.</span> <span class="nav-text">引用计数（Reference Counting）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记清除（Mark-amp-Sweep）"><span class="nav-number">1.3.</span> <span class="nav-text">标记清除（Mark &amp; Sweep）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏（Memory-Leaks）"><span class="nav-number">2.</span> <span class="nav-text">内存泄漏（Memory Leaks）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介-1"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见内存泄漏情况"><span class="nav-number">2.2.</span> <span class="nav-text">常见内存泄漏情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见情况示例"><span class="nav-number">2.3.</span> <span class="nav-text">常见情况示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏处理"><span class="nav-number">3.</span> <span class="nav-text">内存泄漏处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Chrome-Memory-调试"><span class="nav-number">3.1.</span> <span class="nav-text">Chrome Memory 调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存泄漏监测"><span class="nav-number">3.2.</span> <span class="nav-text">内存泄漏监测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泄漏内存对比"><span class="nav-number">3.3.</span> <span class="nav-text">泄漏内存对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泄漏内存对象详情"><span class="nav-number">3.4.</span> <span class="nav-text">泄漏内存对象详情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象引用链"><span class="nav-number">3.5.</span> <span class="nav-text">对象引用链</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bulletin"><span class="nav-number">4.1.</span> <span class="nav-text">Bulletin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Material"><span class="nav-number">4.2.</span> <span class="nav-text">Material</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warrant"><span class="nav-number">4.3.</span> <span class="nav-text">Warrant</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收-GC-Garbage-Collecation"><span class="nav-number">1.</span> <span class="nav-text">垃圾回收(GC:Garbage Collecation)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用计数（Reference-Counting）"><span class="nav-number">1.2.</span> <span class="nav-text">引用计数（Reference Counting）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记清除（Mark-amp-Sweep）"><span class="nav-number">1.3.</span> <span class="nav-text">标记清除（Mark &amp; Sweep）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏（Memory-Leaks）"><span class="nav-number">2.</span> <span class="nav-text">内存泄漏（Memory Leaks）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介-1"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见内存泄漏情况"><span class="nav-number">2.2.</span> <span class="nav-text">常见内存泄漏情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见情况示例"><span class="nav-number">2.3.</span> <span class="nav-text">常见情况示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏处理"><span class="nav-number">3.</span> <span class="nav-text">内存泄漏处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Chrome-Memory-调试"><span class="nav-number">3.1.</span> <span class="nav-text">Chrome Memory 调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存泄漏监测"><span class="nav-number">3.2.</span> <span class="nav-text">内存泄漏监测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泄漏内存对比"><span class="nav-number">3.3.</span> <span class="nav-text">泄漏内存对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泄漏内存对象详情"><span class="nav-number">3.4.</span> <span class="nav-text">泄漏内存对象详情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象引用链"><span class="nav-number">3.5.</span> <span class="nav-text">对象引用链</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>
