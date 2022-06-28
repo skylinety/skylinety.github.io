@@ -13,21 +13,21 @@
   
   
   
-  <meta name="description" content="概述 基础使用示例 echo wc mkdir   参数 -0 -I -L -n -d -t -p   BMW WARNING Bulletin Material Warrant     概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 ech">
+  <meta name="description" content="概述 基础使用示例 echo wc mkdir   参数 -0 -I -L -n -d -t -p   BMW WARNING   概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支">
 <meta name="keywords" content="Shell,Commands">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shell中xargs使用">
 <meta property="og:url" content="http://www.skyline.show/Shell中xargs使用.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="概述 基础使用示例 echo wc mkdir   参数 -0 -I -L -n -d -t -p   BMW WARNING Bulletin Material Warrant     概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 ech">
+<meta property="og:description" content="概述 基础使用示例 echo wc mkdir   参数 -0 -I -L -n -d -t -p   BMW WARNING   概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8QQ20210922-174329-HD.gif">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8QQ20210923-105617-HD.gif">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8QQ20210923-170939-HD.gif">
-<meta property="og:updated_time" content="2022-06-21T10:02:04.000Z">
+<meta property="og:updated_time" content="2022-06-22T07:16:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell中xargs使用">
-<meta name="twitter:description" content="概述 基础使用示例 echo wc mkdir   参数 -0 -I -L -n -d -t -p   BMW WARNING Bulletin Material Warrant     概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 ech">
+<meta name="twitter:description" content="概述 基础使用示例 echo wc mkdir   参数 -0 -I -L -n -d -t -p   BMW WARNING   概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADxargs%E4%BD%BF%E7%94%A8QQ20210922-174329-HD.gif">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -192,7 +192,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
+      <time datetime="2022-06-22T07:16:26.000Z" itemprop="datePublished">2022-06-22</time>
     </a><span style="color: #999">|</span>
 
       
@@ -226,12 +226,7 @@
 <li><a href="#-p">-p</a></li>
 </ul>
 </li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支持标准输入的命令提供管道操作。<br>通过 xargs 将标准输入转换成参数来完成后续命令。如果转换成的参数有多个（通过标准输入空符分割），后续命令重复执行。</p>

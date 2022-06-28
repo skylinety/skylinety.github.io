@@ -319,6 +319,78 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-ES文件下载实现"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES文件下载实现.html">ES文件下载实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-22T07:16:25.000Z" itemprop="datePublished">2022-06-22</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#文件处理">文件处理</a></li>
+<li><a href="#代码实现">代码实现</a></li>
+<li><a href="#常见问题">常见问题</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="文件处理"><a href="#文件处理" class="headerlink" title="文件处理"></a>文件处理</h2><p>文件下载一般有两种，一种为后端接口返回连接浏览器打开即可。<br>本文主要为另一种，接口返回文档字节流，前端使用浏览器内置对象 Blob，用隐藏的 link 来触发下载操作。<br>响应内容如下：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%AE%9E%E7%8E%B020220628151413.png" alt="ES文件下载实现20220628151413"></p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">transFile</span>(<span class="params">res, name = <span class="string">'导出.xlsx'</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> fileName = res.headers[<span class="string">'content-disposition'</span>]</span><br><span class="line">    ? res.headers[<span class="string">'content-disposition'</span>]</span><br><span class="line">        .split(<span class="string">';'</span>)[<span class="number">1</span>]</span><br><span class="line">        .split(<span class="string">'filename='</span>)[<span class="number">1</span>]</span><br><span class="line">        .replace(<span class="regexp">/^\"|\"$/g</span>, <span class="string">''</span>)</span><br><span class="line">    : name</span><br><span class="line"></span><br><span class="line">  fileName = <span class="built_in">decodeURI</span>(fileName)</span><br><span class="line">  <span class="keyword">const</span> fileNameUnicode =</span><br><span class="line">    res.headers &amp;&amp;</span><br><span class="line">    res.headers.hasOwnProperty(<span class="string">'content-disposition'</span>) &amp;&amp;</span><br><span class="line">    res.headers[<span class="string">'content-disposition'</span>].split(<span class="string">';'</span>)[<span class="number">1</span>].split(<span class="string">'filename='</span>)[<span class="number">1</span>]</span><br><span class="line">  <span class="keyword">if</span> (fileNameUnicode) &#123;</span><br><span class="line">    <span class="comment">//解决中文乱码问题</span></span><br><span class="line">    fileName = <span class="built_in">decodeURIComponent</span>(fileNameUnicode)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> blob = <span class="keyword">new</span> Blob([res.data], &#123;</span><br><span class="line">    <span class="comment">// type: 'application/zip;charset=UTF-8',</span></span><br><span class="line">    <span class="comment">// type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel',</span></span><br><span class="line">    <span class="comment">// type: res.headers['content-type'],</span></span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">window</span>.navigator.msSaveOrOpenBlob) &#123;</span><br><span class="line">    navigator.msSaveBlob(blob, fileName)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> link = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>)</span><br><span class="line">    <span class="keyword">let</span> evt = <span class="built_in">document</span>.createEvent(<span class="string">'HTMLEvents'</span>)</span><br><span class="line">    evt.initEvent(<span class="string">'click'</span>, <span class="literal">false</span>, <span class="literal">false</span>)</span><br><span class="line">    link.href = URL.createObjectURL(blob)</span><br><span class="line">    link.download = fileName</span><br><span class="line">    link.style.display = <span class="string">'none'</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(link)</span><br><span class="line">    link.click()</span><br><span class="line">    <span class="built_in">window</span>.URL.revokeObjectURL(link.href)</span><br><span class="line">    <span class="built_in">document</span>.body.removeChild(link)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2>
+        <!-- 
+
+
+文件处理
+代码实现
+常见问题
+BMW WARNING
+
+
+文件处理文件下载一般有两种，一种为后端接口返回连接浏览器打开即可。本文主要为另一种，接口返回文档字节流，前端使用浏览器内置对象 Blob，用隐藏的 link 来触发下载操作。响应内容如下：
+代码实现export function transFile(res, name = '导出.xlsx') &#123;  let fileN......  -->
+        <p class="article-more-link">
+          <a href="/ES文件下载实现.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-PicGo"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -423,6 +495,98 @@ git pull -rgit pull -r 会将当前提交的记录（E）删除并重新生成�
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-PS局部元素透明"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/PS局部元素透明.html">PS局部元素透明</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#实现效果">实现效果</a></li>
+<li><a href="#复制图层">复制图层</a></li>
+<li><a href="#修补工具">修补工具</a></li>
+<li><a href="#调整透明度">调整透明度</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E5%B1%80%E9%83%A8%E5%85%83%E7%B4%A0%E9%80%8F%E6%98%8E20220303173301.png" alt="PS局部元素透明20220303173301"></p>
+<h2 id="复制图层"><a href="#复制图层" class="headerlink" title="复制图层"></a>复制图层</h2><p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Tools/APPs/Photoshop/sky.jpeg" target="_blank" rel="noopener">素材地址</a><br>选中需要透明化元素的图层，CV 复制图层。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E5%B1%80%E9%83%A8%E5%85%83%E7%B4%A0%E9%80%8F%E6%98%8E20220303171829.png" alt="PS局部元素透明20220303171829"></p>
+<h2 id="修补工具"><a href="#修补工具" class="headerlink" title="修补工具"></a>修补工具</h2>
+        <!-- 
+
+
+实现效果
+复制图层
+修补工具
+调整透明度
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+实现效果
+复制图层素材地址选中需要透明化元素的图层，CV 复制图层。
+修补工具
+将原图层需要透明处理的元素用修复工具抹掉。
+处理后的背景如下
+调整透明度调整复制图层的不透明度即可
+BMW WARNING
+Bulletin
+
+本文首发于 skyline.show ......  -->
+        <p class="article-more-link">
+          <a href="/PS局部元素透明.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Photoshop/">Photoshop</a></li></ul>
 
     </footer>
   </div>
@@ -581,7 +745,7 @@ Warrant
 <!-- Table of Contents -->
 
   
-    <article id="post-PS局部元素透明"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Flutter基础使用汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -589,7 +753,7 @@ Warrant
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/PS局部元素透明.html">PS局部元素透明</a>
+      <a class="article-title" href="/Flutter基础使用汇总.html">Flutter基础使用汇总</a>
     </h1>
   
 
@@ -598,13 +762,13 @@ Warrant
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
     </a>
 
 
       
     
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
@@ -614,48 +778,38 @@ Warrant
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#实现效果">实现效果</a></li>
-<li><a href="#复制图层">复制图层</a></li>
-<li><a href="#修补工具">修补工具</a></li>
-<li><a href="#调整透明度">调整透明度</a></li>
+<li><a href="#flutter-监听返回按键">Flutter 监听返回按键</a></li>
+<li><a href="#flutter-防止屏幕翻转">Flutter 防止屏幕翻转</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
+<li><a href="#notice">NOTICE</a></li>
+<li><a href="#Material">Material</a></li>
+<li><a href="#Warrant">Warrant</a></li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E5%B1%80%E9%83%A8%E5%85%83%E7%B4%A0%E9%80%8F%E6%98%8E20220303173301.png" alt="PS局部元素透明20220303173301"></p>
-<h2 id="复制图层"><a href="#复制图层" class="headerlink" title="复制图层"></a>复制图层</h2><p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Tools/APPs/Photoshop/sky.jpeg" target="_blank" rel="noopener">素材地址</a><br>选中需要透明化元素的图层，CV 复制图层。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E5%B1%80%E9%83%A8%E5%85%83%E7%B4%A0%E9%80%8F%E6%98%8E20220303171829.png" alt="PS局部元素透明20220303171829"></p>
-<h2 id="修补工具"><a href="#修补工具" class="headerlink" title="修补工具"></a>修补工具</h2>
+<h2 id="Flutter-监听返回按键"><a href="#Flutter-监听返回按键" class="headerlink" title="Flutter 监听返回按键"></a>Flutter 监听返回按键</h2><p>通过 WillPopScope 组件来注册监听回调</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="keyword">return</span> WillPopScope(</span><br><span class="line">      onWillPop: _requestPop,</span><br><span class="line">      child: Scaffold(</span><br><span class="line">        appBar: AppBar(</span><br><span class="line">          title: Text(<span class="string">'测试代码'</span>),</span><br><span class="line">          leading: IconButton(</span><br><span class="line">            icon: Icon(Icons.arrow_back),</span><br><span class="line">            onPressed: () &#123;</span><br><span class="line">              print(<span class="string">"退出$&#123;Navigator.canPop(context)&#125;"</span>);</span><br><span class="line">              <span class="keyword">if</span> (Navigator.canPop(context)) &#123;</span><br><span class="line">                Navigator.pop(context);</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                SystemNavigator.pop();</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">       ),</span><br><span class="line">    );</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">Future&lt;bool&gt; _requestPop() &#123;</span><br><span class="line">    print(<span class="string">"POP"</span>);</span><br><span class="line">    <span class="keyword">if</span> (Navigator.canPop(context)) &#123;</span><br><span class="line">      Navigator.pop(context);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      SystemNavigator.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Future.value(<span class="literal">false</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Flutter-防止屏幕翻转"><a href="#Flutter-防止屏幕翻转" class="headerlink" title="Flutter 防止屏幕翻转"></a>Flutter 防止屏幕翻转</h2><p>在 main.dart 入口中加入如下代码</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  HttpOverrides.global = <span class="keyword">new</span> MyHttpOverrides();</span><br><span class="line">  <span class="comment">// runApp(MyApp());</span></span><br><span class="line">  WidgetsFlutterBinding.ensureInitialized();</span><br><span class="line">  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])</span><br><span class="line">      .then((_) &#123;</span><br><span class="line">        runApp(<span class="keyword">new</span> MyApp());</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
         <!-- 
 
 
-实现效果
-复制图层
-修补工具
-调整透明度
+Flutter 监听返回按键
+Flutter 防止屏幕翻转
 BMW WARNING
-Bulletin
+NOTICE
 Material
 Warrant
 
 
 
 
-实现效果
-复制图层素材地址选中需要透明化元素的图层，CV 复制图层。
-修补工具
-将原图层需要透明处理的元素用修复工具抹掉。
-处理后的背景如下
-调整透明度调整复制图层的不透明度即可
-BMW WARNING
-Bulletin
-
-本文首发于 skyline.show ......  -->
+Flutter 监听返回按键通过 WillPopScope 组件来注册监听回调
+Widget build(BuildContext context) &#123;  return WillPopScope(      onWillPop: _req......  -->
         <p class="article-more-link">
-          <a href="/PS局部元素透明.html#more">阅读全文</a>
+          <a href="/Flutter基础使用汇总.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -663,7 +817,7 @@ Bulletin
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Photoshop/">Photoshop</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flutter/">Flutter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mobile/">Mobile</a></li></ul>
 
     </footer>
   </div>
@@ -796,7 +950,7 @@ onTapUp......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-Flutter基础使用汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ElementUI相关使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -804,7 +958,7 @@ onTapUp......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Flutter基础使用汇总.html">Flutter基础使用汇总</a>
+      <a class="article-title" href="/ElementUI相关使用.html">ElementUI相关使用</a>
     </h1>
   
 
@@ -826,41 +980,25 @@ onTapUp......  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#flutter-监听返回按键">Flutter 监听返回按键</a></li>
-<li><a href="#flutter-防止屏幕翻转">Flutter 防止屏幕翻转</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#notice">NOTICE</a></li>
-<li><a href="#Material">Material</a></li>
-<li><a href="#Warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Flutter-监听返回按键"><a href="#Flutter-监听返回按键" class="headerlink" title="Flutter 监听返回按键"></a>Flutter 监听返回按键</h2><p>通过 WillPopScope 组件来注册监听回调</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="keyword">return</span> WillPopScope(</span><br><span class="line">      onWillPop: _requestPop,</span><br><span class="line">      child: Scaffold(</span><br><span class="line">        appBar: AppBar(</span><br><span class="line">          title: Text(<span class="string">'测试代码'</span>),</span><br><span class="line">          leading: IconButton(</span><br><span class="line">            icon: Icon(Icons.arrow_back),</span><br><span class="line">            onPressed: () &#123;</span><br><span class="line">              print(<span class="string">"退出$&#123;Navigator.canPop(context)&#125;"</span>);</span><br><span class="line">              <span class="keyword">if</span> (Navigator.canPop(context)) &#123;</span><br><span class="line">                Navigator.pop(context);</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                SystemNavigator.pop();</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">       ),</span><br><span class="line">    );</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">Future&lt;bool&gt; _requestPop() &#123;</span><br><span class="line">    print(<span class="string">"POP"</span>);</span><br><span class="line">    <span class="keyword">if</span> (Navigator.canPop(context)) &#123;</span><br><span class="line">      Navigator.pop(context);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      SystemNavigator.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Future.value(<span class="literal">false</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Flutter-防止屏幕翻转"><a href="#Flutter-防止屏幕翻转" class="headerlink" title="Flutter 防止屏幕翻转"></a>Flutter 防止屏幕翻转</h2><p>在 main.dart 入口中加入如下代码</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  HttpOverrides.global = <span class="keyword">new</span> MyHttpOverrides();</span><br><span class="line">  <span class="comment">// runApp(MyApp());</span></span><br><span class="line">  WidgetsFlutterBinding.ensureInitialized();</span><br><span class="line">  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])</span><br><span class="line">      .then((_) &#123;</span><br><span class="line">        runApp(<span class="keyword">new</span> MyApp());</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
-        <!-- 
-
-
-Flutter 监听返回按键
-Flutter 防止屏幕翻转
-BMW WARNING
-NOTICE
-Material
-Warrant
-
-
-
-
-Flutter 监听返回按键通过 WillPopScope 组件来注册监听回调
-Widget build(BuildContext context) &#123;  return WillPopScope(      onWillPop: _req......  -->
+        <h2 id="Form-使用"><a href="#Form-使用" class="headerlink" title="Form 使用"></a>Form 使用</h2><h3 id="Form-校验"><a href="#Form-校验" class="headerlink" title="Form 校验"></a>Form 校验</h3><p>validate 函数回调不执行</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$refs[formName].validate(<span class="function">(<span class="params">valid</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">' submit!!'</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'error submit!!'</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>执行打印后，无相关打印信息。<br>出现这种问题的原因多为自定义校验规则的函数没有执行 callback 回调。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> validatePassword = <span class="function">(<span class="params">rule, value, callback</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (value === <span class="string">''</span>) &#123;</span><br><span class="line">    callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'请输入密码'</span>)) <span class="comment">// 检查</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.ruleForm.checkPass !== <span class="string">''</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$refs.ruleForm.validateField(<span class="string">'checkPass'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    callback() <span class="comment">// 检查</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述检查无问题，检查是否为 JSX 写法，JSX 写法下 model 传值不能如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    v-model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    rules=&#123;<span class="keyword">this</span>.rules&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>通过如上方式，无法将 model 值传入<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ElementUI%E7%9B%B8%E5%85%B3%E4%BD%BF%E7%94%A820220314204155.png" alt="ElementUI相关使用20220314204155"><br>将传值方式更改为 props 传值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    props=&#123;&#123;</span><br><span class="line">        model: <span class="keyword">this</span>.params,</span><br><span class="line">        rules: <span class="keyword">this</span>.rules,</span><br><span class="line">    &#125;&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>原因多在于 Vue 对于 JSX 语法支持的问题。<br>另一个类似而常见的问题在于 ElementUI 占用了 props 传值导致的问题<br>例如一个 ElTree 的例子。<br>其 data 为</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    departments:[</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        children: [],</span><br><span class="line">        deptName: <span class="string">'教育部'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">    defaultProps: &#123;</span><br><span class="line">      children: <span class="string">'children'</span>,</span><br><span class="line">      label: <span class="string">'deptName'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>各属性使用如下方式传值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;<span class="keyword">this</span>.defaultProps&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码并不能将 label 正确地展示出来<br>应调整为如下写法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;&#123;</span><br><span class="line">    props: <span class="keyword">this</span>.defaultProps,</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Form-表单数字"><a href="#Form-表单数字" class="headerlink" title="Form 表单数字"></a>Form 表单数字</h3>
+        <!-- Form 使用Form 校验validate 函数回调不执行
+this.$refs[formName].validate((valid) =&gt; &#123;  if (valid) &#123;    console.log(' submit!!')  &#125; else &#123;    console.log('error submit!!')    return false......  -->
         <p class="article-more-link">
-          <a href="/Flutter基础使用汇总.html#more">阅读全文</a>
+          <a href="/ElementUI相关使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -868,7 +1006,7 @@ Widget build(BuildContext context) &#123;  return WillPopScope(      onWillPop: 
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flutter/">Flutter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mobile/">Mobile</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
 
     </footer>
   </div>
@@ -964,158 +1102,6 @@ Warrant
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ElementUI相关使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ElementUI相关使用.html">ElementUI相关使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Form-使用"><a href="#Form-使用" class="headerlink" title="Form 使用"></a>Form 使用</h2><h3 id="Form-校验"><a href="#Form-校验" class="headerlink" title="Form 校验"></a>Form 校验</h3><p>validate 函数回调不执行</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$refs[formName].validate(<span class="function">(<span class="params">valid</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">' submit!!'</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'error submit!!'</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>执行打印后，无相关打印信息。<br>出现这种问题的原因多为自定义校验规则的函数没有执行 callback 回调。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> validatePassword = <span class="function">(<span class="params">rule, value, callback</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (value === <span class="string">''</span>) &#123;</span><br><span class="line">    callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'请输入密码'</span>)) <span class="comment">// 检查</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.ruleForm.checkPass !== <span class="string">''</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$refs.ruleForm.validateField(<span class="string">'checkPass'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    callback() <span class="comment">// 检查</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述检查无问题，检查是否为 JSX 写法，JSX 写法下 model 传值不能如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    v-model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    rules=&#123;<span class="keyword">this</span>.rules&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-<p>通过如上方式，无法将 model 值传入<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ElementUI%E7%9B%B8%E5%85%B3%E4%BD%BF%E7%94%A820220314204155.png" alt="ElementUI相关使用20220314204155"><br>将传值方式更改为 props 传值</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    props=&#123;&#123;</span><br><span class="line">        model: <span class="keyword">this</span>.params,</span><br><span class="line">        rules: <span class="keyword">this</span>.rules,</span><br><span class="line">    &#125;&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-<p>原因多在于 Vue 对于 JSX 语法支持的问题。<br>另一个类似而常见的问题在于 ElementUI 占用了 props 传值导致的问题<br>例如一个 ElTree 的例子。<br>其 data 为</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    departments:[</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        children: [],</span><br><span class="line">        deptName: <span class="string">'教育部'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">    defaultProps: &#123;</span><br><span class="line">      children: <span class="string">'children'</span>,</span><br><span class="line">      label: <span class="string">'deptName'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<p>各属性使用如下方式传值</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;<span class="keyword">this</span>.defaultProps&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
-<p>上述代码并不能将 label 正确地展示出来<br>应调整为如下写法</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;&#123;</span><br><span class="line">    props: <span class="keyword">this</span>.defaultProps,</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="Form-表单数字"><a href="#Form-表单数字" class="headerlink" title="Form 表单数字"></a>Form 表单数字</h3>
-        <!-- Form 使用Form 校验validate 函数回调不执行
-this.$refs[formName].validate((valid) =&gt; &#123;  if (valid) &#123;    console.log(' submit!!')  &#125; else &#123;    console.log('error submit!!')    return false......  -->
-        <p class="article-more-link">
-          <a href="/ElementUI相关使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ES基础汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES基础汇总.html">ES基础汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:02.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#switch-语句">switch 语句</a></li>
-<li><a href="#js-与-es">JS 与 ES</a></li>
-<li><a href="#闭包">闭包</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="switch-语句"><a href="#switch-语句" class="headerlink" title="switch 语句"></a>switch 语句</h2><p><strong>switch 使用的是全等判定</strong><br>通过为每个 case 语句后添加 break 来避免执行多个 case 的情况，合并多种情况时最好加入注释</p>
-<h2 id="JS-与-ES"><a href="#JS-与-ES" class="headerlink" title="JS 与 ES"></a>JS 与 ES</h2><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%9F%BA%E7%A1%80%E6%B1%87%E6%80%BB20220613142541.png" alt="ES基础汇总20220613142541"></p>
-<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2>
-        <!-- 
-
-
-switch 语句
-JS 与 ES
-闭包
-
-
-switch 语句switch 使用的是全等判定通过为每个 case 语句后添加 break 来避免执行多个 case 的情况，合并多种情况时最好加入注释
-JS 与 ES
-闭包
-
-
-
-源
-定义
-
-
-
-
-《JavaScript 高级程序设计》
-闭包是指有权访问另一个’函数’作用域中的变量的函数
-
-
-《JavaScript 权威指南》
-从技术的......  -->
-        <p class="article-more-link">
-          <a href="/ES基础汇总.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
 
     </footer>
   </div>

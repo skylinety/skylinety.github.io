@@ -8,25 +8,25 @@
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
-  <meta name="keywords" content="JSES复杂类型">
+  <meta name="keywords" content="JSES">
   
   
   
   
-  <meta name="description" content="工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING Bulletin Material Warrant     工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？） function person(name) &amp;#1">
-<meta name="keywords" content="JS,ES,复杂类型">
+  <meta name="description" content="工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING   工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？） function person(name) &amp;#123;  var p = new Object();">
+<meta name="keywords" content="JS,ES">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES对象创建">
 <meta property="og:url" content="http://www.skyline.show/ES对象创建.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING Bulletin Material Warrant     工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？） function person(name) &amp;#1">
+<meta property="og:description" content="工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING   工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？） function person(name) &amp;#123;  var p = new Object();">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA20210928110402.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA20210928110309.png">
-<meta property="og:updated_time" content="2022-06-21T10:02:02.000Z">
+<meta property="og:updated_time" content="2022-06-22T07:16:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES对象创建">
-<meta name="twitter:description" content="工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING Bulletin Material Warrant     工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？） function person(name) &amp;#1">
+<meta name="twitter:description" content="工厂模式 构造函数模式 实现 优化   原型模式 实现 原型判定 原型重写 原型模式问题   组合构造与原型 动态原型 实现 重写原型   寄生构造函数 稳妥构造函数 BMW WARNING   工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？） function person(name) &amp;#123;  var p = new Object();">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA20210928110402.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -191,7 +191,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:02.000Z" itemprop="datePublished">2022-06-21</time>
+      <time datetime="2022-06-22T07:16:25.000Z" itemprop="datePublished">2022-06-22</time>
     </a><span style="color: #999">|</span>
 
       
@@ -229,12 +229,7 @@
 </li>
 <li><a href="#寄生构造函数">寄生构造函数</a></li>
 <li><a href="#稳妥构造函数">稳妥构造函数</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
 <h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）</p>
@@ -345,7 +340,7 @@ var a = new Donate({
 
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂类型/">复杂类型</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
 
     </footer>
   </div>
