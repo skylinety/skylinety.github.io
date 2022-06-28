@@ -319,467 +319,6 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-Shell中grep的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中grep的使用.html">Shell中grep的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-09T06:54:53.000Z" itemprop="datePublished">2022-06-09</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#使用">使用</a><ul>
-<li><a href="#基础使用">基础使用</a></li>
-<li><a href="#正则">正则</a></li>
-<li><a href="#递归查找子目录">递归查找子目录</a></li>
-<li><a href="#忽略大小写">忽略大小写</a></li>
-<li><a href="#匹配次数">匹配次数</a></li>
-<li><a href="#静默查找">静默查找</a></li>
-</ul>
-</li>
-<li><a href="#选项">选项</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>grep 是一个字符搜索命令，使用的基础语法为</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep [options] pattern [files]</span><br></pre></td></tr></table></figure>
-<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3>
-        <!-- 
-
-
-使用
-基础使用
-正则
-递归查找子目录
-忽略大小写
-匹配次数
-静默查找
-
-
-选项
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-使用基础使用grep 是一个字符搜索命令，使用的基础语法为
-grep [options] pattern [files]
-正则
-^ 匹配的字符在行首$ 匹配的字符在行尾
-grep ^grep Docs/Major/Shell......  -->
-        <p class="article-more-link">
-          <a href="/Shell中grep的使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中数组相关操作"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中数组相关操作.html">Shell中数组相关操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-09T06:15:56.000Z" itemprop="datePublished">2022-06-09</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#获取数组长度">获取数组长度</a></li>
-<li><a href="#列出数组项">列出数组项</a></li>
-<li><a href="#数组合并">数组合并</a></li>
-<li><a href="#数组遍历">数组遍历</a></li>
-<li><a href="#数组下标获取">数组下标获取</a></li>
-<li><a href="#数组转字符串">数组转字符串</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="获取数组长度"><a href="#获取数组长度" class="headerlink" title="获取数组长度"></a>获取数组长度</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[*]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
-<h2 id="列出数组项"><a href="#列出数组项" class="headerlink" title="列出数组项"></a>列出数组项</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$skyline</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br><span class="line"><span class="comment"># 或使用echo $&#123;skyline[*]&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="数组合并"><a href="#数组合并" class="headerlink" title="数组合并"></a>数组合并</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">lty=(2 3 4)</span><br><span class="line">ret=(<span class="variable">$skyline</span> <span class="variable">$lty</span>)</span><br><span class="line"><span class="built_in">echo</span>  <span class="variable">$ret</span></span><br><span class="line"><span class="comment"># 4 3 2 1 2 3 4</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">ret=(<span class="variable">$skyline</span> 2 3 4)</span><br><span class="line"><span class="built_in">echo</span>  <span class="variable">$ret</span></span><br><span class="line"><span class="comment"># 4 3 2 1 2 3 4</span></span><br></pre></td></tr></table></figure>
-<p>当数组添加项只有一项时，即可实现 JS 数组类似于 push 的效果</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">ret=(<span class="variable">$skyline</span> 0)</span><br><span class="line"><span class="built_in">echo</span>  <span class="variable">$ret</span></span><br><span class="line"><span class="comment"># 4 3 2 1 0</span></span><br></pre></td></tr></table></figure>
-<h2 id="数组遍历"><a href="#数组遍历" class="headerlink" title="数组遍历"></a>数组遍历</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> <span class="variable">$skyline</span></span><br><span class="line"><span class="comment"># for value in "$&#123;skyline[@]&#125;"</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$value</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="keyword">for</span> (( i=1; i&lt;=<span class="variable">$&#123;#skyline&#125;</span>; i++ ))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$&#123;skyline[$i]&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
-<h2 id="数组下标获取"><a href="#数组下标获取" class="headerlink" title="数组下标获取"></a>数组下标获取</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[1]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[-1]&#125;</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[-2]&#125;</span></span><br><span class="line"><span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
-<h2 id="数组转字符串"><a href="#数组转字符串" class="headerlink" title="数组转字符串"></a>数组转字符串</h2>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中字符串相关操作"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中字符串相关操作.html">Shell中字符串相关操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-08T08:34:57.000Z" itemprop="datePublished">2022-06-08</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#字符包含判定">字符包含判定</a><ul>
-<li><a href="#">==</a></li>
-<li><a href="#grep">grep</a></li>
-</ul>
-</li>
-<li><a href="#将字符串作为命令执行">将字符串作为命令执行</a></li>
-<li><a href="#获取子串字符串切割">获取子串（字符串切割）</a><ul>
-<li><a href="#cut">cut</a></li>
-<li><a href="#截取语法">截取语法</a></li>
-</ul>
-</li>
-<li><a href="#字符串转数组">字符串转数组</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="字符包含判定"><a href="#字符包含判定" class="headerlink" title="字符包含判定"></a>字符包含判定</h2><h3 id><a href="#" class="headerlink" title="=="></a>==</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">'GNU/Linux is an operating system'</span></span><br><span class="line">SUB=<span class="string">'Linux'</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$STR</span>"</span> == *<span class="string">"<span class="variable">$SUB</span>"</span>* ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"It's there."</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3>
-        <!-- 
-
-
-字符包含判定
-==
-grep
-
-
-将字符串作为命令执行
-获取子串（字符串切割）
-cut
-截取语法
-
-
-字符串转数组
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-字符包含判定==STR='GNU/Linux is an operating system'SUB='Linux'if [[ "$STR" == *"$SUB"* ]]; then  ec......  -->
-        <p class="article-more-link">
-          <a href="/Shell中字符串相关操作.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell条件判定"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell条件判定.html">Shell条件判定</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-07T09:48:52.000Z" itemprop="datePublished">2022-06-07</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#if">if</a><ul>
-<li><a href="#command">command</a></li>
-<li><a href="#expression">[expression]</a></li>
-<li>[<a href="#expression-1">[expression]]</a></li>
-<li><a href="#command-1">(command)</a></li>
-<li><a href="#expression-2">((expression))</a></li>
-</ul>
-</li>
-<li><a href="#三元">三元</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><h3 id="command"><a href="#command" class="headerlink" title="command"></a>command</h3><p>表示验证<strong>命令</strong>是否成功执行。<br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/condition.sh" target="_blank" rel="noopener">代码源文件</a><br>如下对于本文后续所有类似代码，首先执行</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">read</span> -p <span class="string">"Enter first string: "</span> VAR1</span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"Enter second string: "</span> VAR2</span><br></pre></td></tr></table></figure>
-<p>并进行两次相同输入后。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="string">"<span class="variable">$VAR1</span>"</span> == <span class="string">"<span class="variable">$VAR2</span>"</span>; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are equal."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are not equal."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 1: command not found</span></span><br><span class="line"><span class="comment"># Strings are not equal.</span></span><br></pre></td></tr></table></figure>
-<p>if 后不跟包裹符号时，需要跟可执行命令而不是表达式。<br>若命令执行成功，则执行 then，否则执行 else</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">echo</span> Skyline; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"echo Skyline."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Something wrong."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Skyline</span></span><br><span class="line"><span class="comment"># echo Skyline</span></span><br></pre></td></tr></table></figure>
-<h3 id="expression"><a href="#expression" class="headerlink" title="[expression]"></a>[expression]</h3><p>表示验证<strong>条件表达式</strong>是否成立，进行条件判定。<br><a href="http://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions" target="_blank" rel="noopener">Bash-Conditional-Expressions</a></p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$VAR1</span>"</span> == <span class="string">"<span class="variable">$VAR2</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are equal."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are not equal."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Strings are equal.</span></span><br></pre></td></tr></table></figure>
-<h3 id="expression-1"><a href="#expression-1" class="headerlink" title="[[expression]]"></a>[[expression]]</h3><p>[]的升级版本，</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$VAR1</span>"</span> == <span class="string">"<span class="variable">$VAR2</span>"</span> ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are equal."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are not equal."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Strings are equal.</span></span><br></pre></td></tr></table></figure>
-<p>[[]]内部支持更多的表达式语法。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 检查文件是否为符号链接</span></span><br><span class="line">[[ -L <span class="variable">$file</span> &amp;&amp; -f <span class="variable">$file</span> ]]</span><br><span class="line">[ -L <span class="string">"<span class="variable">$file</span>"</span> ] &amp;&amp; [ -f <span class="string">"<span class="variable">$file</span>"</span> ]</span><br></pre></td></tr></table></figure>
-<h3 id="command-1"><a href="#command-1" class="headerlink" title="(command)"></a>(command)</h3>
-        <!-- 
-
-
-if
-command
-[expression]
-[[expression]]
-(command)
-((expression))
-
-
-三元
-
-
-ifcommand表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首先执行
-read -p "Enter first string: " VAR1read -p "Enter second string: " VAR2
-并进行两......  -->
-        <p class="article-more-link">
-          <a href="/Shell条件判定.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Linux系统信息"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Linux系统信息.html">Linux系统信息</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:41:58.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#系统信息">系统信息</a><ul>
-<li><a href="#uname">uname</a></li>
-<li><a href="#lshw">lshw</a></li>
-</ul>
-</li>
-<li><a href="#cpu">CPU</a></li>
-<li><a href="#硬盘">硬盘</a><ul>
-<li><a href="#df">df</a></li>
-<li><a href="#du">du</a></li>
-<li><a href="#diskutil">diskutil</a></li>
-<li><a href="#lsblk">lsblk</a></li>
-<li><a href="#fdisk">fdisk</a></li>
-</ul>
-</li>
-<li><a href="#usb">USB</a></li>
-<li><a href="#pci">PCI</a></li>
-<li><a href="#内存">内存</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="系统信息"><a href="#系统信息" class="headerlink" title="系统信息"></a>系统信息</h2><h3 id="uname"><a href="#uname" class="headerlink" title="uname"></a>uname</h3><p>查看系统版本信息，使用 uname 命令<br>uname 直接使用时，显示系统内核名。<br>显示完整系统信息</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
-<h3 id="lshw"><a href="#lshw" class="headerlink" title="lshw"></a>lshw</h3><p>lshw 即 list hardware 可以查看 cpu, disks, memory, usb controllers 等相关信息，一般需要 sudo 权限</p>
-<p>直接使用该命令查看展示内容比较繁杂<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Linux%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF20220315224550.png" alt="Linux系统信息20220315224550"><br>添加 short 参数来显示扼要信息</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo lshw -short</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Linux%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF20220315224854.png" alt="Linux系统信息20220315224854"></p>
-<h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p>查看 CPU 信息采用 lscpu 命令<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Linux%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF20220315230624.png" alt="Linux系统信息20220315230624"></p>
-<h2 id="硬盘"><a href="#硬盘" class="headerlink" title="硬盘"></a>硬盘</h2><h3 id="df"><a href="#df" class="headerlink" title="df"></a>df</h3><p>即 disk usage information，展示系统中各分区可用空间。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Linux%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF20220316160957.png" alt="Linux系统信息20220316160957"></p>
-<h3 id="du"><a href="#du" class="headerlink" title="du"></a>du</h3>
-        <!-- 
-
-
-系统信息
-uname
-lshw
-
-
-CPU
-硬盘
-df
-du
-diskutil
-lsblk
-fdisk
-
-
-USB
-PCI
-内存
-
-
-系统信息uname查看系统版本信息，使用 uname 命令uname 直接使用时，显示系统内核名。显示完整系统信息
-uname -a
-lshwlshw 即 list hardware 可以查看 cpu, disks, memory, usb contro......  -->
-        <p class="article-more-link">
-          <a href="/Linux系统信息.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-SSH使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1175,6 +714,105 @@ property does not exist on type Object复现P......  -->
 <!-- Table of Contents -->
 
   
+    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#formatting-context">Formatting Context</a></li>
+<li><a href="#bfc">BFC</a><ul>
+<li><a href="#bfc-定义">BFC 定义</a></li>
+<li><a href="#bfc-触发">BFC 触发</a></li>
+<li><a href="#常见应用">常见应用</a></li>
+<li><a href="#display-flow-root">display: flow-root</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
+<ul>
+<li>块级格式化上下文（block formatting contexts）</li>
+<li>内联格式化上下文（inline formatting contexts）</li>
+<li>弹性格式化上下文（flex formatting context）</li>
+<li>网格格式化上下文（grid formatting context）</li>
+</ul>
+<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
+<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3>
+        <!-- 
+
+
+Formatting Context
+BFC
+BFC 定义
+BFC 触发
+常见应用
+display: flow-root
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
+
+块级格式化上下文（block formatting c......  -->
+        <p class="article-more-link">
+          <a href="/CSS格式化上下文.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Dynamic_Programming"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1280,6 +918,419 @@ Warrant
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-硬盘MR技术"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/硬盘MR技术.html">硬盘MR技术</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#硬盘原理简述">硬盘原理简述</a></li>
+<li><a href="#mr">MR</a><ul>
+<li><a href="#lmr">LMR</a></li>
+<li><a href="#pmr">PMR</a></li>
+<li><a href="#cmr">CMR</a></li>
+<li><a href="#smr">SMR</a></li>
+<li><a href="#cmr-vs-smr">CMR vs SMR</a></li>
+</ul>
+</li>
+<li><a href="#smr-优势与弊端">SMR 优势与弊端</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="硬盘原理简述"><a href="#硬盘原理简述" class="headerlink" title="硬盘原理简述"></a>硬盘原理简述</h2><p>硬盘通过小磁体来记录信息。<br>硬盘通过写磁头翻转磁体来对应二进制。如南北朝向的磁体可能意味着 1，那么北南朝向的磁体意味着 0。</p>
+<h2 id="MR"><a href="#MR" class="headerlink" title="MR"></a>MR</h2><h3 id="LMR"><a href="#LMR" class="headerlink" title="LMR"></a>LMR</h3>
+        <!-- 
+
+
+硬盘原理简述
+MR
+LMR
+PMR
+CMR
+SMR
+CMR vs SMR
+
+
+SMR 优势与弊端
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+硬盘原理简述硬盘通过小磁体来记录信息。硬盘通过写磁头翻转磁体来对应二进制。如南北朝向的磁体可能意味着 1，那么北南朝向的磁体意味着 0。
+MRLMR
+Longitudinal Magnetic Record......  -->
+        <p class="article-more-link">
+          <a href="/硬盘MR技术.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardware/">Hardware</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/硬盘/">硬盘</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Factory工厂模式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Factory工厂模式.html">Factory工厂模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#概述">概述</a><ul>
+<li><a href="#工厂">工厂</a></li>
+<li><a href="#设计模式中的工厂">设计模式中的工厂</a></li>
+<li><a href="#解耦">解耦</a></li>
+</ul>
+</li>
+<li><a href="#简单工厂静态工厂">简单工厂（静态工厂）</a><ul>
+<li><a href="#实现">实现</a></li>
+</ul>
+</li>
+<li><a href="#工厂方法">工厂方法</a><ul>
+<li><a href="#实现-1">实现</a></li>
+<li><a href="#使用">使用</a></li>
+<li><a href="#类图图示">类图图示</a></li>
+</ul>
+</li>
+<li><a href="#抽象工厂">抽象工厂</a><ul>
+<li><a href="#实现-2">实现</a></li>
+<li><a href="#类图图示-1">类图图示</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="工厂"><a href="#工厂" class="headerlink" title="工厂"></a>工厂</h3><p>工厂这个词往往让人感到困惑，特别是与设计模式中的工厂模式杂糅在一起的时候。<br>一般来说，工厂可以指用于生产产品的一个函数、方法或者类。<br>对于工厂具体所指，一般可以从所读文章的上下文来得到。<br>如在对象创建的文章中，也采用的是工厂。</p>
+<blockquote>
+<p>在<a href="https://github.com/skylinety/Blog/blob/03a9341704f535ad4d59a2ac513281bde5e7d22c/Docs/Major/JS/ES/%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B/ES%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA.md" target="_blank" rel="noopener">ES 对象的创建</a>的文章中，创建对象使用的也是工厂。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  p.name = name</span><br><span class="line">  <span class="keyword">return</span> p</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">'skyline'</span>)</span><br><span class="line">me.name <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
+<p>另，如下常见的代码中，</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">  create() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">static</span> createA() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Array</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其 create 方法往往被叫做工厂方法。<br>于是在这类方法前加入 static 关键字也就被叫做静态工厂方法。<br>上述方法叫做工厂的思想很简单，调用他们都创建了新的产品，故就是工厂。<br>这与设计模式中的工厂模式往往容易混淆。<br>为了区分，我们可以把这种用包裹构造函数创建对象的方法叫做构建方法（Creation method）</p>
+<h3 id="设计模式中的工厂"><a href="#设计模式中的工厂" class="headerlink" title="设计模式中的工厂"></a>设计模式中的工厂</h3>
+        <!-- 
+
+
+概述
+工厂
+设计模式中的工厂
+解耦
+
+
+简单工厂（静态工厂）
+实现
+
+
+工厂方法
+实现
+使用
+类图图示
+
+
+抽象工厂
+实现
+类图图示
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+概述工厂工厂这个词往往让人感到困惑，特别是与设计模式中的工厂模式杂糅在一起的时候。一般来说，工厂可以指用于生产产品的一个函数、方法或者类。对于工厂具体所指，一般可以从......  -->
+        <p class="article-more-link">
+          <a href="/Factory工厂模式.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Creational/">Creational</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-UML类图画图图解"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/UML类图画图图解.html">UML类图画图图解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#object">Object</a><ul>
+<li><a href="#classes">Classes</a></li>
+<li><a href="#interface">Interface</a></li>
+<li><a href="#abstract-classes">Abstract Classes</a></li>
+</ul>
+</li>
+<li><a href="#relations">Relations</a><ul>
+<li><a href="#dependency">Dependency</a></li>
+<li><a href="#association">Association</a></li>
+<li><a href="#aggregation">Aggregation</a></li>
+<li><a href="#composition">Composition</a></li>
+<li><a href="#inheritance">Inheritance</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#Warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>统一建模语言（Unified Modeling Language）简写 UML</p>
+<h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><h3 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h3>
+        <!-- 
+
+
+简介
+Object
+Classes
+Interface
+Abstract Classes
+
+
+Relations
+Dependency
+Association
+Aggregation
+Composition
+Inheritance
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+简介统一建模语言（Unified Modeling Language......  -->
+        <p class="article-more-link">
+          <a href="/UML类图画图图解.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Builder建筑工模式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Builder建筑工模式.html">Builder建筑工模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#概述">概述</a></li>
+<li><a href="#实例">实例</a><ul>
+<li><a href="#修房子">修房子</a></li>
+<li><a href="#找工人">找工人</a></li>
+<li><a href="#监工">监工</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#Warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Builder 模式一般翻译为建造者模式。<br>在重构代码的过程中，我们常看到几百上千行的复杂类。<br>这些类往往由于最初设定不合理以及需求不断增加而壮大。<br>建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。<br>建筑工模式通常支持链式调用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">House.setDoors(<span class="number">1</span>).setRooms(<span class="number">2</span>).getHouse();</span><br></pre></td></tr></table></figure>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="修房子"><a href="#修房子" class="headerlink" title="修房子"></a>修房子</h3>
+        <!-- 
+
+
+概述
+实例
+修房子
+找工人
+监工
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+概述Builder 模式一般翻译为建造者模式。在重构代码的过程中，我们常看到几百上千行的复杂类。这些类往往由于最初设定不合理以及需求不断增加而壮大。建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。建筑工模式通常支持链式调用。
+House......  -->
+        <p class="article-more-link">
+          <a href="/Builder建筑工模式.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Creational/">Creational</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
 
     </footer>
   </div>

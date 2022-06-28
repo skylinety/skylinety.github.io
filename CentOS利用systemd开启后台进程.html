@@ -3,25 +3,28 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>systemd开启后台进程 | Skyline&#39;s blog</title>
+  <title>centos利用systemd开启后台进程 | Skyline&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
+  <meta name="keywords" content="OSLinux">
   
   
   
-  <meta name="description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  利用 Systemd 开启后台进程   利用 Systemd 开启后台进程 简介 创建新服务 开启服务   systemd服务操作汇总     简介systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。systemd 提供多个命令行工具，最基本的为 systemctlsyste">
+  
+  <meta name="description" content="简介 创建新服务 开启服务   systemd服务操作汇总 BMW WARNING   简介systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。systemd 提供多个命令行工具，最基本的为 systemctlsystemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。 创建新服务创建服务文件并打开 vi /etc/systemd">
+<meta name="keywords" content="OS,Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="systemd开启后台进程">
-<meta property="og:url" content="http://www.skyline.show/systemd开启后台进程.html">
+<meta property="og:title" content="CentOS利用systemd开启后台进程">
+<meta property="og:url" content="http://www.skyline.show/CentOS利用systemd开启后台进程.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  利用 Systemd 开启后台进程   利用 Systemd 开启后台进程 简介 创建新服务 开启服务   systemd服务操作汇总     简介systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。systemd 提供多个命令行工具，最基本的为 systemctlsyste">
+<meta property="og:description" content="简介 创建新服务 开启服务   systemd服务操作汇总 BMW WARNING   简介systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。systemd 提供多个命令行工具，最基本的为 systemctlsystemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。 创建新服务创建服务文件并打开 vi /etc/systemd">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-01-20T07:47:16.000Z">
+<meta property="og:updated_time" content="2022-06-22T07:33:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="systemd开启后台进程">
-<meta name="twitter:description" content="作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激  利用 Systemd 开启后台进程   利用 Systemd 开启后台进程 简介 创建新服务 开启服务   systemd服务操作汇总     简介systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。systemd 提供多个命令行工具，最基本的为 systemctlsyste">
+<meta name="twitter:title" content="CentOS利用systemd开启后台进程">
+<meta name="twitter:description" content="简介 创建新服务 开启服务   systemd服务操作汇总 BMW WARNING   简介systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。systemd 提供多个命令行工具，最基本的为 systemctlsystemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。 创建新服务创建服务文件并打开 vi /etc/systemd">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -161,7 +164,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-systemd开启后台进程" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-CentOS利用systemd开启后台进程" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -169,7 +172,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      systemd开启后台进程
+      CentOS利用systemd开启后台进程
     </h1>
   
 
@@ -185,36 +188,37 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2022-06-22T07:33:12.000Z" itemprop="datePublished">2022-06-22</time>
     </a><span style="color: #999">|</span>
 
       
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!-- <span style="color: #999">|</span> -->
+
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="利用-Systemd-开启后台进程"><a href="#利用-Systemd-开启后台进程" class="headerlink" title="利用 Systemd 开启后台进程"></a>利用 Systemd 开启后台进程</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#利用-systemd-开启后台进程">利用 Systemd 开启后台进程</a><ul>
 <li><a href="#简介">简介</a><ul>
 <li><a href="#创建新服务">创建新服务</a></li>
 <li><a href="#开启服务">开启服务</a></li>
 </ul>
 </li>
 <li><a href="#systemd服务操作汇总">systemd服务操作汇总</a></li>
-</ul>
-</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。<br>systemd 提供多个命令行工具，最基本的为 systemctl<br>systemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。</p>
 <h3 id="创建新服务"><a href="#创建新服务" class="headerlink" title="创建新服务"></a>创建新服务</h3><p>创建服务文件并打开</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/foo.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/foo.service</span><br></pre></td></tr></table></figure>
 <p>输入以下内容</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My custom service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :992 --password xxxx</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My custom service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :992 --password xxxx</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 <p>[Unit]</p>
 <pre><code>提供服务基础信息
 Description 为描述信息
@@ -228,26 +232,46 @@ After
 </code></pre><blockquote>
 <p>Defines which service triggers the custom service if enabled with systemctl enable. This is mostly used for starting the custom service on boot. In this example, foo.service uses multi-user.target, which starts foo.service when systemd loads multi-user.target on boot.</p>
 </blockquote>
-<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><p>创建该服务后，需要重载 systemd 服务文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3><a id="more"></a>
+<p>创建该服务后，需要重载 systemd 服务文件</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
 <p>开启该服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
 <p>查看该服务运行状态</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
 <h2 id="systemd服务操作汇总"><a href="#systemd服务操作汇总" class="headerlink" title="systemd服务操作汇总"></a>systemd服务操作汇总</h2><p>开启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl start foo</span><br></pre></td></tr></table></figure>
 <p>关闭服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl stop foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl stop foo</span><br></pre></td></tr></table></figure>
 <p>重启服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl restart foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl restart foo</span><br></pre></td></tr></table></figure>
 <p>服务状态</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl status foo</span><br></pre></td></tr></table></figure>
 <p>开机自启动服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> foo</span><br></pre></td></tr></table></figure>
 <p>禁止开机启动</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl disable foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">disable</span> foo</span><br></pre></td></tr></table></figure>
 <p>查看是否允许开机启动</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl is-enabled foo</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl is-enabled foo</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/CentOS利用systemd开启后台进程.html">http://www.skyline.show/CentOS利用systemd开启后台进程.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
       
     </div>
@@ -293,25 +317,27 @@ var a = new Donate({
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/鹧鸪天（花重蓉城）.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/康定周边2日.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          鹧鸪天（花重蓉城）
+          康定周边2日
         
       </div>
     </a>
   
   
-    <a href="/ES对象创建.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Number相关基础操作.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">ES对象创建</div>
+      <div class="article-nav-title">Number相关基础操作</div>
     </a>
   
 </nav>
@@ -325,7 +351,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#利用-Systemd-开启后台进程"><span class="nav-number">1.</span> <span class="nav-text">利用 Systemd 开启后台进程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新服务"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建新服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启服务"><span class="nav-number">1.1.2.</span> <span class="nav-text">开启服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd服务操作汇总"><span class="nav-number">1.2.</span> <span class="nav-text">systemd服务操作汇总</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新服务"><span class="nav-number">1.1.</span> <span class="nav-text">创建新服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启服务"><span class="nav-number">1.2.</span> <span class="nav-text">开启服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd服务操作汇总"><span class="nav-number">2.</span> <span class="nav-text">systemd服务操作汇总</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>
