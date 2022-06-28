@@ -485,7 +485,7 @@ u 盘
 <!-- Table of Contents -->
 
   
-    <article id="post-Nginx常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -493,7 +493,7 @@ u 盘
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Nginx常见问题汇总.html">Nginx常见问题汇总</a>
+      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
     </h1>
   
 
@@ -518,12 +518,19 @@ u 盘
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#proxy_pass-代理接口不能访问">proxy_pass 代理接口不能访问</a><ul>
-<li><a href="#问题描述">问题描述</a></li>
-<li><a href="#配置">配置</a></li>
+<li><a href="#location">location</a><ul>
+<li><a href="#基础使用">基础使用</a></li>
+<li><a href="#url-match">URL-match</a></li>
+<li><a href="#modifier">modifier</a></li>
 </ul>
 </li>
-<li><a href="#页面刷新不能进入">页面刷新不能进入</a></li>
+<li><a href="#proxy_pass">proxy_pass</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#uri">URI</a></li>
+<li><a href="#问题">/ 问题</a></li>
+<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
+</ul>
+</li>
 <li><a href="#bmw-warning">BMW WARNING</a><ul>
 <li><a href="#bulletin">Bulletin</a></li>
 <li><a href="#material">Material</a></li>
@@ -532,18 +539,25 @@ u 盘
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="proxy-pass-代理接口不能访问"><a href="#proxy-pass-代理接口不能访问" class="headerlink" title="proxy_pass 代理接口不能访问"></a>proxy_pass 代理接口不能访问</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>客户端访问接口，发起请求<br><a href="http://aaa.com/file/123.png" target="_blank" rel="noopener">http://aaa.com/file/123.png</a></p>
-<p>真实接口地址为<br><a href="http://bbb.com/123.png" target="_blank" rel="noopener">http://bbb.com/123.png</a></p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3>
         <!-- 
 
 
-proxy_pass 代理接口不能访问
-问题描述
-配置
+location
+基础使用
+URL-match
+modifier
 
 
-页面刷新不能进入
+proxy_pass
+简述
+URI
+/ 问题
+\$uri \$request_uri
+
+
 BMW WARNING
 Bulletin
 Material
@@ -552,13 +566,10 @@ Warrant
 
 
 
-proxy_pass 代理接口不能访问问题描述客户端访问接口，发起请求http://aaa.com/file/123.png
-真实接口地址为http://bbb.com/123.png
-配置
-检查配置，正确的配置如下
-loca......  -->
+location基础使用location 位于 server 下或位于另一个 location 中，基本使用如下
+location [modif......  -->
         <p class="article-more-link">
-          <a href="/Nginx常见问题汇总.html#more">阅读全文</a>
+          <a href="/Nginx基础.html#more">阅读全文</a>
         </p>
       
     </div>
