@@ -13,18 +13,18 @@
   
   
   
-  <meta name="description" content="模块系统 ESM VS CJS ESM VS CJS 要点解析 模块输出 模块加载   tree shaking BMW WARNING Bulletin Material Warrant     模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通">
+  <meta name="description" content="模块系统 ESM VS CJS ESM VS CJS 要点解析 模块输出 模块加载   tree shaking BMW WARNING   模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚本引入">
 <meta name="keywords" content="JS,ES">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES_Module&amp;CommonJS">
 <meta property="og:url" content="http://www.skyline.show/ES_Module&CommonJS.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="模块系统 ESM VS CJS ESM VS CJS 要点解析 模块输出 模块加载   tree shaking BMW WARNING Bulletin Material Warrant     模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通">
+<meta property="og:description" content="模块系统 ESM VS CJS ESM VS CJS 要点解析 模块输出 模块加载   tree shaking BMW WARNING   模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚本引入">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-21T10:02:02.000Z">
+<meta property="og:updated_time" content="2022-06-22T07:42:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES_Module&amp;CommonJS">
-<meta name="twitter:description" content="模块系统 ESM VS CJS ESM VS CJS 要点解析 模块输出 模块加载   tree shaking BMW WARNING Bulletin Material Warrant     模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通">
+<meta name="twitter:description" content="模块系统 ESM VS CJS ESM VS CJS 要点解析 模块输出 模块加载   tree shaking BMW WARNING   模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚本引入">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:02.000Z" itemprop="datePublished">2022-06-21</time>
+      <time datetime="2022-06-22T07:42:58.000Z" itemprop="datePublished">2022-06-22</time>
     </a><span style="color: #999">|</span>
 
       
@@ -213,12 +213,7 @@
 </ul>
 </li>
 <li><a href="#tree-shaking">tree shaking</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
 <h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
@@ -364,19 +359,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/排序算法.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Webpack中DllPlugin使用.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          排序算法
+          Webpack中DllPlugin使用
         
       </div>
     </a>
   
   
-    <a href="/Webpack中DllPlugin使用.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Shell中grep的使用.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Webpack中DllPlugin使用</div>
+      <div class="article-nav-title">Shell中grep的使用</div>
     </a>
   
 </nav>

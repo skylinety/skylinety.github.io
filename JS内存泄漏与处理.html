@@ -13,13 +13,13 @@
   
   
   
-  <meta name="description" content="垃圾回收(GC:Garbage Collecation) 简介 引用计数（Reference Counting） 标记清除（Mark &amp;amp; Sweep）   内存泄漏（Memory Leaks） 简介 常见内存泄漏情况 常见情况示例   内存泄漏处理 Chrome Memory 调试 内存泄漏监测 泄漏内存对比 泄漏内存对象详情 对象引用链   BMW WARNING Bulletin">
+  <meta name="description" content="垃圾回收(GC:Garbage Collecation) 简介 引用计数（Reference Counting） 标记清除（Mark &amp;amp; Sweep）   内存泄漏（Memory Leaks） 简介 常见内存泄漏情况 常见情况示例   内存泄漏处理 Chrome Memory 调试 内存泄漏监测 泄漏内存对比 泄漏内存对象详情 对象引用链   BMW WARNING   垃圾回收(G">
 <meta name="keywords" content="Refactor&amp;Optimization">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS内存泄漏与处理">
 <meta property="og:url" content="http://www.skyline.show/JS内存泄漏与处理.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="垃圾回收(GC:Garbage Collecation) 简介 引用计数（Reference Counting） 标记清除（Mark &amp;amp; Sweep）   内存泄漏（Memory Leaks） 简介 常见内存泄漏情况 常见情况示例   内存泄漏处理 Chrome Memory 调试 内存泄漏监测 泄漏内存对比 泄漏内存对象详情 对象引用链   BMW WARNING Bulletin">
+<meta property="og:description" content="垃圾回收(GC:Garbage Collecation) 简介 引用计数（Reference Counting） 标记清除（Mark &amp;amp; Sweep）   内存泄漏（Memory Leaks） 简介 常见内存泄漏情况 常见情况示例   内存泄漏处理 Chrome Memory 调试 内存泄漏监测 泄漏内存对比 泄漏内存对象详情 对象引用链   BMW WARNING   垃圾回收(G">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211227190852.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211217112531.png">
@@ -29,10 +29,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216202518.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216195654.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211216195848.png">
-<meta property="og:updated_time" content="2022-06-21T10:02:03.000Z">
+<meta property="og:updated_time" content="2022-06-22T07:42:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS内存泄漏与处理">
-<meta name="twitter:description" content="垃圾回收(GC:Garbage Collecation) 简介 引用计数（Reference Counting） 标记清除（Mark &amp;amp; Sweep）   内存泄漏（Memory Leaks） 简介 常见内存泄漏情况 常见情况示例   内存泄漏处理 Chrome Memory 调试 内存泄漏监测 泄漏内存对比 泄漏内存对象详情 对象引用链   BMW WARNING Bulletin">
+<meta name="twitter:description" content="垃圾回收(GC:Garbage Collecation) 简介 引用计数（Reference Counting） 标记清除（Mark &amp;amp; Sweep）   内存泄漏（Memory Leaks） 简介 常见内存泄漏情况 常见情况示例   内存泄漏处理 Chrome Memory 调试 内存泄漏监测 泄漏内存对比 泄漏内存对象详情 对象引用链   BMW WARNING   垃圾回收(G">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%A4%84%E7%90%8620211227190852.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -197,7 +197,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
+      <time datetime="2022-06-22T07:42:59.000Z" itemprop="datePublished">2022-06-22</time>
     </a><span style="color: #999">|</span>
 
       
@@ -234,12 +234,7 @@
 <li><a href="#对象引用链">对象引用链</a></li>
 </ul>
 </li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
 <h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JS 自动进行垃圾回收，不需要如 C 语言等一般需要代码中指定回收。<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>回收垃圾时，需要将那些被标记的清除掉，垃圾标记器会跟踪无用内存并打上标记，以供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
@@ -400,19 +395,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Interface与AbstractClass.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/SSH使用.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Interface与AbstractClass
+          SSH使用
         
       </div>
     </a>
   
   
-    <a href="/TS语法校验常见错误.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Interface与AbstractClass.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">TS语法校验常见错误</div>
+      <div class="article-nav-title">Interface与AbstractClass</div>
     </a>
   
 </nav>
