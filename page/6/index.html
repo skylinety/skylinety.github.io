@@ -319,6 +319,100 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#firewalld1">firewalld[^1]</a><ul>
+<li><a href="#concepts">Concepts</a></li>
+<li><a href="#zones">Zones</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#runtime">Runtime</a></li>
+<li><a href="#state">State</a></li>
+<li><a href="#port">Port</a></li>
+<li><a href="#source">Source</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="firewalld-1"><a href="#firewalld-1" class="headerlink" title="firewalld[^1]"></a>firewalld[^1]</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld 采用区域与服务的概念来控制流量的出入。</p>
+<ul>
+<li>zones</li>
+<li>services</li>
+</ul>
+<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
+<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3>
+        <!-- 
+
+
+firewalld[^1]
+Concepts
+Zones
+Services
+Runtime
+State
+Port
+Source
+
+
+BMW WARNING
+
+
+firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。
+
+zones
+services
+
+firewalld 是 CentOS 7/8, Red Hat Enterprise Lin......  -->
+        <p class="article-more-link">
+          <a href="/CentOS防火墙.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -548,87 +642,6 @@ Windows 系统
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Nginx常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Nginx常见问题汇总.html">Nginx常见问题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#proxy_pass-代理接口不能访问">proxy_pass 代理接口不能访问</a><ul>
-<li><a href="#问题描述">问题描述</a></li>
-<li><a href="#配置">配置</a></li>
-</ul>
-</li>
-<li><a href="#页面刷新不能进入">页面刷新不能进入</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="proxy-pass-代理接口不能访问"><a href="#proxy-pass-代理接口不能访问" class="headerlink" title="proxy_pass 代理接口不能访问"></a>proxy_pass 代理接口不能访问</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>客户端访问接口，发起请求<br><a href="http://aaa.com/file/123.png" target="_blank" rel="noopener">http://aaa.com/file/123.png</a></p>
-<p>真实接口地址为<br><a href="http://bbb.com/123.png" target="_blank" rel="noopener">http://bbb.com/123.png</a></p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3>
-        <!-- 
-
-
-proxy_pass 代理接口不能访问
-问题描述
-配置
-
-
-页面刷新不能进入
-BMW WARNING
-
-
-proxy_pass 代理接口不能访问问题描述客户端访问接口，发起请求http://aaa.com/file/123.png
-真实接口地址为http://bbb.com/123.png
-配置
-检查配置，正确的配置如下
-location ^~ /file/ &#123;    pro......  -->
-        <p class="article-more-link">
-          <a href="/Nginx常见问题汇总.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
 
     </footer>
   </div>
@@ -1238,7 +1251,7 @@ sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输
 <!-- Table of Contents -->
 
   
-    <article id="post-Shell中xargs使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Shell中字符串相关操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1246,7 +1259,7 @@ sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中xargs使用.html">Shell中xargs使用</a>
+      <a class="article-title" href="/Shell中字符串相关操作.html">Shell中字符串相关操作</a>
     </h1>
   
 
@@ -1271,57 +1284,46 @@ sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#基础使用示例">基础使用示例</a><ul>
-<li><a href="#echo">echo</a></li>
-<li><a href="#wc">wc</a></li>
-<li><a href="#mkdir">mkdir</a></li>
+<li><a href="#字符包含判定">字符包含判定</a><ul>
+<li><a href="#">==</a></li>
+<li><a href="#grep">grep</a></li>
 </ul>
 </li>
-<li><a href="#参数">参数</a><ul>
-<li><a href="#-0">-0</a></li>
-<li><a href="#-i">-I</a></li>
-<li><a href="#-l">-L</a></li>
-<li><a href="#-n">-n</a></li>
-<li><a href="#-d">-d</a></li>
-<li><a href="#-t">-t</a></li>
-<li><a href="#-p">-p</a></li>
+<li><a href="#将字符串作为命令执行">将字符串作为命令执行</a></li>
+<li><a href="#获取子串字符串切割">获取子串（字符串切割）</a><ul>
+<li><a href="#cut">cut</a></li>
+<li><a href="#截取语法">截取语法</a></li>
 </ul>
 </li>
+<li><a href="#字符串转数组">字符串转数组</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支持标准输入的命令提供管道操作。<br>通过 xargs 将标准输入转换成参数来完成后续命令。如果转换成的参数有多个（通过标准输入空符分割），后续命令重复执行。</p>
-<blockquote>
-<p>The xargs command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like grep can accept standard input as a parameter, many other tools cannot. Using xargs allows tools like echo and rm and mkdir to accept standard input as arguments.</p>
-</blockquote>
-<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3>
+<h2 id="字符包含判定"><a href="#字符包含判定" class="headerlink" title="字符包含判定"></a>字符包含判定</h2><h3 id><a href="#" class="headerlink" title="=="></a>==</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">'GNU/Linux is an operating system'</span></span><br><span class="line">SUB=<span class="string">'Linux'</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$STR</span>"</span> == *<span class="string">"<span class="variable">$SUB</span>"</span>* ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"It's there."</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3>
         <!-- 
 
 
-概述
-基础使用示例
-echo
-wc
-mkdir
+字符包含判定
+==
+grep
 
 
-参数
--0
--I
--L
--n
--d
--t
--p
+将字符串作为命令执行
+获取子串（字符串切割）
+cut
+截取语法
 
 
+字符串转数组
 BMW WARNING
 
 
-概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那......  -->
+字符包含判定==STR='GNU/Linux is an operating system'SUB='Linux'if [[ "$STR" == *"$SUB"* ]]; then  echo "It's there."fi
+grep
+使用 g......  -->
         <p class="article-more-link">
-          <a href="/Shell中xargs使用.html#more">阅读全文</a>
+          <a href="/Shell中字符串相关操作.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1329,7 +1331,7 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
 
     </footer>
   </div>
