@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-黑群晖安装"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/黑群晖安装.html">黑群晖安装</a>
+      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
     </h1>
   
 
@@ -352,119 +352,50 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#硬件准备">硬件准备</a><ul>
-<li><a href="#nas-主机">Nas 主机</a></li>
-<li><a href="#u-盘">u 盘</a></li>
-<li><a href="#电脑">电脑</a></li>
-</ul>
-</li>
-<li><a href="#软件准备">软件准备</a><ul>
-<li><a href="#系统选择">系统选择</a></li>
-<li><a href="#相关软件">相关软件</a></li>
-</ul>
-</li>
-<li><a href="#引导盘准备">引导盘准备</a><ul>
-<li><a href="#获取-vid-与-pid">获取 VID 与 PID</a></li>
-<li><a href="#替换-vid-与-pid">替换 VID 与 PID</a></li>
-<li><a href="#格式化硬盘">格式化硬盘</a></li>
-<li><a href="#引导盘制作">引导盘制作</a></li>
-</ul>
-</li>
-<li><a href="#安装系统">安装系统</a><ul>
-<li><a href="#nas-进入">Nas 进入</a></li>
+<li><a href="#firewalld1">firewalld[^1]</a><ul>
+<li><a href="#concepts">Concepts</a></li>
+<li><a href="#zones">Zones</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#runtime">Runtime</a></li>
+<li><a href="#state">State</a></li>
+<li><a href="#port">Port</a></li>
+<li><a href="#source">Source</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h2><table>
-<thead>
-<tr>
-<th>硬件</th>
-<th>要求</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Nas 主机</td>
-<td>Intel CPU</td>
-</tr>
-<tr>
-<td>u 盘</td>
-<td>&gt; 50M</td>
-</tr>
-<tr>
-<td>电脑</td>
-<td>Windows 系统</td>
-</tr>
-<tr>
-<td>键鼠</td>
-<td>进 BIOS 等</td>
-</tr>
-<tr>
-<td>硬盘</td>
-<td>大大的好</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Nas-主机"><a href="#Nas-主机" class="headerlink" title="Nas 主机"></a>Nas 主机</h3><p>黑群晖对主机的要求不是很高，不需要硬解软路由+移动硬盘都可运行。<br>主机一般推荐使用 10 代以下的 Intel CPU.<br>新代 Intel 与 AMD 等其他 CPU 主机核显硬解不友好，视硬解需求而定。</p>
-<h3 id="u-盘"><a href="#u-盘" class="headerlink" title="u 盘"></a>u 盘</h3>
+<h2 id="firewalld-1"><a href="#firewalld-1" class="headerlink" title="firewalld[^1]"></a>firewalld[^1]</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld 采用区域与服务的概念来控制流量的出入。</p>
+<ul>
+<li>zones</li>
+<li>services</li>
+</ul>
+<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
+<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3>
         <!-- 
 
 
-硬件准备
-Nas 主机
-u 盘
-电脑
-
-
-软件准备
-系统选择
-相关软件
-
-
-引导盘准备
-获取 VID 与 PID
-替换 VID 与 PID
-格式化硬盘
-引导盘制作
-
-
-安装系统
-Nas 进入
+firewalld[^1]
+Concepts
+Zones
+Services
+Runtime
+State
+Port
+Source
 
 
 BMW WARNING
 
 
-硬件准备
+firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。
 
+zones
+services
 
-硬件
-要求
-
-
-
-
-Nas 主机
-Intel CPU
-
-
-u 盘
-&gt; 50M
-
-
-电脑
-Windows 系统
-
-
-键鼠
-进 BIOS 等
-
-
-硬......  -->
+firewalld 是 CentOS 7/8, Red Hat Enterprise Lin......  -->
         <p class="article-more-link">
-          <a href="/黑群晖安装.html#more">阅读全文</a>
+          <a href="/CentOS防火墙.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -472,8 +403,106 @@ Windows 系统
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-iPadOS常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/iPadOS常见问题.html">iPadOS常见问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="IpadOS-常见问题"><a href="#IpadOS-常见问题" class="headerlink" title="IpadOS 常见问题"></a>IpadOS 常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#ipados-常见问题">IpadOS 常见问题</a><ul>
+<li><a href="#apple-pencil-断触">Apple pencil 断触</a><ul>
+<li><a href="#软件问题">软件问题</a></li>
+<li><a href="#还原设置">还原设置</a></li>
+<li><a href="#硬件检测">硬件检测</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Apple-pencil-断触"><a href="#Apple-pencil-断触" class="headerlink" title="Apple pencil 断触"></a>Apple pencil 断触</h2><h3 id="软件问题"><a href="#软件问题" class="headerlink" title="软件问题"></a>软件问题</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">使用系统自带的备忘录尝试是否为软件问题</span><br></pre></td></tr></table></figure>
+<p>部分软件可能手触屏幕会有断触问题</p>
+<h3 id="还原设置"><a href="#还原设置" class="headerlink" title="还原设置"></a>还原设置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">关掉蓝牙重新连接 Pencil</span><br><span class="line"></span><br><span class="line">重启 iPad 后再次连接 Pencil</span><br><span class="line"></span><br><span class="line">打开 ipad 设置—&gt;通用—&gt;还原—&gt;还原所有设置</span><br></pre></td></tr></table></figure>
+<p>上述操作只是还原设置，不会删除数据，但是人脸识别和密码，壁纸会还原</p>
+<h3 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">去除贴膜，笔尖套</span><br><span class="line"></span><br><span class="line">更换笔头尝试</span><br><span class="line"></span><br><span class="line">换个 ipad 试下是否为笔的问题</span><br></pre></td></tr></table></figure>
+<p>这些操作都不行，联系售后解决</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+IpadOS 常见问题
+
+
+IpadOS 常见问题
+Apple pencil 断触
+软件问题
+还原设置
+硬件检测
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软件问题
+部分软件可能手触屏幕会有断触问......  -->
+        <p class="article-more-link">
+          <a href="/iPadOS常见问题.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
     </footer>
   </div>
   
@@ -1157,107 +1186,6 @@ BMW WARNING
 sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。本文后续内容以skyline.txt示例，可在根目录执行下述脚本。其文本内容......  -->
         <p class="article-more-link">
           <a href="/Shell中sed的使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中xargs使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中xargs使用.html">Shell中xargs使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T08:06:40.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#基础使用示例">基础使用示例</a><ul>
-<li><a href="#echo">echo</a></li>
-<li><a href="#wc">wc</a></li>
-<li><a href="#mkdir">mkdir</a></li>
-</ul>
-</li>
-<li><a href="#参数">参数</a><ul>
-<li><a href="#-0">-0</a></li>
-<li><a href="#-i">-I</a></li>
-<li><a href="#-l">-L</a></li>
-<li><a href="#-n">-n</a></li>
-<li><a href="#-d">-d</a></li>
-<li><a href="#-t">-t</a></li>
-<li><a href="#-p">-p</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支持标准输入的命令提供管道操作。<br>通过 xargs 将标准输入转换成参数来完成后续命令。如果转换成的参数有多个（通过标准输入空符分割），后续命令重复执行。</p>
-<blockquote>
-<p>The xargs command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like grep can accept standard input as a parameter, many other tools cannot. Using xargs allows tools like echo and rm and mkdir to accept standard input as arguments.</p>
-</blockquote>
-<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3>
-        <!-- 
-
-
-概述
-基础使用示例
-echo
-wc
-mkdir
-
-
-参数
--0
--I
--L
--n
--d
--t
--p
-
-
-BMW WARNING
-
-
-概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那......  -->
-        <p class="article-more-link">
-          <a href="/Shell中xargs使用.html#more">阅读全文</a>
         </p>
       
     </div>
