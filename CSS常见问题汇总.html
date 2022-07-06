@@ -13,19 +13,19 @@
   
   
   
-  <meta name="description" content="display:none 与 visibility:hidden 区别 媒体查询失效 img 标签是行内还是块级元素 BMW WARNING   display:none 与 visibility:hidden 区别两者虽简单来说都是用于隐藏元素，表现形式大有不同。 display 会被文档流给移除，影响页面布局，导致重排重绘，原本位置会被其他元素占据。 visilibity:hidden">
+  <meta name="description" content="CSS 继承与非继承属性 display:none 与 visibility:hidden 区别 媒体查询失效 img 标签是行内还是块级元素 BMW WARNING   CSS 继承与非继承属性CSS 属性在不设定取值时，其实际取值分为两种。一种为继承属性，取父级元素该属性对应的值。一种为非继承属性，去该属性的默认值。由于 CSS 属性繁多，不容易死记来区分，一般可通过经验来判断一个属性是">
 <meta name="keywords" content="HTML&amp;CSS,CSS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS常见问题汇总">
 <meta property="og:url" content="http://www.skyline.show/CSS常见问题汇总.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="display:none 与 visibility:hidden 区别 媒体查询失效 img 标签是行内还是块级元素 BMW WARNING   display:none 与 visibility:hidden 区别两者虽简单来说都是用于隐藏元素，表现形式大有不同。 display 会被文档流给移除，影响页面布局，导致重排重绘，原本位置会被其他元素占据。 visilibity:hidden">
+<meta property="og:description" content="CSS 继承与非继承属性 display:none 与 visibility:hidden 区别 媒体查询失效 img 标签是行内还是块级元素 BMW WARNING   CSS 继承与非继承属性CSS 属性在不设定取值时，其实际取值分为两种。一种为继承属性，取父级元素该属性对应的值。一种为非继承属性，去该属性的默认值。由于 CSS 属性繁多，不容易死记来区分，一般可通过经验来判断一个属性是">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB20220421165556.png">
-<meta property="og:updated_time" content="2022-06-22T07:42:57.000Z">
+<meta property="og:updated_time" content="2022-06-30T07:47:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS常见问题汇总">
-<meta name="twitter:description" content="display:none 与 visibility:hidden 区别 媒体查询失效 img 标签是行内还是块级元素 BMW WARNING   display:none 与 visibility:hidden 区别两者虽简单来说都是用于隐藏元素，表现形式大有不同。 display 会被文档流给移除，影响页面布局，导致重排重绘，原本位置会被其他元素占据。 visilibity:hidden">
+<meta name="twitter:description" content="CSS 继承与非继承属性 display:none 与 visibility:hidden 区别 媒体查询失效 img 标签是行内还是块级元素 BMW WARNING   CSS 继承与非继承属性CSS 属性在不设定取值时，其实际取值分为两种。一种为继承属性，取父级元素该属性对应的值。一种为非继承属性，去该属性的默认值。由于 CSS 属性繁多，不容易死记来区分，一般可通过经验来判断一个属性是">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB20220421165556.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -190,7 +190,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-22T07:42:57.000Z" itemprop="datePublished">2022-06-22</time>
+      <time datetime="2022-06-30T07:47:17.000Z" itemprop="datePublished">2022-06-30</time>
     </a><span style="color: #999">|</span>
 
       
@@ -207,12 +207,29 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
+<li><a href="#css-继承与非继承属性">CSS 继承与非继承属性</a></li>
 <li><a href="#displaynone-与-visibilityhidden-区别">display:none 与 visibility:hidden 区别</a></li>
 <li><a href="#媒体查询失效">媒体查询失效</a></li>
 <li><a href="#img-标签是行内还是块级元素">img 标签是行内还是块级元素</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
+<h2 id="CSS-继承与非继承属性"><a href="#CSS-继承与非继承属性" class="headerlink" title="CSS 继承与非继承属性"></a>CSS 继承与非继承属性</h2><p>CSS 属性在不设定取值时，其实际取值分为两种。<br>一种为继承属性，取父级元素该属性对应的值。<br>一种为非继承属性，去该属性的默认值。<br>由于 CSS 属性繁多，不容易死记来区分，一般可通过经验来判断一个属性是否可继承。</p>
+<p>常见的不可继承属性如下：</p>
+<ul>
+<li>display</li>
+<li>盒模型相关属性，如宽、高、内外边距、边框</li>
+<li>背景相关属性：如背景颜色、图片、位置、大小、重复</li>
+<li>定位相关属性：如 float、clear、position</li>
+<li>内容相关属性：如 content、counter-reset、counter-increment</li>
+</ul>
+<p>其他属性多为可继承属性，例如：</p>
+<ul>
+<li>字体相关属性</li>
+<li>部分文本相关属性</li>
+<li>元素可见属性 visibility</li>
+<li>光标属性 cursor</li>
+</ul>
 <h2 id="display-none-与-visibility-hidden-区别"><a href="#display-none-与-visibility-hidden-区别" class="headerlink" title="display:none 与 visibility:hidden 区别"></a>display:none 与 visibility:hidden 区别</h2><p>两者虽简单来说都是用于隐藏元素，表现形式大有不同。</p>
 <p>display 会被文档流给移除，影响页面布局，导致重排重绘，原本位置会被其他元素占据。</p>
 <p>visilibity:hidden 不会被文档流给移除，不会影响布局，页面重绘出一片空白，但不会重新排版。</p>
@@ -244,13 +261,13 @@
 </tr>
 </tbody>
 </table>
-<h2 id="媒体查询失效"><a href="#媒体查询失效" class="headerlink" title="媒体查询失效"></a>媒体查询失效</h2><p>媒体查询的常见用法为</p>
+<h2 id="媒体查询失效"><a href="#媒体查询失效" class="headerlink" title="媒体查询失效"></a>媒体查询失效</h2><a id="more"></a>
+<p>媒体查询的常见用法为</p>
 <p>设置屏幕在 300px 到 900px 时的背景</p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span> <span class="number">300px</span>) <span class="keyword">and</span> (<span class="attribute">max-width:</span> <span class="number">900px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当设置不生效时，检查在 <code>&lt;head&gt;</code> 中是否添加了如下 <code>&lt;meta&gt;</code> 标签</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1.0"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="img-标签是行内还是块级元素"><a href="#img-标签是行内还是块级元素" class="headerlink" title="img 标签是行内还是块级元素"></a>img 标签是行内还是块级元素</h2><a id="more"></a>
-<p>img 标签是行内元素。<br>打开控制台查看：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB20220421165556.png" alt="CSS常见问题汇总20220421165556"><br>但是，作为行内元素，img 标签为什么可以设定其宽高属性？<br><strong>img 标签准确来说，是行内可替换元素。</strong><br>所谓的可替换元素，简单来说，就是除了位置和大小，其自己内部的内容不受当前页面获取的样式与内部的填入的标签或文本等内容所影响。<br>img 标签可能不太好理解，另一个常见的行内可替换元素是 iframe 标签，其内部有自己一套样式来决定展现的内容。<br>常见的行内可替换元素有：</p>
+<h2 id="img-标签是行内还是块级元素"><a href="#img-标签是行内还是块级元素" class="headerlink" title="img 标签是行内还是块级元素"></a>img 标签是行内还是块级元素</h2><p>img 标签是行内元素。<br>打开控制台查看：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB20220421165556.png" alt="CSS常见问题汇总20220421165556"><br>但是，作为行内元素，img 标签为什么可以设定其宽高属性？<br><strong>img 标签准确来说，是行内可替换元素。</strong><br>所谓的可替换元素，简单来说，就是除了位置和大小，其自己内部的内容不受当前页面获取的样式与内部的填入的标签或文本等内容所影响。<br>img 标签可能不太好理解，另一个常见的行内可替换元素是 iframe 标签，其内部有自己一套样式来决定展现的内容。<br>常见的行内可替换元素有：</p>
 <ul>
 <li>img</li>
 <li>video</li>
@@ -332,19 +349,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/CSS选择器.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/ES5与ES6中的argments.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          CSS选择器
+          ES5与ES6中的argments
         
       </div>
     </a>
   
   
-    <a href="/ES5与ES6中的argments.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Shell中查找相关命令.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">ES5与ES6中的argments</div>
+      <div class="article-nav-title">Shell中查找相关命令</div>
     </a>
   
 </nav>
@@ -358,7 +375,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#display-none-与-visibility-hidden-区别"><span class="nav-number">1.</span> <span class="nav-text">display:none 与 visibility:hidden 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#媒体查询失效"><span class="nav-number">2.</span> <span class="nav-text">媒体查询失效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#img-标签是行内还是块级元素"><span class="nav-number">3.</span> <span class="nav-text">img 标签是行内还是块级元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-继承与非继承属性"><span class="nav-number">1.</span> <span class="nav-text">CSS 继承与非继承属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#display-none-与-visibility-hidden-区别"><span class="nav-number">2.</span> <span class="nav-text">display:none 与 visibility:hidden 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#媒体查询失效"><span class="nav-number">3.</span> <span class="nav-text">媒体查询失效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#img-标签是行内还是块级元素"><span class="nav-number">4.</span> <span class="nav-text">img 标签是行内还是块级元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

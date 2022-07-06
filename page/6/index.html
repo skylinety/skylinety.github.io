@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
+      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
     </h1>
   
 
@@ -352,50 +352,48 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#firewalld1">firewalld[^1]</a><ul>
-<li><a href="#concepts">Concepts</a></li>
-<li><a href="#zones">Zones</a></li>
-<li><a href="#services">Services</a></li>
-<li><a href="#runtime">Runtime</a></li>
-<li><a href="#state">State</a></li>
-<li><a href="#port">Port</a></li>
-<li><a href="#source">Source</a></li>
+<li><a href="#location">location</a><ul>
+<li><a href="#基础使用">基础使用</a></li>
+<li><a href="#url-match">URL-match</a></li>
+<li><a href="#modifier">modifier</a></li>
+</ul>
+</li>
+<li><a href="#proxy_pass">proxy_pass</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#uri">URI</a></li>
+<li><a href="#问题">/ 问题</a></li>
+<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="firewalld-1"><a href="#firewalld-1" class="headerlink" title="firewalld[^1]"></a>firewalld[^1]</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld 采用区域与服务的概念来控制流量的出入。</p>
-<ul>
-<li>zones</li>
-<li>services</li>
-</ul>
-<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
-<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3>
         <!-- 
 
 
-firewalld[^1]
-Concepts
-Zones
-Services
-Runtime
-State
-Port
-Source
+location
+基础使用
+URL-match
+modifier
+
+
+proxy_pass
+简述
+URI
+/ 问题
+\$uri \$request_uri
 
 
 BMW WARNING
 
 
-firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。
-
-zones
-services
-
-firewalld 是 CentOS 7/8, Red Hat Enterprise Lin......  -->
+location基础使用location 位于 server 下或位于另一个 location 中，基本使用如下
+location [modifier] [URL-match] &#123;  .........  -->
         <p class="article-more-link">
-          <a href="/CentOS防火墙.html#more">阅读全文</a>
+          <a href="/Nginx基础.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -403,82 +401,7 @@ firewalld 是 CentOS 7/8, Red Hat Enterprise Lin......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/黑群晖常见问题.html">黑群晖常见问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#黑群晖搜索不到-ip">黑群晖搜索不到 IP</a><ul>
-<li><a href="#网络联通检查">网络联通检查</a></li>
-<li><a href="#网卡驱动问题">网卡驱动问题</a></li>
-</ul>
-</li>
-<li><a href="#ssd-缓存问题">SSD 缓存问题</a></li>
-<li><a href="#moments-人物主题无照片">Moments 人物、主题无照片</a></li>
-<li><a href="#群晖添加第三方社群套件源显示无效的位置">群晖添加第三方社群套件源显示无效的位置</a></li>
-<li><a href="#jellufin-plex-扫描不出影片">Jellufin /Plex 扫描不出影片</a></li>
-<li><a href="#黑群晖硬件转码">黑群晖硬件转码</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="黑群晖搜索不到-IP"><a href="#黑群晖搜索不到-IP" class="headerlink" title="黑群晖搜索不到 IP"></a>黑群晖搜索不到 IP</h2><h3 id="网络联通检查"><a href="#网络联通检查" class="headerlink" title="网络联通检查"></a>网络联通检查</h3><p>主板网口灯检查<br>检查主板网口灯，绿灯常亮说明网络连接成功，黄灯闪烁说明有流量传输。<br>若绿灯亮，进入下一步。</p>
-<h3 id="网卡驱动问题"><a href="#网卡驱动问题" class="headerlink" title="网卡驱动问题"></a>网卡驱动问题</h3><p>检查网卡配置，黑群晖默认不支持 2.5G 以及万兆网卡，<br>需要替换引导中的网卡驱动文件。<br>直接 Google<code>DS918+ 6.23 &quot;0.13.3&quot;</code><br>找到 DS918-6.23_1.04b 的扩展驱动 0.13.3.zip<br>解压得到进行两个文件<br><code>extra.lzma extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘。在左侧目录下可以看到一个 分区(1)，右键选择”挂载到 windows”。然后选择确定之后。可以发现这个分区出现在文件管理那边。<br>用上述解压得到的文件替换分区里的文件即可。<br>然后退出 U 盘，重新启动，就能支持 2.5G 网卡了<br>[^1]:<a href="https://post.smzdm.com/p/aoxd6697/" target="_blank" rel="noopener">https://post.smzdm.com/p/aoxd6697/</a></p>
-<h2 id="SSD-缓存问题"><a href="#SSD-缓存问题" class="headerlink" title="SSD 缓存问题"></a>SSD 缓存问题</h2><p>不打补丁的情况下，黑群晖默认不识别 SSD<br>SSD 补丁如下<br>版本 | 补丁 | 操作<br>— | — | —<br>6.22 | libNVMEpatch.sh | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code><br>6.23 | libsynonvme.so.1 | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code></p>
-<p>上述操作需要先远程 ssh user@ip ，操作完成后退出重启即可[^2]<br>[^2]:<a href="https://wp.gxnas.com/6010.html" target="_blank" rel="noopener">https://wp.gxnas.com/6010.html</a></p>
-<h2 id="Moments-人物、主题无照片"><a href="#Moments-人物、主题无照片" class="headerlink" title="Moments 人物、主题无照片"></a>Moments 人物、主题无照片</h2><p>安装 Moments 后人物与主题无法智能识别，进入后显示还有 xxx 张照片待发现。<br>停用 Moments<br>进入 /var/packages/SynologyMoments/target/usr/lib 目录下<br>备份 libsynophoto-plugin-detection.so</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mv ./libsynophoto-plugin-detection.so ./libsynophoto-plugin-detection.so.bak</span><br></pre></td></tr></table></figure>
-<p><a href="http://42.193.201.102:8443/file/Docs/Tools/OS/Nas/黑群晖常见问题/libsynophoto-plugin-detection.so" target="_blank" rel="noopener">libsynophoto-plugin-detection.so</a><br>将下载的新文件放在 /var/packages/SynologyMoments/target/usr/lib 下，对全部用户赋完全权限（777）或对 SynologyMoments 赋控制权限（755）。<br>开启 moments，重建索引。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%BB%91%E7%BE%A4%E6%99%96%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220121102822.png" alt="黑群晖常见问题20220121102822"></p>
-<h2 id="群晖添加第三方社群套件源显示无效的位置"><a href="#群晖添加第三方社群套件源显示无效的位置" class="headerlink" title="群晖添加第三方社群套件源显示无效的位置"></a>群晖添加第三方社群套件源显示无效的位置</h2><p>在套件设置常规中的信任层级允许任何发行者。<br>之后在套件来源中添加 <a href="http://packages.synocommunity.com显示无效地址。" target="_blank" rel="noopener">http://packages.synocommunity.com显示无效地址。</a><br>出现问题的原因是在 DSM6 非最新版本的系统证书过期。<br>在控制面板 Terminal &amp; SNMP 打开允许 SSH 连接。<br>用 SecureCRT 等工具远程连接。<br>输入如下命令</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo mv /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt.bak &amp;&amp; sudo curl -Lko /etc/ssl/certs/ca-certificates.crt https://curl.se/ca/cacert.pem</span><br></pre></td></tr></table></figure>
-<p>执行完毕后重新添加源。<br>其他常用的套件源</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">http://packages.synocommunity.com</span><br><span class="line"></span><br><span class="line">http://packages.pcloadletter.co.uk</span><br><span class="line"></span><br><span class="line">http://www.cphub.net</span><br><span class="line"></span><br><span class="line">http://synology.sysco.ch</span><br><span class="line"></span><br><span class="line">http://packages.quadrat4.de</span><br><span class="line"></span><br><span class="line">http://synology.acmenet.ru</span><br><span class="line"></span><br><span class="line">http://cytec.us/spk</span><br><span class="line"></span><br><span class="line">http://spk.naefmarco.ch/spkrepo/packages/</span><br><span class="line"></span><br><span class="line">http://spk.nas-mirror.de/spkrepo/packages</span><br><span class="line"></span><br><span class="line">http://spk.unzureichende.info/</span><br><span class="line"></span><br><span class="line">http://packages.synocommunity.com/?beta=1</span><br></pre></td></tr></table></figure>
-<h2 id="Jellufin-Plex-扫描不出影片"><a href="#Jellufin-Plex-扫描不出影片" class="headerlink" title="Jellufin /Plex 扫描不出影片"></a>Jellufin /Plex 扫描不出影片</h2><p>这是由于指定的文件夹没有开发读写权限。<br>对于 Plex，安装时会自动创建 Plex 用户，需要为其赋权。<br>Jellufin 三方套件版会创建 sc-jellyfin 用户， 尝试赋权。<br>若都不行，尝试将扫描目录对所有人赋读写权限。</p>
-<h2 id="黑群晖硬件转码"><a href="#黑群晖硬件转码" class="headerlink" title="黑群晖硬件转码"></a>黑群晖硬件转码</h2><p><a href="https://wp.gxnas.com/7952.html" target="_blank" rel="noopener">https://wp.gxnas.com/7952.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
 
     </footer>
   </div>
@@ -709,6 +632,104 @@ frp 内网穿透简介frp 是一款开源的内网穿透软件，github 主页�
 Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 https://github.com/fatedier/frp/relea......  -->
         <p class="article-more-link">
           <a href="/frp内网穿透.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-iPadOS常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/iPadOS常见问题.html">iPadOS常见问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="IpadOS-常见问题"><a href="#IpadOS-常见问题" class="headerlink" title="IpadOS 常见问题"></a>IpadOS 常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#ipados-常见问题">IpadOS 常见问题</a><ul>
+<li><a href="#apple-pencil-断触">Apple pencil 断触</a><ul>
+<li><a href="#软件问题">软件问题</a></li>
+<li><a href="#还原设置">还原设置</a></li>
+<li><a href="#硬件检测">硬件检测</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Apple-pencil-断触"><a href="#Apple-pencil-断触" class="headerlink" title="Apple pencil 断触"></a>Apple pencil 断触</h2><h3 id="软件问题"><a href="#软件问题" class="headerlink" title="软件问题"></a>软件问题</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">使用系统自带的备忘录尝试是否为软件问题</span><br></pre></td></tr></table></figure>
+<p>部分软件可能手触屏幕会有断触问题</p>
+<h3 id="还原设置"><a href="#还原设置" class="headerlink" title="还原设置"></a>还原设置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">关掉蓝牙重新连接 Pencil</span><br><span class="line"></span><br><span class="line">重启 iPad 后再次连接 Pencil</span><br><span class="line"></span><br><span class="line">打开 ipad 设置—&gt;通用—&gt;还原—&gt;还原所有设置</span><br></pre></td></tr></table></figure>
+<p>上述操作只是还原设置，不会删除数据，但是人脸识别和密码，壁纸会还原</p>
+<h3 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">去除贴膜，笔尖套</span><br><span class="line"></span><br><span class="line">更换笔头尝试</span><br><span class="line"></span><br><span class="line">换个 ipad 试下是否为笔的问题</span><br></pre></td></tr></table></figure>
+<p>这些操作都不行，联系售后解决</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+IpadOS 常见问题
+
+
+IpadOS 常见问题
+Apple pencil 断触
+软件问题
+还原设置
+硬件检测
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软件问题
+部分软件可能手触屏幕会有断触问......  -->
+        <p class="article-more-link">
+          <a href="/iPadOS常见问题.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1251,7 +1272,7 @@ sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输
 <!-- Table of Contents -->
 
   
-    <article id="post-Shell中字符串相关操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Shell中xargs使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1259,7 +1280,7 @@ sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中字符串相关操作.html">Shell中字符串相关操作</a>
+      <a class="article-title" href="/Shell中xargs使用.html">Shell中xargs使用</a>
     </h1>
   
 
@@ -1284,46 +1305,57 @@ sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#字符包含判定">字符包含判定</a><ul>
-<li><a href="#">==</a></li>
-<li><a href="#grep">grep</a></li>
+<li><a href="#概述">概述</a></li>
+<li><a href="#基础使用示例">基础使用示例</a><ul>
+<li><a href="#echo">echo</a></li>
+<li><a href="#wc">wc</a></li>
+<li><a href="#mkdir">mkdir</a></li>
 </ul>
 </li>
-<li><a href="#将字符串作为命令执行">将字符串作为命令执行</a></li>
-<li><a href="#获取子串字符串切割">获取子串（字符串切割）</a><ul>
-<li><a href="#cut">cut</a></li>
-<li><a href="#截取语法">截取语法</a></li>
+<li><a href="#参数">参数</a><ul>
+<li><a href="#-0">-0</a></li>
+<li><a href="#-i">-I</a></li>
+<li><a href="#-l">-L</a></li>
+<li><a href="#-n">-n</a></li>
+<li><a href="#-d">-d</a></li>
+<li><a href="#-t">-t</a></li>
+<li><a href="#-p">-p</a></li>
 </ul>
 </li>
-<li><a href="#字符串转数组">字符串转数组</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="字符包含判定"><a href="#字符包含判定" class="headerlink" title="字符包含判定"></a>字符包含判定</h2><h3 id><a href="#" class="headerlink" title="=="></a>==</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">'GNU/Linux is an operating system'</span></span><br><span class="line">SUB=<span class="string">'Linux'</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$STR</span>"</span> == *<span class="string">"<span class="variable">$SUB</span>"</span>* ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"It's there."</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支持标准输入的命令提供管道操作。<br>通过 xargs 将标准输入转换成参数来完成后续命令。如果转换成的参数有多个（通过标准输入空符分割），后续命令重复执行。</p>
+<blockquote>
+<p>The xargs command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like grep can accept standard input as a parameter, many other tools cannot. Using xargs allows tools like echo and rm and mkdir to accept standard input as arguments.</p>
+</blockquote>
+<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3>
         <!-- 
 
 
-字符包含判定
-==
-grep
+概述
+基础使用示例
+echo
+wc
+mkdir
 
 
-将字符串作为命令执行
-获取子串（字符串切割）
-cut
-截取语法
+参数
+-0
+-I
+-L
+-n
+-d
+-t
+-p
 
 
-字符串转数组
 BMW WARNING
 
 
-字符包含判定==STR='GNU/Linux is an operating system'SUB='Linux'if [[ "$STR" == *"$SUB"* ]]; then  echo "It's there."fi
-grep
-使用 g......  -->
+概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那......  -->
         <p class="article-more-link">
-          <a href="/Shell中字符串相关操作.html#more">阅读全文</a>
+          <a href="/Shell中xargs使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1331,7 +1363,7 @@ grep
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
 
     </footer>
   </div>
