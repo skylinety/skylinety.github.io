@@ -13,18 +13,18 @@
   
   
   
-  <meta name="description" content="文件权限 权限查看 权限调整   使用字符赋权 字符含义 添加权限 删除权限 赋予权限   使用数字赋权 特殊权限 权限进阶 SUID SGID Sticky bit   BMW WARNING   文件权限权限查看通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下">
+  <meta name="description" content="文件权限 权限查看 权属调整   使用字符赋权 字符含义 添加权限 删除权限 赋予权限   使用数字赋权 特殊权限 权限进阶 SUID SGID Sticky bit   BMW WARNING   文件权限权限查看通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下">
 <meta name="keywords" content="Shell,Commands">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shell中chmod的使用">
 <meta property="og:url" content="http://www.skyline.show/Shell中chmod的使用.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="文件权限 权限查看 权限调整   使用字符赋权 字符含义 添加权限 删除权限 赋予权限   使用数字赋权 特殊权限 权限进阶 SUID SGID Sticky bit   BMW WARNING   文件权限权限查看通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下">
+<meta property="og:description" content="文件权限 权限查看 权属调整   使用字符赋权 字符含义 添加权限 删除权限 赋予权限   使用数字赋权 特殊权限 权限进阶 SUID SGID Sticky bit   BMW WARNING   文件权限权限查看通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-30T08:18:13.000Z">
+<meta property="og:updated_time" content="2022-06-30T09:44:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell中chmod的使用">
-<meta name="twitter:description" content="文件权限 权限查看 权限调整   使用字符赋权 字符含义 添加权限 删除权限 赋予权限   使用数字赋权 特殊权限 权限进阶 SUID SGID Sticky bit   BMW WARNING   文件权限权限查看通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下">
+<meta name="twitter:description" content="文件权限 权限查看 权属调整   使用字符赋权 字符含义 添加权限 删除权限 赋予权限   使用数字赋权 特殊权限 权限进阶 SUID SGID Sticky bit   BMW WARNING   文件权限权限查看通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-30T08:18:13.000Z" itemprop="datePublished">2022-06-30</time>
+      <time datetime="2022-06-30T09:44:40.000Z" itemprop="datePublished">2022-06-30</time>
     </a><span style="color: #999">|</span>
 
       
@@ -207,7 +207,7 @@
 <ul>
 <li><a href="#文件权限">文件权限</a><ul>
 <li><a href="#权限查看">权限查看</a></li>
-<li><a href="#权限调整">权限调整</a></li>
+<li><a href="#权属调整">权属调整</a></li>
 </ul>
 </li>
 <li><a href="#使用字符赋权">使用字符赋权</a><ul>
@@ -264,15 +264,15 @@
 </table>
 <p>其 2-10 位位权限位，以 3 个为 1 组，且均为『rwx』 的 3 个参数的组合。</p>
 <p>要注意的是，这三个权限的位置不会改变，如果没有权限，该位置以[ - ]占位。</p>
-<h3 id="权限调整"><a href="#权限调整" class="headerlink" title="权限调整"></a>权限调整</h3><a id="more"></a>
-<p>文件所属权限调整，尝使用 chown 命令。</p>
+<h3 id="权属调整"><a href="#权属调整" class="headerlink" title="权属调整"></a>权属调整</h3><a id="more"></a>
+<p>文件所属权限调整，使用 chown 命令。</p>
 <p>调整文件拥有者</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chown user file</span><br></pre></td></tr></table></figure>
 <p>调整文件所属组，可使用 chown 命令，也可使用 chgrp 命令</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chown :group file</span><br><span class="line">chgrp group file</span><br></pre></td></tr></table></figure>
 <p>调整文件拥有者与所属组</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chown user:group file</span><br></pre></td></tr></table></figure>
-<p>chown 调整文件权属，各用户更细分权限调整，通过 chmod 命令实现，后续章节围绕 chmod 展开。</p>
+<p>chown 调整文件权属，各用户更细分权限调整，通过 chmod 命令实现。<br>后续章节围绕 chmod 展开。</p>
 <h2 id="使用字符赋权"><a href="#使用字符赋权" class="headerlink" title="使用字符赋权"></a>使用字符赋权</h2><h3 id="字符含义"><a href="#字符含义" class="headerlink" title="字符含义"></a>字符含义</h3><p>通过 <code>u g o a</code>来指定被操作的用户。</p>
 <ul>
 <li>[ u ]代表文件拥有者(user)</li>
@@ -567,7 +567,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件权限"><span class="nav-number">1.</span> <span class="nav-text">文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#权限查看"><span class="nav-number">1.1.</span> <span class="nav-text">权限查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限调整"><span class="nav-number">1.2.</span> <span class="nav-text">权限调整</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用字符赋权"><span class="nav-number">2.</span> <span class="nav-text">使用字符赋权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符含义"><span class="nav-number">2.1.</span> <span class="nav-text">字符含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加权限"><span class="nav-number">2.2.</span> <span class="nav-text">添加权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除权限"><span class="nav-number">2.3.</span> <span class="nav-text">删除权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#赋予权限"><span class="nav-number">2.4.</span> <span class="nav-text">赋予权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用数字赋权"><span class="nav-number">3.</span> <span class="nav-text">使用数字赋权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊权限"><span class="nav-number">4.</span> <span class="nav-text">特殊权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#权限进阶"><span class="nav-number">4.1.</span> <span class="nav-text">权限进阶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SUID"><span class="nav-number">4.2.</span> <span class="nav-text">SUID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SGID"><span class="nav-number">4.3.</span> <span class="nav-text">SGID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sticky-bit"><span class="nav-number">4.4.</span> <span class="nav-text">Sticky bit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件权限"><span class="nav-number">1.</span> <span class="nav-text">文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#权限查看"><span class="nav-number">1.1.</span> <span class="nav-text">权限查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权属调整"><span class="nav-number">1.2.</span> <span class="nav-text">权属调整</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用字符赋权"><span class="nav-number">2.</span> <span class="nav-text">使用字符赋权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符含义"><span class="nav-number">2.1.</span> <span class="nav-text">字符含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加权限"><span class="nav-number">2.2.</span> <span class="nav-text">添加权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除权限"><span class="nav-number">2.3.</span> <span class="nav-text">删除权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#赋予权限"><span class="nav-number">2.4.</span> <span class="nav-text">赋予权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用数字赋权"><span class="nav-number">3.</span> <span class="nav-text">使用数字赋权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊权限"><span class="nav-number">4.</span> <span class="nav-text">特殊权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#权限进阶"><span class="nav-number">4.1.</span> <span class="nav-text">权限进阶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SUID"><span class="nav-number">4.2.</span> <span class="nav-text">SUID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SGID"><span class="nav-number">4.3.</span> <span class="nav-text">SGID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sticky-bit"><span class="nav-number">4.4.</span> <span class="nav-text">Sticky bit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

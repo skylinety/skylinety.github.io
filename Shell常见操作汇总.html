@@ -13,22 +13,22 @@
   
   
   
-  <meta name="description" content="脚本中断与执行 判定目录或文件存在 算数命令 查看目录下文件夹 创建嵌套文件夹并进入 查看远程服务及端口是否开启 设置别名 临时别名 永久生效   查看端口占用 删除目录下模糊匹配的文件 命令 解析   查找目录下包含指定字符的文件 命令 解析   BMW WARNING   脚本中断与执行在控制台输入没有的命令来模拟脚本执行出错 skyline# zsh: command not foun">
+  <meta name="description" content="获取执行脚本的位置 Shell 脚本相互调用 脚本中断与执行 判定目录或文件存在 算数命令 查看目录下文件夹 创建嵌套文件夹并进入 查看远程服务及端口是否开启 设置别名 临时别名 永久生效   查看端口占用 删除目录下模糊匹配的文件 命令 解析   查找目录下包含指定字符的文件 命令 解析   BMW WARNING   获取执行脚本的位置通过dirname &amp;quot;$0&amp;quot;获取">
 <meta name="keywords" content="Shell,Scripts">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shell常见操作汇总">
 <meta property="og:url" content="http://www.skyline.show/Shell常见操作汇总.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="脚本中断与执行 判定目录或文件存在 算数命令 查看目录下文件夹 创建嵌套文件夹并进入 查看远程服务及端口是否开启 设置别名 临时别名 永久生效   查看端口占用 删除目录下模糊匹配的文件 命令 解析   查找目录下包含指定字符的文件 命令 解析   BMW WARNING   脚本中断与执行在控制台输入没有的命令来模拟脚本执行出错 skyline# zsh: command not foun">
+<meta property="og:description" content="获取执行脚本的位置 Shell 脚本相互调用 脚本中断与执行 判定目录或文件存在 算数命令 查看目录下文件夹 创建嵌套文件夹并进入 查看远程服务及端口是否开启 设置别名 临时别名 永久生效   查看端口占用 删除目录下模糊匹配的文件 命令 解析   查找目录下包含指定字符的文件 命令 解析   BMW WARNING   获取执行脚本的位置通过dirname &amp;quot;$0&amp;quot;获取">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20220322171654.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20211112174412.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20211112182828.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20211112182942.png">
-<meta property="og:updated_time" content="2022-06-22T07:43:00.000Z">
+<meta property="og:updated_time" content="2022-06-30T09:44:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell常见操作汇总">
-<meta name="twitter:description" content="脚本中断与执行 判定目录或文件存在 算数命令 查看目录下文件夹 创建嵌套文件夹并进入 查看远程服务及端口是否开启 设置别名 临时别名 永久生效   查看端口占用 删除目录下模糊匹配的文件 命令 解析   查找目录下包含指定字符的文件 命令 解析   BMW WARNING   脚本中断与执行在控制台输入没有的命令来模拟脚本执行出错 skyline# zsh: command not foun">
+<meta name="twitter:description" content="获取执行脚本的位置 Shell 脚本相互调用 脚本中断与执行 判定目录或文件存在 算数命令 查看目录下文件夹 创建嵌套文件夹并进入 查看远程服务及端口是否开启 设置别名 临时别名 永久生效   查看端口占用 删除目录下模糊匹配的文件 命令 解析   查找目录下包含指定字符的文件 命令 解析   BMW WARNING   获取执行脚本的位置通过dirname &amp;quot;$0&amp;quot;获取">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20220322171654.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -193,7 +193,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-22T07:43:00.000Z" itemprop="datePublished">2022-06-22</time>
+      <time datetime="2022-06-30T09:44:40.000Z" itemprop="datePublished">2022-06-30</time>
     </a><span style="color: #999">|</span>
 
       
@@ -210,6 +210,8 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
+<li><a href="#获取执行脚本的位置">获取执行脚本的位置</a></li>
+<li><a href="#shell-脚本相互调用">Shell 脚本相互调用</a></li>
 <li><a href="#脚本中断与执行">脚本中断与执行</a></li>
 <li><a href="#判定目录或文件存在">判定目录或文件存在</a></li>
 <li><a href="#算数命令">算数命令</a></li>
@@ -235,7 +237,22 @@
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="脚本中断与执行"><a href="#脚本中断与执行" class="headerlink" title="脚本中断与执行"></a>脚本中断与执行</h2><p>在控制台输入没有的命令来模拟脚本执行出错</p>
+<h2 id="获取执行脚本的位置"><a href="#获取执行脚本的位置" class="headerlink" title="获取执行脚本的位置"></a>获取执行脚本的位置</h2><p>通过<code>dirname &quot;$0&quot;</code>获取当前执行脚本所在位置。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">BASEDIR=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$BASEDIR</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/a.sh" target="_blank" rel="noopener">示例</a></p>
+<h2 id="Shell-脚本相互调用"><a href="#Shell-脚本相互调用" class="headerlink" title="Shell 脚本相互调用"></a>Shell 脚本相互调用</h2><p>在 Shell 脚本内部调用其他 Shell 脚本，使用如下方法：</p>
+<ul>
+<li>sh</li>
+<li>source</li>
+<li>点号(.)</li>
+</ul>
+<p>使用点号和 source 的效果基本一致，等同于将其他脚本的内部内容放在当前脚本运行。<br>引入脚本和当前脚本执行时位于同一进程中，引入脚本可以获取到当前脚本中的变量。<br>sh 引入的脚本会单开一个子进程，其无法获取到当前脚本中的变量，要获取该变量，需要使用 export 导出。<br>有如下两个在同级目录的脚本 a 和 b<br><code>a.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">a=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"b is <span class="variable">$b</span>"</span></span><br><span class="line"><span class="comment"># b is</span></span><br><span class="line">BASEDIR=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$BASEDIR</span></span><br><span class="line">. <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"b is <span class="variable">$b</span>"</span></span><br><span class="line"><span class="comment"># b is 2</span></span><br><span class="line"><span class="built_in">source</span> <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br><span class="line">sh <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is</span></span><br><span class="line"><span class="built_in">export</span> a</span><br><span class="line">sh <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br></pre></td></tr></table></figure>
+<p><code>b.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"a is <span class="variable">$a</span>"</span></span><br><span class="line">b=2</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/a.sh" target="_blank" rel="noopener">示例</a></p>
+<h2 id="脚本中断与执行"><a href="#脚本中断与执行" class="headerlink" title="脚本中断与执行"></a>脚本中断与执行</h2><a id="more"></a>
+<p>在控制台输入没有的命令来模拟脚本执行出错</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline</span><br><span class="line"><span class="comment"># zsh: command not found: skyline</span></span><br></pre></td></tr></table></figure>
 <p>命令执行出错，继续执行</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline || <span class="literal">true</span></span><br></pre></td></tr></table></figure>
@@ -281,8 +298,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="算数命令"><a href="#算数命令" class="headerlink" title="算数命令"></a>算数命令</h2><a id="more"></a>
-<p>使用 exprming</p>
+<h2 id="算数命令"><a href="#算数命令" class="headerlink" title="算数命令"></a>算数命令</h2><p>使用 exprming</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">expr 1 + 1</span><br></pre></td></tr></table></figure>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">plus=`expr 1 + 1`</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$plus</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line">minus=$(expr 1 - 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$minus</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line">multiply=$((2 * 2))</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$multiply</span></span><br><span class="line"><span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
 <p>当()前面加上$时，表示 Command-Substitution，与<code>command</code>一致，表示其运行结果充当所在命令行的一部分.</p>
@@ -291,7 +307,7 @@
 <p>查看 src 下包含的文件夹</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls -d1 */</span><br></pre></td></tr></table></figure>
 <p>换行形式查看当前目录下的文件夹<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20220322171654.png" alt="Shell常见操作汇总20220322171654"></p>
-<h2 id="创建嵌套文件夹并进入"><a href="#创建嵌套文件夹并进入" class="headerlink" title="创建嵌套文件夹并进入"></a>创建嵌套文件夹并进入</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir /home/foo/123 &amp;&amp; <span class="built_in">cd</span> <span class="variable">$_</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建嵌套文件夹并进入"><a href="#创建嵌套文件夹并进入" class="headerlink" title="创建嵌套文件夹并进入"></a>创建嵌套文件夹并进入</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir -p /home/foo/123 &amp;&amp; <span class="built_in">cd</span> <span class="variable">$_</span></span><br></pre></td></tr></table></figure>
 <h2 id="查看远程服务及端口是否开启"><a href="#查看远程服务及端口是否开启" class="headerlink" title="查看远程服务及端口是否开启"></a>查看远程服务及端口是否开启</h2><p><code>telnet ip 3306</code></p>
 <h2 id="设置别名"><a href="#设置别名" class="headerlink" title="设置别名"></a>设置别名</h2><h3 id="临时别名"><a href="#临时别名" class="headerlink" title="临时别名"></a>临时别名</h3><p><code>alias m=&quot;tldr&quot;</code><br>tldr 是一个以示例代替说明的命令使用说明工具，比自带的命令行手册易读。</p>
 <h3 id="永久生效"><a href="#永久生效" class="headerlink" title="永久生效"></a>永久生效</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line"><span class="comment"># vim ~/.zshrc</span></span><br></pre></td></tr></table></figure>
@@ -326,7 +342,7 @@
 </ul>
 <p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
 <blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
 </blockquote>
 <ul>
 <li>Material</li>
@@ -337,10 +353,9 @@
 <ul>
 <li>Warrant</li>
 </ul>
-<p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-<blockquote>
-<p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
-</blockquote>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/Shell常见操作汇总.html">http://www.skyline.show/Shell 常见操作汇总.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
       
     </div>
@@ -420,7 +435,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#脚本中断与执行"><span class="nav-number">1.</span> <span class="nav-text">脚本中断与执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判定目录或文件存在"><span class="nav-number">2.</span> <span class="nav-text">判定目录或文件存在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算数命令"><span class="nav-number">3.</span> <span class="nav-text">算数命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看目录下文件夹"><span class="nav-number">4.</span> <span class="nav-text">查看目录下文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建嵌套文件夹并进入"><span class="nav-number">5.</span> <span class="nav-text">创建嵌套文件夹并进入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看远程服务及端口是否开启"><span class="nav-number">6.</span> <span class="nav-text">查看远程服务及端口是否开启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置别名"><span class="nav-number">7.</span> <span class="nav-text">设置别名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#临时别名"><span class="nav-number">7.1.</span> <span class="nav-text">临时别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久生效"><span class="nav-number">7.2.</span> <span class="nav-text">永久生效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看端口占用"><span class="nav-number">8.</span> <span class="nav-text">查看端口占用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除目录下模糊匹配的文件"><span class="nav-number">9.</span> <span class="nav-text">删除目录下模糊匹配的文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">9.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析"><span class="nav-number">9.2.</span> <span class="nav-text">解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找目录下包含指定字符的文件"><span class="nav-number">10.</span> <span class="nav-text">查找目录下包含指定字符的文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令-1"><span class="nav-number">10.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析-1"><span class="nav-number">10.2.</span> <span class="nav-text">解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">11.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取执行脚本的位置"><span class="nav-number">1.</span> <span class="nav-text">获取执行脚本的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell-脚本相互调用"><span class="nav-number">2.</span> <span class="nav-text">Shell 脚本相互调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚本中断与执行"><span class="nav-number">3.</span> <span class="nav-text">脚本中断与执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判定目录或文件存在"><span class="nav-number">4.</span> <span class="nav-text">判定目录或文件存在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算数命令"><span class="nav-number">5.</span> <span class="nav-text">算数命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看目录下文件夹"><span class="nav-number">6.</span> <span class="nav-text">查看目录下文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建嵌套文件夹并进入"><span class="nav-number">7.</span> <span class="nav-text">创建嵌套文件夹并进入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看远程服务及端口是否开启"><span class="nav-number">8.</span> <span class="nav-text">查看远程服务及端口是否开启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置别名"><span class="nav-number">9.</span> <span class="nav-text">设置别名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#临时别名"><span class="nav-number">9.1.</span> <span class="nav-text">临时别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久生效"><span class="nav-number">9.2.</span> <span class="nav-text">永久生效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看端口占用"><span class="nav-number">10.</span> <span class="nav-text">查看端口占用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除目录下模糊匹配的文件"><span class="nav-number">11.</span> <span class="nav-text">删除目录下模糊匹配的文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">11.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析"><span class="nav-number">11.2.</span> <span class="nav-text">解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找目录下包含指定字符的文件"><span class="nav-number">12.</span> <span class="nav-text">查找目录下包含指定字符的文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令-1"><span class="nav-number">12.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析-1"><span class="nav-number">12.2.</span> <span class="nav-text">解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">13.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

@@ -975,6 +975,8 @@ BMW WARNING
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
+<li><a href="#获取执行脚本的位置">获取执行脚本的位置</a></li>
+<li><a href="#shell-脚本相互调用">Shell 脚本相互调用</a></li>
 <li><a href="#脚本中断与执行">脚本中断与执行</a></li>
 <li><a href="#判定目录或文件存在">判定目录或文件存在</a></li>
 <li><a href="#算数命令">算数命令</a></li>
@@ -1000,56 +1002,26 @@ BMW WARNING
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="脚本中断与执行"><a href="#脚本中断与执行" class="headerlink" title="脚本中断与执行"></a>脚本中断与执行</h2><p>在控制台输入没有的命令来模拟脚本执行出错</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline</span><br><span class="line"><span class="comment"># zsh: command not found: skyline</span></span><br></pre></td></tr></table></figure>
-<p>命令执行出错，继续执行</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline || <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>命令执行出错，终止执行</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline || <span class="built_in">exit</span> 2</span><br></pre></td></tr></table></figure>
-<h2 id="判定目录或文件存在"><a href="#判定目录或文件存在" class="headerlink" title="判定目录或文件存在"></a>判定目录或文件存在</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -d <span class="string">"Docs/Major/Shell/Scripts"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"目录存在"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"目录不存在"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 目录存在</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -f <span class="string">"Docs/Major/Shell/Scripts/Shell常见操作汇总.md"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"文件存在"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"文件不存在"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># 文件存在</span></span><br></pre></td></tr></table></figure>
-<p>类似的其他判定</p>
-<table>
-<thead>
-<tr>
-<th>标记</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-L</td>
-<td>文件是否为软连接</td>
-</tr>
-<tr>
-<td>-h</td>
-<td>文件是否为软连接</td>
-</tr>
-<tr>
-<td>-d</td>
-<td>目录判定</td>
-</tr>
-<tr>
-<td>-w</td>
-<td>文件可否写入</td>
-</tr>
-<tr>
-<td>-x</td>
-<td>文件可否执行</td>
-</tr>
-<tr>
-<td>-r</td>
-<td>文件可否读取</td>
-</tr>
-<tr>
-<td>-s</td>
-<td>文件存在且占用空间大于 0</td>
-</tr>
-</tbody>
-</table>
-<h2 id="算数命令"><a href="#算数命令" class="headerlink" title="算数命令"></a>算数命令</h2>
+<h2 id="获取执行脚本的位置"><a href="#获取执行脚本的位置" class="headerlink" title="获取执行脚本的位置"></a>获取执行脚本的位置</h2><p>通过<code>dirname &quot;$0&quot;</code>获取当前执行脚本所在位置。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">BASEDIR=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$BASEDIR</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/a.sh" target="_blank" rel="noopener">示例</a></p>
+<h2 id="Shell-脚本相互调用"><a href="#Shell-脚本相互调用" class="headerlink" title="Shell 脚本相互调用"></a>Shell 脚本相互调用</h2><p>在 Shell 脚本内部调用其他 Shell 脚本，使用如下方法：</p>
+<ul>
+<li>sh</li>
+<li>source</li>
+<li>点号(.)</li>
+</ul>
+<p>使用点号和 source 的效果基本一致，等同于将其他脚本的内部内容放在当前脚本运行。<br>引入脚本和当前脚本执行时位于同一进程中，引入脚本可以获取到当前脚本中的变量。<br>sh 引入的脚本会单开一个子进程，其无法获取到当前脚本中的变量，要获取该变量，需要使用 export 导出。<br>有如下两个在同级目录的脚本 a 和 b<br><code>a.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">a=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"b is <span class="variable">$b</span>"</span></span><br><span class="line"><span class="comment"># b is</span></span><br><span class="line">BASEDIR=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$BASEDIR</span></span><br><span class="line">. <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"b is <span class="variable">$b</span>"</span></span><br><span class="line"><span class="comment"># b is 2</span></span><br><span class="line"><span class="built_in">source</span> <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br><span class="line">sh <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is</span></span><br><span class="line"><span class="built_in">export</span> a</span><br><span class="line">sh <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br></pre></td></tr></table></figure>
+<p><code>b.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"a is <span class="variable">$a</span>"</span></span><br><span class="line">b=2</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/a.sh" target="_blank" rel="noopener">示例</a></p>
+<h2 id="脚本中断与执行"><a href="#脚本中断与执行" class="headerlink" title="脚本中断与执行"></a>脚本中断与执行</h2>
         <!-- 
 
 
+获取执行脚本的位置
+Shell 脚本相互调用
 脚本中断与执行
 判定目录或文件存在
 算数命令
@@ -1075,8 +1047,7 @@ BMW WARNING
 BMW WARNING
 
 
-脚本中断与执行在控制台输入没有的命令来模拟脚本执行出错
-skyline# zsh: command not f......  -->
+获取执行脚本的位置通过dirname &quot;$0&quot......  -->
         <p class="article-more-link">
           <a href="/Shell常见操作汇总.html#more">阅读全文</a>
         </p>
