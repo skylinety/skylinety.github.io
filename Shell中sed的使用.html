@@ -22,7 +22,7 @@
 <meta property="og:description" content="sed 简介 选项参数 -n -e -i   命令参数 i/a d p s/c   常见用法 文末插入 替换字符 获取行数 获取字符行号   BMW WARNING   sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。本文后续内容以skyline.txt示例，可在根目录执行下述脚本。其文本内容为 t">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%ADsed%E7%9A%84%E4%BD%BF%E7%94%A820220609113948.png">
-<meta property="og:updated_time" content="2022-06-22T07:42:59.000Z">
+<meta property="og:updated_time" content="2022-06-30T08:18:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell中sed的使用">
 <meta name="twitter:description" content="sed 简介 选项参数 -n -e -i   命令参数 i/a d p s/c   常见用法 文末插入 替换字符 获取行数 获取字符行号   BMW WARNING   sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。本文后续内容以skyline.txt示例，可在根目录执行下述脚本。其文本内容为 t">
@@ -190,7 +190,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-22T07:42:59.000Z" itemprop="datePublished">2022-06-22</time>
+      <time datetime="2022-06-30T08:18:13.000Z" itemprop="datePublished">2022-06-30</time>
     </a><span style="color: #999">|</span>
 
       
@@ -270,7 +270,12 @@
 <p>替换行</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 替换1到5行的内容为lalala</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'1,5c\</span></span><br><span class="line"><span class="string">lalala'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line">cat Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># lalala</span></span><br></pre></td></tr></table></figure>
 <p>替换文本</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">''</span> <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># 将不备份直接修改skyline.txt源文件</span></span><br><span class="line">cat Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># lty</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># lty test</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">''</span> <span class="string">'s/skyline/lty/g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># 全局替换skyline为lty，将不备份直接修改skyline.txt源文件</span></span><br><span class="line">cat Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="comment"># lty</span></span><br><span class="line"><span class="comment"># test2</span></span><br><span class="line"><span class="comment"># lty test</span></span><br></pre></td></tr></table></figure>
+<p>通过’/原文本/替换文本/‘来指定替换，分隔符号为’/‘,当文本中包含分隔符时，可以使用其他符号来指定分隔符。<br>例如原文本为’skyline/‘，替换文本为’lty-‘，可以使用</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">''</span> <span class="string">'s%skyline/%lty-%g'</span> Demos/Major/Shell/skyline.txt</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">sed -i <span class="string">''</span> <span class="string">'s|skyline/|lty-|g'</span> Demos/Major/Shell/skyline.txt</span><br></pre></td></tr></table></figure>
+<p>也可以使用转义符</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">''</span> <span class="string">'s/skyline\//lty-/g'</span> Demos/Major/Shell/skyline.txt</span><br></pre></td></tr></table></figure>
+<p>转义符方案除了用于’/‘,原文本包含’[‘’]’等字符也需使用。</p>
 <h2 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h2><h3 id="文末插入"><a href="#文末插入" class="headerlink" title="文末插入"></a>文末插入</h3><p>注意 mac 下\后需要换行</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sed -i <span class="string">''</span> <span class="string">'$a\skyline'</span> skyline.txt</span><br></pre></td></tr></table></figure>
 <h3 id="替换字符"><a href="#替换字符" class="headerlink" title="替换字符"></a>替换字符</h3><p>替换第 n 个匹配的字符</p>

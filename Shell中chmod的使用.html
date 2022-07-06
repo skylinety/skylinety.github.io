@@ -13,18 +13,18 @@
   
   
   
-  <meta name="description" content="文件权限 使用字符赋权 字符含义 添加权限 删除权限 权限赋值   使用数字赋权 BMW WARNING   文件权限通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下    文件格式 所有者权限(u) 群组权限(g) 其他人权限(o) ACL 权限 引用计数 所有者">
+  <meta name="description" content="文件权限 权限查看 权限调整   使用字符赋权 字符含义 添加权限 删除权限 赋予权限   使用数字赋权 特殊权限 权限进阶 SUID SGID Sticky bit   BMW WARNING   文件权限权限查看通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下">
 <meta name="keywords" content="Shell,Commands">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shell中chmod的使用">
 <meta property="og:url" content="http://www.skyline.show/Shell中chmod的使用.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="文件权限 使用字符赋权 字符含义 添加权限 删除权限 权限赋值   使用数字赋权 BMW WARNING   文件权限通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下    文件格式 所有者权限(u) 群组权限(g) 其他人权限(o) ACL 权限 引用计数 所有者">
+<meta property="og:description" content="文件权限 权限查看 权限调整   使用字符赋权 字符含义 添加权限 删除权限 赋予权限   使用数字赋权 特殊权限 权限进阶 SUID SGID Sticky bit   BMW WARNING   文件权限权限查看通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-28T02:09:07.000Z">
+<meta property="og:updated_time" content="2022-06-30T08:18:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell中chmod的使用">
-<meta name="twitter:description" content="文件权限 使用字符赋权 字符含义 添加权限 删除权限 权限赋值   使用数字赋权 BMW WARNING   文件权限通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下    文件格式 所有者权限(u) 群组权限(g) 其他人权限(o) ACL 权限 引用计数 所有者">
+<meta name="twitter:description" content="文件权限 权限查看 权限调整   使用字符赋权 字符含义 添加权限 删除权限 赋予权限   使用数字赋权 特殊权限 权限进阶 SUID SGID Sticky bit   BMW WARNING   文件权限权限查看通过ls -lh命令可以查看文件权限 已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义如下">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-28T02:09:07.000Z" itemprop="datePublished">2022-06-28</time>
+      <time datetime="2022-06-30T08:18:13.000Z" itemprop="datePublished">2022-06-30</time>
     </a><span style="color: #999">|</span>
 
       
@@ -205,19 +205,30 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#文件权限">文件权限</a></li>
+<li><a href="#文件权限">文件权限</a><ul>
+<li><a href="#权限查看">权限查看</a></li>
+<li><a href="#权限调整">权限调整</a></li>
+</ul>
+</li>
 <li><a href="#使用字符赋权">使用字符赋权</a><ul>
 <li><a href="#字符含义">字符含义</a></li>
 <li><a href="#添加权限">添加权限</a></li>
 <li><a href="#删除权限">删除权限</a></li>
-<li><a href="#权限赋值">权限赋值</a></li>
+<li><a href="#赋予权限">赋予权限</a></li>
 </ul>
 </li>
 <li><a href="#使用数字赋权">使用数字赋权</a></li>
+<li><a href="#特殊权限">特殊权限</a><ul>
+<li><a href="#权限进阶">权限进阶</a></li>
+<li><a href="#suid">SUID</a></li>
+<li><a href="#sgid">SGID</a></li>
+<li><a href="#sticky-bit">Sticky bit</a></li>
+</ul>
+</li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h2><p>通过<code>ls -lh</code>命令可以查看文件权限</p>
+<h2 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h2><h3 id="权限查看"><a href="#权限查看" class="headerlink" title="权限查看"></a>权限查看</h3><p>通过<code>ls -lh</code>命令可以查看文件权限</p>
 <p>已拿到某个文件夹的权限<code>drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs</code>为例，其含义如下</p>
 <table>
 <thead>
@@ -252,32 +263,57 @@
 </tbody>
 </table>
 <p>其 2-10 位位权限位，以 3 个为 1 组，且均为『rwx』 的 3 个参数的组合。</p>
-<p>要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已。<br>通过 chmod 命令可以更改文件权限。</p>
-<h2 id="使用字符赋权"><a href="#使用字符赋权" class="headerlink" title="使用字符赋权"></a>使用字符赋权</h2><h3 id="字符含义"><a href="#字符含义" class="headerlink" title="字符含义"></a>字符含义</h3><a id="more"></a>
-<p>通过 <code>r w x</code>字符来指定权限。</p>
+<p>要注意的是，这三个权限的位置不会改变，如果没有权限，该位置以[ - ]占位。</p>
+<h3 id="权限调整"><a href="#权限调整" class="headerlink" title="权限调整"></a>权限调整</h3><a id="more"></a>
+<p>文件所属权限调整，尝使用 chown 命令。</p>
+<p>调整文件拥有者</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chown user file</span><br></pre></td></tr></table></figure>
+<p>调整文件所属组，可使用 chown 命令，也可使用 chgrp 命令</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chown :group file</span><br><span class="line">chgrp group file</span><br></pre></td></tr></table></figure>
+<p>调整文件拥有者与所属组</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chown user:group file</span><br></pre></td></tr></table></figure>
+<p>chown 调整文件权属，各用户更细分权限调整，通过 chmod 命令实现，后续章节围绕 chmod 展开。</p>
+<h2 id="使用字符赋权"><a href="#使用字符赋权" class="headerlink" title="使用字符赋权"></a>使用字符赋权</h2><h3 id="字符含义"><a href="#字符含义" class="headerlink" title="字符含义"></a>字符含义</h3><p>通过 <code>u g o a</code>来指定被操作的用户。</p>
+<ul>
+<li>[ u ]代表文件拥有者(user)</li>
+<li>[ g ]代表文件所属组(group)</li>
+<li>[ o ]代表既非所有者也不在所属组的其他用户(other)</li>
+<li>[ a ]代表所有用户(all)</li>
+</ul>
+<p>需要注意的是，文件拥有者不一定在文件所属组中，当文件拥有者在文件所属组中时，检查的是所有者权限，而不是其所属组权限。<br>Linux 在检查用户权限时，按照用户、组、其他的优先级依次检查，若命中则不会再次向后检查。<br>例如，当一个文件的权限位<code>----r-xr-x+ 7 macmini staff</code>时，即便 macmini 用户属于 staff 权限，其也不能读取该文件。</p>
+<p>通过 <code>+ - =</code>字符来指定权限操作。</p>
+<ul>
+<li>[ + ]代表添加权限</li>
+<li>[ - ]代表缩减权限</li>
+<li>[ = ]代表赋予（更改）权限</li>
+</ul>
+<p>通过 <code>r w x</code>字符来指定具体权限。</p>
+<p>对于文件</p>
 <ul>
 <li>[ r ]代表可读(read)</li>
 <li>[ w ]代表可写(write)</li>
 <li>[ x ]代表可执行(execute)</li>
 </ul>
-<p>通过 <code>u g o a</code>来指定更改的用户。</p>
+<p>对于文件夹</p>
 <ul>
-<li>[ u ]代表当前用户(user)</li>
-<li>[ g ]代表当前用户所在组(group)</li>
-<li>[ o ]代表非当前用户所在组的其他用户(other)</li>
-<li>[ a ]代表所有用户(all)</li>
+<li>[ r ]代表列举文件夹内容(ls)，可拷贝文件夹内容(cp)</li>
+<li>[ w ]代表可新增和删除文件内容，需要拥有可执行权限，否则进不去文件夹拥有写权限也无效</li>
+<li>[ x ]代表可进入文件夹</li>
 </ul>
 <h3 id="添加权限"><a href="#添加权限" class="headerlink" title="添加权限"></a>添加权限</h3><p>当前用户添加全部权限</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chmod u+rwx file</span><br></pre></td></tr></table></figure>
 <p>所有用户添加读写权限</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chmod a+rx file</span><br></pre></td></tr></table></figure>
-<p>当前组写权限，其他组读权限</p>
+<p>当前组写权限，其他组读权限，分别赋权用<code>,</code>隔开</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chmod g+r,o+w file</span><br></pre></td></tr></table></figure>
+<p>当多个赋权一致时，也可以合并书写。<br>当前用户与主赋予执行权限</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chmod u+x,g+x file</span><br><span class="line"><span class="comment"># 或合并写为</span></span><br><span class="line">chmod ug+x file</span><br></pre></td></tr></table></figure>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chmod g+r,o+w file</span><br></pre></td></tr></table></figure>
 <p>对所有用户在当前目录下所有文件（夹）递归赋全部权</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chmod -R a+rwx directory</span><br></pre></td></tr></table></figure>
 <h3 id="删除权限"><a href="#删除权限" class="headerlink" title="删除权限"></a>删除权限</h3><p>移除当前用户所在组执行权限</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chmod g-x file</span><br></pre></td></tr></table></figure>
-<h3 id="权限赋值"><a href="#权限赋值" class="headerlink" title="权限赋值"></a>权限赋值</h3><p>给予当前用户全部权限，其他人员赋予读取与执行权限</p>
+<h3 id="赋予权限"><a href="#赋予权限" class="headerlink" title="赋予权限"></a>赋予权限</h3><p>给予当前用户全部权限，其他人员赋予读取与执行权限</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chmod u=rwx,g=rx,o=rx file</span><br></pre></td></tr></table></figure>
 <h2 id="使用数字赋权"><a href="#使用数字赋权" class="headerlink" title="使用数字赋权"></a>使用数字赋权</h2><p>使用数字赋权时，通过如下数字代表不同的权限</p>
 <table>
@@ -336,6 +372,112 @@
 </table>
 <p>chmod 通过指定三位数字来给一个文件向不同的用户赋权<br>例如，要想一个文件的权限为 <code>rwxr-xr-x</code>，每三位一组，即为 755<br>使用</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chmod 755 file</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">chmod u=rwx,g=r-x,o=r-x file</span><br></pre></td></tr></table></figure>
+<h2 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h2><h3 id="权限进阶"><a href="#权限进阶" class="headerlink" title="权限进阶"></a>权限进阶</h3><p>对于各用户赋权，除了常见的<code>r w x</code>权限，还有另外的三种附加权限。分别是</p>
+<ul>
+<li>SUID(Set-user Identification)</li>
+<li>SGID(Set-group Identification)</li>
+<li>Sticky bit</li>
+</ul>
+<p>上述权限在基本权限的基础上，进一步拓展了文件权限限制与开放的层级。<br>在 linux 中，文件权限实际用 12 位二进制来存储。</p>
+<table>
+<thead>
+<tr>
+<th>位置</th>
+<th>11</th>
+<th>10</th>
+<th>9</th>
+<th>8</th>
+<th>7</th>
+<th>6</th>
+<th>5</th>
+<th>4</th>
+<th>3</th>
+<th>2</th>
+<th>1</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>权限</td>
+<td>S</td>
+<td>G</td>
+<td>T</td>
+<td>r</td>
+<td>w</td>
+<td>x</td>
+<td>r</td>
+<td>w</td>
+<td>x</td>
+<td>r</td>
+<td>w</td>
+<td>x</td>
+</tr>
+</tbody>
+</table>
+<p>在这 12 位上，拥有该权限则对应 1，无权限对应为 0</p>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>权限二进制</th>
+<th>数值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rw-r-sr–</td>
+<td>0 1 0 1 1 0 1 0 0 1 0 0</td>
+<td>2654</td>
+</tr>
+<tr>
+<td>rwsr-xr-x</td>
+<td>1 0 0 1 1 1 1 0 1 1 0 1</td>
+<td>4755</td>
+</tr>
+<tr>
+<td>rwsr-sr-x</td>
+<td>1 1 0 1 1 1 1 0 1 1 0 1</td>
+<td>6755</td>
+</tr>
+<tr>
+<td>rwsr-sr-t</td>
+<td>1 1 1 1 1 1 1 0 1 1 0 1</td>
+<td>7755</td>
+</tr>
+<tr>
+<td>rwxr-xr-x</td>
+<td>0 0 0 1 1 1 1 0 1 1 0 1</td>
+<td>755</td>
+</tr>
+</tbody>
+</table>
+<p>每三位一组，在附加权限位（9-11 位）上，转换为 10 进制 SUID 对应值为 4，SGID 对应 2，Sticky bit 对应 1。<br>同理，在前 9 位上的读写位上，每 3 位一组，读对应值为 4，写对应值为 2，执行对应值为 1。<br>这些值在使用数字赋权时供计算使用。<br>例如，将所有权限存储二进制位置为 1。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">chmod 7777 file</span><br><span class="line"><span class="comment"># -rwsrwsrwt 1 root root    0 Jul  4 16:41 file</span></span><br></pre></td></tr></table></figure>
+<h3 id="SUID"><a href="#SUID" class="headerlink" title="SUID"></a>SUID</h3><p>SUID 设定任何执行该文件的用户其身份为文件拥有者，并以文件拥有者权限执行文件。<br>拥有该权限的标识为’S’。<br>其设定的标识位于所有者权限标识三位中的最后一位（即可执行位）上，以初始文件权限<code>rw-r-xr-x</code>为例。<br>当其设定了 SUID 权限时，其标识为<code>rwSr-xr-x</code>。<br>由于占据了可执行位，若此时文件用户所有者具有可执行(x)权限，区分的方案为采用大小写，同时具备 SUID 和 x 权限时，使用小写’s’<br>对应的权限为<code>rwsr-xr-x</code><br>该权限仅对所有者设定有效，对所属组(g)、其他用户(o)、全部用户(a)设定无效。<br>其权限增减方式为</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加</span></span><br><span class="line">chmod u+s file</span><br><span class="line"><span class="comment"># 删除</span></span><br><span class="line">chmod u<span class="_">-s</span> file</span><br></pre></td></tr></table></figure>
+<p>使用数字方式增减权限的方式为</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加 chmod 4xxx file</span></span><br><span class="line">chmod 4777 file</span><br><span class="line"><span class="comment"># 删除 chmod 0xxx file 或chmod xxx file</span></span><br><span class="line">chmod 0777 file</span><br></pre></td></tr></table></figure>
+<p>SUID 多用于可执行文件上。<br>一个常见的情形为用户更改自己的密码。<br>在 linux 中，普通用户更改密码都涉及修改<code>/etc/passwd</code> 文件，而该文件的权限如下，普通用户无权操作。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ll /etc/passwd</span><br><span class="line"><span class="comment"># -rw-r--r-- 1 root root 1192 Nov 12  2021 /etc/passwd</span></span><br></pre></td></tr></table></figure>
+<p>普通用户可使用 <code>passwd</code> 命令修改自己的密码，这是由于<code>passwd</code>对应的文件<code>/usr/bin/passwd</code>拥有 SUID 权限</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls -lh /usr/bin/passwd</span><br><span class="line"><span class="comment"># -rwsr-xr-x 1 root root 28K Apr  1  2020 /usr/bin/passwd</span></span><br></pre></td></tr></table></figure>
+<h3 id="SGID"><a href="#SGID" class="headerlink" title="SGID"></a>SGID</h3><p>SGID 类似于 SUID，其权限调整由 SUID 的调整拥有者权限变更到调整所属组权限。<br>当 SGID 用于可执行文件时，任何执行该文件的用户拥有文件对应所属组权限。<br>拥有 SGID 权限的标识为’S’。<br>其设定的标识位于所属组权限标识三位中的最后一位（即可执行位）上，以初始文件权限<code>rw-r--r-x</code>为例。<br>当其设定了 SGID 权限时，其标识为<code>rw-r-Sr-x</code>。<br>由于占据了可执行位，若此时文件用户所属组具有可执行(x)权限，区分的方案为采用大小写，同时具备 SGID 和 x 权限时，使用小写’s’<br>对应的权限为<code>rwxr-sr-x</code><br>该权限仅对所属组设定有效，对文件拥有者(u)、其他用户(o)、全部用户(a)设定无效。<br>即其操作方式为</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加</span></span><br><span class="line">chmod g+s file</span><br><span class="line"><span class="comment"># 删除</span></span><br><span class="line">chmod g<span class="_">-s</span> file</span><br></pre></td></tr></table></figure>
+<p>使用数字方式操作权限的方式为</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加 chmod 2xxx file</span></span><br><span class="line">chmod 2777 file</span><br><span class="line"><span class="comment"># 删除 chmod 0xxx file 或chmod xxx file</span></span><br><span class="line">chmod 0777 file</span><br><span class="line">chmod 777 file</span><br></pre></td></tr></table></figure>
+<p>Linux 执行程序的进程中，通过 euid 和 egid 来判定进程对资源的访问权限。<br>假定用户 skyline 的 uid=66，所在组 sky 的 gid=666<br>假定用户 guest 的 uid=88，所在组 test 的 gid=888<br>skyline 来执行 guest 用户如下 private.sh 文件</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">-rwxr-xr-x+ 7 guest <span class="built_in">test</span> 238B Jun 15 16:39 private.sh</span><br></pre></td></tr></table></figure>
+<p>private.sh 未设定 SUID 和 SGID，则执行进程时 euid=66，egid=666，即取执行该进程用户 skyline 的 uid 和 gid。<br>此时，该进程无法获取到执行文件所有者的资源权限。</p>
+<p>当 skyline 来执行 guest 如下 share.sh 文件</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">-rwsr-sr-x+ 7 guest <span class="built_in">test</span> 238B Jun 15 16:39 share.sh</span><br></pre></td></tr></table></figure>
+<p>share.sh 设定 SUID 和 SGID，则执行进程时 euid=88，egid=888，即取执行文件的拥有者与所属组对应 的 uid 和 gid。<br>此时，该进程相当于所有者自己运行，可以获取所有者相当的资源权限。</p>
+<p>当 SGID 用于文件夹时，效果作用于文件夹内部文件。<br>当父文件夹未设定 SGID 时，其内部新增的文件所属组为创建该文件用户在系统中的基本组。<br>当父文件夹设定 SGID 时，其内部新增的文件所属组为父文件夹所属组。<br>SGID 常用于共享文件夹等场景。</p>
+<h3 id="Sticky-bit"><a href="#Sticky-bit" class="headerlink" title="Sticky bit"></a>Sticky bit</h3><p>Sticky bit 限定只有文件所有者和超级用户可删除文件。<br>拥有该权限的标识为’T’。<br>其设定的标识位于其他用户权限标识三位中的最后一位（即可执行位）上，以初始文件权限<code>rw-r--r--</code>为例。<br>当其设定了 Sticky bit 权限时，其标识为<code>rw-r--r-T</code>。<br>由于占据了可执行位，若此时文件用户所属组具有可执行(x)权限，区分的方案为采用大小写，同时具备 Sticky bit 和 x 权限时，使用小写’t’<br>对应的权限为<code>rwxr--r-t</code><br>该权限仅对其他用户设定有效，对文件拥有者(u)、所属组(o)设定无效。<br>由于不存在 SUID 与 SGID 都使用 s 标识的冲突，操作时，可以不添加使用者来指定权限，其操作方式为</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加</span></span><br><span class="line">chmod +t file</span><br><span class="line"><span class="comment"># 删除</span></span><br><span class="line">chmod -t file</span><br></pre></td></tr></table></figure>
+<p>实际上<code>a+t,o+t</code>在部分系统也生效，但不推荐这种写法。<br>使用数字方式操作权限的方式为</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加 chmod 1xxx file</span></span><br><span class="line">chmod 1777 file</span><br><span class="line"><span class="comment"># 删除 chmod 0xxx file 或 chmod xxx file</span></span><br><span class="line">chmod 0777 file</span><br><span class="line">chmod 777 file</span><br></pre></td></tr></table></figure>
+<p>Sticky bit 常用于共享文件夹中限制其他人的删除权限。</p>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
@@ -425,7 +567,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件权限"><span class="nav-number">1.</span> <span class="nav-text">文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用字符赋权"><span class="nav-number">2.</span> <span class="nav-text">使用字符赋权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符含义"><span class="nav-number">2.1.</span> <span class="nav-text">字符含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加权限"><span class="nav-number">2.2.</span> <span class="nav-text">添加权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除权限"><span class="nav-number">2.3.</span> <span class="nav-text">删除权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限赋值"><span class="nav-number">2.4.</span> <span class="nav-text">权限赋值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用数字赋权"><span class="nav-number">3.</span> <span class="nav-text">使用数字赋权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件权限"><span class="nav-number">1.</span> <span class="nav-text">文件权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#权限查看"><span class="nav-number">1.1.</span> <span class="nav-text">权限查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限调整"><span class="nav-number">1.2.</span> <span class="nav-text">权限调整</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用字符赋权"><span class="nav-number">2.</span> <span class="nav-text">使用字符赋权</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符含义"><span class="nav-number">2.1.</span> <span class="nav-text">字符含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加权限"><span class="nav-number">2.2.</span> <span class="nav-text">添加权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除权限"><span class="nav-number">2.3.</span> <span class="nav-text">删除权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#赋予权限"><span class="nav-number">2.4.</span> <span class="nav-text">赋予权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用数字赋权"><span class="nav-number">3.</span> <span class="nav-text">使用数字赋权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊权限"><span class="nav-number">4.</span> <span class="nav-text">特殊权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#权限进阶"><span class="nav-number">4.1.</span> <span class="nav-text">权限进阶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SUID"><span class="nav-number">4.2.</span> <span class="nav-text">SUID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SGID"><span class="nav-number">4.3.</span> <span class="nav-text">SGID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sticky-bit"><span class="nav-number">4.4.</span> <span class="nav-text">Sticky bit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

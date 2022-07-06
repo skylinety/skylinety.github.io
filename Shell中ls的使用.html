@@ -13,18 +13,18 @@
   
   
   
-  <meta name="description" content="基础使用 参数 常见用法   权限 BMW WARNING   基础使用参数ls 即 list，列出目录内容    参数 使用 描述     1 ls -1 换行列出文件   a ls -a 列出所有文件，包括隐藏文件   d ls -d 列出当前目录本身，而不是其下内容    常见用法">
+  <meta name="description" content="基础使用 参数 常见用法   权限 BMW WARNING   基础使用参数ls 即 list，列出目录内容    参数 使用 描述     1 ls -1 换行列出文件   l ls -l 换行列出文件详细信息   a ls -a 列出所有文件，包括隐藏文件   d ls -d 列出当前目录本身，而不是其下内容   h ls -h 文件大小可读化输出，需要与 -l 配合使用    常见用法">
 <meta name="keywords" content="Shell,Commands">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shell中ls的使用">
 <meta property="og:url" content="http://www.skyline.show/Shell中ls的使用.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="基础使用 参数 常见用法   权限 BMW WARNING   基础使用参数ls 即 list，列出目录内容    参数 使用 描述     1 ls -1 换行列出文件   a ls -a 列出所有文件，包括隐藏文件   d ls -d 列出当前目录本身，而不是其下内容    常见用法">
+<meta property="og:description" content="基础使用 参数 常见用法   权限 BMW WARNING   基础使用参数ls 即 list，列出目录内容    参数 使用 描述     1 ls -1 换行列出文件   l ls -l 换行列出文件详细信息   a ls -a 列出所有文件，包括隐藏文件   d ls -d 列出当前目录本身，而不是其下内容   h ls -h 文件大小可读化输出，需要与 -l 配合使用    常见用法">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-28T02:09:07.000Z">
+<meta property="og:updated_time" content="2022-06-30T08:18:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell中ls的使用">
-<meta name="twitter:description" content="基础使用 参数 常见用法   权限 BMW WARNING   基础使用参数ls 即 list，列出目录内容    参数 使用 描述     1 ls -1 换行列出文件   a ls -a 列出所有文件，包括隐藏文件   d ls -d 列出当前目录本身，而不是其下内容    常见用法">
+<meta name="twitter:description" content="基础使用 参数 常见用法   权限 BMW WARNING   基础使用参数ls 即 list，列出目录内容    参数 使用 描述     1 ls -1 换行列出文件   l ls -l 换行列出文件详细信息   a ls -a 列出所有文件，包括隐藏文件   d ls -d 列出当前目录本身，而不是其下内容   h ls -h 文件大小可读化输出，需要与 -l 配合使用    常见用法">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-28T02:09:07.000Z" itemprop="datePublished">2022-06-28</time>
+      <time datetime="2022-06-30T08:18:13.000Z" itemprop="datePublished">2022-06-30</time>
     </a><span style="color: #999">|</span>
 
       
@@ -230,6 +230,11 @@
 <td>换行列出文件</td>
 </tr>
 <tr>
+<td>l</td>
+<td>ls -l</td>
+<td>换行列出文件详细信息</td>
+</tr>
+<tr>
 <td>a</td>
 <td>ls -a</td>
 <td>列出所有文件，包括隐藏文件</td>
@@ -238,6 +243,11 @@
 <td>d</td>
 <td>ls -d</td>
 <td>列出当前目录本身，而不是其下内容</td>
+</tr>
+<tr>
+<td>h</td>
+<td>ls -h</td>
+<td>文件大小可读化输出，需要与 -l 配合使用</td>
 </tr>
 </tbody>
 </table>
@@ -251,7 +261,7 @@
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls -ld</span><br><span class="line"><span class="comment"># drwxr-xr-x+  5 skyline  staff   170  4  3 12:30 .</span></span><br></pre></td></tr></table></figure>
 <h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><p><code>ls 【选项】【目录/文件】</code></p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls -l</span><br><span class="line"><span class="comment"># total 8</span></span><br><span class="line"><span class="comment"># drwxr-xr-x  5 macmini  staff   170B Mar  3 17:06 Demos</span></span><br><span class="line"><span class="comment"># drwxr-xr-x+  7 macmini  staff   238B Jun 15 16:39 Docs</span></span><br><span class="line"><span class="comment"># -rwxr-xr-x  1 macmini  staff   143B Sep 18  2021 README.md</span></span><br></pre></td></tr></table></figure>
-<p>上述倒数第二列<code>drwxr-xr-x+  7 macmini  staff   238B Jun 15 16:39 Docs</code>的含义如下</p>
+<p>上述倒数第二列<code>drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs</code>的含义如下</p>
 <table>
 <thead>
 <tr>
@@ -288,11 +298,12 @@
 <ul>
 <li><p>第 1 位代表文件类型:</p>
 <ul>
-<li>-文件</li>
-<li>d 目录</li>
-<li>l 软链接文件</li>
-<li>b 装置文件里面的可供储存的接口设备(可随机存取装置)；</li>
-<li>c 装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)</li>
+<li><code>-</code> 普通文件</li>
+<li><code>d</code> 目录</li>
+<li><code>l</code> 软链接文件</li>
+<li><code>s</code> socket 文件</li>
+<li><code>b</code> 装置文件里面的可供储存的接口设备(可随机存取装置)；</li>
+<li><code>c</code> 装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)</li>
 </ul>
 </li>
 <li><p>接下来中间 9 位，以 3 个为 1 组，且均为『rwx』 的 3 个参数的组合。</p>
@@ -304,7 +315,7 @@
 </li>
 </ul>
 <p>要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已。</p>
-<p>对目录如果没有 w 权限，即使里面的文件有写权限，也不能对文件进行移动，重命名操作。<br>此时，需要给目录加上 w 权限：<code>chmod +w</code>（注意此时 cwd 是此目录）</p>
+<p>对目录如果没有 w 权限，即使里面的文件有写权限，也不能对文件进行移动，重命名操作。<br>此时，需要给目录加上 w 权限：<code>chmod +w</code>（注意命令在该目录下执行）</p>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
@@ -379,19 +390,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/对象的私有、静态（类）、自有（实例）、原型属性与方法.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Vue项目实现rtmp流视频播放.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          对象的私有、静态（类）、自有（实例）、原型属性与方法
+          Vue项目实现rtmp流视频播放
         
       </div>
     </a>
   
   
-    <a href="/Vue项目实现rtmp流视频播放.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Generator函数.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Vue项目实现rtmp流视频播放</div>
+      <div class="article-nav-title">Generator函数</div>
     </a>
   
 </nav>
