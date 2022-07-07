@@ -13,18 +13,18 @@
   
   
   
-  <meta name="description" content="if 条件包裹括号 常见判定参数   三元 BMW WARNING   if条件包裹括号 command  if 后直接接条件无任何括号包裹。表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首先执行 read -p &quot;Enter first string: &quot; VAR1read -p &quot;Enter second string: &quot; VAR2 并进行两次相同输入后。 if &quot;">
+  <meta name="description" content="if 基本语法 条件包裹括号 常见判定条件   三元 BMW WARNING   if基本语法if [条件]then    命令elif [条件]then    命令else    命令fi 其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致 条件包裹括号">
 <meta name="keywords" content="Shell,Scripts">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shell条件判定">
 <meta property="og:url" content="http://www.skyline.show/Shell条件判定.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="if 条件包裹括号 常见判定参数   三元 BMW WARNING   if条件包裹括号 command  if 后直接接条件无任何括号包裹。表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首先执行 read -p &quot;Enter first string: &quot; VAR1read -p &quot;Enter second string: &quot; VAR2 并进行两次相同输入后。 if &quot;">
+<meta property="og:description" content="if 基本语法 条件包裹括号 常见判定条件   三元 BMW WARNING   if基本语法if [条件]then    命令elif [条件]then    命令else    命令fi 其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致 条件包裹括号">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-06-30T08:18:13.000Z">
+<meta property="og:updated_time" content="2022-07-01T10:01:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell条件判定">
-<meta name="twitter:description" content="if 条件包裹括号 常见判定参数   三元 BMW WARNING   if条件包裹括号 command  if 后直接接条件无任何括号包裹。表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首先执行 read -p &quot;Enter first string: &quot; VAR1read -p &quot;Enter second string: &quot; VAR2 并进行两次相同输入后。 if &quot;">
+<meta name="twitter:description" content="if 基本语法 条件包裹括号 常见判定条件   三元 BMW WARNING   if基本语法if [条件]then    命令elif [条件]then    命令else    命令fi 其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致 条件包裹括号">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-30T08:18:13.000Z" itemprop="datePublished">2022-06-30</time>
+      <time datetime="2022-07-01T10:01:58.000Z" itemprop="datePublished">2022-07-01</time>
     </a><span style="color: #999">|</span>
 
       
@@ -206,15 +206,19 @@
 <!-- code_chunk_output -->
 <ul>
 <li><a href="#if">if</a><ul>
+<li><a href="#基本语法">基本语法</a></li>
 <li><a href="#条件包裹括号">条件包裹括号</a></li>
-<li><a href="#常见判定参数">常见判定参数</a></li>
+<li><a href="#常见判定条件">常见判定条件</a></li>
 </ul>
 </li>
 <li><a href="#三元">三元</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><h3 id="条件包裹括号"><a href="#条件包裹括号" class="headerlink" title="条件包裹括号"></a>条件包裹括号</h3><ul>
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> [条件]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">elif</span> [条件]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p>其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致</p>
+<h3 id="条件包裹括号"><a href="#条件包裹括号" class="headerlink" title="条件包裹括号"></a>条件包裹括号</h3><a id="more"></a>
+<ul>
 <li>command</li>
 </ul>
 <p>if 后直接接条件无任何括号包裹。<br>表示验证<strong>命令</strong>是否成功执行。<br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/condition.sh" target="_blank" rel="noopener">代码源文件</a><br>如下对于本文后续所有类似代码，首先执行</p>
@@ -249,15 +253,17 @@
 <ul>
 <li>((expression))</li>
 </ul>
-<p>if 后接<code>(())</code>包裹的条件。<br>表示内部<strong>算数表达式</strong>的计算。<br>(())内部进行算数表达式的计算。<br>算数表达式包含常见的一元二元运算符，逻辑运算符等。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> ((<span class="string">"<span class="variable">$VAR1</span>"</span> == <span class="string">"<span class="variable">$VAR2</span>"</span>)); <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are equal."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are not equal."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Strings are equal.</span></span><br></pre></td></tr></table></figure>
+<p>if 后接<code>(())</code>包裹的条件。<br>表示内部<strong>算数表达式</strong>的计算。<br>(())内部进行算数表达式的计算。<br>算数表达式可包含常见的一元二元运算符，逻辑运算符等。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> ((<span class="string">"<span class="variable">$VAR1</span>"</span> == <span class="string">"<span class="variable">$VAR2</span>"</span>)); <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are equal."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Strings are not equal."</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Strings are equal.</span></span><br><span class="line"><span class="keyword">if</span> ((1+1 &gt; 1)); <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"True"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"False"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
 <p><a href="http://www.gnu.org/software/bash/manual/bash.html#Shell-Arithmetic" target="_blank" rel="noopener">Shell-Arithmetic</a><br>当(())前面加上$时，表示得到的算数结果充当所在命令行的一部分.</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'skyline'</span>| cut -c$((1 + 1))-3</span><br><span class="line"><span class="comment"># ky</span></span><br></pre></td></tr></table></figure>
 <p>上述代码实现的效果可以使用 expr 实现</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'skyline'</span>| cut -c$(expr 1 + 1)-3</span><br><span class="line"><span class="comment"># ky</span></span><br></pre></td></tr></table></figure>
 <p>注意，expr 通常与<code></code>一起使用，或与$()使用，注意 expr 中空格的使用，否则报错<br>也可使用 let 来实现计算</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">start=1</span><br><span class="line"><span class="built_in">let</span> start+=1</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$start</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'skyline'</span>| cut -c<span class="variable">$start</span>-3</span><br></pre></td></tr></table></figure>
-<h3 id="常见判定参数"><a href="#常见判定参数" class="headerlink" title="常见判定参数"></a>常见判定参数</h3><a id="more"></a>
+<h3 id="常见判定条件"><a href="#常见判定条件" class="headerlink" title="常见判定条件"></a>常见判定条件</h3><ul>
+<li>文件相关</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -267,7 +273,118 @@
 </thead>
 <tbody>
 <tr>
-<td></td>
+<td>-a FILE</td>
+<td>文件存在</td>
+</tr>
+<tr>
+<td>-d FILE</td>
+<td>文件存在且为文件夹(directory)</td>
+</tr>
+<tr>
+<td>-e FILE</td>
+<td>文件存在</td>
+</tr>
+<tr>
+<td>-f FILE</td>
+<td>文件存在且为常规文件(file)</td>
+</tr>
+<tr>
+<td>-g FILE</td>
+<td>文件存在 SGID 已设置(SGID)</td>
+</tr>
+<tr>
+<td>-L FILE</td>
+<td>文件存在且为软连接(symbol link)</td>
+</tr>
+<tr>
+<td>-r FILE</td>
+<td>文件存在且可读(readable)</td>
+</tr>
+<tr>
+<td>-w FILE</td>
+<td>文件存在且可写(writeable)</td>
+</tr>
+<tr>
+<td>-x FILE</td>
+<td>文件存在且可执行(executable)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>字符相关</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STRING1 == STRING2</td>
+<td>字符判等</td>
+</tr>
+<tr>
+<td>STRING1 != STRING2</td>
+<td>字符非等</td>
+</tr>
+<tr>
+<td>STRING1 &gt; STRING2</td>
+<td>字符排序在前</td>
+</tr>
+<tr>
+<td>STRING1 &lt; STRING2</td>
+<td>字符排序在后</td>
+</tr>
+<tr>
+<td>-n STRING</td>
+<td>字符非空</td>
+</tr>
+<tr>
+<td>-z STRING</td>
+<td>字符为空</td>
+</tr>
+<tr>
+<td>STRING =~ REGEXP</td>
+<td>正则匹配判定</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>数字相关</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NUMBER1 -eq NUMBER2</td>
+<td>数字判等(equal)</td>
+</tr>
+<tr>
+<td>NUMBER1 -ne NUMBER2</td>
+<td>数字非等 (not equal)</td>
+</tr>
+<tr>
+<td>NUMBER1 -gt NUMBER2</td>
+<td>数字大于(greater than)</td>
+</tr>
+<tr>
+<td>NUMBER1 -ge NUMBER2</td>
+<td>数字大于等于(greater or equal)</td>
+</tr>
+<tr>
+<td>NUMBER1 -lt NUMBER2</td>
+<td>数字小于（less than）</td>
+</tr>
+<tr>
+<td>NUMBER1 -le NUMBER2</td>
+<td>数字小于等于（less or equal</td>
 </tr>
 </tbody>
 </table>
@@ -370,7 +487,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#if"><span class="nav-number">1.</span> <span class="nav-text">if</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#条件包裹括号"><span class="nav-number">1.1.</span> <span class="nav-text">条件包裹括号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见判定参数"><span class="nav-number">1.2.</span> <span class="nav-text">常见判定参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三元"><span class="nav-number">2.</span> <span class="nav-text">三元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#if"><span class="nav-number">1.</span> <span class="nav-text">if</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本语法"><span class="nav-number">1.1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件包裹括号"><span class="nav-number">1.2.</span> <span class="nav-text">条件包裹括号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见判定条件"><span class="nav-number">1.3.</span> <span class="nav-text">常见判定条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三元"><span class="nav-number">2.</span> <span class="nav-text">三元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

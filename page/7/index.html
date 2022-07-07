@@ -354,6 +354,7 @@
 <ul>
 <li><a href="#字符包含判定">字符包含判定</a><ul>
 <li><a href="#">==</a></li>
+<li><a href="#正则">正则=~</a></li>
 <li><a href="#grep">grep</a></li>
 </ul>
 </li>
@@ -368,12 +369,13 @@
 </ul>
 <!-- /code_chunk_output -->
 <h2 id="字符包含判定"><a href="#字符包含判定" class="headerlink" title="字符包含判定"></a>字符包含判定</h2><h3 id><a href="#" class="headerlink" title="=="></a>==</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">'GNU/Linux is an operating system'</span></span><br><span class="line">SUB=<span class="string">'Linux'</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$STR</span>"</span> == *<span class="string">"<span class="variable">$SUB</span>"</span>* ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"It's there."</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3>
+<h3 id="正则"><a href="#正则" class="headerlink" title="正则=~"></a>正则=~</h3>
         <!-- 
 
 
 字符包含判定
 ==
+正则=~
 grep
 
 
@@ -388,8 +390,7 @@ BMW WARNING
 
 
 字符包含判定==STR='GNU/Linux is an operating system'SUB='Linux'if [[ "$STR" == *"$SUB"* ]]; then  echo "It's there."fi
-grep
-使用 g......  -->
+正则=~......  -->
         <p class="article-more-link">
           <a href="/Shell中字符串相关操作.html#more">阅读全文</a>
         </p>
@@ -400,6 +401,130 @@ grep
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#页面渲染">页面渲染</a><ul>
+<li><a href="#渲染流程">渲染流程</a></li>
+<li><a href="#layout">Layout</a></li>
+<li><a href="#paint">Paint</a></li>
+</ul>
+</li>
+<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
+<li><a href="#回流触发">回流触发</a></li>
+<li><a href="#重绘触发">重绘触发</a></li>
+</ul>
+</li>
+<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
+<li><a href="#浏览器优化">浏览器优化</a></li>
+<li><a href="#代码优化">代码优化</a><ul>
+<li><a href="#html">HTML</a></li>
+<li><a href="#css">CSS</a></li>
+<li><a href="#js">JS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
+<ul>
+<li>解析 HTML 节点，创建 DOM 树</li>
+<li>解析 CSS 创建 CSSOM 树</li>
+<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
+<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
+<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
+<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
+</ul>
+</li>
+<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
+<li>Paint， 绘制 renderTree 到页面上</li>
+</ul>
+<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
+<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3>
+        <!-- 
+
+
+页面渲染
+渲染流程
+Layout
+Paint
+
+
+回流与重绘触发
+回流触发
+重绘触发
+
+
+回流与重绘优化
+浏览器优化
+代码优化
+HTML
+CSS
+JS
+
+
+
+
+总结
+BMW WARNING
+
+
+页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
+
+解析 HTML 节点，创建 DOM 树
+解析 CSS 创建 CSSOM 树......  -->
+        <p class="article-more-link">
+          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
 
     </footer>
   </div>
@@ -610,282 +735,6 @@ git 单列已添加到暂存区的文件......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#页面渲染">页面渲染</a><ul>
-<li><a href="#渲染流程">渲染流程</a></li>
-<li><a href="#layout">Layout</a></li>
-<li><a href="#paint">Paint</a></li>
-</ul>
-</li>
-<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
-<li><a href="#回流触发">回流触发</a></li>
-<li><a href="#重绘触发">重绘触发</a></li>
-</ul>
-</li>
-<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
-<li><a href="#浏览器优化">浏览器优化</a></li>
-<li><a href="#代码优化">代码优化</a><ul>
-<li><a href="#html">HTML</a></li>
-<li><a href="#css">CSS</a></li>
-<li><a href="#js">JS</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#总结">总结</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
-<ul>
-<li>解析 HTML 节点，创建 DOM 树</li>
-<li>解析 CSS 创建 CSSOM 树</li>
-<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
-<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
-<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
-<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
-</ul>
-</li>
-<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
-<li>Paint， 绘制 renderTree 到页面上</li>
-</ul>
-<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
-<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3>
-        <!-- 
-
-
-页面渲染
-渲染流程
-Layout
-Paint
-
-
-回流与重绘触发
-回流触发
-重绘触发
-
-
-回流与重绘优化
-浏览器优化
-代码优化
-HTML
-CSS
-JS
-
-
-
-
-总结
-BMW WARNING
-
-
-页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
-
-解析 HTML 节点，创建 DOM 树
-解析 CSS 创建 CSSOM 树......  -->
-        <p class="article-more-link">
-          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/排序算法.html">排序算法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#选择排序">选择排序</a><ul>
-<li><a href="#选排的思想">选排的思想</a></li>
-<li><a href="#时间复杂度">时间复杂度</a></li>
-</ul>
-</li>
-<li><a href="#冒泡排序">冒泡排序</a><ul>
-<li><a href="#基本思路">基本思路</a></li>
-<li><a href="#时间复杂度-1">时间复杂度</a></li>
-<li><a href="#交换判定优化">交换判定优化</a></li>
-</ul>
-</li>
-<li><a href="#插入排序">插入排序</a><ul>
-<li><a href="#插排的思想">插排的思想</a></li>
-<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
-<li><a href="#哨兵优化">哨兵优化</a></li>
-<li><a href="#折半优化">折半优化</a></li>
-</ul>
-</li>
-<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
-<li><a href="#归并排序思路">归并排序思路</a></li>
-<li><a href="#合并">合并</a></li>
-<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
-</ul>
-</li>
-<li><a href="#快速排序">快速排序</a><ul>
-<li><a href="#快排思路">快排思路</a></li>
-<li><a href="#选值优化">选值优化</a></li>
-<li><a href="#多路快排">多路快排</a></li>
-</ul>
-</li>
-<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
-<li><a href="#关键思路">关键思路</a></li>
-<li><a href="#时间复杂度-2">时间复杂度</a></li>
-</ul>
-</li>
-<li><a href="#计数排序">计数排序</a><ul>
-<li><a href="#关键思路-1">关键思路</a></li>
-<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
-</ul>
-</li>
-<li><a href="#堆排序">堆排序</a><ul>
-<li><a href="#完全二叉树">完全二叉树</a></li>
-<li><a href="#堆">堆</a></li>
-<li><a href="#构造堆">构造堆</a></li>
-<li><a href="#排序">排序</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
-        <!-- 
-
-
-选择排序
-选排的思想
-时间复杂度
-
-
-冒泡排序
-基本思路
-时间复杂度
-交换判定优化
-
-
-插入排序
-插排的思想
-时间复杂度分析
-哨兵优化
-折半优化
-
-
-归并排序（Merge Sort）
-归并排序思路
-合并
-时间复杂度分析
-
-
-快速排序
-快排思路
-选值优化
-多路快排
-
-
-希尔排序（缩小增量排序）
-关键思路
-时间复杂度
-
-
-计数排序
-关键思路
-时间复杂度分析
-
-
-堆排序
-完全二叉树
-堆
-构造......  -->
-        <p class="article-more-link">
-          <a href="/排序算法.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
 
     </footer>
   </div>
@@ -1109,6 +958,158 @@ DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/排序算法.html">排序算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#选择排序">选择排序</a><ul>
+<li><a href="#选排的思想">选排的思想</a></li>
+<li><a href="#时间复杂度">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#冒泡排序">冒泡排序</a><ul>
+<li><a href="#基本思路">基本思路</a></li>
+<li><a href="#时间复杂度-1">时间复杂度</a></li>
+<li><a href="#交换判定优化">交换判定优化</a></li>
+</ul>
+</li>
+<li><a href="#插入排序">插入排序</a><ul>
+<li><a href="#插排的思想">插排的思想</a></li>
+<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
+<li><a href="#哨兵优化">哨兵优化</a></li>
+<li><a href="#折半优化">折半优化</a></li>
+</ul>
+</li>
+<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
+<li><a href="#归并排序思路">归并排序思路</a></li>
+<li><a href="#合并">合并</a></li>
+<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#快速排序">快速排序</a><ul>
+<li><a href="#快排思路">快排思路</a></li>
+<li><a href="#选值优化">选值优化</a></li>
+<li><a href="#多路快排">多路快排</a></li>
+</ul>
+</li>
+<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
+<li><a href="#关键思路">关键思路</a></li>
+<li><a href="#时间复杂度-2">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#计数排序">计数排序</a><ul>
+<li><a href="#关键思路-1">关键思路</a></li>
+<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#堆排序">堆排序</a><ul>
+<li><a href="#完全二叉树">完全二叉树</a></li>
+<li><a href="#堆">堆</a></li>
+<li><a href="#构造堆">构造堆</a></li>
+<li><a href="#排序">排序</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
+        <!-- 
+
+
+选择排序
+选排的思想
+时间复杂度
+
+
+冒泡排序
+基本思路
+时间复杂度
+交换判定优化
+
+
+插入排序
+插排的思想
+时间复杂度分析
+哨兵优化
+折半优化
+
+
+归并排序（Merge Sort）
+归并排序思路
+合并
+时间复杂度分析
+
+
+快速排序
+快排思路
+选值优化
+多路快排
+
+
+希尔排序（缩小增量排序）
+关键思路
+时间复杂度
+
+
+计数排序
+关键思路
+时间复杂度分析
+
+
+堆排序
+完全二叉树
+堆
+构造......  -->
+        <p class="article-more-link">
+          <a href="/排序算法.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
 
     </footer>
   </div>
