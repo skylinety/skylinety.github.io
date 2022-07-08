@@ -420,6 +420,130 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
+    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#页面渲染">页面渲染</a><ul>
+<li><a href="#渲染流程">渲染流程</a></li>
+<li><a href="#layout">Layout</a></li>
+<li><a href="#paint">Paint</a></li>
+</ul>
+</li>
+<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
+<li><a href="#回流触发">回流触发</a></li>
+<li><a href="#重绘触发">重绘触发</a></li>
+</ul>
+</li>
+<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
+<li><a href="#浏览器优化">浏览器优化</a></li>
+<li><a href="#代码优化">代码优化</a><ul>
+<li><a href="#html">HTML</a></li>
+<li><a href="#css">CSS</a></li>
+<li><a href="#js">JS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
+<ul>
+<li>解析 HTML 节点，创建 DOM 树</li>
+<li>解析 CSS 创建 CSSOM 树</li>
+<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
+<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
+<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
+<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
+</ul>
+</li>
+<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
+<li>Paint， 绘制 renderTree 到页面上</li>
+</ul>
+<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
+<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3>
+        <!-- 
+
+
+页面渲染
+渲染流程
+Layout
+Paint
+
+
+回流与重绘触发
+回流触发
+重绘触发
+
+
+回流与重绘优化
+浏览器优化
+代码优化
+HTML
+CSS
+JS
+
+
+
+
+总结
+BMW WARNING
+
+
+页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
+
+解析 HTML 节点，创建 DOM 树
+解析 CSS 创建 CSSOM 树......  -->
+        <p class="article-more-link">
+          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Shell中的符号"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -630,353 +754,6 @@ git 单列已添加到暂存区的文件......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#页面渲染">页面渲染</a><ul>
-<li><a href="#渲染流程">渲染流程</a></li>
-<li><a href="#layout">Layout</a></li>
-<li><a href="#paint">Paint</a></li>
-</ul>
-</li>
-<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
-<li><a href="#回流触发">回流触发</a></li>
-<li><a href="#重绘触发">重绘触发</a></li>
-</ul>
-</li>
-<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
-<li><a href="#浏览器优化">浏览器优化</a></li>
-<li><a href="#代码优化">代码优化</a><ul>
-<li><a href="#html">HTML</a></li>
-<li><a href="#css">CSS</a></li>
-<li><a href="#js">JS</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#总结">总结</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
-<ul>
-<li>解析 HTML 节点，创建 DOM 树</li>
-<li>解析 CSS 创建 CSSOM 树</li>
-<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
-<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
-<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
-<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
-</ul>
-</li>
-<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
-<li>Paint， 绘制 renderTree 到页面上</li>
-</ul>
-<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
-<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3>
-        <!-- 
-
-
-页面渲染
-渲染流程
-Layout
-Paint
-
-
-回流与重绘触发
-回流触发
-重绘触发
-
-
-回流与重绘优化
-浏览器优化
-代码优化
-HTML
-CSS
-JS
-
-
-
-
-总结
-BMW WARNING
-
-
-页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
-
-解析 HTML 节点，创建 DOM 树
-解析 CSS 创建 CSSOM 树......  -->
-        <p class="article-more-link">
-          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES_Module&CommonJS.html">ES_Module&amp;CommonJS</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#模块系统">模块系统</a></li>
-<li><a href="#esm-vs-cjs">ESM VS CJS</a></li>
-<li><a href="#esm-vs-cjs-要点解析">ESM VS CJS 要点解析</a><ul>
-<li><a href="#模块输出">模块输出</a></li>
-<li><a href="#模块加载">模块加载</a></li>
-</ul>
-</li>
-<li><a href="#tree-shaking">tree shaking</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
-<ul>
-<li>模块隔离（私有代码权限访问控制）</li>
-<li>模块间依赖</li>
-<li>代码传递到执行环境</li>
-</ul>
-<p>早期解决方案如下：</p>
-<ul>
-<li>命名空间</li>
-<li>立即执行匿名函数 + 闭包</li>
-</ul>
-<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，在 ES6 模块系统后使用频率降低，如下简单对比。</p>
-<p>AMD 典型示例</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>CMD 典型示例</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">define(<span class="string">'main'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'a'</span>) <span class="comment">//依赖就近</span></span><br><span class="line">  a.someFn()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'b'</span>)</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>ES6 兼容 Node.js 模块方案</p>
-<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><table>
-<thead>
-<tr>
-<th>标准</th>
-<th>输出</th>
-<th>加载时机</th>
-<th>加载方式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ES6 模块</td>
-<td>值引用（只读）</td>
-<td>编译</td>
-<td>import 异步</td>
-</tr>
-<tr>
-<td>CommonJS</td>
-<td>值浅拷贝</td>
-<td>运行</td>
-<td>require 同步</td>
-</tr>
-</tbody>
-</table>
-<h2 id="ESM-VS-CJS-要点解析"><a href="#ESM-VS-CJS-要点解析" class="headerlink" title="ESM VS CJS 要点解析"></a>ESM VS CJS 要点解析</h2>
-        <!-- 
-
-
-模块系统
-ESM VS CJS
-ESM VS CJS 要点解析
-模块输出
-模块加载
-
-
-tree shaking
-BMW WARNING
-
-
-模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚......  -->
-        <p class="article-more-link">
-          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
-<li><a href="#实质">实质</a></li>
-<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
-</ul>
-</li>
-<li><a href="#引入-dll-库">引入 dll 库</a><ul>
-<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
-<li><a href="#手动引入注意">手动引入注意</a></li>
-<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
-<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
-</ul>
-</li>
-<li><a href="#成果分析">成果分析</a><ul>
-<li><a href="#优化前">优化前</a></li>
-<li><a href="#优化后">优化后：</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
-<blockquote>
-<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
-</blockquote>
-<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3>
-        <!-- 
-
-
-DllPlugin 概述
-实质
-DllPlugin 配置
-
-
-引入 dll 库
-手动引入 dll 文件（不推荐）
-手动引入注意
-自动引入(推荐)
-自动引入常见问题
-
-
-成果分析
-优化前
-优化后：
-
-
-BMW WARNING
-
-
-DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程序同时使用的代码库。在前端领域里可简单看做缓存，其......  -->
-        <p class="article-more-link">
-          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1120,6 +897,229 @@ DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
+<li><a href="#实质">实质</a></li>
+<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
+</ul>
+</li>
+<li><a href="#引入-dll-库">引入 dll 库</a><ul>
+<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
+<li><a href="#手动引入注意">手动引入注意</a></li>
+<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
+<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
+</ul>
+</li>
+<li><a href="#成果分析">成果分析</a><ul>
+<li><a href="#优化前">优化前</a></li>
+<li><a href="#优化后">优化后：</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
+<blockquote>
+<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
+</blockquote>
+<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3>
+        <!-- 
+
+
+DllPlugin 概述
+实质
+DllPlugin 配置
+
+
+引入 dll 库
+手动引入 dll 文件（不推荐）
+手动引入注意
+自动引入(推荐)
+自动引入常见问题
+
+
+成果分析
+优化前
+优化后：
+
+
+BMW WARNING
+
+
+DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程序同时使用的代码库。在前端领域里可简单看做缓存，其......  -->
+        <p class="article-more-link">
+          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES_Module&CommonJS.html">ES_Module&amp;CommonJS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#模块系统">模块系统</a></li>
+<li><a href="#esm-vs-cjs">ESM VS CJS</a></li>
+<li><a href="#esm-vs-cjs-要点解析">ESM VS CJS 要点解析</a><ul>
+<li><a href="#模块输出">模块输出</a></li>
+<li><a href="#模块加载">模块加载</a></li>
+</ul>
+</li>
+<li><a href="#tree-shaking">tree shaking</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
+<ul>
+<li>模块隔离（私有代码权限访问控制）</li>
+<li>模块间依赖</li>
+<li>代码传递到执行环境</li>
+</ul>
+<p>早期解决方案如下：</p>
+<ul>
+<li>命名空间</li>
+<li>立即执行匿名函数 + 闭包</li>
+</ul>
+<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，在 ES6 模块系统后使用频率降低，如下简单对比。</p>
+<p>AMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>CMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">define(<span class="string">'main'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'a'</span>) <span class="comment">//依赖就近</span></span><br><span class="line">  a.someFn()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'b'</span>)</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>ES6 兼容 Node.js 模块方案</p>
+<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><table>
+<thead>
+<tr>
+<th>标准</th>
+<th>输出</th>
+<th>加载时机</th>
+<th>加载方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ES6 模块</td>
+<td>值引用（只读）</td>
+<td>编译</td>
+<td>import 异步</td>
+</tr>
+<tr>
+<td>CommonJS</td>
+<td>值浅拷贝</td>
+<td>运行</td>
+<td>require 同步</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ESM-VS-CJS-要点解析"><a href="#ESM-VS-CJS-要点解析" class="headerlink" title="ESM VS CJS 要点解析"></a>ESM VS CJS 要点解析</h2>
+        <!-- 
+
+
+模块系统
+ESM VS CJS
+ESM VS CJS 要点解析
+模块输出
+模块加载
+
+
+tree shaking
+BMW WARNING
+
+
+模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚......  -->
+        <p class="article-more-link">
+          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
 
     </footer>
   </div>

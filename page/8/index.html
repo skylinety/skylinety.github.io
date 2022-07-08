@@ -358,17 +358,37 @@
 <li><a href="#数组遍历">数组遍历</a></li>
 <li><a href="#数组下标获取">数组下标获取</a></li>
 <li><a href="#数组转字符串">数组转字符串</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="获取数组长度"><a href="#获取数组长度" class="headerlink" title="获取数组长度"></a>获取数组长度</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[*]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
-<h2 id="列出数组项"><a href="#列出数组项" class="headerlink" title="列出数组项"></a>列出数组项</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$skyline</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br><span class="line"><span class="comment"># 或使用echo $&#123;skyline[*]&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="数组合并"><a href="#数组合并" class="headerlink" title="数组合并"></a>数组合并</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">lty=(2 3 4)</span><br><span class="line">ret=(<span class="variable">$skyline</span> <span class="variable">$lty</span>)</span><br><span class="line"><span class="built_in">echo</span>  <span class="variable">$ret</span></span><br><span class="line"><span class="comment"># 4 3 2 1 2 3 4</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">ret=(<span class="variable">$skyline</span> 2 3 4)</span><br><span class="line"><span class="built_in">echo</span>  <span class="variable">$ret</span></span><br><span class="line"><span class="comment"># 4 3 2 1 2 3 4</span></span><br></pre></td></tr></table></figure>
-<p>当数组添加项只有一项时，即可实现 JS 数组类似于 push 的效果</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line">ret=(<span class="variable">$skyline</span> 0)</span><br><span class="line"><span class="built_in">echo</span>  <span class="variable">$ret</span></span><br><span class="line"><span class="comment"># 4 3 2 1 0</span></span><br></pre></td></tr></table></figure>
-<h2 id="数组遍历"><a href="#数组遍历" class="headerlink" title="数组遍历"></a>数组遍历</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> <span class="variable">$skyline</span></span><br><span class="line"><span class="comment"># for value in "$&#123;skyline[@]&#125;"</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="variable">$value</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="keyword">for</span> (( i=1; i&lt;=<span class="variable">$&#123;#skyline&#125;</span>; i++ ))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$&#123;skyline[$i]&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line"><span class="comment"># 1</span></span><br></pre></td></tr></table></figure>
-<h2 id="数组下标获取"><a href="#数组下标获取" class="headerlink" title="数组下标获取"></a>数组下标获取</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[1]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[-1]&#125;</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[-2]&#125;</span></span><br><span class="line"><span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
-<h2 id="数组转字符串"><a href="#数组转字符串" class="headerlink" title="数组转字符串"></a>数组转字符串</h2>
+<h2 id="获取数组长度"><a href="#获取数组长度" class="headerlink" title="获取数组长度"></a>获取数组长度</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[*]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
+<h2 id="列出数组项"><a href="#列出数组项" class="headerlink" title="列出数组项"></a>列出数组项</h2><ul>
+<li>列出所有项</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[*]&#125;</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br></pre></td></tr></table></figure>
+<p>列出单项</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[1]&#125;</span></span><br><span class="line"><span class="comment"># 3</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组合并"><a href="#数组合并" class="headerlink" title="数组合并"></a>数组合并</h2>
+        <!-- 
+
+
+获取数组长度
+列出数组项
+数组合并
+数组遍历
+数组下标获取
+数组转字符串
+BMW WARNING
+
+
+获取数组长度skyline=(4 3 2 1)echo $&#123;#skyline[*]&#125;# 4echo $&#123;#skyline[@]&#125;# 4
+列出数组项
+列出所有项
+
+skyline=(4 3 2 1)echo $&#123;skyline[@]&#1......  -->
+        <p class="article-more-link">
+          <a href="/Shell中数组相关操作.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
@@ -824,6 +844,56 @@ BMW WARNI......  -->
 <!-- Table of Contents -->
 
   
+    <article id="post-ES5与ES6中的argments"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES5与ES6中的argments.html">ES5与ES6中的argments</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ES5与ES6中的argments.html">http://www.skyline.show/ES5 与 ES6 中的 argments.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-CSS常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -933,56 +1003,6 @@ CSS 继承与非继承属性CSS 属性在不设定取值时，其实际取值分
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ES5与ES6中的argments"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES5与ES6中的argments.html">ES5与ES6中的argments</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ES5与ES6中的argments.html">http://www.skyline.show/ES5 与 ES6 中的 argments.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
