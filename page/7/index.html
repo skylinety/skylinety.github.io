@@ -544,6 +544,106 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
+    <article id="post-Git常见操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Git常见操作.html">Git常见操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#git-单列已添加到暂存区的文件">git 单列已添加到暂存区的文件</a></li>
+<li><a href="#git-本地分支有提交单独查看并运行远程该分支">Git 本地分支有提交，单独查看并运行远程该分支</a></li>
+<li><a href="#新建仓库时关联远程与本地">新建仓库时关联远程与本地</a></li>
+<li><a href="#git-同时推送多个仓库">git 同时推送多个仓库</a><ul>
+<li><a href="#git-remote-add">git remote add</a></li>
+<li><a href="#git-remote-set-url">git remote set-url</a></li>
+</ul>
+</li>
+<li><a href="#https-方式访问-git-免输密码">https 方式访问 git 免输密码</a></li>
+<li><a href="#git-用户配置">Git 用户配置</a><ul>
+<li><a href="#查看配置">查看配置</a></li>
+<li><a href="#修改全局配置">修改全局配置</a></li>
+</ul>
+</li>
+<li><a href="#git-ssh-免密">GIT SSH 免密</a></li>
+<li><a href="#同步-github-fork-仓库">同步 Github fork 仓库</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="git-单列已添加到暂存区的文件"><a href="#git-单列已添加到暂存区的文件" class="headerlink" title="git 单列已添加到暂存区的文件"></a>git 单列已添加到暂存区的文件</h2><p>通过<code>git status</code>命令可以列出所有增删改的文件，并做了是否添加跟踪，是否加入暂存区的区分。<br>若只看加入暂存区的文件，使用</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git diff --name-only --cached</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602161840.png" alt="Git常见操作20220602161840"><br>如上图所示为某次<code>git status</code>后展示的信息。<br>git diff –name-only –cached 展示的信息如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602162017.png" alt="Git常见操作20220602162017"><br><code>git diff --cached</code>只会展示暂存区文件的变更。</p>
+<h2 id="Git-本地分支有提交，单独查看并运行远程该分支"><a href="#Git-本地分支有提交，单独查看并运行远程该分支" class="headerlink" title="Git 本地分支有提交，单独查看并运行远程该分支"></a>Git 本地分支有提交，单独查看并运行远程该分支</h2><p>本地 dev 分支有自己 commit 的版本，想要获取远端最新代码并运行（不包括本地新 commit 代码）</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">git fetch</span><br><span class="line">git checkout -b test origin/dev</span><br></pre></td></tr></table></figure>
+<p>test 分支即是最新的远程 dev 副本</p>
+<p>git fetch 将本地仓库的所有远程副本更新，但不会更新到工作空间<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302172427.png" alt="Git常见操作20220302172427"></p>
+<h2 id="新建仓库时关联远程与本地"><a href="#新建仓库时关联远程与本地" class="headerlink" title="新建仓库时关联远程与本地"></a>新建仓库时关联远程与本地</h2>
+        <!-- 
+
+
+git 单列已添加到暂存区的文件
+Git 本地分支有提交，单独查看并运行远程该分支
+新建仓库时关联远程与本地
+git 同时推送多个仓库
+git remote add
+git remote set-url
+
+
+https 方式访问 git 免输密码
+Git 用户配置
+查看配置
+修改全局配置
+
+
+GIT SSH 免密
+同步 Github fork 仓库
+
+
+git 单列已添加到暂存区的文件......  -->
+        <p class="article-more-link">
+          <a href="/Git常见操作.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Shell中的符号"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -654,7 +754,7 @@ skyline=1echo '$skyline`echo 1`'#......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-Git常见操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -662,7 +762,7 @@ skyline=1echo '$skyline`echo 1`'#......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Git常见操作.html">Git常见操作</a>
+      <a class="article-title" href="/ES_Module&CommonJS.html">ES_Module&amp;CommonJS</a>
     </h1>
   
 
@@ -671,13 +771,13 @@ skyline=1echo '$skyline`echo 1`'#......  -->
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
     </a>
 
 
       
     
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
@@ -687,56 +787,78 @@ skyline=1echo '$skyline`echo 1`'#......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#git-单列已添加到暂存区的文件">git 单列已添加到暂存区的文件</a></li>
-<li><a href="#git-本地分支有提交单独查看并运行远程该分支">Git 本地分支有提交，单独查看并运行远程该分支</a></li>
-<li><a href="#新建仓库时关联远程与本地">新建仓库时关联远程与本地</a></li>
-<li><a href="#git-同时推送多个仓库">git 同时推送多个仓库</a><ul>
-<li><a href="#git-remote-add">git remote add</a></li>
-<li><a href="#git-remote-set-url">git remote set-url</a></li>
+<li><a href="#模块系统">模块系统</a></li>
+<li><a href="#esm-vs-cjs">ESM VS CJS</a></li>
+<li><a href="#esm-vs-cjs-要点解析">ESM VS CJS 要点解析</a><ul>
+<li><a href="#模块输出">模块输出</a></li>
+<li><a href="#模块加载">模块加载</a></li>
 </ul>
 </li>
-<li><a href="#https-方式访问-git-免输密码">https 方式访问 git 免输密码</a></li>
-<li><a href="#git-用户配置">Git 用户配置</a><ul>
-<li><a href="#查看配置">查看配置</a></li>
-<li><a href="#修改全局配置">修改全局配置</a></li>
-</ul>
-</li>
-<li><a href="#git-ssh-免密">GIT SSH 免密</a></li>
-<li><a href="#同步-github-fork-仓库">同步 Github fork 仓库</a></li>
+<li><a href="#tree-shaking">tree shaking</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="git-单列已添加到暂存区的文件"><a href="#git-单列已添加到暂存区的文件" class="headerlink" title="git 单列已添加到暂存区的文件"></a>git 单列已添加到暂存区的文件</h2><p>通过<code>git status</code>命令可以列出所有增删改的文件，并做了是否添加跟踪，是否加入暂存区的区分。<br>若只看加入暂存区的文件，使用</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git diff --name-only --cached</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602161840.png" alt="Git常见操作20220602161840"><br>如上图所示为某次<code>git status</code>后展示的信息。<br>git diff –name-only –cached 展示的信息如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602162017.png" alt="Git常见操作20220602162017"><br><code>git diff --cached</code>只会展示暂存区文件的变更。</p>
-<h2 id="Git-本地分支有提交，单独查看并运行远程该分支"><a href="#Git-本地分支有提交，单独查看并运行远程该分支" class="headerlink" title="Git 本地分支有提交，单独查看并运行远程该分支"></a>Git 本地分支有提交，单独查看并运行远程该分支</h2><p>本地 dev 分支有自己 commit 的版本，想要获取远端最新代码并运行（不包括本地新 commit 代码）</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">git fetch</span><br><span class="line">git checkout -b test origin/dev</span><br></pre></td></tr></table></figure>
-<p>test 分支即是最新的远程 dev 副本</p>
-<p>git fetch 将本地仓库的所有远程副本更新，但不会更新到工作空间<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302172427.png" alt="Git常见操作20220302172427"></p>
-<h2 id="新建仓库时关联远程与本地"><a href="#新建仓库时关联远程与本地" class="headerlink" title="新建仓库时关联远程与本地"></a>新建仓库时关联远程与本地</h2>
+<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
+<ul>
+<li>模块隔离（私有代码权限访问控制）</li>
+<li>模块间依赖</li>
+<li>代码传递到执行环境</li>
+</ul>
+<p>早期解决方案如下：</p>
+<ul>
+<li>命名空间</li>
+<li>立即执行匿名函数 + 闭包</li>
+</ul>
+<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，在 ES6 模块系统后使用频率降低，如下简单对比。</p>
+<p>AMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>CMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">define(<span class="string">'main'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'a'</span>) <span class="comment">//依赖就近</span></span><br><span class="line">  a.someFn()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'b'</span>)</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>ES6 兼容 Node.js 模块方案</p>
+<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><table>
+<thead>
+<tr>
+<th>标准</th>
+<th>输出</th>
+<th>加载时机</th>
+<th>加载方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ES6 模块</td>
+<td>值引用（只读）</td>
+<td>编译</td>
+<td>import 异步</td>
+</tr>
+<tr>
+<td>CommonJS</td>
+<td>值浅拷贝</td>
+<td>运行</td>
+<td>require 同步</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ESM-VS-CJS-要点解析"><a href="#ESM-VS-CJS-要点解析" class="headerlink" title="ESM VS CJS 要点解析"></a>ESM VS CJS 要点解析</h2>
         <!-- 
 
 
-git 单列已添加到暂存区的文件
-Git 本地分支有提交，单独查看并运行远程该分支
-新建仓库时关联远程与本地
-git 同时推送多个仓库
-git remote add
-git remote set-url
+模块系统
+ESM VS CJS
+ESM VS CJS 要点解析
+模块输出
+模块加载
 
 
-https 方式访问 git 免输密码
-Git 用户配置
-查看配置
-修改全局配置
+tree shaking
+BMW WARNING
 
 
-GIT SSH 免密
-同步 Github fork 仓库
-
-
-git 单列已添加到暂存区的文件......  -->
+模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚......  -->
         <p class="article-more-link">
-          <a href="/Git常见操作.html#more">阅读全文</a>
+          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -744,7 +866,108 @@ git 单列已添加到暂存区的文件......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
+<li><a href="#实质">实质</a></li>
+<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
+</ul>
+</li>
+<li><a href="#引入-dll-库">引入 dll 库</a><ul>
+<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
+<li><a href="#手动引入注意">手动引入注意</a></li>
+<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
+<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
+</ul>
+</li>
+<li><a href="#成果分析">成果分析</a><ul>
+<li><a href="#优化前">优化前</a></li>
+<li><a href="#优化后">优化后：</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
+<blockquote>
+<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
+</blockquote>
+<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3>
+        <!-- 
+
+
+DllPlugin 概述
+实质
+DllPlugin 配置
+
+
+引入 dll 库
+手动引入 dll 文件（不推荐）
+手动引入注意
+自动引入(推荐)
+自动引入常见问题
+
+
+成果分析
+优化前
+优化后：
+
+
+BMW WARNING
+
+
+DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程序同时使用的代码库。在前端领域里可简单看做缓存，其......  -->
+        <p class="article-more-link">
+          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
 
     </footer>
   </div>
@@ -897,229 +1120,6 @@ git 单列已添加到暂存区的文件......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
-<li><a href="#实质">实质</a></li>
-<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
-</ul>
-</li>
-<li><a href="#引入-dll-库">引入 dll 库</a><ul>
-<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
-<li><a href="#手动引入注意">手动引入注意</a></li>
-<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
-<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
-</ul>
-</li>
-<li><a href="#成果分析">成果分析</a><ul>
-<li><a href="#优化前">优化前</a></li>
-<li><a href="#优化后">优化后：</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
-<blockquote>
-<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
-</blockquote>
-<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3>
-        <!-- 
-
-
-DllPlugin 概述
-实质
-DllPlugin 配置
-
-
-引入 dll 库
-手动引入 dll 文件（不推荐）
-手动引入注意
-自动引入(推荐)
-自动引入常见问题
-
-
-成果分析
-优化前
-优化后：
-
-
-BMW WARNING
-
-
-DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程序同时使用的代码库。在前端领域里可简单看做缓存，其......  -->
-        <p class="article-more-link">
-          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES_Module&CommonJS.html">ES_Module&amp;CommonJS</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#模块系统">模块系统</a></li>
-<li><a href="#esm-vs-cjs">ESM VS CJS</a></li>
-<li><a href="#esm-vs-cjs-要点解析">ESM VS CJS 要点解析</a><ul>
-<li><a href="#模块输出">模块输出</a></li>
-<li><a href="#模块加载">模块加载</a></li>
-</ul>
-</li>
-<li><a href="#tree-shaking">tree shaking</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
-<ul>
-<li>模块隔离（私有代码权限访问控制）</li>
-<li>模块间依赖</li>
-<li>代码传递到执行环境</li>
-</ul>
-<p>早期解决方案如下：</p>
-<ul>
-<li>命名空间</li>
-<li>立即执行匿名函数 + 闭包</li>
-</ul>
-<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，在 ES6 模块系统后使用频率降低，如下简单对比。</p>
-<p>AMD 典型示例</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>CMD 典型示例</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">define(<span class="string">'main'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'a'</span>) <span class="comment">//依赖就近</span></span><br><span class="line">  a.someFn()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'b'</span>)</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>ES6 兼容 Node.js 模块方案</p>
-<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><table>
-<thead>
-<tr>
-<th>标准</th>
-<th>输出</th>
-<th>加载时机</th>
-<th>加载方式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ES6 模块</td>
-<td>值引用（只读）</td>
-<td>编译</td>
-<td>import 异步</td>
-</tr>
-<tr>
-<td>CommonJS</td>
-<td>值浅拷贝</td>
-<td>运行</td>
-<td>require 同步</td>
-</tr>
-</tbody>
-</table>
-<h2 id="ESM-VS-CJS-要点解析"><a href="#ESM-VS-CJS-要点解析" class="headerlink" title="ESM VS CJS 要点解析"></a>ESM VS CJS 要点解析</h2>
-        <!-- 
-
-
-模块系统
-ESM VS CJS
-ESM VS CJS 要点解析
-模块输出
-模块加载
-
-
-tree shaking
-BMW WARNING
-
-
-模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚......  -->
-        <p class="article-more-link">
-          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
 
     </footer>
   </div>
