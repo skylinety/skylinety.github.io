@@ -13,19 +13,19 @@
   
   
   
-  <meta name="description" content="页面渲染 渲染流程 Layout Paint   回流与重绘触发 回流触发 重绘触发   回流与重绘优化 浏览器优化 代码优化 HTML CSS JS     总结 BMW WARNING   页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程  解析 HTML 节点，创建 DOM 树 解析 CSS 创建 CSSOM 树 合并">
+  <meta name="description" content="页面渲染 渲染流程 渲染原理 Layout Paint   回流与重绘触发 回流触发 重绘触发   回流与重绘优化 浏览器优化 代码优化   总结 BMW WARNING   页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程  解析 HTML 节点，创建 DOM 树 解析 CSS 创建 CSSOM 树 合并 CSSOM 与">
 <meta name="keywords" content="Refactor&amp;Optimization">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器回流与重绘">
 <meta property="og:url" content="http://www.skyline.show/浏览器回流与重绘.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="页面渲染 渲染流程 Layout Paint   回流与重绘触发 回流触发 重绘触发   回流与重绘优化 浏览器优化 代码优化 HTML CSS JS     总结 BMW WARNING   页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程  解析 HTML 节点，创建 DOM 树 解析 CSS 创建 CSSOM 树 合并">
+<meta property="og:description" content="页面渲染 渲染流程 渲染原理 Layout Paint   回流与重绘触发 回流触发 重绘触发   回流与重绘优化 浏览器优化 代码优化   总结 BMW WARNING   页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程  解析 HTML 节点，创建 DOM 树 解析 CSS 创建 CSSOM 树 合并 CSSOM 与">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png">
-<meta property="og:updated_time" content="2022-06-22T07:42:59.000Z">
+<meta property="og:updated_time" content="2022-07-07T10:05:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器回流与重绘">
-<meta name="twitter:description" content="页面渲染 渲染流程 Layout Paint   回流与重绘触发 回流触发 重绘触发   回流与重绘优化 浏览器优化 代码优化 HTML CSS JS     总结 BMW WARNING   页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程  解析 HTML 节点，创建 DOM 树 解析 CSS 创建 CSSOM 树 合并">
+<meta name="twitter:description" content="页面渲染 渲染流程 渲染原理 Layout Paint   回流与重绘触发 回流触发 重绘触发   回流与重绘优化 浏览器优化 代码优化   总结 BMW WARNING   页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程  解析 HTML 节点，创建 DOM 树 解析 CSS 创建 CSSOM 树 合并 CSSOM 与">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -190,7 +190,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-22T07:42:59.000Z" itemprop="datePublished">2022-06-22</time>
+      <time datetime="2022-07-07T10:05:36.000Z" itemprop="datePublished">2022-07-07</time>
     </a><span style="color: #999">|</span>
 
       
@@ -209,6 +209,7 @@
 <ul>
 <li><a href="#页面渲染">页面渲染</a><ul>
 <li><a href="#渲染流程">渲染流程</a></li>
+<li><a href="#渲染原理">渲染原理</a></li>
 <li><a href="#layout">Layout</a></li>
 <li><a href="#paint">Paint</a></li>
 </ul>
@@ -220,12 +221,7 @@
 </li>
 <li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
 <li><a href="#浏览器优化">浏览器优化</a></li>
-<li><a href="#代码优化">代码优化</a><ul>
-<li><a href="#html">HTML</a></li>
-<li><a href="#css">CSS</a></li>
-<li><a href="#js">JS</a></li>
-</ul>
-</li>
+<li><a href="#代码优化">代码优化</a></li>
 </ul>
 </li>
 <li><a href="#总结">总结</a></li>
@@ -246,9 +242,18 @@
 <li>Paint， 绘制 renderTree 到页面上</li>
 </ul>
 <p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
-<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3><a id="more"></a>
-<p>布局（排列）阶段，包括初始的布局 Layout 以及后续出现的回流 Reflow。<br>主要（重新）计算节点的位置与几何形状，可以看做给节点画框架。<br>通常情况下，当前节点回流，会同时触发其关联节点（祖先、后代节点以及兄弟节点）回流。<br>多数回流本质都会造成页面重新渲染。</p>
-<h3 id="Paint"><a href="#Paint" class="headerlink" title="Paint"></a>Paint</h3><p>绘制阶段，主要绘制节点的样式，可以看做给节点加个皮肤。<br>包括初始的绘制 Paint 与后续的重绘 Repaint。</p>
+<h3 id="渲染原理"><a href="#渲染原理" class="headerlink" title="渲染原理"></a>渲染原理</h3><a id="more"></a>
+<p>浏览器将渲染树上的节点通过渲染类来构建成一个个渲染对象。<br>每个渲染对象将在页面上绘制其对应的矩形区域，根据 display 的不同，有不同的渲染类。</p>
+<ul>
+<li>RenderInline</li>
+<li>RenderBlock</li>
+<li>RenderListItem</li>
+</ul>
+<p>所有渲染类有一个基类 RenderObject</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RenderObject</span>&#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">layout</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">paint</span><span class="params">(PaintInfo)</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> rect <span class="title">repaintRect</span><span class="params">()</span></span>;</span><br><span class="line">  Node* node;  <span class="comment">// the DOM node</span></span><br><span class="line">  RenderStyle* style;  <span class="comment">// the computed style</span></span><br><span class="line">  RenderLayer* containgLayer; <span class="comment">// the containing z-index layer</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>基类中的 layout 对应布局，paint 即为绘制。<br>在渲染页面过程中，由根节点开始，递归遍历渲染树（renderTree）上节点，执行每个节点对应渲染对象的 layout 与 paint 方法。</p>
+<h3 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h3><p>布局（排列）阶段，包括初始的布局 Layout 以及后续出现的回流 Reflow。<br>为了避免细微更改都进行整体重新布局，浏览器将布局分为全量布局与增量布局。<br>全量布局，渲染流程会在整个页面重新来过，非常耗费性能，一般只有视窗变化或影响全局的样式变更会触发全量布局。<br>增量布局，在渲染树上，将涉及到变更的节点对应渲染对象添加标记位’dirty’，后续布局时只在脏对象进行即可。<br>主要（重新）计算节点的位置与几何形状，可以看做给节点画框架。<br>通常情况下，当前节点布局，会同时触发其关联节点（祖先、后代节点以及兄弟节点）布局。<br>多数布局本质都会造成页面重新渲染。</p>
+<h3 id="Paint"><a href="#Paint" class="headerlink" title="Paint"></a>Paint</h3><p>绘制阶段，主要绘制节点的样式，可以看做给节点加个皮肤。<br>包括初始的绘制 Paint 与后续的重绘 Repaint。<br>与布局一致，绘制阶段也有全量与增量之分。</p>
 <h2 id="回流与重绘触发"><a href="#回流与重绘触发" class="headerlink" title="回流与重绘触发"></a>回流与重绘触发</h2><h3 id="回流触发"><a href="#回流触发" class="headerlink" title="回流触发"></a>回流触发</h3><ul>
 <li>窗口调整</li>
 <li>字体变更</li>
@@ -265,7 +270,7 @@
 </li>
 <li>伪类激活</li>
 <li>节点动画</li>
-<li>读写 offsetWidth 等</li>
+<li><strong>读写 offsetWidth</strong> 等</li>
 </ul>
 <p>基本上回流都会触发重绘</p>
 <h3 id="重绘触发"><a href="#重绘触发" class="headerlink" title="重绘触发"></a>重绘触发</h3><p>如下仅讨论只触发重绘的情况</p>
@@ -275,12 +280,17 @@
 <li>color 字体颜色</li>
 <li>opacity 调整</li>
 </ul>
-<p>不影响节点的位置和形状的改变一般不触发回流</p>
+<p>这些属性的变化一般只简单影响元素的外观、风格。<br>不影响节点的位置、形状等会几何属性的改变时，不会触发回流。</p>
 <h2 id="回流与重绘优化"><a href="#回流与重绘优化" class="headerlink" title="回流与重绘优化"></a>回流与重绘优化</h2><h3 id="浏览器优化"><a href="#浏览器优化" class="headerlink" title="浏览器优化"></a>浏览器优化</h3><ul>
 <li><p>队列机制</p>
 <p>在现代浏览器中，由于回流重绘会有较大的性能损耗，多数浏览器会将回流重绘放入队列。<br>当一定时间或操作到指定阀值，浏览器在将队列中的一次性进行处理，减少回流重绘次数。<br>在上文回流触发中，读取 offsetWidth 等的值也会触发回流重绘，其根本原因就是由于这个优化。<br>当代码在读取这些值时，为了获取准确的信息，浏览器不得不将队列清空强制执行回流重绘来得到这些值得最新信息。<br>涉及的相关属性和方法包括：</p>
+<p><em>Getting box metrics</em></p>
 <blockquote>
-<p><em>Getting box metrics</em><br>elem.offsetLeft, elem.offsetTop, elem.offsetWidth, elem.offsetHeight, elem.offsetParent<br>elem.clientLeft, elem.clientTop, elem.clientWidth, elem.clientHeight<br>elem.getClientRects(), elem.getBoundingClientRect()<br><em>Scroll stuff</em><br>elem.scrollBy(), elem.scrollTo()<br>elem.scrollIntoView(), elem.scrollIntoViewIfNeeded()<br>elem.scrollWidth, elem.scrollHeight<br>elem.scrollLeft, elem.scrollTop also, setting them</p>
+<p>elem.offsetLeft, elem.offsetTop, elem.offsetWidth, elem.offsetHeight, elem.offsetParent<br>elem.clientLeft, elem.clientTop, elem.clientWidth, elem.clientHeight<br>elem.getClientRects(), elem.getBoundingClientRect()</p>
+</blockquote>
+<p><em>Scroll stuff</em></p>
+<blockquote>
+<p>elem.scrollBy(), elem.scrollTo()<br>elem.scrollIntoView(), elem.scrollIntoViewIfNeeded()<br>elem.scrollWidth, elem.scrollHeight<br>elem.scrollLeft, elem.scrollTop also, setting them</p>
 </blockquote>
 <p>参见 <a href="https://gist.github.com/paulirish/5d52fb081b3570c81e3a" target="_blank" rel="noopener">What forces layout / reflow</a></p>
 </li>
@@ -289,14 +299,21 @@
 <li>CSS3 硬件加速（GPU）<br>部分 CSS3 属性的设定会触发 GPU 加速，从而不会产生回流重绘。<br>常见的属性有 transform、opacity、filters、will-change</li>
 </ul>
 <h3 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h3><p>在实际业务中，页面变化不可避免。<br>回流与重绘优化的主要思路与浏览器优化思路基本一致，减少回流重绘次数。<br>技术层面上，优化从 HTML、 CSS 与 JS 大方向入手。</p>
-<h4 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h4><ul>
+<ul>
+<li><p>HTML</p>
+<ul>
 <li>精简节点嵌套层级<br>避免出现无意义层级</li>
 </ul>
-<h4 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h4><ul>
-<li>将动画应用于文档流外的节点<br>可能的话，将动画添加到 absolute 或 fixed 定位的节点上。</li>
-<li>避免表达式属性<br>类似于 calc 的 css 属性设置方法会在其他节点或回流触发时进行重新计算，从而使得对应节点也触发回流。</li>
+</li>
+<li><p>CSS</p>
+<ul>
+<li>使用浏览器硬件优化相关属性。</li>
+<li>将动画应用于文档流外的节点。<br>可能的话，将动画添加到 absolute 或 fixed 定位的节点上。</li>
+<li>避免表达式属性。<br>类似于 calc 的 css 属性设置方法会在其他节点或回流触发时进行重新计算，从而使得对应节点也触发回流。</li>
 </ul>
-<h4 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h4><ul>
+</li>
+<li><p>JS</p>
+<ul>
 <li>class 变更选用更底层节点<br>选用样式变更的节点来替换或变更类属性而不是在其包裹或祖先节点上。</li>
 <li>调整类而不是样式<br>对于多条样式调整的节点，集中更改样式或添加修改类而不是分散修改样式</li>
 <li>捆绑 DOM 调整<br>对于 DOM 节点的调整，涉及到多次调整，可以捆绑最后再进行一次插入或替换 DOM 操作，具体方法有<ul>
@@ -305,7 +322,9 @@
 </ul>
 </li>
 <li>集中读写样式代码</li>
-<li>缓存引起强制重绘的属性或函数结果<br>对于 clientWith 等引起强制重绘的属性或函数，多次使用时，缓存其值。</li>
+<li>缓存引起强制重绘的属性或函数结果<br>对于 clientWith 等引起强制重绘的属性或函数，多次使用时，使用变量缓存其值。</li>
+</ul>
+</li>
 </ul>
 <p>调整类而不是样式</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line"><span class="keyword">var</span> left = <span class="number">10</span>,</span><br><span class="line">  top = <span class="number">10</span></span><br><span class="line">el.style.left = left + <span class="string">'px'</span></span><br><span class="line">el.style.top = top + <span class="string">'px'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// better</span></span><br><span class="line">el.className += <span class="string">' theclassname'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// better</span></span><br><span class="line">el.style.cssText += <span class="string">'; left: '</span> + left + <span class="string">'px; top: '</span> + top + <span class="string">'px;'</span></span><br></pre></td></tr></table></figure>
@@ -319,24 +338,29 @@
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
 <blockquote>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
 </blockquote>
 <ul>
 <li>Material</li>
 </ul>
 <p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
-<p><a href="https://dev.to/gopal1996/understanding-reflow-and-repaint-in-the-browser-1jbg" target="_blank" rel="noopener">https://dev.to/gopal1996/understanding-reflow-and-repaint-in-the-browser-1jbg</a> &gt; <a href="https://juejin.cn/post/6844903779700047885" target="_blank" rel="noopener">https://juejin.cn/post/6844903779700047885</a></p>
+<p><a href="https://dev.to/gopal1996/understanding-reflow-and-repaint-in-the-browser-1jbg" target="_blank" rel="noopener">https://dev.to/gopal1996/understanding-reflow-and-repaint-in-the-browser-1jbg</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://juejin.cn/post/6844903779700047885" target="_blank" rel="noopener">https://juejin.cn/post/6844903779700047885</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://juejin.cn/post/7013131773756309517" target="_blank" rel="noopener">https://juejin.cn/post/7013131773756309517</a></p>
 </blockquote>
 <ul>
 <li>Warrant</li>
 </ul>
-<p>本文作者： Skyline(lty)<br>授权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-<blockquote>
-<p>[CC BY - NC - SA 3.0](<a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh</a></p>
-</blockquote>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/浏览器回流与重绘.html">http://www.skyline.show/浏览器回流与重绘.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
       
     </div>
@@ -390,11 +414,11 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Shell中xargs使用.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Shell中字符串相关操作.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Shell中xargs使用
+          Shell中字符串相关操作
         
       </div>
     </a>
@@ -416,7 +440,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#页面渲染"><span class="nav-number">1.</span> <span class="nav-text">页面渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染流程"><span class="nav-number">1.1.</span> <span class="nav-text">渲染流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layout"><span class="nav-number">1.2.</span> <span class="nav-text">Layout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paint"><span class="nav-number">1.3.</span> <span class="nav-text">Paint</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回流与重绘触发"><span class="nav-number">2.</span> <span class="nav-text">回流与重绘触发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回流触发"><span class="nav-number">2.1.</span> <span class="nav-text">回流触发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重绘触发"><span class="nav-number">2.2.</span> <span class="nav-text">重绘触发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回流与重绘优化"><span class="nav-number">3.</span> <span class="nav-text">回流与重绘优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器优化"><span class="nav-number">3.1.</span> <span class="nav-text">浏览器优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码优化"><span class="nav-number">3.2.</span> <span class="nav-text">代码优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML"><span class="nav-number">3.2.1.</span> <span class="nav-text">HTML</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS"><span class="nav-number">3.2.2.</span> <span class="nav-text">CSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS"><span class="nav-number">3.2.3.</span> <span class="nav-text">JS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#页面渲染"><span class="nav-number">1.</span> <span class="nav-text">页面渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染流程"><span class="nav-number">1.1.</span> <span class="nav-text">渲染流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染原理"><span class="nav-number">1.2.</span> <span class="nav-text">渲染原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layout"><span class="nav-number">1.3.</span> <span class="nav-text">Layout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paint"><span class="nav-number">1.4.</span> <span class="nav-text">Paint</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回流与重绘触发"><span class="nav-number">2.</span> <span class="nav-text">回流与重绘触发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回流触发"><span class="nav-number">2.1.</span> <span class="nav-text">回流触发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重绘触发"><span class="nav-number">2.2.</span> <span class="nav-text">重绘触发</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回流与重绘优化"><span class="nav-number">3.</span> <span class="nav-text">回流与重绘优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器优化"><span class="nav-number">3.1.</span> <span class="nav-text">浏览器优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码优化"><span class="nav-number">3.2.</span> <span class="nav-text">代码优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

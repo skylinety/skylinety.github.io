@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-ES数组去重"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Javascript对象扩展、封印与冻结"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES数组去重.html">ES数组去重</a>
+      <a class="article-title" href="/Javascript对象扩展、封印与冻结.html">Javascript对象扩展、封印与冻结</a>
     </h1>
   
 
@@ -342,42 +342,33 @@
 
       
     
-    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#举个栗子">举个栗子</a></li>
-<li><a href="#正常人">正常人</a></li>
-<li><a href="#我有想法">我有想法</a></li>
-<li><a href="#我会-es6">我会 es6</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
+        <h4 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h4><h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><ul>
+<li>Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展</li>
+<li>Object.seal()封印对象，Object.isSealed()检查是否被封印</li>
+<li>Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结</li>
+<li>被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符writable改为false时，那么此时它也是被冻结的，通过isFrozen返回true</li>
+<li>被冻结对象的访问器属性如果有set描述符，则它仍旧是可写的</li>
+<li>冻结与封印只针对首层属性，如果对象包含对象属性，该属性下对象仍旧是乐意改变的</li>
 </ul>
-<!-- /code_chunk_output -->
-<h2 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> he = &#123; <span class="attr">name</span>: <span class="string">'he'</span>, <span class="attr">sex</span>: <span class="string">'male'</span> &#125;,</span><br><span class="line">  she = &#123; <span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span> &#125;,</span><br><span class="line">  age = [<span class="number">18</span>, <span class="number">28</span>],</span><br><span class="line">  family = [</span><br><span class="line">    <span class="number">1</span>,</span><br><span class="line">    <span class="number">1</span>,</span><br><span class="line">    <span class="string">'1'</span>,</span><br><span class="line">    <span class="string">'skyline'</span>,</span><br><span class="line">    <span class="string">'skyline'</span>,</span><br><span class="line">    he,</span><br><span class="line">    he,</span><br><span class="line">    she,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span> &#125;,</span><br><span class="line">    age,</span><br><span class="line">    [<span class="number">18</span>, <span class="number">28</span>],</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">family.length <span class="comment">//11</span></span><br></pre></td></tr></table></figure>
-<h2 id="正常人"><a href="#正常人" class="headerlink" title="正常人"></a>正常人</h2><p>使用循环</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition1</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> ret = []</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = arr.length; i &lt; j; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ret.indexOf(arr[i]) === <span class="number">-1</span>) &#123;</span><br><span class="line">      ret.push(arr[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition2</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> ret = []</span><br><span class="line"></span><br><span class="line">  arr.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">e, i, arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr.indexOf(e) === i) &#123;</span><br><span class="line">      ret.push(e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line">removeRepetition1(family)</span><br><span class="line">removeRepetition2(family)</span><br></pre></td></tr></table></figure>
-<p>indexOf 比较参数与数组每一项时候，使用的是严格等于。</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D20220615145414.png" alt="ES数组去重20220615145414"></p>
-<h2 id="我有想法"><a href="#我有想法" class="headerlink" title="我有想法"></a>我有想法</h2>
-        <!-- 
-
-
-举个栗子
-正常人
-我有想法
-我会 es6
-BMW WARNING
-
-
-举个栗子var he = &#123; name: 'he', sex: 'male' &#125;,  she = &#123; name: 'she', sex: 'female' &#125;,  age = [18, 28],  family = [    1,    1,    '1',    'skyli......  -->
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/8284EEDA9E61CD4DA3CA8A04281F2AB7.png-content" alt="freeze.png-content"></p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p><code>var c = d = {name: &quot;skyline liu&quot;, age: &quot;21&quot;, phone: &quot;10086&quot;}</code><br><code>Object.getOwnPropertyDescriptors(c)</code><br><code>Object.getOwnPropertyDescriptors(d)</code></p>
+<h6 id="☞-c、d属性的描述符"><a href="#☞-c、d属性的描述符" class="headerlink" title="☞ c、d属性的描述符"></a>☞ c、d属性的描述符</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    age: &#123;</span><br><span class="line">        value: <span class="string">"21"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    name: &#123;</span><br><span class="line">        value: <span class="string">"skyline liu"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    phone: &#123;</span><br><span class="line">        value: <span class="string">"10086"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Object.freeze(c)</code><br><code>Object.getOwnPropertyDescriptors(c)</code></p>
+<h6 id="☞c属性的描述符"><a href="#☞c属性的描述符" class="headerlink" title="☞c属性的描述符"></a>☞c属性的描述符</h6>
+        <!-- 扩展、封印与冻结要点
+Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展
+Object.seal()封印对象，Object.isSealed()检查是否被封印
+Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
+被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符wr......  -->
         <p class="article-more-link">
-          <a href="/ES数组去重.html#more">阅读全文</a>
+          <a href="/Javascript对象扩展、封印与冻结.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -385,7 +376,7 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
 
     </footer>
   </div>
