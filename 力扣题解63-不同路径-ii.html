@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>力扣题解63-不同路径-ii | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="DataStructure&AlgorithmLeetcode题解">
+  
+  
+  
+  
+  <meta name="description" content="题目63.不同路径-ii本题采用动态规划解法。 分析此题在未进行空间优化使用二维数组的方案时，可以很好地解决边界问题。若需要优化空间，处理边界问题为要务。此处把输入的数组的行用 r(row)表示，列用 c(column)表示dp[r][c]表示到达对应位置拥有的方法数，此时在网格位置用 pos 标记则有如下情况： pos 处有障碍物 dp[r][c] = 0 pos 处在上边界（r == 0） #">
+<meta name="keywords" content="DataStructure&amp;Algorithm,Leetcode题解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="力扣题解63-不同路径-ii">
+<meta property="og:url" content="http://www.skyline.show/力扣题解63-不同路径-ii.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="题目63.不同路径-ii本题采用动态规划解法。 分析此题在未进行空间优化使用二维数组的方案时，可以很好地解决边界问题。若需要优化空间，处理边界问题为要务。此处把输入的数组的行用 r(row)表示，列用 c(column)表示dp[r][c]表示到达对应位置拥有的方法数，此时在网格位置用 pos 标记则有如下情况： pos 处有障碍物 dp[r][c] = 0 pos 处在上边界（r == 0） #">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%8A%9B%E6%89%A3%E9%A2%98%E8%A7%A363-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-ii20220713165512.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%8A%9B%E6%89%A3%E9%A2%98%E8%A7%A363-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-ii20220713173148.png">
+<meta property="og:updated_time" content="2022-07-07T10:24:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="力扣题解63-不同路径-ii">
+<meta name="twitter:description" content="题目63.不同路径-ii本题采用动态规划解法。 分析此题在未进行空间优化使用二维数组的方案时，可以很好地解决边界问题。若需要优化空间，处理边界问题为要务。此处把输入的数组的行用 r(row)表示，列用 c(column)表示dp[r][c]表示到达对应位置拥有的方法数，此时在网格位置用 pos 标记则有如下情况： pos 处有障碍物 dp[r][c] = 0 pos 处在上边界（r == 0） #">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%8A%9B%E6%89%A3%E9%A2%98%E8%A7%A363-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-ii20220713165512.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-力扣题解63-不同路径-ii" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      力扣题解63-不同路径-ii
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-07-07T10:24:30.000Z" itemprop="datePublished">2022-07-07</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-07-07T10:24:30.000Z" itemprop="datePublished">2022-07-07</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode.cn/problems/unique-paths-ii/" target="_blank" rel="noopener">63.不同路径-ii</a><br>本题采用动态规划解法。</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>此题在未进行空间优化使用二维数组的方案时，可以很好地解决边界问题。<br>若需要优化空间，处理边界问题为要务。<br>此处把输入的数组的行用 r(row)表示，列用 c(column)表示<br>dp[r][c]表示到达对应位置拥有的方法数，此时在网格位置用 pos 标记<br>则有如下情况：</p>
+<p>pos 处有障碍物</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">dp[r][c] = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>pos 处在上边界（r == 0）</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># dp[r][c] 在上边界第一个障碍物处分界，障碍物左边为 1，右边为 0，单独进行边界处理</span></span><br><span class="line">dp[r][c] = <span class="number">0</span> || <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>pos 处在左边界（c == 0）</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">dp[r][c] = dp[r - <span class="number">1</span>][c]</span><br></pre></td></tr></table></figure>
+<p>其他普通情况</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>: pos只左边有障碍物 dp[r][c] = dp[r][c - <span class="number">1</span>]</span><br><span class="line"><span class="number">2</span>: pos只上边有障碍物 dp[r][c] = dp[r - <span class="number">1</span>][c]</span><br><span class="line"><span class="number">3</span>: pos左边上边都有障碍物 dp[r][c] = <span class="number">0</span></span><br><span class="line"><span class="number">4</span>: pos都无障碍物 dp[r][c] = dp[r][c - <span class="number">1</span>] + dp[r - <span class="number">1</span>][c]</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%8A%9B%E6%89%A3%E9%A2%98%E8%A7%A363-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-ii20220713165512.png" alt="力扣题解63-不同路径-ii20220713165512"></p>
+<p>上述分析可以得到一个初步的代码版本</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(self, obstacleGrid: List[List[int]])</span> -&gt; int:</span></span><br><span class="line"></span><br><span class="line">        columnLen = len(obstacleGrid[<span class="number">0</span>])</span><br><span class="line">        rowLen = len(obstacleGrid)</span><br><span class="line">        note = [<span class="number">0</span>] * columnLen</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 处理初始上边界并用记事本note保存</span></span><br><span class="line">        <span class="keyword">for</span> i,v <span class="keyword">in</span> enumerate(obstacleGrid[<span class="number">0</span>]):</span><br><span class="line">            <span class="keyword">if</span> v == <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            note[i] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> rowLen == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> note[<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">        ret = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> r <span class="keyword">in</span> range(<span class="number">1</span>, rowLen):</span><br><span class="line">            <span class="keyword">for</span> c <span class="keyword">in</span> range(columnLen):</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 当前位置为障碍物</span></span><br><span class="line">                <span class="keyword">if</span> obstacleGrid[r][c] == <span class="number">1</span>:</span><br><span class="line">                    ret = <span class="number">0</span></span><br><span class="line">                    note[c] = <span class="number">0</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 当前位置位于左边界</span></span><br><span class="line">                <span class="keyword">if</span> c == <span class="number">0</span>:</span><br><span class="line">                    ret = note[c]</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 普通情况</span></span><br><span class="line">                <span class="keyword">if</span> obstacleGrid[r - <span class="number">1</span>][c] == <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">if</span> obstacleGrid[r][c - <span class="number">1</span>] == <span class="number">1</span>:</span><br><span class="line">                        ret = <span class="number">0</span></span><br><span class="line">                        note[c] = <span class="number">0</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        note[c] = ret</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> obstacleGrid[r][c - <span class="number">1</span>] == <span class="number">1</span>:</span><br><span class="line">                        ret = note[c]</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        ret = ret + note[c]</span><br><span class="line">                        note[c] = ret</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<p>普通情况可进行合并</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">普通情况合并</span><br><span class="line"><span class="number">1</span>: pos只左边有障碍物 dp[r - <span class="number">1</span>][c] = <span class="number">0</span>，  dp[r][c] = dp[r][c - <span class="number">1</span>] + dp[r - <span class="number">1</span>][c]</span><br><span class="line"><span class="number">2</span>: pos只上边有障碍物 dp[r][c - <span class="number">1</span>] = <span class="number">0</span>， dp[r][c] = dp[r][c - <span class="number">1</span>] + dp[r - <span class="number">1</span>][c]</span><br><span class="line"><span class="number">3</span>: pos左边上边都有障碍物 dp[r - <span class="number">1</span>][c] = <span class="number">0</span>， dp[r][c - <span class="number">1</span>] = <span class="number">0</span>， dp[r][c] = dp[r][c - <span class="number">1</span>] + dp[r - <span class="number">1</span>][c]</span><br><span class="line"><span class="number">4</span>: pos都无障碍物 dp[r][c] = dp[r][c - <span class="number">1</span>] + dp[r - <span class="number">1</span>][c]</span><br></pre></td></tr></table></figure>
+<p>即普通情况下</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">dp[r][c] = dp[r][c - <span class="number">1</span>] + dp[r - <span class="number">1</span>][c]</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E5%8A%9B%E6%89%A3%E9%A2%98%E8%A7%A363-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84-ii20220713173148.png" alt="力扣题解63-不同路径-ii20220713173148"><br>则解法如下</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(self, obstacleGrid: List[List[int]])</span> -&gt; int:</span></span><br><span class="line"></span><br><span class="line">        columnLen = len(obstacleGrid[<span class="number">0</span>])</span><br><span class="line">        rowLen = len(obstacleGrid)</span><br><span class="line">        note = [<span class="number">0</span>] * columnLen</span><br><span class="line">        ret = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 处理初始上边界并用记事本note保存</span></span><br><span class="line">        <span class="keyword">for</span> i,v <span class="keyword">in</span> enumerate(obstacleGrid[<span class="number">0</span>]):</span><br><span class="line">            <span class="keyword">if</span> v == <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            note[i] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> rowLen == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> note[<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> r <span class="keyword">in</span> range(<span class="number">1</span>, rowLen):</span><br><span class="line">            <span class="keyword">for</span> c <span class="keyword">in</span> range(columnLen):</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 当前位置为障碍物</span></span><br><span class="line">                <span class="keyword">if</span> obstacleGrid[r][c] == <span class="number">1</span>:</span><br><span class="line">                    ret = <span class="number">0</span></span><br><span class="line">                    note[c] = <span class="number">0</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="comment"># 当前位置位于左边界</span></span><br><span class="line">                <span class="keyword">if</span> c == <span class="number">0</span>:</span><br><span class="line">                    ret = note[c]</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 普通情况</span></span><br><span class="line">                ret = ret + note[c]</span><br><span class="line">                note[c] = ret</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><a id="more"></a>
+<ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+<p> <a href="https://leetcode.cn/problems/unique-paths-ii/" target="_blank" rel="noopener">63.不同路径-ii</a></p>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/力扣题解63-不同路径-ii.html">http://www.skyline.show/力扣题解63-不同路径-ii.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Leetcode题解/">Leetcode题解</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/Python中list使用.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Python中list使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2022 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2022 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
