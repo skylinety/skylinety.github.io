@@ -319,6 +319,88 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Flutter基础使用汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Flutter基础使用汇总.html">Flutter基础使用汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#flutter-监听返回按键">Flutter 监听返回按键</a></li>
+<li><a href="#flutter-防止屏幕翻转">Flutter 防止屏幕翻转</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#notice">NOTICE</a></li>
+<li><a href="#Material">Material</a></li>
+<li><a href="#Warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Flutter-监听返回按键"><a href="#Flutter-监听返回按键" class="headerlink" title="Flutter 监听返回按键"></a>Flutter 监听返回按键</h2><p>通过 WillPopScope 组件来注册监听回调</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="keyword">return</span> WillPopScope(</span><br><span class="line">      onWillPop: _requestPop,</span><br><span class="line">      child: Scaffold(</span><br><span class="line">        appBar: AppBar(</span><br><span class="line">          title: Text(<span class="string">'测试代码'</span>),</span><br><span class="line">          leading: IconButton(</span><br><span class="line">            icon: Icon(Icons.arrow_back),</span><br><span class="line">            onPressed: () &#123;</span><br><span class="line">              print(<span class="string">"退出$&#123;Navigator.canPop(context)&#125;"</span>);</span><br><span class="line">              <span class="keyword">if</span> (Navigator.canPop(context)) &#123;</span><br><span class="line">                Navigator.pop(context);</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                SystemNavigator.pop();</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">       ),</span><br><span class="line">    );</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">Future&lt;bool&gt; _requestPop() &#123;</span><br><span class="line">    print(<span class="string">"POP"</span>);</span><br><span class="line">    <span class="keyword">if</span> (Navigator.canPop(context)) &#123;</span><br><span class="line">      Navigator.pop(context);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      SystemNavigator.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Future.value(<span class="literal">false</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Flutter-防止屏幕翻转"><a href="#Flutter-防止屏幕翻转" class="headerlink" title="Flutter 防止屏幕翻转"></a>Flutter 防止屏幕翻转</h2><p>在 main.dart 入口中加入如下代码</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  HttpOverrides.global = <span class="keyword">new</span> MyHttpOverrides();</span><br><span class="line">  <span class="comment">// runApp(MyApp());</span></span><br><span class="line">  WidgetsFlutterBinding.ensureInitialized();</span><br><span class="line">  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])</span><br><span class="line">      .then((_) &#123;</span><br><span class="line">        runApp(<span class="keyword">new</span> MyApp());</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
+        <!-- 
+
+
+Flutter 监听返回按键
+Flutter 防止屏幕翻转
+BMW WARNING
+NOTICE
+Material
+Warrant
+
+
+
+
+Flutter 监听返回按键通过 WillPopScope 组件来注册监听回调
+Widget build(BuildContext context) &#123;  return WillPopScope(      onWillPop: _req......  -->
+        <p class="article-more-link">
+          <a href="/Flutter基础使用汇总.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flutter/">Flutter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mobile/">Mobile</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-ES简单类型"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1150,91 +1232,6 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 .
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell条件判定"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell条件判定.html">Shell条件判定</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-07T09:48:52.000Z" itemprop="datePublished">2022-06-07</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#if">if</a><ul>
-<li><a href="#基本语法">基本语法</a></li>
-<li><a href="#条件包裹括号">条件包裹括号</a></li>
-<li><a href="#常见判定条件">常见判定条件</a></li>
-</ul>
-</li>
-<li><a href="#三元">三元</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> 条件; <span class="keyword">then</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">elif</span> 条件; <span class="keyword">then</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-<p>其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致</p>
-<h3 id="条件包裹括号"><a href="#条件包裹括号" class="headerlink" title="条件包裹括号"></a>条件包裹括号</h3>
-        <!-- 
-
-
-if
-基本语法
-条件包裹括号
-常见判定条件
-
-
-三元
-BMW WARNING
-
-
-if基本语法if 条件; then    命令elif 条件; then    命令else    命令fi
-其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致
-条件包裹括号
-
-command
-
-if 后直接接条件无任何括号包裹。表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首......  -->
-        <p class="article-more-link">
-          <a href="/Shell条件判定.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
 
     </footer>
   </div>
