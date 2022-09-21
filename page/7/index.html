@@ -319,6 +319,131 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Shell常见操作汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell常见操作汇总.html">Shell常见操作汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T10:06:41.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#获取执行脚本的位置">获取执行脚本的位置</a></li>
+<li><a href="#shell-脚本相互调用">Shell 脚本相互调用</a></li>
+<li><a href="#脚本中断与执行">脚本中断与执行</a></li>
+<li><a href="#判定目录或文件存在">判定目录或文件存在</a></li>
+<li><a href="#算数命令">算数命令</a></li>
+<li><a href="#查看目录下文件夹">查看目录下文件夹</a></li>
+<li><a href="#创建嵌套文件夹并进入">创建嵌套文件夹并进入</a></li>
+<li><a href="#查看远程服务及端口是否开启">查看远程服务及端口是否开启</a></li>
+<li><a href="#设置别名">设置别名</a><ul>
+<li><a href="#临时别名">临时别名</a></li>
+<li><a href="#永久生效">永久生效</a></li>
+</ul>
+</li>
+<li><a href="#查看端口占用">查看端口占用</a></li>
+<li><a href="#删除目录下模糊匹配的文件">删除目录下模糊匹配的文件</a><ul>
+<li><a href="#命令">命令</a></li>
+<li><a href="#解析">解析</a></li>
+</ul>
+</li>
+<li><a href="#查找目录下包含指定字符的文件">查找目录下包含指定字符的文件</a><ul>
+<li><a href="#命令-1">命令</a></li>
+<li><a href="#解析-1">解析</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="获取执行脚本的位置"><a href="#获取执行脚本的位置" class="headerlink" title="获取执行脚本的位置"></a>获取执行脚本的位置</h2><p>通过<code>dirname &quot;$0&quot;</code>获取当前执行脚本所在位置。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">BASEDIR=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$BASEDIR</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/a.sh" target="_blank" rel="noopener">示例</a></p>
+<h2 id="Shell-脚本相互调用"><a href="#Shell-脚本相互调用" class="headerlink" title="Shell 脚本相互调用"></a>Shell 脚本相互调用</h2><p>在 Shell 脚本内部调用其他 Shell 脚本，使用如下方法：</p>
+<ul>
+<li>sh</li>
+<li>source</li>
+<li>点号(.)</li>
+</ul>
+<p>使用点号和 source 的效果基本一致，等同于将其他脚本的内部内容放在当前脚本运行。<br>引入脚本和当前脚本执行时位于同一进程中，引入脚本可以获取到当前脚本中的变量。<br>sh 引入的脚本会单开一个子进程，其无法获取到当前脚本中的变量，要获取该变量，需要使用 export 导出。<br>有如下两个在同级目录的脚本 a 和 b<br><code>a.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">a=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"b is <span class="variable">$b</span>"</span></span><br><span class="line"><span class="comment"># b is</span></span><br><span class="line">BASEDIR=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$BASEDIR</span></span><br><span class="line">. <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"b is <span class="variable">$b</span>"</span></span><br><span class="line"><span class="comment"># b is 2</span></span><br><span class="line"><span class="built_in">source</span> <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br><span class="line">sh <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is</span></span><br><span class="line"><span class="built_in">export</span> a</span><br><span class="line">sh <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br></pre></td></tr></table></figure>
+<p><code>b.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"a is <span class="variable">$a</span>"</span></span><br><span class="line">b=2</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/a.sh" target="_blank" rel="noopener">示例</a></p>
+<h2 id="脚本中断与执行"><a href="#脚本中断与执行" class="headerlink" title="脚本中断与执行"></a>脚本中断与执行</h2>
+        <!-- 
+
+
+获取执行脚本的位置
+Shell 脚本相互调用
+脚本中断与执行
+判定目录或文件存在
+算数命令
+查看目录下文件夹
+创建嵌套文件夹并进入
+查看远程服务及端口是否开启
+设置别名
+临时别名
+永久生效
+
+
+查看端口占用
+删除目录下模糊匹配的文件
+命令
+解析
+
+
+查找目录下包含指定字符的文件
+命令
+解析
+
+
+BMW WARNING
+
+
+获取执行脚本的位置通过dirname &quot;$0&quot......  -->
+        <p class="article-more-link">
+          <a href="/Shell常见操作汇总.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Shell中sed的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -633,6 +758,116 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
+    <article id="post-Shell中的符号"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中的符号.html">Shell中的符号</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#引号">引号</a></li>
+<li><a href="#路径符">路径符</a></li>
+<li><a href="#重定向符">重定向符</a></li>
+<li><a href="#命令执行符">命令执行符</a></li>
+<li><a href="#符号标记">符号标记</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><p>单引号和双引号主要可用于解决字符串中间有空格的问题。<br>单引号将剥夺字符串中特殊字符的含义。<br>双引号中的’$’进行参数替换’<code>&#39;进行命令替换。
+反引号与$()是一样的。 `</code>或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'$skyline`echo 1`'</span></span><br><span class="line"><span class="comment"># $skyline`echo 1`</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$skyline</span>`echo 1`"</span></span><br><span class="line"><span class="comment"># 11</span></span><br></pre></td></tr></table></figure>
+<h2 id="路径符"><a href="#路径符" class="headerlink" title="路径符"></a>路径符</h2><p>Shell 中路径相关的符号，如下表所示</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>使用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~</td>
+<td>cd ~</td>
+<td>用户主页目录</td>
+</tr>
+<tr>
+<td>.</td>
+<td>ls .</td>
+<td>当前目录</td>
+</tr>
+<tr>
+<td>..</td>
+<td>cd ..</td>
+<td>上级目录</td>
+</tr>
+<tr>
+<td>/</td>
+<td>cd /</td>
+<td>根目录或路径分隔符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2>
+        <!-- 
+
+
+引号
+路径符
+重定向符
+命令执行符
+符号标记
+BMW WARNING
+
+
+引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&#39;进行命令替换。
+反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。
+skyline=1echo '$skyline`echo 1`'#......  -->
+        <p class="article-more-link">
+          <a href="/Shell中的符号.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -850,7 +1085,7 @@ git 单列已添加到暂存区的文件......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-Shell中的符号"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -858,7 +1093,7 @@ git 单列已添加到暂存区的文件......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中的符号.html">Shell中的符号</a>
+      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
     </h1>
   
 
@@ -867,7 +1102,7 @@ git 单列已添加到暂存区的文件......  -->
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
     </a>
 
 
@@ -883,66 +1118,57 @@ git 单列已添加到暂存区的文件......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#引号">引号</a></li>
-<li><a href="#路径符">路径符</a></li>
-<li><a href="#重定向符">重定向符</a></li>
-<li><a href="#命令执行符">命令执行符</a></li>
-<li><a href="#符号标记">符号标记</a></li>
+<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
+<li><a href="#实质">实质</a></li>
+<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
+</ul>
+</li>
+<li><a href="#引入-dll-库">引入 dll 库</a><ul>
+<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
+<li><a href="#手动引入注意">手动引入注意</a></li>
+<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
+<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
+</ul>
+</li>
+<li><a href="#成果分析">成果分析</a><ul>
+<li><a href="#优化前">优化前</a></li>
+<li><a href="#优化后">优化后：</a></li>
+</ul>
+</li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><p>单引号和双引号主要可用于解决字符串中间有空格的问题。<br>单引号将剥夺字符串中特殊字符的含义。<br>双引号中的’$’进行参数替换’<code>&#39;进行命令替换。
-反引号与$()是一样的。 `</code>或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'$skyline`echo 1`'</span></span><br><span class="line"><span class="comment"># $skyline`echo 1`</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$skyline</span>`echo 1`"</span></span><br><span class="line"><span class="comment"># 11</span></span><br></pre></td></tr></table></figure>
-<h2 id="路径符"><a href="#路径符" class="headerlink" title="路径符"></a>路径符</h2><p>Shell 中路径相关的符号，如下表所示</p>
-<table>
-<thead>
-<tr>
-<th>符号</th>
-<th>使用</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>~</td>
-<td>cd ~</td>
-<td>用户主页目录</td>
-</tr>
-<tr>
-<td>.</td>
-<td>ls .</td>
-<td>当前目录</td>
-</tr>
-<tr>
-<td>..</td>
-<td>cd ..</td>
-<td>上级目录</td>
-</tr>
-<tr>
-<td>/</td>
-<td>cd /</td>
-<td>根目录或路径分隔符</td>
-</tr>
-</tbody>
-</table>
-<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2>
+<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
+<blockquote>
+<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
+</blockquote>
+<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3>
         <!-- 
 
 
-引号
-路径符
-重定向符
-命令执行符
-符号标记
+DllPlugin 概述
+实质
+DllPlugin 配置
+
+
+引入 dll 库
+手动引入 dll 文件（不推荐）
+手动引入注意
+自动引入(推荐)
+自动引入常见问题
+
+
+成果分析
+优化前
+优化后：
+
+
 BMW WARNING
 
 
-引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&#39;进行命令替换。
-反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。
-skyline=1echo '$skyline`echo 1`'#......  -->
+DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程序同时使用的代码库。在前端领域里可简单看做缓存，其......  -->
         <p class="article-more-link">
-          <a href="/Shell中的符号.html#more">阅读全文</a>
+          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -950,7 +1176,7 @@ skyline=1echo '$skyline`echo 1`'#......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
 
     </footer>
   </div>
@@ -1234,201 +1460,11 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
-<li><a href="#实质">实质</a></li>
-<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
-</ul>
-</li>
-<li><a href="#引入-dll-库">引入 dll 库</a><ul>
-<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
-<li><a href="#手动引入注意">手动引入注意</a></li>
-<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
-<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
-</ul>
-</li>
-<li><a href="#成果分析">成果分析</a><ul>
-<li><a href="#优化前">优化前</a></li>
-<li><a href="#优化后">优化后：</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
-<blockquote>
-<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
-</blockquote>
-<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3>
-        <!-- 
-
-
-DllPlugin 概述
-实质
-DllPlugin 配置
-
-
-引入 dll 库
-手动引入 dll 文件（不推荐）
-手动引入注意
-自动引入(推荐)
-自动引入常见问题
-
-
-成果分析
-优化前
-优化后：
-
-
-BMW WARNING
-
-
-DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程序同时使用的代码库。在前端领域里可简单看做缓存，其......  -->
-        <p class="article-more-link">
-          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中grep的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中grep的使用.html">Shell中grep的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2020-09-12T07:14:56.000Z" itemprop="datePublished">2020-09-12</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#使用">使用</a><ul>
-<li><a href="#基础使用">基础使用</a></li>
-<li><a href="#正则">正则</a></li>
-<li><a href="#递归查找子目录">递归查找子目录</a></li>
-<li><a href="#忽略大小写">忽略大小写</a></li>
-<li><a href="#匹配次数">匹配次数</a></li>
-<li><a href="#静默查找">静默查找</a></li>
-</ul>
-</li>
-<li><a href="#选项">选项</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>grep 是一个字符搜索命令，使用的基础语法为</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep [options] pattern [files]</span><br></pre></td></tr></table></figure>
-<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3>
-        <!-- 
-
-
-使用
-基础使用
-正则
-递归查找子目录
-忽略大小写
-匹配次数
-静默查找
-
-
-选项
-BMW WARNING
-
-
-使用基础使用grep 是一个字符搜索命令，使用的基础语法为
-grep [options] pattern [files]
-正则
-^ 匹配的字符在行首$ 匹配的字符在行尾
-grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.mdgr......  -->
-        <p class="article-more-link">
-          <a href="/Shell中grep的使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/6/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/">下一页 &raquo;</a>
   </nav>
 
 </section>

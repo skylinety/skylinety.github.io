@@ -319,6 +319,95 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-力扣题解494-目标和"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/力扣题解494-目标和.html">力扣题解494-目标和</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-09-15T07:49:38.000Z" itemprop="datePublished">2022-09-15</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#题目">题目</a></li>
+<li><a href="#普通-dp">普通 DP</a><ul>
+<li><a href="#基础分析">基础分析</a></li>
+<li><a href="#其他说明">其他说明</a></li>
+<li><a href="#解法">解法</a></li>
+</ul>
+</li>
+<li><a href="#背包问题">背包问题</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://leetcode.cn/problems/target-sum/" target="_blank" rel="noopener">494.目标和</a><br>本题可采用 DFS 和 DP 动态规划解法。<br>此分析 DP</p>
+<h2 id="普通-DP"><a href="#普通-DP" class="headerlink" title="普通 DP"></a>普通 DP</h2><h3 id="基础分析"><a href="#基础分析" class="headerlink" title="基础分析"></a>基础分析</h3>
+        <!-- 
+
+
+题目
+普通 DP
+基础分析
+其他说明
+解法
+
+
+背包问题
+BMW WARNING
+
+
+题目494.目标和本题可采用 DFS 和 DP 动态规划解法。此分析 DP
+普通 DP基础分析
+
+dp 含义
+
+dp[i][t]表示数组索引 i 及之前的数用完得到某个目标值 t 的个数
+
+状态转移方程
+
+dp[i][t] = dp[i - 1][t - nums[i]] + dp[i - 1][t ......  -->
+        <p class="article-more-link">
+          <a href="/力扣题解494-目标和.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Leetcode题解/">Leetcode题解</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-力扣题解63-不同路径-ii"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -762,6 +851,66 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
+    <article id="post-Git常见命令"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Git常见命令.html">Git常见命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:05.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="pull"><a href="#pull" class="headerlink" title="pull"></a>pull</h2><h3 id="git-pull-r-VS-git-pull"><a href="#git-pull-r-VS-git-pull" class="headerlink" title="git pull -r VS git pull"></a>git pull -r VS git pull</h3><p>语法糖？</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git pull = git fetch + git merge</span><br><span class="line">git pull --rebase/-r = git fetch + git rebase</span><br></pre></td></tr></table></figure>
+<p>现有 git 仓库如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302171848.png" alt="Git常见命令20220302171848"></p>
+<p>git pull<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302172250.png" alt="Git常见命令20220302172250"></p>
+<p>git pull -r<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302172238.png" alt="Git常见命令20220302172238"><br>git pull -r 会将当前提交的记录（E）删除并重新生成一个新的记录（R），其 HASH 值会发生变化。<br>看起来就像是在最近远端提交记录 D 上拉的代码，使得提交记录为一条直线。</p>
+<h2 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h2>
+        <!-- pullgit pull -r VS git pull语法糖？
+git pull = git fetch + git mergegit pull --rebase/-r = git fetch + git rebase
+现有 git 仓库如下
+git pull
+git pull -rgit pull -r 会将当前提交的记录（E）删除并重新生成一个新的记录（R），其 HASH 值会发生变化。......  -->
+        <p class="article-more-link">
+          <a href="/Git常见命令.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-PicGo"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -815,7 +964,7 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-Git常见命令"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Charles抓取Https包"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -823,7 +972,7 @@ BMW WARNING
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Git常见命令.html">Git常见命令</a>
+      <a class="article-title" href="/Charles抓取Https包.html">Charles抓取Https包</a>
     </h1>
   
 
@@ -832,7 +981,7 @@ BMW WARNING
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:05.000Z" itemprop="datePublished">2022-06-21</time>
+      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
     </a>
 
 
@@ -845,19 +994,14 @@ BMW WARNING
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="pull"><a href="#pull" class="headerlink" title="pull"></a>pull</h2><h3 id="git-pull-r-VS-git-pull"><a href="#git-pull-r-VS-git-pull" class="headerlink" title="git pull -r VS git pull"></a>git pull -r VS git pull</h3><p>语法糖？</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git pull = git fetch + git merge</span><br><span class="line">git pull --rebase/-r = git fetch + git rebase</span><br></pre></td></tr></table></figure>
-<p>现有 git 仓库如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302171848.png" alt="Git常见命令20220302171848"></p>
-<p>git pull<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302172250.png" alt="Git常见命令20220302172250"></p>
-<p>git pull -r<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302172238.png" alt="Git常见命令20220302172238"><br>git pull -r 会将当前提交的记录（E）删除并重新生成一个新的记录（R），其 HASH 值会发生变化。<br>看起来就像是在最近远端提交记录 D 上拉的代码，使得提交记录为一条直线。</p>
-<h2 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h2>
-        <!-- pullgit pull -r VS git pull语法糖？
-git pull = git fetch + git mergegit pull --rebase/-r = git fetch + git rebase
-现有 git 仓库如下
-git pull
-git pull -rgit pull -r 会将当前提交的记录（E）删除并重新生成一个新的记录（R），其 HASH 值会发生变化。......  -->
+        <h2 id="抓基础包"><a href="#抓基础包" class="headerlink" title="抓基础包"></a>抓基础包</h2><h3 id="Mac-配置"><a href="#Mac-配置" class="headerlink" title="Mac 配置"></a>Mac 配置</h3><p>查看或配置 Mac 代理端口<br>Proxy &gt; Proxy Settings &gt; Port<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Charles%E6%8A%93%E5%8F%96Https%E5%8C%8520220221153215.png" alt="Charles抓取Https包20220221153215"></p>
+<h3 id="手机端配置"><a href="#手机端配置" class="headerlink" title="手机端配置"></a>手机端配置</h3>
+        <!-- 抓基础包Mac 配置查看或配置 Mac 代理端口Proxy &gt; Proxy Settings &gt; Port
+手机端配置
+连接 Mac 统一网络，点击网络后的 i 图标，在 配置代理时选择手动，查看 Mac 地址，并将 Mac 端的配置填入
+Https 抓包SSL 代理配置在上述配置后，可以抓取基本的 Http 包，但是 Https 包抓下来为 unknow需要进一步配置。在 Pr......  -->
         <p class="article-more-link">
-          <a href="/Git常见命令.html#more">阅读全文</a>
+          <a href="/Charles抓取Https包.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -865,7 +1009,7 @@ git pull -rgit pull -r 会将当前提交的记录（E）删除并重新生成�
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Charles/">Charles</a></li></ul>
 
     </footer>
   </div>
@@ -950,148 +1094,6 @@ I am a bucolic migra......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Photoshop/">Photoshop</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Charles抓取Https包"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Charles抓取Https包.html">Charles抓取Https包</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="抓基础包"><a href="#抓基础包" class="headerlink" title="抓基础包"></a>抓基础包</h2><h3 id="Mac-配置"><a href="#Mac-配置" class="headerlink" title="Mac 配置"></a>Mac 配置</h3><p>查看或配置 Mac 代理端口<br>Proxy &gt; Proxy Settings &gt; Port<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Charles%E6%8A%93%E5%8F%96Https%E5%8C%8520220221153215.png" alt="Charles抓取Https包20220221153215"></p>
-<h3 id="手机端配置"><a href="#手机端配置" class="headerlink" title="手机端配置"></a>手机端配置</h3>
-        <!-- 抓基础包Mac 配置查看或配置 Mac 代理端口Proxy &gt; Proxy Settings &gt; Port
-手机端配置
-连接 Mac 统一网络，点击网络后的 i 图标，在 配置代理时选择手动，查看 Mac 地址，并将 Mac 端的配置填入
-Https 抓包SSL 代理配置在上述配置后，可以抓取基本的 Http 包，但是 Https 包抓下来为 unknow需要进一步配置。在 Pr......  -->
-        <p class="article-more-link">
-          <a href="/Charles抓取Https包.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Charles/">Charles</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-JS垃圾回收机制"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/JS垃圾回收机制.html">JS垃圾回收机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a></li>
-<li><a href="#内存标记策略">内存标记策略</a><ul>
-<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
-<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><p>在各编程语言中，内存的生命周期大概经历如下三个阶段：</p>
-<ul>
-<li>内存分配（allocate）</li>
-<li>内存使用（read | write）</li>
-<li>内存释放（free）</li>
-</ul>
-<p>不管是在高级还是低级语言中，第二阶段的读写都很明确，而内存的分配与释放阶段，<br>JS 等高级语言会自动分配内存，通过算法自动进行垃圾回收，释放内存。<br>局部变量会在离开环境时自动解除引用，后续算法自动计数或标记来确定是否释放。<br>对于全局对象与属性，可通过将值设置成 null 来<strong>解除引用</strong>以释放内存。<br>而 C 语言等低级语言在代码中显式分配与释放内存。</p>
-<p>JS 的自动回收垃圾机制大致如下：<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>垃圾标记器会跟踪内存，有用内存打上标记，回收垃圾时，需要将那些未被标记的供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
-<h2 id="内存标记策略"><a href="#内存标记策略" class="headerlink" title="内存标记策略"></a>内存标记策略</h2><h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3>
-        <!-- 
-
-
-垃圾回收(GC:Garbage Collecation)
-内存标记策略
-引用计数（Reference Counting）
-标记清除（Mark &amp; Sweep）
-
-
-BMW WARNING
-
-
-垃圾回收(GC:Garbage Collecation)在各编程语言中，内存的生命周期大概经历如下三个阶段：
-
-内存分配（allocate）
-内存使用（read | write）
-内存释放......  -->
-        <p class="article-more-link">
-          <a href="/JS垃圾回收机制.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
 
     </footer>
   </div>
@@ -1221,7 +1223,7 @@ o......  -->
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>

@@ -319,6 +319,93 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-JS垃圾回收机制"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/JS垃圾回收机制.html">JS垃圾回收机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a></li>
+<li><a href="#内存标记策略">内存标记策略</a><ul>
+<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
+<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><p>在各编程语言中，内存的生命周期大概经历如下三个阶段：</p>
+<ul>
+<li>内存分配（allocate）</li>
+<li>内存使用（read | write）</li>
+<li>内存释放（free）</li>
+</ul>
+<p>不管是在高级还是低级语言中，第二阶段的读写都很明确，而内存的分配与释放阶段，<br>JS 等高级语言会自动分配内存，通过算法自动进行垃圾回收，释放内存。<br>局部变量会在离开环境时自动解除引用，后续算法自动计数或标记来确定是否释放。<br>对于全局对象与属性，可通过将值设置成 null 来<strong>解除引用</strong>以释放内存。<br>而 C 语言等低级语言在代码中显式分配与释放内存。</p>
+<p>JS 的自动回收垃圾机制大致如下：<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>垃圾标记器会跟踪内存，有用内存打上标记，回收垃圾时，需要将那些未被标记的供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
+<h2 id="内存标记策略"><a href="#内存标记策略" class="headerlink" title="内存标记策略"></a>内存标记策略</h2><h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3>
+        <!-- 
+
+
+垃圾回收(GC:Garbage Collecation)
+内存标记策略
+引用计数（Reference Counting）
+标记清除（Mark &amp; Sweep）
+
+
+BMW WARNING
+
+
+垃圾回收(GC:Garbage Collecation)在各编程语言中，内存的生命周期大概经历如下三个阶段：
+
+内存分配（allocate）
+内存使用（read | write）
+内存释放......  -->
+        <p class="article-more-link">
+          <a href="/JS垃圾回收机制.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Flutter基础使用汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1076,127 +1163,11 @@ ID
 <!-- Table of Contents -->
 
   
-    <article id="post-HTML标签"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/HTML标签.html">HTML标签</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-10T08:10:24.000Z" itemprop="datePublished">2022-06-10</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#script">script</a><ul>
-<li><a href="#type-属性">type 属性</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="script"><a href="#script" class="headerlink" title="script"></a>script</h2><h3 id="type-属性"><a href="#type-属性" class="headerlink" title="type 属性"></a>type 属性</h3><p>defer 要等到整个页面在内存中 DOM 渲染结束与其他脚本执行之后，才会执行；<br>async 一旦下载完，渲染引擎就会中断渲染，执行改脚本，再继续渲染。<strong>defer 是“渲染完再执行”，async 是“下载完就执行”</strong>。</p>
-<table>
-<thead>
-<tr>
-<th>type 值</th>
-<th>async</th>
-<th>defer</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>描述</td>
-<td>立即下载脚本，不妨碍其他操作，不依赖其他脚本，不阻塞文档</td>
-<td>延迟脚本到文档被解析与显示之后</td>
-</tr>
-<tr>
-<td>要点</td>
-<td>下载完就执行</td>
-<td>渲染完再执行</td>
-</tr>
-<tr>
-<td>适用范围</td>
-<td>外部引入脚本</td>
-<td>外部引入脚本</td>
-</tr>
-<tr>
-<td>多个执行顺序</td>
-<td>不保证加载顺序</td>
-<td>先后顺序</td>
-</tr>
-</tbody>
-</table>
-<p>多个执行顺序指同时出现多个 type 设置为 async 或 defer 的 script 标签。<br>type=”module”是表明引入的是一个 ES6 模块脚本，其脚本内的模块需要遵循 ES6 模块规范，其他表现类似于 type 指定为 defer</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
-        <!-- 
-
-
-script
-type 属性
-
-
-BMW WARNING
-
-
-scripttype 属性defer 要等到整个页面在内存中 DOM 渲染结束与其他脚本执行之后，才会执行；async 一旦下载完，渲染引擎就会中断渲染，执行改脚本，再继续渲染。defer 是“渲染完再执行”，async 是“下载完就执行”。
-
-
-
-type 值
-async
-defer
-
-
-
-
-描述
-立即下载脚本，不妨碍其他......  -->
-        <p class="article-more-link">
-          <a href="/HTML标签.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>
