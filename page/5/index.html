@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-ES对象创建"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CentOS利用systemd开启后台进程"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES对象创建.html">ES对象创建</a>
+      <a class="article-title" href="/CentOS利用systemd开启后台进程.html">CentOS利用systemd开启后台进程</a>
     </h1>
   
 
@@ -342,7 +342,7 @@
 
       
     
-    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
     <!--  -->
 
       <!--  -->
@@ -352,64 +352,51 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#工厂模式">工厂模式</a></li>
-<li><a href="#构造函数模式">构造函数模式</a><ul>
-<li><a href="#实现">实现</a></li>
-<li><a href="#优化">优化</a></li>
+<li><a href="#简介">简介</a><ul>
+<li><a href="#创建新服务">创建新服务</a></li>
+<li><a href="#开启服务">开启服务</a></li>
 </ul>
 </li>
-<li><a href="#原型模式">原型模式</a><ul>
-<li><a href="#实现-1">实现</a></li>
-<li><a href="#原型判定">原型判定</a></li>
-<li><a href="#原型重写">原型重写</a></li>
-<li><a href="#原型模式问题">原型模式问题</a></li>
-</ul>
-</li>
-<li><a href="#组合构造与原型">组合构造与原型</a></li>
-<li><a href="#动态原型">动态原型</a><ul>
-<li><a href="#实现-2">实现</a></li>
-<li><a href="#重写原型">重写原型</a></li>
-</ul>
-</li>
-<li><a href="#寄生构造函数">寄生构造函数</a></li>
-<li><a href="#稳妥构造函数">稳妥构造函数</a></li>
+<li><a href="#systemd服务操作汇总">systemd服务操作汇总</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  p.name = name;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">"skyline"</span>);</span><br><span class="line">me.name; <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
-<h2 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。<br>systemd 提供多个命令行工具，最基本的为 systemctl<br>systemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。</p>
+<h3 id="创建新服务"><a href="#创建新服务" class="headerlink" title="创建新服务"></a>创建新服务</h3><p>创建服务文件并打开</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/foo.service</span><br></pre></td></tr></table></figure>
+<p>输入以下内容</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My custom service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :992 --password xxxx</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>[Unit]</p>
+<pre><code>提供服务基础信息
+Description 为描述信息
+After
+服务启动的前置条件
+</code></pre><p>[Service]</p>
+<pre><code>提供启动服务的相关信息
+</code></pre><p>[Install]</p>
+<pre><code>WantedBy
+定义服务被谁触发
+</code></pre><blockquote>
+<p>Defines which service triggers the custom service if enabled with systemctl enable. This is mostly used for starting the custom service on boot. In this example, foo.service uses multi-user.target, which starts foo.service when systemd loads multi-user.target on boot.</p>
+</blockquote>
+<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3>
         <!-- 
 
 
-工厂模式
-构造函数模式
-实现
-优化
+简介
+创建新服务
+开启服务
 
 
-原型模式
-实现
-原型判定
-原型重写
-原型模式问题
-
-
-组合构造与原型
-动态原型
-实现
-重写原型
-
-
-寄生构造函数
-稳妥构造函数
+systemd服务操作汇总
 BMW WARNING
 
 
-工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）
-function person(name) &#123;  var p = new Object()......  -->
+简介systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。systemd 提供多个命令行工具，最基本的为 systemctlsystemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。
+创建新服务创建服务文件并打开
+vi /etc/syst......  -->
         <p class="article-more-link">
-          <a href="/ES对象创建.html#more">阅读全文</a>
+          <a href="/CentOS利用systemd开启后台进程.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -417,7 +404,7 @@ function person(name) &#123;  var p = new Object()......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
 
     </footer>
   </div>
@@ -517,7 +504,7 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-CentOS利用systemd开启后台进程"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-康定周边2日"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -525,7 +512,7 @@ BMW WARNING
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CentOS利用systemd开启后台进程.html">CentOS利用systemd开启后台进程</a>
+      <a class="article-title" href="/康定周边2日.html">康定周边2日</a>
     </h1>
   
 
@@ -540,7 +527,7 @@ BMW WARNING
 
       
     
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <a class="article-category-link" href="/categories/Life/">Life</a>
     <!--  -->
 
       <!--  -->
@@ -550,51 +537,46 @@ BMW WARNING
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#简介">简介</a><ul>
-<li><a href="#创建新服务">创建新服务</a></li>
-<li><a href="#开启服务">开启服务</a></li>
+<li><a href="#出发前准备">出发前准备</a><ul>
+<li><a href="#时间">时间</a></li>
+<li><a href="#物品清单">物品清单</a></li>
+<li><a href="#路线">路线</a></li>
 </ul>
 </li>
-<li><a href="#systemd服务操作汇总">systemd服务操作汇总</a></li>
+<li><a href="#主要地点">主要地点</a><ul>
+<li><a href="#海螺沟">海螺沟</a></li>
+<li><a href="#折多山">折多山</a></li>
+<li><a href="#新都桥">新都桥</a></li>
+</ul>
+</li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。<br>systemd 提供多个命令行工具，最基本的为 systemctl<br>systemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。</p>
-<h3 id="创建新服务"><a href="#创建新服务" class="headerlink" title="创建新服务"></a>创建新服务</h3><p>创建服务文件并打开</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vi /etc/systemd/system/foo.service</span><br></pre></td></tr></table></figure>
-<p>输入以下内容</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My custom service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/brook server --listen :992 --password xxxx</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>[Unit]</p>
-<pre><code>提供服务基础信息
-Description 为描述信息
-After
-服务启动的前置条件
-</code></pre><p>[Service]</p>
-<pre><code>提供启动服务的相关信息
-</code></pre><p>[Install]</p>
-<pre><code>WantedBy
-定义服务被谁触发
-</code></pre><blockquote>
-<p>Defines which service triggers the custom service if enabled with systemctl enable. This is mostly used for starting the custom service on boot. In this example, foo.service uses multi-user.target, which starts foo.service when systemd loads multi-user.target on boot.</p>
-</blockquote>
-<h3 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h3>
+<h2 id="出发前准备"><a href="#出发前准备" class="headerlink" title="出发前准备"></a>出发前准备</h2><h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好在周五晚出发。<br>周五晚出发建议在泸定留宿，直接前往磨西古镇也可，需要多一个小时车程。<br>注意 3 岁以下小朋友容易高反，带过去需要有人专职陪伴，备足氧气瓶，折多山上和去沿途有氧气卖。</p>
+<h3 id="物品清单"><a href="#物品清单" class="headerlink" title="物品清单"></a>物品清单</h3>
         <!-- 
 
 
-简介
-创建新服务
-开启服务
+出发前准备
+时间
+物品清单
+路线
 
 
-systemd服务操作汇总
+主要地点
+海螺沟
+折多山
+新都桥
+
+
 BMW WARNING
 
 
-简介systemd 是 Linux 中系统与服务管的系列套件，其中 d 沿用传统指代 daemon。systemd 提供多个命令行工具，最基本的为 systemctlsystemd 体系庞大，提供繁杂的功能，其中一个常用的功能就是开启后台服务。
-创建新服务创建服务文件并打开
-vi /etc/syst......  -->
+出发前准备时间本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好在周五晚出发。周五晚出发建议在泸定留宿，直接前往磨西古镇也可，需要多一个小时车程。注意 3 岁以下小朋友容易高反，带过去需要有人专职陪伴，备足氧气瓶，折多山上和去沿途有氧气卖。
+物品清单
+氧气瓶血氧仪防滑链（依照......  -->
         <p class="article-more-link">
-          <a href="/CentOS利用systemd开启后台进程.html#more">阅读全文</a>
+          <a href="/康定周边2日.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -602,7 +584,7 @@ vi /etc/syst......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Travel/">Travel</a></li></ul>
 
     </footer>
   </div>
@@ -827,276 +809,6 @@ toLocaleStringtoLocaleString 默认保留 3 位小数......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-Shadowsocks服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shadowsocks服务搭建与访问.html">Shadowsocks服务搭建与访问</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#ss-server">SS server</a><ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#配置文件">配置文件</a></li>
-<li><a href="#开启服务">开启服务</a></li>
-<li><a href="#开机启动">开机启动</a></li>
-</ul>
-</li>
-<li><a href="#ss-client">SS client</a></li>
-<li><a href="#添加自定代理规则">添加自定代理规则</a></li>
-<li><a href="#常见问题">常见问题</a><ul>
-<li><a href="#配置完成无法访问墙外">配置完成无法访问墙外</a></li>
-<li><a href="#syn_recv">SYN_RECV</a></li>
-<li><a href="#ip或端口被封">IP或端口被封</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="SS-server"><a href="#SS-server" class="headerlink" title="SS server"></a>SS server</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>SS server 服务端有多语言版本支持<br>此处采用 python 版本<br>首先安装 pip 包管理器</p>
-<p>Debian / Ubuntu</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br></pre></td></tr></table></figure>
-<p>CentOS</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo yum install epel-release <span class="comment"># 添加Enterprise Linux企业源</span></span><br><span class="line">sudo yum install python-pip</span><br></pre></td></tr></table></figure>
-<p>查看是否安装成功</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip --version</span><br><span class="line"><span class="comment"># pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</span></span><br></pre></td></tr></table></figure>
-<p>然后直接输入以下命令安装</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3>
-        <!-- 
-
-
-SS server
-安装
-配置文件
-开启服务
-开机启动
-
-
-SS client
-添加自定代理规则
-常见问题
-配置完成无法访问墙外
-SYN_RECV
-IP或端口被封
-
-
-BMW WARNING
-
-
-SS server安装SS server 服务端有多语言版本支持此处采用 python 版本首先安装 pip 包管理器
-Debian / Ubuntu
-apt-get install pyth......  -->
-        <p class="article-more-link">
-          <a href="/Shadowsocks服务搭建与访问.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-康定周边2日"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/康定周边2日.html">康定周边2日</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Life/">Life</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#出发前准备">出发前准备</a><ul>
-<li><a href="#时间">时间</a></li>
-<li><a href="#物品清单">物品清单</a></li>
-<li><a href="#路线">路线</a></li>
-</ul>
-</li>
-<li><a href="#主要地点">主要地点</a><ul>
-<li><a href="#海螺沟">海螺沟</a></li>
-<li><a href="#折多山">折多山</a></li>
-<li><a href="#新都桥">新都桥</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="出发前准备"><a href="#出发前准备" class="headerlink" title="出发前准备"></a>出发前准备</h2><h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><p>本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好在周五晚出发。<br>周五晚出发建议在泸定留宿，直接前往磨西古镇也可，需要多一个小时车程。<br>注意 3 岁以下小朋友容易高反，带过去需要有人专职陪伴，备足氧气瓶，折多山上和去沿途有氧气卖。</p>
-<h3 id="物品清单"><a href="#物品清单" class="headerlink" title="物品清单"></a>物品清单</h3>
-        <!-- 
-
-
-出发前准备
-时间
-物品清单
-路线
-
-
-主要地点
-海螺沟
-折多山
-新都桥
-
-
-BMW WARNING
-
-
-出发前准备时间本路线适合于成都出发，周末游玩，2-3 天时间，2 天最好在周五晚出发。周五晚出发建议在泸定留宿，直接前往磨西古镇也可，需要多一个小时车程。注意 3 岁以下小朋友容易高反，带过去需要有人专职陪伴，备足氧气瓶，折多山上和去沿途有氧气卖。
-物品清单
-氧气瓶血氧仪防滑链（依照......  -->
-        <p class="article-more-link">
-          <a href="/康定周边2日.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Travel/">Travel</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Brook服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Brook服务搭建与访问.html">Brook服务搭建与访问</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#server-配置">Server 配置</a><ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#后台运行">后台运行</a></li>
-</ul>
-</li>
-<li><a href="#client">client</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Server-配置"><a href="#Server-配置" class="headerlink" title="Server 配置"></a>Server 配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brook</span><br><span class="line">chmod +x /usr/bin/brook</span><br><span class="line">brook server --listen :9999 --password hello</span><br></pre></td></tr></table></figure>
-<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3>
-        <!-- 
-
-
-Server 配置
-安装
-后台运行
-
-
-client
-BMW WARNING
-
-
-Server 配置安装curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brookchmod +x /usr/bin/brookbrook server --......  -->
-        <p class="article-more-link">
-          <a href="/Brook服务搭建与访问.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Vue基础使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1241,7 +953,7 @@ refs 使用
 <!-- Table of Contents -->
 
   
-    <article id="post-VIM基本使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Brook服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1249,7 +961,295 @@ refs 使用
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/VIM基本使用.html">VIM基本使用</a>
+      <a class="article-title" href="/Brook服务搭建与访问.html">Brook服务搭建与访问</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#server-配置">Server 配置</a><ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#后台运行">后台运行</a></li>
+</ul>
+</li>
+<li><a href="#client">client</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Server-配置"><a href="#Server-配置" class="headerlink" title="Server 配置"></a>Server 配置</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brook</span><br><span class="line">chmod +x /usr/bin/brook</span><br><span class="line">brook server --listen :9999 --password hello</span><br></pre></td></tr></table></figure>
+<h3 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h3>
+        <!-- 
+
+
+Server 配置
+安装
+后台运行
+
+
+client
+BMW WARNING
+
+
+Server 配置安装curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brookchmod +x /usr/bin/brookbrook server --......  -->
+        <p class="article-more-link">
+          <a href="/Brook服务搭建与访问.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shadowsocks服务搭建与访问"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shadowsocks服务搭建与访问.html">Shadowsocks服务搭建与访问</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#ss-server">SS server</a><ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#配置文件">配置文件</a></li>
+<li><a href="#开启服务">开启服务</a></li>
+<li><a href="#开机启动">开机启动</a></li>
+</ul>
+</li>
+<li><a href="#ss-client">SS client</a></li>
+<li><a href="#添加自定代理规则">添加自定代理规则</a></li>
+<li><a href="#常见问题">常见问题</a><ul>
+<li><a href="#配置完成无法访问墙外">配置完成无法访问墙外</a></li>
+<li><a href="#syn_recv">SYN_RECV</a></li>
+<li><a href="#ip或端口被封">IP或端口被封</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="SS-server"><a href="#SS-server" class="headerlink" title="SS server"></a>SS server</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>SS server 服务端有多语言版本支持<br>此处采用 python 版本<br>首先安装 pip 包管理器</p>
+<p>Debian / Ubuntu</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt-get install python-pip</span><br></pre></td></tr></table></figure>
+<p>CentOS</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo yum install epel-release <span class="comment"># 添加Enterprise Linux企业源</span></span><br><span class="line">sudo yum install python-pip</span><br></pre></td></tr></table></figure>
+<p>查看是否安装成功</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip --version</span><br><span class="line"><span class="comment"># pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</span></span><br></pre></td></tr></table></figure>
+<p>然后直接输入以下命令安装</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3>
+        <!-- 
+
+
+SS server
+安装
+配置文件
+开启服务
+开机启动
+
+
+SS client
+添加自定代理规则
+常见问题
+配置完成无法访问墙外
+SYN_RECV
+IP或端口被封
+
+
+BMW WARNING
+
+
+SS server安装SS server 服务端有多语言版本支持此处采用 python 版本首先安装 pip 包管理器
+Debian / Ubuntu
+apt-get install pyth......  -->
+        <p class="article-more-link">
+          <a href="/Shadowsocks服务搭建与访问.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VPN/">VPN</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ES对象创建"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES对象创建.html">ES对象创建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#工厂模式">工厂模式</a></li>
+<li><a href="#构造函数模式">构造函数模式</a><ul>
+<li><a href="#实现">实现</a></li>
+<li><a href="#优化">优化</a></li>
+</ul>
+</li>
+<li><a href="#原型模式">原型模式</a><ul>
+<li><a href="#实现-1">实现</a></li>
+<li><a href="#原型判定">原型判定</a></li>
+<li><a href="#原型重写">原型重写</a></li>
+<li><a href="#原型模式问题">原型模式问题</a></li>
+</ul>
+</li>
+<li><a href="#组合构造与原型">组合构造与原型</a></li>
+<li><a href="#动态原型">动态原型</a><ul>
+<li><a href="#实现-2">实现</a></li>
+<li><a href="#重写原型">重写原型</a></li>
+</ul>
+</li>
+<li><a href="#寄生构造函数">寄生构造函数</a></li>
+<li><a href="#稳妥构造函数">稳妥构造函数</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  p.name = name;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">"skyline"</span>);</span><br><span class="line">me.name; <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
+<h2 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h2><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3>
+        <!-- 
+
+
+工厂模式
+构造函数模式
+实现
+优化
+
+
+原型模式
+实现
+原型判定
+原型重写
+原型模式问题
+
+
+组合构造与原型
+动态原型
+实现
+重写原型
+
+
+寄生构造函数
+稳妥构造函数
+BMW WARNING
+
+
+工厂模式工厂模式解决了创建多个对象的问题，但是没有解决对象识别问题（创建对象后其父对象？）
+function person(name) &#123;  var p = new Object()......  -->
+        <p class="article-more-link">
+          <a href="/ES对象创建.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-frp内网穿透"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/frp内网穿透.html">frp内网穿透</a>
     </h1>
   
 
@@ -1270,98 +1270,35 @@ refs 使用
         <blockquote>
 <p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
 </blockquote>
-<h1 id="VIM-基本使用"><a href="#VIM-基本使用" class="headerlink" title="VIM 基本使用"></a>VIM 基本使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#vim-基本使用">VIM 基本使用</a><ul>
-<li><a href="#模式">模式</a><ul>
-<li><a href="#正常模式-normal-mode">正常模式 (Normal-mode)</a></li>
-<li><a href="#插入模式-insert-mode">插入模式 (Insert-mode)</a></li>
-<li><a href="#命令模式-command-mode">命令模式 (Command-mode)</a></li>
-<li><a href="#可视模式-visual-mode">可视模式 (Visual-mode)</a></li>
-</ul>
-</li>
-<li><a href="#vimrc">.vimrc</a><ul>
-<li><a href="#inoremap">inoremap</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><h3 id="正常模式-Normal-mode"><a href="#正常模式-Normal-mode" class="headerlink" title="正常模式 (Normal-mode)"></a>正常模式 (Normal-mode)</h3><p>正常模式一般用于浏览文件，同时包括一些复制、粘贴、删除等快捷操作。<br>其他模式通常通过 ESC 键返回正常模式。</p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>按键</th>
-<th>EN</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>撤销</td>
-<td>u</td>
-<td>undo</td>
-</tr>
-</tbody>
-</table>
-<h3 id="插入模式-Insert-mode"><a href="#插入模式-Insert-mode" class="headerlink" title="插入模式 (Insert-mode)"></a>插入模式 (Insert-mode)</h3><p>用于编辑文档，直接输入内容。</p>
-<h3 id="命令模式-Command-mode"><a href="#命令模式-Command-mode" class="headerlink" title="命令模式 (Command-mode)"></a>命令模式 (Command-mode)</h3><p>输入:或/进入命令模式<br>命令模式用于执行 VIM 提供的相关指令。</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>按键</th>
-<th>EN</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>移动</td>
-<td>:m</td>
-<td>move</td>
-</tr>
-<tr>
-<td>设定</td>
-<td>:set</td>
-</tr>
-</tbody>
-</table>
-<p><strong>:m</strong><br>:m 多用于换行操作，当前行的位置为 0.具体使用如下</p>
-<ul>
-<li>:m -2 移动到-2 行的位置(当前行与上一行互换)</li>
-<li>:m +1 移动到+1 行的位置(当前行与下一行互换)</li>
-<li>:m 0 移动到首行的位置</li>
-<li>:m $ 移动到尾行的位置</li>
-</ul>
-<p><strong>:set</strong><br>:set number 显示行索引</p>
-<h3 id="可视模式-Visual-mode"><a href="#可视模式-Visual-mode" class="headerlink" title="可视模式 (Visual-mode)"></a>可视模式 (Visual-mode)</h3>
+<h1 id="frp-内网穿透"><a href="#frp-内网穿透" class="headerlink" title="frp 内网穿透"></a>frp 内网穿透</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
+<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>github国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
+<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
+<p>尝试启动服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
+<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
+<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure></p>
+<p>修改 frp.service 内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>重置守护进程服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启服务</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
+<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
+<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable frp</span><br></pre></td></tr></table></figure></p>
+<p>即可。</p>
+<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc配置"><a href="#frpc配置" class="headerlink" title="frpc配置"></a>frpc配置</h3>
         <!-- 
 作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-VIM 基本使用
-
-
-VIM 基本使用
-模式
-正常模式 (Normal-mode)
-插入模式 (Insert-mode)
-命令模式 (Command-mode)
-可视模式 (Visual-mode)
-
-
-.vimrc
-inoremap
-
-
-
-
-
-
-模式正常模式 (Normal-mode)正常模式一般用于浏览文件，......  -->
+frp 内网穿透简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示：
+Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 https://github.com/fatedier/frp/relea......  -->
         <p class="article-more-link">
-          <a href="/VIM基本使用.html#more">阅读全文</a>
+          <a href="/frp内网穿透.html#more">阅读全文</a>
         </p>
       
     </div>

@@ -985,17 +985,54 @@ BMW WARNING
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="pull"><a href="#pull" class="headerlink" title="pull"></a>pull</h2><h3 id="git-pull-r-VS-git-pull"><a href="#git-pull-r-VS-git-pull" class="headerlink" title="git pull -r VS git pull"></a>git pull -r VS git pull</h3><p>语法糖？</p>
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#pull">pull</a><ul>
+<li><a href="#git-pull--r-vs-git-pull">git pull -r VS git pull</a></li>
+</ul>
+</li>
+<li><a href="#diff">diff</a><ul>
+<li><a href="#--name-only">–name-only</a></li>
+</ul>
+</li>
+<li><a href="#submodule">submodule</a><ul>
+<li><a href="#submodule-概述">submodule 概述</a></li>
+<li><a href="#初始子仓库">初始子仓库</a></li>
+<li><a href="#更新子仓库">更新子仓库</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="pull"><a href="#pull" class="headerlink" title="pull"></a>pull</h2><h3 id="git-pull-r-VS-git-pull"><a href="#git-pull-r-VS-git-pull" class="headerlink" title="git pull -r VS git pull"></a>git pull -r VS git pull</h3><p>语法糖？</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git pull = git fetch + git merge</span><br><span class="line">git pull --rebase/-r = git fetch + git rebase</span><br></pre></td></tr></table></figure>
 <p>现有 git 仓库如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302171848.png" alt="Git常见命令20220302171848"></p>
 <p>git pull<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302172250.png" alt="Git常见命令20220302172250"></p>
 <p>git pull -r<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302172238.png" alt="Git常见命令20220302172238"><br>git pull -r 会将当前提交的记录（E）删除并重新生成一个新的记录（R），其 HASH 值会发生变化。<br>看起来就像是在最近远端提交记录 D 上拉的代码，使得提交记录为一条直线。</p>
 <h2 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h2>
-        <!-- pullgit pull -r VS git pull语法糖？
-git pull = git fetch + git mergegit pull --rebase/-r = git fetch + git rebase
-现有 git 仓库如下
-git pull
-git pull -rgit pull -r 会将当前提交的记录（E）删除并重新生成一个新的记录（R），其 HASH 值会发生变化。......  -->
+        <!-- 
+
+
+pull
+git pull -r VS git pull
+
+
+diff
+–name-only
+
+
+submodule
+submodule 概述
+初始子仓库
+更新子仓库
+
+
+BMW WARNING
+
+
+pullgit pull -r VS git pull语法糖？
+git pull = git fetch + git mergegit pull --rebase/-r = git fet......  -->
         <p class="article-more-link">
           <a href="/Git常见命令.html#more">阅读全文</a>
         </p>
@@ -1059,61 +1096,6 @@ git pull -rgit pull -r 会将当前提交的记录（E）删除并重新生成�
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Extensions/">Extensions</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VSCode/">VSCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Charles抓取Https包"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Charles抓取Https包.html">Charles抓取Https包</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="抓基础包"><a href="#抓基础包" class="headerlink" title="抓基础包"></a>抓基础包</h2><h3 id="Mac-配置"><a href="#Mac-配置" class="headerlink" title="Mac 配置"></a>Mac 配置</h3><p>查看或配置 Mac 代理端口<br>Proxy &gt; Proxy Settings &gt; Port<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Charles%E6%8A%93%E5%8F%96Https%E5%8C%8520220221153215.png" alt="Charles抓取Https包20220221153215"></p>
-<h3 id="手机端配置"><a href="#手机端配置" class="headerlink" title="手机端配置"></a>手机端配置</h3>
-        <!-- 抓基础包Mac 配置查看或配置 Mac 代理端口Proxy &gt; Proxy Settings &gt; Port
-手机端配置
-连接 Mac 统一网络，点击网络后的 i 图标，在 配置代理时选择手动，查看 Mac 地址，并将 Mac 端的配置填入
-Https 抓包SSL 代理配置在上述配置后，可以抓取基本的 Http 包，但是 Https 包抓下来为 unknow需要进一步配置。在 Pr......  -->
-        <p class="article-more-link">
-          <a href="/Charles抓取Https包.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Charles/">Charles</a></li></ul>
 
     </footer>
   </div>
@@ -1198,6 +1180,61 @@ I am a bucolic migra......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Photoshop/">Photoshop</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Charles抓取Https包"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Charles抓取Https包.html">Charles抓取Https包</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="抓基础包"><a href="#抓基础包" class="headerlink" title="抓基础包"></a>抓基础包</h2><h3 id="Mac-配置"><a href="#Mac-配置" class="headerlink" title="Mac 配置"></a>Mac 配置</h3><p>查看或配置 Mac 代理端口<br>Proxy &gt; Proxy Settings &gt; Port<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Charles%E6%8A%93%E5%8F%96Https%E5%8C%8520220221153215.png" alt="Charles抓取Https包20220221153215"></p>
+<h3 id="手机端配置"><a href="#手机端配置" class="headerlink" title="手机端配置"></a>手机端配置</h3>
+        <!-- 抓基础包Mac 配置查看或配置 Mac 代理端口Proxy &gt; Proxy Settings &gt; Port
+手机端配置
+连接 Mac 统一网络，点击网络后的 i 图标，在 配置代理时选择手动，查看 Mac 地址，并将 Mac 端的配置填入
+Https 抓包SSL 代理配置在上述配置后，可以抓取基本的 Http 包，但是 Https 包抓下来为 unknow需要进一步配置。在 Pr......  -->
+        <p class="article-more-link">
+          <a href="/Charles抓取Https包.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Charles/">Charles</a></li></ul>
 
     </footer>
   </div>

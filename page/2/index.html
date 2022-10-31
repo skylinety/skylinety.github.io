@@ -319,209 +319,6 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-Flutter基础控件使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Flutter基础控件使用.html">Flutter基础控件使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#gesturedetector">GestureDetector</a><ul>
-<li><a href="#基础事件">基础事件</a></li>
-</ul>
-</li>
-<li><a href="#floatingactionbutton">FloatingActionButton</a><ul>
-<li><a href="#简述">简述</a></li>
-<li><a href="#效果">效果</a></li>
-</ul>
-</li>
-<li><a href="#persistentfooterbuttons">persistentFooterButtons</a><ul>
-<li><a href="#简述-1">简述</a></li>
-<li><a href="#代码">代码</a></li>
-<li><a href="#效果-1">效果</a></li>
-</ul>
-</li>
-<li><a href="#listtile">ListTile</a><ul>
-<li><a href="#padding-调整">padding 调整</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="GestureDetector"><a href="#GestureDetector" class="headerlink" title="GestureDetector"></a>GestureDetector</h2><h3 id="基础事件"><a href="#基础事件" class="headerlink" title="基础事件"></a>基础事件</h3><ul>
-<li>onTap</li>
-<li>onTapDown</li>
-<li>onTapUp</li>
-<li>onLongPress</li>
-<li>onLongPressUp</li>
-<li>onLongPressDown</li>
-<li>onDoubleTap</li>
-</ul>
-<h2 id="FloatingActionButton"><a href="#FloatingActionButton" class="headerlink" title="FloatingActionButton"></a>FloatingActionButton</h2>
-        <!-- 
-
-
-GestureDetector
-基础事件
-
-
-FloatingActionButton
-简述
-效果
-
-
-persistentFooterButtons
-简述
-代码
-效果
-
-
-ListTile
-padding 调整
-
-
-BMW WARNING
-
-
-GestureDetector基础事件
-onTap
-onTapDown
-onTapUp
-onLongPress
-onLongPressUp
-o......  -->
-        <p class="article-more-link">
-          <a href="/Flutter基础控件使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flutter/">Flutter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mobile/">Mobile</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-JS垃圾回收机制"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/JS垃圾回收机制.html">JS垃圾回收机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a></li>
-<li><a href="#内存标记策略">内存标记策略</a><ul>
-<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
-<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><p>在各编程语言中，内存的生命周期大概经历如下三个阶段：</p>
-<ul>
-<li>内存分配（allocate）</li>
-<li>内存使用（read | write）</li>
-<li>内存释放（free）</li>
-</ul>
-<p>不管是在高级还是低级语言中，第二阶段的读写都很明确，而内存的分配与释放阶段，<br>JS 等高级语言会自动分配内存，通过算法自动进行垃圾回收，释放内存。<br>局部变量会在离开环境时自动解除引用，后续算法自动计数或标记来确定是否释放。<br>对于全局对象与属性，可通过将值设置成 null 来<strong>解除引用</strong>以释放内存。<br>而 C 语言等低级语言在代码中显式分配与释放内存。</p>
-<p>JS 的自动回收垃圾机制大致如下：<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>垃圾标记器会跟踪内存，有用内存打上标记，回收垃圾时，需要将那些未被标记的供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
-<h2 id="内存标记策略"><a href="#内存标记策略" class="headerlink" title="内存标记策略"></a>内存标记策略</h2><h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3>
-        <!-- 
-
-
-垃圾回收(GC:Garbage Collecation)
-内存标记策略
-引用计数（Reference Counting）
-标记清除（Mark &amp; Sweep）
-
-
-BMW WARNING
-
-
-垃圾回收(GC:Garbage Collecation)在各编程语言中，内存的生命周期大概经历如下三个阶段：
-
-内存分配（allocate）
-内存使用（read | write）
-内存释放......  -->
-        <p class="article-more-link">
-          <a href="/JS垃圾回收机制.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-ElementUI相关使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -653,6 +450,209 @@ Flutter 监听返回按键通过 WillPopScope 组件来注册监听回调
 Widget build(BuildContext context) &#123;  return WillPopScope(      onWillPop: _req......  -->
         <p class="article-more-link">
           <a href="/Flutter基础使用汇总.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flutter/">Flutter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mobile/">Mobile</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-JS垃圾回收机制"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/JS垃圾回收机制.html">JS垃圾回收机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a></li>
+<li><a href="#内存标记策略">内存标记策略</a><ul>
+<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
+<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><p>在各编程语言中，内存的生命周期大概经历如下三个阶段：</p>
+<ul>
+<li>内存分配（allocate）</li>
+<li>内存使用（read | write）</li>
+<li>内存释放（free）</li>
+</ul>
+<p>不管是在高级还是低级语言中，第二阶段的读写都很明确，而内存的分配与释放阶段，<br>JS 等高级语言会自动分配内存，通过算法自动进行垃圾回收，释放内存。<br>局部变量会在离开环境时自动解除引用，后续算法自动计数或标记来确定是否释放。<br>对于全局对象与属性，可通过将值设置成 null 来<strong>解除引用</strong>以释放内存。<br>而 C 语言等低级语言在代码中显式分配与释放内存。</p>
+<p>JS 的自动回收垃圾机制大致如下：<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>垃圾标记器会跟踪内存，有用内存打上标记，回收垃圾时，需要将那些未被标记的供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
+<h2 id="内存标记策略"><a href="#内存标记策略" class="headerlink" title="内存标记策略"></a>内存标记策略</h2><h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3>
+        <!-- 
+
+
+垃圾回收(GC:Garbage Collecation)
+内存标记策略
+引用计数（Reference Counting）
+标记清除（Mark &amp; Sweep）
+
+
+BMW WARNING
+
+
+垃圾回收(GC:Garbage Collecation)在各编程语言中，内存的生命周期大概经历如下三个阶段：
+
+内存分配（allocate）
+内存使用（read | write）
+内存释放......  -->
+        <p class="article-more-link">
+          <a href="/JS垃圾回收机制.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Flutter基础控件使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Flutter基础控件使用.html">Flutter基础控件使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#gesturedetector">GestureDetector</a><ul>
+<li><a href="#基础事件">基础事件</a></li>
+</ul>
+</li>
+<li><a href="#floatingactionbutton">FloatingActionButton</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#效果">效果</a></li>
+</ul>
+</li>
+<li><a href="#persistentfooterbuttons">persistentFooterButtons</a><ul>
+<li><a href="#简述-1">简述</a></li>
+<li><a href="#代码">代码</a></li>
+<li><a href="#效果-1">效果</a></li>
+</ul>
+</li>
+<li><a href="#listtile">ListTile</a><ul>
+<li><a href="#padding-调整">padding 调整</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="GestureDetector"><a href="#GestureDetector" class="headerlink" title="GestureDetector"></a>GestureDetector</h2><h3 id="基础事件"><a href="#基础事件" class="headerlink" title="基础事件"></a>基础事件</h3><ul>
+<li>onTap</li>
+<li>onTapDown</li>
+<li>onTapUp</li>
+<li>onLongPress</li>
+<li>onLongPressUp</li>
+<li>onLongPressDown</li>
+<li>onDoubleTap</li>
+</ul>
+<h2 id="FloatingActionButton"><a href="#FloatingActionButton" class="headerlink" title="FloatingActionButton"></a>FloatingActionButton</h2>
+        <!-- 
+
+
+GestureDetector
+基础事件
+
+
+FloatingActionButton
+简述
+效果
+
+
+persistentFooterButtons
+简述
+代码
+效果
+
+
+ListTile
+padding 调整
+
+
+BMW WARNING
+
+
+GestureDetector基础事件
+onTap
+onTapDown
+onTapUp
+onLongPress
+onLongPressUp
+o......  -->
+        <p class="article-more-link">
+          <a href="/Flutter基础控件使用.html#more">阅读全文</a>
         </p>
       
     </div>
