@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-ES5与ES6中的argments"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CSS常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES5与ES6中的argments.html">ES5与ES6中的argments</a>
+      <a class="article-title" href="/CSS常见问题汇总.html">CSS常见问题汇总</a>
     </h1>
   
 
@@ -342,24 +342,92 @@
 
       
     
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ES5与ES6中的argments.html">http://www.skyline.show/ES5 与 ES6 中的 argments.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#css-继承与非继承属性">CSS 继承与非继承属性</a></li>
+<li><a href="#displaynone-与-visibilityhidden-区别">display:none 与 visibility:hidden 区别</a></li>
+<li><a href="#媒体查询失效">媒体查询失效</a></li>
+<li><a href="#img-标签是行内还是块级元素">img 标签是行内还是块级元素</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="CSS-继承与非继承属性"><a href="#CSS-继承与非继承属性" class="headerlink" title="CSS 继承与非继承属性"></a>CSS 继承与非继承属性</h2><p>CSS 属性在不设定取值时，其实际取值分为两种。<br>一种为继承属性，取父级元素该属性对应的值。<br>一种为非继承属性，去该属性的默认值。<br>由于 CSS 属性繁多，不容易死记来区分，一般可通过经验来判断一个属性是否可继承。</p>
+<p>常见的不可继承属性如下：</p>
+<ul>
+<li>display</li>
+<li>盒模型相关属性，如宽、高、内外边距、边框</li>
+<li>背景相关属性：如背景颜色、图片、位置、大小、重复</li>
+<li>定位相关属性：如 float、clear、position</li>
+<li>内容相关属性：如 content、counter-reset、counter-increment</li>
+</ul>
+<p>其他属性多为可继承属性，例如：</p>
+<ul>
+<li>字体相关属性</li>
+<li>部分文本相关属性</li>
+<li>元素可见属性 visibility</li>
+<li>光标属性 cursor</li>
+</ul>
+<h2 id="display-none-与-visibility-hidden-区别"><a href="#display-none-与-visibility-hidden-区别" class="headerlink" title="display:none 与 visibility:hidden 区别"></a>display:none 与 visibility:hidden 区别</h2><p>两者虽简单来说都是用于隐藏元素，表现形式大有不同。</p>
+<p>display 会被文档流给移除，影响页面布局，导致重排重绘，原本位置会被其他元素占据。</p>
+<p>visilibity:hidden 不会被文档流给移除，不会影响布局，页面重绘出一片空白，但不会重新排版。</p>
+<p>display 不是继承属性，而 visibility 是继承属性。<br>若祖先设定为 visibility:hidden，后代元素会继承该属性不可见。<br>此时，若重置后代元素的 visibility 为 visible，其后代元素将可见。<br>若祖先设定的 display 属性设为 none 时，其不可继承，后代元素无力通过改变该属性重现。<br>总结如下表格所示：</p>
+<table>
+<thead>
+<tr>
+<th>样式</th>
+<th>页面重绘</th>
+<th>页面重排</th>
+<th>显示效果</th>
+<th>对应 css 属性是否继承</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>display:none</td>
+<td>是</td>
+<td>是</td>
+<td>无显示</td>
+<td>否（display）</td>
+</tr>
+<tr>
+<td>visibility:hidden</td>
+<td>是</td>
+<td>否</td>
+<td>所处区域空白</td>
+<td>是（visibility）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="媒体查询失效"><a href="#媒体查询失效" class="headerlink" title="媒体查询失效"></a>媒体查询失效</h2>
+        <!-- 
 
+
+CSS 继承与非继承属性
+display:none 与 visibility:hidden 区别
+媒体查询失效
+img 标签是行内还是块级元素
+BMW WARNING
+
+
+CSS 继承与非继承属性CSS 属性在不设定取值时，其实际取值分为两种。一种为继承属性，取父级元素该属性对应的值。一种为非继承属性，去该属性的默认值。由于 CSS 属性繁多，不容易死记来区分，一般可通过经验来判断一个......  -->
+        <p class="article-more-link">
+          <a href="/CSS常见问题汇总.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>
@@ -521,83 +589,6 @@ shows the full path of (shell) commands.
 <!-- Table of Contents -->
 
   
-    <article id="post-Vue项目实现rtmp流视频播放"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Vue项目实现rtmp流视频播放.html">Vue项目实现rtmp流视频播放</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#代码实现">代码实现</a></li>
-<li><a href="#常见问题">常见问题</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>rtmp 流需要使用 flash 播放。<br>在 chrome 88 版本及以后的版本，已经移除了 flash 组件。<br>在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。<br>故本方案当前可能不再具备实用性。<br>成功引入 rtmp 流，效果如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0rtmp%E6%B5%81%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE20220627173249.png" alt="Vue项目实现rtmp流视频播放20220627173249"></p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>实现需求需要运用的包为 videojs-flash、videojs</p>
-<p><code>main.js</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> videojs <span class="keyword">from</span> <span class="string">'video.js'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'video.js/dist/video-js.css'</span></span><br><span class="line">Vue.prototype.$video = videojs</span><br></pre></td></tr></table></figure>
-<p><code>player.vue</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"demo1-video"</span>&gt;</span><br><span class="line">    &lt;video</span><br><span class="line">      ref=<span class="string">"videoPlayer"</span></span><br><span class="line">      id=<span class="string">"myVideo"</span></span><br><span class="line">      <span class="class"><span class="keyword">class</span></span>=<span class="string">"video-js"</span></span><br><span class="line">      controls</span><br><span class="line">      preload=<span class="string">"auto"</span></span><br><span class="line">      style=<span class="string">"width: 100%"</span></span><br><span class="line">      height=<span class="string">"220"</span></span><br><span class="line">      data-setup=<span class="string">"&#123;&#125;"</span></span><br><span class="line">    &gt;</span><br><span class="line">      &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"vjs-no-js"</span>&gt;</span><br><span class="line">        To view <span class="keyword">this</span> video please enable JavaScript, and consider upgrading to a</span><br><span class="line">        web browser that</span><br><span class="line">        &lt;a</span><br><span class="line">          href=<span class="string">"https://videojs.com/html5-video-support/"</span></span><br><span class="line">          target=<span class="string">"_blank"</span></span><br><span class="line">        &gt;supports HTML5 video&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>p&gt;</span><br><span class="line">    &lt;<span class="regexp">/video&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">import "videojs-flash";</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  name: "VideoPlayer",</span></span><br><span class="line"><span class="regexp">  props: ["type", "detail"],</span></span><br><span class="line"><span class="regexp">  inject: ["gisMap"],</span></span><br><span class="line"><span class="regexp">  data() &#123;</span></span><br><span class="line"><span class="regexp">    return &#123;</span></span><br><span class="line"><span class="regexp">      player: null,</span></span><br><span class="line"><span class="regexp">      videoOptions: &#123;</span></span><br><span class="line"><span class="regexp">        autoplay: true, /</span><span class="regexp">/ 是否自动播放</span></span><br><span class="line"><span class="regexp">        muted: false, /</span><span class="regexp">/ 是否静音</span></span><br><span class="line"><span class="regexp">        controls: false,</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ fluid: true, /</span><span class="regexp">/ 宽高自适应</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ techOrder: ["flash"],</span></span><br><span class="line"><span class="regexp">        sources: [</span></span><br><span class="line"><span class="regexp">          &#123;</span></span><br><span class="line"><span class="regexp">            src: "//vjs.zencdn.net/v/oceans.mp4",</span></span><br><span class="line"><span class="regexp">            type: "video/mp4"</span></span><br><span class="line"><span class="regexp">            // type: "rtmp/flv"</span></span><br><span class="line"><span class="regexp">          &#125;</span></span><br><span class="line"><span class="regexp">        ]</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  computed: &#123;</span></span><br><span class="line"><span class="regexp">    map() &#123;</span></span><br><span class="line"><span class="regexp">      return this.gisMap.map.map || &#123;&#125;;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    endType() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.type) &#123;</span></span><br><span class="line"><span class="regexp">        let end = this.type.split("_")[1];</span></span><br><span class="line"><span class="regexp">        return end;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">      return "";</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  mounted() &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ if (this.gisMap.map &amp;&amp; this.gisMap.map.map) &#123;</span></span><br><span class="line"><span class="regexp">    this.map.on("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.on("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ &#125;</span></span><br><span class="line"><span class="regexp">    this.playVideo();</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  destroyed() &#123;</span></span><br><span class="line"><span class="regexp">    this.map.off("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.off("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  methods: &#123;</span></span><br><span class="line"><span class="regexp">    clearVideo() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.player) &#123;</span></span><br><span class="line"><span class="regexp">        this.player.dispose();</span></span><br><span class="line"><span class="regexp">        this.player = null;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    playVideo() &#123;</span></span><br><span class="line"><span class="regexp">      this.player = this.$video(</span></span><br><span class="line"><span class="regexp">        this.$refs.videoPlayer,</span></span><br><span class="line"><span class="regexp">        &#123;</span></span><br><span class="line"><span class="regexp">          autoplay: true,</span></span><br><span class="line"><span class="regexp">          techOrder: ["flash", "html5"]</span></span><br><span class="line"><span class="regexp">        &#125;,</span></span><br><span class="line"><span class="regexp">        function onPlayerReady() &#123;</span></span><br><span class="line"><span class="regexp">          this.src(&#123;</span></span><br><span class="line"><span class="regexp">            src: "rtmp:/</span><span class="regexp">/58.200.131.2:1935/</span>livetv/hunantv<span class="string">",</span></span><br><span class="line"><span class="string">            type: "</span>rtmp/flv<span class="string">"</span></span><br><span class="line"><span class="string">          &#125;);</span></span><br><span class="line"><span class="string">          this.play();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">          this.on("</span>ended<span class="string">", function() &#123;&#125;);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      );</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;;</span></span><br></pre></td></tr></table></figure>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2>
-        <!-- 
-
-
-前言
-代码实现
-常见问题
-BMW WARNING
-
-
-前言rtmp 流需要使用 flash 播放。在 chrome 88 版本及以后的版本，已经移除了 flash 组件。在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。故本方案当前可能不再具备实用性。成功引入 rtmp 流，效果如下
-代码实现实现需求需要运用的包为 videojs-flash、videojs
-......  -->
-        <p class="article-more-link">
-          <a href="/Vue项目实现rtmp流视频播放.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Shell中ls的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -738,6 +729,83 @@ ls -h
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Vue项目实现rtmp流视频播放"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Vue项目实现rtmp流视频播放.html">Vue项目实现rtmp流视频播放</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#代码实现">代码实现</a></li>
+<li><a href="#常见问题">常见问题</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>rtmp 流需要使用 flash 播放。<br>在 chrome 88 版本及以后的版本，已经移除了 flash 组件。<br>在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。<br>故本方案当前可能不再具备实用性。<br>成功引入 rtmp 流，效果如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0rtmp%E6%B5%81%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE20220627173249.png" alt="Vue项目实现rtmp流视频播放20220627173249"></p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>实现需求需要运用的包为 videojs-flash、videojs</p>
+<p><code>main.js</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> videojs <span class="keyword">from</span> <span class="string">'video.js'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'video.js/dist/video-js.css'</span></span><br><span class="line">Vue.prototype.$video = videojs</span><br></pre></td></tr></table></figure>
+<p><code>player.vue</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"demo1-video"</span>&gt;</span><br><span class="line">    &lt;video</span><br><span class="line">      ref=<span class="string">"videoPlayer"</span></span><br><span class="line">      id=<span class="string">"myVideo"</span></span><br><span class="line">      <span class="class"><span class="keyword">class</span></span>=<span class="string">"video-js"</span></span><br><span class="line">      controls</span><br><span class="line">      preload=<span class="string">"auto"</span></span><br><span class="line">      style=<span class="string">"width: 100%"</span></span><br><span class="line">      height=<span class="string">"220"</span></span><br><span class="line">      data-setup=<span class="string">"&#123;&#125;"</span></span><br><span class="line">    &gt;</span><br><span class="line">      &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"vjs-no-js"</span>&gt;</span><br><span class="line">        To view <span class="keyword">this</span> video please enable JavaScript, and consider upgrading to a</span><br><span class="line">        web browser that</span><br><span class="line">        &lt;a</span><br><span class="line">          href=<span class="string">"https://videojs.com/html5-video-support/"</span></span><br><span class="line">          target=<span class="string">"_blank"</span></span><br><span class="line">        &gt;supports HTML5 video&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>p&gt;</span><br><span class="line">    &lt;<span class="regexp">/video&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">import "videojs-flash";</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  name: "VideoPlayer",</span></span><br><span class="line"><span class="regexp">  props: ["type", "detail"],</span></span><br><span class="line"><span class="regexp">  inject: ["gisMap"],</span></span><br><span class="line"><span class="regexp">  data() &#123;</span></span><br><span class="line"><span class="regexp">    return &#123;</span></span><br><span class="line"><span class="regexp">      player: null,</span></span><br><span class="line"><span class="regexp">      videoOptions: &#123;</span></span><br><span class="line"><span class="regexp">        autoplay: true, /</span><span class="regexp">/ 是否自动播放</span></span><br><span class="line"><span class="regexp">        muted: false, /</span><span class="regexp">/ 是否静音</span></span><br><span class="line"><span class="regexp">        controls: false,</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ fluid: true, /</span><span class="regexp">/ 宽高自适应</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ techOrder: ["flash"],</span></span><br><span class="line"><span class="regexp">        sources: [</span></span><br><span class="line"><span class="regexp">          &#123;</span></span><br><span class="line"><span class="regexp">            src: "//vjs.zencdn.net/v/oceans.mp4",</span></span><br><span class="line"><span class="regexp">            type: "video/mp4"</span></span><br><span class="line"><span class="regexp">            // type: "rtmp/flv"</span></span><br><span class="line"><span class="regexp">          &#125;</span></span><br><span class="line"><span class="regexp">        ]</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  computed: &#123;</span></span><br><span class="line"><span class="regexp">    map() &#123;</span></span><br><span class="line"><span class="regexp">      return this.gisMap.map.map || &#123;&#125;;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    endType() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.type) &#123;</span></span><br><span class="line"><span class="regexp">        let end = this.type.split("_")[1];</span></span><br><span class="line"><span class="regexp">        return end;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">      return "";</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  mounted() &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ if (this.gisMap.map &amp;&amp; this.gisMap.map.map) &#123;</span></span><br><span class="line"><span class="regexp">    this.map.on("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.on("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ &#125;</span></span><br><span class="line"><span class="regexp">    this.playVideo();</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  destroyed() &#123;</span></span><br><span class="line"><span class="regexp">    this.map.off("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.off("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  methods: &#123;</span></span><br><span class="line"><span class="regexp">    clearVideo() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.player) &#123;</span></span><br><span class="line"><span class="regexp">        this.player.dispose();</span></span><br><span class="line"><span class="regexp">        this.player = null;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    playVideo() &#123;</span></span><br><span class="line"><span class="regexp">      this.player = this.$video(</span></span><br><span class="line"><span class="regexp">        this.$refs.videoPlayer,</span></span><br><span class="line"><span class="regexp">        &#123;</span></span><br><span class="line"><span class="regexp">          autoplay: true,</span></span><br><span class="line"><span class="regexp">          techOrder: ["flash", "html5"]</span></span><br><span class="line"><span class="regexp">        &#125;,</span></span><br><span class="line"><span class="regexp">        function onPlayerReady() &#123;</span></span><br><span class="line"><span class="regexp">          this.src(&#123;</span></span><br><span class="line"><span class="regexp">            src: "rtmp:/</span><span class="regexp">/58.200.131.2:1935/</span>livetv/hunantv<span class="string">",</span></span><br><span class="line"><span class="string">            type: "</span>rtmp/flv<span class="string">"</span></span><br><span class="line"><span class="string">          &#125;);</span></span><br><span class="line"><span class="string">          this.play();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">          this.on("</span>ended<span class="string">", function() &#123;&#125;);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      );</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;;</span></span><br></pre></td></tr></table></figure>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2>
+        <!-- 
+
+
+前言
+代码实现
+常见问题
+BMW WARNING
+
+
+前言rtmp 流需要使用 flash 播放。在 chrome 88 版本及以后的版本，已经移除了 flash 组件。在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。故本方案当前可能不再具备实用性。成功引入 rtmp 流，效果如下
+代码实现实现需求需要运用的包为 videojs-flash、videojs
+......  -->
+        <p class="article-more-link">
+          <a href="/Vue项目实现rtmp流视频播放.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
 
     </footer>
   </div>
