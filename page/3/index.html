@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-CSS样式命中优先级"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CSS基础属性"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS样式命中优先级.html">CSS样式命中优先级</a>
+      <a class="article-title" href="/CSS基础属性.html">CSS基础属性</a>
     </h1>
   
 
@@ -349,110 +349,58 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#样式命中优先级">样式命中优先级</a></li>
-<li><a href="#其他优先级">其他优先级</a></li>
-<li><a href="#优先级示例">优先级示例</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="样式命中优先级"><a href="#样式命中优先级" class="headerlink" title="样式命中优先级"></a>样式命中优先级</h2><p>样式命中优先级递增表大致如下：</p>
+        <h2 id="background"><a href="#background" class="headerlink" title="background"></a>background</h2><p>background-size</p>
 <table>
 <thead>
 <tr>
-<th>选择器</th>
-<th>权重值</th>
+<th>值</th>
+<th>描述</th>
+<th>特征</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>*</td>
-<td>0</td>
+<td>contain</td>
+<td>缩放图片直到长或宽延伸到边界，包含（contain）在容器中，background-repeat: no-repeat 会造成背景留白</td>
+<td>留白</td>
 </tr>
 <tr>
-<td>元素/伪元素</td>
-<td>1</td>
+<td>cover</td>
+<td>缩放图片直到覆盖（cover）容器，超出裁剪</td>
+<td>裁剪</td>
 </tr>
 <tr>
-<td>属性选择器</td>
-<td></td>
+<td>auto</td>
+<td>默认属性，保持图片原有比例</td>
+<td>原比例</td>
 </tr>
 <tr>
-<td>类/伪类</td>
-<td>10</td>
-</tr>
-<tr>
-<td>ID</td>
-<td>100</td>
-</tr>
-<tr>
-<td>内联样式</td>
-<td>1000</td>
-</tr>
-<tr>
-<td>!important</td>
+<td>100% 100%</td>
+<td><strong>缩放图片正好填充完宽高</strong></td>
+<td>填充</td>
 </tr>
 </tbody>
 </table>
-<h2 id="其他优先级"><a href="#其他优先级" class="headerlink" title="其他优先级"></a>其他优先级</h2><p>如果权重一致，最后一个指定的样式命中。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;!<span class="selector-tag">DOCTYPE</span> <span class="selector-tag">html</span>&gt;</span><br><span class="line">&lt;<span class="selector-tag">html</span>&gt;</span><br><span class="line">  &lt;<span class="selector-tag">head</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">      <span class="selector-tag">div</span><span class="selector-class">.skyline</span> &#123;</span><br><span class="line">        <span class="attribute">background-color</span>: blue;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="selector-tag">div</span><span class="selector-class">.liu</span> &#123;</span><br><span class="line">        <span class="attribute">background-color</span>: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">    &lt;div class="skyline liu"&gt;Skyline is red&lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<p>属性选择器权重介于元素与类选择器之间</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">      <span class="selector-tag">div</span><span class="selector-attr">[id=<span class="string">'skyline'</span>]</span> &#123;</span></span><br><span class="line">        background-color: blue;</span><br><span class="line">      &#125;</span><br><span class="line">      body div &#123;</span><br><span class="line">        background-color: yellow;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"skyline"</span>&gt;</span>Skyline is blue<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="优先级示例"><a href="#优先级示例" class="headerlink" title="优先级示例"></a>优先级示例</h2>
-        <!-- 
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/CSS基础属性.html">http://www.skyline.show/CSS 基础属性.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
-
-样式命中优先级
-其他优先级
-优先级示例
-BMW WARNING
-
-
-样式命中优先级样式命中优先级递增表大致如下：
-
-
-
-选择器
-权重值
-
-
-
-
-*
-0
-
-
-元素/伪元素
-1
-
-
-属性选择器
-
-
-
-类/伪类
-10
-
-
-ID
-100
-
-
-内联样式
-1000
-
-
-!important
-
-
-
-其他优先级如果权重一致，最后一个指定的样式命中。
-&lt;!DOCTYPE html&gt;&lt;h......  -->
-        <p class="article-more-link">
-          <a href="/CSS样式命中优先级.html#more">阅读全文</a>
-        </p>
       
     </div>
     <footer class="article-footer">
@@ -977,178 +925,6 @@ ssh -i /a/b/c/d.private ......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-TS语法校验常见错误"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/TS语法校验常见错误.html">TS语法校验常见错误</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#property-does-not-exist-on-type-object">property does not exist on type Object</a><ul>
-<li><a href="#复现">复现</a></li>
-<li><a href="#解决">解决</a></li>
-</ul>
-</li>
-<li><a href="#expression-of-type-string-cant-be-used-to-index-type">Expression of type ‘string’ can’t be used to index type</a><ul>
-<li><a href="#复现-1">复现</a></li>
-<li><a href="#解决-1">解决</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="property-does-not-exist-on-type-Object"><a href="#property-does-not-exist-on-type-Object" class="headerlink" title="property does not exist on type Object"></a>property does not exist on type Object</h2><h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>Property ‘length’ does not exist on type’Object’.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>; <span class="comment">//[ts] Property 'length' does not exist on type'Object'.</span></span><br></pre></td></tr></table></figure>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3>
-        <!-- 
-
-
-property does not exist on type Object
-复现
-解决
-
-
-Expression of type ‘string’ can’t be used to index type
-复现
-解决
-
-
-BMW WARNING
-
-
-property does not exist on type Object复现Property ‘length’ does not ex......  -->
-        <p class="article-more-link">
-          <a href="/TS语法校验常见错误.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Interface与AbstractClass"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Interface与AbstractClass.html">Interface与AbstractClass</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#interface">Interface</a></li>
-<li><a href="#abstract-class">Abstract Class</a></li>
-<li><a href="#综述">综述</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h2><p>在 JS 中，在没有技术文档或找到对应函数(对象)定义在代码中位置的情况下，我们很难确认：</p>
-<ul>
-<li>函数参数方式</li>
-<li>函数参数的类型</li>
-<li>使用参数的方式</li>
-<li>对象提供的方法与属性</li>
-</ul>
-<p>同时，在对象中，多层嵌套时，需要写如下代码：<br><code>a &amp;&amp; a.b ** a.b.c()</code><br>在 TS 中，与大多数面向对象编程语言一样，引入了 Interface。<br>Interface 用以描述对象结构<br>Interface 的职责在于签订契约，即使用该接口则必须实现该接口中的属性和方法。<br>使用时只需要知道接口，就可知道使用该接口对象的一些基础的构造。</p>
-<h2 id="Abstract-Class"><a href="#Abstract-Class" class="headerlink" title="Abstract Class"></a>Abstract Class</h2><p>虚拟类不能直接实例化。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">abstract <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line">  abstract getName(): string;</span><br><span class="line"></span><br><span class="line">  printName() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello, "</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Base() <span class="comment">// Cannot create an instance of an abstract class.(</span></span><br></pre></td></tr></table></figure>
-<p>虚拟方法与虚拟属性只能存在与虚拟类中，均使用 abstract 关键字。<br>虽然 TS 未做错误校验，但虚拟类至少有一个虚拟方法，否则应该定义为实体类。<br>虚拟方法的主要职责是为其派生的实体类提供蓝图，后续实体类需要实现的方法与属性提供参考（需要实现其中定义的虚拟方法属性等）。</p>
-<h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2>
-        <!-- 
-
-
-Interface
-Abstract Class
-综述
-BMW WARNING
-
-
-Interface在 JS 中，在没有技术文档或找到对应函数(对象)定义在代码中位置的情况下，我们很难确认：
-
-函数参数方式
-函数参数的类型
-使用参数的方式
-对象提供的方法与属性
-
-同时，在对象中，多层嵌套时，需要写如下代码：a &amp;&amp; a.b ** a.b.c()在 TS 中，与大多数面......  -->
-        <p class="article-more-link">
-          <a href="/Interface与AbstractClass.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-JS内存泄漏与处理"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1253,7 +1029,7 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Interface与AbstractClass"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1261,7 +1037,179 @@ BMW WARNING
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
+      <a class="article-title" href="/Interface与AbstractClass.html">Interface与AbstractClass</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#interface">Interface</a></li>
+<li><a href="#abstract-class">Abstract Class</a></li>
+<li><a href="#综述">综述</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h2><p>在 JS 中，在没有技术文档或找到对应函数(对象)定义在代码中位置的情况下，我们很难确认：</p>
+<ul>
+<li>函数参数方式</li>
+<li>函数参数的类型</li>
+<li>使用参数的方式</li>
+<li>对象提供的方法与属性</li>
+</ul>
+<p>同时，在对象中，多层嵌套时，需要写如下代码：<br><code>a &amp;&amp; a.b ** a.b.c()</code><br>在 TS 中，与大多数面向对象编程语言一样，引入了 Interface。<br>Interface 用以描述对象结构<br>Interface 的职责在于签订契约，即使用该接口则必须实现该接口中的属性和方法。<br>使用时只需要知道接口，就可知道使用该接口对象的一些基础的构造。</p>
+<h2 id="Abstract-Class"><a href="#Abstract-Class" class="headerlink" title="Abstract Class"></a>Abstract Class</h2><p>虚拟类不能直接实例化。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">abstract <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line">  abstract getName(): string;</span><br><span class="line"></span><br><span class="line">  printName() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello, "</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Base() <span class="comment">// Cannot create an instance of an abstract class.(</span></span><br></pre></td></tr></table></figure>
+<p>虚拟方法与虚拟属性只能存在与虚拟类中，均使用 abstract 关键字。<br>虽然 TS 未做错误校验，但虚拟类至少有一个虚拟方法，否则应该定义为实体类。<br>虚拟方法的主要职责是为其派生的实体类提供蓝图，后续实体类需要实现的方法与属性提供参考（需要实现其中定义的虚拟方法属性等）。</p>
+<h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2>
+        <!-- 
+
+
+Interface
+Abstract Class
+综述
+BMW WARNING
+
+
+Interface在 JS 中，在没有技术文档或找到对应函数(对象)定义在代码中位置的情况下，我们很难确认：
+
+函数参数方式
+函数参数的类型
+使用参数的方式
+对象提供的方法与属性
+
+同时，在对象中，多层嵌套时，需要写如下代码：a &amp;&amp; a.b ** a.b.c()在 TS 中，与大多数面......  -->
+        <p class="article-more-link">
+          <a href="/Interface与AbstractClass.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-TS语法校验常见错误"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/TS语法校验常见错误.html">TS语法校验常见错误</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#property-does-not-exist-on-type-object">property does not exist on type Object</a><ul>
+<li><a href="#复现">复现</a></li>
+<li><a href="#解决">解决</a></li>
+</ul>
+</li>
+<li><a href="#expression-of-type-string-cant-be-used-to-index-type">Expression of type ‘string’ can’t be used to index type</a><ul>
+<li><a href="#复现-1">复现</a></li>
+<li><a href="#解决-1">解决</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="property-does-not-exist-on-type-Object"><a href="#property-does-not-exist-on-type-Object" class="headerlink" title="property does not exist on type Object"></a>property does not exist on type Object</h2><h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>Property ‘length’ does not exist on type’Object’.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>; <span class="comment">//[ts] Property 'length' does not exist on type'Object'.</span></span><br></pre></td></tr></table></figure>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3>
+        <!-- 
+
+
+property does not exist on type Object
+复现
+解决
+
+
+Expression of type ‘string’ can’t be used to index type
+复现
+解决
+
+
+BMW WARNING
+
+
+property does not exist on type Object复现Property ‘length’ does not ex......  -->
+        <p class="article-more-link">
+          <a href="/TS语法校验常见错误.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Builder建筑工模式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Builder建筑工模式.html">Builder建筑工模式</a>
     </h1>
   
 
@@ -1286,46 +1234,36 @@ BMW WARNING
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#formatting-context">Formatting Context</a></li>
-<li><a href="#bfc">BFC</a><ul>
-<li><a href="#bfc-定义">BFC 定义</a></li>
-<li><a href="#bfc-触发">BFC 触发</a></li>
-<li><a href="#常见应用">常见应用</a></li>
-<li><a href="#display-flow-root">display: flow-root</a></li>
+<li><a href="#概述">概述</a></li>
+<li><a href="#实例">实例</a><ul>
+<li><a href="#修房子">修房子</a></li>
+<li><a href="#找工人">找工人</a></li>
+<li><a href="#监工">监工</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
-<ul>
-<li>块级格式化上下文（block formatting contexts）</li>
-<li>内联格式化上下文（inline formatting contexts）</li>
-<li>弹性格式化上下文（flex formatting context）</li>
-<li>网格格式化上下文（grid formatting context）</li>
-</ul>
-<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
-<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Builder 模式一般翻译为建造者模式。<br>在重构代码的过程中，我们常看到几百上千行的复杂类。<br>这些类往往由于最初设定不合理以及需求不断增加而壮大。<br>建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。<br>建筑工模式通常支持链式调用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">House.setDoors(<span class="number">1</span>).setRooms(<span class="number">2</span>).getHouse();</span><br></pre></td></tr></table></figure>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="修房子"><a href="#修房子" class="headerlink" title="修房子"></a>修房子</h3>
         <!-- 
 
 
-Formatting Context
-BFC
-BFC 定义
-BFC 触发
-常见应用
-display: flow-root
+概述
+实例
+修房子
+找工人
+监工
 
 
 BMW WARNING
 
 
-Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
-
-块级格式化上下文（block formatting contexts）
-内联格式化上下文（inline for......  -->
+概述Builder 模式一般翻译为建造者模式。在重构代码的过程中，我们常看到几百上千行的复杂类。这些类往往由于最初设定不合理以及需求不断增加而壮大。建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。建筑工模式通常支持链式调用。
+House.setDoors(1).setRooms(2).get......  -->
         <p class="article-more-link">
-          <a href="/CSS格式化上下文.html#more">阅读全文</a>
+          <a href="/Builder建筑工模式.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1333,7 +1271,7 @@ Formatting Context页面的元素或是格式化上下文的一部分，或本�
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Creational/">Creational</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
 
     </footer>
   </div>
