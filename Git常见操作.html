@@ -13,13 +13,13 @@
   
   
   
-  <meta name="description" content="git 删除分支 删除本地分支 删除远端分支   git 单列已添加到暂存区的文件 Git 本地分支有提交，单独查看并运行远程该分支 新建仓库时关联远程与本地 git 同时推送多个仓库 git remote add git remote set-url   https 方式访问 git 免输密码 Git 用户配置 查看配置 修改全局配置   GIT SSH 免密 同步 Github fork">
+  <meta name="description" content="回滚 revert reset   git 删除分支 删除本地分支 删除远端分支   git 单列已添加到暂存区的文件 Git 本地分支有提交，单独查看并运行远程该分支 远程仓库迁移（拷贝） 新建仓库时关联远程与本地 git 同时推送多个仓库 git remote add git remote set-url   https 方式访问 git 免输密码 Git 用户配置 查看配置 修改全局配">
 <meta name="keywords" content="DEVs,Git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git常见操作">
 <meta property="og:url" content="http://www.skyline.show/Git常见操作.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="git 删除分支 删除本地分支 删除远端分支   git 单列已添加到暂存区的文件 Git 本地分支有提交，单独查看并运行远程该分支 新建仓库时关联远程与本地 git 同时推送多个仓库 git remote add git remote set-url   https 方式访问 git 免输密码 Git 用户配置 查看配置 修改全局配置   GIT SSH 免密 同步 Github fork">
+<meta property="og:description" content="回滚 revert reset   git 删除分支 删除本地分支 删除远端分支   git 单列已添加到暂存区的文件 Git 本地分支有提交，单独查看并运行远程该分支 远程仓库迁移（拷贝） 新建仓库时关联远程与本地 git 同时推送多个仓库 git remote add git remote set-url   https 方式访问 git 免输密码 Git 用户配置 查看配置 修改全局配">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602161840.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602162017.png">
@@ -29,10 +29,10 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302173137.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302175730.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302185442.png">
-<meta property="og:updated_time" content="2022-10-05T09:00:39.000Z">
+<meta property="og:updated_time" content="2022-11-06T08:48:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git常见操作">
-<meta name="twitter:description" content="git 删除分支 删除本地分支 删除远端分支   git 单列已添加到暂存区的文件 Git 本地分支有提交，单独查看并运行远程该分支 新建仓库时关联远程与本地 git 同时推送多个仓库 git remote add git remote set-url   https 方式访问 git 免输密码 Git 用户配置 查看配置 修改全局配置   GIT SSH 免密 同步 Github fork">
+<meta name="twitter:description" content="回滚 revert reset   git 删除分支 删除本地分支 删除远端分支   git 单列已添加到暂存区的文件 Git 本地分支有提交，单独查看并运行远程该分支 远程仓库迁移（拷贝） 新建仓库时关联远程与本地 git 同时推送多个仓库 git remote add git remote set-url   https 方式访问 git 免输密码 Git 用户配置 查看配置 修改全局配">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602161840.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -197,7 +197,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-10-05T09:00:39.000Z" itemprop="datePublished">2022-10-05</time>
+      <time datetime="2022-11-06T08:48:11.000Z" itemprop="datePublished">2022-11-06</time>
     </a><span style="color: #999">|</span>
 
       
@@ -214,6 +214,11 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
+<li><a href="#回滚">回滚</a><ul>
+<li><a href="#revert">revert</a></li>
+<li><a href="#reset">reset</a></li>
+</ul>
+</li>
 <li><a href="#git-删除分支">git 删除分支</a><ul>
 <li><a href="#删除本地分支">删除本地分支</a></li>
 <li><a href="#删除远端分支">删除远端分支</a></li>
@@ -221,6 +226,7 @@
 </li>
 <li><a href="#git-单列已添加到暂存区的文件">git 单列已添加到暂存区的文件</a></li>
 <li><a href="#git-本地分支有提交单独查看并运行远程该分支">Git 本地分支有提交，单独查看并运行远程该分支</a></li>
+<li><a href="#远程仓库迁移拷贝">远程仓库迁移（拷贝）</a></li>
 <li><a href="#新建仓库时关联远程与本地">新建仓库时关联远程与本地</a></li>
 <li><a href="#git-同时推送多个仓库">git 同时推送多个仓库</a><ul>
 <li><a href="#git-remote-add">git remote add</a></li>
@@ -235,11 +241,21 @@
 </li>
 <li><a href="#git-ssh-免密">GIT SSH 免密</a></li>
 <li><a href="#同步-github-fork-仓库">同步 Github fork 仓库</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
+<h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><h3 id="revert"><a href="#revert" class="headerlink" title="revert"></a>revert</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git revert [commit-id]</span><br></pre></td></tr></table></figure>
+<p>revert 可将代码回滚到指定版本，但会留下一条回滚记录</p>
+<h3 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h3><a id="more"></a>
+<p>git reset 一般接 –hard/soft/mixed</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git reset --soft</span><br></pre></td></tr></table></figure>
+<ul>
+<li>soft<br>当使用 soft 时，git 会重置到对应分支，所有代码变更被保留，且代码处于已暂存状态（git add 后未 git commit 的状态）</li>
+<li>mixed<br>reset 默认就使用 mixed 参数，git 会重置到对应分支，所有代码变更被保留，且代码处于未暂存状态（git add 后的状态）</li>
+<li>hard<br>reset 使用 hard 参数，git 会重置到对应分支，所有代码变更被丢弃，慎用</li>
+</ul>
 <h2 id="git-删除分支"><a href="#git-删除分支" class="headerlink" title="git 删除分支"></a>git 删除分支</h2><h3 id="删除本地分支"><a href="#删除本地分支" class="headerlink" title="删除本地分支"></a>删除本地分支</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git branch -d &lt;branch&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="删除远端分支"><a href="#删除远端分支" class="headerlink" title="删除远端分支"></a>删除远端分支</h3><a id="more"></a>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git push origin --delete &lt;branch&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="删除远端分支"><a href="#删除远端分支" class="headerlink" title="删除远端分支"></a>删除远端分支</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git push origin --delete &lt;branch&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="git-单列已添加到暂存区的文件"><a href="#git-单列已添加到暂存区的文件" class="headerlink" title="git 单列已添加到暂存区的文件"></a>git 单列已添加到暂存区的文件</h2><p>通过<code>git status</code>命令可以列出所有增删改的文件，并做了是否添加跟踪，是否加入暂存区的区分。<br>若只看加入暂存区的文件，使用</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git diff --name-only --cached</span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602161840.png" alt="Git常见操作20220602161840"><br>如上图所示为某次<code>git status</code>后展示的信息。<br>git diff –name-only –cached 展示的信息如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220602162017.png" alt="Git常见操作20220602162017"><br><code>git diff --cached</code>只会展示暂存区文件的变更。</p>
@@ -247,12 +263,9 @@
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">git fetch</span><br><span class="line">git checkout -b test origin/dev</span><br></pre></td></tr></table></figure>
 <p>test 分支即是最新的远程 dev 副本</p>
 <p>git fetch 将本地仓库的所有远程副本更新，但不会更新到工作空间<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302172427.png" alt="Git常见操作20220302172427"></p>
-<h2 id="新建仓库时关联远程与本地"><a href="#新建仓库时关联远程与本地" class="headerlink" title="新建仓库时关联远程与本地"></a>新建仓库时关联远程与本地</h2><p>删除仓库中的.git 文件夹，执行<br><code>git init</code><br>法 1：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote add origin https://git.oschina.net/skylinelty/skyline-blog.git</span><br><span class="line">git push --<span class="built_in">set</span>-upstream origin master</span><br></pre></td></tr></table></figure>
-<p>法 2：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin &lt;https://git.oschina.net/skylinelty/skyline-blog.git&gt;</span><br><span class="line">//或者先删除后增加</span><br><span class="line">//git remote rm origin</span><br><span class="line">//git remote add origin &lt;https://git.oschina.net/skylinelty/skyline-blog.git&gt;</span><br><span class="line">git branch --<span class="built_in">set</span>-upstream-to=origin/master master//与远程关联</span><br><span class="line">git pull origin master --allow-unrelated-histories //后面参数防止出现fatal: refusing to merge unrelated histories</span><br></pre></td></tr></table></figure>
-<p>法 3：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin &lt;https://git.oschina.net/skylinelty/skyline-blog.git&gt;</span><br><span class="line">//或者先删除后增加</span><br><span class="line">//git remote rm origin</span><br><span class="line">//git remote add origin &lt;https://git.oschina.net/skylinelty/skyline-blog.git&gt;</span><br><span class="line">git add -A</span><br><span class="line">git commit -m<span class="string">"init"</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<h2 id="远程仓库迁移（拷贝）"><a href="#远程仓库迁移（拷贝）" class="headerlink" title="远程仓库迁移（拷贝）"></a>远程仓库迁移（拷贝）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote <span class="built_in">set</span>-url origin &lt;https://git.oschina.net/skylinelty/skyline-blog.git&gt;</span><br><span class="line">//或者先删除后增加</span><br><span class="line">//git remote rm origin</span><br><span class="line">//git remote add origin &lt;https://git.oschina.net/skylinelty/skyline-blog.git&gt;</span><br><span class="line">git branch --<span class="built_in">set</span>-upstream-to=origin/master master//与远程关联</span><br><span class="line">git pull origin master --allow-unrelated-histories //后面参数防止出现fatal: refusing to merge unrelated histories</span><br></pre></td></tr></table></figure>
+<p>对于仓库拷贝并放在另一个仓库，至于要本地复制仓库文件夹，再进行如上操作即可。</p>
+<h2 id="新建仓库时关联远程与本地"><a href="#新建仓库时关联远程与本地" class="headerlink" title="新建仓库时关联远程与本地"></a>新建仓库时关联远程与本地</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git remote add origin &lt;https://git.oschina.net/skylinelty/skyline-blog.git&gt;</span><br><span class="line">git add -A</span><br><span class="line">git commit -m<span class="string">"init"</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
 <h2 id="git-同时推送多个仓库"><a href="#git-同时推送多个仓库" class="headerlink" title="git 同时推送多个仓库"></a>git 同时推送多个仓库</h2><p>当前仓库正常开发，中途需要添加另一个推送仓库<br>当前仓库只关联一个远程仓库，查看远端仓库信息：<br><code>git remote -v</code><br>结果如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C20220302172709.png" alt="Git常见操作20220302172709"></p>
 <p>新增关联仓库常用如下两个方案：</p>
 <h3 id="git-remote-add"><a href="#git-remote-add" class="headerlink" title="git remote add"></a>git remote add</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git remote add origingit &lt;https://git.citycloud.com.cn:3000/hcsg_code/xxxx.git&gt;</span><br></pre></td></tr></table></figure>
@@ -298,6 +311,25 @@
 <p><strong>上传代码</strong></p>
 <p>将上游仓库的代码更新到自己的远程仓库中</p>
 <p>git push</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/Git常见操作.html">http://www.skyline.show/Git 常见操作.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
       
     </div>
@@ -377,7 +409,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-删除分支"><span class="nav-number">1.</span> <span class="nav-text">git 删除分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除本地分支"><span class="nav-number">1.1.</span> <span class="nav-text">删除本地分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除远端分支"><span class="nav-number">1.2.</span> <span class="nav-text">删除远端分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-单列已添加到暂存区的文件"><span class="nav-number">2.</span> <span class="nav-text">git 单列已添加到暂存区的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-本地分支有提交，单独查看并运行远程该分支"><span class="nav-number">3.</span> <span class="nav-text">Git 本地分支有提交，单独查看并运行远程该分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建仓库时关联远程与本地"><span class="nav-number">4.</span> <span class="nav-text">新建仓库时关联远程与本地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-同时推送多个仓库"><span class="nav-number">5.</span> <span class="nav-text">git 同时推送多个仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-remote-add"><span class="nav-number">5.1.</span> <span class="nav-text">git remote add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-remote-set-url"><span class="nav-number">5.2.</span> <span class="nav-text">git remote set-url</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https-方式访问-git-免输密码"><span class="nav-number">6.</span> <span class="nav-text">https 方式访问 git 免输密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-用户配置"><span class="nav-number">7.</span> <span class="nav-text">Git 用户配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看配置"><span class="nav-number">7.1.</span> <span class="nav-text">查看配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改全局配置"><span class="nav-number">7.2.</span> <span class="nav-text">修改全局配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GIT-SSH-免密"><span class="nav-number">8.</span> <span class="nav-text">GIT SSH 免密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步-Github-fork-仓库"><span class="nav-number">9.</span> <span class="nav-text">同步 Github fork 仓库</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回滚"><span class="nav-number">1.</span> <span class="nav-text">回滚</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#revert"><span class="nav-number">1.1.</span> <span class="nav-text">revert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reset"><span class="nav-number">1.2.</span> <span class="nav-text">reset</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-删除分支"><span class="nav-number">2.</span> <span class="nav-text">git 删除分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除本地分支"><span class="nav-number">2.1.</span> <span class="nav-text">删除本地分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除远端分支"><span class="nav-number">2.2.</span> <span class="nav-text">删除远端分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-单列已添加到暂存区的文件"><span class="nav-number">3.</span> <span class="nav-text">git 单列已添加到暂存区的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-本地分支有提交，单独查看并运行远程该分支"><span class="nav-number">4.</span> <span class="nav-text">Git 本地分支有提交，单独查看并运行远程该分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程仓库迁移（拷贝）"><span class="nav-number">5.</span> <span class="nav-text">远程仓库迁移（拷贝）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建仓库时关联远程与本地"><span class="nav-number">6.</span> <span class="nav-text">新建仓库时关联远程与本地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-同时推送多个仓库"><span class="nav-number">7.</span> <span class="nav-text">git 同时推送多个仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-remote-add"><span class="nav-number">7.1.</span> <span class="nav-text">git remote add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-remote-set-url"><span class="nav-number">7.2.</span> <span class="nav-text">git remote set-url</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https-方式访问-git-免输密码"><span class="nav-number">8.</span> <span class="nav-text">https 方式访问 git 免输密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-用户配置"><span class="nav-number">9.</span> <span class="nav-text">Git 用户配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看配置"><span class="nav-number">9.1.</span> <span class="nav-text">查看配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改全局配置"><span class="nav-number">9.2.</span> <span class="nav-text">修改全局配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GIT-SSH-免密"><span class="nav-number">10.</span> <span class="nav-text">GIT SSH 免密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步-Github-fork-仓库"><span class="nav-number">11.</span> <span class="nav-text">同步 Github fork 仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">12.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-动态规划算法"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Factory工厂模式"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/动态规划算法.html">动态规划算法</a>
+      <a class="article-title" href="/Factory工厂模式.html">Factory工厂模式</a>
     </h1>
   
 
@@ -353,59 +353,68 @@
 <!-- code_chunk_output -->
 <ul>
 <li><a href="#概述">概述</a><ul>
-<li><a href="#常见类型">常见类型</a></li>
-<li><a href="#解题思路">解题思路</a></li>
+<li><a href="#工厂">工厂</a></li>
+<li><a href="#设计模式中的工厂">设计模式中的工厂</a></li>
+<li><a href="#解耦">解耦</a></li>
 </ul>
 </li>
-<li><a href="#子序列问题">子序列问题</a><ul>
-<li><a href="#问题描述">问题描述</a></li>
-<li><a href="#解题思路-1">解题思路</a></li>
+<li><a href="#简单工厂静态工厂">简单工厂（静态工厂）</a><ul>
+<li><a href="#实现">实现</a></li>
 </ul>
 </li>
-<li><a href="#背包问题">背包问题</a><ul>
-<li><a href="#问题特征">问题特征</a></li>
-<li><a href="#背包问题状态转移方程">背包问题状态转移方程</a></li>
+<li><a href="#工厂方法">工厂方法</a><ul>
+<li><a href="#实现-1">实现</a></li>
+<li><a href="#使用">使用</a></li>
+<li><a href="#类图图示">类图图示</a></li>
 </ul>
 </li>
-<li><a href="#实战">实战</a><ul>
-<li><a href="#最大子串">最大子串</a></li>
-<li><a href="#一步两步爬楼梯">一步两步爬楼梯</a></li>
+<li><a href="#抽象工厂">抽象工厂</a><ul>
+<li><a href="#实现-2">实现</a></li>
+<li><a href="#类图图示-1">类图图示</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="常见类型"><a href="#常见类型" class="headerlink" title="常见类型"></a>常见类型</h3><p>动态规范算法，即 Dynamic Programming。<br>常见类型如下：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Dynamic_ProgrammingUntitled.png" alt="Dynamic_ProgrammingUntitled"><br>| Name | Leetcode Problems |<br>| — | — |<br>| 基本动态规划: 一维 | 70 |<br>| 基本动态规划:二维 | 64，403 |<br>| 分割类型题 | |<br>| 子序列问题 | 5 |<br>| 背包问题 | 322，416 |<br>| 字符串编辑 | |<br>| 股票交易 | |</p>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="工厂"><a href="#工厂" class="headerlink" title="工厂"></a>工厂</h3><p>工厂这个词往往让人感到困惑，特别是与设计模式中的工厂模式杂糅在一起的时候。<br>一般来说，工厂可以指用于生产产品的一个函数、方法或者类。<br>对于工厂具体所指，一般可以从所读文章的上下文来得到。<br>如在对象创建的文章中，也采用的是工厂。</p>
+<blockquote>
+<p>在<a href="https://github.com/skylinety/Blog/blob/03a9341704f535ad4d59a2ac513281bde5e7d22c/Docs/Major/JS/ES/%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B/ES%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA.md" target="_blank" rel="noopener">ES 对象的创建</a>的文章中，创建对象使用的也是工厂。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  p.name = name</span><br><span class="line">  <span class="keyword">return</span> p</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">'skyline'</span>)</span><br><span class="line">me.name <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
+<p>另，如下常见的代码中，</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">  create() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">static</span> createA() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Array</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其 create 方法往往被叫做工厂方法。<br>于是在这类方法前加入 static 关键字也就被叫做静态工厂方法。<br>上述方法叫做工厂的思想很简单，调用他们都创建了新的产品，故就是工厂。<br>这与设计模式中的工厂模式往往容易混淆。<br>为了区分，我们可以把这种用包裹构造函数创建对象的方法叫做构建方法（Creation method）</p>
+<h3 id="设计模式中的工厂"><a href="#设计模式中的工厂" class="headerlink" title="设计模式中的工厂"></a>设计模式中的工厂</h3>
         <!-- 
 
 
 概述
-常见类型
-解题思路
+工厂
+设计模式中的工厂
+解耦
 
 
-子序列问题
-问题描述
-解题思路
+简单工厂（静态工厂）
+实现
 
 
-背包问题
-问题特征
-背包问题状态转移方程
+工厂方法
+实现
+使用
+类图图示
 
 
-实战
-最大子串
-一步两步爬楼梯
+抽象工厂
+实现
+类图图示
 
 
 BMW WARNING
 
 
-概述常见类型动态规范算法，即 Dynamic Programming。常见类型如下：| Name | Leetcode Problems || — | — || 基本动态规划: 一维 | 70 || 基本动态规划......  -->
+概述工厂工厂这个词往往让人感到困惑，特别是与设计模式中的工厂模式杂糅在一起的时候。一般来说，工厂可以指用于生产产品的一个函数、方法或者类。对于工厂具体所指，一般可以从所读文章的上下文来得到。如在对象创建的文章中，也采用的是......  -->
         <p class="article-more-link">
-          <a href="/动态规划算法.html#more">阅读全文</a>
+          <a href="/Factory工厂模式.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -413,7 +422,7 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Creational/">Creational</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
 
     </footer>
   </div>
@@ -591,7 +600,7 @@ Longitudinal Magnetic Recording机械硬盘的磁录密度影响着数据记录�
 <!-- Table of Contents -->
 
   
-    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-动态规划算法"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -599,7 +608,7 @@ Longitudinal Magnetic Recording机械硬盘的磁录密度影响着数据记录�
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
+      <a class="article-title" href="/动态规划算法.html">动态规划算法</a>
     </h1>
   
 
@@ -624,46 +633,60 @@ Longitudinal Magnetic Recording机械硬盘的磁录密度影响着数据记录�
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#formatting-context">Formatting Context</a></li>
-<li><a href="#bfc">BFC</a><ul>
-<li><a href="#bfc-定义">BFC 定义</a></li>
-<li><a href="#bfc-触发">BFC 触发</a></li>
-<li><a href="#常见应用">常见应用</a></li>
-<li><a href="#display-flow-root">display: flow-root</a></li>
+<li><a href="#概述">概述</a><ul>
+<li><a href="#常见类型">常见类型</a></li>
+<li><a href="#解题思路">解题思路</a></li>
+</ul>
+</li>
+<li><a href="#子序列问题">子序列问题</a><ul>
+<li><a href="#问题描述">问题描述</a></li>
+<li><a href="#解题思路-1">解题思路</a></li>
+</ul>
+</li>
+<li><a href="#背包问题">背包问题</a><ul>
+<li><a href="#问题特征">问题特征</a></li>
+<li><a href="#背包问题状态转移方程">背包问题状态转移方程</a></li>
+</ul>
+</li>
+<li><a href="#实战">实战</a><ul>
+<li><a href="#最大子串">最大子串</a></li>
+<li><a href="#一步两步爬楼梯">一步两步爬楼梯</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
-<ul>
-<li>块级格式化上下文（block formatting contexts）</li>
-<li>内联格式化上下文（inline formatting contexts）</li>
-<li>弹性格式化上下文（flex formatting context）</li>
-<li>网格格式化上下文（grid formatting context）</li>
-</ul>
-<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
-<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="常见类型"><a href="#常见类型" class="headerlink" title="常见类型"></a>常见类型</h3><p>动态规范算法，即 Dynamic Programming。<br>常见类型如下：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Dynamic_ProgrammingUntitled.png" alt="Dynamic_ProgrammingUntitled"><br>| Name | Leetcode Problems |<br>| — | — |<br>| 基本动态规划: 一维 | 70 |<br>| 基本动态规划:二维 | 64，403 |<br>| 分割类型题 | |<br>| 子序列问题 | 5 |<br>| 背包问题 | 322，416 |<br>| 字符串编辑 | |<br>| 股票交易 | |</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3>
         <!-- 
 
 
-Formatting Context
-BFC
-BFC 定义
-BFC 触发
-常见应用
-display: flow-root
+概述
+常见类型
+解题思路
+
+
+子序列问题
+问题描述
+解题思路
+
+
+背包问题
+问题特征
+背包问题状态转移方程
+
+
+实战
+最大子串
+一步两步爬楼梯
 
 
 BMW WARNING
 
 
-Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
-
-块级格式化上下文（block formatting contexts）
-内联格式化上下文（inline for......  -->
+概述常见类型动态规范算法，即 Dynamic Programming。常见类型如下：| Name | Leetcode Problems || — | — || 基本动态规划: 一维 | 70 || 基本动态规划......  -->
         <p class="article-more-link">
-          <a href="/CSS格式化上下文.html#more">阅读全文</a>
+          <a href="/动态规划算法.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -671,7 +694,103 @@ Formatting Context页面的元素或是格式化上下文的一部分，或本�
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-UML类图画图图解"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/UML类图画图图解.html">UML类图画图图解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#object">Object</a><ul>
+<li><a href="#classes">Classes</a></li>
+<li><a href="#interface">Interface</a></li>
+<li><a href="#abstract-classes">Abstract Classes</a></li>
+</ul>
+</li>
+<li><a href="#relations">Relations</a><ul>
+<li><a href="#dependency">Dependency</a></li>
+<li><a href="#association">Association</a></li>
+<li><a href="#aggregation">Aggregation</a></li>
+<li><a href="#composition">Composition</a></li>
+<li><a href="#inheritance">Inheritance</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>统一建模语言（Unified Modeling Language）简写 UML</p>
+<h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><h3 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h3>
+        <!-- 
+
+
+简介
+Object
+Classes
+Interface
+Abstract Classes
+
+
+Relations
+Dependency
+Association
+Aggregation
+Composition
+Inheritance
+
+
+BMW WARNING
+
+
+简介统一建模语言（Unified Modeling Language）简写 UML
+ObjectClasses
+在面向对象编......  -->
+        <p class="article-more-link">
+          <a href="/UML类图画图图解.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
 
     </footer>
   </div>
@@ -805,7 +924,7 @@ p:nth-of-type(n)
 <!-- Table of Contents -->
 
   
-    <article id="post-UML类图画图图解"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -813,7 +932,7 @@ p:nth-of-type(n)
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/UML类图画图图解.html">UML类图画图图解</a>
+      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
     </h1>
   
 
@@ -838,52 +957,46 @@ p:nth-of-type(n)
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#object">Object</a><ul>
-<li><a href="#classes">Classes</a></li>
-<li><a href="#interface">Interface</a></li>
-<li><a href="#abstract-classes">Abstract Classes</a></li>
-</ul>
-</li>
-<li><a href="#relations">Relations</a><ul>
-<li><a href="#dependency">Dependency</a></li>
-<li><a href="#association">Association</a></li>
-<li><a href="#aggregation">Aggregation</a></li>
-<li><a href="#composition">Composition</a></li>
-<li><a href="#inheritance">Inheritance</a></li>
+<li><a href="#formatting-context">Formatting Context</a></li>
+<li><a href="#bfc">BFC</a><ul>
+<li><a href="#bfc-定义">BFC 定义</a></li>
+<li><a href="#bfc-触发">BFC 触发</a></li>
+<li><a href="#常见应用">常见应用</a></li>
+<li><a href="#display-flow-root">display: flow-root</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>统一建模语言（Unified Modeling Language）简写 UML</p>
-<h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><h3 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h3>
+<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
+<ul>
+<li>块级格式化上下文（block formatting contexts）</li>
+<li>内联格式化上下文（inline formatting contexts）</li>
+<li>弹性格式化上下文（flex formatting context）</li>
+<li>网格格式化上下文（grid formatting context）</li>
+</ul>
+<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
+<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3>
         <!-- 
 
 
-简介
-Object
-Classes
-Interface
-Abstract Classes
-
-
-Relations
-Dependency
-Association
-Aggregation
-Composition
-Inheritance
+Formatting Context
+BFC
+BFC 定义
+BFC 触发
+常见应用
+display: flow-root
 
 
 BMW WARNING
 
 
-简介统一建模语言（Unified Modeling Language）简写 UML
-ObjectClasses
-在面向对象编......  -->
+Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
+
+块级格式化上下文（block formatting contexts）
+内联格式化上下文（inline for......  -->
         <p class="article-more-link">
-          <a href="/UML类图画图图解.html#more">阅读全文</a>
+          <a href="/CSS格式化上下文.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -891,7 +1004,7 @@ ObjectClasses
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>
@@ -901,102 +1014,55 @@ ObjectClasses
 <!-- Table of Contents -->
 
   
-    <article id="post-Factory工厂模式"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-HTTPS加密方式"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Factory工厂模式.html">Factory工厂模式</a>
-    </h1>
-  
-
-      </header>
     
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
     </a>
 
 
       
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
+        <pre><code>---
+title: HTTPS加密方式
+updated: 2022-02-03    14:21:52
+
+
+
+---
+&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+</code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
 <ul>
-<li><a href="#概述">概述</a><ul>
-<li><a href="#工厂">工厂</a></li>
-<li><a href="#设计模式中的工厂">设计模式中的工厂</a></li>
-<li><a href="#解耦">解耦</a></li>
+<li>窃听</li>
+<li>篡改</li>
+<li>冒充</li>
 </ul>
-</li>
-<li><a href="#简单工厂静态工厂">简单工厂（静态工厂）</a><ul>
-<li><a href="#实现">实现</a></li>
-</ul>
-</li>
-<li><a href="#工厂方法">工厂方法</a><ul>
-<li><a href="#实现-1">实现</a></li>
-<li><a href="#使用">使用</a></li>
-<li><a href="#类图图示">类图图示</a></li>
-</ul>
-</li>
-<li><a href="#抽象工厂">抽象工厂</a><ul>
-<li><a href="#实现-2">实现</a></li>
-<li><a href="#类图图示-1">类图图示</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="工厂"><a href="#工厂" class="headerlink" title="工厂"></a>工厂</h3><p>工厂这个词往往让人感到困惑，特别是与设计模式中的工厂模式杂糅在一起的时候。<br>一般来说，工厂可以指用于生产产品的一个函数、方法或者类。<br>对于工厂具体所指，一般可以从所读文章的上下文来得到。<br>如在对象创建的文章中，也采用的是工厂。</p>
-<blockquote>
-<p>在<a href="https://github.com/skylinety/Blog/blob/03a9341704f535ad4d59a2ac513281bde5e7d22c/Docs/Major/JS/ES/%E5%A4%8D%E6%9D%82%E7%B1%BB%E5%9E%8B/ES%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA.md" target="_blank" rel="noopener">ES 对象的创建</a>的文章中，创建对象使用的也是工厂。</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  p.name = name</span><br><span class="line">  <span class="keyword">return</span> p</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> me = person(<span class="string">'skyline'</span>)</span><br><span class="line">me.name <span class="comment">// 'skyline'</span></span><br></pre></td></tr></table></figure>
-<p>另，如下常见的代码中，</p>
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">  create() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">static</span> createA() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Array</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其 create 方法往往被叫做工厂方法。<br>于是在这类方法前加入 static 关键字也就被叫做静态工厂方法。<br>上述方法叫做工厂的思想很简单，调用他们都创建了新的产品，故就是工厂。<br>这与设计模式中的工厂模式往往容易混淆。<br>为了区分，我们可以把这种用包裹构造函数创建对象的方法叫做构建方法（Creation method）</p>
-<h3 id="设计模式中的工厂"><a href="#设计模式中的工厂" class="headerlink" title="设计模式中的工厂"></a>设计模式中的工厂</h3>
-        <!-- 
+<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
+<h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4>
+        <!-- ---
+title: HTTPS加密方式
+updated: 2022-02-03    14:21:52
 
 
-概述
-工厂
-设计模式中的工厂
-解耦
 
+---
+&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+HTTPS概述加密缘由明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉容易被中间人攻击，存在以下风险
 
-简单工厂（静态工厂）
-实现
+窃听
+篡改
+冒充
 
-
-工厂方法
-实现
-使用
-类图图示
-
-
-抽象工厂
-实现
-类图图示
-
-
-BMW WARNING
-
-
-概述工厂工厂这个词往往让人感到困惑，特别是与设计模式中的工厂模式杂糅在一起的时候。一般来说，工厂可以指用于生产产品的一个函数、方法或者类。对于工厂具体所指，一般可以从所读文章的上下文来得到。如在对象创建的文章中，也采用的是......  -->
+HTTPS超文本传输......  -->
         <p class="article-more-link">
-          <a href="/Factory工厂模式.html#more">阅读全文</a>
+          <a href="/HTTPS加密方式.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1004,8 +1070,6 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Creational/">Creational</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
     </footer>
   </div>
   
@@ -1104,70 +1168,6 @@ Husky 使用配置husky 简述husky 支持所有 git 相关钩子，在对应 gi
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-HTTPS加密方式"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-04-22T10:00:30.000Z" itemprop="datePublished">2022-04-22</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>---
-title: HTTPS加密方式
-updated: 2022-02-03    14:21:52
-
-
-
----
-&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-</code></pre><h3 id="HTTPS概述"><a href="#HTTPS概述" class="headerlink" title="HTTPS概述"></a>HTTPS概述</h3><h4 id="加密缘由"><a href="#加密缘由" class="headerlink" title="加密缘由"></a>加密缘由</h4><p>明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉<br>容易被中间人攻击，存在以下风险</p>
-<ul>
-<li>窃听</li>
-<li>篡改</li>
-<li>冒充</li>
-</ul>
-<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>超文本传输安全协议（（HyperText Transfer Protocol Secure）也被称为HTTP over TLS，HTTP over SSL）<br>HTTPS开发是为了解决上述风险，提供对网络服务器的认证，保证交换信息的机密性和完整性，在HTTP的基础上，我们需要进一步做信息传输加密，数据完整校验，身份认证等工作。</p>
-<h4 id="与HTTP对比"><a href="#与HTTP对比" class="headerlink" title="与HTTP对比"></a>与HTTP对比</h4>
-        <!-- ---
-title: HTTPS加密方式
-updated: 2022-02-03    14:21:52
-
-
-
----
-&gt;作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-HTTPS概述加密缘由明文传输的数据在经过wifi热点、路由、通信服务运营商等物理节点时信息容易被劫持暴露而不被发觉容易被中间人攻击，存在以下风险
-
-窃听
-篡改
-冒充
-
-HTTPS超文本传输......  -->
-        <p class="article-more-link">
-          <a href="/HTTPS加密方式.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
     </footer>
   </div>
   
