@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
+      <a class="article-title" href="/ES_Module&CommonJS.html">ES_Module&amp;CommonJS</a>
     </h1>
   
 
@@ -352,57 +352,78 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
-<li><a href="#实质">实质</a></li>
-<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
+<li><a href="#模块系统">模块系统</a></li>
+<li><a href="#esm-vs-cjs">ESM VS CJS</a></li>
+<li><a href="#esm-vs-cjs-要点解析">ESM VS CJS 要点解析</a><ul>
+<li><a href="#模块输出">模块输出</a></li>
+<li><a href="#模块加载">模块加载</a></li>
 </ul>
 </li>
-<li><a href="#引入-dll-库">引入 dll 库</a><ul>
-<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
-<li><a href="#手动引入注意">手动引入注意</a></li>
-<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
-<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
-</ul>
-</li>
-<li><a href="#成果分析">成果分析</a><ul>
-<li><a href="#优化前">优化前</a></li>
-<li><a href="#优化后">优化后：</a></li>
-</ul>
-</li>
+<li><a href="#tree-shaking">tree shaking</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
-<blockquote>
-<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
-</blockquote>
-<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3>
+<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
+<ul>
+<li>模块隔离（私有代码权限访问控制）</li>
+<li>模块间依赖</li>
+<li>代码传递到执行环境</li>
+</ul>
+<p>早期解决方案如下：</p>
+<ul>
+<li>命名空间</li>
+<li>立即执行匿名函数 + 闭包</li>
+</ul>
+<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，在 ES6 模块系统后使用频率降低，如下简单对比。</p>
+<p>AMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>CMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">define(<span class="string">'main'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'a'</span>) <span class="comment">//依赖就近</span></span><br><span class="line">  a.someFn()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'b'</span>)</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>ES6 兼容 Node.js 模块方案</p>
+<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><table>
+<thead>
+<tr>
+<th>标准</th>
+<th>输出</th>
+<th>加载时机</th>
+<th>加载方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ES6 模块</td>
+<td>值引用（只读）</td>
+<td>编译</td>
+<td>import 异步</td>
+</tr>
+<tr>
+<td>CommonJS</td>
+<td>值浅拷贝</td>
+<td>运行</td>
+<td>require 同步</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ESM-VS-CJS-要点解析"><a href="#ESM-VS-CJS-要点解析" class="headerlink" title="ESM VS CJS 要点解析"></a>ESM VS CJS 要点解析</h2>
         <!-- 
 
 
-DllPlugin 概述
-实质
-DllPlugin 配置
+模块系统
+ESM VS CJS
+ESM VS CJS 要点解析
+模块输出
+模块加载
 
 
-引入 dll 库
-手动引入 dll 文件（不推荐）
-手动引入注意
-自动引入(推荐)
-自动引入常见问题
-
-
-成果分析
-优化前
-优化后：
-
-
+tree shaking
 BMW WARNING
 
 
-DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程序同时使用的代码库。在前端领域里可简单看做缓存，其......  -->
+模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚......  -->
         <p class="article-more-link">
-          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
+          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -410,7 +431,7 @@ DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
 
     </footer>
   </div>
@@ -1221,7 +1242,7 @@ BMW WARNI......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-ES5与ES6中的argments"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CSS常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1229,7 +1250,7 @@ BMW WARNI......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES5与ES6中的argments.html">ES5与ES6中的argments</a>
+      <a class="article-title" href="/CSS常见问题汇总.html">CSS常见问题汇总</a>
     </h1>
   
 
@@ -1244,24 +1265,92 @@ BMW WARNI......  -->
 
       
     
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/ES5与ES6中的argments.html">http://www.skyline.show/ES5 与 ES6 中的 argments.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#css-继承与非继承属性">CSS 继承与非继承属性</a></li>
+<li><a href="#displaynone-与-visibilityhidden-区别">display:none 与 visibility:hidden 区别</a></li>
+<li><a href="#媒体查询失效">媒体查询失效</a></li>
+<li><a href="#img-标签是行内还是块级元素">img 标签是行内还是块级元素</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="CSS-继承与非继承属性"><a href="#CSS-继承与非继承属性" class="headerlink" title="CSS 继承与非继承属性"></a>CSS 继承与非继承属性</h2><p>CSS 属性在不设定取值时，其实际取值分为两种。<br>一种为继承属性，取父级元素该属性对应的值。<br>一种为非继承属性，去该属性的默认值。<br>由于 CSS 属性繁多，不容易死记来区分，一般可通过经验来判断一个属性是否可继承。</p>
+<p>常见的不可继承属性如下：</p>
+<ul>
+<li>display</li>
+<li>盒模型相关属性，如宽、高、内外边距、边框</li>
+<li>背景相关属性：如背景颜色、图片、位置、大小、重复</li>
+<li>定位相关属性：如 float、clear、position</li>
+<li>内容相关属性：如 content、counter-reset、counter-increment</li>
+</ul>
+<p>其他属性多为可继承属性，例如：</p>
+<ul>
+<li>字体相关属性</li>
+<li>部分文本相关属性</li>
+<li>元素可见属性 visibility</li>
+<li>光标属性 cursor</li>
+</ul>
+<h2 id="display-none-与-visibility-hidden-区别"><a href="#display-none-与-visibility-hidden-区别" class="headerlink" title="display:none 与 visibility:hidden 区别"></a>display:none 与 visibility:hidden 区别</h2><p>两者虽简单来说都是用于隐藏元素，表现形式大有不同。</p>
+<p>display 会被文档流给移除，影响页面布局，导致重排重绘，原本位置会被其他元素占据。</p>
+<p>visilibity:hidden 不会被文档流给移除，不会影响布局，页面重绘出一片空白，但不会重新排版。</p>
+<p>display 不是继承属性，而 visibility 是继承属性。<br>若祖先设定为 visibility:hidden，后代元素会继承该属性不可见。<br>此时，若重置后代元素的 visibility 为 visible，其后代元素将可见。<br>若祖先设定的 display 属性设为 none 时，其不可继承，后代元素无力通过改变该属性重现。<br>总结如下表格所示：</p>
+<table>
+<thead>
+<tr>
+<th>样式</th>
+<th>页面重绘</th>
+<th>页面重排</th>
+<th>显示效果</th>
+<th>对应 css 属性是否继承</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>display:none</td>
+<td>是</td>
+<td>是</td>
+<td>无显示</td>
+<td>否（display）</td>
+</tr>
+<tr>
+<td>visibility:hidden</td>
+<td>是</td>
+<td>否</td>
+<td>所处区域空白</td>
+<td>是（visibility）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="媒体查询失效"><a href="#媒体查询失效" class="headerlink" title="媒体查询失效"></a>媒体查询失效</h2>
+        <!-- 
 
+
+CSS 继承与非继承属性
+display:none 与 visibility:hidden 区别
+媒体查询失效
+img 标签是行内还是块级元素
+BMW WARNING
+
+
+CSS 继承与非继承属性CSS 属性在不设定取值时，其实际取值分为两种。一种为继承属性，取父级元素该属性对应的值。一种为非继承属性，去该属性的默认值。由于 CSS 属性繁多，不容易死记来区分，一般可通过经验来判断一个......  -->
+        <p class="article-more-link">
+          <a href="/CSS常见问题汇总.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>

@@ -977,110 +977,6 @@ ssh -i /a/b/c/d.private ......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-JS内存泄漏与处理"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/JS内存泄漏与处理.html">JS内存泄漏与处理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a><ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
-<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
-</ul>
-</li>
-<li><a href="#内存泄漏memory-leaks">内存泄漏（Memory Leaks）</a><ul>
-<li><a href="#简介-1">简介</a></li>
-<li><a href="#常见内存泄漏情况">常见内存泄漏情况</a></li>
-<li><a href="#常见情况示例">常见情况示例</a></li>
-</ul>
-</li>
-<li><a href="#内存泄漏处理">内存泄漏处理</a><ul>
-<li><a href="#chrome-memory-调试">Chrome Memory 调试</a></li>
-<li><a href="#内存泄漏监测">内存泄漏监测</a></li>
-<li><a href="#泄漏内存对比">泄漏内存对比</a></li>
-<li><a href="#泄漏内存对象详情">泄漏内存对象详情</a></li>
-<li><a href="#对象引用链">对象引用链</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JS 自动进行垃圾回收，不需要如 C 语言等一般需要代码中指定回收。<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>回收垃圾时，需要将那些被标记的清除掉，垃圾标记器会跟踪无用内存并打上标记，以供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
-<h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3>
-        <!-- 
-
-
-垃圾回收(GC:Garbage Collecation)
-简介
-引用计数（Reference Counting）
-标记清除（Mark &amp; Sweep）
-
-
-内存泄漏（Memory Leaks）
-简介
-常见内存泄漏情况
-常见情况示例
-
-
-内存泄漏处理
-Chrome Memory 调试
-内存泄漏监测
-泄漏内存对比
-泄漏内存对象详情
-对象引用链
-
-
-BMW WARNING
-
-
-垃圾回......  -->
-        <p class="article-more-link">
-          <a href="/JS内存泄漏与处理.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-TS语法校验常见错误"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1253,7 +1149,7 @@ Interface在 JS 中，在没有技术文档或找到对应函数(对象)定义�
 <!-- Table of Contents -->
 
   
-    <article id="post-Builder建筑工模式"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-JS内存泄漏与处理"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1261,7 +1157,111 @@ Interface在 JS 中，在没有技术文档或找到对应函数(对象)定义�
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Builder建筑工模式.html">Builder建筑工模式</a>
+      <a class="article-title" href="/JS内存泄漏与处理.html">JS内存泄漏与处理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a><ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
+<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
+</ul>
+</li>
+<li><a href="#内存泄漏memory-leaks">内存泄漏（Memory Leaks）</a><ul>
+<li><a href="#简介-1">简介</a></li>
+<li><a href="#常见内存泄漏情况">常见内存泄漏情况</a></li>
+<li><a href="#常见情况示例">常见情况示例</a></li>
+</ul>
+</li>
+<li><a href="#内存泄漏处理">内存泄漏处理</a><ul>
+<li><a href="#chrome-memory-调试">Chrome Memory 调试</a></li>
+<li><a href="#内存泄漏监测">内存泄漏监测</a></li>
+<li><a href="#泄漏内存对比">泄漏内存对比</a></li>
+<li><a href="#泄漏内存对象详情">泄漏内存对象详情</a></li>
+<li><a href="#对象引用链">对象引用链</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JS 自动进行垃圾回收，不需要如 C 语言等一般需要代码中指定回收。<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>回收垃圾时，需要将那些被标记的清除掉，垃圾标记器会跟踪无用内存并打上标记，以供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
+<h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3>
+        <!-- 
+
+
+垃圾回收(GC:Garbage Collecation)
+简介
+引用计数（Reference Counting）
+标记清除（Mark &amp; Sweep）
+
+
+内存泄漏（Memory Leaks）
+简介
+常见内存泄漏情况
+常见情况示例
+
+
+内存泄漏处理
+Chrome Memory 调试
+内存泄漏监测
+泄漏内存对比
+泄漏内存对象详情
+对象引用链
+
+
+BMW WARNING
+
+
+垃圾回......  -->
+        <p class="article-more-link">
+          <a href="/JS内存泄漏与处理.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Cookie、Session与Token"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Cookie、Session与Token.html">Cookie、Session与Token</a>
     </h1>
   
 
@@ -1286,36 +1286,38 @@ Interface在 JS 中，在没有技术文档或找到对应函数(对象)定义�
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
+<li><a href="#请求信息保存">请求信息保存</a></li>
+<li><a href="#cookie">Cookie</a><ul>
 <li><a href="#概述">概述</a></li>
-<li><a href="#实例">实例</a><ul>
-<li><a href="#修房子">修房子</a></li>
-<li><a href="#找工人">找工人</a></li>
-<li><a href="#监工">监工</a></li>
+<li><a href="#属性分析">属性分析</a></li>
+<li><a href="#第三方-cookie">第三方 Cookie</a></li>
+<li><a href="#cookie-前缀">Cookie 前缀</a></li>
 </ul>
 </li>
+<li><a href="#session">Session</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Builder 模式一般翻译为建造者模式。<br>在重构代码的过程中，我们常看到几百上千行的复杂类。<br>这些类往往由于最初设定不合理以及需求不断增加而壮大。<br>建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。<br>建筑工模式通常支持链式调用。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">House.setDoors(<span class="number">1</span>).setRooms(<span class="number">2</span>).getHouse();</span><br></pre></td></tr></table></figure>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="修房子"><a href="#修房子" class="headerlink" title="修房子"></a>修房子</h3>
+<h2 id="请求信息保存"><a href="#请求信息保存" class="headerlink" title="请求信息保存"></a>请求信息保存</h2><p>Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。<br>这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。<br>Cookie Session 等技术诞生就是为了解决请求信息无法保存的问题。</p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3>
         <!-- 
 
 
+请求信息保存
+Cookie
 概述
-实例
-修房子
-找工人
-监工
+属性分析
+第三方 Cookie
+Cookie 前缀
 
 
+Session
 BMW WARNING
 
 
-概述Builder 模式一般翻译为建造者模式。在重构代码的过程中，我们常看到几百上千行的复杂类。这些类往往由于最初设定不合理以及需求不断增加而壮大。建筑工模式主要思想是我们将类的实例（产品）构建相关的代码单独交给一个类来实现。建筑工模式通常支持链式调用。
-House.setDoors(1).setRooms(2).get......  -->
+请求信息保存Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。Cookie Session 等技术诞生......  -->
         <p class="article-more-link">
-          <a href="/Builder建筑工模式.html#more">阅读全文</a>
+          <a href="/Cookie、Session与Token.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1323,7 +1325,7 @@ House.setDoors(1).setRooms(2).get......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Creational/">Creational</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
 
     </footer>
   </div>
