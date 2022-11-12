@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>eslint与prettier使用 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="JSPackages">
+  
+  
+  
+  
+  <meta name="description" content="Linter 与 Prettier ESLint 与 Prettier 共用 常见问题 eslint 校验禁用 格式化禁用   常见报错 换行报错 插件版本兼容报错   BMW WARNING   Linter 与 Prettier常用的 Linter 有 ESLint/TSLint/stylelint 等。 Linter 大致分为两类校验规则：  代码格式 代码语法  代码格式规定了缩进、">
+<meta name="keywords" content="JS,Packages">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESLint与Prettier使用">
+<meta property="og:url" content="http://www.skyline.show/ESLint与Prettier使用.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="Linter 与 Prettier ESLint 与 Prettier 共用 常见问题 eslint 校验禁用 格式化禁用   常见报错 换行报错 插件版本兼容报错   BMW WARNING   Linter 与 Prettier常用的 Linter 有 ESLint/TSLint/stylelint 等。 Linter 大致分为两类校验规则：  代码格式 代码语法  代码格式规定了缩进、">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2022-11-06T09:21:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ESLint与Prettier使用">
+<meta name="twitter:description" content="Linter 与 Prettier ESLint 与 Prettier 共用 常见问题 eslint 校验禁用 格式化禁用   常见报错 换行报错 插件版本兼容报错   BMW WARNING   Linter 与 Prettier常用的 Linter 有 ESLint/TSLint/stylelint 等。 Linter 大致分为两类校验规则：  代码格式 代码语法  代码格式规定了缩进、">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ESLint与Prettier使用" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      ESLint与Prettier使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-11-06T09:21:04.000Z" itemprop="datePublished">2022-11-06</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-11-06T09:21:04.000Z" itemprop="datePublished">2022-11-06</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#linter-与-prettier">Linter 与 Prettier</a></li>
+<li><a href="#eslint-与-prettier-共用">ESLint 与 Prettier 共用</a></li>
+<li><a href="#常见问题">常见问题</a><ul>
+<li><a href="#eslint-校验禁用">eslint 校验禁用</a></li>
+<li><a href="#格式化禁用">格式化禁用</a></li>
+</ul>
+</li>
+<li><a href="#常见报错">常见报错</a><ul>
+<li><a href="#换行报错">换行报错</a></li>
+<li><a href="#插件版本兼容报错">插件版本兼容报错</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Linter-与-Prettier"><a href="#Linter-与-Prettier" class="headerlink" title="Linter 与 Prettier"></a>Linter 与 Prettier</h2><p>常用的 Linter 有 ESLint/TSLint/stylelint 等。</p>
+<p>Linter 大致分为两类校验规则：</p>
+<ul>
+<li>代码格式</li>
+<li>代码语法</li>
+</ul>
+<p>代码格式规定了缩进、空格、换行等<br>代码语法重点关注未使用变量(<a href="https://eslint.org/docs/latest/rules/no-unused-vars" target="_blank" rel="noopener">no-unused-vars</a>)、隐式全局变量(<a href="https://eslint.org/docs/latest/rules/no-implicit-globals" target="_blank" rel="noopener">no-implicit-globals</a>)等问题</p>
+<p>Prettier 无关代码语法，她可补充 Linter 规定代码格式。</p>
+<p>总之，一个常见的方案为，使用 Linter 来捕获语法问题和 Bug，Prettier 来格式化代码。</p>
+<h2 id="ESLint-与-Prettier-共用"><a href="#ESLint-与-Prettier-共用" class="headerlink" title="ESLint 与 Prettier 共用"></a>ESLint 与 Prettier 共用</h2><p>ESLint、Prettier 在 VSCode 中使用都需要对应的插件，在插件商店搜索即可。<br>在项目中将具体的配置分别放在项目根目录下.eslintrc.js 与 prettierrc.json 中。<br>一个简单的 ESLint 配置如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  root: <span class="literal">false</span>,</span><br><span class="line">  env: &#123;</span><br><span class="line">    node: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 'vue/setup-compiler-macros': true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  extends: [<span class="string">'plugin:vue/recommended'</span>, <span class="string">'@vue/standard'</span>],</span><br><span class="line">  rules: &#123;</span><br><span class="line">    <span class="string">'no-debugger'</span>: <span class="string">'off'</span>,</span><br><span class="line">    indent: [<span class="string">'off'</span>, <span class="number">2</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    parser: <span class="string">'babel-eslint'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>rules 的规则如下</p>
+<ul>
+<li>“off” 或 0 - 关闭规则</li>
+<li>“warn” 或 1 - 开启规则，错误警告而不退出</li>
+<li>“error” 或 2 - 开启规则，错误退出</li>
+</ul>
+<p>一个简单的 prettier 配置如下</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"printWidth"</span>: <span class="number">100</span>, <span class="comment">// 超过最大值换行</span></span><br><span class="line">  <span class="attr">"tabWidth"</span>: <span class="number">4</span>, <span class="comment">// 缩进字节数</span></span><br><span class="line">  <span class="attr">"useTabs"</span>: <span class="literal">false</span>, <span class="comment">// 缩进不使用tab，使用空格</span></span><br><span class="line">  <span class="attr">"semi"</span>: <span class="literal">true</span>, <span class="comment">// 句尾添加分号</span></span><br><span class="line">  <span class="attr">"singleQuote"</span>: <span class="literal">true</span>, <span class="comment">// 使用单引号代替双引号</span></span><br><span class="line">  <span class="attr">"proseWrap"</span>: <span class="string">"preserve"</span>, <span class="comment">// 默认值。因为使用了一些折行敏感型的渲染器（如GitHub comment）而按照markdown文本样式进行折行</span></span><br><span class="line">  <span class="attr">"arrowParens"</span>: <span class="string">"avoid"</span>, <span class="comment">//  (x) =&gt; &#123;&#125; 箭头函数参数只有一个时是否要有小括号。avoid：省略括号</span></span><br><span class="line">  <span class="attr">"bracketSpacing"</span>: <span class="literal">true</span>, <span class="comment">// 在对象，数组括号与文字之间加空格 "&#123; foo: bar &#125;"</span></span><br><span class="line">  <span class="attr">"disableLanguages"</span>: [<span class="string">"vue"</span>], <span class="comment">// 不格式化vue文件，vue文件的格式化单独设置</span></span><br><span class="line">  <span class="attr">"endOfLine"</span>: <span class="string">"auto"</span>, <span class="comment">// 结尾是 \n \r \n\r auto</span></span><br><span class="line">  <span class="attr">"eslintIntegration"</span>: <span class="literal">false</span>, <span class="comment">//不让prettier使用eslint的代码格式进行校验</span></span><br><span class="line">  <span class="attr">"htmlWhitespaceSensitivity"</span>: <span class="string">"ignore"</span>,</span><br><span class="line">  <span class="attr">"ignorePath"</span>: <span class="string">".prettierignore"</span>, <span class="comment">// 不使用prettier格式化的文件填写在项目的.prettierignore文件中</span></span><br><span class="line">  <span class="attr">"jsxBracketSameLine"</span>: <span class="literal">false</span>, <span class="comment">// 在jsx中把'&gt;' 是否单独放一行</span></span><br><span class="line">  <span class="attr">"jsxSingleQuote"</span>: <span class="literal">false</span>, <span class="comment">// 在jsx中使用单引号代替双引号</span></span><br><span class="line">  <span class="attr">"parser"</span>: <span class="string">"babylon"</span>, <span class="comment">// 格式化的解析器，默认是babylon</span></span><br><span class="line">  <span class="attr">"requireConfig"</span>: <span class="literal">false</span>, <span class="comment">// Require a 'prettierconfig' to format prettier</span></span><br><span class="line">  <span class="attr">"stylelintIntegration"</span>: <span class="literal">false</span>, <span class="comment">//不让prettier使用stylelint的代码格式进行校验</span></span><br><span class="line">  <span class="attr">"trailingComma"</span>: <span class="string">"es5"</span>, <span class="comment">// 在对象或数组最后一个元素后面是否加逗号（在ES5中加尾逗号）</span></span><br><span class="line">  <span class="attr">"tslintIntegration"</span>: <span class="literal">false</span> <span class="comment">// 不让prettier使用tslint的代码格式进行校验</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>prettier 具体配置项常见<a href="https://prettier.io/docs/en/options.html" target="_blank" rel="noopener">官网</a></p>
+<p>让插件格式化的生效策略同样是就近原则，寻找被格式化文件系统目录层级中最近的配置文件，越近优先级越高。<br>要在保存代码时自动触发 ESLint 修复，需要在 VSCode 配置文件 setting.json 中添加如下代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"editor.codeActionsOnSave"</span>: &#123;</span><br><span class="line">    <span class="string">"source.fixAll.eslint"</span>: <span class="literal">true</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>同时也可在项目根目录下创建.vscode 文件夹创建 setting.json 文件，将对应配置共享给项目开发成员。<br>当使用两者在项目中时，一个比较常见的情况是，格式化代码使用 Prettier 规则，在提交或保存代码时触发<code>eslint --fix</code>将代码格式成另一种风格。<br>解决方案有两种，一时间配置文件靠齐，即修改 eslintrc 或 prettierrc 对应配置是的二者一致。<br>当配置差异较大时，修改工作量较大。<br>另可使用已有插件 eslint-config-prettier 与 eslint-plugin-prettier。<br>eslint-config-prettier 用于禁用和 prettier 有冲突的 ESLint 规则<br>eslint-plugin-prettier 用于将 prettier 的规则让 ESLint 识别并在 ESLint 插件中输出。<br>加入上述插件后，修改配置文件，在 extends 后添加’plugin:prettier/recommended’</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">extends: [</span><br><span class="line">  <span class="string">'plugin:vue/recommended'</span>,</span><br><span class="line">  <span class="string">'@vue/standard'</span>,</span><br><span class="line">  <span class="string">'plugin:prettier/recommended'</span>,</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<p>配合上述两个插件使用使得的<code>eslint --fix</code>格式化代码时采用 prettier 的规则，从而解决上述格式化冲突问题。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><a id="more"></a>
+<h3 id="eslint-校验禁用"><a href="#eslint-校验禁用" class="headerlink" title="eslint 校验禁用"></a>eslint 校验禁用</h3><p>在项目根目录创建.eslintignore 文件，写入忽略的文件文件夹等。<br>其文件内容格式遵循<a href="https://www.atlassian.com/git/tutorials/saving-changes/gitignore" target="_blank" rel="noopener">.gitignore 对应规则</a><br>通过<code>！</code>可恢复被忽略的文件<br>例如</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">src<span class="comment">/*              // 排除src目录下面所有的</span></span><br><span class="line"><span class="comment">!src/views/        // src/views下面所有的目录重新被包含回来</span></span><br></pre></td></tr></table></figure>
+<h3 id="格式化禁用"><a href="#格式化禁用" class="headerlink" title="格式化禁用"></a>格式化禁用</h3><p>当在移动端开发时，通常需要将 px 转换成 rem，部分场景需要使用大写 PX 来防止被转换，但是 prettier 会自动格式化为小写，这时候需要</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* prettier-ignore */</span></span><br><span class="line"><span class="selector-tag">border</span>: 1<span class="selector-tag">PX</span>;</span><br></pre></td></tr></table></figure>
+<p>来禁用格式化<br>具体参见官方<a href="https://prettier.io/docs/en/ignore.html" target="_blank" rel="noopener">忽略说明</a></p>
+<h2 id="常见报错"><a href="#常见报错" class="headerlink" title="常见报错"></a>常见报错</h2><h3 id="换行报错"><a href="#换行报错" class="headerlink" title="换行报错"></a>换行报错</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Delete `␍`eslint(prettier/prettier)</span><br></pre></td></tr></table></figure>
+<p>换行报错的产生是由于操作系统换行符不一致导致。<br>Windows| Linux/Mac| Early Mac<br>–|–|–<br>CRLF| LF| CR<br>‘\n\r’| ‘\n’| ‘\r’</p>
+<p>尝试在 prettier 配置文件添加</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"endOfLine"</span>: <span class="string">"auto"</span></span><br></pre></td></tr></table></figure>
+<p>或在 ESLint 配置文件中添加</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">rules: &#123;</span><br><span class="line">  <span class="string">'prettier/prettier'</span>: [</span><br><span class="line">    <span class="string">'error'</span>,</span><br><span class="line">    &#123;</span><br><span class="line">      endOfLine: <span class="string">'auto'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，将 git 自动转换换行符关闭</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global core.autocrlf <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<h3 id="插件版本兼容报错"><a href="#插件版本兼容报错" class="headerlink" title="插件版本兼容报错"></a>插件版本兼容报错</h3><p>由于关联的插件较多，容易遇到插件版本不兼容引起的错误如下</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="string">'prettier/prettier'</span>: context.getPhysicalFilename is not a <span class="keyword">function</span></span><br></pre></td></tr></table></figure>
+<p>可能为 eslint 版本问题，升级其版本</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yarn upgrade -R eslint</span><br></pre></td></tr></table></figure>
+<p>若仍旧不行，尝试更换如下插件为兼容版本</p>
+<p>先清除原有版本</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm rm @vue/cli-plugin-babel @vue/cli-plugin-eslint @vue/eslint-config-prettier eslint eslint-plugin-prettier eslint-plugin-vue prettier</span><br></pre></td></tr></table></figure>
+<p>如下示例版本可兼容</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">npm i -D @vue/cli-plugin-babel@4.4.6 @vue/cli-plugin-eslint@4.4.6 @vue/eslint-config-prettier@7.0.0 eslint@7.15.0 eslint-plugin-prettier@3.4.1 eslint-plugin-vue@7.2.0 prettier@2.5.1</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/ESLint与Prettier使用.html">http://www.skyline.show/ESLint 与 Prettier 使用.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/Latex语法.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Latex语法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linter-与-Prettier"><span class="nav-number">1.</span> <span class="nav-text">Linter 与 Prettier</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ESLint-与-Prettier-共用"><span class="nav-number">2.</span> <span class="nav-text">ESLint 与 Prettier 共用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">3.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eslint-校验禁用"><span class="nav-number">3.1.</span> <span class="nav-text">eslint 校验禁用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#格式化禁用"><span class="nav-number">3.2.</span> <span class="nav-text">格式化禁用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见报错"><span class="nav-number">4.</span> <span class="nav-text">常见报错</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#换行报错"><span class="nav-number">4.1.</span> <span class="nav-text">换行报错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件版本兼容报错"><span class="nav-number">4.2.</span> <span class="nav-text">插件版本兼容报错</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2022 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2022 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

@@ -319,6 +319,177 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-PS局部元素透明"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/PS局部元素透明.html">PS局部元素透明</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#实现效果">实现效果</a></li>
+<li><a href="#复制图层">复制图层</a></li>
+<li><a href="#修补工具">修补工具</a></li>
+<li><a href="#调整透明度">调整透明度</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E5%B1%80%E9%83%A8%E5%85%83%E7%B4%A0%E9%80%8F%E6%98%8E20220303173301.png" alt="PS局部元素透明20220303173301"></p>
+<h2 id="复制图层"><a href="#复制图层" class="headerlink" title="复制图层"></a>复制图层</h2><p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Tools/APPs/Photoshop/sky.jpeg" target="_blank" rel="noopener">素材地址</a><br>选中需要透明化元素的图层，CV 复制图层。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E5%B1%80%E9%83%A8%E5%85%83%E7%B4%A0%E9%80%8F%E6%98%8E20220303171829.png" alt="PS局部元素透明20220303171829"></p>
+<h2 id="修补工具"><a href="#修补工具" class="headerlink" title="修补工具"></a>修补工具</h2>
+        <!-- 
+
+
+实现效果
+复制图层
+修补工具
+调整透明度
+BMW WARNING
+
+
+实现效果
+复制图层素材地址选中需要透明化元素的图层，CV 复制图层。
+修补工具
+将原图层需要透明处理的元素用修复工具抹掉。
+处理后的背景如下
+调整透明度调整复制图层的不透明度即可
+BMW WARNING
+Bulletin
+
+本文首发于 skyline.show  欢迎访问。
+
+I am a bucolic migra......  -->
+        <p class="article-more-link">
+          <a href="/PS局部元素透明.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Photoshop/">Photoshop</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-JS垃圾回收机制"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/JS垃圾回收机制.html">JS垃圾回收机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a></li>
+<li><a href="#内存标记策略">内存标记策略</a><ul>
+<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
+<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><p>在各编程语言中，内存的生命周期大概经历如下三个阶段：</p>
+<ul>
+<li>内存分配（allocate）</li>
+<li>内存使用（read | write）</li>
+<li>内存释放（free）</li>
+</ul>
+<p>不管是在高级还是低级语言中，第二阶段的读写都很明确，而内存的分配与释放阶段，<br>JS 等高级语言会自动分配内存，通过算法自动进行垃圾回收，释放内存。<br>局部变量会在离开环境时自动解除引用，后续算法自动计数或标记来确定是否释放。<br>对于全局对象与属性，可通过将值设置成 null 来<strong>解除引用</strong>以释放内存。<br>而 C 语言等低级语言在代码中显式分配与释放内存。</p>
+<p>JS 的自动回收垃圾机制大致如下：<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>垃圾标记器会跟踪内存，有用内存打上标记，回收垃圾时，需要将那些未被标记的供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
+<h2 id="内存标记策略"><a href="#内存标记策略" class="headerlink" title="内存标记策略"></a>内存标记策略</h2><h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3>
+        <!-- 
+
+
+垃圾回收(GC:Garbage Collecation)
+内存标记策略
+引用计数（Reference Counting）
+标记清除（Mark &amp; Sweep）
+
+
+BMW WARNING
+
+
+垃圾回收(GC:Garbage Collecation)在各编程语言中，内存的生命周期大概经历如下三个阶段：
+
+内存分配（allocate）
+内存使用（read | write）
+内存释放......  -->
+        <p class="article-more-link">
+          <a href="/JS垃圾回收机制.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Flutter基础控件使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -426,93 +597,6 @@ o......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flutter/">Flutter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mobile/">Mobile</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-JS垃圾回收机制"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/JS垃圾回收机制.html">JS垃圾回收机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a></li>
-<li><a href="#内存标记策略">内存标记策略</a><ul>
-<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
-<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><p>在各编程语言中，内存的生命周期大概经历如下三个阶段：</p>
-<ul>
-<li>内存分配（allocate）</li>
-<li>内存使用（read | write）</li>
-<li>内存释放（free）</li>
-</ul>
-<p>不管是在高级还是低级语言中，第二阶段的读写都很明确，而内存的分配与释放阶段，<br>JS 等高级语言会自动分配内存，通过算法自动进行垃圾回收，释放内存。<br>局部变量会在离开环境时自动解除引用，后续算法自动计数或标记来确定是否释放。<br>对于全局对象与属性，可通过将值设置成 null 来<strong>解除引用</strong>以释放内存。<br>而 C 语言等低级语言在代码中显式分配与释放内存。</p>
-<p>JS 的自动回收垃圾机制大致如下：<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>垃圾标记器会跟踪内存，有用内存打上标记，回收垃圾时，需要将那些未被标记的供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
-<h2 id="内存标记策略"><a href="#内存标记策略" class="headerlink" title="内存标记策略"></a>内存标记策略</h2><h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3>
-        <!-- 
-
-
-垃圾回收(GC:Garbage Collecation)
-内存标记策略
-引用计数（Reference Counting）
-标记清除（Mark &amp; Sweep）
-
-
-BMW WARNING
-
-
-垃圾回收(GC:Garbage Collecation)在各编程语言中，内存的生命周期大概经历如下三个阶段：
-
-内存分配（allocate）
-内存使用（read | write）
-内存释放......  -->
-        <p class="article-more-link">
-          <a href="/JS垃圾回收机制.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
 
     </footer>
   </div>
@@ -821,6 +905,61 @@ JS 与 ES
 <!-- Table of Contents -->
 
   
+    <article id="post-内存基础知识汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/内存基础知识汇总.html">内存基础知识汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:00.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ECC-内存"><a href="#ECC-内存" class="headerlink" title="ECC 内存"></a>ECC 内存</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>ECC 即 Error Correcting Code，错误检查和纠正简写。<br>ECC 内存通过加入一个单独的芯片来校验数据的准确性。</p>
+<h3 id="错误产生"><a href="#错误产生" class="headerlink" title="错误产生"></a>错误产生</h3>
+        <!-- ECC 内存简介ECC 即 Error Correcting Code，错误检查和纠正简写。ECC 内存通过加入一个单独的芯片来校验数据的准确性。
+错误产生
+电脑内部的电磁辐射干扰内存工作，导致动态随机存取内存的单 bit 位数据错误，影响数据的准确性。
+原理ECC 内存在写入数据时，额外引入的芯片会将数据进行编码，并存下编码。当读取时，采用相同的算法对读到的数据编码，从芯片取出之前的编码进......  -->
+        <p class="article-more-link">
+          <a href="/内存基础知识汇总.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardware/">Hardware</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-跨境物流查询"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -913,61 +1052,6 @@ HS Code物流单号可以直接在官网查询http://new.wherexp......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-内存基础知识汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/内存基础知识汇总.html">内存基础知识汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:00.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="ECC-内存"><a href="#ECC-内存" class="headerlink" title="ECC 内存"></a>ECC 内存</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>ECC 即 Error Correcting Code，错误检查和纠正简写。<br>ECC 内存通过加入一个单独的芯片来校验数据的准确性。</p>
-<h3 id="错误产生"><a href="#错误产生" class="headerlink" title="错误产生"></a>错误产生</h3>
-        <!-- ECC 内存简介ECC 即 Error Correcting Code，错误检查和纠正简写。ECC 内存通过加入一个单独的芯片来校验数据的准确性。
-错误产生
-电脑内部的电磁辐射干扰内存工作，导致动态随机存取内存的单 bit 位数据错误，影响数据的准确性。
-原理ECC 内存在写入数据时，额外引入的芯片会将数据进行编码，并存下编码。当读取时，采用相同的算法对读到的数据编码，从芯片取出之前的编码进......  -->
-        <p class="article-more-link">
-          <a href="/内存基础知识汇总.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardware/">Hardware</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Shell基础命令"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1022,104 +1106,6 @@ HS Code物流单号可以直接在官网查询http://new.wherexp......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CSS基础属性"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS基础属性.html">CSS基础属性</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-15T07:58:53.000Z" itemprop="datePublished">2022-06-15</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="background"><a href="#background" class="headerlink" title="background"></a>background</h2><p>background-size</p>
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>描述</th>
-<th>特征</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>contain</td>
-<td>缩放图片直到长或宽延伸到边界，包含（contain）在容器中，background-repeat: no-repeat 会造成背景留白</td>
-<td>留白</td>
-</tr>
-<tr>
-<td>cover</td>
-<td>缩放图片直到覆盖（cover）容器，超出裁剪</td>
-<td>裁剪</td>
-</tr>
-<tr>
-<td>auto</td>
-<td>默认属性，保持图片原有比例</td>
-<td>原比例</td>
-</tr>
-<tr>
-<td>100% 100%</td>
-<td><strong>缩放图片正好填充完宽高</strong></td>
-<td>填充</td>
-</tr>
-</tbody>
-</table>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
-<li>Bulletin</li>
-</ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migant worker but I never walk backwards.</p>
-</blockquote>
-<ul>
-<li>Material</li>
-</ul>
-<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-</blockquote>
-<ul>
-<li>Warrant</li>
-</ul>
-<p>本文作者： Skyline(lty)</p>
-<p>文章链接：<a href="http://www.skyline.show/CSS基础属性.html">http://www.skyline.show/CSS 基础属性.html</a></p>
-<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>
