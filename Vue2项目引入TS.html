@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>vue2项目引入ts | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="JSVue">
+  
+  
+  
+  
+  <meta name="description" content="vue-cli3 项目 依赖引入 安装相关依赖 tsconfig babel.config vue.config vue2tsx   BMW WARNING   vue-cli3 项目在使用 vue-cli3 及以上创建的项目根目录下，可执行命令 vue add typescript 依赖引入安装相关依赖">
+<meta name="keywords" content="JS,Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue2项目引入TS">
+<meta property="og:url" content="http://www.skyline.show/Vue2项目引入TS.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="vue-cli3 项目 依赖引入 安装相关依赖 tsconfig babel.config vue.config vue2tsx   BMW WARNING   vue-cli3 项目在使用 vue-cli3 及以上创建的项目根目录下，可执行命令 vue add typescript 依赖引入安装相关依赖">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2022-11-29T09:57:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue2项目引入TS">
+<meta name="twitter:description" content="vue-cli3 项目 依赖引入 安装相关依赖 tsconfig babel.config vue.config vue2tsx   BMW WARNING   vue-cli3 项目在使用 vue-cli3 及以上创建的项目根目录下，可执行命令 vue add typescript 依赖引入安装相关依赖">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Vue2项目引入TS" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Vue2项目引入TS
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-11-29T09:57:11.000Z" itemprop="datePublished">2022-11-29</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-11-29T09:57:11.000Z" itemprop="datePublished">2022-11-29</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#vue-cli3-项目">vue-cli3 项目</a></li>
+<li><a href="#依赖引入">依赖引入</a><ul>
+<li><a href="#安装相关依赖">安装相关依赖</a></li>
+<li><a href="#tsconfig">tsconfig</a></li>
+<li><a href="#babelconfig">babel.config</a></li>
+<li><a href="#vueconfig">vue.config</a></li>
+<li><a href="#vue2tsx">vue2tsx</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="vue-cli3-项目"><a href="#vue-cli3-项目" class="headerlink" title="vue-cli3 项目"></a>vue-cli3 项目</h2><p>在使用 vue-cli3 及以上创建的项目根目录下，可执行命令</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vue add typescript</span><br></pre></td></tr></table></figure>
+<h2 id="依赖引入"><a href="#依赖引入" class="headerlink" title="依赖引入"></a>依赖引入</h2><h3 id="安装相关依赖"><a href="#安装相关依赖" class="headerlink" title="安装相关依赖"></a>安装相关依赖</h3><a id="more"></a>
+<p>若直接 vue-cli3 添加支持不可行或 cli 低于该版本，可尝试自行添加相关依赖包来解决。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yarn add -D @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-merge-props @babel/plugin-transform-typescript</span><br></pre></td></tr></table></figure>
+<p>注意部分包之前可能存在不兼容问题<br>部分兼容相关包版本如下</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="string">"@babel/plugin-transform-typescript"</span>: <span class="string">"^7.19.3"</span>,</span><br><span class="line"><span class="string">"@vue/babel-helper-vue-jsx-merge-props"</span>: <span class="string">"^1.4.0"</span>,</span><br><span class="line"><span class="string">"@vue/babel-preset-jsx"</span>: <span class="string">"^1.4.0"</span>,</span><br></pre></td></tr></table></figure>
+<p>若要引入 eslint 和 prettier 校验和格式化代码，<br>引入或者修改包版本如下可解决兼容问题</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="string">"@vue/cli-plugin-babel"</span>: <span class="string">"4.4.6"</span>,</span><br><span class="line"><span class="string">"@vue/cli-plugin-eslint"</span>: <span class="string">"4.4.6"</span>,</span><br><span class="line"><span class="string">"@vue/eslint-config-prettier"</span>: <span class="string">"7.0.0"</span>,</span><br><span class="line"><span class="string">"eslint"</span>: <span class="string">"7.15.0"</span>,</span><br><span class="line"><span class="string">"eslint-config-prettier"</span>: <span class="string">"^8.5.0"</span>,</span><br><span class="line"><span class="string">"eslint-plugin-prettier"</span>: <span class="string">"3.4.1"</span>,</span><br><span class="line"><span class="string">"eslint-plugin-vue"</span>: <span class="string">"7.2.0"</span>,</span><br><span class="line"><span class="string">"prettier"</span>: <span class="string">"2.5.1"</span>,</span><br></pre></td></tr></table></figure>
+<h3 id="tsconfig"><a href="#tsconfig" class="headerlink" title="tsconfig"></a>tsconfig</h3><p>新建 tsconfig.json，内容如下</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="string">"target"</span>: <span class="string">"ES2017"</span>,</span><br><span class="line">    <span class="string">"module"</span>: <span class="string">"UMD"</span>,</span><br><span class="line">    <span class="string">"allowJs"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"jsx"</span>: <span class="string">"preserve"</span>,</span><br><span class="line">    <span class="string">"moduleResolution"</span>: <span class="string">"Node"</span>,</span><br><span class="line">    <span class="string">"allowSyntheticDefaultImports"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"importHelpers"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"baseUrl"</span>: <span class="string">"./"</span>,</span><br><span class="line">    <span class="string">"paths"</span>: &#123;</span><br><span class="line">      <span class="string">"@/*"</span>: [</span><br><span class="line">        <span class="string">"src/*"</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可自行配置。<br>若引入 prettier 和 eslint<br>则新建<br>.prettierrc.json</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"arrowParens"</span>: <span class="string">"always"</span>,</span><br><span class="line">    <span class="string">"bracketSpacing"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"endOfLine"</span>: <span class="string">"lf"</span>,</span><br><span class="line">    <span class="string">"htmlWhitespaceSensitivity"</span>: <span class="string">"css"</span>,</span><br><span class="line">    <span class="string">"insertPragma"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"singleAttributePerLine"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"bracketSameLine"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"jsxBracketSameLine"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"jsxSingleQuote"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"printWidth"</span>: <span class="number">80</span>,</span><br><span class="line">    <span class="string">"proseWrap"</span>: <span class="string">"preserve"</span>,</span><br><span class="line">    <span class="string">"quoteProps"</span>: <span class="string">"as-needed"</span>,</span><br><span class="line">    <span class="string">"requirePragma"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"semi"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"singleQuote"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"tabWidth"</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="string">"trailingComma"</span>: <span class="string">"es5"</span>,</span><br><span class="line">    <span class="string">"useTabs"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"vueIndentScriptAndStyle"</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>.eslint.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  root: <span class="literal">false</span>,</span><br><span class="line">  env: &#123;</span><br><span class="line">    node: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 'vue/setup-compiler-macros': true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  extends: [</span><br><span class="line">    <span class="string">'plugin:vue/recommended'</span>,</span><br><span class="line">    <span class="string">'@vue/standard'</span>,</span><br><span class="line">    <span class="string">'plugin:prettier/recommended'</span>,</span><br><span class="line">  ],</span><br><span class="line">  rules: &#123;</span><br><span class="line">    <span class="string">'no-debugger'</span>: <span class="string">'off'</span>,</span><br><span class="line">    indent: [<span class="string">'off'</span>, <span class="number">2</span>],</span><br><span class="line">    <span class="string">'no-multi-assign'</span>: <span class="string">'error'</span>,</span><br><span class="line">    <span class="string">'arrow-spacing'</span>: [</span><br><span class="line">      <span class="number">2</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        before: <span class="literal">true</span>,</span><br><span class="line">        after: <span class="literal">true</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">'vue/max-attributes-per-line'</span>: [</span><br><span class="line">      <span class="string">'off'</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        singleline: <span class="number">3</span>,</span><br><span class="line">        multiline: <span class="number">1</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">'vue/multiline-html-element-content-newline'</span>: [</span><br><span class="line">      <span class="string">'warn'</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        ignoreWhenEmpty: <span class="literal">true</span>,</span><br><span class="line">        ignores: [],</span><br><span class="line">        allowEmptyLines: <span class="literal">true</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">    camelcase: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'vue/multi-word-component-names'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'vue/mustache-interpolation-spacing'</span>: <span class="string">'off'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    parser: <span class="string">'babel-eslint'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="babel-config"><a href="#babel-config" class="headerlink" title="babel.config"></a>babel.config</h3><p>调整或新加 babel 选项<br>babel.config.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  presets: [</span><br><span class="line">    <span class="string">'@vue/cli-plugin-babel/preset'</span>,</span><br><span class="line">    [<span class="string">'@vue/babel-preset-jsx'</span>, &#123; <span class="attr">compositionAPI</span>: <span class="literal">true</span> &#125;], <span class="comment">// 开启 jsx</span></span><br><span class="line">  ],</span><br><span class="line">  plugins: [</span><br><span class="line">    [<span class="string">'@babel/plugin-transform-typescript'</span>, &#123; <span class="attr">isTSX</span>: <span class="literal">true</span> &#125;], <span class="comment">// 开启 typescript</span></span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="vue-config"><a href="#vue-config" class="headerlink" title="vue.config"></a>vue.config</h3><p>调整或新加 vue 选项<br>vue.config.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">configureWebpack: &#123;</span><br><span class="line">  resolve: &#123;</span><br><span class="line">    alias: &#123;</span><br><span class="line">      <span class="string">'@'</span>: path.resolve(__dirname, <span class="string">'./src'</span>),</span><br><span class="line">    &#125;,</span><br><span class="line">    extensions: [<span class="string">'.ts'</span>, <span class="string">'.tsx'</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.(js|tsx|ts|jsx)$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules|vue-router\/|vue-loader\//</span>,</span><br><span class="line">        use: <span class="string">'babel-loader'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">  externals: &#123;&#125;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="vue2tsx"><a href="#vue2tsx" class="headerlink" title="vue2tsx"></a>vue2tsx</h3><p>.vue</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;router-view id=<span class="string">"app"</span> /&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  name: 'App'</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang=<span class="string">"scss"</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br></pre></td></tr></table></figure>
+<p>.tsx</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineComponent, onMounted &#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineComponent(&#123;</span><br><span class="line">  setup() &#123;</span><br><span class="line">    onMounted(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">router-view</span> <span class="attr">id</span>=<span class="string">'app'</span> /&gt;</span></span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+<p><a href="https://juejin.cn/post/6957881662302584839#heading-15" target="_blank" rel="noopener">Vue2.x 开启 Composition API、tsx</a></p>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/Vue2项目引入TS.html">http://www.skyline.show/Vue2 项目引入 TS.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/ESLint与Prettier使用.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">ESLint与Prettier使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-cli3-项目"><span class="nav-number">1.</span> <span class="nav-text">vue-cli3 项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖引入"><span class="nav-number">2.</span> <span class="nav-text">依赖引入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装相关依赖"><span class="nav-number">2.1.</span> <span class="nav-text">安装相关依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tsconfig"><span class="nav-number">2.2.</span> <span class="nav-text">tsconfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-config"><span class="nav-number">2.3.</span> <span class="nav-text">babel.config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vue-config"><span class="nav-number">2.4.</span> <span class="nav-text">vue.config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vue2tsx"><span class="nav-number">2.5.</span> <span class="nav-text">vue2tsx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2022 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2022 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
