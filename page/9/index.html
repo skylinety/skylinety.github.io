@@ -319,6 +319,247 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-JavaScript隐式类型转换小结"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/JavaScript隐式类型转换小结.html">JavaScript隐式类型转换小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-26T12:49:44.000Z" itemprop="datePublished">2018-01-26</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h3 id="转换规则"><a href="#转换规则" class="headerlink" title="转换规则"></a>转换规则</h3><h4 id="隐式转换为布尔值"><a href="#隐式转换为布尔值" class="headerlink" title="隐式转换为布尔值"></a>隐式转换为布尔值</h4><h5 id="如表"><a href="#如表" class="headerlink" title="如表"></a>如表</h5><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转化成true</th>
+<th>转化成false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>非空字符</td>
+<td>“”(空字符）</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>非零</td>
+<td>0与NaN</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>非Null对象</td>
+<td>null           </td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>无</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<p>（注：调用Boolean()方法得到结果相同）</p>
+<hr>
+<h4 id="对象隐式转换规则"><a href="#对象隐式转换规则" class="headerlink" title="对象隐式转换规则"></a>对象隐式转换规则</h4>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+转换规则隐式转换为布尔值如表
+
+
+数据类型
+转化成true
+转化成false
+
+
+
+
+String
+非空字符
+“”(空字符）
+
+
+Number
+非零
+0与NaN
+
+
+Object
+非Null对象
+null           
+
+
+undefined
+无
+undefined
+
+
+
+（注：调用Boolean()方法......  -->
+        <p class="article-more-link">
+          <a href="/JavaScript隐式类型转换小结.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ES类型转换"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES类型转换.html">ES类型转换</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-26T07:14:56.000Z" itemprop="datePublished">2018-01-26</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#类型转换">类型转换</a><ul>
+<li><a href="#类型转换概述">类型转换概述</a></li>
+<li><a href="#to-boolean">to boolean</a></li>
+<li><a href="#to-number">to number</a></li>
+<li><a href="#to-string">to string</a></li>
+<li><a href="#to-object">to object</a></li>
+</ul>
+</li>
+<li><a href="#toprimitive">ToPrimitive</a></li>
+<li><a href="#隐式转换场景">隐式转换场景</a><ul>
+<li><a href="#隐式转换场景概述">隐式转换场景概述</a></li>
+<li><a href="#一元操作符">一元操作符</a></li>
+<li><a href="#二元加">二元加</a></li>
+<li><a href="#乘除取余二元减">乘、除、取余、二元减</a></li>
+<li><a href="#比较运算符">比较运算符</a></li>
+</ul>
+</li>
+<li><a href="#expression-or-statement">Expression or Statement</a><ul>
+<li><a href="#几个有意思的输出">几个有意思的输出</a></li>
+<li><a href="#ast">AST</a></li>
+<li><a href="#语法解析分析">{}语法解析分析</a></li>
+</ul>
+</li>
+<li><a href="#jsonstringify">JSON.stringify</a><ul>
+<li><a href="#处理规则">处理规则</a></li>
+<li><a href="#参数">参数</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><h3 id="类型转换概述"><a href="#类型转换概述" class="headerlink" title="类型转换概述"></a>类型转换概述</h3><ul>
+<li>隐式转换<br>JS 是弱类型语言，在使用运算符时，多个参与其中的数据类型可以是任意的，最终得到的结果却只是一种类型。<br>结果的类型可能是参与运算操作类型中的一种，也可能并非其中任何一种。<br>这就涉及到运算过程中，进行过的隐式类型转换。</li>
+<li>强制转换<br>JS 中每一种类型都有自己的构造函数，直接调用该构造函数可以强制获得该类型的值，同时 JS 还提供了其他显示调用函数转换类型的方法。</li>
+</ul>
+<h3 id="to-boolean"><a href="#to-boolean" class="headerlink" title="to boolean"></a>to boolean</h3>
+        <!-- 
+
+
+类型转换
+类型转换概述
+to boolean
+to number
+to string
+to object
+
+
+ToPrimitive
+隐式转换场景
+隐式转换场景概述
+一元操作符
+二元加
+乘、除、取余、二元减
+比较运算符
+
+
+Expression or Statement
+几个有意思的输出
+AST
+{}语法解析分析
+
+
+JSON.stringify
+处理规则
+参数
+
+
+BMW WARNI......  -->
+        <p class="article-more-link">
+          <a href="/ES类型转换.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-CSS选择器"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -744,6 +985,83 @@ shows the full path of (shell) commands.
 <!-- Table of Contents -->
 
   
+    <article id="post-Vue项目实现rtmp流视频播放"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Vue项目实现rtmp流视频播放.html">Vue项目实现rtmp流视频播放</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#代码实现">代码实现</a></li>
+<li><a href="#常见问题">常见问题</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>rtmp 流需要使用 flash 播放。<br>在 chrome 88 版本及以后的版本，已经移除了 flash 组件。<br>在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。<br>故本方案当前可能不再具备实用性。<br>成功引入 rtmp 流，效果如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0rtmp%E6%B5%81%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE20220627173249.png" alt="Vue项目实现rtmp流视频播放20220627173249"></p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>实现需求需要运用的包为 videojs-flash、videojs</p>
+<p><code>main.js</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> videojs <span class="keyword">from</span> <span class="string">'video.js'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'video.js/dist/video-js.css'</span></span><br><span class="line">Vue.prototype.$video = videojs</span><br></pre></td></tr></table></figure>
+<p><code>player.vue</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"demo1-video"</span>&gt;</span><br><span class="line">    &lt;video</span><br><span class="line">      ref=<span class="string">"videoPlayer"</span></span><br><span class="line">      id=<span class="string">"myVideo"</span></span><br><span class="line">      <span class="class"><span class="keyword">class</span></span>=<span class="string">"video-js"</span></span><br><span class="line">      controls</span><br><span class="line">      preload=<span class="string">"auto"</span></span><br><span class="line">      style=<span class="string">"width: 100%"</span></span><br><span class="line">      height=<span class="string">"220"</span></span><br><span class="line">      data-setup=<span class="string">"&#123;&#125;"</span></span><br><span class="line">    &gt;</span><br><span class="line">      &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"vjs-no-js"</span>&gt;</span><br><span class="line">        To view <span class="keyword">this</span> video please enable JavaScript, and consider upgrading to a</span><br><span class="line">        web browser that</span><br><span class="line">        &lt;a</span><br><span class="line">          href=<span class="string">"https://videojs.com/html5-video-support/"</span></span><br><span class="line">          target=<span class="string">"_blank"</span></span><br><span class="line">        &gt;supports HTML5 video&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>p&gt;</span><br><span class="line">    &lt;<span class="regexp">/video&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">import "videojs-flash";</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  name: "VideoPlayer",</span></span><br><span class="line"><span class="regexp">  props: ["type", "detail"],</span></span><br><span class="line"><span class="regexp">  inject: ["gisMap"],</span></span><br><span class="line"><span class="regexp">  data() &#123;</span></span><br><span class="line"><span class="regexp">    return &#123;</span></span><br><span class="line"><span class="regexp">      player: null,</span></span><br><span class="line"><span class="regexp">      videoOptions: &#123;</span></span><br><span class="line"><span class="regexp">        autoplay: true, /</span><span class="regexp">/ 是否自动播放</span></span><br><span class="line"><span class="regexp">        muted: false, /</span><span class="regexp">/ 是否静音</span></span><br><span class="line"><span class="regexp">        controls: false,</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ fluid: true, /</span><span class="regexp">/ 宽高自适应</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ techOrder: ["flash"],</span></span><br><span class="line"><span class="regexp">        sources: [</span></span><br><span class="line"><span class="regexp">          &#123;</span></span><br><span class="line"><span class="regexp">            src: "//vjs.zencdn.net/v/oceans.mp4",</span></span><br><span class="line"><span class="regexp">            type: "video/mp4"</span></span><br><span class="line"><span class="regexp">            // type: "rtmp/flv"</span></span><br><span class="line"><span class="regexp">          &#125;</span></span><br><span class="line"><span class="regexp">        ]</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  computed: &#123;</span></span><br><span class="line"><span class="regexp">    map() &#123;</span></span><br><span class="line"><span class="regexp">      return this.gisMap.map.map || &#123;&#125;;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    endType() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.type) &#123;</span></span><br><span class="line"><span class="regexp">        let end = this.type.split("_")[1];</span></span><br><span class="line"><span class="regexp">        return end;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">      return "";</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  mounted() &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ if (this.gisMap.map &amp;&amp; this.gisMap.map.map) &#123;</span></span><br><span class="line"><span class="regexp">    this.map.on("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.on("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ &#125;</span></span><br><span class="line"><span class="regexp">    this.playVideo();</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  destroyed() &#123;</span></span><br><span class="line"><span class="regexp">    this.map.off("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.off("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  methods: &#123;</span></span><br><span class="line"><span class="regexp">    clearVideo() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.player) &#123;</span></span><br><span class="line"><span class="regexp">        this.player.dispose();</span></span><br><span class="line"><span class="regexp">        this.player = null;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    playVideo() &#123;</span></span><br><span class="line"><span class="regexp">      this.player = this.$video(</span></span><br><span class="line"><span class="regexp">        this.$refs.videoPlayer,</span></span><br><span class="line"><span class="regexp">        &#123;</span></span><br><span class="line"><span class="regexp">          autoplay: true,</span></span><br><span class="line"><span class="regexp">          techOrder: ["flash", "html5"]</span></span><br><span class="line"><span class="regexp">        &#125;,</span></span><br><span class="line"><span class="regexp">        function onPlayerReady() &#123;</span></span><br><span class="line"><span class="regexp">          this.src(&#123;</span></span><br><span class="line"><span class="regexp">            src: "rtmp:/</span><span class="regexp">/58.200.131.2:1935/</span>livetv/hunantv<span class="string">",</span></span><br><span class="line"><span class="string">            type: "</span>rtmp/flv<span class="string">"</span></span><br><span class="line"><span class="string">          &#125;);</span></span><br><span class="line"><span class="string">          this.play();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">          this.on("</span>ended<span class="string">", function() &#123;&#125;);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      );</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;;</span></span><br></pre></td></tr></table></figure>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2>
+        <!-- 
+
+
+前言
+代码实现
+常见问题
+BMW WARNING
+
+
+前言rtmp 流需要使用 flash 播放。在 chrome 88 版本及以后的版本，已经移除了 flash 组件。在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。故本方案当前可能不再具备实用性。成功引入 rtmp 流，效果如下
+代码实现实现需求需要运用的包为 videojs-flash、videojs
+......  -->
+        <p class="article-more-link">
+          <a href="/Vue项目实现rtmp流视频播放.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Shell中ls的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -893,83 +1211,6 @@ ls -h
 <!-- Table of Contents -->
 
   
-    <article id="post-Vue项目实现rtmp流视频播放"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Vue项目实现rtmp流视频播放.html">Vue项目实现rtmp流视频播放</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#代码实现">代码实现</a></li>
-<li><a href="#常见问题">常见问题</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>rtmp 流需要使用 flash 播放。<br>在 chrome 88 版本及以后的版本，已经移除了 flash 组件。<br>在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。<br>故本方案当前可能不再具备实用性。<br>成功引入 rtmp 流，效果如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0rtmp%E6%B5%81%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE20220627173249.png" alt="Vue项目实现rtmp流视频播放20220627173249"></p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>实现需求需要运用的包为 videojs-flash、videojs</p>
-<p><code>main.js</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> videojs <span class="keyword">from</span> <span class="string">'video.js'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'video.js/dist/video-js.css'</span></span><br><span class="line">Vue.prototype.$video = videojs</span><br></pre></td></tr></table></figure>
-<p><code>player.vue</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"demo1-video"</span>&gt;</span><br><span class="line">    &lt;video</span><br><span class="line">      ref=<span class="string">"videoPlayer"</span></span><br><span class="line">      id=<span class="string">"myVideo"</span></span><br><span class="line">      <span class="class"><span class="keyword">class</span></span>=<span class="string">"video-js"</span></span><br><span class="line">      controls</span><br><span class="line">      preload=<span class="string">"auto"</span></span><br><span class="line">      style=<span class="string">"width: 100%"</span></span><br><span class="line">      height=<span class="string">"220"</span></span><br><span class="line">      data-setup=<span class="string">"&#123;&#125;"</span></span><br><span class="line">    &gt;</span><br><span class="line">      &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"vjs-no-js"</span>&gt;</span><br><span class="line">        To view <span class="keyword">this</span> video please enable JavaScript, and consider upgrading to a</span><br><span class="line">        web browser that</span><br><span class="line">        &lt;a</span><br><span class="line">          href=<span class="string">"https://videojs.com/html5-video-support/"</span></span><br><span class="line">          target=<span class="string">"_blank"</span></span><br><span class="line">        &gt;supports HTML5 video&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>p&gt;</span><br><span class="line">    &lt;<span class="regexp">/video&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">import "videojs-flash";</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  name: "VideoPlayer",</span></span><br><span class="line"><span class="regexp">  props: ["type", "detail"],</span></span><br><span class="line"><span class="regexp">  inject: ["gisMap"],</span></span><br><span class="line"><span class="regexp">  data() &#123;</span></span><br><span class="line"><span class="regexp">    return &#123;</span></span><br><span class="line"><span class="regexp">      player: null,</span></span><br><span class="line"><span class="regexp">      videoOptions: &#123;</span></span><br><span class="line"><span class="regexp">        autoplay: true, /</span><span class="regexp">/ 是否自动播放</span></span><br><span class="line"><span class="regexp">        muted: false, /</span><span class="regexp">/ 是否静音</span></span><br><span class="line"><span class="regexp">        controls: false,</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ fluid: true, /</span><span class="regexp">/ 宽高自适应</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ techOrder: ["flash"],</span></span><br><span class="line"><span class="regexp">        sources: [</span></span><br><span class="line"><span class="regexp">          &#123;</span></span><br><span class="line"><span class="regexp">            src: "//vjs.zencdn.net/v/oceans.mp4",</span></span><br><span class="line"><span class="regexp">            type: "video/mp4"</span></span><br><span class="line"><span class="regexp">            // type: "rtmp/flv"</span></span><br><span class="line"><span class="regexp">          &#125;</span></span><br><span class="line"><span class="regexp">        ]</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  computed: &#123;</span></span><br><span class="line"><span class="regexp">    map() &#123;</span></span><br><span class="line"><span class="regexp">      return this.gisMap.map.map || &#123;&#125;;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    endType() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.type) &#123;</span></span><br><span class="line"><span class="regexp">        let end = this.type.split("_")[1];</span></span><br><span class="line"><span class="regexp">        return end;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">      return "";</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  mounted() &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ if (this.gisMap.map &amp;&amp; this.gisMap.map.map) &#123;</span></span><br><span class="line"><span class="regexp">    this.map.on("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.on("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ &#125;</span></span><br><span class="line"><span class="regexp">    this.playVideo();</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  destroyed() &#123;</span></span><br><span class="line"><span class="regexp">    this.map.off("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.off("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  methods: &#123;</span></span><br><span class="line"><span class="regexp">    clearVideo() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.player) &#123;</span></span><br><span class="line"><span class="regexp">        this.player.dispose();</span></span><br><span class="line"><span class="regexp">        this.player = null;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    playVideo() &#123;</span></span><br><span class="line"><span class="regexp">      this.player = this.$video(</span></span><br><span class="line"><span class="regexp">        this.$refs.videoPlayer,</span></span><br><span class="line"><span class="regexp">        &#123;</span></span><br><span class="line"><span class="regexp">          autoplay: true,</span></span><br><span class="line"><span class="regexp">          techOrder: ["flash", "html5"]</span></span><br><span class="line"><span class="regexp">        &#125;,</span></span><br><span class="line"><span class="regexp">        function onPlayerReady() &#123;</span></span><br><span class="line"><span class="regexp">          this.src(&#123;</span></span><br><span class="line"><span class="regexp">            src: "rtmp:/</span><span class="regexp">/58.200.131.2:1935/</span>livetv/hunantv<span class="string">",</span></span><br><span class="line"><span class="string">            type: "</span>rtmp/flv<span class="string">"</span></span><br><span class="line"><span class="string">          &#125;);</span></span><br><span class="line"><span class="string">          this.play();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">          this.on("</span>ended<span class="string">", function() &#123;&#125;);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      );</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;;</span></span><br></pre></td></tr></table></figure>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2>
-        <!-- 
-
-
-前言
-代码实现
-常见问题
-BMW WARNING
-
-
-前言rtmp 流需要使用 flash 播放。在 chrome 88 版本及以后的版本，已经移除了 flash 组件。在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。故本方案当前可能不再具备实用性。成功引入 rtmp 流，效果如下
-代码实现实现需求需要运用的包为 videojs-flash、videojs
-......  -->
-        <p class="article-more-link">
-          <a href="/Vue项目实现rtmp流视频播放.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-CSS换行"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1049,137 +1290,6 @@ overflow-w......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Generator函数"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Generator函数.html">Generator函数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-11-29T12:58:25.000Z" itemprop="datePublished">2017-11-29</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><h5 id="代码1"><a href="#代码1" class="headerlink" title="代码1"></a>代码1</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="keyword">yield</span> x + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(y, <span class="string">'y'</span>); <span class="comment">// 12 "y"</span></span><br><span class="line">  <span class="keyword">const</span> z = <span class="keyword">yield</span> y + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(z, <span class="string">'z'</span>); <span class="comment">// 12 "z"</span></span><br><span class="line">  <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> value = g.next().value; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(value); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 13, done: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 12, done: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">//12 "y"</span></span><br><span class="line"><span class="comment">// &#123;value: 13, done: false&#125;</span></span><br><span class="line"><span class="comment">//12 "z"</span></span><br><span class="line"><span class="comment">// &#123;value: 12, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="代码2"><a href="#代码2" class="headerlink" title="代码2"></a>代码2</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next())</span><br><span class="line"><span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line"><span class="comment">// z is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: 3, done: false&#125;</span></span><br><span class="line"><span class="comment">// y is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="代码3"><a href="#代码3" class="headerlink" title="代码3"></a>代码3</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line">g <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">g[<span class="built_in">Symbol</span>.iterator] <span class="comment">// ƒ [Symbol.iterator]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="keyword">var</span> x = g[<span class="built_in">Symbol</span>.iterator]()</span><br><span class="line">x <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">x.next() <span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// z is undefined &#123;value: 3, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// y is undefined &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
-<li><strong>Generator 函数不同于普通函数执行它不会返回结果，返回的是一个指针对象（包含iterator接口，即拥有Symbol.iterator属性）</strong></li>
-<li>iterator 对象通过调用自身的 next 方法，保证游标后移，并且next方法返回一个包含了 value和 done（迭代器是否完成的布尔值）的对象。</li>
-<li>关于next返回对象中的value值，假设有n个yield语句，<strong>第n个value的值是第n个yield 语句后面表达式的值，第n+1个value的值是Generator函数的返回值，第n+2个以上的value值是undefined</strong></li>
-<li>yield 语句的值，比如上面代码1中的 y与z，是<strong>下一次调用 next 传入的参数的值</strong>，也就是 value + 10,如果此处next不传值，如代码2中，y与z就是undefined。反过来说，next 方法带有的参数可以传入 Generator 函数，作为上个阶段异步任务的返回结果（上一个yield 语句的值）<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/Generator函数.html">http://www.skyline.show/Generator函数.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-鹧鸪天（九月西湖雨入情）"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/鹧鸪天（九月西湖雨入情）.html">鹧鸪天（九月西湖雨入情）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-09-23T06:15:40.000Z" itemprop="datePublished">2017-09-23</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Subject/">Subject</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>&nbsp;<br>&nbsp;</p>
-<p>九月西湖雨入情，一人饮酒廿杯明。形成秋叶怜枝瘦，影化微风惜夜清。</p>
-<p>形伴影，叶随风，谢家庭院在西东？危楼伫望空千里，今夜无人入梦中。</p>
-<p>&nbsp;<br>&nbsp;</p>
-<hr>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
-<li>Bulletin</li>
-</ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
-<blockquote>
-<p>I am a bucolic migant worker but I never walk backwards.</p>
-</blockquote>
-<ul>
-<li>Material</li>
-</ul>
-<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-</blockquote>
-<ul>
-<li>Warrant</li>
-</ul>
-<p>本文作者： Skyline(lty)</p>
-<p>文章链接：<a href="http://www.skyline.show/鹧鸪天·九月西湖雨入情（新韵）.html">http://www.skyline.show/鹧鸪天·九月西湖雨入情（新韵）.html</a></p>
-<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Literature/">Literature</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/诗词/">诗词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/鹧鸪天/">鹧鸪天</a></li></ul>
 
     </footer>
   </div>

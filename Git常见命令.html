@@ -13,22 +13,23 @@
   
   
   
-  <meta name="description" content="pull git pull -r VS git pull   diff –name-only   submodule submodule 概述 初始子仓库 更新子仓库   BMW WARNING   pullgit pull -r VS git pull语法糖？ git pull = git fetch + git mergegit pull --rebase/-r = git fetch">
+  <meta name="description" content="reflog pull git pull -r VS git pull   diff –name-only   submodule submodule 概述 添加子仓库 更新子仓库   BMW WARNING   refloggit reflog 用于记录本地 git 历史操作记录，包括 commit、reset、checkout 等通过 git reflog show &amp;lt;branch">
 <meta name="keywords" content="DEVs,Git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git常见命令">
 <meta property="og:url" content="http://www.skyline.show/Git常见命令.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="pull git pull -r VS git pull   diff –name-only   submodule submodule 概述 初始子仓库 更新子仓库   BMW WARNING   pullgit pull -r VS git pull语法糖？ git pull = git fetch + git mergegit pull --rebase/-r = git fetch">
+<meta property="og:description" content="reflog pull git pull -r VS git pull   diff –name-only   submodule submodule 概述 添加子仓库 更新子仓库   BMW WARNING   refloggit reflog 用于记录本地 git 历史操作记录，包括 commit、reset、checkout 等通过 git reflog show &amp;lt;branch">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420221206115805.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302171848.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302172250.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302172238.png">
-<meta property="og:updated_time" content="2022-10-25T10:16:39.000Z">
+<meta property="og:updated_time" content="2022-11-30T06:00:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git常见命令">
-<meta name="twitter:description" content="pull git pull -r VS git pull   diff –name-only   submodule submodule 概述 初始子仓库 更新子仓库   BMW WARNING   pullgit pull -r VS git pull语法糖？ git pull = git fetch + git mergegit pull --rebase/-r = git fetch">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302171848.png">
+<meta name="twitter:description" content="reflog pull git pull -r VS git pull   diff –name-only   submodule submodule 概述 添加子仓库 更新子仓库   BMW WARNING   refloggit reflog 用于记录本地 git 历史操作记录，包括 commit、reset、checkout 等通过 git reflog show &amp;lt;branch">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420221206115805.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -192,7 +193,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-10-25T10:16:39.000Z" itemprop="datePublished">2022-10-25</time>
+      <time datetime="2022-11-30T06:00:31.000Z" itemprop="datePublished">2022-11-30</time>
     </a><span style="color: #999">|</span>
 
       
@@ -209,6 +210,7 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
+<li><a href="#reflog">reflog</a></li>
 <li><a href="#pull">pull</a><ul>
 <li><a href="#git-pull--r-vs-git-pull">git pull -r VS git pull</a></li>
 </ul>
@@ -219,24 +221,31 @@
 </li>
 <li><a href="#submodule">submodule</a><ul>
 <li><a href="#submodule-概述">submodule 概述</a></li>
-<li><a href="#初始子仓库">初始子仓库</a></li>
+<li><a href="#添加子仓库">添加子仓库</a></li>
 <li><a href="#更新子仓库">更新子仓库</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="pull"><a href="#pull" class="headerlink" title="pull"></a>pull</h2><h3 id="git-pull-r-VS-git-pull"><a href="#git-pull-r-VS-git-pull" class="headerlink" title="git pull -r VS git pull"></a>git pull -r VS git pull</h3><p>语法糖？</p>
+<h2 id="reflog"><a href="#reflog" class="headerlink" title="reflog"></a>reflog</h2><p>git reflog 用于记录本地 git 历史操作记录，包括 commit、reset、checkout 等<br>通过</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git reflog show &lt;branch&gt;</span><br><span class="line"><span class="comment"># git reflog &lt;branch&gt;</span></span><br></pre></td></tr></table></figure>
+<p>查看对应分支的历史操作记录，不接 branch 时，默认为当前分支</p>
+<p>通过 grep 搭配使用可进行很多有用操作<br>例如，查看当前分支基于哪个分支创建</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git reflog | grep checkout</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420221206115805.png" alt="Git常见命令20221206115805"></p>
+<p>git reflog 可以查看到被删除的提交记录，对于误合并或回滚时，常可以用以查找需要找回的代码。</p>
+<h2 id="pull"><a href="#pull" class="headerlink" title="pull"></a>pull</h2><h3 id="git-pull-r-VS-git-pull"><a href="#git-pull-r-VS-git-pull" class="headerlink" title="git pull -r VS git pull"></a>git pull -r VS git pull</h3><a id="more"></a>
+<p>语法糖？</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git pull = git fetch + git merge</span><br><span class="line">git pull --rebase/-r = git fetch + git rebase</span><br></pre></td></tr></table></figure>
 <p>现有 git 仓库如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302171848.png" alt="Git常见命令20220302171848"></p>
 <p>git pull<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302172250.png" alt="Git常见命令20220302172250"></p>
 <p>git pull -r<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A420220302172238.png" alt="Git常见命令20220302172238"><br>git pull -r 会将当前提交的记录（E）删除并重新生成一个新的记录（R），其 HASH 值会发生变化。<br>看起来就像是在最近远端提交记录 D 上拉的代码，使得提交记录为一条直线。</p>
-<h2 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h2><a id="more"></a>
-<h3 id="–name-only"><a href="#–name-only" class="headerlink" title="–name-only"></a>–name-only</h3><p>–name-only 用于获取变更的文件名<br>git diff 仅会展示更改和删除变更的文件，<strong>不会展示新增的文件</strong>。<br>通过</p>
+<h2 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h2><h3 id="–name-only"><a href="#–name-only" class="headerlink" title="–name-only"></a>–name-only</h3><p>–name-only 用于获取变更的文件名<br>git diff 仅会展示更改和删除变更的文件，<strong>不会展示新增的文件</strong>。<br>通过</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git diff --name-only</span><br></pre></td></tr></table></figure>
 <p>查看当前工作区中本次变更的文件信息。其后可接版本 HASH。</p>
 <h2 id="submodule"><a href="#submodule" class="headerlink" title="submodule"></a>submodule</h2><h3 id="submodule-概述"><a href="#submodule-概述" class="headerlink" title="submodule 概述"></a>submodule 概述</h3><p>submodule 用于 git 仓库中嵌套其他仓库作为其子模块，嵌入的子模块仓库可以在其内正常进行 git 相关的操作。</p>
-<h3 id="初始子仓库"><a href="#初始子仓库" class="headerlink" title="初始子仓库"></a>初始子仓库</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git submodule add  https://github.com/skylinety/Blog.git</span><br></pre></td></tr></table></figure>
+<h3 id="添加子仓库"><a href="#添加子仓库" class="headerlink" title="添加子仓库"></a>添加子仓库</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git submodule add  https://github.com/skylinety/Blog.git</span><br></pre></td></tr></table></figure>
 <h3 id="更新子仓库"><a href="#更新子仓库" class="headerlink" title="更新子仓库"></a>更新子仓库</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git submodule sync</span><br><span class="line">git submodule update --init</span><br></pre></td></tr></table></figure>
 <p>或直接到子仓库目录下执行拉取等操作</p>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
@@ -339,7 +348,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pull"><span class="nav-number">1.</span> <span class="nav-text">pull</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-pull-r-VS-git-pull"><span class="nav-number">1.1.</span> <span class="nav-text">git pull -r VS git pull</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#diff"><span class="nav-number">2.</span> <span class="nav-text">diff</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#–name-only"><span class="nav-number">2.1.</span> <span class="nav-text">–name-only</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#submodule"><span class="nav-number">3.</span> <span class="nav-text">submodule</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#submodule-概述"><span class="nav-number">3.1.</span> <span class="nav-text">submodule 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始子仓库"><span class="nav-number">3.2.</span> <span class="nav-text">初始子仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新子仓库"><span class="nav-number">3.3.</span> <span class="nav-text">更新子仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#reflog"><span class="nav-number">1.</span> <span class="nav-text">reflog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pull"><span class="nav-number">2.</span> <span class="nav-text">pull</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-pull-r-VS-git-pull"><span class="nav-number">2.1.</span> <span class="nav-text">git pull -r VS git pull</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#diff"><span class="nav-number">3.</span> <span class="nav-text">diff</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#–name-only"><span class="nav-number">3.1.</span> <span class="nav-text">–name-only</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#submodule"><span class="nav-number">4.</span> <span class="nav-text">submodule</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#submodule-概述"><span class="nav-number">4.1.</span> <span class="nav-text">submodule 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加子仓库"><span class="nav-number">4.2.</span> <span class="nav-text">添加子仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新子仓库"><span class="nav-number">4.3.</span> <span class="nav-text">更新子仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>
