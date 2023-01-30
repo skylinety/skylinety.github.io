@@ -23,7 +23,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Dynamic_ProgrammingUntitled.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Dynamic_ProgrammingUntitled%201.png">
-<meta property="og:updated_time" content="2022-07-07T10:25:30.000Z">
+<meta property="og:updated_time" content="2023-01-24T09:57:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划算法">
 <meta name="twitter:description" content="概述 常见类型 解题思路   子序列问题 问题描述 解题思路   背包问题 问题特征 背包问题状态转移方程   实战 最大子串 一步两步爬楼梯   BMW WARNING   概述常见类型动态规范算法，即 Dynamic Programming。常见类型如下：| Name | Leetcode Problems || — | — || 基本动态规划: 一维 | 70 || 基本动态规划:二维">
@@ -191,7 +191,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-07-07T10:25:30.000Z" itemprop="datePublished">2022-07-07</time>
+      <time datetime="2023-01-24T09:57:06.000Z" itemprop="datePublished">2023-01-24</time>
     </a><span style="color: #999">|</span>
 
       
@@ -231,7 +231,7 @@
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="常见类型"><a href="#常见类型" class="headerlink" title="常见类型"></a>常见类型</h3><p>动态规范算法，即 Dynamic Programming。<br>常见类型如下：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Dynamic_ProgrammingUntitled.png" alt="Dynamic_ProgrammingUntitled"><br>| Name | Leetcode Problems |<br>| — | — |<br>| 基本动态规划: 一维 | 70 |<br>| 基本动态规划:二维 | 64，403 |<br>| 分割类型题 | |<br>| 子序列问题 | 5 |<br>| 背包问题 | 322，416 |<br>| 字符串编辑 | |<br>| 股票交易 | |</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="常见类型"><a href="#常见类型" class="headerlink" title="常见类型"></a>常见类型</h3><p>动态规范算法，即 Dynamic Programming。<br>常见类型如下：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Dynamic_ProgrammingUntitled.png" alt="Dynamic_ProgrammingUntitled"><br>| Name | Leetcode Problems |<br>| — | — |<br>| 基本动态规划: 一维 | 70 |<br>| 基本动态规划:二维 |63， 64，403 |<br>| 分割类型题 | |<br>| 子序列问题 | 5 |<br>| 背包问题 | 322，416 |<br>| 字符串编辑 | |<br>| 股票交易 | |</p>
 <h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><a id="more"></a>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Dynamic_ProgrammingUntitled%201.png" alt="Dynamic_ProgrammingUntitled 1"></p>
 <h2 id="子序列问题"><a href="#子序列问题" class="headerlink" title="子序列问题"></a>子序列问题</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>对于子序列涉及的遍历</p>
@@ -274,9 +274,20 @@
 <td>arrs 放在外循环（保证 arrs 按顺序），target 在内循环。且内循环正序</td>
 <td>322</td>
 </tr>
+<tr>
+<td>完全背包问题(顺序有关，即组合背包问题)</td>
+<td>元素可以重复选择</td>
+<td>如果组合问题需考虑元素之间的顺序，需将 target 放在外循环，将 arrs 放在内循环，且内循环正序</td>
+<td>377</td>
+</tr>
+<tr>
+<td>分组背包问题</td>
+<td>不止一个背包，需要遍历每个背包</td>
+<td>需要 3+层循环</td>
+<td>474</td>
+</tr>
 </tbody>
 </table>
-<p>| 完全背包问题(顺序有关)<br>[即 组合背包问题] | 元素可以重复选择 | 如果组合问题需考虑元素之间的顺序，需将 target 放在外循环，将 arrs 放在内循环，且内循环正序 | 377 |<br>| 分组背包问题 | 不止一个背包，需要遍历每个背包 | 需要 3+层循环 | 474 |</p>
 <h3 id="背包问题状态转移方程"><a href="#背包问题状态转移方程" class="headerlink" title="背包问题状态转移方程"></a>背包问题状态转移方程</h3><table>
 <thead>
 <tr>
@@ -289,7 +300,7 @@
 <tr>
 <td>组合背包问题</td>
 <td>dp[i] += dp[i-num]</td>
-<td>377 494 518</td>
+<td>377 518</td>
 </tr>
 <tr>
 <td>True、False 问题公式</td>
@@ -298,8 +309,8 @@
 </tr>
 <tr>
 <td>最值问题</td>
-<td>dp[i] = min</td>
-<td>max(dp[i], dp[i-num]+1))</td>
+<td>`dp[i] = min</td>
+<td>max(dp[i], dp[i-num]+1))`</td>
 <td>322 474</td>
 </tr>
 </tbody>
@@ -339,7 +350,7 @@
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
@@ -409,11 +420,11 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Factory工厂模式.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Builder建筑工模式.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Factory工厂模式
+          Builder建筑工模式
         
       </div>
     </a>

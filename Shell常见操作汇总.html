@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20211112174412.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20211112182828.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20211112182942.png">
-<meta property="og:updated_time" content="2022-06-30T09:44:40.000Z">
+<meta property="og:updated_time" content="2023-01-24T09:57:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell常见操作汇总">
 <meta name="twitter:description" content="获取执行脚本的位置 Shell 脚本相互调用 脚本中断与执行 判定目录或文件存在 算数命令 查看目录下文件夹 创建嵌套文件夹并进入 查看远程服务及端口是否开启 设置别名 临时别名 永久生效   查看端口占用 删除目录下模糊匹配的文件 命令 解析   查找目录下包含指定字符的文件 命令 解析   BMW WARNING   获取执行脚本的位置通过dirname &amp;quot;$0&amp;quot;获取">
@@ -193,7 +193,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-30T09:44:40.000Z" itemprop="datePublished">2022-06-30</time>
+      <time datetime="2023-01-24T09:57:10.000Z" itemprop="datePublished">2023-01-24</time>
     </a><span style="color: #999">|</span>
 
       
@@ -303,10 +303,13 @@
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">plus=`expr 1 + 1`</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$plus</span></span><br><span class="line"><span class="comment"># 2</span></span><br><span class="line">minus=$(expr 1 - 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$minus</span></span><br><span class="line"><span class="comment"># 0</span></span><br><span class="line">multiply=$((2 * 2))</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$multiply</span></span><br><span class="line"><span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
 <p>当()前面加上$时，表示 Command-Substitution，与<code>command</code>一致，表示其运行结果充当所在命令行的一部分.</p>
 <p>(())内部进行算数表达式的计算。</p>
-<h2 id="查看目录下文件夹"><a href="#查看目录下文件夹" class="headerlink" title="查看目录下文件夹"></a>查看目录下文件夹</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls -d src/*/</span><br></pre></td></tr></table></figure>
+<h2 id="查看目录下文件夹"><a href="#查看目录下文件夹" class="headerlink" title="查看目录下文件夹"></a>查看目录下文件夹</h2><p>查看当前目录信息</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls -dlh /var/<span class="built_in">log</span></span><br><span class="line"><span class="comment"># drwxr-xr-x  47 root  wheel   1.5K Jan  6 09:22 /var/log</span></span><br></pre></td></tr></table></figure>
 <p>查看 src 下包含的文件夹</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls -d src/*/</span><br></pre></td></tr></table></figure>
+<p>换行形式查看当前目录下的文件夹</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls -d1 */</span><br></pre></td></tr></table></figure>
-<p>换行形式查看当前目录下的文件夹<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20220322171654.png" alt="Shell常见操作汇总20220322171654"></p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C%E6%B1%87%E6%80%BB20220322171654.png" alt="Shell常见操作汇总20220322171654"></p>
 <h2 id="创建嵌套文件夹并进入"><a href="#创建嵌套文件夹并进入" class="headerlink" title="创建嵌套文件夹并进入"></a>创建嵌套文件夹并进入</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir -p /home/foo/123 &amp;&amp; <span class="built_in">cd</span> <span class="variable">$_</span></span><br></pre></td></tr></table></figure>
 <h2 id="查看远程服务及端口是否开启"><a href="#查看远程服务及端口是否开启" class="headerlink" title="查看远程服务及端口是否开启"></a>查看远程服务及端口是否开启</h2><p><code>telnet ip 3306</code></p>
 <h2 id="设置别名"><a href="#设置别名" class="headerlink" title="设置别名"></a>设置别名</h2><h3 id="临时别名"><a href="#临时别名" class="headerlink" title="临时别名"></a>临时别名</h3><p><code>alias m=&quot;tldr&quot;</code><br>tldr 是一个以示例代替说明的命令使用说明工具，比自带的命令行手册易读。</p>
@@ -340,7 +343,7 @@
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️。</p>
 <blockquote>
 <p>I am a bucolic migant worker but I never walk backwards.</p>
 </blockquote>

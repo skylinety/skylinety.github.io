@@ -319,6 +319,613 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/排序算法.html">排序算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#选择排序">选择排序</a><ul>
+<li><a href="#选排的思想">选排的思想</a></li>
+<li><a href="#时间复杂度">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#冒泡排序">冒泡排序</a><ul>
+<li><a href="#基本思路">基本思路</a></li>
+<li><a href="#时间复杂度-1">时间复杂度</a></li>
+<li><a href="#交换判定优化">交换判定优化</a></li>
+</ul>
+</li>
+<li><a href="#插入排序">插入排序</a><ul>
+<li><a href="#插排的思想">插排的思想</a></li>
+<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
+<li><a href="#哨兵优化">哨兵优化</a></li>
+<li><a href="#折半优化">折半优化</a></li>
+</ul>
+</li>
+<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
+<li><a href="#归并排序思路">归并排序思路</a></li>
+<li><a href="#合并">合并</a></li>
+<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#快速排序">快速排序</a><ul>
+<li><a href="#快排思路">快排思路</a></li>
+<li><a href="#选值优化">选值优化</a></li>
+<li><a href="#多路快排">多路快排</a></li>
+</ul>
+</li>
+<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
+<li><a href="#关键思路">关键思路</a></li>
+<li><a href="#时间复杂度-2">时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#计数排序">计数排序</a><ul>
+<li><a href="#关键思路-1">关键思路</a></li>
+<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
+</ul>
+</li>
+<li><a href="#堆排序">堆排序</a><ul>
+<li><a href="#完全二叉树">完全二叉树</a></li>
+<li><a href="#堆">堆</a></li>
+<li><a href="#构造堆">构造堆</a></li>
+<li><a href="#排序">排序</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
+        <!-- 
+
+
+选择排序
+选排的思想
+时间复杂度
+
+
+冒泡排序
+基本思路
+时间复杂度
+交换判定优化
+
+
+插入排序
+插排的思想
+时间复杂度分析
+哨兵优化
+折半优化
+
+
+归并排序（Merge Sort）
+归并排序思路
+合并
+时间复杂度分析
+
+
+快速排序
+快排思路
+选值优化
+多路快排
+
+
+希尔排序（缩小增量排序）
+关键思路
+时间复杂度
+
+
+计数排序
+关键思路
+时间复杂度分析
+
+
+堆排序
+完全二叉树
+堆
+构造......  -->
+        <p class="article-more-link">
+          <a href="/排序算法.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中grep的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中grep的使用.html">Shell中grep的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2020-09-12T07:14:56.000Z" itemprop="datePublished">2020-09-12</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#使用">使用</a><ul>
+<li><a href="#基础使用">基础使用</a></li>
+<li><a href="#正则">正则</a></li>
+<li><a href="#递归查找子目录">递归查找子目录</a></li>
+<li><a href="#忽略大小写">忽略大小写</a></li>
+<li><a href="#匹配次数">匹配次数</a></li>
+<li><a href="#静默查找">静默查找</a></li>
+</ul>
+</li>
+<li><a href="#选项">选项</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>grep 是一个字符搜索命令，使用的基础语法为</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep [options] pattern [files]</span><br></pre></td></tr></table></figure>
+<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3>
+        <!-- 
+
+
+使用
+基础使用
+正则
+递归查找子目录
+忽略大小写
+匹配次数
+静默查找
+
+
+选项
+BMW WARNING
+
+
+使用基础使用grep 是一个字符搜索命令，使用的基础语法为
+grep [options] pattern [files]
+正则
+^ 匹配的字符在行首$ 匹配的字符在行尾
+grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.mdgr......  -->
+        <p class="article-more-link">
+          <a href="/Shell中grep的使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-PS更换指定颜色"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/PS更换指定颜色.html">PS更换指定颜色</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2020-07-11T10:02:04.000Z" itemprop="datePublished">2020-07-11</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#效果展示">效果展示</a></li>
+<li><a href="#替换颜色">替换颜色</a></li>
+<li><a href="#颜色叠加">颜色叠加</a></li>
+<li><a href="#新选区图层">新选区图层</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E6%9B%B4%E6%8D%A2%E6%8C%87%E5%AE%9A%E9%A2%9C%E8%89%B220220303173033.png" alt="PS更换指定颜色20220303173033"></p>
+<h2 id="替换颜色"><a href="#替换颜色" class="headerlink" title="替换颜色"></a>替换颜色</h2><p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Tools/APPs/Photoshop/leaf.jpeg" target="_blank" rel="noopener">素材地址</a><br>首先选中图片或图层。</p>
+<p>在 图像 &gt; 调整 &gt; 替换颜色 开启颜色替换工具<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E6%9B%B4%E6%8D%A2%E6%8C%87%E5%AE%9A%E9%A2%9C%E8%89%B220220303112019.png" alt="PS更换指定颜色20220303112019"></p>
+<p>在工具中，可以通过拾色器选取被替换色与想要的目标色。<br>选中预览，可通过调整容差可实时预览得到想要的结果。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E6%9B%B4%E6%8D%A2%E6%8C%87%E5%AE%9A%E9%A2%9C%E8%89%B220220303112437.png" alt="PS更换指定颜色20220303112437"></p>
+<p>一个实际的例子如下</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E6%9B%B4%E6%8D%A2%E6%8C%87%E5%AE%9A%E9%A2%9C%E8%89%B220220303170026.png" alt="PS更换指定颜色20220303170026"></p>
+<p>按住 command 或 control 键可以在预览中切换选中颜色和原图<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E6%9B%B4%E6%8D%A2%E6%8C%87%E5%AE%9A%E9%A2%9C%E8%89%B220220303170157.png" alt="PS更换指定颜色20220303170157"></p>
+<h2 id="颜色叠加"><a href="#颜色叠加" class="headerlink" title="颜色叠加"></a>颜色叠加</h2>
+        <!-- 
+
+
+效果展示
+替换颜色
+颜色叠加
+新选区图层
+BMW WARNING
+
+
+效果展示
+替换颜色素材地址首先选中图片或图层。
+在 图像 &gt; 调整 &gt; 替换颜色 开启颜色替换工具
+在工具中，可以通过拾色器选取被替换色与想要的目标色。选中预览，可通过调整容差可实时预览得到想要的结果。
+一个实际的例子如下
+
+按住 command 或 control 键可以在预览中切换选中颜色和原图
+颜色......  -->
+        <p class="article-more-link">
+          <a href="/PS更换指定颜色.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Photoshop/">Photoshop</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-磁盘阵列"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/磁盘阵列.html">磁盘阵列</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2019-04-21T10:02:01.000Z" itemprop="datePublished">2019-04-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#对比">对比</a><ul>
+<li><a href="#总览">总览</a></li>
+<li><a href="#优劣">优劣</a></li>
+<li><a href="#raid-0">RAID 0</a></li>
+<li><a href="#raid-1">RAID 1</a></li>
+<li><a href="#raid-5">RAID 5</a></li>
+<li><a href="#raid-6">RAID 6</a></li>
+<li><a href="#raid-10">RAID 10</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>独立冗余磁盘阵列(Redundant Arrays Of Independent Disks)，简写 RAID。<br>RAID 技术用以提升存储的性能与可靠性。</p>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><h3 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h3>
+        <!-- 
+
+
+简介
+对比
+总览
+优劣
+RAID 0
+RAID 1
+RAID 5
+RAID 6
+RAID 10
+
+
+BMW WARNING
+
+
+简介独立冗余磁盘阵列(Redundant Arrays Of Independent Disks)，简写 RAID。RAID 技术用以提升存储的性能与可靠性。
+对比总览
+
+
+
+阵列
+最少硬盘
+关键词
+原理
+
+
+
+
+RAID 0
+2
+striping
+资料会被均......  -->
+        <p class="article-more-link">
+          <a href="/磁盘阵列.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardware/">Hardware</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/硬盘/">硬盘</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中数组相关操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中数组相关操作.html">Shell中数组相关操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2019-03-22T07:14:56.000Z" itemprop="datePublished">2019-03-22</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#获取数组长度">获取数组长度</a></li>
+<li><a href="#列出数组项">列出数组项</a></li>
+<li><a href="#数组合并">数组合并</a></li>
+<li><a href="#数组遍历">数组遍历</a></li>
+<li><a href="#数组下标获取">数组下标获取</a></li>
+<li><a href="#数组转字符串">数组转字符串</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="获取数组长度"><a href="#获取数组长度" class="headerlink" title="获取数组长度"></a>获取数组长度</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[*]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
+<h2 id="列出数组项"><a href="#列出数组项" class="headerlink" title="列出数组项"></a>列出数组项</h2><ul>
+<li>列出所有项</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[*]&#125;</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br></pre></td></tr></table></figure>
+<p>列出单项</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[1]&#125;</span></span><br><span class="line"><span class="comment"># 3</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组合并"><a href="#数组合并" class="headerlink" title="数组合并"></a>数组合并</h2>
+        <!-- 
+
+
+获取数组长度
+列出数组项
+数组合并
+数组遍历
+数组下标获取
+数组转字符串
+BMW WARNING
+
+
+获取数组长度skyline=(4 3 2 1)echo $&#123;#skyline[*]&#125;# 4echo $&#123;#skyline[@]&#125;# 4
+列出数组项
+列出所有项
+
+skyline=(4 3 2 1)echo $&#123;skyline[@]&#1......  -->
+        <p class="article-more-link">
+          <a href="/Shell中数组相关操作.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CSS弹性布局主轴元素设置单独对齐方式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS弹性布局主轴元素设置单独对齐方式.html">CSS弹性布局主轴元素设置单独对齐方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-07-30T07:14:56.000Z" itemprop="datePublished">2018-07-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#效果图示">效果图示</a></li>
+<li><a href="#效果实现">效果实现</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="效果图示"><a href="#效果图示" class="headerlink" title="效果图示"></a>效果图示</h2><p>灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。<br>通过设置特定属性将最后红框圈出的元素置于容器最右侧。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145752.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145752"><br>实现效果<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145350.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145350"></p>
+<h2 id="效果实现"><a href="#效果实现" class="headerlink" title="效果实现"></a>效果实现</h2><ul>
+<li>方案 1<br>为红框子元素设定如下属性</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  flex-grow: 1; //红框子项目将占据了所有剩余空间</span><br><span class="line">  display: flex; //将自身设置为flex,作为容器之后就可以单独对内部文字项目进行右对齐</span><br><span class="line">  justify-content: flex-end; // 单独对内部文字项目进行右对齐</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过浏览器检视如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617150203.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617150203"></p>
+<ul>
+<li>方案 2</li>
+</ul>
+<p>将前 3 个子元素进行一层包裹，然后调整容器的 justify-content<br><code>justify-content: space-between</code></p>
+<ul>
+<li>方案 3</li>
+</ul>
+<p>为红框子项目添加如下属性</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">margin-left</span>: <span class="selector-tag">auto</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方案 4</li>
+</ul>
+<p>为红框子项目添加如下属性</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
+        <!-- 
+
+
+效果图示
+效果实现
+BMW WARNING
+
+
+效果图示灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。通过设置特定属性将最后红框圈出的元素置于容器最右侧。
+实现效果
+效果实现
+方案 1为红框子元素设定如下属性
+
+.red &#123;  flex-grow: 1; //红框子项目将占据了所有剩余空间  display: flex; //将自身设置为flex,作为容器之后......  -->
+        <p class="article-more-link">
+          <a href="/CSS弹性布局主轴元素设置单独对齐方式.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-JavaScript隐式类型转换小结"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -631,7 +1238,7 @@ BMW WARNI......  -->
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
@@ -649,124 +1256,6 @@ BMW WARNI......  -->
 <p><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a></p>
 </blockquote>
 
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CSS常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS常见问题汇总.html">CSS常见问题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-24T07:14:56.000Z" itemprop="datePublished">2018-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#css-继承与非继承属性">CSS 继承与非继承属性</a></li>
-<li><a href="#displaynone-与-visibilityhidden-区别">display:none 与 visibility:hidden 区别</a></li>
-<li><a href="#媒体查询失效">媒体查询失效</a></li>
-<li><a href="#img-标签是行内还是块级元素">img 标签是行内还是块级元素</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="CSS-继承与非继承属性"><a href="#CSS-继承与非继承属性" class="headerlink" title="CSS 继承与非继承属性"></a>CSS 继承与非继承属性</h2><p>CSS 属性在不设定取值时，其实际取值分为两种。<br>一种为继承属性，取父级元素该属性对应的值。<br>一种为非继承属性，去该属性的默认值。<br>由于 CSS 属性繁多，不容易死记来区分，一般可通过经验来判断一个属性是否可继承。</p>
-<p>常见的不可继承属性如下：</p>
-<ul>
-<li>display</li>
-<li>盒模型相关属性，如宽、高、内外边距、边框</li>
-<li>背景相关属性：如背景颜色、图片、位置、大小、重复</li>
-<li>定位相关属性：如 float、clear、position</li>
-<li>内容相关属性：如 content、counter-reset、counter-increment</li>
-</ul>
-<p>其他属性多为可继承属性，例如：</p>
-<ul>
-<li>字体相关属性</li>
-<li>部分文本相关属性</li>
-<li>元素可见属性 visibility</li>
-<li>光标属性 cursor</li>
-</ul>
-<h2 id="display-none-与-visibility-hidden-区别"><a href="#display-none-与-visibility-hidden-区别" class="headerlink" title="display:none 与 visibility:hidden 区别"></a>display:none 与 visibility:hidden 区别</h2><p>两者虽简单来说都是用于隐藏元素，表现形式大有不同。</p>
-<p>display 会被文档流给移除，影响页面布局，导致重排重绘，原本位置会被其他元素占据。</p>
-<p>visilibity:hidden 不会被文档流给移除，不会影响布局，页面重绘出一片空白，但不会重新排版。</p>
-<p>display 不是继承属性，而 visibility 是继承属性。<br>若祖先设定为 visibility:hidden，后代元素会继承该属性不可见。<br>此时，若重置后代元素的 visibility 为 visible，其后代元素将可见。<br>若祖先设定的 display 属性设为 none 时，其不可继承，后代元素无力通过改变该属性重现。<br>总结如下表格所示：</p>
-<table>
-<thead>
-<tr>
-<th>样式</th>
-<th>页面重绘</th>
-<th>页面重排</th>
-<th>显示效果</th>
-<th>对应 css 属性是否继承</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>display:none</td>
-<td>是</td>
-<td>是</td>
-<td>无显示</td>
-<td>否（display）</td>
-</tr>
-<tr>
-<td>visibility:hidden</td>
-<td>是</td>
-<td>否</td>
-<td>所处区域空白</td>
-<td>是（visibility）</td>
-</tr>
-</tbody>
-</table>
-<h2 id="媒体查询失效"><a href="#媒体查询失效" class="headerlink" title="媒体查询失效"></a>媒体查询失效</h2>
-        <!-- 
-
-
-CSS 继承与非继承属性
-display:none 与 visibility:hidden 区别
-媒体查询失效
-img 标签是行内还是块级元素
-BMW WARNING
-
-
-CSS 继承与非继承属性CSS 属性在不设定取值时，其实际取值分为两种。一种为继承属性，取父级元素该属性对应的值。一种为非继承属性，去该属性的默认值。由于 CSS 属性繁多，不容易死记来区分，一般可通过经验来判断一个......  -->
-        <p class="article-more-link">
-          <a href="/CSS常见问题汇总.html#more">阅读全文</a>
-        </p>
       
     </div>
     <footer class="article-footer">
@@ -824,472 +1313,6 @@ CSS 继承与非继承属性CSS 属性在不设定取值时，其实际取值分
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中查找相关命令"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中查找相关命令.html">Shell中查找相关命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-22T07:14:56.000Z" itemprop="datePublished">2018-01-22</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#whichwhereiswhatis">which/whereis/whatis</a><ul>
-<li><a href="#which">which</a></li>
-<li><a href="#whereis">whereis</a></li>
-<li><a href="#whatis">whatis</a></li>
-</ul>
-</li>
-<li><a href="#find">find</a></li>
-<li><a href="#grep">grep</a></li>
-<li><a href="#汇总">汇总</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="which-whereis-whatis"><a href="#which-whereis-whatis" class="headerlink" title="which/whereis/whatis"></a>which/whereis/whatis</h2><h3 id="which"><a href="#which" class="headerlink" title="which"></a>which</h3><p>搜索某个命令在文件系统中的的位置并展示，若命令为别名，则会展示别名对应的命令。</p>
-<blockquote>
-<p>shows the full path of (shell) commands.</p>
-</blockquote>
-<p>默认使用时，搜索某个系统命令的位置，并且返回第一个搜索结果</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">which</span> netstat</span><br><span class="line"><span class="comment"># /usr/sbin/netstat</span></span><br><span class="line"><span class="built_in">which</span> ls</span><br><span class="line"><span class="comment"># ll: aliased to ls -G</span></span><br></pre></td></tr></table></figure>
-<p>-a 选项，搜索某个系统命令的位置，并且返回所有搜索结果</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">which</span> -a ls</span><br><span class="line"><span class="comment"># ls: aliased to ls -G</span></span><br><span class="line"><span class="comment"># /bin/ls</span></span><br></pre></td></tr></table></figure>
-<h3 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h3>
-        <!-- 
-
-
-which/whereis/whatis
-which
-whereis
-whatis
-
-
-find
-grep
-汇总
-BMW WARNING
-
-
-which/whereis/whatiswhich搜索某个命令在文件系统中的的位置并展示，若命令为别名，则会展示别名对应的命令。
-
-shows the full path of (shell) commands.
-
-默认使用时，搜索某个系统命令的......  -->
-        <p class="article-more-link">
-          <a href="/Shell中查找相关命令.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-对象的私有、静态（类）、自有（实例）、原型属性与方法"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/对象的私有、静态（类）、自有（实例）、原型属性与方法.html">对象的私有、静态（类）、自有（实例）、原型属性与方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-02T07:14:56.000Z" itemprop="datePublished">2018-01-02</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="es5代码"><a href="#es5代码" class="headerlink" title="es5代码"></a>es5代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对象构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Baby</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> className = <span class="string">"Baby"</span>;</span><br><span class="line">    <span class="comment">//私有属性，只能在对象构造函数内部使用</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.weight = <span class="string">'3kg'</span>;</span><br><span class="line">    <span class="comment">//自有属性，每个实例私有，在对象实例化后调用，实例属性在对象实力化后创建</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg()); <span class="comment">//使用原型方法扩充的方法可以在类内部使用</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.sex); <span class="comment">//使用原型方法扩充的属性可以在类内部使用</span></span><br><span class="line">        <span class="built_in">console</span>.log(Baby.age, <span class="keyword">this</span>.age); <span class="comment">//静态属性调用时格式为[对象.静态属性]</span></span><br><span class="line">    &#125;<span class="comment">//对象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Baby.Run = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"跑起来！！！"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//类方法 (实际是静态方法直接调用)，只有类才能访问类方法，实例不能访问 ，在类方法中通过this只能访问类属性不能访问其他属性，即在本例中，Run方法只能访问到this.age</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我叫："</span> + <span class="keyword">this</span>.name); </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//原型方法，如果原型方法当作静态方法直接调用时，this.name无法被调用</span></span><br><span class="line"></span><br><span class="line">Baby.age = <span class="number">20</span>; </span><br><span class="line"><span class="comment">//类属性 在类的外部。公有静态属性不能使用 【this.属性】，只能使用 【对象.属性】 调用，只有类才能访问类属性，实例不能访问  </span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex = <span class="string">"男娃娃"</span></span><br><span class="line"><span class="comment">//原型属性，所有实例共有，【this.属性】这种写法访问时，先会访问实例对象属性，没有实例对象属性就会访问原型属性 ，也可以当成公有静态属性使用【对象.prototype.原型属性。 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bob = <span class="keyword">new</span> Baby(<span class="string">"bob"</span>); </span><br><span class="line"><span class="comment">//自有方法和原型方法需要实例化对象后才可以使</span></span><br><span class="line"></span><br><span class="line">Baby.name</span><br><span class="line"><span class="comment">//"Baby" :每一个类都有一个基本的name属性</span></span><br><span class="line"></span><br><span class="line">bob.name</span><br><span class="line"><span class="comment">//"bob"</span></span><br><span class="line"></span><br><span class="line">Baby.weight</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line">bob.weight</span><br><span class="line"><span class="comment">//"3kg"</span></span><br><span class="line"></span><br><span class="line">Baby.hello()</span><br><span class="line"><span class="comment">//Uncaught TypeError: Baby.hello is not a function</span></span><br><span class="line"></span><br><span class="line">bob.hello()</span><br><span class="line"><span class="comment">// bob</span></span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">// undefined :this.msg没有返回所以undefined</span></span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">// 20 undefined</span></span><br><span class="line"></span><br><span class="line">Baby.Run(); <span class="comment">//跑起来！！！</span></span><br><span class="line"><span class="comment">//类方法也是静态方法，可以直接使用 【对象.静态方法()】</span></span><br><span class="line"></span><br><span class="line">bob.run()<span class="comment">// TypeError: bob.run is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.msg()</span><br><span class="line"><span class="comment">// Uncaught TypeError: Baby.msg is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg()</span><br><span class="line"><span class="comment">// 我叫：undefined</span></span><br><span class="line"><span class="comment">//原型方法当成静态方法使用时【对象.prototype.方法()】 </span></span><br><span class="line"></span><br><span class="line">bob.msg();</span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">//原型方法必须实例化对象</span></span><br><span class="line"></span><br><span class="line">bob.age;</span><br><span class="line"><span class="comment">// undefined </span></span><br><span class="line"><span class="comment">//错误，公有静态属性只能使用 【对象.属性】调用</span></span><br><span class="line"></span><br><span class="line">Baby.age</span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">//原型属性当作静态属性使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">Baby.sex</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">bob.sex</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="es6代码"><a href="#es6代码" class="headerlink" title="es6代码"></a>es6代码</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="comment">//对象属性、方法</span></span><br><span class="line">    <span class="keyword">this</span>.x = x;</span><br><span class="line">    <span class="keyword">this</span>.y = y;</span><br><span class="line">    <span class="keyword">this</span>.fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'skyline'</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//自有属性，使用存取器</span></span><br><span class="line">  <span class="keyword">get</span> prop() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'skyline getter'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> prop(value) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'skyline setter: '</span>+value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型方法</span></span><br><span class="line">  <span class="comment">//Point.prototype.toString = function () &#123;</span></span><br><span class="line">  <span class="comment">//  return '(' + this.x + ', ' + this.y + ')';</span></span><br><span class="line">  <span class="comment">//&#125;;</span></span><br><span class="line">  <span class="comment">//的语法糖</span></span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'('</span> + <span class="keyword">this</span>.x + <span class="string">', '</span> + <span class="keyword">this</span>.y + <span class="string">')'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//类方法</span></span><br><span class="line">  <span class="keyword">static</span> classMethod() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'hello skyline'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类属性，ES6 明确规定，Class 内部只有静态方法，没有静态属性，不过有其他提案，不拓展</span></span><br><span class="line">Point.prop = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
-<li>静态属性方法，可以直接通过类进行访问的</li>
-<li>实例属性方法是需要创建实例对象进行访问的</li>
-<li>相互之间不能串访</li>
-</ul>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/对象的私有、静态（类）、自有（实例）、原型属性与方法.html">http://www.skyline.show/对象的私有、静态（类）、自有（实例）、原型属性与方法.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中ls的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中ls的使用.html">Shell中ls的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#基础使用">基础使用</a><ul>
-<li><a href="#参数">参数</a></li>
-<li><a href="#常见用法">常见用法</a></li>
-</ul>
-</li>
-<li><a href="#权限">权限</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>ls 即 list，列出目录内容</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>使用</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>ls -1</td>
-<td>换行列出文件</td>
-</tr>
-<tr>
-<td>l</td>
-<td>ls -l</td>
-<td>换行列出文件详细信息</td>
-</tr>
-<tr>
-<td>a</td>
-<td>ls -a</td>
-<td>列出所有文件，包括隐藏文件</td>
-</tr>
-<tr>
-<td>d</td>
-<td>ls -d</td>
-<td>列出当前目录本身，而不是其下内容</td>
-</tr>
-<tr>
-<td>h</td>
-<td>ls -h</td>
-<td>文件大小可读化输出，需要与 -l 配合使用</td>
-</tr>
-</tbody>
-</table>
-<h3 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h3>
-        <!-- 
-
-
-基础使用
-参数
-常见用法
-
-
-权限
-BMW WARNING
-
-
-基础使用参数ls 即 list，列出目录内容
-
-
-
-参数
-使用
-描述
-
-
-
-
-1
-ls -1
-换行列出文件
-
-
-l
-ls -l
-换行列出文件详细信息
-
-
-a
-ls -a
-列出所有文件，包括隐藏文件
-
-
-d
-ls -d
-列出当前目录本身，而不是其下内容
-
-
-h
-ls -h
-文件大小可读化输出，需要与 -l 配合使用
-
-
-
-常......  -->
-        <p class="article-more-link">
-          <a href="/Shell中ls的使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CSS换行"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS换行.html">CSS换行</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#段落换行">段落换行</a><ul>
-<li><a href="#overflow-wrap">overflow-wrap</a></li>
-<li><a href="#word-break">word-break</a></li>
-<li><a href="#换行总结">换行总结</a></li>
-</ul>
-</li>
-<li><a href="#处理文字空白">处理文字空白</a><ul>
-<li><a href="#white-space">white-space</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="段落换行"><a href="#段落换行" class="headerlink" title="段落换行"></a>段落换行</h2><h3 id="overflow-wrap"><a href="#overflow-wrap" class="headerlink" title="overflow-wrap"></a>overflow-wrap</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">overflow-wrap: normal;</span><br><span class="line">overflow-wrap: <span class="keyword">break</span>-word;</span><br></pre></td></tr></table></figure>
-<p>word-wrap 原始微软私有，css3 统一规范重命名为 overflow-wrap。</p>
-<p>overflow-wrap 常见取值为 normal 和 break-word。<br>normal，默认值，单词保留完整，<strong>最后一个单词超出也不换行</strong>，直到该单词结束，只在 CJK(汉语系文字) 和空白符换行<br>break-word，尽量保持英文完整，除非一个单词占一行才断开换行，否则从空白或 CJK 换行</p>
-<h3 id="word-break"><a href="#word-break" class="headerlink" title="word-break"></a>word-break</h3>
-        <!-- 
-
-
-段落换行
-overflow-wrap
-word-break
-换行总结
-
-
-处理文字空白
-white-space
-
-
-BMW WARNING
-
-
-段落换行overflow-wrapoverflow-wrap: normal;overflow-wrap: break-word;
-word-wrap 原始微软私有，css3 统一规范重命名为 overflow-wrap。
-overflow-w......  -->
-        <p class="article-more-link">
-          <a href="/CSS换行.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Vue项目实现rtmp流视频播放"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Vue项目实现rtmp流视频播放.html">Vue项目实现rtmp流视频播放</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#代码实现">代码实现</a></li>
-<li><a href="#常见问题">常见问题</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>rtmp 流需要使用 flash 播放。<br>在 chrome 88 版本及以后的版本，已经移除了 flash 组件。<br>在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。<br>故本方案当前可能不再具备实用性。<br>成功引入 rtmp 流，效果如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0rtmp%E6%B5%81%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE20220627173249.png" alt="Vue项目实现rtmp流视频播放20220627173249"></p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>实现需求需要运用的包为 videojs-flash、videojs</p>
-<p><code>main.js</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> videojs <span class="keyword">from</span> <span class="string">'video.js'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'video.js/dist/video-js.css'</span></span><br><span class="line">Vue.prototype.$video = videojs</span><br></pre></td></tr></table></figure>
-<p><code>player.vue</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"demo1-video"</span>&gt;</span><br><span class="line">    &lt;video</span><br><span class="line">      ref=<span class="string">"videoPlayer"</span></span><br><span class="line">      id=<span class="string">"myVideo"</span></span><br><span class="line">      <span class="class"><span class="keyword">class</span></span>=<span class="string">"video-js"</span></span><br><span class="line">      controls</span><br><span class="line">      preload=<span class="string">"auto"</span></span><br><span class="line">      style=<span class="string">"width: 100%"</span></span><br><span class="line">      height=<span class="string">"220"</span></span><br><span class="line">      data-setup=<span class="string">"&#123;&#125;"</span></span><br><span class="line">    &gt;</span><br><span class="line">      &lt;p <span class="class"><span class="keyword">class</span></span>=<span class="string">"vjs-no-js"</span>&gt;</span><br><span class="line">        To view <span class="keyword">this</span> video please enable JavaScript, and consider upgrading to a</span><br><span class="line">        web browser that</span><br><span class="line">        &lt;a</span><br><span class="line">          href=<span class="string">"https://videojs.com/html5-video-support/"</span></span><br><span class="line">          target=<span class="string">"_blank"</span></span><br><span class="line">        &gt;supports HTML5 video&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>p&gt;</span><br><span class="line">    &lt;<span class="regexp">/video&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">import "videojs-flash";</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  name: "VideoPlayer",</span></span><br><span class="line"><span class="regexp">  props: ["type", "detail"],</span></span><br><span class="line"><span class="regexp">  inject: ["gisMap"],</span></span><br><span class="line"><span class="regexp">  data() &#123;</span></span><br><span class="line"><span class="regexp">    return &#123;</span></span><br><span class="line"><span class="regexp">      player: null,</span></span><br><span class="line"><span class="regexp">      videoOptions: &#123;</span></span><br><span class="line"><span class="regexp">        autoplay: true, /</span><span class="regexp">/ 是否自动播放</span></span><br><span class="line"><span class="regexp">        muted: false, /</span><span class="regexp">/ 是否静音</span></span><br><span class="line"><span class="regexp">        controls: false,</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ fluid: true, /</span><span class="regexp">/ 宽高自适应</span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/ techOrder: ["flash"],</span></span><br><span class="line"><span class="regexp">        sources: [</span></span><br><span class="line"><span class="regexp">          &#123;</span></span><br><span class="line"><span class="regexp">            src: "//vjs.zencdn.net/v/oceans.mp4",</span></span><br><span class="line"><span class="regexp">            type: "video/mp4"</span></span><br><span class="line"><span class="regexp">            // type: "rtmp/flv"</span></span><br><span class="line"><span class="regexp">          &#125;</span></span><br><span class="line"><span class="regexp">        ]</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  computed: &#123;</span></span><br><span class="line"><span class="regexp">    map() &#123;</span></span><br><span class="line"><span class="regexp">      return this.gisMap.map.map || &#123;&#125;;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    endType() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.type) &#123;</span></span><br><span class="line"><span class="regexp">        let end = this.type.split("_")[1];</span></span><br><span class="line"><span class="regexp">        return end;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">      return "";</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  mounted() &#123;</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ if (this.gisMap.map &amp;&amp; this.gisMap.map.map) &#123;</span></span><br><span class="line"><span class="regexp">    this.map.on("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.on("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ &#125;</span></span><br><span class="line"><span class="regexp">    this.playVideo();</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  destroyed() &#123;</span></span><br><span class="line"><span class="regexp">    this.map.off("popupclose", this.clearVideo);</span></span><br><span class="line"><span class="regexp">    this.map.off("popupopen", this.playVideo);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  methods: &#123;</span></span><br><span class="line"><span class="regexp">    clearVideo() &#123;</span></span><br><span class="line"><span class="regexp">      if (this.player) &#123;</span></span><br><span class="line"><span class="regexp">        this.player.dispose();</span></span><br><span class="line"><span class="regexp">        this.player = null;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    playVideo() &#123;</span></span><br><span class="line"><span class="regexp">      this.player = this.$video(</span></span><br><span class="line"><span class="regexp">        this.$refs.videoPlayer,</span></span><br><span class="line"><span class="regexp">        &#123;</span></span><br><span class="line"><span class="regexp">          autoplay: true,</span></span><br><span class="line"><span class="regexp">          techOrder: ["flash", "html5"]</span></span><br><span class="line"><span class="regexp">        &#125;,</span></span><br><span class="line"><span class="regexp">        function onPlayerReady() &#123;</span></span><br><span class="line"><span class="regexp">          this.src(&#123;</span></span><br><span class="line"><span class="regexp">            src: "rtmp:/</span><span class="regexp">/58.200.131.2:1935/</span>livetv/hunantv<span class="string">",</span></span><br><span class="line"><span class="string">            type: "</span>rtmp/flv<span class="string">"</span></span><br><span class="line"><span class="string">          &#125;);</span></span><br><span class="line"><span class="string">          this.play();</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">          this.on("</span>ended<span class="string">", function() &#123;&#125;);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      );</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;;</span></span><br></pre></td></tr></table></figure>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2>
-        <!-- 
-
-
-前言
-代码实现
-常见问题
-BMW WARNING
-
-
-前言rtmp 流需要使用 flash 播放。在 chrome 88 版本及以后的版本，已经移除了 flash 组件。在 2021 年 1 月 12 日，adobe 已宣布不再支持 flash。故本方案当前可能不再具备实用性。成功引入 rtmp 流，效果如下
-代码实现实现需求需要运用的包为 videojs-flash、videojs
-......  -->
-        <p class="article-more-link">
-          <a href="/Vue项目实现rtmp流视频播放.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
 
     </footer>
   </div>

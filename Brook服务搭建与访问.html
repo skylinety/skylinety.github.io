@@ -13,19 +13,19 @@
   
   
   
-  <meta name="description" content="Server 配置 安装 后台运行   client BMW WARNING   Server 配置安装curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brookchmod +x /usr/bin/brookbrook server --lis">
+  <meta name="description" content="Server 配置 安装 后台运行   client 常见问题 连接后无法访问   BMW WARNING   Server 配置安装curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brookchmod +x /usr/bin/brookbro">
 <meta name="keywords" content="APPs,VPN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Brook服务搭建与访问">
 <meta property="og:url" content="http://www.skyline.show/Brook服务搭建与访问.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="Server 配置 安装 后台运行   client BMW WARNING   Server 配置安装curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brookchmod +x /usr/bin/brookbrook server --lis">
+<meta property="og:description" content="Server 配置 安装 后台运行   client 常见问题 连接后无法访问   BMW WARNING   Server 配置安装curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brookchmod +x /usr/bin/brookbro">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Brook%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20220118111315.png">
-<meta property="og:updated_time" content="2022-06-22T07:43:00.000Z">
+<meta property="og:updated_time" content="2023-01-24T09:57:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Brook服务搭建与访问">
-<meta name="twitter:description" content="Server 配置 安装 后台运行   client BMW WARNING   Server 配置安装curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brookchmod +x /usr/bin/brookbrook server --lis">
+<meta name="twitter:description" content="Server 配置 安装 后台运行   client 常见问题 连接后无法访问   BMW WARNING   Server 配置安装curl -L https://github.com/txthinking/brook/releases/latest/download/brook_linux_amd64 -o /usr/bin/brookchmod +x /usr/bin/brookbro">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Brook%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20220118111315.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -190,7 +190,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-22T07:43:00.000Z" itemprop="datePublished">2022-06-22</time>
+      <time datetime="2023-01-24T09:57:11.000Z" itemprop="datePublished">2023-01-24</time>
     </a><span style="color: #999">|</span>
 
       
@@ -213,6 +213,10 @@
 </ul>
 </li>
 <li><a href="#client">client</a></li>
+<li><a href="#常见问题">常见问题</a><ul>
+<li><a href="#连接后无法访问">连接后无法访问</a></li>
+</ul>
+</li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
@@ -232,10 +236,13 @@
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> brook</span><br></pre></td></tr></table></figure>
 <p>即可。</p>
 <h2 id="client"><a href="#client" class="headerlink" title="client"></a>client</h2><p>在如下地址下载客户端界面：<br><a href="https://txthinking.github.io/brook/#/install-gui-client" target="_blank" rel="noopener">https://txthinking.github.io/brook/#/install-gui-client</a><br>下载后连接成功如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Brook%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20220118111315.png" alt="Brook服务搭建与访问20220118111315"></p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="连接后无法访问"><a href="#连接后无法访问" class="headerlink" title="连接后无法访问"></a>连接后无法访问</h3><p>进入服务器查看双方连接是否建立<br>同样适用端口占用查看命令</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">netstat -anp  | grep 2000</span><br><span class="line">tcp6       0      0 :::2000                 :::*                    LISTEN      4498/brook</span><br><span class="line">tcp6       0      0 服务器IP:2000     访问主机IP:51810    ESTABLISHED 4498/brook</span><br><span class="line">tcp6       0      0 服务器IP:2000     访问主机IP:51633    ESTABLISHED 4498/brook</span><br></pre></td></tr></table></figure>
+<p>出现 ESTABLISHED 才是连接成功<br>不成功则尝试断开重连</p>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️。</p>
 <blockquote>
 <p>I am a bucolic migant worker but I never walk backwards.</p>
 </blockquote>
@@ -249,7 +256,7 @@
 <li>Warrant</li>
 </ul>
 <p>本文作者： Skyline(lty)</p>
-<p>文章链接：<a href="http://www.skyline.show/Brook服务搭建与访问.html">http://www.skyline.show/Brook服务搭建与访问.html</a></p>
+<p>文章链接：<a href="http://www.skyline.show/Brook服务搭建与访问.html">http://www.skyline.show/Brook 服务搭建与访问.html</a></p>
 <p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
       
@@ -314,9 +321,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/ES类的使用.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ES对象属性.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">ES类的使用</div>
+      <div class="article-nav-title">ES对象属性</div>
     </a>
   
 </nav>
@@ -330,7 +337,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-配置"><span class="nav-number">1.</span> <span class="nav-text">Server 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后台运行"><span class="nav-number">1.2.</span> <span class="nav-text">后台运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#client"><span class="nav-number">2.</span> <span class="nav-text">client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-配置"><span class="nav-number">1.</span> <span class="nav-text">Server 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后台运行"><span class="nav-number">1.2.</span> <span class="nav-text">后台运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#client"><span class="nav-number">2.</span> <span class="nav-text">client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">3.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#连接后无法访问"><span class="nav-number">3.1.</span> <span class="nav-text">连接后无法访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

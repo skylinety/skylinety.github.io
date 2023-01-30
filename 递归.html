@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>递归 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="DataStructure&Algorithm">
+  
+  
+  
+  
+  <meta name="description" content="递归调用 递归弊端 尾调用 尾递归 蹦床优化（Trampoline） BMW WARNING   递归调用递归是一种不使用 for 或者 while 等编程语言预置 API 而实现循环调用的一种编程技巧。通常实现为函数调用自身。 递归问题的特点为后续问题为原始问题的简单子问题，可以统一为一个方程求解。问题需要一个出口。 即其实现的关键是找到  递归方程 递归结束条件  一个简单的正整数求和函">
+<meta name="keywords" content="DataStructure&amp;Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="递归">
+<meta property="og:url" content="http://www.skyline.show/递归.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="递归调用 递归弊端 尾调用 尾递归 蹦床优化（Trampoline） BMW WARNING   递归调用递归是一种不使用 for 或者 while 等编程语言预置 API 而实现循环调用的一种编程技巧。通常实现为函数调用自身。 递归问题的特点为后续问题为原始问题的简单子问题，可以统一为一个方程求解。问题需要一个出口。 即其实现的关键是找到  递归方程 递归结束条件  一个简单的正整数求和函">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%80%92%E5%BD%92%2420230129145459.png">
+<meta property="og:updated_time" content="2023-01-24T09:57:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="递归">
+<meta name="twitter:description" content="递归调用 递归弊端 尾调用 尾递归 蹦床优化（Trampoline） BMW WARNING   递归调用递归是一种不使用 for 或者 while 等编程语言预置 API 而实现循环调用的一种编程技巧。通常实现为函数调用自身。 递归问题的特点为后续问题为原始问题的简单子问题，可以统一为一个方程求解。问题需要一个出口。 即其实现的关键是找到  递归方程 递归结束条件  一个简单的正整数求和函">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%80%92%E5%BD%92%2420230129145459.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-递归" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      递归
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-01-24T09:57:06.000Z" itemprop="datePublished">2023-01-24</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-01-24T09:57:06.000Z" itemprop="datePublished">2023-01-24</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#递归调用">递归调用</a></li>
+<li><a href="#递归弊端">递归弊端</a></li>
+<li><a href="#尾调用">尾调用</a></li>
+<li><a href="#尾递归">尾递归</a></li>
+<li><a href="#蹦床优化trampoline">蹦床优化（Trampoline）</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="递归调用"><a href="#递归调用" class="headerlink" title="递归调用"></a>递归调用</h2><p>递归是一种不使用 for 或者 while 等编程语言预置 API 而实现循环调用的一种编程技巧。<br>通常实现为函数调用自身。</p>
+<p>递归问题的特点为<br>后续问题为原始问题的简单子问题，可以统一为一个方程求解。<br>问题需要一个出口。</p>
+<p>即其实现的关键是找到</p>
+<ul>
+<li>递归方程</li>
+<li>递归结束条件</li>
+</ul>
+<p>一个简单的正整数求和函数用递归实现如下</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> sum = <span class="function">(<span class="params">n</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> n</span><br><span class="line">  <span class="keyword">return</span> sum(n - <span class="number">1</span>) + n</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>斐波那契数列递归实现如下</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fibonacci = <span class="function">(<span class="params">n</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (n &lt;= <span class="number">2</span>) <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">return</span> fibonacci(n - <span class="number">1</span>) + fibonacci(n - <span class="number">2</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="递归弊端"><a href="#递归弊端" class="headerlink" title="递归弊端"></a>递归弊端</h2><p>如 JS 等大多数语言，递归嵌套调用时，会保持跟踪函数执行上下文栈，最外层函数最后执行完成后才会销毁。<br>在调用<code>sum(10)</code>通过 Chrome 控制台可以看到执行到 n=5 时调用栈如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%80%92%E5%BD%92%2420230129145459.png" alt="递归$20230129145459"><br>这些最底层调用栈最后释放。<br>当递归过深时通常会导致栈溢出。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">Uncaught <span class="built_in">RangeError</span>: Maximum call stack size exceeded</span><br></pre></td></tr></table></figure>
+<p>解决方式通常为尾调用优化和蹦床函数。</p>
+<h2 id="尾调用"><a href="#尾调用" class="headerlink" title="尾调用"></a>尾调用</h2><a id="more"></a>
+<p>尾调用是指函数执行结束那一步调用的是下一个函数。<br>最后一步涉及计算或其他操作都不是尾调用。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">return</span> b()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>尾调用所做的优化在于用尾调用函数的执行上下文栈接替父函数执行上下文栈释放空间，这样函数栈不会累积。<br>尾调用需要在 ES6 下的严格模式开启。<br>目前只有 Safari 默认支持尾调用优化，其他浏览器默认不开启或不支持。<br>尾调用会导致调用栈不连续难以跟踪问题出现位置。</p>
+<p>尾调用优化的条件就是确定外部栈帧没有必要存在，当外部执行上下文中包含尾调用函数执行所需要的变量时（即形成闭包），尾调用优化无法实现。<br>如下是《JavaScript 高级程序第四版》无法使用尾调用优化示例</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">1</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> inner()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h2><p>尾递归是尾调用的一种特例。<br>尾递归是指函数执行结束那一步调用自身，即尾调用函数自身。</p>
+<p>正整数求和函数的尾递归实现</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> sum = <span class="function">(<span class="params">n, ret = <span class="number">1</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> ret</span><br><span class="line">  <span class="keyword">return</span> sum(n - <span class="number">1</span>, ret + n)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>斐波那契数列的尾递归实现</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacci</span>(<span class="params">n, pre = <span class="number">1</span>, ret = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (n &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> fibonacci(n - <span class="number">1</span>, ret, ret + pre)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将递归转化为尾递归的技巧是把累积的值通过参数保存并传递。</p>
+<p>尾递归增加了函数参数，通常增加的参数初始值固定。<br>可以通过 ES6 默认参数赋值解决。<br>另外可以使用偏函数和函数柯里化来解决。</p>
+<p>偏函数简单实现版本</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">pre, ret, n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (n &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> fib(ret, ret + pre, n - <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fibonacci = fib.bind(<span class="literal">null</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>使用封装的 partial 偏函数</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">partial</span>(<span class="params">fn, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...params</span>) =&gt;</span> fn(...args, ...params)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> fibonacci = partial(fib, <span class="number">1</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>这里的偏函数需要改变原先实现 fibonacci 函数的顺序，可使用”_“版本来保留原先顺序。</p>
+<h2 id="蹦床优化（Trampoline）"><a href="#蹦床优化（Trampoline）" class="headerlink" title="蹦床优化（Trampoline）"></a>蹦床优化（Trampoline）</h2><p>递归蹦床优化的思路是将每次递归的函数放在循环中依次执行。<br>由于循环中需要执行函数，蹦床优化在尾递归(除开该递归边界)上改造。<br>sum 函数的蹦床优化</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> sum = <span class="function">(<span class="params">n</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> sumStep = <span class="function">(<span class="params">n, ret = <span class="number">1</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> sumStep(n - <span class="number">1</span>, n + ret)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> ret = sumStep(n)</span><br><span class="line">  <span class="keyword">while</span> (<span class="keyword">typeof</span> ret === <span class="string">'function'</span>) &#123;</span><br><span class="line">    ret = ret()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>封装蹦床函数</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">trampoline</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (<span class="keyword">typeof</span> fn === <span class="string">'function'</span>) &#123;</span><br><span class="line">    fn = fn()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> fn</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>封装完成后需要把原递归函数尾调用改为返回不立即执行的匿名函数</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> sum = <span class="function">(<span class="params">n, ret = <span class="number">1</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> ret</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> sum(n - <span class="number">1</span>, n + ret)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fibonacci</span>(<span class="params">n, pre = <span class="number">1</span>, ret = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (n &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> fibonacci(n - <span class="number">1</span>, ret, ret + pre)</span><br><span class="line">&#125;</span><br><span class="line">trampoline(sum(<span class="number">100</span>))</span><br><span class="line">trampoline(fibonacci(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/递归.html">http://www.skyline.show/递归.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Echarts常见使用.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Echarts常见使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Git常见符号.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Git常见符号</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归调用"><span class="nav-number">1.</span> <span class="nav-text">递归调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归弊端"><span class="nav-number">2.</span> <span class="nav-text">递归弊端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尾调用"><span class="nav-number">3.</span> <span class="nav-text">尾调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尾递归"><span class="nav-number">4.</span> <span class="nav-text">尾递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蹦床优化（Trampoline）"><span class="nav-number">5.</span> <span class="nav-text">蹦床优化（Trampoline）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">6.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2023 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

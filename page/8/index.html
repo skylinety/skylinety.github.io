@@ -319,6 +319,638 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-设计模式综述"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/设计模式综述.html">设计模式综述</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-06-03T09:39:32.000Z" itemprop="datePublished">2021-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#设计模式原则">设计模式原则</a><ul>
+<li><a href="#single-responsibility-principle">Single Responsibility Principle</a></li>
+<li><a href="#open-closed-principle">Open-closed Principle</a></li>
+<li><a href="#liskov-substitution-principle">Liskov substitution principle</a></li>
+<li><a href="#interface-segregation-principle">Interface segregation principle</a></li>
+<li><a href="#dependency-inversion-principle">Dependency Inversion Principle</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>设计模式是在软件工程多年的发展中，经过前人不断挖坑填埋总结而来。<br>一般认为有 23 种，其他多是基于这 23 种延伸。<br>在面向对象编程语言中，<br>设计模式一般遵循 SOLID 原则<br>Acronym | EN | CN | DESC<br>– | – | – | –<br>S |Single Responsibility Principle | 单一职责原则 |一个程序只做好一件事，复杂功能拆开<br>O | Open-closed Principle| 开放/封闭原则 | 对扩展开放，对修改封闭，增加需求时，扩展新代码，而非修改已有代码<br>L |Liskov Substitution Principle | 里氏替换原则 |子类能覆盖父类，父类能出现的地方子类就能出现<br>I | Interface Segregation Principle| 接口隔离原则 |接口职责单一，防止接入不使用的接口与方法<br>D |Dependency Inversion Principle | 依赖倒转原则 | 面向接口编程，依赖于抽象而不依赖于具体，使用方只关注接口而不关注具体类的实现</p>
+<h2 id="设计模式原则"><a href="#设计模式原则" class="headerlink" title="设计模式原则"></a>设计模式原则</h2><h3 id="Single-Responsibility-Principle"><a href="#Single-Responsibility-Principle" class="headerlink" title="Single Responsibility Principle"></a>Single Responsibility Principle</h3>
+        <!-- 
+
+
+简介
+设计模式原则
+Single Responsibility Principle
+Open-closed Principle
+Liskov substitution principle
+Interface segregation principle
+Dependency Inversion Principle
+
+
+BMW WARNING
+
+
+简介设计模式是在软件工程多年的发展中，经过......  -->
+        <p class="article-more-link">
+          <a href="/设计模式综述.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell常见操作汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell常见操作汇总.html">Shell常见操作汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T10:06:41.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#获取执行脚本的位置">获取执行脚本的位置</a></li>
+<li><a href="#shell-脚本相互调用">Shell 脚本相互调用</a></li>
+<li><a href="#脚本中断与执行">脚本中断与执行</a></li>
+<li><a href="#判定目录或文件存在">判定目录或文件存在</a></li>
+<li><a href="#算数命令">算数命令</a></li>
+<li><a href="#查看目录下文件夹">查看目录下文件夹</a></li>
+<li><a href="#创建嵌套文件夹并进入">创建嵌套文件夹并进入</a></li>
+<li><a href="#查看远程服务及端口是否开启">查看远程服务及端口是否开启</a></li>
+<li><a href="#设置别名">设置别名</a><ul>
+<li><a href="#临时别名">临时别名</a></li>
+<li><a href="#永久生效">永久生效</a></li>
+</ul>
+</li>
+<li><a href="#查看端口占用">查看端口占用</a></li>
+<li><a href="#删除目录下模糊匹配的文件">删除目录下模糊匹配的文件</a><ul>
+<li><a href="#命令">命令</a></li>
+<li><a href="#解析">解析</a></li>
+</ul>
+</li>
+<li><a href="#查找目录下包含指定字符的文件">查找目录下包含指定字符的文件</a><ul>
+<li><a href="#命令-1">命令</a></li>
+<li><a href="#解析-1">解析</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="获取执行脚本的位置"><a href="#获取执行脚本的位置" class="headerlink" title="获取执行脚本的位置"></a>获取执行脚本的位置</h2><p>通过<code>dirname &quot;$0&quot;</code>获取当前执行脚本所在位置。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">BASEDIR=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$BASEDIR</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/a.sh" target="_blank" rel="noopener">示例</a></p>
+<h2 id="Shell-脚本相互调用"><a href="#Shell-脚本相互调用" class="headerlink" title="Shell 脚本相互调用"></a>Shell 脚本相互调用</h2><p>在 Shell 脚本内部调用其他 Shell 脚本，使用如下方法：</p>
+<ul>
+<li>sh</li>
+<li>source</li>
+<li>点号(.)</li>
+</ul>
+<p>使用点号和 source 的效果基本一致，等同于将其他脚本的内部内容放在当前脚本运行。<br>引入脚本和当前脚本执行时位于同一进程中，引入脚本可以获取到当前脚本中的变量。<br>sh 引入的脚本会单开一个子进程，其无法获取到当前脚本中的变量，要获取该变量，需要使用 export 导出。<br>有如下两个在同级目录的脚本 a 和 b<br><code>a.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">a=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"b is <span class="variable">$b</span>"</span></span><br><span class="line"><span class="comment"># b is</span></span><br><span class="line">BASEDIR=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$BASEDIR</span></span><br><span class="line">. <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"b is <span class="variable">$b</span>"</span></span><br><span class="line"><span class="comment"># b is 2</span></span><br><span class="line"><span class="built_in">source</span> <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br><span class="line">sh <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is</span></span><br><span class="line"><span class="built_in">export</span> a</span><br><span class="line">sh <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br></pre></td></tr></table></figure>
+<p><code>b.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"a is <span class="variable">$a</span>"</span></span><br><span class="line">b=2</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/a.sh" target="_blank" rel="noopener">示例</a></p>
+<h2 id="脚本中断与执行"><a href="#脚本中断与执行" class="headerlink" title="脚本中断与执行"></a>脚本中断与执行</h2>
+        <!-- 
+
+
+获取执行脚本的位置
+Shell 脚本相互调用
+脚本中断与执行
+判定目录或文件存在
+算数命令
+查看目录下文件夹
+创建嵌套文件夹并进入
+查看远程服务及端口是否开启
+设置别名
+临时别名
+永久生效
+
+
+查看端口占用
+删除目录下模糊匹配的文件
+命令
+解析
+
+
+查找目录下包含指定字符的文件
+命令
+解析
+
+
+BMW WARNING
+
+
+获取执行脚本的位置通过dirname &quot;$0&quot......  -->
+        <p class="article-more-link">
+          <a href="/Shell常见操作汇总.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中sed的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中sed的使用.html">Shell中sed的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T08:29:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#sed-简介">sed 简介</a></li>
+<li><a href="#选项参数">选项参数</a><ul>
+<li><a href="#-n">-n</a></li>
+<li><a href="#-e">-e</a></li>
+<li><a href="#-i">-i</a></li>
+</ul>
+</li>
+<li><a href="#命令参数">命令参数</a><ul>
+<li><a href="#ia">i/a</a></li>
+<li><a href="#d">d</a></li>
+<li><a href="#p">p</a></li>
+<li><a href="#sc">s/c</a></li>
+</ul>
+</li>
+<li><a href="#常见用法">常见用法</a><ul>
+<li><a href="#文末插入">文末插入</a></li>
+<li><a href="#替换字符">替换字符</a></li>
+<li><a href="#获取行数">获取行数</a></li>
+<li><a href="#获取字符行号">获取字符行号</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="sed-简介"><a href="#sed-简介" class="headerlink" title="sed 简介"></a>sed 简介</h2><p>sed 是一种流文本编辑器，用于读取指定文件或标准输入。<br>如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。<br>本文后续内容以<a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/skyline.txt" target="_blank" rel="noopener">skyline.txt</a>示例，可在根目录执行下述脚本。<br>其文本内容为</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">test</span><br><span class="line">skyline</span><br><span class="line">test2</span><br><span class="line">skyline test</span><br></pre></td></tr></table></figure>
+<h2 id="选项参数"><a href="#选项参数" class="headerlink" title="选项参数"></a>选项参数</h2><h3 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h3>
+        <!-- 
+
+
+sed 简介
+选项参数
+-n
+-e
+-i
+
+
+命令参数
+i/a
+d
+p
+s/c
+
+
+常见用法
+文末插入
+替换字符
+获取行数
+获取字符行号
+
+
+BMW WARNING
+
+
+sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。本文后续内容以skyline.txt示例，可在根目录执行下述脚本。其文本内容......  -->
+        <p class="article-more-link">
+          <a href="/Shell中sed的使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中xargs使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中xargs使用.html">Shell中xargs使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T08:06:40.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#概述">概述</a></li>
+<li><a href="#基础使用示例">基础使用示例</a><ul>
+<li><a href="#echo">echo</a></li>
+<li><a href="#wc">wc</a></li>
+<li><a href="#mkdir">mkdir</a></li>
+</ul>
+</li>
+<li><a href="#参数">参数</a><ul>
+<li><a href="#-0">-0</a></li>
+<li><a href="#-i">-I</a></li>
+<li><a href="#-l">-L</a></li>
+<li><a href="#-n">-n</a></li>
+<li><a href="#-d">-d</a></li>
+<li><a href="#-t">-t</a></li>
+<li><a href="#-p">-p</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支持标准输入的命令提供管道操作。<br>通过 xargs 将标准输入转换成参数来完成后续命令。如果转换成的参数有多个（通过标准输入空符分割），后续命令重复执行。</p>
+<blockquote>
+<p>The xargs command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like grep can accept standard input as a parameter, many other tools cannot. Using xargs allows tools like echo and rm and mkdir to accept standard input as arguments.</p>
+</blockquote>
+<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3>
+        <!-- 
+
+
+概述
+基础使用示例
+echo
+wc
+mkdir
+
+
+参数
+-0
+-I
+-L
+-n
+-d
+-t
+-p
+
+
+BMW WARNING
+
+
+概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那......  -->
+        <p class="article-more-link">
+          <a href="/Shell中xargs使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中字符串相关操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中字符串相关操作.html">Shell中字符串相关操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T08:06:40.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#字符替换">字符替换</a></li>
+<li><a href="#字符包含判定">字符包含判定</a><ul>
+<li><a href="#">==</a></li>
+<li><a href="#正则">正则=~</a></li>
+<li><a href="#grep">grep</a></li>
+</ul>
+</li>
+<li><a href="#将字符串作为命令执行">将字符串作为命令执行</a></li>
+<li><a href="#获取子串字符串切割">获取子串（字符串切割）</a><ul>
+<li><a href="#cut">cut</a></li>
+<li><a href="#截取语法">截取语法</a></li>
+</ul>
+</li>
+<li><a href="#字符串转数组">字符串转数组</a><ul>
+<li><a href="#read">read</a></li>
+<li><a href="#字符替换-1">字符替换</a></li>
+<li><a href="#其他场景">其他场景</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="字符替换"><a href="#字符替换" class="headerlink" title="字符替换"></a>字符替换</h2><p>将空格字符’ ‘替换为’|’</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">"1 2 3 4"</span>;</span><br><span class="line">SKYLINE=<span class="variable">$&#123;STR// /|&#125;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$SKYLINE</span></span><br><span class="line"><span class="comment"># 1|2|3|4</span></span><br></pre></td></tr></table></figure>
+<h2 id="字符包含判定"><a href="#字符包含判定" class="headerlink" title="字符包含判定"></a>字符包含判定</h2><h3 id><a href="#" class="headerlink" title="=="></a>==</h3>
+        <!-- 
+
+
+字符替换
+字符包含判定
+==
+正则=~
+grep
+
+
+将字符串作为命令执行
+获取子串（字符串切割）
+cut
+截取语法
+
+
+字符串转数组
+read
+字符替换
+其他场景
+
+
+BMW WARNING
+
+
+字符替换将空格字符’ ‘替换为’|’
+STR="1 2 3 4";SKYLINE=$&#123;STR// /|&#125;echo $SKYLINE# 1|2|3|4
+字符包含判定==
+S......  -->
+        <p class="article-more-link">
+          <a href="/Shell中字符串相关操作.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Git常见操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Git常见操作.html">Git常见操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#回滚">回滚</a><ul>
+<li><a href="#revert">revert</a></li>
+<li><a href="#reset">reset</a></li>
+</ul>
+</li>
+<li><a href="#git-删除分支">git 删除分支</a><ul>
+<li><a href="#删除本地分支">删除本地分支</a></li>
+<li><a href="#删除远端分支">删除远端分支</a></li>
+</ul>
+</li>
+<li><a href="#git-单列已添加到暂存区的文件">git 单列已添加到暂存区的文件</a></li>
+<li><a href="#git-本地分支有提交单独查看并运行远程该分支">Git 本地分支有提交，单独查看并运行远程该分支</a></li>
+<li><a href="#远程仓库迁移拷贝">远程仓库迁移（拷贝）</a></li>
+<li><a href="#新建仓库时关联远程与本地">新建仓库时关联远程与本地</a></li>
+<li><a href="#git-同时推送多个仓库">git 同时推送多个仓库</a><ul>
+<li><a href="#git-remote-add">git remote add</a></li>
+<li><a href="#git-remote-set-url">git remote set-url</a></li>
+</ul>
+</li>
+<li><a href="#https-方式访问-git-免输密码">https 方式访问 git 免输密码</a></li>
+<li><a href="#git-用户配置">Git 用户配置</a><ul>
+<li><a href="#查看配置">查看配置</a></li>
+<li><a href="#修改全局配置">修改全局配置</a></li>
+</ul>
+</li>
+<li><a href="#git-ssh-免密">GIT SSH 免密</a></li>
+<li><a href="#同步-github-fork-仓库">同步 Github fork 仓库</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><h3 id="revert"><a href="#revert" class="headerlink" title="revert"></a>revert</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git revert [commit-id]</span><br></pre></td></tr></table></figure>
+<p>revert 可将代码回滚到指定版本，但会留下一条回滚记录</p>
+<h3 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h3>
+        <!-- 
+
+
+回滚
+revert
+reset
+
+
+git 删除分支
+删除本地分支
+删除远端分支
+
+
+git 单列已添加到暂存区的文件
+Git 本地分支有提交，单独查看并运行远程该分支
+远程仓库迁移（拷贝）
+新建仓库时关联远程与本地
+git 同时推送多个仓库
+git remote add
+git remote set-url
+
+
+https 方式访问 git 免输密码
+Git 用户配置
+查看配置
+修改......  -->
+        <p class="article-more-link">
+          <a href="/Git常见操作.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -441,7 +1073,7 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-Git常见操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Shell中的符号"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -449,7 +1081,7 @@ BMW WARNING
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Git常见操作.html">Git常见操作</a>
+      <a class="article-title" href="/Shell中的符号.html">Shell中的符号</a>
     </h1>
   
 
@@ -464,7 +1096,7 @@ BMW WARNING
 
       
     
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
@@ -474,67 +1106,66 @@ BMW WARNING
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#回滚">回滚</a><ul>
-<li><a href="#revert">revert</a></li>
-<li><a href="#reset">reset</a></li>
-</ul>
-</li>
-<li><a href="#git-删除分支">git 删除分支</a><ul>
-<li><a href="#删除本地分支">删除本地分支</a></li>
-<li><a href="#删除远端分支">删除远端分支</a></li>
-</ul>
-</li>
-<li><a href="#git-单列已添加到暂存区的文件">git 单列已添加到暂存区的文件</a></li>
-<li><a href="#git-本地分支有提交单独查看并运行远程该分支">Git 本地分支有提交，单独查看并运行远程该分支</a></li>
-<li><a href="#远程仓库迁移拷贝">远程仓库迁移（拷贝）</a></li>
-<li><a href="#新建仓库时关联远程与本地">新建仓库时关联远程与本地</a></li>
-<li><a href="#git-同时推送多个仓库">git 同时推送多个仓库</a><ul>
-<li><a href="#git-remote-add">git remote add</a></li>
-<li><a href="#git-remote-set-url">git remote set-url</a></li>
-</ul>
-</li>
-<li><a href="#https-方式访问-git-免输密码">https 方式访问 git 免输密码</a></li>
-<li><a href="#git-用户配置">Git 用户配置</a><ul>
-<li><a href="#查看配置">查看配置</a></li>
-<li><a href="#修改全局配置">修改全局配置</a></li>
-</ul>
-</li>
-<li><a href="#git-ssh-免密">GIT SSH 免密</a></li>
-<li><a href="#同步-github-fork-仓库">同步 Github fork 仓库</a></li>
+<li><a href="#引号">引号</a></li>
+<li><a href="#路径符">路径符</a></li>
+<li><a href="#重定向符">重定向符</a></li>
+<li><a href="#命令执行符">命令执行符</a></li>
+<li><a href="#符号标记">符号标记</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><h3 id="revert"><a href="#revert" class="headerlink" title="revert"></a>revert</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git revert [commit-id]</span><br></pre></td></tr></table></figure>
-<p>revert 可将代码回滚到指定版本，但会留下一条回滚记录</p>
-<h3 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h3>
+<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><p>单引号和双引号主要可用于解决字符串中间有空格的问题。<br>单引号将剥夺字符串中特殊字符的含义。<br>双引号中的’$’进行参数替换’<code>&#39;进行命令替换。
+反引号与$()是一样的。 `</code>或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'$skyline`echo 1`'</span></span><br><span class="line"><span class="comment"># $skyline`echo 1`</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$skyline</span>`echo 1`"</span></span><br><span class="line"><span class="comment"># 11</span></span><br></pre></td></tr></table></figure>
+<h2 id="路径符"><a href="#路径符" class="headerlink" title="路径符"></a>路径符</h2><p>Shell 中路径相关的符号，如下表所示</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>使用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~</td>
+<td>cd ~</td>
+<td>用户主页目录</td>
+</tr>
+<tr>
+<td>.</td>
+<td>ls .</td>
+<td>当前目录</td>
+</tr>
+<tr>
+<td>..</td>
+<td>cd ..</td>
+<td>上级目录</td>
+</tr>
+<tr>
+<td>/</td>
+<td>cd /</td>
+<td>根目录或路径分隔符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2>
         <!-- 
 
 
-回滚
-revert
-reset
+引号
+路径符
+重定向符
+命令执行符
+符号标记
+BMW WARNING
 
 
-git 删除分支
-删除本地分支
-删除远端分支
-
-
-git 单列已添加到暂存区的文件
-Git 本地分支有提交，单独查看并运行远程该分支
-远程仓库迁移（拷贝）
-新建仓库时关联远程与本地
-git 同时推送多个仓库
-git remote add
-git remote set-url
-
-
-https 方式访问 git 免输密码
-Git 用户配置
-查看配置
-修改......  -->
+引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&#39;进行命令替换。
+反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。
+skyline=1echo '$skyline`echo 1`'#......  -->
         <p class="article-more-link">
-          <a href="/Git常见操作.html#more">阅读全文</a>
+          <a href="/Shell中的符号.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -542,7 +1173,108 @@ Git 用户配置
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
+<li><a href="#实质">实质</a></li>
+<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
+</ul>
+</li>
+<li><a href="#引入-dll-库">引入 dll 库</a><ul>
+<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
+<li><a href="#手动引入注意">手动引入注意</a></li>
+<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
+<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
+</ul>
+</li>
+<li><a href="#成果分析">成果分析</a><ul>
+<li><a href="#优化前">优化前</a></li>
+<li><a href="#优化后">优化后：</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
+<blockquote>
+<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
+</blockquote>
+<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3>
+        <!-- 
+
+
+DllPlugin 概述
+实质
+DllPlugin 配置
+
+
+引入 dll 库
+手动引入 dll 文件（不推荐）
+手动引入注意
+自动引入(推荐)
+自动引入常见问题
+
+
+成果分析
+优化前
+优化后：
+
+
+BMW WARNING
+
+
+DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程序同时使用的代码库。在前端领域里可简单看做缓存，其......  -->
+        <p class="article-more-link">
+          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
 
     </footer>
   </div>
@@ -665,714 +1397,6 @@ BMW WARNING
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-排序算法"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/排序算法.html">排序算法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#选择排序">选择排序</a><ul>
-<li><a href="#选排的思想">选排的思想</a></li>
-<li><a href="#时间复杂度">时间复杂度</a></li>
-</ul>
-</li>
-<li><a href="#冒泡排序">冒泡排序</a><ul>
-<li><a href="#基本思路">基本思路</a></li>
-<li><a href="#时间复杂度-1">时间复杂度</a></li>
-<li><a href="#交换判定优化">交换判定优化</a></li>
-</ul>
-</li>
-<li><a href="#插入排序">插入排序</a><ul>
-<li><a href="#插排的思想">插排的思想</a></li>
-<li><a href="#时间复杂度分析">时间复杂度分析</a></li>
-<li><a href="#哨兵优化">哨兵优化</a></li>
-<li><a href="#折半优化">折半优化</a></li>
-</ul>
-</li>
-<li><a href="#归并排序merge-sort">归并排序（Merge Sort）</a><ul>
-<li><a href="#归并排序思路">归并排序思路</a></li>
-<li><a href="#合并">合并</a></li>
-<li><a href="#时间复杂度分析-1">时间复杂度分析</a></li>
-</ul>
-</li>
-<li><a href="#快速排序">快速排序</a><ul>
-<li><a href="#快排思路">快排思路</a></li>
-<li><a href="#选值优化">选值优化</a></li>
-<li><a href="#多路快排">多路快排</a></li>
-</ul>
-</li>
-<li><a href="#希尔排序缩小增量排序">希尔排序（缩小增量排序）</a><ul>
-<li><a href="#关键思路">关键思路</a></li>
-<li><a href="#时间复杂度-2">时间复杂度</a></li>
-</ul>
-</li>
-<li><a href="#计数排序">计数排序</a><ul>
-<li><a href="#关键思路-1">关键思路</a></li>
-<li><a href="#时间复杂度分析-2">时间复杂度分析</a></li>
-</ul>
-</li>
-<li><a href="#堆排序">堆排序</a><ul>
-<li><a href="#完全二叉树">完全二叉树</a></li>
-<li><a href="#堆">堆</a></li>
-<li><a href="#构造堆">构造堆</a></li>
-<li><a href="#排序">排序</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="选排的思想"><a href="#选排的思想" class="headerlink" title="选排的思想"></a>选排的思想</h3><p>找出每一轮的最值并放在该轮次位置处<br>核心思想是<strong>每轮选最值</strong><br><strong>外层循环确定轮次，内层循环确<code>定最值</code></strong>。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectionSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">        pos = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(nums)):</span><br><span class="line">            <span class="keyword">if</span> nums[pos] &gt; nums[j]:</span><br><span class="line">                pos = j</span><br><span class="line">        nums[i], nums[pos] = nums[pos], nums[i]</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3>
-        <!-- 
-
-
-选择排序
-选排的思想
-时间复杂度
-
-
-冒泡排序
-基本思路
-时间复杂度
-交换判定优化
-
-
-插入排序
-插排的思想
-时间复杂度分析
-哨兵优化
-折半优化
-
-
-归并排序（Merge Sort）
-归并排序思路
-合并
-时间复杂度分析
-
-
-快速排序
-快排思路
-选值优化
-多路快排
-
-
-希尔排序（缩小增量排序）
-关键思路
-时间复杂度
-
-
-计数排序
-关键思路
-时间复杂度分析
-
-
-堆排序
-完全二叉树
-堆
-构造......  -->
-        <p class="article-more-link">
-          <a href="/排序算法.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Webpack中DllPlugin使用.html">Webpack中DllPlugin使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#dllplugin-概述">DllPlugin 概述</a><ul>
-<li><a href="#实质">实质</a></li>
-<li><a href="#dllplugin-配置">DllPlugin 配置</a></li>
-</ul>
-</li>
-<li><a href="#引入-dll-库">引入 dll 库</a><ul>
-<li><a href="#手动引入-dll-文件不推荐">手动引入 dll 文件（不推荐）</a></li>
-<li><a href="#手动引入注意">手动引入注意</a></li>
-<li><a href="#自动引入推荐">自动引入(推荐)</a></li>
-<li><a href="#自动引入常见问题">自动引入常见问题</a></li>
-</ul>
-</li>
-<li><a href="#成果分析">成果分析</a><ul>
-<li><a href="#优化前">优化前</a></li>
-<li><a href="#优化后">优化后：</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="DllPlugin-概述"><a href="#DllPlugin-概述" class="headerlink" title="DllPlugin 概述"></a>DllPlugin 概述</h2><h3 id="实质"><a href="#实质" class="headerlink" title="实质"></a>实质</h3><p>DLL即动态链接库(Dynamic Link Library)。<br>是指包含可由多个程序同时使用的代码库。<br>在前端领域里可简单看做缓存，其实质是把项目中引入的较大模块先行分离出来，打包为DLL文件并存到硬盘里。<br>再次打包时动态链接清单（manifest文件）中的文件就无需再次打包，从而优化打包速度，减少打包时间，其同时兼具分离模块的作用。</p>
-<blockquote>
-<p>webpack v2 时已存在，在 v4+已不推荐使用该配置，新其版本迭代带来的性能提升足以忽略 DllPlugin 所带来的打包优化效益</p>
-</blockquote>
-<h3 id="DllPlugin-配置"><a href="#DllPlugin-配置" class="headerlink" title="DllPlugin 配置"></a>DllPlugin 配置</h3>
-        <!-- 
-
-
-DllPlugin 概述
-实质
-DllPlugin 配置
-
-
-引入 dll 库
-手动引入 dll 文件（不推荐）
-手动引入注意
-自动引入(推荐)
-自动引入常见问题
-
-
-成果分析
-优化前
-优化后：
-
-
-BMW WARNING
-
-
-DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含可由多个程序同时使用的代码库。在前端领域里可简单看做缓存，其......  -->
-        <p class="article-more-link">
-          <a href="/Webpack中DllPlugin使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中grep的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中grep的使用.html">Shell中grep的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2020-09-12T07:14:56.000Z" itemprop="datePublished">2020-09-12</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#使用">使用</a><ul>
-<li><a href="#基础使用">基础使用</a></li>
-<li><a href="#正则">正则</a></li>
-<li><a href="#递归查找子目录">递归查找子目录</a></li>
-<li><a href="#忽略大小写">忽略大小写</a></li>
-<li><a href="#匹配次数">匹配次数</a></li>
-<li><a href="#静默查找">静默查找</a></li>
-</ul>
-</li>
-<li><a href="#选项">选项</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>grep 是一个字符搜索命令，使用的基础语法为</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">grep [options] pattern [files]</span><br></pre></td></tr></table></figure>
-<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3>
-        <!-- 
-
-
-使用
-基础使用
-正则
-递归查找子目录
-忽略大小写
-匹配次数
-静默查找
-
-
-选项
-BMW WARNING
-
-
-使用基础使用grep 是一个字符搜索命令，使用的基础语法为
-grep [options] pattern [files]
-正则
-^ 匹配的字符在行首$ 匹配的字符在行尾
-grep ^grep Docs/Major/Shell/Commands/Shell中grep的使用.mdgr......  -->
-        <p class="article-more-link">
-          <a href="/Shell中grep的使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-PS更换指定颜色"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/PS更换指定颜色.html">PS更换指定颜色</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2020-07-11T10:02:04.000Z" itemprop="datePublished">2020-07-11</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#效果展示">效果展示</a></li>
-<li><a href="#替换颜色">替换颜色</a></li>
-<li><a href="#颜色叠加">颜色叠加</a></li>
-<li><a href="#新选区图层">新选区图层</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E6%9B%B4%E6%8D%A2%E6%8C%87%E5%AE%9A%E9%A2%9C%E8%89%B220220303173033.png" alt="PS更换指定颜色20220303173033"></p>
-<h2 id="替换颜色"><a href="#替换颜色" class="headerlink" title="替换颜色"></a>替换颜色</h2><p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Tools/APPs/Photoshop/leaf.jpeg" target="_blank" rel="noopener">素材地址</a><br>首先选中图片或图层。</p>
-<p>在 图像 &gt; 调整 &gt; 替换颜色 开启颜色替换工具<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E6%9B%B4%E6%8D%A2%E6%8C%87%E5%AE%9A%E9%A2%9C%E8%89%B220220303112019.png" alt="PS更换指定颜色20220303112019"></p>
-<p>在工具中，可以通过拾色器选取被替换色与想要的目标色。<br>选中预览，可通过调整容差可实时预览得到想要的结果。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E6%9B%B4%E6%8D%A2%E6%8C%87%E5%AE%9A%E9%A2%9C%E8%89%B220220303112437.png" alt="PS更换指定颜色20220303112437"></p>
-<p>一个实际的例子如下</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E6%9B%B4%E6%8D%A2%E6%8C%87%E5%AE%9A%E9%A2%9C%E8%89%B220220303170026.png" alt="PS更换指定颜色20220303170026"></p>
-<p>按住 command 或 control 键可以在预览中切换选中颜色和原图<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E6%9B%B4%E6%8D%A2%E6%8C%87%E5%AE%9A%E9%A2%9C%E8%89%B220220303170157.png" alt="PS更换指定颜色20220303170157"></p>
-<h2 id="颜色叠加"><a href="#颜色叠加" class="headerlink" title="颜色叠加"></a>颜色叠加</h2>
-        <!-- 
-
-
-效果展示
-替换颜色
-颜色叠加
-新选区图层
-BMW WARNING
-
-
-效果展示
-替换颜色素材地址首先选中图片或图层。
-在 图像 &gt; 调整 &gt; 替换颜色 开启颜色替换工具
-在工具中，可以通过拾色器选取被替换色与想要的目标色。选中预览，可通过调整容差可实时预览得到想要的结果。
-一个实际的例子如下
-
-按住 command 或 control 键可以在预览中切换选中颜色和原图
-颜色......  -->
-        <p class="article-more-link">
-          <a href="/PS更换指定颜色.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Photoshop/">Photoshop</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-磁盘阵列"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/磁盘阵列.html">磁盘阵列</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2019-04-21T10:02:01.000Z" itemprop="datePublished">2019-04-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#对比">对比</a><ul>
-<li><a href="#总览">总览</a></li>
-<li><a href="#优劣">优劣</a></li>
-<li><a href="#raid-0">RAID 0</a></li>
-<li><a href="#raid-1">RAID 1</a></li>
-<li><a href="#raid-5">RAID 5</a></li>
-<li><a href="#raid-6">RAID 6</a></li>
-<li><a href="#raid-10">RAID 10</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>独立冗余磁盘阵列(Redundant Arrays Of Independent Disks)，简写 RAID。<br>RAID 技术用以提升存储的性能与可靠性。</p>
-<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><h3 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h3>
-        <!-- 
-
-
-简介
-对比
-总览
-优劣
-RAID 0
-RAID 1
-RAID 5
-RAID 6
-RAID 10
-
-
-BMW WARNING
-
-
-简介独立冗余磁盘阵列(Redundant Arrays Of Independent Disks)，简写 RAID。RAID 技术用以提升存储的性能与可靠性。
-对比总览
-
-
-
-阵列
-最少硬盘
-关键词
-原理
-
-
-
-
-RAID 0
-2
-striping
-资料会被均......  -->
-        <p class="article-more-link">
-          <a href="/磁盘阵列.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardware/">Hardware</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/硬盘/">硬盘</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中数组相关操作"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中数组相关操作.html">Shell中数组相关操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2019-03-22T07:14:56.000Z" itemprop="datePublished">2019-03-22</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#获取数组长度">获取数组长度</a></li>
-<li><a href="#列出数组项">列出数组项</a></li>
-<li><a href="#数组合并">数组合并</a></li>
-<li><a href="#数组遍历">数组遍历</a></li>
-<li><a href="#数组下标获取">数组下标获取</a></li>
-<li><a href="#数组转字符串">数组转字符串</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="获取数组长度"><a href="#获取数组长度" class="headerlink" title="获取数组长度"></a>获取数组长度</h2><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[*]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
-<h2 id="列出数组项"><a href="#列出数组项" class="headerlink" title="列出数组项"></a>列出数组项</h2><ul>
-<li>列出所有项</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[@]&#125;</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[*]&#125;</span></span><br><span class="line"><span class="comment"># 4 3 2 1</span></span><br></pre></td></tr></table></figure>
-<p>列出单项</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=(4 3 2 1)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;skyline[1]&#125;</span></span><br><span class="line"><span class="comment"># 3</span></span><br></pre></td></tr></table></figure>
-<h2 id="数组合并"><a href="#数组合并" class="headerlink" title="数组合并"></a>数组合并</h2>
-        <!-- 
-
-
-获取数组长度
-列出数组项
-数组合并
-数组遍历
-数组下标获取
-数组转字符串
-BMW WARNING
-
-
-获取数组长度skyline=(4 3 2 1)echo $&#123;#skyline[*]&#125;# 4echo $&#123;#skyline[@]&#125;# 4
-列出数组项
-列出所有项
-
-skyline=(4 3 2 1)echo $&#123;skyline[@]&#1......  -->
-        <p class="article-more-link">
-          <a href="/Shell中数组相关操作.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CSS弹性布局主轴元素设置单独对齐方式"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS弹性布局主轴元素设置单独对齐方式.html">CSS弹性布局主轴元素设置单独对齐方式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-07-30T07:14:56.000Z" itemprop="datePublished">2018-07-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#效果图示">效果图示</a></li>
-<li><a href="#效果实现">效果实现</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="效果图示"><a href="#效果图示" class="headerlink" title="效果图示"></a>效果图示</h2><p>灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。<br>通过设置特定属性将最后红框圈出的元素置于容器最右侧。</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145752.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145752"><br>实现效果<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145350.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145350"></p>
-<h2 id="效果实现"><a href="#效果实现" class="headerlink" title="效果实现"></a>效果实现</h2><ul>
-<li>方案 1<br>为红框子元素设定如下属性</li>
-</ul>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  flex-grow: 1; //红框子项目将占据了所有剩余空间</span><br><span class="line">  display: flex; //将自身设置为flex,作为容器之后就可以单独对内部文字项目进行右对齐</span><br><span class="line">  justify-content: flex-end; // 单独对内部文字项目进行右对齐</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过浏览器检视如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617150203.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617150203"></p>
-<ul>
-<li>方案 2</li>
-</ul>
-<p>将前 3 个子元素进行一层包裹，然后调整容器的 justify-content<br><code>justify-content: space-between</code></p>
-<ul>
-<li>方案 3</li>
-</ul>
-<p>为红框子项目添加如下属性</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">margin-left</span>: <span class="selector-tag">auto</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>方案 4</li>
-</ul>
-<p>为红框子项目添加如下属性</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
-        <!-- 
-
-
-效果图示
-效果实现
-BMW WARNING
-
-
-效果图示灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。通过设置特定属性将最后红框圈出的元素置于容器最右侧。
-实现效果
-效果实现
-方案 1为红框子元素设定如下属性
-
-.red &#123;  flex-grow: 1; //红框子项目将占据了所有剩余空间  display: flex; //将自身设置为flex,作为容器之后......  -->
-        <p class="article-more-link">
-          <a href="/CSS弹性布局主轴元素设置单独对齐方式.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>

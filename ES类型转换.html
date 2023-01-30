@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192434.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192801.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192825.png">
-<meta property="og:updated_time" content="2022-06-22T07:42:58.000Z">
+<meta property="og:updated_time" content="2023-01-24T09:57:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES类型转换">
 <meta name="twitter:description" content="类型转换 类型转换概述 to boolean to number to string to object   ToPrimitive 隐式转换场景 隐式转换场景概述 一元操作符 二元加 乘、除、取余、二元减 比较运算符   Expression or Statement 几个有意思的输出 AST {}语法解析分析   JSON.stringify 处理规则 参数   BMW WARNING">
@@ -195,7 +195,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-22T07:42:58.000Z" itemprop="datePublished">2022-06-22</time>
+      <time datetime="2023-01-24T09:57:08.000Z" itemprop="datePublished">2023-01-24</time>
     </a><span style="color: #999">|</span>
 
       
@@ -475,7 +475,7 @@
 <li>字符串 vs 字符串，按 unicode 依次比较(大写字母总是在小写字母之后)</li>
 <li>对象 vs 数字，对象 vs 字符串，将对象转化为转换成原始值，再进行比较。</li>
 <li>操作数含 NaN，直接返回 false(NaN 和 NaN 是不相等的)</li>
-<li>null 只和 undefined 是好基友（互相相等）</li>
+<li>null 与 undefined 是好基友（互相相等）</li>
 </ul>
 <p><strong>总结起来一句话，先转原始，有数字转数字，布尔值也转数字</strong></p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="literal">NaN</span> === <span class="literal">NaN</span>; <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="literal">undefined</span> == <span class="string">"undefined"</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="string">"null"</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="number">0</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">null</span> == <span class="literal">false</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">undefined</span> == <span class="number">0</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">undefined</span> == <span class="literal">false</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">true</span> == <span class="string">'2'</span> <span class="comment">// false</span></span><br><span class="line"><span class="literal">false</span> == [] <span class="comment">// true</span></span><br><span class="line">[] == ![] <span class="comment">// true</span></span><br><span class="line"><span class="comment">// ![]会先执行为false 即比较 ([] == false) =&gt; ([] == 0) =&gt; ('' == 0) =&gt; (0 == 0)</span></span><br></pre></td></tr></table></figure>
@@ -552,7 +552,7 @@
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
