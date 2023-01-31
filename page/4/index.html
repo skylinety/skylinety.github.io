@@ -417,6 +417,156 @@
 <!-- Table of Contents -->
 
   
+    <article id="post-CSS样式命中优先级"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS样式命中优先级.html">CSS样式命中优先级</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-15T07:58:53.000Z" itemprop="datePublished">2022-06-15</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#样式命中优先级">样式命中优先级</a></li>
+<li><a href="#其他优先级">其他优先级</a></li>
+<li><a href="#优先级示例">优先级示例</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="样式命中优先级"><a href="#样式命中优先级" class="headerlink" title="样式命中优先级"></a>样式命中优先级</h2><p>样式命中优先级递增表大致如下：</p>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>权重值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>0</td>
+</tr>
+<tr>
+<td>元素/伪元素</td>
+<td>1</td>
+</tr>
+<tr>
+<td>属性选择器</td>
+<td></td>
+</tr>
+<tr>
+<td>类/伪类</td>
+<td>10</td>
+</tr>
+<tr>
+<td>ID</td>
+<td>100</td>
+</tr>
+<tr>
+<td>内联样式</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>!important</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其他优先级"><a href="#其他优先级" class="headerlink" title="其他优先级"></a>其他优先级</h2><p>如果权重一致，最后一个指定的样式命中。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;!<span class="selector-tag">DOCTYPE</span> <span class="selector-tag">html</span>&gt;</span><br><span class="line">&lt;<span class="selector-tag">html</span>&gt;</span><br><span class="line">  &lt;<span class="selector-tag">head</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">      <span class="selector-tag">div</span><span class="selector-class">.skyline</span> &#123;</span><br><span class="line">        <span class="attribute">background-color</span>: blue;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="selector-tag">div</span><span class="selector-class">.liu</span> &#123;</span><br><span class="line">        <span class="attribute">background-color</span>: red;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;<span class="selector-tag">body</span>&gt;</span><br><span class="line">    &lt;div class="skyline liu"&gt;Skyline is red&lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>属性选择器权重介于元素与类选择器之间</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">      <span class="selector-tag">div</span><span class="selector-attr">[id=<span class="string">'skyline'</span>]</span> &#123;</span></span><br><span class="line">        background-color: blue;</span><br><span class="line">      &#125;</span><br><span class="line">      body div &#123;</span><br><span class="line">        background-color: yellow;</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"skyline"</span>&gt;</span>Skyline is blue<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="优先级示例"><a href="#优先级示例" class="headerlink" title="优先级示例"></a>优先级示例</h2>
+        <!-- 
+
+
+样式命中优先级
+其他优先级
+优先级示例
+BMW WARNING
+
+
+样式命中优先级样式命中优先级递增表大致如下：
+
+
+
+选择器
+权重值
+
+
+
+
+*
+0
+
+
+元素/伪元素
+1
+
+
+属性选择器
+
+
+
+类/伪类
+10
+
+
+ID
+100
+
+
+内联样式
+1000
+
+
+!important
+
+
+
+其他优先级如果权重一致，最后一个指定的样式命中。
+&lt;!DOCTYPE html&gt;&lt;h......  -->
+        <p class="article-more-link">
+          <a href="/CSS样式命中优先级.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-HTML标签"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -925,6 +1075,91 @@ ssh -i /a/b/c/d.private ......  -->
 <!-- Table of Contents -->
 
   
+    <article id="post-TS语法校验常见错误"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/TS语法校验常见错误.html">TS语法校验常见错误</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#property-does-not-exist-on-type-object">property does not exist on type Object</a><ul>
+<li><a href="#复现">复现</a></li>
+<li><a href="#解决">解决</a></li>
+</ul>
+</li>
+<li><a href="#expression-of-type-string-cant-be-used-to-index-type">Expression of type ‘string’ can’t be used to index type</a><ul>
+<li><a href="#复现-1">复现</a></li>
+<li><a href="#解决-1">解决</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="property-does-not-exist-on-type-Object"><a href="#property-does-not-exist-on-type-Object" class="headerlink" title="property does not exist on type Object"></a>property does not exist on type Object</h2><h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>Property ‘length’ does not exist on type’Object’.</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>; <span class="comment">//[ts] Property 'length' does not exist on type'Object'.</span></span><br></pre></td></tr></table></figure>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3>
+        <!-- 
+
+
+property does not exist on type Object
+复现
+解决
+
+
+Expression of type ‘string’ can’t be used to index type
+复现
+解决
+
+
+BMW WARNING
+
+
+property does not exist on type Object复现Property ‘length’ does not ex......  -->
+        <p class="article-more-link">
+          <a href="/TS语法校验常见错误.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Interface与AbstractClass"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1116,178 +1351,11 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-TS语法校验常见错误"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/TS语法校验常见错误.html">TS语法校验常见错误</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#property-does-not-exist-on-type-object">property does not exist on type Object</a><ul>
-<li><a href="#复现">复现</a></li>
-<li><a href="#解决">解决</a></li>
-</ul>
-</li>
-<li><a href="#expression-of-type-string-cant-be-used-to-index-type">Expression of type ‘string’ can’t be used to index type</a><ul>
-<li><a href="#复现-1">复现</a></li>
-<li><a href="#解决-1">解决</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="property-does-not-exist-on-type-Object"><a href="#property-does-not-exist-on-type-Object" class="headerlink" title="property does not exist on type Object"></a>property does not exist on type Object</h2><h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p>Property ‘length’ does not exist on type’Object’.</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj: <span class="built_in">Object</span> = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">obj.value = <span class="string">"value"</span>; <span class="comment">//[ts] Property 'length' does not exist on type'Object'.</span></span><br></pre></td></tr></table></figure>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3>
-        <!-- 
-
-
-property does not exist on type Object
-复现
-解决
-
-
-Expression of type ‘string’ can’t be used to index type
-复现
-解决
-
-
-BMW WARNING
-
-
-property does not exist on type Object复现Property ‘length’ does not ex......  -->
-        <p class="article-more-link">
-          <a href="/TS语法校验常见错误.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Cookie、Session与Token"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Cookie、Session与Token.html">Cookie、Session与Token</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#请求信息保存">请求信息保存</a></li>
-<li><a href="#cookie">Cookie</a><ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#属性分析">属性分析</a></li>
-<li><a href="#第三方-cookie">第三方 Cookie</a></li>
-<li><a href="#cookie-前缀">Cookie 前缀</a></li>
-</ul>
-</li>
-<li><a href="#session">Session</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="请求信息保存"><a href="#请求信息保存" class="headerlink" title="请求信息保存"></a>请求信息保存</h2><p>Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。<br>这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。<br>Cookie Session 等技术诞生就是为了解决请求信息无法保存的问题。</p>
-<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3>
-        <!-- 
-
-
-请求信息保存
-Cookie
-概述
-属性分析
-第三方 Cookie
-Cookie 前缀
-
-
-Session
-BMW WARNING
-
-
-请求信息保存Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。Cookie Session 等技术诞生......  -->
-        <p class="article-more-link">
-          <a href="/Cookie、Session与Token.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">下一页 &raquo;</a>
   </nav>
 
 </section>

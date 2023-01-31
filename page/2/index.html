@@ -319,6 +319,126 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-ESLint与Prettier使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ESLint与Prettier使用.html">ESLint与Prettier使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-11-06T09:21:04.000Z" itemprop="datePublished">2022-11-06</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#linter-与-prettier">Linter 与 Prettier</a></li>
+<li><a href="#eslint-与-prettier-共用">ESLint 与 Prettier 共用</a></li>
+<li><a href="#共用冲突">共用冲突</a></li>
+<li><a href="#常见问题">常见问题</a><ul>
+<li><a href="#eslint-校验禁用">eslint 校验禁用</a></li>
+<li><a href="#格式化禁用">格式化禁用</a></li>
+</ul>
+</li>
+<li><a href="#常见报错">常见报错</a><ul>
+<li><a href="#换行报错">换行报错</a></li>
+<li><a href="#插件版本兼容报错">插件版本兼容报错</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Linter-与-Prettier"><a href="#Linter-与-Prettier" class="headerlink" title="Linter 与 Prettier"></a>Linter 与 Prettier</h2><p>常用的 Linter 有 ESLint/TSLint/stylelint 等。</p>
+<p>Linter 大致分为两类校验规则：</p>
+<ul>
+<li>代码格式</li>
+<li>代码语法</li>
+</ul>
+<p>代码格式规定了缩进、空格、换行等<br>代码语法重点关注未使用变量(<a href="https://eslint.org/docs/latest/rules/no-unused-vars" target="_blank" rel="noopener">no-unused-vars</a>)、隐式全局变量(<a href="https://eslint.org/docs/latest/rules/no-implicit-globals" target="_blank" rel="noopener">no-implicit-globals</a>)等问题</p>
+<p>Prettier 无关代码语法，她可补充 Linter 规定代码格式。</p>
+<p>总之，一个常见的方案为，使用 Linter 来捕获语法问题和 Bug，Prettier 来格式化代码。</p>
+<h2 id="ESLint-与-Prettier-共用"><a href="#ESLint-与-Prettier-共用" class="headerlink" title="ESLint 与 Prettier 共用"></a>ESLint 与 Prettier 共用</h2><p>ESLint、Prettier 都分别有 NPM 包和 VSCode 插件。<br>ESLint 的 VSCode 插件可以在让我们在写代码过程中实时发现波浪标红的错误，提升工作效率。<br>当然，插件其实不是必须的，我们可以通过 <code>eslint --fix</code> <code>npx prettier --write</code> 修复部分相关问题。<br>但是部分无法自动修复的问题需要我们提交代码时一一排查。<br>ESLint、Prettier 在 VSCode 中对应的插件用以提高我们编码效率，在插件商店搜索安装即可。<br>在项目中将具体的配置分别放在项目根目录下.eslintrc.js 与 prettierrc.json 中。<br>一个简单的 ESLint 配置如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  root: <span class="literal">false</span>,</span><br><span class="line">  env: &#123;</span><br><span class="line">    node: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 'vue/setup-compiler-macros': true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  extends: [<span class="string">'plugin:vue/recommended'</span>, <span class="string">'@vue/standard'</span>],</span><br><span class="line">  rules: &#123;</span><br><span class="line">    <span class="string">'no-debugger'</span>: <span class="string">'off'</span>,</span><br><span class="line">    indent: [<span class="string">'off'</span>, <span class="number">2</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    parser: <span class="string">'babel-eslint'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>rules 的规则如下</p>
+<ul>
+<li>“off” 或 0 - 关闭规则</li>
+<li>“warn” 或 1 - 开启规则，错误警告而不退出</li>
+<li>“error” 或 2 - 开启规则，错误退出</li>
+</ul>
+<p>一个简单的 prettier 配置如下</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"printWidth"</span>: <span class="number">100</span>, <span class="comment">// 超过最大值换行</span></span><br><span class="line">  <span class="attr">"tabWidth"</span>: <span class="number">4</span>, <span class="comment">// 缩进字节数</span></span><br><span class="line">  <span class="attr">"useTabs"</span>: <span class="literal">false</span>, <span class="comment">// 缩进不使用tab，使用空格</span></span><br><span class="line">  <span class="attr">"semi"</span>: <span class="literal">true</span>, <span class="comment">// 句尾添加分号</span></span><br><span class="line">  <span class="attr">"singleQuote"</span>: <span class="literal">true</span>, <span class="comment">// 使用单引号代替双引号</span></span><br><span class="line">  <span class="attr">"proseWrap"</span>: <span class="string">"preserve"</span>, <span class="comment">// 默认值。因为使用了一些折行敏感型的渲染器（如GitHub comment）而按照markdown文本样式进行折行</span></span><br><span class="line">  <span class="attr">"arrowParens"</span>: <span class="string">"avoid"</span>, <span class="comment">//  (x) =&gt; &#123;&#125; 箭头函数参数只有一个时是否要有小括号。avoid：省略括号</span></span><br><span class="line">  <span class="attr">"bracketSpacing"</span>: <span class="literal">true</span>, <span class="comment">// 在对象，数组括号与文字之间加空格 "&#123; foo: bar &#125;"</span></span><br><span class="line">  <span class="attr">"disableLanguages"</span>: [<span class="string">"vue"</span>], <span class="comment">// 不格式化vue文件，vue文件的格式化单独设置</span></span><br><span class="line">  <span class="attr">"endOfLine"</span>: <span class="string">"auto"</span>, <span class="comment">// 结尾是 \n \r \n\r auto</span></span><br><span class="line">  <span class="attr">"eslintIntegration"</span>: <span class="literal">false</span>, <span class="comment">//不让prettier使用eslint的代码格式进行校验</span></span><br><span class="line">  <span class="attr">"htmlWhitespaceSensitivity"</span>: <span class="string">"ignore"</span>,</span><br><span class="line">  <span class="attr">"ignorePath"</span>: <span class="string">".prettierignore"</span>, <span class="comment">// 不使用prettier格式化的文件填写在项目的.prettierignore文件中</span></span><br><span class="line">  <span class="attr">"jsxBracketSameLine"</span>: <span class="literal">false</span>, <span class="comment">// 在jsx中把'&gt;' 是否单独放一行</span></span><br><span class="line">  <span class="attr">"jsxSingleQuote"</span>: <span class="literal">false</span>, <span class="comment">// 在jsx中使用单引号代替双引号</span></span><br><span class="line">  <span class="attr">"parser"</span>: <span class="string">"babylon"</span>, <span class="comment">// 格式化的解析器，默认是babylon</span></span><br><span class="line">  <span class="attr">"requireConfig"</span>: <span class="literal">false</span>, <span class="comment">// Require a 'prettierconfig' to format prettier</span></span><br><span class="line">  <span class="attr">"stylelintIntegration"</span>: <span class="literal">false</span>, <span class="comment">//不让prettier使用stylelint的代码格式进行校验</span></span><br><span class="line">  <span class="attr">"trailingComma"</span>: <span class="string">"es5"</span>, <span class="comment">// 在对象或数组最后一个元素后面是否加逗号（在ES5中加尾逗号）</span></span><br><span class="line">  <span class="attr">"tslintIntegration"</span>: <span class="literal">false</span> <span class="comment">// 不让prettier使用tslint的代码格式进行校验</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>prettier 具体配置项常见<a href="https://prettier.io/docs/en/options.html" target="_blank" rel="noopener">官网</a></p>
+<p>让插件格式化的生效策略同样是就近原则，寻找被格式化文件系统目录层级中最近的配置文件，越近优先级越高。<br>要在保存代码时自动触发 ESLint 修复与 Prettier 格式化，需要在 VSCode 配置文件 setting.json 中添加如下代码<br>ESLint</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"editor.codeActionsOnSave"</span>: &#123;</span><br><span class="line">    <span class="string">"source.fixAll.eslint"</span>: <span class="literal">true</span></span><br><span class="line"> &#125;,</span><br><span class="line"><span class="string">"eslint.validate"</span>: [<span class="string">"javascript"</span>, <span class="string">"javascriptreact"</span>, <span class="string">"typescript"</span>, <span class="string">"html"</span>, <span class="string">"vue"</span>],</span><br></pre></td></tr></table></figure>
+<p>Prettier</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"editor.formatOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"[typescriptreact]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.defaultFormatter"</span>: <span class="string">"esbenp.prettier-vscode"</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">"[typescript]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.defaultFormatter"</span>: <span class="string">"esbenp.prettier-vscode"</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">"[less]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.defaultFormatter"</span>: <span class="string">"esbenp.prettier-vscode"</span></span><br><span class="line">&#125;,</span><br><span class="line">    <span class="string">"[javascript]"</span>: &#123;</span><br><span class="line">    <span class="string">"editor.defaultFormatter"</span>: <span class="string">"esbenp.prettier-vscode"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>同时也可在项目根目录下创建.vscode 文件夹创建 setting.json 文件并提交仓库，将对应配置共享给项目开发成员。</p>
+<h2 id="共用冲突"><a href="#共用冲突" class="headerlink" title="共用冲突"></a>共用冲突</h2>
+        <!-- 
+
+
+Linter 与 Prettier
+ESLint 与 Prettier 共用
+共用冲突
+常见问题
+eslint 校验禁用
+格式化禁用
+
+
+常见报错
+换行报错
+插件版本兼容报错
+
+
+BMW WARNING
+
+
+Linter 与 Prettier常用的 Linter 有 ESLint/TSLint/stylelint 等。
+Linter 大致分为两类校验规则：
+
+代码格式
+代码语法
+
+代码......  -->
+        <p class="article-more-link">
+          <a href="/ESLint与Prettier使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Latex语法"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1148,90 +1268,6 @@ git reflog show &lt;bra......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-PS局部元素透明"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/PS局部元素透明.html">PS局部元素透明</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#实现效果">实现效果</a></li>
-<li><a href="#复制图层">复制图层</a></li>
-<li><a href="#修补工具">修补工具</a></li>
-<li><a href="#调整透明度">调整透明度</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E5%B1%80%E9%83%A8%E5%85%83%E7%B4%A0%E9%80%8F%E6%98%8E20220303173301.png" alt="PS局部元素透明20220303173301"></p>
-<h2 id="复制图层"><a href="#复制图层" class="headerlink" title="复制图层"></a>复制图层</h2><p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Tools/APPs/Photoshop/sky.jpeg" target="_blank" rel="noopener">素材地址</a><br>选中需要透明化元素的图层，CV 复制图层。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PS%E5%B1%80%E9%83%A8%E5%85%83%E7%B4%A0%E9%80%8F%E6%98%8E20220303171829.png" alt="PS局部元素透明20220303171829"></p>
-<h2 id="修补工具"><a href="#修补工具" class="headerlink" title="修补工具"></a>修补工具</h2>
-        <!-- 
-
-
-实现效果
-复制图层
-修补工具
-调整透明度
-BMW WARNING
-
-
-实现效果
-复制图层素材地址选中需要透明化元素的图层，CV 复制图层。
-修补工具
-将原图层需要透明处理的元素用修复工具抹掉。
-处理后的背景如下
-调整透明度调整复制图层的不透明度即可
-BMW WARNING
-Bulletin
-
-本文首发于 skyline.show  欢迎访问。
-
-I am a bucolic migra......  -->
-        <p class="article-more-link">
-          <a href="/PS局部元素透明.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Photoshop/">Photoshop</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Charles抓取Https包"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1324,7 +1360,7 @@ BMW WARNING
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>
