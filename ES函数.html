@@ -23,7 +23,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613193938.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613194012.png">
-<meta property="og:updated_time" content="2023-01-24T09:57:07.000Z">
+<meta property="og:updated_time" content="2023-01-25T08:56:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES函数">
 <meta name="twitter:description" content="arguments 参数传递 按值传递 引用传递   BMW WARNING   arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值 arguments 的长度是由运行时传入参数个数决定的，而不是定义时  function test(a, b">
@@ -191,7 +191,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-01-24T09:57:07.000Z" itemprop="datePublished">2023-01-24</time>
+      <time datetime="2023-01-25T08:56:45.000Z" itemprop="datePublished">2023-01-25</time>
     </a><span style="color: #999">|</span>
 
       
@@ -233,7 +233,7 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 = <span class="string">'aaa'</span></span><br><span class="line"><span class="keyword">var</span> num2 = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">  value: <span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj2</span>) </span>&#123;</span><br><span class="line">  obj2.value = <span class="number">2</span></span><br><span class="line">  <span class="built_in">console</span>.log(obj2.value) <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj1)</span><br><span class="line"><span class="built_in">console</span>.log(obj1.value) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
 <p>上述进入函数时，通过值传递，形参 obj2 拷贝了实参 obj1 的内存数据，即拷贝一个引用地址。</p>
-<p>在函数执行<code>obj2.value = 2;</code>前后的内存状态<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613193938.png" alt="ES函数20220613193938"><br>（说明：图解与说明仅为了解释参数传递，计算机内存远比此复杂）</p>
+<p>在函数执行<code>obj2.value = 2;</code>前后的内存状态<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613193938.png" alt="ES函数20220613193938"><br>（图解与说明仅为了解释参数传递，计算机内存远比此复杂）</p>
 <ul>
 <li>示例二</li>
 </ul>
