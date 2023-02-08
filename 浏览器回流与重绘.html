@@ -23,7 +23,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220715181720.png">
-<meta property="og:updated_time" content="2023-01-24T09:57:09.000Z">
+<meta property="og:updated_time" content="2023-02-02T07:19:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器回流与重绘">
 <meta name="twitter:description" content="页面渲染 渲染流程 渲染原理 Layout Paint   回流与重绘触发 回流触发 重绘触发   回流与重绘优化 浏览器优化 代码优化   像素管道 像素管道组成   BMW WARNING   页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程  解析 HTML 节点，创建 DOM 树 解析 CSS 创建 CSSOM 树">
@@ -191,7 +191,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-01-24T09:57:09.000Z" itemprop="datePublished">2023-01-24</time>
+      <time datetime="2023-02-02T07:19:17.000Z" itemprop="datePublished">2023-02-02</time>
     </a><span style="color: #999">|</span>
 
       
@@ -288,11 +288,15 @@
 <h2 id="回流与重绘优化"><a href="#回流与重绘优化" class="headerlink" title="回流与重绘优化"></a>回流与重绘优化</h2><h3 id="浏览器优化"><a href="#浏览器优化" class="headerlink" title="浏览器优化"></a>浏览器优化</h3><ul>
 <li><p>队列机制</p>
 <p>在现代浏览器中，由于回流重绘会有较大的性能损耗，多数浏览器会将回流重绘放入队列。<br>当一定时间或操作到指定阀值，浏览器在将队列中的一次性进行处理，减少回流重绘次数。<br>在上文回流触发中，读取 offsetWidth 等的值也会触发回流重绘，其根本原因就是由于这个优化。<br>当代码在读取这些值时，为了获取准确的信息，浏览器不得不将队列清空强制执行回流重绘来得到这些值得最新信息。<br>涉及的相关属性和方法包括：</p>
-<p><em>Getting box metrics</em></p>
+<ul>
+<li>Getting box metrics</li>
+</ul>
 <blockquote>
 <p>elem.offsetLeft, elem.offsetTop, elem.offsetWidth, elem.offsetHeight, elem.offsetParent<br>elem.clientLeft, elem.clientTop, elem.clientWidth, elem.clientHeight<br>elem.getClientRects(), elem.getBoundingClientRect()</p>
 </blockquote>
-<p><em>Scroll stuff</em></p>
+<ul>
+<li>Scroll stuff</li>
+</ul>
 <blockquote>
 <p>elem.scrollBy(), elem.scrollTo()<br>elem.scrollIntoView(), elem.scrollIntoViewIfNeeded()<br>elem.scrollWidth, elem.scrollHeight<br>elem.scrollLeft, elem.scrollTop also, setting them</p>
 </blockquote>
@@ -346,7 +350,7 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initP</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; paragraphs.length; i++) &#123;</span><br><span class="line">    paragraphs[i].style.width = box.offsetWidth + <span class="string">'px'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//better</span></span><br><span class="line"><span class="keyword">const</span> width = box.offsetWidth</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initP</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; paragraphs.length; i++) &#123;</span><br><span class="line">    paragraphs[i].style.width = width + <span class="string">'px'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="像素管道"><a href="#像素管道" class="headerlink" title="像素管道"></a>像素管道</h2><h3 id="像素管道组成"><a href="#像素管道组成" class="headerlink" title="像素管道组成"></a>像素管道组成</h3><p>像素管道主要由五部分组成<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220715181720.png" alt="浏览器回流与重绘20220715181720"></p>
 <ul>
-<li><p>Javascript<br>JS用于变更页面元素，包括显示调整，动画加入等，这一部分也可由CSS动画，渐变以及部分Web Animation API来实现</p>
+<li><p>Javascript<br>JS 用于变更页面元素，包括显示调整，动画加入等，这一部分也可由 CSS 动画，渐变以及部分 Web Animation API 来实现</p>
 </li>
 <li><p>Style<br>这部分为样式计算，计算样式与哪些节点相对应。</p>
 </li>
@@ -357,7 +361,7 @@
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github 仓库</a>点亮 ⭐️。</p>
 <blockquote>
 <p>I am a bucolic migant worker but I never walk backwards.</p>
 </blockquote>
@@ -443,9 +447,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/排序算法.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ES_Module&CommonJS.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">排序算法</div>
+      <div class="article-nav-title">ES_Module&amp;CommonJS</div>
     </a>
   
 </nav>

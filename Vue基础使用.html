@@ -13,21 +13,21 @@
   
   
   
-  <meta name="description" content="transition 基本使用 使用限制   设定元素背景 Vue Router model img 图片错误默认处理 extend 获取.vue 组件的构造函数 使用示例 无法挂载错误   mixin 混入规则   组件挂载顺序 简述 总结   computed 简单说明 setter   $watch 用法 注意 返回值 深度监听   资源引用 refs 使用 动态组件 \$attrs">
+  <meta name="description" content="transition 基本使用 使用限制   设定元素背景 Vue Router model img 图片错误默认处理 extend 无法挂载错误   mixin 混入规则   组件挂载顺序 简述 总结   computed 简单说明 setter   $watch 用法 注意 返回值 深度监听   资源引用 refs 使用 动态组件 \$attrs 与\$listeners 生命周期函数">
 <meta name="keywords" content="JS,Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue基础使用">
 <meta property="og:url" content="http://www.skyline.show/Vue基础使用.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="transition 基本使用 使用限制   设定元素背景 Vue Router model img 图片错误默认处理 extend 获取.vue 组件的构造函数 使用示例 无法挂载错误   mixin 混入规则   组件挂载顺序 简述 总结   computed 简单说明 setter   $watch 用法 注意 返回值 深度监听   资源引用 refs 使用 动态组件 \$attrs">
+<meta property="og:description" content="transition 基本使用 使用限制   设定元素背景 Vue Router model img 图片错误默认处理 extend 无法挂载错误   mixin 混入规则   组件挂载顺序 简述 总结   computed 简单说明 setter   $watch 用法 注意 返回值 深度监听   资源引用 refs 使用 动态组件 \$attrs 与\$listeners 生命周期函数">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A820211202165231.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A820211202165302.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A820211202165355.png">
-<meta property="og:updated_time" content="2022-06-22T07:42:59.000Z">
+<meta property="og:updated_time" content="2023-02-02T07:19:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue基础使用">
-<meta name="twitter:description" content="transition 基本使用 使用限制   设定元素背景 Vue Router model img 图片错误默认处理 extend 获取.vue 组件的构造函数 使用示例 无法挂载错误   mixin 混入规则   组件挂载顺序 简述 总结   computed 简单说明 setter   $watch 用法 注意 返回值 深度监听   资源引用 refs 使用 动态组件 \$attrs">
+<meta name="twitter:description" content="transition 基本使用 使用限制   设定元素背景 Vue Router model img 图片错误默认处理 extend 无法挂载错误   mixin 混入规则   组件挂载顺序 简述 总结   computed 简单说明 setter   $watch 用法 注意 返回值 深度监听   资源引用 refs 使用 动态组件 \$attrs 与\$listeners 生命周期函数">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A820211202165231.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -192,7 +192,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-22T07:42:59.000Z" itemprop="datePublished">2022-06-22</time>
+      <time datetime="2023-02-02T07:19:17.000Z" itemprop="datePublished">2023-02-02</time>
     </a><span style="color: #999">|</span>
 
       
@@ -218,8 +218,6 @@
 <li><a href="#vue-router-model">Vue Router model</a></li>
 <li><a href="#img-图片错误默认处理">img 图片错误默认处理</a></li>
 <li><a href="#extend">extend</a><ul>
-<li><a href="#获取vue-组件的构造函数">获取.vue 组件的构造函数</a></li>
-<li><a href="#使用示例">使用示例</a></li>
 <li><a href="#无法挂载错误">无法挂载错误</a></li>
 </ul>
 </li>
@@ -274,7 +272,7 @@
 </blockquote>
 <p>处理方式如下：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">:key=<span class="string">"index + 0"</span></span><br><span class="line"><span class="comment">//或使用 :key="item"</span></span><br></pre></td></tr></table></figure>
-<h2 id="设定元素背景"><a href="#设定元素背景" class="headerlink" title="设定元素背景"></a>设定元素背景</h2><p>在 Vue 文件中，设定元素的样式可在 CSS 中或 使用JS对象进行。<br>涉及到背景时，如下所示：<br>CSS</p>
+<h2 id="设定元素背景"><a href="#设定元素背景" class="headerlink" title="设定元素背景"></a>设定元素背景</h2><p>在 Vue 文件中，设定元素的样式可在 CSS 中或 使用 JS 对象进行。<br>涉及到背景时，如下所示：<br>CSS</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">background-image: url('~@/assets/imgs/img_bg.png');</span><br></pre></td></tr></table></figure>
 <p>JS</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">:style=<span class="string">"&#123;</span></span><br><span class="line"><span class="string">  width: '100%',</span></span><br><span class="line"><span class="string">  height: '100%',</span></span><br><span class="line"><span class="string">  backgroundImage: 'url(' + require('@/assets/imgs/img_bg.jpg') + ')'</span></span><br><span class="line"><span class="string">  // background: `center no-repeat url('@/assets/imgs/img_bg.jpg') ` //或使用此方式，注意url中的引号</span></span><br><span class="line"><span class="string">&#125;"</span></span><br></pre></td></tr></table></figure>
@@ -290,7 +288,8 @@
 <p>其余服务端配置参考<br><a href="https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations" target="_blank" rel="noopener">https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations</a></p>
 <h2 id="img-图片错误默认处理"><a href="#img-图片错误默认处理" class="headerlink" title="img 图片错误默认处理"></a>img 图片错误默认处理</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;img</span><br><span class="line">    width=<span class="string">"98"</span></span><br><span class="line">    height=<span class="string">"112"</span></span><br><span class="line">    :src=<span class="string">"m.imgAddr || '~@img/suspect.png'"</span></span><br><span class="line">    @error=<span class="string">"slotimg"</span></span><br><span class="line">    alt</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> defaultImg = <span class="built_in">require</span>(<span class="string">"@img/suspect.png"</span>);</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">    slotimg(event) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"HotFocus.vue第211行:::err img"</span>);</span><br><span class="line">      <span class="keyword">let</span> img = event.srcElement;</span><br><span class="line">      img.src = defaultImg;</span><br><span class="line">      img.onerror = <span class="literal">null</span>; <span class="comment">//防止闪图</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>html 原生是 οnerrοr 来监听图片渲染错误事件</p>
-<h2 id="extend"><a href="#extend" class="headerlink" title="extend"></a>extend</h2><h3 id="获取-vue-组件的构造函数"><a href="#获取-vue-组件的构造函数" class="headerlink" title="获取.vue 组件的构造函数"></a>获取.vue 组件的构造函数</h3><h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><p>Vue.extend</p>
+<h2 id="extend"><a href="#extend" class="headerlink" title="extend"></a>extend</h2><p>用于创建 Vue 组件的子类</p>
+<p>Vue.extend</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> button = Vue.extend(FullScreenButton)</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> button()</span><br><span class="line">b.$mount()</span><br></pre></td></tr></table></figure>
 <h3 id="无法挂载错误"><a href="#无法挂载错误" class="headerlink" title="无法挂载错误"></a>无法挂载错误</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A820211202165231.png" alt="Vue基础使用20211202165231"></p>
 <p>出现这种错误是由于首字母大写导致，具体缘由待查，如下图中注释所示</p>
@@ -355,7 +354,7 @@
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
@@ -425,19 +424,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/康定周边2日.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Shadowsocks服务搭建与访问.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          康定周边2日
+          Shadowsocks服务搭建与访问
         
       </div>
     </a>
   
   
-    <a href="/CentOS利用systemd开启后台进程.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ES对象创建.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">CentOS利用systemd开启后台进程</div>
+      <div class="article-nav-title">ES对象创建</div>
     </a>
   
 </nav>
@@ -451,7 +450,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#transition"><span class="nav-number">1.</span> <span class="nav-text">transition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本使用"><span class="nav-number">1.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用限制"><span class="nav-number">1.2.</span> <span class="nav-text">使用限制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设定元素背景"><span class="nav-number">2.</span> <span class="nav-text">设定元素背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-Router-model"><span class="nav-number">3.</span> <span class="nav-text">Vue Router model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#img-图片错误默认处理"><span class="nav-number">4.</span> <span class="nav-text">img 图片错误默认处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extend"><span class="nav-number">5.</span> <span class="nav-text">extend</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取-vue-组件的构造函数"><span class="nav-number">5.1.</span> <span class="nav-text">获取.vue 组件的构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用示例"><span class="nav-number">5.2.</span> <span class="nav-text">使用示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无法挂载错误"><span class="nav-number">5.3.</span> <span class="nav-text">无法挂载错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mixin"><span class="nav-number">6.</span> <span class="nav-text">mixin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#混入规则"><span class="nav-number">6.1.</span> <span class="nav-text">混入规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件挂载顺序"><span class="nav-number">7.</span> <span class="nav-text">组件挂载顺序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简述"><span class="nav-number">7.1.</span> <span class="nav-text">简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#computed"><span class="nav-number">8.</span> <span class="nav-text">computed</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单说明"><span class="nav-number">8.1.</span> <span class="nav-text">简单说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setter"><span class="nav-number">8.2.</span> <span class="nav-text">setter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#watch"><span class="nav-number">9.</span> <span class="nav-text">$watch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-number">9.1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">9.2.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">9.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度监听"><span class="nav-number">9.4.</span> <span class="nav-text">深度监听</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源引用"><span class="nav-number">10.</span> <span class="nav-text">资源引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#refs-使用"><span class="nav-number">11.</span> <span class="nav-text">refs 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态组件"><span class="nav-number">12.</span> <span class="nav-text">动态组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#attrs-与-listeners"><span class="nav-number">13.</span> <span class="nav-text">\$attrs 与\$listeners</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期函数"><span class="nav-number">14.</span> <span class="nav-text">生命周期函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#监听"><span class="nav-number">14.1.</span> <span class="nav-text">监听</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-observable"><span class="nav-number">15.</span> <span class="nav-text">Vue.observable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">16.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#transition"><span class="nav-number">1.</span> <span class="nav-text">transition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本使用"><span class="nav-number">1.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用限制"><span class="nav-number">1.2.</span> <span class="nav-text">使用限制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设定元素背景"><span class="nav-number">2.</span> <span class="nav-text">设定元素背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-Router-model"><span class="nav-number">3.</span> <span class="nav-text">Vue Router model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#img-图片错误默认处理"><span class="nav-number">4.</span> <span class="nav-text">img 图片错误默认处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extend"><span class="nav-number">5.</span> <span class="nav-text">extend</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无法挂载错误"><span class="nav-number">5.1.</span> <span class="nav-text">无法挂载错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mixin"><span class="nav-number">6.</span> <span class="nav-text">mixin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#混入规则"><span class="nav-number">6.1.</span> <span class="nav-text">混入规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件挂载顺序"><span class="nav-number">7.</span> <span class="nav-text">组件挂载顺序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简述"><span class="nav-number">7.1.</span> <span class="nav-text">简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#computed"><span class="nav-number">8.</span> <span class="nav-text">computed</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单说明"><span class="nav-number">8.1.</span> <span class="nav-text">简单说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setter"><span class="nav-number">8.2.</span> <span class="nav-text">setter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#watch"><span class="nav-number">9.</span> <span class="nav-text">$watch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-number">9.1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">9.2.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">9.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度监听"><span class="nav-number">9.4.</span> <span class="nav-text">深度监听</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源引用"><span class="nav-number">10.</span> <span class="nav-text">资源引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#refs-使用"><span class="nav-number">11.</span> <span class="nav-text">refs 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态组件"><span class="nav-number">12.</span> <span class="nav-text">动态组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#attrs-与-listeners"><span class="nav-number">13.</span> <span class="nav-text">\$attrs 与\$listeners</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期函数"><span class="nav-number">14.</span> <span class="nav-text">生命周期函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#监听"><span class="nav-number">14.1.</span> <span class="nav-text">监听</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-observable"><span class="nav-number">15.</span> <span class="nav-text">Vue.observable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">16.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

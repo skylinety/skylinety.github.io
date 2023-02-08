@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Skyline&#39;s blog">
 <meta property="og:description" content="闭包定义 闭包应用 函数柯里化 偏函数   BMW WARNING   闭包定义 MDN   闭包是指那些能够访问自由变量的函数。   JavaScript 权威指南   从技术的角度讲，所有的 JavaScript 函数都是闭包。在开发实践角度讲，即使创建该函数的上下文已经销毁（父函数执行完毕），该函数仍然存在（比如，内部函数从父函数中返回），该函数中引用了自由变量  自由变量是指在函数中">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-01-25T08:56:46.000Z">
+<meta property="og:updated_time" content="2023-02-02T07:19:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES闭包">
 <meta name="twitter:description" content="闭包定义 闭包应用 函数柯里化 偏函数   BMW WARNING   闭包定义 MDN   闭包是指那些能够访问自由变量的函数。   JavaScript 权威指南   从技术的角度讲，所有的 JavaScript 函数都是闭包。在开发实践角度讲，即使创建该函数的上下文已经销毁（父函数执行完毕），该函数仍然存在（比如，内部函数从父函数中返回），该函数中引用了自由变量  自由变量是指在函数中">
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-01-25T08:56:46.000Z" itemprop="datePublished">2023-01-25</time>
+      <time datetime="2023-02-02T07:19:17.000Z" itemprop="datePublished">2023-02-02</time>
     </a><span style="color: #999">|</span>
 
       
@@ -245,7 +245,7 @@
 <p>上述 lineCurry 都返回’1234’</p>
 <p>考虑到’_‘在代码中出现频率较高，多数资料使用如下方式创建一个占位符对象来防止冲突。<br>本文简化便于理解</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> _ = &#123;&#125;</span><br></pre></td></tr></table></figure>
-<p>优雅写法版本</p>
+<p>优雅写法版本<br>（引自 segmentfault@大笑平 ）</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> curry = <span class="function">(<span class="params">fn</span>) =&gt;</span></span><br><span class="line">  (judge = <span class="function">(<span class="params">...args</span>) =&gt;</span></span><br><span class="line">    args.length === fn.length ? fn(...args) : <span class="function">(<span class="params">arg</span>) =&gt;</span> judge(...args, arg))</span><br></pre></td></tr></table></figure>
 <h3 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a>偏函数</h3><p>偏函数指固定函数的部分参数，产生更小元（函数参数更少）的函数，以减少实际函数调用时传参数。</p>
 <p>偏函数和柯里化的区别在于：<br>偏函数将多元函数固定部分参数值，减少部分元。<br>柯里化是将多元函数拆分成多个一元函数。</p>
@@ -276,7 +276,7 @@
 </ul>
 <p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
-<p><a href="https://github.com/mqyqingfeng/Blog/issues/42" target="_blank" rel="noopener">JavaScript专题之函数柯里化</a></p>
+<p><a href="https://github.com/mqyqingfeng/Blog/issues/42" target="_blank" rel="noopener">JavaScript 专题之函数柯里化</a></p>
 </blockquote>
 <ul>
 <li>Warrant</li>
@@ -336,6 +336,15 @@ var a = new Donate({
   
     
 <nav id="article-nav">
+  
+    <a href="/数据结构之树.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          数据结构之树
+        
+      </div>
+    </a>
   
   
     <a href="/工具网站收集.html" id="article-nav-older" class="article-nav-link-wrap">
