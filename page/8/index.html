@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-MacOS应用清单"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-frp内网穿透"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/MacOS应用清单.html">MacOS应用清单</a>
+      <a class="article-title" href="/frp内网穿透.html">frp内网穿透</a>
     </h1>
   
 
@@ -341,67 +341,42 @@
 
 
       
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#开发">开发</a></li>
-<li><a href="#学习">学习</a></li>
-<li><a href="#效率">效率</a><ul>
-<li><a href="#汇总">汇总</a></li>
-<li><a href="#barrier">barrier</a></li>
-</ul>
-</li>
-<li><a href="#娱乐">娱乐</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><h2 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h2>
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="frp-内网穿透"><a href="#frp-内网穿透" class="headerlink" title="frp 内网穿透"></a>frp 内网穿透</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
+<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>github国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
+<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
+<p>尝试启动服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
+<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
+<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure></p>
+<p>修改 frp.service 内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>重置守护进程服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启服务</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
+<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
+<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable frp</span><br></pre></td></tr></table></figure></p>
+<p>即可。</p>
+<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc配置"><a href="#frpc配置" class="headerlink" title="frpc配置"></a>frpc配置</h3>
         <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
 
-
-开发
-学习
-效率
-汇总
-barrier
-
-
-娱乐
-BMW WARNING
-
-
-开发学习效率
-汇总
-
-
-APP
-DESC
-Free
-Web
-
-
-
-
-Sharemouse
-跨端键鼠共用工具
-trial
-https://github.com/debauchee/barrier
-
-
-Synergy
-跨端键鼠共用工具
-false
-https://github.com/debauchee/barr......  -->
+frp 内网穿透简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示：
+Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 https://github.com/fatedier/frp/relea......  -->
         <p class="article-more-link">
-          <a href="/MacOS应用清单.html#more">阅读全文</a>
+          <a href="/frp内网穿透.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -409,8 +384,6 @@ https://github.com/debauchee/barr......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
     </footer>
   </div>
   
@@ -902,112 +875,6 @@ sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输
 <!-- Table of Contents -->
 
   
-    <article id="post-Shell中字符串相关操作"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中字符串相关操作.html">Shell中字符串相关操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T08:06:40.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#字符替换">字符替换</a></li>
-<li><a href="#字符包含判定">字符包含判定</a><ul>
-<li><a href="#">==</a></li>
-<li><a href="#正则">正则=~</a></li>
-<li><a href="#grep">grep</a></li>
-</ul>
-</li>
-<li><a href="#将字符串作为命令执行">将字符串作为命令执行</a></li>
-<li><a href="#获取子串字符串切割">获取子串（字符串切割）</a><ul>
-<li><a href="#cut">cut</a></li>
-<li><a href="#截取语法">截取语法</a></li>
-</ul>
-</li>
-<li><a href="#字符串转数组">字符串转数组</a><ul>
-<li><a href="#read">read</a></li>
-<li><a href="#字符替换-1">字符替换</a></li>
-<li><a href="#其他场景">其他场景</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="字符替换"><a href="#字符替换" class="headerlink" title="字符替换"></a>字符替换</h2><p>将空格字符’ ‘替换为’|’</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">"1 2 3 4"</span>;</span><br><span class="line">SKYLINE=<span class="variable">$&#123;STR// /|&#125;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$SKYLINE</span></span><br><span class="line"><span class="comment"># 1|2|3|4</span></span><br></pre></td></tr></table></figure>
-<h2 id="字符包含判定"><a href="#字符包含判定" class="headerlink" title="字符包含判定"></a>字符包含判定</h2><h3 id><a href="#" class="headerlink" title="=="></a>==</h3>
-        <!-- 
-
-
-字符替换
-字符包含判定
-==
-正则=~
-grep
-
-
-将字符串作为命令执行
-获取子串（字符串切割）
-cut
-截取语法
-
-
-字符串转数组
-read
-字符替换
-其他场景
-
-
-BMW WARNING
-
-
-字符替换将空格字符’ ‘替换为’|’
-STR="1 2 3 4";SKYLINE=$&#123;STR// /|&#125;echo $SKYLINE# 1|2|3|4
-字符包含判定==
-S......  -->
-        <p class="article-more-link">
-          <a href="/Shell中字符串相关操作.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Shell中xargs使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1109,7 +976,7 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Shell中字符串相关操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1117,7 +984,7 @@ BMW WARNING
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
+      <a class="article-title" href="/Shell中字符串相关操作.html">Shell中字符串相关操作</a>
     </h1>
   
 
@@ -1126,7 +993,7 @@ BMW WARNING
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+      <time datetime="2021-05-27T08:06:40.000Z" itemprop="datePublished">2021-05-27</time>
     </a>
 
 
@@ -1142,78 +1009,62 @@ BMW WARNING
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#页面渲染">页面渲染</a><ul>
-<li><a href="#渲染流程">渲染流程</a></li>
-<li><a href="#渲染原理">渲染原理</a></li>
-<li><a href="#layout">Layout</a></li>
-<li><a href="#paint">Paint</a></li>
+<li><a href="#字符替换">字符替换</a></li>
+<li><a href="#字符包含判定">字符包含判定</a><ul>
+<li><a href="#">==</a></li>
+<li><a href="#正则">正则=~</a></li>
+<li><a href="#grep">grep</a></li>
 </ul>
 </li>
-<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
-<li><a href="#回流触发">回流触发</a></li>
-<li><a href="#重绘触发">重绘触发</a></li>
+<li><a href="#将字符串作为命令执行">将字符串作为命令执行</a></li>
+<li><a href="#获取子串字符串切割">获取子串（字符串切割）</a><ul>
+<li><a href="#cut">cut</a></li>
+<li><a href="#截取语法">截取语法</a></li>
 </ul>
 </li>
-<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
-<li><a href="#浏览器优化">浏览器优化</a></li>
-<li><a href="#代码优化">代码优化</a></li>
-</ul>
-</li>
-<li><a href="#像素管道">像素管道</a><ul>
-<li><a href="#像素管道组成">像素管道组成</a></li>
+<li><a href="#字符串转数组">字符串转数组</a><ul>
+<li><a href="#read">read</a></li>
+<li><a href="#字符替换-1">字符替换</a></li>
+<li><a href="#其他场景">其他场景</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
-<ul>
-<li>解析 HTML 节点，创建 DOM 树</li>
-<li>解析 CSS 创建 CSSOM 树</li>
-<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
-<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
-<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
-<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
-</ul>
-</li>
-<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
-<li>Paint， 绘制 renderTree 到页面上</li>
-</ul>
-<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
-<h3 id="渲染原理"><a href="#渲染原理" class="headerlink" title="渲染原理"></a>渲染原理</h3>
+<h2 id="字符替换"><a href="#字符替换" class="headerlink" title="字符替换"></a>字符替换</h2><p>将空格字符’ ‘替换为’|’</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">STR=<span class="string">"1 2 3 4"</span>;</span><br><span class="line">SKYLINE=<span class="variable">$&#123;STR// /|&#125;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$SKYLINE</span></span><br><span class="line"><span class="comment"># 1|2|3|4</span></span><br></pre></td></tr></table></figure>
+<h2 id="字符包含判定"><a href="#字符包含判定" class="headerlink" title="字符包含判定"></a>字符包含判定</h2><h3 id><a href="#" class="headerlink" title="=="></a>==</h3>
         <!-- 
 
 
-页面渲染
-渲染流程
-渲染原理
-Layout
-Paint
+字符替换
+字符包含判定
+==
+正则=~
+grep
 
 
-回流与重绘触发
-回流触发
-重绘触发
+将字符串作为命令执行
+获取子串（字符串切割）
+cut
+截取语法
 
 
-回流与重绘优化
-浏览器优化
-代码优化
-
-
-像素管道
-像素管道组成
+字符串转数组
+read
+字符替换
+其他场景
 
 
 BMW WARNING
 
 
-页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
-
-解析 HTML 节点，创建 DOM 树
-解析 CSS 创建 CSSOM......  -->
+字符替换将空格字符’ ‘替换为’|’
+STR="1 2 3 4";SKYLINE=$&#123;STR// /|&#125;echo $SKYLINE# 1|2|3|4
+字符包含判定==
+S......  -->
         <p class="article-more-link">
-          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
+          <a href="/Shell中字符串相关操作.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1221,7 +1072,7 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
 
     </footer>
   </div>
@@ -1333,6 +1184,116 @@ Git 用户配置
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中的符号"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中的符号.html">Shell中的符号</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#引号">引号</a></li>
+<li><a href="#路径符">路径符</a></li>
+<li><a href="#重定向符">重定向符</a></li>
+<li><a href="#命令执行符">命令执行符</a></li>
+<li><a href="#符号标记">符号标记</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><p>单引号和双引号主要可用于解决字符串中间有空格的问题。<br>单引号将剥夺字符串中特殊字符的含义。<br>双引号中的’$’进行参数替换’<code>&#39;进行命令替换。
+反引号与$()是一样的。 `</code>或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'$skyline`echo 1`'</span></span><br><span class="line"><span class="comment"># $skyline`echo 1`</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$skyline</span>`echo 1`"</span></span><br><span class="line"><span class="comment"># 11</span></span><br></pre></td></tr></table></figure>
+<h2 id="路径符"><a href="#路径符" class="headerlink" title="路径符"></a>路径符</h2><p>Shell 中路径相关的符号，如下表所示</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>使用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~</td>
+<td>cd ~</td>
+<td>用户主页目录</td>
+</tr>
+<tr>
+<td>.</td>
+<td>ls .</td>
+<td>当前目录</td>
+</tr>
+<tr>
+<td>..</td>
+<td>cd ..</td>
+<td>上级目录</td>
+</tr>
+<tr>
+<td>/</td>
+<td>cd /</td>
+<td>根目录或路径分隔符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2>
+        <!-- 
+
+
+引号
+路径符
+重定向符
+命令执行符
+符号标记
+BMW WARNING
+
+
+引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&#39;进行命令替换。
+反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。
+skyline=1echo '$skyline`echo 1`'#......  -->
+        <p class="article-more-link">
+          <a href="/Shell中的符号.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>
