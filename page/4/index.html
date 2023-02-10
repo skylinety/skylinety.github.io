@@ -1193,7 +1193,7 @@ ssh -i /a/b/c/d.private ......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-Interface与AbstractClass"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-JS内存泄漏与处理"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1201,7 +1201,7 @@ ssh -i /a/b/c/d.private ......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Interface与AbstractClass.html">Interface与AbstractClass</a>
+      <a class="article-title" href="/JS内存泄漏与处理.html">JS内存泄漏与处理</a>
     </h1>
   
 
@@ -1226,43 +1226,60 @@ ssh -i /a/b/c/d.private ......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#interface">Interface</a></li>
-<li><a href="#abstract-class">Abstract Class</a></li>
-<li><a href="#综述">综述</a></li>
+<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a><ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
+<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
+</ul>
+</li>
+<li><a href="#内存泄漏memory-leaks">内存泄漏（Memory Leaks）</a><ul>
+<li><a href="#简介-1">简介</a></li>
+<li><a href="#常见内存泄漏情况">常见内存泄漏情况</a></li>
+<li><a href="#常见情况示例">常见情况示例</a></li>
+</ul>
+</li>
+<li><a href="#内存泄漏处理">内存泄漏处理</a><ul>
+<li><a href="#chrome-memory-调试">Chrome Memory 调试</a></li>
+<li><a href="#内存泄漏监测">内存泄漏监测</a></li>
+<li><a href="#泄漏内存对比">泄漏内存对比</a></li>
+<li><a href="#泄漏内存对象详情">泄漏内存对象详情</a></li>
+<li><a href="#对象引用链">对象引用链</a></li>
+</ul>
+</li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="Interface"><a href="#Interface" class="headerlink" title="Interface"></a>Interface</h2><p>在 JS 中，在没有技术文档或找到对应函数(对象)定义在代码中位置的情况下，我们很难确认：</p>
-<ul>
-<li>函数参数方式</li>
-<li>函数参数的类型</li>
-<li>使用参数的方式</li>
-<li>对象提供的方法与属性</li>
-</ul>
-<p>同时，在对象中，多层嵌套时，需要写如下代码：<br><code>a &amp;&amp; a.b ** a.b.c()</code><br>在 TS 中，与大多数面向对象编程语言一样，引入了 Interface。<br>Interface 用以描述对象结构<br>Interface 的职责在于签订契约，即使用该接口则必须实现该接口中的属性和方法。<br>使用时只需要知道接口，就可知道使用该接口对象的一些基础的构造。</p>
-<h2 id="Abstract-Class"><a href="#Abstract-Class" class="headerlink" title="Abstract Class"></a>Abstract Class</h2><p>虚拟类不能直接实例化。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">abstract <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</span><br><span class="line">  abstract getName(): string;</span><br><span class="line"></span><br><span class="line">  printName() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello, "</span> + <span class="keyword">this</span>.getName());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Base() <span class="comment">// Cannot create an instance of an abstract class.(</span></span><br></pre></td></tr></table></figure>
-<p>虚拟方法与虚拟属性只能存在与虚拟类中，均使用 abstract 关键字。<br>虽然 TS 未做错误校验，但虚拟类至少有一个虚拟方法，否则应该定义为实体类。<br>虚拟方法的主要职责是为其派生的实体类提供蓝图，后续实体类需要实现的方法与属性提供参考（需要实现其中定义的虚拟方法属性等）。</p>
-<h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2>
+<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JS 自动进行垃圾回收，不需要如 C 语言等一般需要代码中指定回收。<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>回收垃圾时，需要将那些被标记的清除掉，垃圾标记器会跟踪无用内存并打上标记，以供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
+<h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3>
         <!-- 
 
 
-Interface
-Abstract Class
-综述
+垃圾回收(GC:Garbage Collecation)
+简介
+引用计数（Reference Counting）
+标记清除（Mark &amp; Sweep）
+
+
+内存泄漏（Memory Leaks）
+简介
+常见内存泄漏情况
+常见情况示例
+
+
+内存泄漏处理
+Chrome Memory 调试
+内存泄漏监测
+泄漏内存对比
+泄漏内存对象详情
+对象引用链
+
+
 BMW WARNING
 
 
-Interface在 JS 中，在没有技术文档或找到对应函数(对象)定义在代码中位置的情况下，我们很难确认：
-
-函数参数方式
-函数参数的类型
-使用参数的方式
-对象提供的方法与属性
-
-同时，在对象中，多层嵌套时，需要写如下代码：a &amp;&amp; a.b ** a.b.c()在 TS 中，与大多数面......  -->
+垃圾回......  -->
         <p class="article-more-link">
-          <a href="/Interface与AbstractClass.html#more">阅读全文</a>
+          <a href="/JS内存泄漏与处理.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1270,7 +1287,7 @@ Interface在 JS 中，在没有技术文档或找到对应函数(对象)定义�
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
 
     </footer>
   </div>
