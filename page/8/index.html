@@ -367,7 +367,7 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-MacOS基本操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-VIM基本使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -375,7 +375,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/MacOS基本操作.html">MacOS基本操作</a>
+      <a class="article-title" href="/VIM基本使用.html">VIM基本使用</a>
     </h1>
   
 
@@ -389,76 +389,105 @@
 
 
       
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="VIM-基本使用"><a href="#VIM-基本使用" class="headerlink" title="VIM 基本使用"></a>VIM 基本使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#macos-beta-系统更新开启">Macos Beta 系统更新开启</a></li>
-<li><a href="#网络磁盘映射">网络磁盘映射</a></li>
-<li><a href="#剪切移动">剪切（移动）</a><ul>
-<li><a href="#常规">常规</a></li>
-<li><a href="#快捷键">快捷键</a></li>
+<li><a href="#vim-基本使用">VIM 基本使用</a><ul>
+<li><a href="#模式">模式</a><ul>
+<li><a href="#正常模式-normal-mode">正常模式 (Normal-mode)</a></li>
+<li><a href="#插入模式-insert-mode">插入模式 (Insert-mode)</a></li>
+<li><a href="#命令模式-command-mode">命令模式 (Command-mode)</a></li>
+<li><a href="#可视模式-visual-mode">可视模式 (Visual-mode)</a></li>
 </ul>
 </li>
-<li><a href="#直接删除文件">直接删除文件</a></li>
-<li><a href="#修改终端用户名">修改终端用户名</a></li>
-<li><a href="#启用-ssd-的-trim-支持">启用 SSD 的 TRIM 支持</a></li>
-<li><a href="#关闭-sip">关闭 SIP</a></li>
-<li><a href="#设定文件默认打开方式">设定文件默认打开方式</a><ul>
-<li><a href="#单文件">单文件</a></li>
-<li><a href="#同类文件">同类文件</a></li>
+<li><a href="#vimrc">.vimrc</a><ul>
+<li><a href="#inoremap">inoremap</a></li>
 </ul>
 </li>
-<li><a href="#打开允许未知来源-app-选项">打开允许未知来源 app 选项</a></li>
-<li><a href="#设定快捷打开程序快捷键">设定快捷打开程序快捷键</a><ul>
-<li><a href="#设置-automator-任务">设置 automator 任务</a></li>
-<li><a href="#设置程序打开快捷键">设置程序打开快捷键</a></li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="Macos-Beta-系统更新开启"><a href="#Macos-Beta-系统更新开启" class="headerlink" title="Macos Beta 系统更新开启"></a>Macos Beta 系统更新开启</h2><p>在apple beta 地址上登录<br><a href="https://beta.apple.com" target="_blank" rel="noopener">https://beta.apple.com</a></p>
-<p>在如下网站下载 <a href="https://beta.apple.com/sp/betaprogram/enroll#macos" target="_blank" rel="noopener">MacOS Public Beta Access Utility</a>工具<br>注意开启前在Time Mechine中进行系统备份<br>下载工具安装后即可开启。</p>
-<h2 id="网络磁盘映射"><a href="#网络磁盘映射" class="headerlink" title="网络磁盘映射"></a>网络磁盘映射</h2><p>在 finder 下操作 ⌘ + k<br>在弹出框中输入网络共享服务地址<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/MacOS%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211227153214.png" alt="MacOS基本操作20211227153214"><br>一般有 Samba 或 AFP 等方式共享服务<br>常见地址如下</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">afp://192.168.2.20</span><br><span class="line">smb://192.168.2.20</span><br></pre></td></tr></table></figure>
-<h2 id="剪切（移动）"><a href="#剪切（移动）" class="headerlink" title="剪切（移动）"></a>剪切（移动）</h2>
+<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><h3 id="正常模式-Normal-mode"><a href="#正常模式-Normal-mode" class="headerlink" title="正常模式 (Normal-mode)"></a>正常模式 (Normal-mode)</h3><p>正常模式一般用于浏览文件，同时包括一些复制、粘贴、删除等快捷操作。<br>其他模式通常通过 ESC 键返回正常模式。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>按键</th>
+<th>EN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>撤销</td>
+<td>u</td>
+<td>undo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="插入模式-Insert-mode"><a href="#插入模式-Insert-mode" class="headerlink" title="插入模式 (Insert-mode)"></a>插入模式 (Insert-mode)</h3><p>用于编辑文档，直接输入内容。</p>
+<h3 id="命令模式-Command-mode"><a href="#命令模式-Command-mode" class="headerlink" title="命令模式 (Command-mode)"></a>命令模式 (Command-mode)</h3><p>输入:或/进入命令模式<br>命令模式用于执行 VIM 提供的相关指令。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>按键</th>
+<th>EN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>移动</td>
+<td>:m</td>
+<td>move</td>
+</tr>
+<tr>
+<td>设定</td>
+<td>:set</td>
+</tr>
+</tbody>
+</table>
+<p><strong>:m</strong><br>:m 多用于换行操作，当前行的位置为 0.具体使用如下</p>
+<ul>
+<li>:m -2 移动到-2 行的位置(当前行与上一行互换)</li>
+<li>:m +1 移动到+1 行的位置(当前行与下一行互换)</li>
+<li>:m 0 移动到首行的位置</li>
+<li>:m $ 移动到尾行的位置</li>
+</ul>
+<p><strong>:set</strong><br>:set number 显示行索引</p>
+<h3 id="可视模式-Visual-mode"><a href="#可视模式-Visual-mode" class="headerlink" title="可视模式 (Visual-mode)"></a>可视模式 (Visual-mode)</h3>
         <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+VIM 基本使用
 
 
-Macos Beta 系统更新开启
-网络磁盘映射
-剪切（移动）
-常规
-快捷键
+VIM 基本使用
+模式
+正常模式 (Normal-mode)
+插入模式 (Insert-mode)
+命令模式 (Command-mode)
+可视模式 (Visual-mode)
 
 
-直接删除文件
-修改终端用户名
-启用 SSD 的 TRIM 支持
-关闭 SIP
-设定文件默认打开方式
-单文件
-同类文件
-
-
-打开允许未知来源 app 选项
-设定快捷打开程序快捷键
-设置 automator 任务
-设置程序打开快捷键
+.vimrc
+inoremap
 
 
 
 
-Macos Beta 系统更新开启在apple beta 地址上登录......  -->
+
+
+模式正常模式 (Normal-mode)正常模式一般用于浏览文件，......  -->
         <p class="article-more-link">
-          <a href="/MacOS基本操作.html#more">阅读全文</a>
+          <a href="/VIM基本使用.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -466,8 +495,6 @@ Macos Beta 系统更新开启在apple beta 地址上登录......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
     </footer>
   </div>
   
@@ -673,7 +700,7 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
 
     </footer>
   </div>
@@ -780,7 +807,7 @@ sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>
@@ -886,7 +913,7 @@ S......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scripts/">Scripts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
 
     </footer>
   </div>
@@ -987,7 +1014,117 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Commands/">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中的符号"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中的符号.html">Shell中的符号</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#引号">引号</a></li>
+<li><a href="#路径符">路径符</a></li>
+<li><a href="#重定向符">重定向符</a></li>
+<li><a href="#命令执行符">命令执行符</a></li>
+<li><a href="#符号标记">符号标记</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><p>单引号和双引号主要可用于解决字符串中间有空格的问题。<br>单引号将剥夺字符串中特殊字符的含义。<br>双引号中的’$’进行参数替换’<code>&#39;进行命令替换。
+反引号与$()是一样的。 `</code>或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'$skyline`echo 1`'</span></span><br><span class="line"><span class="comment"># $skyline`echo 1`</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$skyline</span>`echo 1`"</span></span><br><span class="line"><span class="comment"># 11</span></span><br></pre></td></tr></table></figure>
+<h2 id="路径符"><a href="#路径符" class="headerlink" title="路径符"></a>路径符</h2><p>Shell 中路径相关的符号，如下表所示</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>使用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~</td>
+<td>cd ~</td>
+<td>用户主页目录</td>
+</tr>
+<tr>
+<td>.</td>
+<td>ls .</td>
+<td>当前目录</td>
+</tr>
+<tr>
+<td>..</td>
+<td>cd ..</td>
+<td>上级目录</td>
+</tr>
+<tr>
+<td>/</td>
+<td>cd /</td>
+<td>根目录或路径分隔符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2>
+        <!-- 
+
+
+引号
+路径符
+重定向符
+命令执行符
+符号标记
+BMW WARNING
+
+
+引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&#39;进行命令替换。
+反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。
+skyline=1echo '$skyline`echo 1`'#......  -->
+        <p class="article-more-link">
+          <a href="/Shell中的符号.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>
@@ -1221,116 +1358,6 @@ BMW WARNING
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中的符号"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中的符号.html">Shell中的符号</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#引号">引号</a></li>
-<li><a href="#路径符">路径符</a></li>
-<li><a href="#重定向符">重定向符</a></li>
-<li><a href="#命令执行符">命令执行符</a></li>
-<li><a href="#符号标记">符号标记</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><p>单引号和双引号主要可用于解决字符串中间有空格的问题。<br>单引号将剥夺字符串中特殊字符的含义。<br>双引号中的’$’进行参数替换’<code>&#39;进行命令替换。
-反引号与$()是一样的。 `</code>或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'$skyline`echo 1`'</span></span><br><span class="line"><span class="comment"># $skyline`echo 1`</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$skyline</span>`echo 1`"</span></span><br><span class="line"><span class="comment"># 11</span></span><br></pre></td></tr></table></figure>
-<h2 id="路径符"><a href="#路径符" class="headerlink" title="路径符"></a>路径符</h2><p>Shell 中路径相关的符号，如下表所示</p>
-<table>
-<thead>
-<tr>
-<th>符号</th>
-<th>使用</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>~</td>
-<td>cd ~</td>
-<td>用户主页目录</td>
-</tr>
-<tr>
-<td>.</td>
-<td>ls .</td>
-<td>当前目录</td>
-</tr>
-<tr>
-<td>..</td>
-<td>cd ..</td>
-<td>上级目录</td>
-</tr>
-<tr>
-<td>/</td>
-<td>cd /</td>
-<td>根目录或路径分隔符</td>
-</tr>
-</tbody>
-</table>
-<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2>
-        <!-- 
-
-
-引号
-路径符
-重定向符
-命令执行符
-符号标记
-BMW WARNING
-
-
-引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&#39;进行命令替换。
-反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。
-skyline=1echo '$skyline`echo 1`'#......  -->
-        <p class="article-more-link">
-          <a href="/Shell中的符号.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
 
     </footer>
   </div>
