@@ -13,20 +13,23 @@
   
   
   
-  <meta name="description" content="arguments 参数传递 按值传递 引用传递   BMW WARNING   arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值 arguments 的长度是由运行时传入参数个数决定的，而不是定义时  function test(a, b">
+  <meta name="description" content="arguments 参数传递 按值传递 引用传递   ES6 默认参数 默认参数的影响 作用域前后变化 懒执行 TDZ(Temporal Dead Zone)   BMW WARNING   arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值">
 <meta name="keywords" content="JS,ES,语法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES函数">
 <meta property="og:url" content="http://www.skyline.show/ES函数.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="arguments 参数传递 按值传递 引用传递   BMW WARNING   arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值 arguments 的长度是由运行时传入参数个数决定的，而不是定义时  function test(a, b">
+<meta property="og:description" content="arguments 参数传递 按值传递 引用传递   ES6 默认参数 默认参数的影响 作用域前后变化 懒执行 TDZ(Temporal Dead Zone)   BMW WARNING   arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613193938.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613194012.png">
-<meta property="og:updated_time" content="2023-02-04T08:24:24.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020230210172132.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020230210172219.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020230210173242.png">
+<meta property="og:updated_time" content="2023-02-04T09:33:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES函数">
-<meta name="twitter:description" content="arguments 参数传递 按值传递 引用传递   BMW WARNING   arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值 arguments 的长度是由运行时传入参数个数决定的，而不是定义时  function test(a, b">
+<meta name="twitter:description" content="arguments 参数传递 按值传递 引用传递   ES6 默认参数 默认参数的影响 作用域前后变化 懒执行 TDZ(Temporal Dead Zone)   BMW WARNING   arguments arguments 是一个类数组 它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613193938.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -191,7 +194,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-04T08:24:24.000Z" itemprop="datePublished">2023-02-04</time>
+      <time datetime="2023-02-04T09:33:45.000Z" itemprop="datePublished">2023-02-04</time>
     </a><span style="color: #999">|</span>
 
       
@@ -212,6 +215,13 @@
 <li><a href="#参数传递">参数传递</a><ul>
 <li><a href="#按值传递">按值传递</a></li>
 <li><a href="#引用传递">引用传递</a></li>
+</ul>
+</li>
+<li><a href="#es6-默认参数">ES6 默认参数</a><ul>
+<li><a href="#默认参数的影响">默认参数的影响</a></li>
+<li><a href="#作用域前后变化">作用域前后变化</a></li>
+<li><a href="#懒执行">懒执行</a></li>
+<li><a href="#tdztemporal-dead-zone">TDZ(Temporal Dead Zone)</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
@@ -240,10 +250,35 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 = <span class="string">'aaa'</span></span><br><span class="line"><span class="keyword">var</span> num2 = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">  value: <span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj2</span>) </span>&#123;</span><br><span class="line">  obj2 = <span class="number">2</span></span><br><span class="line">  <span class="built_in">console</span>.log(obj2) <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj1)</span><br><span class="line"><span class="built_in">console</span>.log(obj1.value) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
 <p>在函数执行<code>obj2 = 2;</code>前后的内存状态<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613194012.png" alt="ES函数20220613194012"></p>
 <h3 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h3><p>ES 函数的参数时按值传递的，部分语言支持参数按引用传递。<br>以上述示例二为例，若函数 foo 参数按引用传递，则传入是形参 obj2 直接记录实参 obj1 的内存地址。<br>故而后续不管两者谁变化，都将影响另一方。<br>即上述代码执行到最后，obj1 的值将会被变更为数字 2。<br>在 C#中，区分值传递和引用传递是方法参数前加 ref，加 ref 就是引用传递, 不加就是值传递。</p>
+<h2 id="ES6-默认参数"><a href="#ES6-默认参数" class="headerlink" title="ES6 默认参数"></a>ES6 默认参数</h2><h3 id="默认参数的影响"><a href="#默认参数的影响" class="headerlink" title="默认参数的影响"></a>默认参数的影响</h3><p>ES6 可为函数设定默认值。设定默认值后，函数的 length 和作用域将会发生变化。<br>函数的 length 只计算没有设定默认值得参数个数（默认值应该是尾参数）。<br>对于作用域的变化，函数设定默认参数后，函数参数将会形成一个全新的作用域，这个作用域居于函数内部和外部作用域之间。</p>
+<h3 id="作用域前后变化"><a href="#作用域前后变化" class="headerlink" title="作用域前后变化"></a>作用域前后变化</h3><ul>
+<li>不带默认参数</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">x, z</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">debugger</span></span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">2</span></span><br><span class="line">  <span class="keyword">var</span> y = <span class="number">3</span></span><br><span class="line">  <span class="built_in">console</span>.log(x, y)</span><br><span class="line">&#125;</span><br><span class="line">fun(<span class="number">4</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>打开Chrome控制台，<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020230210172132.png" alt="ES函数20230210172132"></p>
+<ul>
+<li>带默认参数</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">x = <span class="number">6</span>, z = <span class="number">7</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">debugger</span></span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">2</span></span><br><span class="line">  <span class="keyword">var</span> y = <span class="number">3</span></span><br><span class="line">  <span class="built_in">console</span>.log(x, y)</span><br><span class="line">&#125;</span><br><span class="line">fun(<span class="number">4</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020230210172219.png" alt="ES函数20230210172219"></p>
+<p>由此可见，在 chrome 中，ES5 函数参数只用 LocalScope 作用域；而 ES6 中函数默认值参数会形成单独的作用域，这个作用域占用了之前的 Local Scope  而函数体内声明的变量形成了一个块级作用域 Block Scope，通常情况下，此时的 local 作用域被称为居间作用域（intermediate scope）</p>
+<ul>
+<li>Babel 转换 默认参数代码</li>
+</ul>
+<p>转换后如下</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="built_in">arguments</span>.length &gt; <span class="number">0</span> &amp;&amp; <span class="built_in">arguments</span>[<span class="number">0</span>] !== <span class="literal">undefined</span> ? <span class="built_in">arguments</span>[<span class="number">0</span>] : <span class="number">6</span></span><br><span class="line">  <span class="keyword">var</span> z = <span class="built_in">arguments</span>.length &gt; <span class="number">1</span> &amp;&amp; <span class="built_in">arguments</span>[<span class="number">1</span>] !== <span class="literal">undefined</span> ? <span class="built_in">arguments</span>[<span class="number">1</span>] : <span class="number">7</span></span><br><span class="line">  <span class="keyword">return</span> (<span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">debugger</span></span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">2</span></span><br><span class="line">    <span class="keyword">var</span> y = <span class="number">3</span></span><br><span class="line">    <span class="built_in">console</span>.log(x, y)</span><br><span class="line">  &#125;)(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun(<span class="number">4</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>是否携带默认参数，作用域前后变化如下：</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020230210173242.png" alt="ES函数20230210173242"></p>
+<h3 id="懒执行"><a href="#懒执行" class="headerlink" title="懒执行"></a>懒执行</h3><p><strong>默认参数只有在函数每次执行的时候才会调用，而不是在函数定义时</strong>。这与其他部分语言是表现是不相同的。<br>如下代码由于默认参数的懒执行(惰性求值)，只要不运行 foo 函数，控制台执行并不会报错。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x = z</span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="TDZ-Temporal-Dead-Zone"><a href="#TDZ-Temporal-Dead-Zone" class="headerlink" title="TDZ(Temporal Dead Zone)"></a>TDZ(Temporal Dead Zone)</h3><p>TDZ 即暂时性死区，简单来说就是 let/const 声明之前（包括声明时）就访问对应的变量与常量，会抛出 ReferenceError 错误。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 不报错</span><br><span class="line">var x = x;</span><br><span class="line"></span><br><span class="line">// 报错</span><br><span class="line">let x = x;</span><br></pre></td></tr></table></figure>
+<p>函数默认值传参也会造成暂时性死区。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">haha</span>(<span class="params">x = x</span>) </span>&#123;&#125;</span><br><span class="line">haha() <span class="comment">//Uncaught ReferenceError: Cannot access 'x' before initialization</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">skyline</span>(<span class="params">x = y, y</span>) </span>&#123;&#125;</span><br><span class="line">skyline(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">skyline(<span class="literal">undefined</span>, <span class="number">2</span>) <span class="comment">//Uncaught ReferenceError: Cannot access 'y' before initialization</span></span><br></pre></td></tr></table></figure>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github 仓库</a>点亮 ⭐️。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
@@ -334,7 +369,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#arguments"><span class="nav-number">1.</span> <span class="nav-text">arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数传递"><span class="nav-number">2.</span> <span class="nav-text">参数传递</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按值传递"><span class="nav-number">2.1.</span> <span class="nav-text">按值传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用传递"><span class="nav-number">2.2.</span> <span class="nav-text">引用传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#arguments"><span class="nav-number">1.</span> <span class="nav-text">arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数传递"><span class="nav-number">2.</span> <span class="nav-text">参数传递</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按值传递"><span class="nav-number">2.1.</span> <span class="nav-text">按值传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用传递"><span class="nav-number">2.2.</span> <span class="nav-text">引用传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6-默认参数"><span class="nav-number">3.</span> <span class="nav-text">ES6 默认参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认参数的影响"><span class="nav-number">3.1.</span> <span class="nav-text">默认参数的影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域前后变化"><span class="nav-number">3.2.</span> <span class="nav-text">作用域前后变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#懒执行"><span class="nav-number">3.3.</span> <span class="nav-text">懒执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TDZ-Temporal-Dead-Zone"><span class="nav-number">3.4.</span> <span class="nav-text">TDZ(Temporal Dead Zone)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>
