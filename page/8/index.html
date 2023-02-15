@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-黑群晖安装"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Nginx常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/黑群晖安装.html">黑群晖安装</a>
+      <a class="article-title" href="/Nginx常见问题汇总.html">Nginx常见问题汇总</a>
     </h1>
   
 
@@ -352,119 +352,37 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#硬件准备">硬件准备</a><ul>
-<li><a href="#nas-主机">Nas 主机</a></li>
-<li><a href="#u-盘">u 盘</a></li>
-<li><a href="#电脑">电脑</a></li>
+<li><a href="#proxy_pass-代理接口不能访问">proxy_pass 代理接口不能访问</a><ul>
+<li><a href="#问题描述">问题描述</a></li>
+<li><a href="#配置">配置</a></li>
 </ul>
 </li>
-<li><a href="#软件准备">软件准备</a><ul>
-<li><a href="#系统选择">系统选择</a></li>
-<li><a href="#相关软件">相关软件</a></li>
-</ul>
-</li>
-<li><a href="#引导盘准备">引导盘准备</a><ul>
-<li><a href="#获取-vid-与-pid">获取 VID 与 PID</a></li>
-<li><a href="#替换-vid-与-pid">替换 VID 与 PID</a></li>
-<li><a href="#格式化硬盘">格式化硬盘</a></li>
-<li><a href="#引导盘制作">引导盘制作</a></li>
-</ul>
-</li>
-<li><a href="#安装系统">安装系统</a><ul>
-<li><a href="#nas-进入">Nas 进入</a></li>
-</ul>
-</li>
+<li><a href="#页面刷新不能进入">页面刷新不能进入</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h2><table>
-<thead>
-<tr>
-<th>硬件</th>
-<th>要求</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Nas 主机</td>
-<td>Intel CPU</td>
-</tr>
-<tr>
-<td>u 盘</td>
-<td>&gt; 50M</td>
-</tr>
-<tr>
-<td>电脑</td>
-<td>Windows 系统</td>
-</tr>
-<tr>
-<td>键鼠</td>
-<td>进 BIOS 等</td>
-</tr>
-<tr>
-<td>硬盘</td>
-<td>大大的好</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Nas-主机"><a href="#Nas-主机" class="headerlink" title="Nas 主机"></a>Nas 主机</h3><p>黑群晖对主机的要求不是很高，不需要硬解软路由+移动硬盘都可运行。<br>主机一般推荐使用 10 代以下的 Intel CPU.<br>新代 Intel 与 AMD 等其他 CPU 主机核显硬解不友好，视硬解需求而定。</p>
-<h3 id="u-盘"><a href="#u-盘" class="headerlink" title="u 盘"></a>u 盘</h3>
+<h2 id="proxy-pass-代理接口不能访问"><a href="#proxy-pass-代理接口不能访问" class="headerlink" title="proxy_pass 代理接口不能访问"></a>proxy_pass 代理接口不能访问</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>客户端访问接口，发起请求<br><a href="http://aaa.com/file/123.png" target="_blank" rel="noopener">http://aaa.com/file/123.png</a></p>
+<p>真实接口地址为<br><a href="http://bbb.com/123.png" target="_blank" rel="noopener">http://bbb.com/123.png</a></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3>
         <!-- 
 
 
-硬件准备
-Nas 主机
-u 盘
-电脑
+proxy_pass 代理接口不能访问
+问题描述
+配置
 
 
-软件准备
-系统选择
-相关软件
-
-
-引导盘准备
-获取 VID 与 PID
-替换 VID 与 PID
-格式化硬盘
-引导盘制作
-
-
-安装系统
-Nas 进入
-
-
+页面刷新不能进入
 BMW WARNING
 
 
-硬件准备
-
-
-硬件
-要求
-
-
-
-
-Nas 主机
-Intel CPU
-
-
-u 盘
-&gt; 50M
-
-
-电脑
-Windows 系统
-
-
-键鼠
-进 BIOS 等
-
-
-硬......  -->
+proxy_pass 代理接口不能访问问题描述客户端访问接口，发起请求http://aaa.com/file/123.png
+真实接口地址为http://bbb.com/123.png
+配置
+检查配置，正确的配置如下
+location ^~ /file/ &#123;    pro......  -->
         <p class="article-more-link">
-          <a href="/黑群晖安装.html#more">阅读全文</a>
+          <a href="/Nginx常见问题汇总.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -472,7 +390,7 @@ Windows 系统
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
 
     </footer>
   </div>
@@ -482,7 +400,7 @@ Windows 系统
 <!-- Table of Contents -->
 
   
-    <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-VSCode相关问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -490,7 +408,7 @@ Windows 系统
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/黑群晖常见问题.html">黑群晖常见问题</a>
+      <a class="article-title" href="/VSCode相关问题汇总.html">VSCode相关问题汇总</a>
     </h1>
   
 
@@ -504,42 +422,17 @@ Windows 系统
 
 
       
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#黑群晖搜索不到-ip">黑群晖搜索不到 IP</a><ul>
-<li><a href="#网络联通检查">网络联通检查</a></li>
-<li><a href="#网卡驱动问题">网卡驱动问题</a></li>
-</ul>
-</li>
-<li><a href="#ssd-缓存问题">SSD 缓存问题</a></li>
-<li><a href="#moments-人物主题无照片">Moments 人物、主题无照片</a></li>
-<li><a href="#群晖添加第三方社群套件源显示无效的位置">群晖添加第三方社群套件源显示无效的位置</a></li>
-<li><a href="#jellufin-plex-扫描不出影片">Jellufin /Plex 扫描不出影片</a></li>
-<li><a href="#黑群晖硬件转码">黑群晖硬件转码</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="黑群晖搜索不到-IP"><a href="#黑群晖搜索不到-IP" class="headerlink" title="黑群晖搜索不到 IP"></a>黑群晖搜索不到 IP</h2><h3 id="网络联通检查"><a href="#网络联通检查" class="headerlink" title="网络联通检查"></a>网络联通检查</h3><p>主板网口灯检查<br>检查主板网口灯，绿灯常亮说明网络连接成功，黄灯闪烁说明有流量传输。<br>若绿灯亮，进入下一步。</p>
-<h3 id="网卡驱动问题"><a href="#网卡驱动问题" class="headerlink" title="网卡驱动问题"></a>网卡驱动问题</h3><p>检查网卡配置，黑群晖默认不支持 2.5G 以及万兆网卡，<br>需要替换引导中的网卡驱动文件。<br>直接 Google<code>DS918+ 6.23 &quot;0.13.3&quot;</code><br>找到 DS918-6.23_1.04b 的扩展驱动 0.13.3.zip<br>解压得到进行两个文件<br><code>extra.lzma extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘。在左侧目录下可以看到一个 分区(1)，右键选择”挂载到 windows”。然后选择确定之后。可以发现这个分区出现在文件管理那边。<br>用上述解压得到的文件替换分区里的文件即可。<br>然后退出 U 盘，重新启动，就能支持 2.5G 网卡了<br>[^1]:<a href="https://post.smzdm.com/p/aoxd6697/" target="_blank" rel="noopener">https://post.smzdm.com/p/aoxd6697/</a></p>
-<h2 id="SSD-缓存问题"><a href="#SSD-缓存问题" class="headerlink" title="SSD 缓存问题"></a>SSD 缓存问题</h2><p>不打补丁的情况下，黑群晖默认不识别 SSD<br>SSD 补丁如下<br>版本 | 补丁 | 操作<br>— | — | —<br>6.22 | libNVMEpatch.sh | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code><br>6.23 | libsynonvme.so.1 | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code></p>
-<p>上述操作需要先远程 ssh user@ip ，操作完成后退出重启即可[^2]<br>[^2]:<a href="https://wp.gxnas.com/6010.html" target="_blank" rel="noopener">https://wp.gxnas.com/6010.html</a></p>
-<h2 id="Moments-人物、主题无照片"><a href="#Moments-人物、主题无照片" class="headerlink" title="Moments 人物、主题无照片"></a>Moments 人物、主题无照片</h2><p>安装 Moments 后人物与主题无法智能识别，进入后显示还有 xxx 张照片待发现。<br>停用 Moments<br>进入 /var/packages/SynologyMoments/target/usr/lib 目录下<br>备份 libsynophoto-plugin-detection.so</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mv ./libsynophoto-plugin-detection.so ./libsynophoto-plugin-detection.so.bak</span><br></pre></td></tr></table></figure>
-<p><a href="http://42.193.201.102:8443/file/Docs/Tools/OS/Nas/黑群晖常见问题/libsynophoto-plugin-detection.so" target="_blank" rel="noopener">libsynophoto-plugin-detection.so</a><br>将下载的新文件放在 /var/packages/SynologyMoments/target/usr/lib 下，对全部用户赋完全权限（777）或对 SynologyMoments 赋控制权限（755）。<br>开启 moments，重建索引。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%BB%91%E7%BE%A4%E6%99%96%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220121102822.png" alt="黑群晖常见问题20220121102822"></p>
-<h2 id="群晖添加第三方社群套件源显示无效的位置"><a href="#群晖添加第三方社群套件源显示无效的位置" class="headerlink" title="群晖添加第三方社群套件源显示无效的位置"></a>群晖添加第三方社群套件源显示无效的位置</h2><p>在套件设置常规中的信任层级允许任何发行者。<br>之后在套件来源中添加 <a href="http://packages.synocommunity.com显示无效地址。" target="_blank" rel="noopener">http://packages.synocommunity.com显示无效地址。</a><br>出现问题的原因是在 DSM6 非最新版本的系统证书过期。<br>在控制面板 Terminal &amp; SNMP 打开允许 SSH 连接。<br>用 SecureCRT 等工具远程连接。<br>输入如下命令</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo mv /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt.bak &amp;&amp; sudo curl -Lko /etc/ssl/certs/ca-certificates.crt https://curl.se/ca/cacert.pem</span><br></pre></td></tr></table></figure>
-<p>执行完毕后重新添加源。<br>其他常用的套件源</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">http://packages.synocommunity.com</span><br><span class="line"></span><br><span class="line">http://packages.pcloadletter.co.uk</span><br><span class="line"></span><br><span class="line">http://www.cphub.net</span><br><span class="line"></span><br><span class="line">http://synology.sysco.ch</span><br><span class="line"></span><br><span class="line">http://packages.quadrat4.de</span><br><span class="line"></span><br><span class="line">http://synology.acmenet.ru</span><br><span class="line"></span><br><span class="line">http://cytec.us/spk</span><br><span class="line"></span><br><span class="line">http://spk.naefmarco.ch/spkrepo/packages/</span><br><span class="line"></span><br><span class="line">http://spk.nas-mirror.de/spkrepo/packages</span><br><span class="line"></span><br><span class="line">http://spk.unzureichende.info/</span><br><span class="line"></span><br><span class="line">http://packages.synocommunity.com/?beta=1</span><br></pre></td></tr></table></figure>
-<h2 id="Jellufin-Plex-扫描不出影片"><a href="#Jellufin-Plex-扫描不出影片" class="headerlink" title="Jellufin /Plex 扫描不出影片"></a>Jellufin /Plex 扫描不出影片</h2><p>这是由于指定的文件夹没有开发读写权限。<br>对于 Plex，安装时会自动创建 Plex 用户，需要为其赋权。<br>Jellufin 三方套件版会创建 sc-jellyfin 用户， 尝试赋权。<br>若都不行，尝试将扫描目录对所有人赋读写权限。</p>
-<h2 id="黑群晖硬件转码"><a href="#黑群晖硬件转码" class="headerlink" title="黑群晖硬件转码"></a>黑群晖硬件转码</h2><p><a href="https://wp.gxnas.com/7952.html" target="_blank" rel="noopener">https://wp.gxnas.com/7952.html</a></p>
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="VSCode-相关问题汇总"><a href="#VSCode-相关问题汇总" class="headerlink" title="VSCode 相关问题汇总"></a>VSCode 相关问题汇总</h1><h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="markdown-文件-Snippets-不生效"><a href="#markdown-文件-Snippets-不生效" class="headerlink" title="markdown 文件 Snippets 不生效"></a>markdown 文件 Snippets 不生效</h3><p><strong>问题描述</strong><br>通过 File -&gt; Preferences -&gt; User Snippets -&gt; Markdown<br>写相关代码块如下<br><code>markdown.json</code></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and</span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the</span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="attr">"JS code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cjs"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:js&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"JS code block"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"PY code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cpy"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:python&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"PY code block"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 markdown 文件中敲击:cjs 不自动提示。<br><strong>解决方案</strong><br>尝试 CTRL + Space 强制开启。<br>在用户配置<code>setting.json</code>中添加如下配置项</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"[markdown]": &#123;</span><br><span class="line">    "editor.quickSuggestions": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -547,102 +440,6 @@ Windows 系统
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#firewalld1">firewalld[^1]</a><ul>
-<li><a href="#concepts">Concepts</a></li>
-<li><a href="#zones">Zones</a></li>
-<li><a href="#services">Services</a></li>
-<li><a href="#runtime">Runtime</a></li>
-<li><a href="#state">State</a></li>
-<li><a href="#port">Port</a></li>
-<li><a href="#source">Source</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="firewalld-1"><a href="#firewalld-1" class="headerlink" title="firewalld[^1]"></a>firewalld[^1]</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld 采用区域与服务的概念来控制流量的出入。</p>
-<ul>
-<li>zones</li>
-<li>services</li>
-</ul>
-<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
-<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3>
-        <!-- 
-
-
-firewalld[^1]
-Concepts
-Zones
-Services
-Runtime
-State
-Port
-Source
-
-
-BMW WARNING
-
-
-firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。
-
-zones
-services
-
-firewalld 是 CentOS 7/8, Red Hat Enterprise Lin......  -->
-        <p class="article-more-link">
-          <a href="/CentOS防火墙.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
     </footer>
   </div>
   
@@ -709,6 +506,104 @@ frp 内网穿透简介frp 是一款开源的内网穿透软件，github 主页�
 Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 https://github.com/fatedier/frp/relea......  -->
         <p class="article-more-link">
           <a href="/frp内网穿透.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-iPadOS常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/iPadOS常见问题.html">iPadOS常见问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="IpadOS-常见问题"><a href="#IpadOS-常见问题" class="headerlink" title="IpadOS 常见问题"></a>IpadOS 常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#ipados-常见问题">IpadOS 常见问题</a><ul>
+<li><a href="#apple-pencil-断触">Apple pencil 断触</a><ul>
+<li><a href="#软件问题">软件问题</a></li>
+<li><a href="#还原设置">还原设置</a></li>
+<li><a href="#硬件检测">硬件检测</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Apple-pencil-断触"><a href="#Apple-pencil-断触" class="headerlink" title="Apple pencil 断触"></a>Apple pencil 断触</h2><h3 id="软件问题"><a href="#软件问题" class="headerlink" title="软件问题"></a>软件问题</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">使用系统自带的备忘录尝试是否为软件问题</span><br></pre></td></tr></table></figure>
+<p>部分软件可能手触屏幕会有断触问题</p>
+<h3 id="还原设置"><a href="#还原设置" class="headerlink" title="还原设置"></a>还原设置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">关掉蓝牙重新连接 Pencil</span><br><span class="line"></span><br><span class="line">重启 iPad 后再次连接 Pencil</span><br><span class="line"></span><br><span class="line">打开 ipad 设置—&gt;通用—&gt;还原—&gt;还原所有设置</span><br></pre></td></tr></table></figure>
+<p>上述操作只是还原设置，不会删除数据，但是人脸识别和密码，壁纸会还原</p>
+<h3 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">去除贴膜，笔尖套</span><br><span class="line"></span><br><span class="line">更换笔头尝试</span><br><span class="line"></span><br><span class="line">换个 ipad 试下是否为笔的问题</span><br></pre></td></tr></table></figure>
+<p>这些操作都不行，联系售后解决</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+IpadOS 常见问题
+
+
+IpadOS 常见问题
+Apple pencil 断触
+软件问题
+还原设置
+硬件检测
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软件问题
+部分软件可能手触屏幕会有断触问......  -->
+        <p class="article-more-link">
+          <a href="/iPadOS常见问题.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1038,107 +933,6 @@ sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输
 <!-- Table of Contents -->
 
   
-    <article id="post-Shell中xargs使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中xargs使用.html">Shell中xargs使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T08:06:40.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#基础使用示例">基础使用示例</a><ul>
-<li><a href="#echo">echo</a></li>
-<li><a href="#wc">wc</a></li>
-<li><a href="#mkdir">mkdir</a></li>
-</ul>
-</li>
-<li><a href="#参数">参数</a><ul>
-<li><a href="#-0">-0</a></li>
-<li><a href="#-i">-I</a></li>
-<li><a href="#-l">-L</a></li>
-<li><a href="#-n">-n</a></li>
-<li><a href="#-d">-d</a></li>
-<li><a href="#-t">-t</a></li>
-<li><a href="#-p">-p</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支持标准输入的命令提供管道操作。<br>通过 xargs 将标准输入转换成参数来完成后续命令。如果转换成的参数有多个（通过标准输入空符分割），后续命令重复执行。</p>
-<blockquote>
-<p>The xargs command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like grep can accept standard input as a parameter, many other tools cannot. Using xargs allows tools like echo and rm and mkdir to accept standard input as arguments.</p>
-</blockquote>
-<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3>
-        <!-- 
-
-
-概述
-基础使用示例
-echo
-wc
-mkdir
-
-
-参数
--0
--I
--L
--n
--d
--t
--p
-
-
-BMW WARNING
-
-
-概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那......  -->
-        <p class="article-more-link">
-          <a href="/Shell中xargs使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Shell中字符串相关操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1245,7 +1039,7 @@ S......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Shell中xargs使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1253,7 +1047,108 @@ S......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
+      <a class="article-title" href="/Shell中xargs使用.html">Shell中xargs使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T08:06:40.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#概述">概述</a></li>
+<li><a href="#基础使用示例">基础使用示例</a><ul>
+<li><a href="#echo">echo</a></li>
+<li><a href="#wc">wc</a></li>
+<li><a href="#mkdir">mkdir</a></li>
+</ul>
+</li>
+<li><a href="#参数">参数</a><ul>
+<li><a href="#-0">-0</a></li>
+<li><a href="#-i">-I</a></li>
+<li><a href="#-l">-L</a></li>
+<li><a href="#-n">-n</a></li>
+<li><a href="#-d">-d</a></li>
+<li><a href="#-t">-t</a></li>
+<li><a href="#-p">-p</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支持标准输入的命令提供管道操作。<br>通过 xargs 将标准输入转换成参数来完成后续命令。如果转换成的参数有多个（通过标准输入空符分割），后续命令重复执行。</p>
+<blockquote>
+<p>The xargs command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like grep can accept standard input as a parameter, many other tools cannot. Using xargs allows tools like echo and rm and mkdir to accept standard input as arguments.</p>
+</blockquote>
+<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3>
+        <!-- 
+
+
+概述
+基础使用示例
+echo
+wc
+mkdir
+
+
+参数
+-0
+-I
+-L
+-n
+-d
+-t
+-p
+
+
+BMW WARNING
+
+
+概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那......  -->
+        <p class="article-more-link">
+          <a href="/Shell中xargs使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Shell中的符号"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中的符号.html">Shell中的符号</a>
     </h1>
   
 
@@ -1278,78 +1173,66 @@ S......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#页面渲染">页面渲染</a><ul>
-<li><a href="#渲染流程">渲染流程</a></li>
-<li><a href="#渲染原理">渲染原理</a></li>
-<li><a href="#layout">Layout</a></li>
-<li><a href="#paint">Paint</a></li>
-</ul>
-</li>
-<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
-<li><a href="#回流触发">回流触发</a></li>
-<li><a href="#重绘触发">重绘触发</a></li>
-</ul>
-</li>
-<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
-<li><a href="#浏览器优化">浏览器优化</a></li>
-<li><a href="#代码优化">代码优化</a></li>
-</ul>
-</li>
-<li><a href="#像素管道">像素管道</a><ul>
-<li><a href="#像素管道组成">像素管道组成</a></li>
-</ul>
-</li>
+<li><a href="#引号">引号</a></li>
+<li><a href="#路径符">路径符</a></li>
+<li><a href="#重定向符">重定向符</a></li>
+<li><a href="#命令执行符">命令执行符</a></li>
+<li><a href="#符号标记">符号标记</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
-<ul>
-<li>解析 HTML 节点，创建 DOM 树</li>
-<li>解析 CSS 创建 CSSOM 树</li>
-<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
-<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
-<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
-<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
-</ul>
-</li>
-<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
-<li>Paint， 绘制 renderTree 到页面上</li>
-</ul>
-<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
-<h3 id="渲染原理"><a href="#渲染原理" class="headerlink" title="渲染原理"></a>渲染原理</h3>
+<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><p>单引号和双引号主要可用于解决字符串中间有空格的问题。<br>单引号将剥夺字符串中特殊字符的含义。<br>双引号中的’$’进行参数替换’<code>&#39;进行命令替换。
+反引号与$()是一样的。 `</code>或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'$skyline`echo 1`'</span></span><br><span class="line"><span class="comment"># $skyline`echo 1`</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$skyline</span>`echo 1`"</span></span><br><span class="line"><span class="comment"># 11</span></span><br></pre></td></tr></table></figure>
+<h2 id="路径符"><a href="#路径符" class="headerlink" title="路径符"></a>路径符</h2><p>Shell 中路径相关的符号，如下表所示</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>使用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~</td>
+<td>cd ~</td>
+<td>用户主页目录</td>
+</tr>
+<tr>
+<td>.</td>
+<td>ls .</td>
+<td>当前目录</td>
+</tr>
+<tr>
+<td>..</td>
+<td>cd ..</td>
+<td>上级目录</td>
+</tr>
+<tr>
+<td>/</td>
+<td>cd /</td>
+<td>根目录或路径分隔符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2>
         <!-- 
 
 
-页面渲染
-渲染流程
-渲染原理
-Layout
-Paint
-
-
-回流与重绘触发
-回流触发
-重绘触发
-
-
-回流与重绘优化
-浏览器优化
-代码优化
-
-
-像素管道
-像素管道组成
-
-
+引号
+路径符
+重定向符
+命令执行符
+符号标记
 BMW WARNING
 
 
-页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
-
-解析 HTML 节点，创建 DOM 树
-解析 CSS 创建 CSSOM......  -->
+引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&#39;进行命令替换。
+反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。
+skyline=1echo '$skyline`echo 1`'#......  -->
         <p class="article-more-link">
-          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
+          <a href="/Shell中的符号.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1357,7 +1240,7 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>
