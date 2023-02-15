@@ -319,6 +319,72 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Git常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Git常见问题.html">Git常见问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-11-30T06:00:31.000Z" itemprop="datePublished">2022-11-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Git-status-中文展示"><a href="#Git-status-中文展示" class="headerlink" title="Git status 中文展示"></a>Git status 中文展示</h2><p>在使用<code>git status</code>命令时，若文件名包含中文，可能会出现如下情况<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220506142709.png" alt="Git常见问题20220506142709"><br>上图框中实际为中文。<br>输入如下命令解决</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>或直接在 <code>$HOME/.gitconfig</code>文件中附加</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[core]</span><br><span class="line">    quotepath = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220506142815.png" alt="Git常见问题20220506142815"></p>
+<h2 id="文件名过长错误"><a href="#文件名过长错误" class="headerlink" title="文件名过长错误"></a>文件名过长错误</h2><p>文件名过长，报错如下：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Filename too long warning: Clone succeeded, but checkout failed.</span><br></pre></td></tr></table></figure>
+<p>输入如下命令解决</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --system core.longpaths <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="多个-git-进程"><a href="#多个-git-进程" class="headerlink" title="多个 git 进程"></a>多个 git 进程</h2>
+        <!-- Git status 中文展示在使用git status命令时，若文件名包含中文，可能会出现如下情况上图框中实际为中文。输入如下命令解决
+git config --global core.quotepath false
+或直接在 $HOME/.gitconfig文件中附加
+[core]    quotepath = false
+
+文件名过长错误文件名过长，报错如下：
+Filename too......  -->
+        <p class="article-more-link">
+          <a href="/Git常见问题.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Git常见符号"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -640,7 +706,7 @@ Linter 大致分为两类校验规则：
 <li><a href="#符号">符号</a><ul>
 <li><a href="#关系符">关系符</a></li>
 <li><a href="#表达式">表达式</a></li>
-<li><a href="#符号-1">符号</a></li>
+<li><a href="#其他符号">其他符号</a></li>
 <li><a href="#无符号标记">无符号标记</a></li>
 </ul>
 </li>
@@ -671,7 +737,7 @@ Latex 简介
 符号
 关系符
 表达式
-符号
+其他符号
 无符号标记
 
 
@@ -686,7 +752,7 @@ quiver(Mac)
 基础Latex 语法可在 markdown 文件中进行书写，其标记为$在行内展示对应公式，标记为
 $ $
 例如
-$ \frac&#123;a+1&#125;&#......  -->
+$ \frac&#123;a+1&#125;......  -->
         <p class="article-more-link">
           <a href="/Latex语法.html#more">阅读全文</a>
         </p>
@@ -1268,59 +1334,6 @@ BMW WARNING
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-PicGo"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/PicGo.html">PicGo</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:05.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="程序员的笔记"><a href="#程序员的笔记" class="headerlink" title="程序员的笔记"></a>程序员的笔记</h2><p>VSCode 编辑器的 Web 版 上线极大的方便了在 GitHub 上做笔记，在 Github 仓库主页，按一下小数点（.）这个键，或将地址栏的 com 换成 dev 即可。<br>在市面的大多数笔记软件中，Quiver Markdown 优化不错，但是同步基本没有，并且官方近两年没更新。Notion 用户界面比较舒适，但是基本不支持 Markdown 语法。<br>Notion 笔记示例 如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PicGo20210918152058.png" alt="PicGo20210918152058"></p>
-<p>如 Quiver 一样，大多数笔记软件导出 Markdown 会将图片集中一个单独的文件，如果想要把导出的 Markdown 用在其他地方，不等不同时拷贝对应的图片的本地文件夹，将笔记中的图片放在图床中，是一个很好的处理方式。<br>PicGo 作为一个图床上传工具，在 VSCode 提供了对应的插件</p>
-<h2 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h2><h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3>
-        <!-- 程序员的笔记VSCode 编辑器的 Web 版 上线极大的方便了在 GitHub 上做笔记，在 Github 仓库主页，按一下小数点（.）这个键，或将地址栏的 com 换成 dev 即可。在市面的大多数笔记软件中，Quiver Markdown 优化不错，但是同步基本没有，并且官方近两年没更新。Notion 用户界面比较舒适，但是基本不支持 Markdown 语法。Notion 笔记示例 如......  -->
-        <p class="article-more-link">
-          <a href="/PicGo.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Extensions/">Extensions</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VSCode/">VSCode</a></li></ul>
 
     </footer>
   </div>
