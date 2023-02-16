@@ -22,7 +22,7 @@
 <meta property="og:description" content="常见坑点 实例方法 表格概述 方法进阶   部分实战 构造数组 slice 截取 数据结构模拟   BMW WARNING   常见坑点 数组的 length 不是只读的，可以通过修改来设置长度 一般通过 isArray 来判断是否是数组，而不用 instanceof  实例方法表格概述">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E6%95%B0%E7%BB%8420230210161709.png">
-<meta property="og:updated_time" content="2023-02-09T01:12:14.000Z">
+<meta property="og:updated_time" content="2023-02-10T10:20:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES数组">
 <meta name="twitter:description" content="常见坑点 实例方法 表格概述 方法进阶   部分实战 构造数组 slice 截取 数据结构模拟   BMW WARNING   常见坑点 数组的 length 不是只读的，可以通过修改来设置长度 一般通过 isArray 来判断是否是数组，而不用 instanceof  实例方法表格概述">
@@ -190,7 +190,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-09T01:12:14.000Z" itemprop="datePublished">2023-02-09</time>
+      <time datetime="2023-02-10T10:20:04.000Z" itemprop="datePublished">2023-02-10</time>
     </a><span style="color: #999">|</span>
 
       
@@ -481,7 +481,7 @@
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>(<span class="number">7</span>).fill()</span><br><span class="line"><span class="comment">//(7) [undefined, undefined, undefined, undefined, undefined, undefined, undefined]</span></span><br><span class="line"><span class="built_in">Array</span>(<span class="number">7</span>)</span><br><span class="line"><span class="comment">//(7) [undefined × 7]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.apply(<span class="literal">null</span>, &#123; <span class="attr">length</span>: <span class="number">7</span> &#125;)</span><br><span class="line"><span class="comment">//(7) [undefined, undefined, undefined, undefined, undefined, undefined, undefined]</span></span><br></pre></td></tr></table></figure>
 <p>需要注意的是，直接调用构造函数使用 map 填充数据存在问题</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>(<span class="number">7</span>)</span><br><span class="line">  .fill()</span><br><span class="line">  .map(<span class="function"><span class="params">()</span> =&gt;</span> <span class="number">1</span>)</span><br><span class="line"><span class="comment">// (7) [1, 1, 1, 1, 1, 1, 1]</span></span><br><span class="line"><span class="built_in">Array</span>(<span class="number">7</span>).map(<span class="function"><span class="params">()</span> =&gt;</span> <span class="number">1</span>)</span><br><span class="line"><span class="comment">// (7) [undefined × 7]</span></span><br><span class="line"><span class="built_in">Array</span>.apply(<span class="literal">null</span>, &#123; <span class="attr">length</span>: <span class="number">7</span> &#125;).map(<span class="function"><span class="params">()</span> =&gt;</span> <span class="number">1</span>)</span><br><span class="line"><span class="comment">// (7) [1, 1, 1, 1, 1, 1, 1]</span></span><br></pre></td></tr></table></figure>
-<h3 id="slice-截取"><a href="#slice-截取" class="headerlink" title="slice 截取"></a>slice 截取</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="string">'skyline'</span></span><br><span class="line">  .slice(<span class="number">1</span>, <span class="number">5</span>) <span class="comment">// "kyli"</span></span><br><span class="line">  [(<span class="string">'s'</span>, <span class="string">'k'</span>, <span class="string">'y'</span>, <span class="string">'l'</span>, <span class="string">'i'</span>, <span class="string">'n'</span>, <span class="string">'e'</span>)].slice(<span class="number">1</span>, <span class="number">5</span>) <span class="comment">// ["k", "y", "l", "i"]</span></span><br></pre></td></tr></table></figure>
+<h3 id="slice-截取"><a href="#slice-截取" class="headerlink" title="slice 截取"></a>slice 截取</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="string">'skyline'</span>.slice(<span class="number">1</span>, <span class="number">5</span>)</span><br><span class="line"> <span class="comment">// "kyli"</span></span><br><span class="line"> </span><br><span class="line">[<span class="string">'s'</span>, <span class="string">'k'</span>, <span class="string">'y'</span>, <span class="string">'l'</span>, <span class="string">'i'</span>, <span class="string">'n'</span>, <span class="string">'e'</span>].slice(<span class="number">1</span>, <span class="number">5</span>)</span><br><span class="line"> <span class="comment">// ["k", "y", "l", "i"]</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E6%95%B0%E7%BB%8420230210161709.png" alt="ES数组20230210161709"></p>
 <h3 id="数据结构模拟"><a href="#数据结构模拟" class="headerlink" title="数据结构模拟"></a>数据结构模拟</h3><ul>
 <li>模拟栈，push + pop</li>
@@ -560,19 +560,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/CSS常见问题汇总.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/CSS选择器.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          CSS常见问题汇总
+          CSS选择器
         
       </div>
     </a>
   
   
-    <a href="/Shell中查找相关命令.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/CSS常见问题汇总.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Shell中查找相关命令</div>
+      <div class="article-nav-title">CSS常见问题汇总</div>
     </a>
   
 </nav>

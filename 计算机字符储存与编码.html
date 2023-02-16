@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>计算机字符储存与编码 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="CS">
+  
+  
+  
+  
+  <meta name="description" content="数据存储单位 字符集 字符收集 Unicode   编码 给字符集编码 ASCII UTF   BMW WARNING   数据存储单位计算机数据存储的常见单位为 bit byte word KB MB GB TB 等额。bit byte word 即位、字节、字。各单位的换算规则为：  Bit = 1/0 （基本存储单位） Byte = 8 bits Word = 16, 32, 64 b">
+<meta name="keywords" content="CS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机字符储存与编码">
+<meta property="og:url" content="http://www.skyline.show/计算机字符储存与编码.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="数据存储单位 字符集 字符收集 Unicode   编码 给字符集编码 ASCII UTF   BMW WARNING   数据存储单位计算机数据存储的常见单位为 bit byte word KB MB GB TB 等额。bit byte word 即位、字节、字。各单位的换算规则为：  Bit = 1/0 （基本存储单位） Byte = 8 bits Word = 16, 32, 64 b">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E5%82%A8%E5%AD%98%E4%B8%8E%E7%BC%96%E7%A0%8120230216161718.png">
+<meta property="og:updated_time" content="2023-02-10T10:20:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机字符储存与编码">
+<meta name="twitter:description" content="数据存储单位 字符集 字符收集 Unicode   编码 给字符集编码 ASCII UTF   BMW WARNING   数据存储单位计算机数据存储的常见单位为 bit byte word KB MB GB TB 等额。bit byte word 即位、字节、字。各单位的换算规则为：  Bit = 1/0 （基本存储单位） Byte = 8 bits Word = 16, 32, 64 b">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E5%82%A8%E5%AD%98%E4%B8%8E%E7%BC%96%E7%A0%8120230216161718.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-计算机字符储存与编码" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      计算机字符储存与编码
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-02-10T10:20:05.000Z" itemprop="datePublished">2023-02-10</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#数据存储单位">数据存储单位</a></li>
+<li><a href="#字符集">字符集</a><ul>
+<li><a href="#字符收集">字符收集</a></li>
+<li><a href="#unicode">Unicode</a></li>
+</ul>
+</li>
+<li><a href="#编码">编码</a><ul>
+<li><a href="#给字符集编码">给字符集编码</a></li>
+<li><a href="#ascii">ASCII</a></li>
+<li><a href="#utf">UTF</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="数据存储单位"><a href="#数据存储单位" class="headerlink" title="数据存储单位"></a>数据存储单位</h2><p>计算机数据存储的常见单位为 bit byte word KB MB GB TB 等额。<br>bit byte word 即位、字节、字。<br>各单位的换算规则为：</p>
+<hr>
+<p>Bit = 1/0 （基本存储单位）</p>
+<p>Byte = 8 bits</p>
+<p>Word = 16, 32, 64 bits（取决于计算机位数）</p>
+<p>$1 kilobyte = 1 KB = 2^{10} bytes = 1024 bytes$</p>
+<p>$1 Megabyte = 1 MB = 2^{20} bytes = 1,048,576 bytes$</p>
+<p>$1 Gigabyte = 1 GB = 2^{30} bytes = 1,073,741,824 bytes$</p>
+<hr>
+<p>位是最小的存储单位，每一个位存储一个 1 位的二进制码。<br>一个字节由 8 位组成。<br>字通常为 16、32 或 64 个位组成，取决于计算机 CPU 一次性处理数据的位数，通常由寄存器决定。</p>
+<h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><h3 id="字符收集"><a href="#字符收集" class="headerlink" title="字符收集"></a>字符收集</h3><a id="more"></a>
+<p>世界众多的文明创造除了庞大的文字，符号；<br>这些符号可以是英语的基本字母和标点，汉语的文字和标点，或者是其他语言的相关字符。<br>根据不同地区的使用需求，将不同的字符放在不同的集合形成众多的字符集。</p>
+<p>常见的字符集有 Unicode、GBK、Big5 等。</p>
+<p>字符集将需要的字符收集并规定了其中符号的二进制代码，供后续编码使用。<br><strong>这个二进制代码通常被称为码点（Code Point）</strong></p>
+<h3 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h3><p>Unicode 是一个独立的字符集，每一个字符有一个对应的 Unicode 编号。<br>目前的 Unicode 字符分为 17 组编排，每组称为平面（Plane），而每平面拥有 65536（即 2 的 16 方）个码点。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E5%82%A8%E5%AD%98%E4%B8%8E%E7%BC%96%E7%A0%8120230216161718.png" alt="计算机字符储存与编码20230216161718"><br>目前只用了少数平面<br>第一平面的保留码点为 D800~0xDFFF，是特定为四字节的 UTF-16 编码预留的。</p>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><h3 id="给字符集编码"><a href="#给字符集编码" class="headerlink" title="给字符集编码"></a>给字符集编码</h3><p>要让这些字符集要被被不同地区的电脑统一地识别展示不乱码，<br>需要统一进行编码，并在电脑中使用同一编码格式。<br>编码可以理解为选定字符集后，使用特定规则储存码点。</p>
+<p>同一字符集的对码点的编码的方式可以不一样。<br>可以采用为每个字符分配固定长度的内存的编码方案，即所有的码点都用固定位数存储，高位不足补零。<br>定长的好处是多个字符形成的数据编码放在一起也可以很好地截断然后解码。<br>但是，这种方式会造成码点小的字符内存空间的浪费。</p>
+<p>也可以采用为每个字符分配尽量少的内存的方案，即码点对应实际需要占用的最小字节空间。<br>这种方案节省了内存，但是由于每个字符存储长度不定，计算机不知道如何截断多个字符编码以解码。<br>需要解决字符截断问题，然后才可以进行解码。</p>
+<h3 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h3><p>美国信息交换标准码（American Standard Code for Information Interchange）<br>ASCII 码诞生于上世纪 60 年代，是最早的编码之一，共定义了 128 个字符（0-127），沿用至今。<br>这 128 个字符被设计用用电脑的 7 位来存储，但在计算机中占用 1 字节（ 8 位）。<br>这种 8 位 的 2 进制编码，最高位始终为 0，其他 7 位用来表示字符</p>
+<p>ASCII 的所有字符码点都只需要一个字节来存储。</p>
+<h3 id="UTF"><a href="#UTF" class="headerlink" title="UTF"></a>UTF</h3><ul>
+<li>UTF-8</li>
+</ul>
+<p>unicode 是一个字符集，如果全部按照 Unicode 中的码点来进行定长编码，程序定长截取字符，不会存在乱码问题。<br>但是，对于全英文文本文件，用 Unicode 编码比 ASCII 编码需要多一倍的存储空间，在存储和传输上就十分不划算。</p>
+<p>​ 一种<strong>变长</strong>的编码方案由此诞生，该方案使用 1~6 个字节来存储码点，同时兼容 ASCII 码；<br>​ 变长编码首先需要解决的问题就是字符截断问题。</p>
+<p>UTF-8 使用如下规则：<br>如果只有一个字节，那么最高的比特位为 0，其他位即实际的码点；<br>这种方式对码点编码得到的记过 ASCII 规则一致，故其兼容 ASCII 码。<br>如果是 n 字节，那么第一个字节前 n 个比特位的值为 1，n+1 为设为 0，剩下的<strong>字节</strong>（每 8 位）均以 10 开头，其他位为实际的码点。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">单字节</span><br><span class="line"><span class="number">0</span>xxxxxxx</span><br><span class="line"></span><br><span class="line">双字节</span><br><span class="line">[<span class="number">110</span>x xxxx] [<span class="number">10</span>xx xxxx]</span><br><span class="line"></span><br><span class="line">三字节</span><br><span class="line">[<span class="number">1110</span> xxxx] [<span class="number">10</span>xx xxxx] [<span class="number">10</span>xx xxxx]</span><br><span class="line"></span><br><span class="line">四字节</span><br><span class="line">[<span class="number">1111</span> <span class="number">0</span>xxx] [<span class="number">10</span>xx xxxx] [<span class="number">10</span>xx xxxx] [<span class="number">10</span>xx xxxx]</span><br></pre></td></tr></table></figure>
+<p>上述’x’的位置纯纯的就是实际的码点。<br>如下示例：<br>在 nodejs 进行测试</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">Buffer.from(<span class="string">'我'</span>)</span><br><span class="line"><span class="comment">// &lt;Buffer e6 88 91&gt;</span></span><br><span class="line"><span class="built_in">String</span>.fromCodePoint(<span class="number">0x6211</span>)</span><br><span class="line"><span class="comment">// '我'</span></span><br><span class="line"><span class="built_in">String</span>.fromCodePoint(<span class="number">25105</span>)</span><br><span class="line"><span class="comment">// '我'</span></span><br><span class="line"><span class="string">'我'</span> == <span class="string">'\u6211'</span></span><br><span class="line"><span class="comment">// truez</span></span><br><span class="line"><span class="string">'我'</span>.charCodeAt(<span class="number">0</span>)</span><br><span class="line"><span class="comment">// 25105</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，’我’在内存中存为：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">;[<span class="number">0xe6</span>][<span class="number">0x88</span>][<span class="number">0x91</span>]</span><br></pre></td></tr></table></figure>
+<p>其二进制形式：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">[<span class="number">1110</span> <span class="number">0110</span>] [<span class="number">1000</span> <span class="number">1000</span>] [<span class="number">1001</span> <span class="number">0001</span>]</span><br></pre></td></tr></table></figure>
+<p>按照 utf8 编码，显然 1110 表示该码点使用 3 个字节；<br>接下来的 2 个字节以 10 开头。<br>去掉这些编码标识，<br>“我”的实际二进制 0110 0010 0001 0001（Unicode 码点） ，十六进制 0x6211，十进制 25105</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>UTF-8 二进制</th>
+<th>UTF-8 对应十六进制</th>
+<th>二进制</th>
+<th>十进制</th>
+<th>十六进制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>我</td>
+<td>[1110 0110] [1000 1000] [1001 0001]</td>
+<td>[0xe6] [0x88] [0x91]</td>
+<td>[0110 0010] [0001 0001]</td>
+<td>25105</td>
+<td>0x6211</td>
+</tr>
+</tbody>
+</table>
+<p>​</p>
+<ul>
+<li>UTF-16</li>
+</ul>
+<p>介于 UTF-8 和 UTF-32 之间，使用 2 个或者 4 个字节来存储，长度既固定又可变。<br>UTF-16 的设计也存在读取问题，当遇到两个字节，怎么看出它本身是一个字符，还是需要跟其他两个字节放在一起解读。<br>UTF-16 将取基本平面预留段取两个码点组成新的码点，以解决读取问题；<br>一个辅助平面的字符，会被拆成两个基本平面的字符表示。</p>
+<p>具体来说，UTF-16 使用的解决规则如下：<br>在基本平面（BMP），0 ~ FFFF 之间的字符，UTF-16 使用两个字节存储，并且直接存储 Unicode 码点。<br>在其他平面（辅助平面）对于 Unicode 码点范围在 10000~10FFFF 之间的字符，UTF-16 使用四个字节存储。<br>具体来说就是：将字符码点的所有比特位分成两部分，较高的一些比特位用一个值介于 D800~DBFF 之间的双字节存储，称为高位（H）；<br>较低的一些比特位（剩下的比特位）用一个值介于 DC00~DFFF 之间的双字节存储，称为低位（L）</p>
+<p>UTF-16 最少使用两个字节来存储码点，故不兼容 ASCII。</p>
+<ul>
+<li>UTF-32</li>
+</ul>
+<p>一种固定长度的编码方案，不管字符码点大小，始终使用 4 个字节来存储；<br>UTF-32 是固定长度的编码，始终占用 4 个字节，容纳 Unicode 字符集已有所有的 字符，故直接存储 Unicode 码点。</p>
+<p>其转换规则简单直观，解码效率高，但其比较浪费空间，故一般不使用这种编码方式，其也不兼容 ASCII。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github 仓库</a>点亮 ⭐️</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+<p><a href="https://zh.wikipedia.org/wiki/Unicode%E5%AD%97%E7%AC%A6%E5%B9%B3%E9%9D%A2%E6%98%A0%E5%B0%84" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Unicode%E5%AD%97%E7%AC%A6%E5%B9%B3%E9%9D%A2%E6%98%A0%E5%B0%84</a></p>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/字符集与编码.html">http://www.skyline.show/字符集与编码.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Number相关基础操作.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Number相关基础操作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/CentOS利用systemd开启后台进程.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">CentOS利用systemd开启后台进程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据存储单位"><span class="nav-number">1.</span> <span class="nav-text">数据存储单位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符集"><span class="nav-number">2.</span> <span class="nav-text">字符集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符收集"><span class="nav-number">2.1.</span> <span class="nav-text">字符收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unicode"><span class="nav-number">2.2.</span> <span class="nav-text">Unicode</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编码"><span class="nav-number">3.</span> <span class="nav-text">编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#给字符集编码"><span class="nav-number">3.1.</span> <span class="nav-text">给字符集编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ASCII"><span class="nav-number">3.2.</span> <span class="nav-text">ASCII</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF"><span class="nav-number">3.3.</span> <span class="nav-text">UTF</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2023 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
