@@ -8,13 +8,13 @@
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
-  <meta name="keywords" content="CS">
+  <meta name="keywords" content="CSSoftware">
   
   
   
   
   <meta name="description" content="数据存储单位 字符集 字符收集 Unicode   编码 给字符集编码 ASCII UTF   BMW WARNING   数据存储单位计算机数据存储的常见单位为 bit byte word KB MB GB TB 等额。bit byte word 即位、字节、字。各单位的换算规则为：  Bit = 1/0 （基本存储单位） Byte = 8 bits Word = 16, 32, 64 b">
-<meta name="keywords" content="CS">
+<meta name="keywords" content="CS,Software">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机字符储存与编码">
 <meta property="og:url" content="http://www.skyline.show/计算机字符储存与编码.html">
@@ -22,7 +22,7 @@
 <meta property="og:description" content="数据存储单位 字符集 字符收集 Unicode   编码 给字符集编码 ASCII UTF   BMW WARNING   数据存储单位计算机数据存储的常见单位为 bit byte word KB MB GB TB 等额。bit byte word 即位、字节、字。各单位的换算规则为：  Bit = 1/0 （基本存储单位） Byte = 8 bits Word = 16, 32, 64 b">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E5%82%A8%E5%AD%98%E4%B8%8E%E7%BC%96%E7%A0%8120230216161718.png">
-<meta property="og:updated_time" content="2023-02-10T10:20:05.000Z">
+<meta property="og:updated_time" content="2023-02-11T02:22:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机字符储存与编码">
 <meta name="twitter:description" content="数据存储单位 字符集 字符收集 Unicode   编码 给字符集编码 ASCII UTF   BMW WARNING   数据存储单位计算机数据存储的常见单位为 bit byte word KB MB GB TB 等额。bit byte word 即位、字节、字。各单位的换算规则为：  Bit = 1/0 （基本存储单位） Byte = 8 bits Word = 16, 32, 64 b">
@@ -190,7 +190,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-10T10:20:05.000Z" itemprop="datePublished">2023-02-10</time>
+      <time datetime="2023-02-11T02:22:20.000Z" itemprop="datePublished">2023-02-11</time>
     </a><span style="color: #999">|</span>
 
       
@@ -238,15 +238,17 @@
 <p>字符集将需要的字符收集并规定了其中符号的二进制代码，供后续编码使用。<br><strong>这个二进制代码通常被称为码点（Code Point）</strong></p>
 <h3 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h3><p>Unicode 是一个独立的字符集，每一个字符有一个对应的 Unicode 编号。<br>目前的 Unicode 字符分为 17 组编排，每组称为平面（Plane），而每平面拥有 65536（即 2 的 16 方）个码点。</p>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%97%E7%AC%A6%E5%82%A8%E5%AD%98%E4%B8%8E%E7%BC%96%E7%A0%8120230216161718.png" alt="计算机字符储存与编码20230216161718"><br>目前只用了少数平面<br>第一平面的保留码点为 D800~0xDFFF，是特定为四字节的 UTF-16 编码预留的。</p>
-<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><h3 id="给字符集编码"><a href="#给字符集编码" class="headerlink" title="给字符集编码"></a>给字符集编码</h3><p>要让这些字符集要被被不同地区的电脑统一地识别展示不乱码，<br>需要统一进行编码，并在电脑中使用同一编码格式。<br>编码可以理解为选定字符集后，使用特定规则储存码点。</p>
-<p>同一字符集的对码点的编码的方式可以不一样。<br>可以采用为每个字符分配固定长度的内存的编码方案，即所有的码点都用固定位数存储，高位不足补零。<br>定长的好处是多个字符形成的数据编码放在一起也可以很好地截断然后解码。<br>但是，这种方式会造成码点小的字符内存空间的浪费。</p>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><h3 id="给字符集编码"><a href="#给字符集编码" class="headerlink" title="给字符集编码"></a>给字符集编码</h3><p>编码可以理解为选定字符集后，使用特定规则储存码点。</p>
+<p>上文提到，字符集已经规定了每个字符对应的码点，那编码时直接将对应码点存储即可，<br>为何同一字符集会有不同的编码规则，如 Unicode 对应的 UTF-8/UTF-16/UTF-32？</p>
+<p>为了传输和存储需要，同一字符集的对码点的编码的规则可以不一样。</p>
+<p>可以采用为每个字符分配固定长度的内存的编码方案，即所有的码点都用固定位数存储，高位不足补零。<br>定长的好处是多个字符形成的数据编码放在一起也可以很好地截断然后解码。<br>但是，这种方式会造成码点小的字符内存空间的浪费。</p>
 <p>也可以采用为每个字符分配尽量少的内存的方案，即码点对应实际需要占用的最小字节空间。<br>这种方案节省了内存，但是由于每个字符存储长度不定，计算机不知道如何截断多个字符编码以解码。<br>需要解决字符截断问题，然后才可以进行解码。</p>
 <h3 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h3><p>美国信息交换标准码（American Standard Code for Information Interchange）<br>ASCII 码诞生于上世纪 60 年代，是最早的编码之一，共定义了 128 个字符（0-127），沿用至今。<br>这 128 个字符被设计用用电脑的 7 位来存储，但在计算机中占用 1 字节（ 8 位）。<br>这种 8 位 的 2 进制编码，最高位始终为 0，其他 7 位用来表示字符</p>
 <p>ASCII 的所有字符码点都只需要一个字节来存储。</p>
 <h3 id="UTF"><a href="#UTF" class="headerlink" title="UTF"></a>UTF</h3><ul>
 <li>UTF-8</li>
 </ul>
-<p>unicode 是一个字符集，如果全部按照 Unicode 中的码点来进行定长编码，程序定长截取字符，不会存在乱码问题。<br>但是，对于全英文文本文件，用 Unicode 编码比 ASCII 编码需要多一倍的存储空间，在存储和传输上就十分不划算。</p>
+<p>Unicode 是一个字符集，如果全部按照 Unicode 中的码点来进行定长编码，程序定长截取字符，不会存在乱码问题。<br>但是，对于全英文文本文件，用 Unicode 编码比 ASCII 编码需要多一倍的存储空间，在存储和传输上就十分不划算。</p>
 <p>​ 一种<strong>变长</strong>的编码方案由此诞生，该方案使用 1~6 个字节来存储码点，同时兼容 ASCII 码；<br>​ 变长编码首先需要解决的问题就是字符截断问题。</p>
 <p>UTF-8 使用如下规则：<br>如果只有一个字节，那么最高的比特位为 0，其他位即实际的码点；<br>这种方式对码点编码得到的记过 ASCII 规则一致，故其兼容 ASCII 码。<br>如果是 n 字节，那么第一个字节前 n 个比特位的值为 1，n+1 为设为 0，剩下的<strong>字节</strong>（每 8 位）均以 10 开头，其他位为实际的码点。</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">单字节</span><br><span class="line"><span class="number">0</span>xxxxxxx</span><br><span class="line"></span><br><span class="line">双字节</span><br><span class="line">[<span class="number">110</span>x xxxx] [<span class="number">10</span>xx xxxx]</span><br><span class="line"></span><br><span class="line">三字节</span><br><span class="line">[<span class="number">1110</span> xxxx] [<span class="number">10</span>xx xxxx] [<span class="number">10</span>xx xxxx]</span><br><span class="line"></span><br><span class="line">四字节</span><br><span class="line">[<span class="number">1111</span> <span class="number">0</span>xxx] [<span class="number">10</span>xx xxxx] [<span class="number">10</span>xx xxxx] [<span class="number">10</span>xx xxxx]</span><br></pre></td></tr></table></figure>
@@ -356,7 +358,7 @@ var a = new Donate({
 
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software/">Software</a></li></ul>
 
     </footer>
   </div>
@@ -364,19 +366,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Number相关基础操作.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/鹧鸪天（花重蓉城）.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Number相关基础操作
+          鹧鸪天（花重蓉城）
         
       </div>
     </a>
   
   
-    <a href="/CentOS利用systemd开启后台进程.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/编程程序设计.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">CentOS利用systemd开启后台进程</div>
+      <div class="article-nav-title">编程程序设计</div>
     </a>
   
 </nav>

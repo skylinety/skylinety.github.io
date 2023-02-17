@@ -13,22 +13,22 @@
   
   
   
-  <meta name="description" content="SS server 安装 配置文件 开启服务 开机启动   SS client 添加自定代理规则 常见问题 配置完成无法访问墙外 SYN_RECV IP或端口被封   BMW WARNING   SS server安装SS server 服务端有多语言版本支持此处采用 python 版本首先安装 pip 包管理器 Debian / Ubuntu apt-get install python-">
+  <meta name="description" content="SS server 安装 配置文件 开启服务 开机启动   SS client 添加自定代理规则 常见问题 配置完成无法访问墙外 SYN_RECV IP 或端口被封   BMW WARNING   SS server安装SS server 服务端有多语言版本支持此处采用 python 版本首先安装 pip 包管理器 Debian / Ubuntu apt-get install python">
 <meta name="keywords" content="APPs,VPN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shadowsocks服务搭建与访问">
 <meta property="og:url" content="http://www.skyline.show/Shadowsocks服务搭建与访问.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="SS server 安装 配置文件 开启服务 开机启动   SS client 添加自定代理规则 常见问题 配置完成无法访问墙外 SYN_RECV IP或端口被封   BMW WARNING   SS server安装SS server 服务端有多语言版本支持此处采用 python 版本首先安装 pip 包管理器 Debian / Ubuntu apt-get install python-">
+<meta property="og:description" content="SS server 安装 配置文件 开启服务 开机启动   SS client 添加自定代理规则 常见问题 配置完成无法访问墙外 SYN_RECV IP 或端口被封   BMW WARNING   SS server安装SS server 服务端有多语言版本支持此处采用 python 版本首先安装 pip 包管理器 Debian / Ubuntu apt-get install python">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210170145.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210170258.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210170940.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210171222.png">
-<meta property="og:updated_time" content="2022-06-22T07:43:00.000Z">
+<meta property="og:updated_time" content="2023-02-11T02:22:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shadowsocks服务搭建与访问">
-<meta name="twitter:description" content="SS server 安装 配置文件 开启服务 开机启动   SS client 添加自定代理规则 常见问题 配置完成无法访问墙外 SYN_RECV IP或端口被封   BMW WARNING   SS server安装SS server 服务端有多语言版本支持此处采用 python 版本首先安装 pip 包管理器 Debian / Ubuntu apt-get install python-">
+<meta name="twitter:description" content="SS server 安装 配置文件 开启服务 开机启动   SS client 添加自定代理规则 常见问题 配置完成无法访问墙外 SYN_RECV IP 或端口被封   BMW WARNING   SS server安装SS server 服务端有多语言版本支持此处采用 python 版本首先安装 pip 包管理器 Debian / Ubuntu apt-get install python">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shadowsocks%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E4%B8%8E%E8%AE%BF%E9%97%AE20211210170145.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -188,12 +188,12 @@
     
     <span style="color: #999">发表于</span>
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2023-02-11T02:22:19.000Z" itemprop="datePublished">2023-02-11</time>
     </a><span style="color: #999">|</span>
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-22T07:43:00.000Z" itemprop="datePublished">2022-06-22</time>
+      <time datetime="2023-02-11T02:22:19.000Z" itemprop="datePublished">2023-02-11</time>
     </a><span style="color: #999">|</span>
 
       
@@ -222,7 +222,7 @@
 <li><a href="#常见问题">常见问题</a><ul>
 <li><a href="#配置完成无法访问墙外">配置完成无法访问墙外</a></li>
 <li><a href="#syn_recv">SYN_RECV</a></li>
-<li><a href="#ip或端口被封">IP或端口被封</a></li>
+<li><a href="#ip-或端口被封">IP 或端口被封</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
@@ -308,13 +308,17 @@
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 <p>查看暴露的端口</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">firewall-cmd  --list-ports</span><br><span class="line"><span class="comment"># 8300-8400/tcp</span></span><br></pre></td></tr></table></figure>
-<h3 id="SYN-RECV"><a href="#SYN-RECV" class="headerlink" title="SYN_RECV"></a>SYN_RECV</h3><p>通过<br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 88</span><br></pre></td></tr></table></figure></p>
-<p>grep后接自己暴露的端口前缀。</p>
-<p>可以看到，有大量tcp处于SYN_RECV状态。<br>这是由于TCP最后一次握手回传的ACK包丢失导致。<br>大概率由于GFW嗅探到当前连接导致。<br>可以进行如下尝试。<br>更换端口，查看可否访问<br>更换不同网络ISP（移动、联通、电信等）尝试。<br>这时，最好尝试用其他方法搭建服务</p>
-<h3 id="IP或端口被封"><a href="#IP或端口被封" class="headerlink" title="IP或端口被封"></a>IP或端口被封</h3><h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<h3 id="SYN-RECV"><a href="#SYN-RECV" class="headerlink" title="SYN_RECV"></a>SYN_RECV</h3><p>通过</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 88</span><br></pre></td></tr></table></figure>
+<p>grep 后接自己暴露的端口前缀。</p>
+<p>可以看到，有大量 tcp 处于 SYN_RECV 状态。<br>这是由于 TCP 最后一次握手回传的 ACK 包丢失导致。<br>大概率由于 GFW 嗅探到当前连接导致。<br>可以进行如下尝试。<br>更换端口，查看可否访问<br>更换不同网络 ISP（移动、联通、电信等）尝试。<br>这时，最好尝试用其他方法搭建服务</p>
+<h3 id="IP-或端口被封"><a href="#IP-或端口被封" class="headerlink" title="IP 或端口被封"></a>IP 或端口被封</h3><p>前往网站 <a href="https://ping.pe/" target="_blank" rel="noopener">https://ping.pe/</a> 参看服务 IP 是否被封。</p>
+<p>若最下方位于国内的位置都红色不可访问，那就要考虑付费让 VPS 供应商更换 IP 了。</p>
+<p>目前可以免费换 IP 的 VPS 供应商好像有<br>1.Vultr · 2.Linode · 3.DigitalOcean · 4.Hostwinds<br>不过包月基本都比较昂贵。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
@@ -384,19 +388,10 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/康定周边2日.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          康定周边2日
-        
-      </div>
-    </a>
   
-  
-    <a href="/ES对象创建.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/String相关基础操作.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">ES对象创建</div>
+      <div class="article-nav-title">String相关基础操作</div>
     </a>
   
 </nav>
@@ -410,7 +405,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SS-server"><span class="nav-number">1.</span> <span class="nav-text">SS server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">1.2.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启服务"><span class="nav-number">1.3.</span> <span class="nav-text">开启服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开机启动"><span class="nav-number">1.4.</span> <span class="nav-text">开机启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SS-client"><span class="nav-number">2.</span> <span class="nav-text">SS client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加自定代理规则"><span class="nav-number">3.</span> <span class="nav-text">添加自定代理规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置完成无法访问墙外"><span class="nav-number">4.1.</span> <span class="nav-text">配置完成无法访问墙外</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SYN-RECV"><span class="nav-number">4.2.</span> <span class="nav-text">SYN_RECV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP或端口被封"><span class="nav-number">4.3.</span> <span class="nav-text">IP或端口被封</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SS-server"><span class="nav-number">1.</span> <span class="nav-text">SS server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">1.2.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启服务"><span class="nav-number">1.3.</span> <span class="nav-text">开启服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开机启动"><span class="nav-number">1.4.</span> <span class="nav-text">开机启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SS-client"><span class="nav-number">2.</span> <span class="nav-text">SS client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加自定代理规则"><span class="nav-number">3.</span> <span class="nav-text">添加自定代理规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置完成无法访问墙外"><span class="nav-number">4.1.</span> <span class="nav-text">配置完成无法访问墙外</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SYN-RECV"><span class="nav-number">4.2.</span> <span class="nav-text">SYN_RECV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP-或端口被封"><span class="nav-number">4.3.</span> <span class="nav-text">IP 或端口被封</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>
