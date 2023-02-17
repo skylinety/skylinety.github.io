@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-Shell中ls的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES中Generator函数"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中ls的使用.html">Shell中ls的使用</a>
+      <a class="article-title" href="/ES中Generator函数.html">ES中Generator函数</a>
     </h1>
   
 
@@ -336,7 +336,7 @@
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
+      <time datetime="2017-11-29T12:58:25.000Z" itemprop="datePublished">2017-11-29</time>
     </a>
 
 
@@ -352,105 +352,45 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#基础使用">基础使用</a><ul>
-<li><a href="#参数">参数</a></li>
-<li><a href="#常见用法">常见用法</a></li>
+<li><a href="#函数语法">*函数语法</a><ul>
+<li><a href="#基本语法">基本语法</a></li>
+<li><a href="#使用示例">使用示例</a></li>
 </ul>
 </li>
-<li><a href="#权限">权限</a></li>
+<li><a href="#执行过程重点值">执行过程重点值</a><ul>
+<li><a href="#围绕yield产生的值">围绕yield产生的值</a></li>
+<li><a href="#yield语句整体值">yield语句整体值</a></li>
+<li><a href="#next函数返回对象">next函数返回对象</a></li>
+</ul>
+</li>
+<li><a href="#自动执行">自动执行</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>ls 即 list，列出目录内容</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>使用</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>ls -1</td>
-<td>换行列出文件</td>
-</tr>
-<tr>
-<td>l</td>
-<td>ls -l</td>
-<td>换行列出文件详细信息</td>
-</tr>
-<tr>
-<td>a</td>
-<td>ls -a</td>
-<td>列出所有文件，包括隐藏文件</td>
-</tr>
-<tr>
-<td>d</td>
-<td>ls -d</td>
-<td>列出当前目录本身，而不是其下内容</td>
-</tr>
-<tr>
-<td>h</td>
-<td>ls -h</td>
-<td>文件大小可读化输出，需要与 -l 配合使用</td>
-</tr>
-</tbody>
-</table>
-<h3 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h3>
+<h2 id="函数语法"><a href="#函数语法" class="headerlink" title="*函数语法"></a>*函数语法</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p>*函数不同于普通函数执行它不会直接返回函数内部的结果（return），返回的是一个 Generator 指针对象。<br>Generator 对象不能通过构造函数直接生产，需要配合*函数。<br>同时 Generator 对象 遵循<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol" target="_blank" rel="noopener">Iteration 迭代规范</a>。<br>这个规范规定了函数返回的迭代器对象(或其原型链)包含了 next、return 等函数。</p>
+<p>Generator 对象通过调用自身的 next 方法，保证游标后移，并且 next 方法返回一个包含了 value 和 done（迭代器是否完成标识）的对象。</p>
+<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3>
         <!-- 
 
 
-基础使用
-参数
-常见用法
+*函数语法
+基本语法
+使用示例
 
 
-权限
+执行过程重点值
+围绕yield产生的值
+yield语句整体值
+next函数返回对象
+
+
+自动执行
 BMW WARNING
 
 
-基础使用参数ls 即 list，列出目录内容
-
-
-
-参数
-使用
-描述
-
-
-
-
-1
-ls -1
-换行列出文件
-
-
-l
-ls -l
-换行列出文件详细信息
-
-
-a
-ls -a
-列出所有文件，包括隐藏文件
-
-
-d
-ls -d
-列出当前目录本身，而不是其下内容
-
-
-h
-ls -h
-文件大小可读化输出，需要与 -l 配合使用
-
-
-
-常......  -->
+*函数语法基本语法*函数不同于普通函数执行它不会直接返回函数内部的结果（return），返回的是一个 Generator 指针对象。Generator 对象不能通过构造函数直接生产，需要配合*函数。同时 Generator 对......  -->
         <p class="article-more-link">
-          <a href="/Shell中ls的使用.html#more">阅读全文</a>
+          <a href="/ES中Generator函数.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -458,66 +398,7 @@ ls -h
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Generator函数"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Generator函数.html">Generator函数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-11-29T12:58:25.000Z" itemprop="datePublished">2017-11-29</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><h5 id="代码1"><a href="#代码1" class="headerlink" title="代码1"></a>代码1</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="keyword">yield</span> x + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(y, <span class="string">'y'</span>); <span class="comment">// 12 "y"</span></span><br><span class="line">  <span class="keyword">const</span> z = <span class="keyword">yield</span> y + <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(z, <span class="string">'z'</span>); <span class="comment">// 12 "z"</span></span><br><span class="line">  <span class="keyword">return</span> z;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> value = g.next().value; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(value); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 13, done: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(g.next(value + <span class="number">10</span>)); <span class="comment">// &#123;value: 12, done: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">//12 "y"</span></span><br><span class="line"><span class="comment">// &#123;value: 13, done: false&#125;</span></span><br><span class="line"><span class="comment">//12 "z"</span></span><br><span class="line"><span class="comment">// &#123;value: 12, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="代码2"><a href="#代码2" class="headerlink" title="代码2"></a>代码2</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next()) </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(g.next())</span><br><span class="line"><span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line"><span class="comment">// z is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: 3, done: false&#125;</span></span><br><span class="line"><span class="comment">// y is undefined</span></span><br><span class="line"><span class="comment">// &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="代码3"><a href="#代码3" class="headerlink" title="代码3"></a>代码3</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> z = <span class="keyword">yield</span> x + <span class="number">3</span>; </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`z is <span class="subst">$&#123;z&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">var</span> y = <span class="keyword">yield</span> x + <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`y is <span class="subst">$&#123;y&#125;</span>`</span>)</span><br><span class="line">  <span class="keyword">return</span> z + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = gen(<span class="number">1</span>);</span><br><span class="line">g <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">g[<span class="built_in">Symbol</span>.iterator] <span class="comment">// ƒ [Symbol.iterator]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="keyword">var</span> x = g[<span class="built_in">Symbol</span>.iterator]()</span><br><span class="line">x <span class="comment">// gen &#123;&lt;suspended&gt;&#125;</span></span><br><span class="line">x.next() <span class="comment">// &#123;value: 4, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// z is undefined &#123;value: 3, done: false&#125;</span></span><br><span class="line">x.next() <span class="comment">// y is undefined &#123;value: NaN, done: true&#125;</span></span><br></pre></td></tr></table></figure>
-<h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><ul>
-<li><strong>Generator 函数不同于普通函数执行它不会返回结果，返回的是一个指针对象（包含iterator接口，即拥有Symbol.iterator属性）</strong></li>
-<li>iterator 对象通过调用自身的 next 方法，保证游标后移，并且next方法返回一个包含了 value和 done（迭代器是否完成的布尔值）的对象。</li>
-<li>关于next返回对象中的value值，假设有n个yield语句，<strong>第n个value的值是第n个yield 语句后面表达式的值，第n+1个value的值是Generator函数的返回值，第n+2个以上的value值是undefined</strong></li>
-<li>yield 语句的值，比如上面代码1中的 y与z，是<strong>下一次调用 next 传入的参数的值</strong>，也就是 value + 10,如果此处next不传值，如代码2中，y与z就是undefined。反过来说，next 方法带有的参数可以传入 Generator 函数，作为上个阶段异步任务的返回结果（上一个yield 语句的值）<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/Generator函数.html">http://www.skyline.show/Generator函数.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>
@@ -803,7 +684,7 @@ ls -h
 <!-- Table of Contents -->
 
   
-    <article id="post-ES数组去重"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Javascript对象扩展、封印与冻结"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -811,7 +692,74 @@ ls -h
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES数组去重.html">ES数组去重</a>
+      <a class="article-title" href="/Javascript对象扩展、封印与冻结.html">Javascript对象扩展、封印与冻结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h4><h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><ul>
+<li>Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展</li>
+<li>Object.seal()封印对象，Object.isSealed()检查是否被封印</li>
+<li>Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结</li>
+<li>被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符writable改为false时，那么此时它也是被冻结的，通过isFrozen返回true</li>
+<li>被冻结对象的访问器属性如果有set描述符，则它仍旧是可写的</li>
+<li>冻结与封印只针对首层属性，如果对象包含对象属性，该属性下对象仍旧是乐意改变的</li>
+</ul>
+<p><img src="http://ovhnd57o6.bkt.clouddn.com/8284EEDA9E61CD4DA3CA8A04281F2AB7.png-content" alt="freeze.png-content"></p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p><code>var c = d = {name: &quot;skyline liu&quot;, age: &quot;21&quot;, phone: &quot;10086&quot;}</code><br><code>Object.getOwnPropertyDescriptors(c)</code><br><code>Object.getOwnPropertyDescriptors(d)</code></p>
+<h6 id="☞-c、d属性的描述符"><a href="#☞-c、d属性的描述符" class="headerlink" title="☞ c、d属性的描述符"></a>☞ c、d属性的描述符</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    age: &#123;</span><br><span class="line">        value: <span class="string">"21"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    name: &#123;</span><br><span class="line">        value: <span class="string">"skyline liu"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    phone: &#123;</span><br><span class="line">        value: <span class="string">"10086"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Object.freeze(c)</code><br><code>Object.getOwnPropertyDescriptors(c)</code></p>
+<h6 id="☞c属性的描述符"><a href="#☞c属性的描述符" class="headerlink" title="☞c属性的描述符"></a>☞c属性的描述符</h6>
+        <!-- 扩展、封印与冻结要点
+Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展
+Object.seal()封印对象，Object.isSealed()检查是否被封印
+Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
+被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符wr......  -->
+        <p class="article-more-link">
+          <a href="/Javascript对象扩展、封印与冻结.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-H5+微信移动支付配置"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/H5+微信移动支付配置.html">H5+微信移动支付配置</a>
     </h1>
   
 
@@ -836,32 +784,32 @@ ls -h
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#举个栗子">举个栗子</a></li>
-<li><a href="#正常人">正常人</a></li>
-<li><a href="#我有想法">我有想法</a></li>
-<li><a href="#我会-es6">我会 es6</a></li>
+<li><a href="#关键代码">关键代码</a></li>
+<li><a href="#相关问题">相关问题</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> he = &#123; <span class="attr">name</span>: <span class="string">'he'</span>, <span class="attr">sex</span>: <span class="string">'male'</span> &#125;,</span><br><span class="line">  she = &#123; <span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span> &#125;,</span><br><span class="line">  age = [<span class="number">18</span>, <span class="number">28</span>],</span><br><span class="line">  family = [</span><br><span class="line">    <span class="number">1</span>,</span><br><span class="line">    <span class="number">1</span>,</span><br><span class="line">    <span class="string">'1'</span>,</span><br><span class="line">    <span class="string">'skyline'</span>,</span><br><span class="line">    <span class="string">'skyline'</span>,</span><br><span class="line">    he,</span><br><span class="line">    he,</span><br><span class="line">    she,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span> &#125;,</span><br><span class="line">    age,</span><br><span class="line">    [<span class="number">18</span>, <span class="number">28</span>],</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">family.length <span class="comment">//11</span></span><br></pre></td></tr></table></figure>
-<h2 id="正常人"><a href="#正常人" class="headerlink" title="正常人"></a>正常人</h2><p>使用循环</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition1</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> ret = []</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = arr.length; i &lt; j; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ret.indexOf(arr[i]) === <span class="number">-1</span>) &#123;</span><br><span class="line">      ret.push(arr[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition2</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> ret = []</span><br><span class="line"></span><br><span class="line">  arr.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">e, i, arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr.indexOf(e) === i) &#123;</span><br><span class="line">      ret.push(e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line">removeRepetition1(family)</span><br><span class="line">removeRepetition2(family)</span><br></pre></td></tr></table></figure>
-<p>indexOf 比较参数与数组每一项时候，使用的是严格等于。</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D20220615145414.png" alt="ES数组去重20220615145414"></p>
-<h2 id="我有想法"><a href="#我有想法" class="headerlink" title="我有想法"></a>我有想法</h2>
+<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><p>本文采用 dcloud 开源的 JSBridge 库 H5+，详情查阅官方文档<br><a href="http://www.html5plus.org/doc/h5p.html" target="_blank" rel="noopener">H5+ API</a><br>支付插件配置地址<a href="https://ask.dcloud.net.cn/article/71" target="_blank" rel="noopener">支付插件</a></p>
+<p>（框架 vue)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      payType: <span class="string">'2'</span>,</span><br><span class="line">      payTypes: [</span><br><span class="line">       &#123;</span><br><span class="line">         <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">         key: <span class="string">'1'</span>,</span><br><span class="line">         value: <span class="string">'支付宝'</span></span><br><span class="line">       &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">        key: <span class="string">'2'</span>,</span><br><span class="line">        value: <span class="string">'微信支付'</span></span><br><span class="line">      &#125;],</span><br><span class="line">      channels: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取服务</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    getSerivces() &#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">      plus.payment.getChannels(<span class="function"><span class="keyword">function</span>(<span class="params">channels</span>)</span>&#123;</span><br><span class="line">          me.channels=channels;</span><br><span class="line">      &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">          alert(<span class="string">"获取支付通道失败："</span>+e.message);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 支付 */</span></span><br><span class="line">    pay()&#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line">      SelectPayType(&#123;<span class="attr">orderNum</span>: <span class="keyword">this</span>.activeOrderNum, <span class="attr">payType</span>: <span class="keyword">this</span>.payType&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.code == <span class="number">101</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> channel,</span><br><span class="line">            data = <span class="built_in">JSON</span>.parse(res.data);</span><br><span class="line"></span><br><span class="line">          <span class="keyword">var</span> payType = me.payType == <span class="string">'1'</span> ? <span class="string">'alipay'</span> : <span class="string">'wxpay'</span>;</span><br><span class="line"></span><br><span class="line">          me.channels.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">            val.id == payType &amp;&amp; (channel = val)</span><br><span class="line">          &#125;)</span><br><span class="line"></span><br><span class="line">          plus.payment.request(channel, data, <span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">            me.isShowPayTypes = <span class="literal">false</span>;</span><br><span class="line">            plus.nativeUI.alert(<span class="string">"支付成功！订单状态将在稍后更新，请不要重复付款"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                back();</span><br><span class="line">            &#125;);</span><br><span class="line">            me.jump(&#123;<span class="attr">name</span>:<span class="string">'订单详情'</span>,<span class="attr">query</span>:&#123;<span class="attr">orderNum</span>: me.activeOrderNum&#125;&#125;)</span><br><span class="line">          &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">              plus.nativeUI.alert(<span class="string">"支付失败："</span> + error.code);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          me.$vux.toast.show(&#123;</span><br><span class="line">            text: res.message,</span><br><span class="line">            type: <span class="string">'warn'</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  mounted()&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</span><br><span class="line">     <span class="keyword">this</span>.getSerivces()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// getSerivces()</span></span><br><span class="line">     <span class="comment">// document.addEventListener('plusready', this.getSerivces,false)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//selectPayType是请求支付需要相关字段，需要查看相关平台接口文档，本文为微信，返回的字段如下</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"package"</span>: <span class="string">"Sign=WXPay"</span>,</span><br><span class="line">    <span class="string">"appid"</span>: <span class="string">"wx7xxxxxx4987f28"</span>,</span><br><span class="line">    <span class="string">"sign"</span>: <span class="string">"51B0ADxxxxx4E480486C70BD64BF44E1D"</span>,</span><br><span class="line">    <span class="string">"partnerid"</span>: <span class="string">"148xxx722"</span>,</span><br><span class="line">    <span class="string">"prepayid"</span>: <span class="string">"wx2017xxxxxx2fc85d2cc3c0205143628"</span>,</span><br><span class="line">    <span class="string">"noncestr"</span>: <span class="string">"k2xxxxx3X2D1O4YCz7Hn4s"</span>,</span><br><span class="line">    <span class="string">"timestamp"</span>: <span class="string">"1503312709"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h2><p>提示 支付失败：-100 支付失败：[payment 微信：-1] 的问题</p>
+<p>微信支付不能真机调试，只能打包安装测试，因为要 app 的真实签名。<br>真机调试用的是 dcloud 的调试基座 app 的 wx0411fa6a39d61297。<br>如果嫌打包麻烦，可以把后端返回的数据 appid 换成 wx0411fa6a39d61297<br>安卓平台下，首先查看微信开放平台配置的参数与提交打包的参数是否一致，主要包括(应用签名、包名)。<br>其中应用签名如果使用的 DCloud 公用证书则必须是“59201CF6589202CB2CDAB26752472112”。<br>开发信息<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/H5%2B%E5%BE%AE%E4%BF%A1%E7%A7%BB%E5%8A%A8%E6%94%AF%E4%BB%98%E9%85%8D%E7%BD%AE20220623180104.png" alt="H5+微信移动支付配置20220623180104"></p>
+<p>配置信息<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/H5%2B%E5%BE%AE%E4%BF%A1%E7%A7%BB%E5%8A%A8%E6%94%AF%E4%BB%98%E9%85%8D%E7%BD%AE20220623180222.png" alt="H5+微信移动支付配置20220623180222"></p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
         <!-- 
 
 
-举个栗子
-正常人
-我有想法
-我会 es6
+关键代码
+相关问题
 BMW WARNING
 
 
-举个栗子var he = &#123; name: 'he', sex: 'male' &#125;,  she = &#123; name: 'she', sex: 'female' &#125;,  age = [18, 28],  family = [    1,    1,    '1',    'skyli......  -->
+关键代码本文采用 dcloud 开源的 JSBridge 库 H5+，详情查阅官方文档H5+ API支付插件配置地址支付插件
+（框架 vue)
+data () &#123;    return &#123;      payType: '2',      payTypes: [       &#123;         // icon: ......  -->
         <p class="article-more-link">
-          <a href="/ES数组去重.html#more">阅读全文</a>
+          <a href="/H5+微信移动支付配置.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -869,7 +817,7 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/H5/">H5+</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mobile/">Mobile</a></li></ul>
 
     </footer>
   </div>
@@ -956,7 +904,7 @@ plus 对象找不到h5+ 通过暴露对象 plus 来提供相关 API。开发时�
 <!-- Table of Contents -->
 
   
-    <article id="post-H5+微信移动支付配置"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES数组去重"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -964,7 +912,7 @@ plus 对象找不到h5+ 通过暴露对象 plus 来提供相关 API。开发时�
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/H5+微信移动支付配置.html">H5+微信移动支付配置</a>
+      <a class="article-title" href="/ES数组去重.html">ES数组去重</a>
     </h1>
   
 
@@ -989,32 +937,32 @@ plus 对象找不到h5+ 通过暴露对象 plus 来提供相关 API。开发时�
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#关键代码">关键代码</a></li>
-<li><a href="#相关问题">相关问题</a></li>
+<li><a href="#举个栗子">举个栗子</a></li>
+<li><a href="#正常人">正常人</a></li>
+<li><a href="#我有想法">我有想法</a></li>
+<li><a href="#我会-es6">我会 es6</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><p>本文采用 dcloud 开源的 JSBridge 库 H5+，详情查阅官方文档<br><a href="http://www.html5plus.org/doc/h5p.html" target="_blank" rel="noopener">H5+ API</a><br>支付插件配置地址<a href="https://ask.dcloud.net.cn/article/71" target="_blank" rel="noopener">支付插件</a></p>
-<p>（框架 vue)</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      payType: <span class="string">'2'</span>,</span><br><span class="line">      payTypes: [</span><br><span class="line">       &#123;</span><br><span class="line">         <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">         key: <span class="string">'1'</span>,</span><br><span class="line">         value: <span class="string">'支付宝'</span></span><br><span class="line">       &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">        key: <span class="string">'2'</span>,</span><br><span class="line">        value: <span class="string">'微信支付'</span></span><br><span class="line">      &#125;],</span><br><span class="line">      channels: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取服务</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    getSerivces() &#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">      plus.payment.getChannels(<span class="function"><span class="keyword">function</span>(<span class="params">channels</span>)</span>&#123;</span><br><span class="line">          me.channels=channels;</span><br><span class="line">      &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">          alert(<span class="string">"获取支付通道失败："</span>+e.message);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 支付 */</span></span><br><span class="line">    pay()&#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line">      SelectPayType(&#123;<span class="attr">orderNum</span>: <span class="keyword">this</span>.activeOrderNum, <span class="attr">payType</span>: <span class="keyword">this</span>.payType&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.code == <span class="number">101</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> channel,</span><br><span class="line">            data = <span class="built_in">JSON</span>.parse(res.data);</span><br><span class="line"></span><br><span class="line">          <span class="keyword">var</span> payType = me.payType == <span class="string">'1'</span> ? <span class="string">'alipay'</span> : <span class="string">'wxpay'</span>;</span><br><span class="line"></span><br><span class="line">          me.channels.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">            val.id == payType &amp;&amp; (channel = val)</span><br><span class="line">          &#125;)</span><br><span class="line"></span><br><span class="line">          plus.payment.request(channel, data, <span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">            me.isShowPayTypes = <span class="literal">false</span>;</span><br><span class="line">            plus.nativeUI.alert(<span class="string">"支付成功！订单状态将在稍后更新，请不要重复付款"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                back();</span><br><span class="line">            &#125;);</span><br><span class="line">            me.jump(&#123;<span class="attr">name</span>:<span class="string">'订单详情'</span>,<span class="attr">query</span>:&#123;<span class="attr">orderNum</span>: me.activeOrderNum&#125;&#125;)</span><br><span class="line">          &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">              plus.nativeUI.alert(<span class="string">"支付失败："</span> + error.code);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          me.$vux.toast.show(&#123;</span><br><span class="line">            text: res.message,</span><br><span class="line">            type: <span class="string">'warn'</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  mounted()&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</span><br><span class="line">     <span class="keyword">this</span>.getSerivces()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// getSerivces()</span></span><br><span class="line">     <span class="comment">// document.addEventListener('plusready', this.getSerivces,false)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//selectPayType是请求支付需要相关字段，需要查看相关平台接口文档，本文为微信，返回的字段如下</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"package"</span>: <span class="string">"Sign=WXPay"</span>,</span><br><span class="line">    <span class="string">"appid"</span>: <span class="string">"wx7xxxxxx4987f28"</span>,</span><br><span class="line">    <span class="string">"sign"</span>: <span class="string">"51B0ADxxxxx4E480486C70BD64BF44E1D"</span>,</span><br><span class="line">    <span class="string">"partnerid"</span>: <span class="string">"148xxx722"</span>,</span><br><span class="line">    <span class="string">"prepayid"</span>: <span class="string">"wx2017xxxxxx2fc85d2cc3c0205143628"</span>,</span><br><span class="line">    <span class="string">"noncestr"</span>: <span class="string">"k2xxxxx3X2D1O4YCz7Hn4s"</span>,</span><br><span class="line">    <span class="string">"timestamp"</span>: <span class="string">"1503312709"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h2><p>提示 支付失败：-100 支付失败：[payment 微信：-1] 的问题</p>
-<p>微信支付不能真机调试，只能打包安装测试，因为要 app 的真实签名。<br>真机调试用的是 dcloud 的调试基座 app 的 wx0411fa6a39d61297。<br>如果嫌打包麻烦，可以把后端返回的数据 appid 换成 wx0411fa6a39d61297<br>安卓平台下，首先查看微信开放平台配置的参数与提交打包的参数是否一致，主要包括(应用签名、包名)。<br>其中应用签名如果使用的 DCloud 公用证书则必须是“59201CF6589202CB2CDAB26752472112”。<br>开发信息<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/H5%2B%E5%BE%AE%E4%BF%A1%E7%A7%BB%E5%8A%A8%E6%94%AF%E4%BB%98%E9%85%8D%E7%BD%AE20220623180104.png" alt="H5+微信移动支付配置20220623180104"></p>
-<p>配置信息<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/H5%2B%E5%BE%AE%E4%BF%A1%E7%A7%BB%E5%8A%A8%E6%94%AF%E4%BB%98%E9%85%8D%E7%BD%AE20220623180222.png" alt="H5+微信移动支付配置20220623180222"></p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
+<h2 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> he = &#123; <span class="attr">name</span>: <span class="string">'he'</span>, <span class="attr">sex</span>: <span class="string">'male'</span> &#125;,</span><br><span class="line">  she = &#123; <span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span> &#125;,</span><br><span class="line">  age = [<span class="number">18</span>, <span class="number">28</span>],</span><br><span class="line">  family = [</span><br><span class="line">    <span class="number">1</span>,</span><br><span class="line">    <span class="number">1</span>,</span><br><span class="line">    <span class="string">'1'</span>,</span><br><span class="line">    <span class="string">'skyline'</span>,</span><br><span class="line">    <span class="string">'skyline'</span>,</span><br><span class="line">    he,</span><br><span class="line">    he,</span><br><span class="line">    she,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">'she'</span>, <span class="attr">sex</span>: <span class="string">'female'</span> &#125;,</span><br><span class="line">    age,</span><br><span class="line">    [<span class="number">18</span>, <span class="number">28</span>],</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">family.length <span class="comment">//11</span></span><br></pre></td></tr></table></figure>
+<h2 id="正常人"><a href="#正常人" class="headerlink" title="正常人"></a>正常人</h2><p>使用循环</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition1</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> ret = []</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, j = arr.length; i &lt; j; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ret.indexOf(arr[i]) === <span class="number">-1</span>) &#123;</span><br><span class="line">      ret.push(arr[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeRepetition2</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> ret = []</span><br><span class="line"></span><br><span class="line">  arr.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">e, i, arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr.indexOf(e) === i) &#123;</span><br><span class="line">      ret.push(e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ret</span><br><span class="line">&#125;</span><br><span class="line">removeRepetition1(family)</span><br><span class="line">removeRepetition2(family)</span><br></pre></td></tr></table></figure>
+<p>indexOf 比较参数与数组每一项时候，使用的是严格等于。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D20220615145414.png" alt="ES数组去重20220615145414"></p>
+<h2 id="我有想法"><a href="#我有想法" class="headerlink" title="我有想法"></a>我有想法</h2>
         <!-- 
 
 
-关键代码
-相关问题
+举个栗子
+正常人
+我有想法
+我会 es6
 BMW WARNING
 
 
-关键代码本文采用 dcloud 开源的 JSBridge 库 H5+，详情查阅官方文档H5+ API支付插件配置地址支付插件
-（框架 vue)
-data () &#123;    return &#123;      payType: '2',      payTypes: [       &#123;         // icon: ......  -->
+举个栗子var he = &#123; name: 'he', sex: 'male' &#125;,  she = &#123; name: 'she', sex: 'female' &#125;,  age = [18, 28],  family = [    1,    1,    '1',    'skyli......  -->
         <p class="article-more-link">
-          <a href="/H5+微信移动支付配置.html#more">阅读全文</a>
+          <a href="/ES数组去重.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1022,7 +970,7 @@ data () &#123;    return &#123;      payType: '2',      payTypes: [       &#123;
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/H5/">H5+</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mobile/">Mobile</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
 
     </footer>
   </div>
@@ -1032,7 +980,7 @@ data () &#123;    return &#123;      payType: '2',      payTypes: [       &#123;
 <!-- Table of Contents -->
 
   
-    <article id="post-Javascript对象扩展、封印与冻结"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CSS常见效果实现"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1040,7 +988,7 @@ data () &#123;    return &#123;      payType: '2',      payTypes: [       &#123;
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Javascript对象扩展、封印与冻结.html">Javascript对象扩展、封印与冻结</a>
+      <a class="article-title" href="/CSS常见效果实现.html">CSS常见效果实现</a>
     </h1>
   
 
@@ -1049,39 +997,50 @@ data () &#123;    return &#123;      payType: '2',      payTypes: [       &#123;
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+      <time datetime="2017-06-30T07:14:56.000Z" itemprop="datePublished">2017-06-30</time>
     </a>
 
 
       
     
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h4><h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><ul>
-<li>Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展</li>
-<li>Object.seal()封印对象，Object.isSealed()检查是否被封印</li>
-<li>Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结</li>
-<li>被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符writable改为false时，那么此时它也是被冻结的，通过isFrozen返回true</li>
-<li>被冻结对象的访问器属性如果有set描述符，则它仍旧是可写的</li>
-<li>冻结与封印只针对首层属性，如果对象包含对象属性，该属性下对象仍旧是乐意改变的</li>
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#css-行溢出省略号">CSS 行溢出省略号</a><ul>
+<li><a href="#单行溢出省略号">单行溢出省略号</a></li>
+<li><a href="#多行溢出省略号">多行溢出省略号</a></li>
 </ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/8284EEDA9E61CD4DA3CA8A04281F2AB7.png-content" alt="freeze.png-content"></p>
-<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p><code>var c = d = {name: &quot;skyline liu&quot;, age: &quot;21&quot;, phone: &quot;10086&quot;}</code><br><code>Object.getOwnPropertyDescriptors(c)</code><br><code>Object.getOwnPropertyDescriptors(d)</code></p>
-<h6 id="☞-c、d属性的描述符"><a href="#☞-c、d属性的描述符" class="headerlink" title="☞ c、d属性的描述符"></a>☞ c、d属性的描述符</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    age: &#123;</span><br><span class="line">        value: <span class="string">"21"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    name: &#123;</span><br><span class="line">        value: <span class="string">"skyline liu"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    phone: &#123;</span><br><span class="line">        value: <span class="string">"10086"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>Object.freeze(c)</code><br><code>Object.getOwnPropertyDescriptors(c)</code></p>
-<h6 id="☞c属性的描述符"><a href="#☞c属性的描述符" class="headerlink" title="☞c属性的描述符"></a>☞c属性的描述符</h6>
-        <!-- 扩展、封印与冻结要点
-Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展
-Object.seal()封印对象，Object.isSealed()检查是否被封印
-Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
-被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符wr......  -->
+</li>
+<li><a href="#实现矩形对角线">实现矩形对角线</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="CSS-行溢出省略号"><a href="#CSS-行溢出省略号" class="headerlink" title="CSS 行溢出省略号"></a>CSS 行溢出省略号</h2><h3 id="单行溢出省略号"><a href="#单行溢出省略号" class="headerlink" title="单行溢出省略号"></a>单行溢出省略号</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">text-overflow</span>: ellipsis;</span><br><span class="line">  <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要设置定长以及超出隐藏。<br>如果要设置隐藏后鼠标悬浮显示的效果，可以为 div 设定 title 属性，也可以用 hover 来达到效果</p>
+<h3 id="多行溢出省略号"><a href="#多行溢出省略号" class="headerlink" title="多行溢出省略号"></a>多行溢出省略号</h3>
+        <!-- 
+
+
+CSS 行溢出省略号
+单行溢出省略号
+多行溢出省略号
+
+
+实现矩形对角线
+BMW WARNING
+
+
+CSS 行溢出省略号单行溢出省略号div &#123;  width: 100px;  overflow: hidden;  text-overflow: ellipsis;  white-space: nowrap;&#125;
+需要设置定长以及超出隐藏。如果要设置隐藏后鼠标悬浮显示......  -->
         <p class="article-more-link">
-          <a href="/Javascript对象扩展、封印与冻结.html#more">阅读全文</a>
+          <a href="/CSS常见效果实现.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1089,7 +1048,7 @@ Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>
