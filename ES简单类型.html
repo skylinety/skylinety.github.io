@@ -13,18 +13,18 @@
   
   
   
-  <meta name="description" content="ES 类型 Number NaN   Null String Replace     ES 类型ES 将会类型分为简单类型（原始类型）和复杂类型（结构类型）其中常见的类型可用 typeof 进行简单判定。 // Primitives:Boolean : typeof instance === &quot;boolean&quot;Number : typeof instance === &quot;number&quot;Stri">
+  <meta name="description" content="ES 类型 Number Number进制表示 NaN   Null &amp;amp; undefined null vs undefined   String Replace   BMW WARNING   ES 类型ES 将会类型分为简单类型（原始类型）和复杂类型（结构类型）其中常见的类型可用 typeof 进行简单判定。 // Primitives:Boolean : typeof inst">
 <meta name="keywords" content="JS,ES,语法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES简单类型">
 <meta property="og:url" content="http://www.skyline.show/ES简单类型.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="ES 类型 Number NaN   Null String Replace     ES 类型ES 将会类型分为简单类型（原始类型）和复杂类型（结构类型）其中常见的类型可用 typeof 进行简单判定。 // Primitives:Boolean : typeof instance === &quot;boolean&quot;Number : typeof instance === &quot;number&quot;Stri">
+<meta property="og:description" content="ES 类型 Number Number进制表示 NaN   Null &amp;amp; undefined null vs undefined   String Replace   BMW WARNING   ES 类型ES 将会类型分为简单类型（原始类型）和复杂类型（结构类型）其中常见的类型可用 typeof 进行简单判定。 // Primitives:Boolean : typeof inst">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-02-09T01:12:14.000Z">
+<meta property="og:updated_time" content="2023-02-14T08:46:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES简单类型">
-<meta name="twitter:description" content="ES 类型 Number NaN   Null String Replace     ES 类型ES 将会类型分为简单类型（原始类型）和复杂类型（结构类型）其中常见的类型可用 typeof 进行简单判定。 // Primitives:Boolean : typeof instance === &quot;boolean&quot;Number : typeof instance === &quot;number&quot;Stri">
+<meta name="twitter:description" content="ES 类型 Number Number进制表示 NaN   Null &amp;amp; undefined null vs undefined   String Replace   BMW WARNING   ES 类型ES 将会类型分为简单类型（原始类型）和复杂类型（结构类型）其中常见的类型可用 typeof 进行简单判定。 // Primitives:Boolean : typeof inst">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-09T01:12:14.000Z" itemprop="datePublished">2023-02-09</time>
+      <time datetime="2023-02-14T08:46:14.000Z" itemprop="datePublished">2023-02-14</time>
     </a><span style="color: #999">|</span>
 
       
@@ -207,30 +207,90 @@
 <ul>
 <li><a href="#es-类型">ES 类型</a></li>
 <li><a href="#number">Number</a><ul>
+<li><a href="#number进制表示">Number进制表示</a></li>
 <li><a href="#nan">NaN</a></li>
 </ul>
 </li>
-<li><a href="#null">Null</a></li>
+<li><a href="#null--undefined">Null &amp; undefined</a><ul>
+<li><a href="#null-vs-undefined">null vs undefined</a></li>
+</ul>
+</li>
 <li><a href="#string">String</a><ul>
 <li><a href="#replace">Replace</a></li>
 </ul>
 </li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
 <h2 id="ES-类型"><a href="#ES-类型" class="headerlink" title="ES 类型"></a>ES 类型</h2><p>ES 将会类型分为简单类型（原始类型）和复杂类型（结构类型）<br>其中常见的类型可用 typeof 进行简单判定。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Primitives:</span></span><br><span class="line"><span class="built_in">Boolean</span> : <span class="keyword">typeof</span> instance === <span class="string">"boolean"</span></span><br><span class="line"><span class="built_in">Number</span> : <span class="keyword">typeof</span> instance === <span class="string">"number"</span></span><br><span class="line"><span class="built_in">String</span> : <span class="keyword">typeof</span> instance === <span class="string">"string"</span></span><br><span class="line">BigInt : <span class="keyword">typeof</span> instance === <span class="string">"bigint"</span></span><br><span class="line"><span class="built_in">Symbol</span> : <span class="keyword">typeof</span> instance === <span class="string">"symbol"</span></span><br><span class="line"><span class="literal">undefined</span> : <span class="keyword">typeof</span> instance === <span class="string">"undefined"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Structural Types:</span></span><br><span class="line"><span class="built_in">Object</span> : <span class="keyword">typeof</span> instance === <span class="string">"object"</span></span><br><span class="line"><span class="built_in">Function</span> : <span class="keyword">typeof</span> instance === <span class="string">"function"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Structural Root Primitive:</span></span><br><span class="line"><span class="literal">null</span> : <span class="keyword">typeof</span> instance === <span class="string">"object"</span></span><br></pre></td></tr></table></figure>
 <p>对于复杂类型中 Array、RegExp 等对象的判定，要得到其明确类型而非’object’<br>需要使用<br><code>Object.prototype.toString.call</code><br>例如</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>: <span class="built_in">Object</span>.prototype.toString.call(instance) <span class="comment">//'[object Array]'</span></span><br><span class="line"><span class="built_in">RegExp</span>: <span class="built_in">Object</span>.prototype.toString.call(instance) <span class="comment">//'[object RegExp]'</span></span><br></pre></td></tr></table></figure>
-<h2 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h2><h3 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h3><a id="more"></a>
-<ul>
+<h2 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h2><h3 id="Number进制表示"><a href="#Number进制表示" class="headerlink" title="Number进制表示"></a>Number进制表示</h3><a id="more"></a>
+<p>数字进制表示</p>
+<table>
+<thead>
+<tr>
+<th>进制</th>
+<th>EN</th>
+<th>表示</th>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>binary</td>
+<td>0b</td>
+<td>0b11</td>
+<td>3</td>
+</tr>
+<tr>
+<td>8</td>
+<td>octal</td>
+<td>0  0o</td>
+<td>011</td>
+<td>9</td>
+</tr>
+<tr>
+<td>16</td>
+<td>hexadecimal</td>
+<td>0x</td>
+<td>0x11</td>
+<td>17</td>
+</tr>
+</tbody>
+</table>
+<h3 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h3><ul>
 <li>NaN 的特征<br>涉及 NaN 的操作返回 NaN<br>NaN 不等于任何值，包括本身</li>
 <li>isNaN()<br>isNaN 在接收到一个值以后会尝试将这个值转换成数字<br>任何不能转换成数字的值都会导致该函数返回 true。</li>
 </ul>
-<h2 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h2><p>null 表示存在但是为空<br>undefined 表示不存在</p>
-<ul>
-<li>null 表示空对象指针</li>
-<li>如果定义的变量将来用于保存对象，建议初始化为 null 而不是其他值</li>
-</ul>
+<h2 id="Null-amp-undefined"><a href="#Null-amp-undefined" class="headerlink" title="Null &amp; undefined"></a>Null &amp; undefined</h2><h3 id="null-vs-undefined"><a href="#null-vs-undefined" class="headerlink" title="null vs undefined"></a>null vs undefined</h3><p>null 仿Java，表示存在但是为空（空对象指针），沿用c语言传统，隐式转换为0。<br>如果定义的变量将来用于保存对象，建议初始化为 null 而不是其他值<br>undefined 表示不存在，转为数值时为NaN </p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>表示</th>
+<th>示例</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>null</td>
+<td>表示存在但是为空</td>
+<td><code>5 + null // 5</code></td>
+<td>对象原型链的终点</td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>表示不存在</td>
+<td><code>5 + undefined// NaN</code></td>
+<td>变量未赋值，函数未返回</td>
+</tr>
+</tbody>
+</table>
 <h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><h3 id="Replace"><a href="#Replace" class="headerlink" title="Replace"></a>Replace</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// String.prototype.replace()</span></span><br><span class="line">str.replace(regexp|substr, newSubstr|<span class="function"><span class="keyword">function</span>)</span></span><br></pre></td></tr></table></figure>
 <p>字符串 replace 函数，接收两个参数，返回一个新的字符串。</p>
 <p>第一个参数为匹配模式，第二参数为替换方案。<br>如果第一参数为字符串，则字符串中只有符合匹配的第一个位置会被替换。</p>
@@ -267,6 +327,25 @@
 </tr>
 </tbody>
 </table>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/ES简单类型.html">http://www.skyline.show/ES简单类型.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
       
     </div>
@@ -346,7 +425,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ES-类型"><span class="nav-number">1.</span> <span class="nav-text">ES 类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Number"><span class="nav-number">2.</span> <span class="nav-text">Number</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NaN"><span class="nav-number">2.1.</span> <span class="nav-text">NaN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Null"><span class="nav-number">3.</span> <span class="nav-text">Null</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">4.</span> <span class="nav-text">String</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Replace"><span class="nav-number">4.1.</span> <span class="nav-text">Replace</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ES-类型"><span class="nav-number">1.</span> <span class="nav-text">ES 类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Number"><span class="nav-number">2.</span> <span class="nav-text">Number</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Number进制表示"><span class="nav-number">2.1.</span> <span class="nav-text">Number进制表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NaN"><span class="nav-number">2.2.</span> <span class="nav-text">NaN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Null-amp-undefined"><span class="nav-number">3.</span> <span class="nav-text">Null &amp; undefined</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null-vs-undefined"><span class="nav-number">3.1.</span> <span class="nav-text">null vs undefined</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">4.</span> <span class="nav-text">String</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Replace"><span class="nav-number">4.1.</span> <span class="nav-text">Replace</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

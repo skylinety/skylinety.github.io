@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Skyline&#39;s blog">
 <meta property="og:description" content="静态（类）、实例、原型属性与方法 ES5 ES6 属性访问结论   Class 原型方法语法糖 Class 中属性与方法的枚举性质   BMW WARNING   静态（类）、实例、原型属性与方法ES5Baby 类 //对象构造函数function Baby(name) &amp;#123;  var className = &quot;Baby&quot;;  //实例属性，每个实例私有，在对象实例化后调用，实例属性">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-02-04T08:24:24.000Z">
+<meta property="og:updated_time" content="2023-02-14T08:46:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES类的使用">
 <meta name="twitter:description" content="静态（类）、实例、原型属性与方法 ES5 ES6 属性访问结论   Class 原型方法语法糖 Class 中属性与方法的枚举性质   BMW WARNING   静态（类）、实例、原型属性与方法ES5Baby 类 //对象构造函数function Baby(name) &amp;#123;  var className = &quot;Baby&quot;;  //实例属性，每个实例私有，在对象实例化后调用，实例属性">
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-04T08:24:24.000Z" itemprop="datePublished">2023-02-04</time>
+      <time datetime="2023-02-14T08:46:14.000Z" itemprop="datePublished">2023-02-14</time>
     </a><span style="color: #999">|</span>
 
       
@@ -226,10 +226,10 @@
 <h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><a id="more"></a>
 <p>Baby 类</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baby</span> </span>&#123;</span><br><span class="line">  <span class="comment">//实例属性、方法</span></span><br><span class="line">  eat = <span class="string">"meat"</span>;</span><br><span class="line">  <span class="keyword">constructor</span>(x, y) &#123;</span><br><span class="line">    <span class="comment">//实例属性、方法</span></span><br><span class="line">    <span class="keyword">this</span>.firstName = x;</span><br><span class="line">    <span class="keyword">this</span>.lastName = y;</span><br><span class="line">    <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"skyline"</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型属性，使用存取器</span></span><br><span class="line">  <span class="keyword">get</span> prop() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"skyline getter"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> prop(value) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"skyline setter: "</span> + value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//原型方法</span></span><br><span class="line"></span><br><span class="line">  toString() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"("</span> + <span class="keyword">this</span>.firstName + <span class="string">", "</span> + <span class="keyword">this</span>.lastName + <span class="string">")"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//类方法</span></span><br><span class="line">  <span class="keyword">static</span> hello() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello skyline"</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> hi() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.hello; <span class="comment">//如果静态方法包含this关键字，这个this指的是类，而不是实例</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//类属性，ES6 在当前阶段，Class 内部只有静态方法，没有静态属性，可以直接指定类（静态）属性</span></span><br><span class="line">Baby.age = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="属性访问结论"><a href="#属性访问结论" class="headerlink" title="属性访问结论"></a>属性访问结论</h3><p>不论是那种方式建立，遵循以下结论</p>
+<h3 id="属性访问结论"><a href="#属性访问结论" class="headerlink" title="属性访问结论"></a>属性访问结论</h3><p>不论是哪种方式创建对象，基本遵循以下结论：</p>
 <ul>
-<li>静态属性方法，可以直接通过类进行访问的</li>
-<li>实例属性方法是需要创建实例对象进行访问的</li>
+<li>静态属性方法，可以直接通过类进行访问</li>
+<li>实例属性方法是需要创建实例对象进行访问</li>
 <li>静态与实例之间的属性与方法不能互访</li>
 </ul>
 <h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><h3 id="原型方法语法糖"><a href="#原型方法语法糖" class="headerlink" title="原型方法语法糖"></a>原型方法语法糖</h3><p>对于 ES6 的 Baby 类的 toString</p>
@@ -314,19 +314,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/鹧鸪天（花重蓉城）.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/编程程序设计.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          鹧鸪天（花重蓉城）
+          编程程序设计
         
       </div>
     </a>
   
   
-    <a href="/编程程序设计.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Number相关基础操作.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">编程程序设计</div>
+      <div class="article-nav-title">Number相关基础操作</div>
     </a>
   
 </nav>

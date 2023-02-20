@@ -653,7 +653,8 @@ Enu......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#arguments">arguments</a></li>
+<li><a href="#函数的长度">函数的长度</a></li>
+<li><a href="#函数参数">函数参数</a></li>
 <li><a href="#参数传递">参数传递</a><ul>
 <li><a href="#按值传递">按值传递</a></li>
 <li><a href="#引用传递">引用传递</a></li>
@@ -669,20 +670,24 @@ Enu......  -->
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><ul>
-<li>arguments 是一个类数组</li>
-<li>它的值永远与对应命名参数的值保持同步。<br>设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值</li>
-<li>arguments 的长度是由运行时传入参数个数决定的，而不是定义时</li>
-</ul>
+<h2 id="函数的长度"><a href="#函数的长度" class="headerlink" title="函数的长度"></a>函数的长度</h2><p>函数的长度等于形参的个数。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">skyline</span>(<span class="params">a, b, c</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`输入<span class="subst">$&#123;<span class="built_in">arguments</span>.length&#125;</span>个参数`</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`函数的长度为：<span class="subst">$&#123;skyline.length&#125;</span>`</span>)</span><br><span class="line"></span><br><span class="line">skyline(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数的长度为：3</span></span><br><span class="line"><span class="comment">// 输入1个参数</span></span><br></pre></td></tr></table></figure>
+<h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h2><p>函数的参数被放在一个arguments的类数组中。</p>
+<p>它的值永远与对应命名参数的值保持同步。<br>设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改后的值</p>
+<p>arguments 的长度是由运行时传入参数个数决定的，而不是定义时</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">0</span>] = &#123; <span class="attr">name</span>: <span class="string">'skyline'</span> &#125;</span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">1</span>] = <span class="number">2</span></span><br><span class="line">  c = <span class="number">5</span></span><br><span class="line">  <span class="built_in">console</span>.log(</span><br><span class="line">    <span class="string">`a=<span class="subst">$&#123;a&#125;</span>, b=<span class="subst">$&#123;b&#125;</span>, 第三个参数的值是：<span class="subst">$&#123;<span class="built_in">arguments</span>[<span class="number">2</span>]&#125;</span>, 参数的长度：<span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">      <span class="built_in">arguments</span>.length</span></span></span><br><span class="line"><span class="string"><span class="subst">    &#125;</span>, 第一个参数与a是否相等：<span class="subst">$&#123;<span class="built_in">arguments</span>[<span class="number">0</span>] === a&#125;</span>`</span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test(<span class="number">1</span>, &#123; <span class="attr">firstName</span>: <span class="string">'liu'</span> &#125;, <span class="string">'3'</span>, <span class="number">3</span>)</span><br><span class="line"><span class="comment">// a=[object Object], b=2, 第三个参数的值是：5, 参数的长度：4, 第一个参数与a是否相等：true</span></span><br></pre></td></tr></table></figure>
 <p>对于 ES6 中通过扩展运算符获取参数，示例如下</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArray6</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(args)</span><br><span class="line">  <span class="built_in">console</span>.log(args <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br><span class="line">  <span class="keyword">return</span> args</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createArray6(<span class="number">11</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"><span class="comment">//  (3) [11, 2, 3]</span></span><br><span class="line"><span class="comment">//  true</span></span><br></pre></td></tr></table></figure>
 <p>不同于 ES5 的 arguments 是一种类数组，ES6 拓展运算符获取 args 是一个数组。</p>
-<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><h3 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h3>
+<p>arguments 与实参的绑定的绑定情况如下：<br>非严格，传入值共享，没传不共享</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">skyline</span>(<span class="params">a, b, c</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`输入的a:<span class="subst">$&#123;a&#125;</span>`</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`输入的第一个参数：<span class="subst">$&#123;<span class="built_in">arguments</span>[<span class="number">0</span>]&#125;</span>`</span>)</span><br><span class="line">    b = <span class="number">2</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`b值为<span class="subst">$&#123;b&#125;</span>`</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`第而个参数：<span class="subst">$&#123;<span class="built_in">arguments</span>[<span class="number">1</span>]&#125;</span>`</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`函数的长度为：<span class="subst">$&#123;skyline.length&#125;</span>`</span>)</span><br><span class="line"></span><br><span class="line">skyline(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数的长度为：3</span></span><br><span class="line"><span class="comment">// 2 输入的a:1</span></span><br><span class="line"><span class="comment">// 3 输入的第一个参数：1</span></span><br><span class="line"><span class="comment">// 5 b值为2</span></span><br><span class="line"><span class="comment">// 6 第而个参数：undefined</span></span><br></pre></td></tr></table></figure>
+<p>在严格模式下，实参和 arguments 是不会共享的，也就是都会为上述b的情况。</p>
+<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2>
         <!-- 
 
 
-arguments
+函数的长度
+函数参数
 参数传递
 按值传递
 引用传递
@@ -698,9 +703,8 @@ TDZ(Temporal Dead Zone)
 BMW WARNING
 
 
-arguments
-arguments 是一个类数组
-它的值永远与对应命名参数的值保持同步。设函数第 n 个参数为 a， 当在函数内部修改了 a，那么 arguments[n-1]保持同步也为更改......  -->
+函数的长度函数的长度等于形参的个数。
+function skyline(a, b, c)&#123;    console.log(`输入$&#123;arguments.length&#125......  -->
         <p class="article-more-link">
           <a href="/ES函数.html#more">阅读全文</a>
         </p>
