@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192434.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192801.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A220220613192825.png">
-<meta property="og:updated_time" content="2023-02-04T08:24:24.000Z">
+<meta property="og:updated_time" content="2023-02-14T08:05:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES类型转换">
 <meta name="twitter:description" content="类型转换 类型转换概述 to boolean to number to string to object   ToPrimitive 隐式转换场景 隐式转换场景概述 一元操作符 二元加 乘、除、取余、二元减 比较运算符   Expression or Statement 几个有意思的输出 AST {}语法解析分析   JSON.stringify 处理规则 参数   BMW WARNING">
@@ -195,7 +195,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-04T08:24:24.000Z" itemprop="datePublished">2023-02-04</time>
+      <time datetime="2023-02-14T08:05:52.000Z" itemprop="datePublished">2023-02-14</time>
     </a><span style="color: #999">|</span>
 
       
@@ -449,7 +449,7 @@
 </ul>
 <h2 id="隐式转换场景"><a href="#隐式转换场景" class="headerlink" title="隐式转换场景"></a>隐式转换场景</h2><h3 id="隐式转换场景概述"><a href="#隐式转换场景概述" class="headerlink" title="隐式转换场景概述"></a>隐式转换场景概述</h3><p>JS 隐式转换规则大致为简单类型调用目标类型的构造函数，复杂类型由内部方法 ToPrimitive 处理，见上述章节。触发隐式转换，通常是以下场景</p>
 <h3 id="一元操作符"><a href="#一元操作符" class="headerlink" title="一元操作符"></a>一元操作符</h3><p>一元+运算符将其操作数转换为 Number 类型。一元减号同理但是反转正负</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">;+<span class="string">'3'</span> - <span class="comment">// 数字3</span></span><br><span class="line">  <span class="string">'-3'</span> + <span class="comment">// 数字3</span></span><br><span class="line">  [] + <span class="comment">//0</span></span><br><span class="line">  [<span class="number">1</span>] + <span class="comment">//1</span></span><br><span class="line">  [<span class="number">1</span>, <span class="number">2</span>] <span class="comment">//NaN</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">+ <span class="string">'3'</span>      <span class="comment">// 数字3</span></span><br><span class="line">- <span class="string">'-3'</span>      <span class="comment">// 数字3</span></span><br><span class="line">+ [] <span class="comment">//0</span></span><br><span class="line">+ [<span class="number">1</span>] <span class="comment">//1</span></span><br><span class="line">+ [<span class="number">1</span>,<span class="number">2</span>] <span class="comment">//NaN</span></span><br></pre></td></tr></table></figure>
 <h3 id="二元加"><a href="#二元加" class="headerlink" title="二元加"></a>二元加</h3><p>规范地址：<a href="http://es5.github.io/#x11.6.1" target="_blank" rel="noopener">http://es5.github.io/#x11.6.1</a><br>当计算 value1 + value2 时：</p>
 <ol>
 <li>lprim = ToPrimitive(value1)</li>
@@ -623,11 +623,11 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/JavaScript隐式类型转换小结.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/ES继承的实现.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          JavaScript隐式类型转换小结
+          ES继承的实现
         
       </div>
     </a>

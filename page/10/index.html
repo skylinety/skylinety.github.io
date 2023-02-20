@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-JavaScript隐式类型转换小结"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES继承的实现"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/JavaScript隐式类型转换小结.html">JavaScript隐式类型转换小结</a>
+      <a class="article-title" href="/ES继承的实现.html">ES继承的实现</a>
     </h1>
   
 
@@ -342,87 +342,107 @@
 
       
     
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h3 id="转换规则"><a href="#转换规则" class="headerlink" title="转换规则"></a>转换规则</h3><h4 id="隐式转换为布尔值"><a href="#隐式转换为布尔值" class="headerlink" title="隐式转换为布尔值"></a>隐式转换为布尔值</h4><h5 id="如表"><a href="#如表" class="headerlink" title="如表"></a>如表</h5><table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>转化成true</th>
-<th>转化成false</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>String</td>
-<td>非空字符</td>
-<td>“”(空字符）</td>
-</tr>
-<tr>
-<td>Number</td>
-<td>非零</td>
-<td>0与NaN</td>
-</tr>
-<tr>
-<td>Object</td>
-<td>非Null对象</td>
-<td>null           </td>
-</tr>
-<tr>
-<td>undefined</td>
-<td>无</td>
-<td>undefined</td>
-</tr>
-</tbody>
-</table>
-<p>（注：调用Boolean()方法得到结果相同）</p>
-<hr>
-<h4 id="对象隐式转换规则"><a href="#对象隐式转换规则" class="headerlink" title="对象隐式转换规则"></a>对象隐式转换规则</h4>
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#原型链">原型链</a><ul>
+<li><a href="#概述">概述</a></li>
+<li><a href="#代码示例">代码示例</a></li>
+<li><a href="#优劣分析">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#构造函数">构造函数</a><ul>
+<li><a href="#概述-1">概述</a></li>
+<li><a href="#代码示例-1">代码示例</a></li>
+<li><a href="#优劣分析-1">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#组合继承">组合继承</a><ul>
+<li><a href="#概述-2">概述</a></li>
+<li><a href="#代码示例-2">代码示例</a></li>
+<li><a href="#优劣分析-2">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#原型式继承objectcreate">原型式继承(Object.create)</a><ul>
+<li><a href="#概述-3">概述</a></li>
+<li><a href="#代码示例-3">代码示例</a></li>
+<li><a href="#优劣分析-3">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#寄生式继承">寄生式继承</a><ul>
+<li><a href="#概述-4">概述</a></li>
+<li><a href="#代码示例-4">代码示例</a></li>
+<li><a href="#优劣分析-4">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#寄生组合式继承">寄生组合式继承</a><ul>
+<li><a href="#概述-5">概述</a></li>
+<li><a href="#代码示例-5">代码示例</a></li>
+<li><a href="#优劣分析-5">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>由于函数没有签名，ES无法实现接口继承</p>
+<p>原型链继承的本质是重写原型对象，代之以一个新类型的实例</p>
+<p>通过instanceof isPrototypeOf 来判定原型与实例的关系</p>
+<p>给原型添加方法需要在替换原型之后</p>
+<p>通过原型链继承，不能通过字面量重写原型</p>
+<h3 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h3>
         <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-转换规则隐式转换为布尔值如表
 
 
-数据类型
-转化成true
-转化成false
+原型链
+概述
+代码示例
+优劣分析
 
 
+构造函数
+概述
+代码示例
+优劣分析
 
 
-String
-非空字符
-“”(空字符）
+组合继承
+概述
+代码示例
+优劣分析
 
 
-Number
-非零
-0与NaN
+原型式继承(Object.create)
+概述
+代码示例
+优劣分析
 
 
-Object
-非Null对象
-null           
+寄生式继承
+概述
+代码示例
+优劣分析
 
 
-undefined
-无
-undefined
+寄生组合式继承
+概述
+代码示例
+优劣分析
 
 
+BMW WARNING
 
-（注：调用Boolean()方法......  -->
+
+原型链概述由于函数没有签名，ES无法实现接口继承
+原型链继承的本质是重写原型对象，......  -->
         <p class="article-more-link">
-          <a href="/JavaScript隐式类型转换小结.html#more">阅读全文</a>
+          <a href="/ES继承的实现.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -430,7 +450,7 @@ undefined
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>
@@ -1045,6 +1065,155 @@ shows the full path of (shell) commands.
 <!-- Table of Contents -->
 
   
+    <article id="post-Shell中ls的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中ls的使用.html">Shell中ls的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#基础使用">基础使用</a><ul>
+<li><a href="#参数">参数</a></li>
+<li><a href="#常见用法">常见用法</a></li>
+</ul>
+</li>
+<li><a href="#权限">权限</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>ls 即 list，列出目录内容</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>使用</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>ls -1</td>
+<td>换行列出文件</td>
+</tr>
+<tr>
+<td>l</td>
+<td>ls -l</td>
+<td>换行列出文件详细信息</td>
+</tr>
+<tr>
+<td>a</td>
+<td>ls -a</td>
+<td>列出所有文件，包括隐藏文件</td>
+</tr>
+<tr>
+<td>d</td>
+<td>ls -d</td>
+<td>列出当前目录本身，而不是其下内容</td>
+</tr>
+<tr>
+<td>h</td>
+<td>ls -h</td>
+<td>文件大小可读化输出，需要与 -l 配合使用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h3>
+        <!-- 
+
+
+基础使用
+参数
+常见用法
+
+
+权限
+BMW WARNING
+
+
+基础使用参数ls 即 list，列出目录内容
+
+
+
+参数
+使用
+描述
+
+
+
+
+1
+ls -1
+换行列出文件
+
+
+l
+ls -l
+换行列出文件详细信息
+
+
+a
+ls -a
+列出所有文件，包括隐藏文件
+
+
+d
+ls -d
+列出当前目录本身，而不是其下内容
+
+
+h
+ls -h
+文件大小可读化输出，需要与 -l 配合使用
+
+
+
+常......  -->
+        <p class="article-more-link">
+          <a href="/Shell中ls的使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Vue项目实现rtmp流视频播放"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1201,155 +1370,6 @@ overflow-w......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中ls的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中ls的使用.html">Shell中ls的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#基础使用">基础使用</a><ul>
-<li><a href="#参数">参数</a></li>
-<li><a href="#常见用法">常见用法</a></li>
-</ul>
-</li>
-<li><a href="#权限">权限</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>ls 即 list，列出目录内容</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>使用</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>ls -1</td>
-<td>换行列出文件</td>
-</tr>
-<tr>
-<td>l</td>
-<td>ls -l</td>
-<td>换行列出文件详细信息</td>
-</tr>
-<tr>
-<td>a</td>
-<td>ls -a</td>
-<td>列出所有文件，包括隐藏文件</td>
-</tr>
-<tr>
-<td>d</td>
-<td>ls -d</td>
-<td>列出当前目录本身，而不是其下内容</td>
-</tr>
-<tr>
-<td>h</td>
-<td>ls -h</td>
-<td>文件大小可读化输出，需要与 -l 配合使用</td>
-</tr>
-</tbody>
-</table>
-<h3 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h3>
-        <!-- 
-
-
-基础使用
-参数
-常见用法
-
-
-权限
-BMW WARNING
-
-
-基础使用参数ls 即 list，列出目录内容
-
-
-
-参数
-使用
-描述
-
-
-
-
-1
-ls -1
-换行列出文件
-
-
-l
-ls -l
-换行列出文件详细信息
-
-
-a
-ls -a
-列出所有文件，包括隐藏文件
-
-
-d
-ls -d
-列出当前目录本身，而不是其下内容
-
-
-h
-ls -h
-文件大小可读化输出，需要与 -l 配合使用
-
-
-
-常......  -->
-        <p class="article-more-link">
-          <a href="/Shell中ls的使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>

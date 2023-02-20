@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>es继承的实现 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="JSES语法">
+  
+  
+  
+  
+  <meta name="description" content="原型链 概述 代码示例 优劣分析   构造函数 概述 代码示例 优劣分析   组合继承 概述 代码示例 优劣分析   原型式继承(Object.create) 概述 代码示例 优劣分析   寄生式继承 概述 代码示例 优劣分析   寄生组合式继承 概述 代码示例 优劣分析   BMW WARNING   原型链概述由于函数没有签名，ES无法实现接口继承 原型链继承的本质是重写原型对象，代之以">
+<meta name="keywords" content="JS,ES,语法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES继承的实现">
+<meta property="og:url" content="http://www.skyline.show/ES继承的实现.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="原型链 概述 代码示例 优劣分析   构造函数 概述 代码示例 优劣分析   组合继承 概述 代码示例 优劣分析   原型式继承(Object.create) 概述 代码示例 优劣分析   寄生式继承 概述 代码示例 优劣分析   寄生组合式继承 概述 代码示例 优劣分析   BMW WARNING   原型链概述由于函数没有签名，ES无法实现接口继承 原型链继承的本质是重写原型对象，代之以">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%BB%A7%E6%89%BF%E7%9A%84%E5%AE%9E%E7%8E%B0!%5BUntitled%5D(Untitled.png">
+<meta property="og:updated_time" content="2023-02-14T08:05:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES继承的实现">
+<meta name="twitter:description" content="原型链 概述 代码示例 优劣分析   构造函数 概述 代码示例 优劣分析   组合继承 概述 代码示例 优劣分析   原型式继承(Object.create) 概述 代码示例 优劣分析   寄生式继承 概述 代码示例 优劣分析   寄生组合式继承 概述 代码示例 优劣分析   BMW WARNING   原型链概述由于函数没有签名，ES无法实现接口继承 原型链继承的本质是重写原型对象，代之以">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%BB%A7%E6%89%BF%E7%9A%84%E5%AE%9E%E7%8E%B0!%5BUntitled%5D(Untitled.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ES继承的实现" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      ES继承的实现
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-01-26T12:49:44.000Z" itemprop="datePublished">2018-01-26</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-02-14T08:05:52.000Z" itemprop="datePublished">2023-02-14</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#原型链">原型链</a><ul>
+<li><a href="#概述">概述</a></li>
+<li><a href="#代码示例">代码示例</a></li>
+<li><a href="#优劣分析">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#构造函数">构造函数</a><ul>
+<li><a href="#概述-1">概述</a></li>
+<li><a href="#代码示例-1">代码示例</a></li>
+<li><a href="#优劣分析-1">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#组合继承">组合继承</a><ul>
+<li><a href="#概述-2">概述</a></li>
+<li><a href="#代码示例-2">代码示例</a></li>
+<li><a href="#优劣分析-2">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#原型式继承objectcreate">原型式继承(Object.create)</a><ul>
+<li><a href="#概述-3">概述</a></li>
+<li><a href="#代码示例-3">代码示例</a></li>
+<li><a href="#优劣分析-3">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#寄生式继承">寄生式继承</a><ul>
+<li><a href="#概述-4">概述</a></li>
+<li><a href="#代码示例-4">代码示例</a></li>
+<li><a href="#优劣分析-4">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#寄生组合式继承">寄生组合式继承</a><ul>
+<li><a href="#概述-5">概述</a></li>
+<li><a href="#代码示例-5">代码示例</a></li>
+<li><a href="#优劣分析-5">优劣分析</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>由于函数没有签名，ES无法实现接口继承</p>
+<p>原型链继承的本质是重写原型对象，代之以一个新类型的实例</p>
+<p>通过instanceof isPrototypeOf 来判定原型与实例的关系</p>
+<p>给原型添加方法需要在替换原型之后</p>
+<p>通过原型链继承，不能通过字面量重写原型</p>
+<h3 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h3><a id="more"></a>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 两只眼睛两条腿</span></span><br><span class="line">    <span class="keyword">this</span>.eyes = <span class="string">'two'</span></span><br><span class="line">    <span class="keyword">this</span>.feet = <span class="string">'two'</span></span><br><span class="line">    <span class="keyword">this</span>.families = [<span class="string">'papa'</span>, <span class="string">'mama'</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Man</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.sex = <span class="string">'male'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Woman</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.sex = <span class="string">'female'</span></span><br><span class="line">&#125;</span><br><span class="line">Man.prototype = <span class="keyword">new</span> Person()</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Man()</span><br><span class="line">skyline.families.push(<span class="string">'sister'</span>, <span class="string">'grandma'</span>)</span><br><span class="line"><span class="keyword">var</span> haha = <span class="keyword">new</span> Man()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(haha.families) <span class="comment">// ["papa", "mama", "sister", "grandma"]</span></span><br><span class="line">skyline.__proto__ == Man.prototype <span class="comment">// true</span></span><br><span class="line">Man.prototype.__proto__ == Person.prototype <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">haha.eyes = <span class="number">2</span></span><br><span class="line">skyline.eyes <span class="comment">// 'two'</span></span><br></pre></td></tr></table></figure>
+<h3 id="优劣分析"><a href="#优劣分析" class="headerlink" title="优劣分析"></a>优劣分析</h3><p>采用原型链继承无法避免原型中共享值所带来的问题。<br>同时无法向超类型构造函数传递参数，实际很少使用（在创建 Man 的实例时，不能向Person传参）</p>
+<p>上述示例中haha.eyes = 2 后skyline值不变并不是eyes没有通过原型共享，而是因为haha在其自身添加了实例属性eyes。</p>
+<p>进一步尝试如下代码</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">haha.__proto__.eyes = <span class="number">2</span></span><br><span class="line">skyline.eyes <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>为解决原型链继承引用问题而引入，同时解决了无法向超类型传递参数的问题。又称为伪造对象或经典继承</p>
+<p>基本思想是子类型构造函数内部调用超类型构造函数</p>
+<p>为保证调用超类构造函数不会重写子类属性，需要先调用超类构造函数</p>
+<h3 id="代码示例-1"><a href="#代码示例-1" class="headerlink" title="代码示例"></a>代码示例</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 两只眼睛两条腿</span></span><br><span class="line">    <span class="keyword">this</span>.eyes = <span class="string">'two'</span></span><br><span class="line">    <span class="keyword">this</span>.feet = <span class="string">'two'</span></span><br><span class="line">    <span class="keyword">this</span>.families = [<span class="string">'papa'</span>, <span class="string">'mama'</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Man</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    Person.call(<span class="keyword">this</span>)</span><br><span class="line">    <span class="keyword">this</span>.sex = <span class="string">'male'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Man()</span><br><span class="line"><span class="built_in">console</span>.log(skyline.feet) <span class="comment">// two</span></span><br></pre></td></tr></table></figure>
+<h3 id="优劣分析-1"><a href="#优劣分析-1" class="headerlink" title="优劣分析"></a>优劣分析</h3><p>此方式最大的问题是将产生可以公共使用的方法多次创建，无法复用共有方法。</p>
+<h2 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h2><h3 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h3><p>又称为伪经典继承，就是组合使用原型链和构造函数模式</p>
+<p>组合继承是最为常见的继承方式</p>
+<h3 id="代码示例-2"><a href="#代码示例-2" class="headerlink" title="代码示例"></a>代码示例</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 两只眼睛两条腿</span></span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">    <span class="keyword">this</span>.eyes = <span class="string">'two'</span></span><br><span class="line">    <span class="keyword">this</span>.feet = <span class="string">'two'</span></span><br><span class="line">    <span class="keyword">this</span>.families = [<span class="string">'papa'</span>, <span class="string">'mama'</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>)</span><br><span class="line">&#125; <span class="comment">// 共享的原型属性在这</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Man</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    Person.call(<span class="keyword">this</span>, name) <span class="comment">// 私有的实例属性在这</span></span><br><span class="line">    <span class="keyword">this</span>.sex = <span class="string">'male'</span></span><br><span class="line">&#125;</span><br><span class="line">Man.prototype = <span class="keyword">new</span> Person() </span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Man(<span class="string">'skyline'</span>)</span><br><span class="line">skyline.say() <span class="comment">// My name is skyline</span></span><br><span class="line">skyline.families.push(<span class="string">'sister'</span>, <span class="string">'grandma'</span>)</span><br><span class="line"><span class="keyword">var</span> haha = <span class="keyword">new</span> Man(<span class="string">'haha'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(skyline.families) <span class="comment">// ["papa", "mama", "sister", "grandma"]</span></span><br><span class="line"><span class="built_in">console</span>.log(haha.families) <span class="comment">// ["papa", "mama"]</span></span><br><span class="line"><span class="built_in">console</span>.log(skyline.feet) <span class="comment">// two</span></span><br></pre></td></tr></table></figure>
+<h3 id="优劣分析-2"><a href="#优劣分析-2" class="headerlink" title="优劣分析"></a>优劣分析</h3><p>Man.prototype通过调用构造函数获取了Person内部的那些实例属性。<br>这导致超类型Person实例属性同时存在于子（孙）类型原型（链）与实例属性中，造成浪费。<br>注意，在重复的属性中，实例属性会覆盖原型属性。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E7%BB%A7%E6%89%BF%E7%9A%84%E5%AE%9E%E7%8E%B0!%5BUntitled%5D(Untitled.png" alt="ES继承的实现![Untitled](Untitled.png)">.png)</p>
+<h2 id="原型式继承-Object-create"><a href="#原型式继承-Object-create" class="headerlink" title="原型式继承(Object.create)"></a>原型式继承(Object.create)</h2><h3 id="概述-3"><a href="#概述-3" class="headerlink" title="概述"></a>概述</h3><p>借助原型可以基于已有的对象创建新对象，不必因此创建自定义类型，大致思路如下代码所示</p>
+<h3 id="代码示例-3"><a href="#代码示例-3" class="headerlink" title="代码示例"></a>代码示例</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    F.prototype = o</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a = &#123;&#125;</span><br><span class="line">b = create(a)</span><br><span class="line">b.__proto__ == a <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p><strong>该函数为了实现<code>b.__proto__ == a</code>的效果</strong></p>
+<h3 id="优劣分析-3"><a href="#优劣分析-3" class="headerlink" title="优劣分析"></a>优劣分析</h3><p>采用此方法与原型链方式相似，类型a中包含引用类型的属性始终会被共享。</p>
+<p>ES6新增了Object.create方法规范了原型式继承。</p>
+<h2 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h2><h3 id="概述-4"><a href="#概述-4" class="headerlink" title="概述"></a>概述</h3><p>创建一个仅用于封装继承过程的函数，函数内部以某种方式来增强对象</p>
+<h3 id="代码示例-4"><a href="#代码示例-4" class="headerlink" title="代码示例"></a>代码示例</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createA</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> clone = <span class="built_in">Object</span>.create(o) <span class="comment">// 调用任意一个可以返回对象的函数</span></span><br><span class="line">    clone.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 增强对象</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'hahaha'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> clone <span class="comment">// 返回对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="优劣分析-4"><a href="#优劣分析-4" class="headerlink" title="优劣分析"></a>优劣分析</h3><p>与构造函数类似，方法不能复用</p>
+<h2 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h2><h3 id="概述-5"><a href="#概述-5" class="headerlink" title="概述"></a>概述</h3><p>组合式继承会导致超类型构造函数的两次调用，超类型的实例属性将分别在原型中和实例中被复制而产生两组，实例属性屏蔽了原型中的属性</p>
+<p>问题的原因是Man.prototype = new Person() 时让原型产生冗余属性，这一步的目的是使得 <code>Man.prototype__proto__ == Person.prototype</code> 。<br>优化时仅需考虑而是间接的让上述等式成立即可。</p>
+<p>最为理想的继承方式</p>
+<p>💡 寄生组合式继承，就是通过借用构造函数来继承属性，通过原型链混成形式来继承方法</p>
+<h3 id="代码示例-5"><a href="#代码示例-5" class="headerlink" title="代码示例"></a>代码示例</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copyPrototype</span>(<span class="params">subType, superType</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> p = <span class="built_in">Object</span>.create(superType.prototype) <span class="comment">// p.__proto__ == superType.prototype</span></span><br><span class="line">    p.constructor = subType</span><br><span class="line">    subType.prototype = p</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 两只眼睛两条腿</span></span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">    <span class="keyword">this</span>.eyes = <span class="string">'two'</span></span><br><span class="line">    <span class="keyword">this</span>.feet = <span class="string">'two'</span></span><br><span class="line">    <span class="keyword">this</span>.families = [<span class="string">'papa'</span>, <span class="string">'mama'</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`My name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>`</span>)</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Man</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    Person.call(<span class="keyword">this</span>, name)</span><br><span class="line">    <span class="keyword">this</span>.sex = <span class="string">'male'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">copyPrototype(Man, Person)</span><br><span class="line"><span class="comment">// Man.prototype.__proto__ == Person.prototype</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> skyline = <span class="keyword">new</span> Man(<span class="string">'skyline'</span>)</span><br><span class="line">skyline.say() <span class="comment">// My name is skyline</span></span><br><span class="line">skyline.families.push(<span class="string">'sister'</span>, <span class="string">'grandma'</span>)</span><br><span class="line"><span class="keyword">var</span> haha = <span class="keyword">new</span> Man(<span class="string">'haha'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(skyline.families) <span class="comment">// ["papa", "mama", "sister", "grandma"]</span></span><br><span class="line"><span class="built_in">console</span>.log(haha.families) <span class="comment">// ["papa", "mama"]</span></span><br><span class="line"><span class="built_in">console</span>.log(skyline.feet) <span class="comment">// two</span></span><br><span class="line">skyline.__proto__.__proto__ == Person.prototype <span class="comment">//true</span></span><br><span class="line">skyline.__proto__ == Man.prototype <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">Man.prototype.__proto__ == Person.prototype <span class="comment">//true</span></span><br><span class="line">Man.__proto__ == Person.prototype <span class="comment">//false</span></span><br><span class="line">Man.__proto__ == <span class="built_in">Function</span>.prototype <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h3 id="优劣分析-5"><a href="#优劣分析-5" class="headerlink" title="优劣分析"></a>优劣分析</h3><p>子类想要在原型上添加方法，由于subType.prototype = p 进行了赋值，必须在继承之后(copyPrototype后)添加，否则赋值将覆盖掉原有原型上的方法。</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+<p> 《JavaScript 高级程序设计》</p>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/ES继承的实现.html">http://www.skyline.show/ES继承的实现.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/CSS弹性布局主轴元素设置单独对齐方式.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          CSS弹性布局主轴元素设置单独对齐方式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/ES类型转换.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">ES类型转换</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原型链"><span class="nav-number">1.</span> <span class="nav-text">原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码示例"><span class="nav-number">1.2.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优劣分析"><span class="nav-number">1.3.</span> <span class="nav-text">优劣分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-number">2.</span> <span class="nav-text">构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-1"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码示例-1"><span class="nav-number">2.2.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优劣分析-1"><span class="nav-number">2.3.</span> <span class="nav-text">优劣分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合继承"><span class="nav-number">3.</span> <span class="nav-text">组合继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-2"><span class="nav-number">3.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码示例-2"><span class="nav-number">3.2.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优劣分析-2"><span class="nav-number">3.3.</span> <span class="nav-text">优劣分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型式继承-Object-create"><span class="nav-number">4.</span> <span class="nav-text">原型式继承(Object.create)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-3"><span class="nav-number">4.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码示例-3"><span class="nav-number">4.2.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优劣分析-3"><span class="nav-number">4.3.</span> <span class="nav-text">优劣分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄生式继承"><span class="nav-number">5.</span> <span class="nav-text">寄生式继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-4"><span class="nav-number">5.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码示例-4"><span class="nav-number">5.2.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优劣分析-4"><span class="nav-number">5.3.</span> <span class="nav-text">优劣分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寄生组合式继承"><span class="nav-number">6.</span> <span class="nav-text">寄生组合式继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-5"><span class="nav-number">6.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码示例-5"><span class="nav-number">6.2.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优劣分析-5"><span class="nav-number">6.3.</span> <span class="nav-text">优劣分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">7.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2023 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
