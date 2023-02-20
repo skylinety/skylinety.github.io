@@ -319,110 +319,6 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-JS内存泄漏与处理"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/JS内存泄漏与处理.html">JS内存泄漏与处理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a><ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
-<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
-</ul>
-</li>
-<li><a href="#内存泄漏memory-leaks">内存泄漏（Memory Leaks）</a><ul>
-<li><a href="#简介-1">简介</a></li>
-<li><a href="#常见内存泄漏情况">常见内存泄漏情况</a></li>
-<li><a href="#常见情况示例">常见情况示例</a></li>
-</ul>
-</li>
-<li><a href="#内存泄漏处理">内存泄漏处理</a><ul>
-<li><a href="#chrome-memory-调试">Chrome Memory 调试</a></li>
-<li><a href="#内存泄漏监测">内存泄漏监测</a></li>
-<li><a href="#泄漏内存对比">泄漏内存对比</a></li>
-<li><a href="#泄漏内存对象详情">泄漏内存对象详情</a></li>
-<li><a href="#对象引用链">对象引用链</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JS 自动进行垃圾回收，不需要如 C 语言等一般需要代码中指定回收。<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>回收垃圾时，需要将那些被标记的清除掉，垃圾标记器会跟踪无用内存并打上标记，以供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
-<h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3>
-        <!-- 
-
-
-垃圾回收(GC:Garbage Collecation)
-简介
-引用计数（Reference Counting）
-标记清除（Mark &amp; Sweep）
-
-
-内存泄漏（Memory Leaks）
-简介
-常见内存泄漏情况
-常见情况示例
-
-
-内存泄漏处理
-Chrome Memory 调试
-内存泄漏监测
-泄漏内存对比
-泄漏内存对象详情
-对象引用链
-
-
-BMW WARNING
-
-
-垃圾回......  -->
-        <p class="article-more-link">
-          <a href="/JS内存泄漏与处理.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Interface与AbstractClass"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -595,7 +491,7 @@ property does not exist on type Object复现Property ‘length’ does not ex...
 <!-- Table of Contents -->
 
   
-    <article id="post-Cookie、Session与Token"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-JS内存泄漏与处理"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -603,7 +499,111 @@ property does not exist on type Object复现Property ‘length’ does not ex...
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Cookie、Session与Token.html">Cookie、Session与Token</a>
+      <a class="article-title" href="/JS内存泄漏与处理.html">JS内存泄漏与处理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:33.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#垃圾回收gcgarbage-collecation">垃圾回收(GC:Garbage Collecation)</a><ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#引用计数reference-counting">引用计数（Reference Counting）</a></li>
+<li><a href="#标记清除mark--sweep">标记清除（Mark &amp; Sweep）</a></li>
+</ul>
+</li>
+<li><a href="#内存泄漏memory-leaks">内存泄漏（Memory Leaks）</a><ul>
+<li><a href="#简介-1">简介</a></li>
+<li><a href="#常见内存泄漏情况">常见内存泄漏情况</a></li>
+<li><a href="#常见情况示例">常见情况示例</a></li>
+</ul>
+</li>
+<li><a href="#内存泄漏处理">内存泄漏处理</a><ul>
+<li><a href="#chrome-memory-调试">Chrome Memory 调试</a></li>
+<li><a href="#内存泄漏监测">内存泄漏监测</a></li>
+<li><a href="#泄漏内存对比">泄漏内存对比</a></li>
+<li><a href="#泄漏内存对象详情">泄漏内存对象详情</a></li>
+<li><a href="#对象引用链">对象引用链</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="垃圾回收-GC-Garbage-Collecation"><a href="#垃圾回收-GC-Garbage-Collecation" class="headerlink" title="垃圾回收(GC:Garbage Collecation)"></a>垃圾回收(GC:Garbage Collecation)</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>JS 自动进行垃圾回收，不需要如 C 语言等一般需要代码中指定回收。<br>垃圾收集器会定期（周期性）找出那些不再继续使用的变量，然后释放其内存。<br>垃圾回收开销较大，垃圾回收时会停止其他操作，所以垃圾回收并不是实时的，而是周期性地进行。<br>回收垃圾时，需要将那些被标记的清除掉，垃圾标记器会跟踪无用内存并打上标记，以供垃圾回收器清理。<br>标记的策略一般有两种，引用计数与标记清除。</p>
+<h3 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）"></a>引用计数（Reference Counting）</h3>
+        <!-- 
+
+
+垃圾回收(GC:Garbage Collecation)
+简介
+引用计数（Reference Counting）
+标记清除（Mark &amp; Sweep）
+
+
+内存泄漏（Memory Leaks）
+简介
+常见内存泄漏情况
+常见情况示例
+
+
+内存泄漏处理
+Chrome Memory 调试
+内存泄漏监测
+泄漏内存对比
+泄漏内存对象详情
+对象引用链
+
+
+BMW WARNING
+
+
+垃圾回......  -->
+        <p class="article-more-link">
+          <a href="/JS内存泄漏与处理.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-硬盘MR技术"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/硬盘MR技术.html">硬盘MR技术</a>
     </h1>
   
 
@@ -628,38 +628,42 @@ property does not exist on type Object复现Property ‘length’ does not ex...
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#请求信息保存">请求信息保存</a></li>
-<li><a href="#cookie">Cookie</a><ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#属性分析">属性分析</a></li>
-<li><a href="#第三方-cookie">第三方 Cookie</a></li>
-<li><a href="#cookie-前缀">Cookie 前缀</a></li>
+<li><a href="#硬盘原理简述">硬盘原理简述</a></li>
+<li><a href="#mr">MR</a><ul>
+<li><a href="#lmr">LMR</a></li>
+<li><a href="#pmr">PMR</a></li>
+<li><a href="#cmr">CMR</a></li>
+<li><a href="#smr">SMR</a></li>
+<li><a href="#cmr-vs-smr">CMR vs SMR</a></li>
 </ul>
 </li>
-<li><a href="#session">Session</a></li>
+<li><a href="#smr-优势与弊端">SMR 优势与弊端</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="请求信息保存"><a href="#请求信息保存" class="headerlink" title="请求信息保存"></a>请求信息保存</h2><p>Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。<br>这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。<br>Cookie Session 等技术诞生就是为了解决请求信息无法保存的问题。</p>
-<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3>
+<h2 id="硬盘原理简述"><a href="#硬盘原理简述" class="headerlink" title="硬盘原理简述"></a>硬盘原理简述</h2><p>硬盘通过小磁体来记录信息。<br>硬盘通过写磁头翻转磁体来对应二进制。如南北朝向的磁体可能意味着 1，那么北南朝向的磁体意味着 0。</p>
+<h2 id="MR"><a href="#MR" class="headerlink" title="MR"></a>MR</h2><h3 id="LMR"><a href="#LMR" class="headerlink" title="LMR"></a>LMR</h3>
         <!-- 
 
 
-请求信息保存
-Cookie
-概述
-属性分析
-第三方 Cookie
-Cookie 前缀
+硬盘原理简述
+MR
+LMR
+PMR
+CMR
+SMR
+CMR vs SMR
 
 
-Session
+SMR 优势与弊端
 BMW WARNING
 
 
-请求信息保存Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。Cookie Session 等技术诞生......  -->
+硬盘原理简述硬盘通过小磁体来记录信息。硬盘通过写磁头翻转磁体来对应二进制。如南北朝向的磁体可能意味着 1，那么北南朝向的磁体意味着 0。
+MRLMR
+Longitudinal Magnetic Recording机械硬盘的磁录密度影响着数据记录的总量（硬盘容量）......  -->
         <p class="article-more-link">
-          <a href="/Cookie、Session与Token.html#more">阅读全文</a>
+          <a href="/硬盘MR技术.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -667,7 +671,103 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardware/">Hardware</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/硬盘/">硬盘</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-UML类图画图图解"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/UML类图画图图解.html">UML类图画图图解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#object">Object</a><ul>
+<li><a href="#classes">Classes</a></li>
+<li><a href="#interface">Interface</a></li>
+<li><a href="#abstract-classes">Abstract Classes</a></li>
+</ul>
+</li>
+<li><a href="#relations">Relations</a><ul>
+<li><a href="#dependency">Dependency</a></li>
+<li><a href="#association">Association</a></li>
+<li><a href="#aggregation">Aggregation</a></li>
+<li><a href="#composition">Composition</a></li>
+<li><a href="#inheritance">Inheritance</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>统一建模语言（Unified Modeling Language）简写 UML</p>
+<h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><h3 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h3>
+        <!-- 
+
+
+简介
+Object
+Classes
+Interface
+Abstract Classes
+
+
+Relations
+Dependency
+Association
+Aggregation
+Composition
+Inheritance
+
+
+BMW WARNING
+
+
+简介统一建模语言（Unified Modeling Language）简写 UML
+ObjectClasses
+在面向对象编......  -->
+        <p class="article-more-link">
+          <a href="/UML类图画图图解.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
 
     </footer>
   </div>
@@ -748,6 +848,96 @@ House.setDoors(1).setRooms(2).get......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Creational/">Creational</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#formatting-context">Formatting Context</a></li>
+<li><a href="#bfc">BFC</a><ul>
+<li><a href="#bfc-定义">BFC 定义</a></li>
+<li><a href="#bfc-触发">BFC 触发</a></li>
+<li><a href="#常见应用">常见应用</a></li>
+<li><a href="#display-flow-root">display: flow-root</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
+<ul>
+<li>块级格式化上下文（block formatting contexts）</li>
+<li>内联格式化上下文（inline formatting contexts）</li>
+<li>弹性格式化上下文（flex formatting context）</li>
+<li>网格格式化上下文（grid formatting context）</li>
+</ul>
+<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
+<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3>
+        <!-- 
+
+
+Formatting Context
+BFC
+BFC 定义
+BFC 触发
+常见应用
+display: flow-root
+
+
+BMW WARNING
+
+
+Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
+
+块级格式化上下文（block formatting contexts）
+内联格式化上下文（inline for......  -->
+        <p class="article-more-link">
+          <a href="/CSS格式化上下文.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>
@@ -881,92 +1071,6 @@ p:nth-of-type(n)
 <!-- Table of Contents -->
 
   
-    <article id="post-硬盘MR技术"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/硬盘MR技术.html">硬盘MR技术</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#硬盘原理简述">硬盘原理简述</a></li>
-<li><a href="#mr">MR</a><ul>
-<li><a href="#lmr">LMR</a></li>
-<li><a href="#pmr">PMR</a></li>
-<li><a href="#cmr">CMR</a></li>
-<li><a href="#smr">SMR</a></li>
-<li><a href="#cmr-vs-smr">CMR vs SMR</a></li>
-</ul>
-</li>
-<li><a href="#smr-优势与弊端">SMR 优势与弊端</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="硬盘原理简述"><a href="#硬盘原理简述" class="headerlink" title="硬盘原理简述"></a>硬盘原理简述</h2><p>硬盘通过小磁体来记录信息。<br>硬盘通过写磁头翻转磁体来对应二进制。如南北朝向的磁体可能意味着 1，那么北南朝向的磁体意味着 0。</p>
-<h2 id="MR"><a href="#MR" class="headerlink" title="MR"></a>MR</h2><h3 id="LMR"><a href="#LMR" class="headerlink" title="LMR"></a>LMR</h3>
-        <!-- 
-
-
-硬盘原理简述
-MR
-LMR
-PMR
-CMR
-SMR
-CMR vs SMR
-
-
-SMR 优势与弊端
-BMW WARNING
-
-
-硬盘原理简述硬盘通过小磁体来记录信息。硬盘通过写磁头翻转磁体来对应二进制。如南北朝向的磁体可能意味着 1，那么北南朝向的磁体意味着 0。
-MRLMR
-Longitudinal Magnetic Recording机械硬盘的磁录密度影响着数据记录的总量（硬盘容量）......  -->
-        <p class="article-more-link">
-          <a href="/硬盘MR技术.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardware/">Hardware</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/硬盘/">硬盘</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Factory工厂模式"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1080,7 +1184,7 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-UML类图画图图解"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-动态规划算法"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1088,7 +1192,7 @@ BMW WARNING
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/UML类图画图图解.html">UML类图画图图解</a>
+      <a class="article-title" href="/动态规划算法.html">动态规划算法</a>
     </h1>
   
 
@@ -1113,52 +1217,60 @@ BMW WARNING
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#object">Object</a><ul>
-<li><a href="#classes">Classes</a></li>
-<li><a href="#interface">Interface</a></li>
-<li><a href="#abstract-classes">Abstract Classes</a></li>
+<li><a href="#概述">概述</a><ul>
+<li><a href="#常见类型">常见类型</a></li>
+<li><a href="#解题思路">解题思路</a></li>
 </ul>
 </li>
-<li><a href="#relations">Relations</a><ul>
-<li><a href="#dependency">Dependency</a></li>
-<li><a href="#association">Association</a></li>
-<li><a href="#aggregation">Aggregation</a></li>
-<li><a href="#composition">Composition</a></li>
-<li><a href="#inheritance">Inheritance</a></li>
+<li><a href="#子序列问题">子序列问题</a><ul>
+<li><a href="#问题描述">问题描述</a></li>
+<li><a href="#解题思路-1">解题思路</a></li>
+</ul>
+</li>
+<li><a href="#背包问题">背包问题</a><ul>
+<li><a href="#问题特征">问题特征</a></li>
+<li><a href="#背包问题状态转移方程">背包问题状态转移方程</a></li>
+</ul>
+</li>
+<li><a href="#实战">实战</a><ul>
+<li><a href="#最大子串">最大子串</a></li>
+<li><a href="#一步两步爬楼梯">一步两步爬楼梯</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>统一建模语言（Unified Modeling Language）简写 UML</p>
-<h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><h3 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h3>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="常见类型"><a href="#常见类型" class="headerlink" title="常见类型"></a>常见类型</h3><p>动态规范算法，即 Dynamic Programming。<br>常见类型如下：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Dynamic_ProgrammingUntitled.png" alt="Dynamic_ProgrammingUntitled"><br>| Name | Leetcode Problems |<br>| — | — |<br>| 基本动态规划: 一维 | 70 |<br>| 基本动态规划:二维 |63， 64，403 |<br>| 分割类型题 | |<br>| 子序列问题 | 5 |<br>| 背包问题 | 322，416 |<br>| 字符串编辑 | |<br>| 股票交易 | |</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3>
         <!-- 
 
 
-简介
-Object
-Classes
-Interface
-Abstract Classes
+概述
+常见类型
+解题思路
 
 
-Relations
-Dependency
-Association
-Aggregation
-Composition
-Inheritance
+子序列问题
+问题描述
+解题思路
+
+
+背包问题
+问题特征
+背包问题状态转移方程
+
+
+实战
+最大子串
+一步两步爬楼梯
 
 
 BMW WARNING
 
 
-简介统一建模语言（Unified Modeling Language）简写 UML
-ObjectClasses
-在面向对象编......  -->
+概述常见类型动态规范算法，即 Dynamic Programming。常见类型如下：| Name | Leetcode Problems || — | — || 基本动态规划: 一维 | 70 || 基本动态规划......  -->
         <p class="article-more-link">
-          <a href="/UML类图画图图解.html#more">阅读全文</a>
+          <a href="/动态规划算法.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1166,97 +1278,7 @@ ObjectClasses
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-CSS格式化上下文"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS格式化上下文.html">CSS格式化上下文</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-03T09:39:32.000Z" itemprop="datePublished">2022-06-03</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#formatting-context">Formatting Context</a></li>
-<li><a href="#bfc">BFC</a><ul>
-<li><a href="#bfc-定义">BFC 定义</a></li>
-<li><a href="#bfc-触发">BFC 触发</a></li>
-<li><a href="#常见应用">常见应用</a></li>
-<li><a href="#display-flow-root">display: flow-root</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Formatting-Context"><a href="#Formatting-Context" class="headerlink" title="Formatting Context"></a>Formatting Context</h2><p>页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。<br>常见的格式化上下文包括：</p>
-<ul>
-<li>块级格式化上下文（block formatting contexts）</li>
-<li>内联格式化上下文（inline formatting contexts）</li>
-<li>弹性格式化上下文（flex formatting context）</li>
-<li>网格格式化上下文（grid formatting context）</li>
-</ul>
-<p>构建不同的格式化上下文会影响其内部元素，其子元素都会按照相应特定的规则来展现。</p>
-<h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><h3 id="BFC-定义"><a href="#BFC-定义" class="headerlink" title="BFC 定义"></a>BFC 定义</h3>
-        <!-- 
-
-
-Formatting Context
-BFC
-BFC 定义
-BFC 触发
-常见应用
-display: flow-root
-
-
-BMW WARNING
-
-
-Formatting Context页面的元素或是格式化上下文的一部分，或本身就是格式化上下文。常见的格式化上下文包括：
-
-块级格式化上下文（block formatting contexts）
-内联格式化上下文（inline for......  -->
-        <p class="article-more-link">
-          <a href="/CSS格式化上下文.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
     </footer>
   </div>
