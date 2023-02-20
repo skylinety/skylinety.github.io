@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>es克隆实现 | Skyline&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="JSES实战">
+  
+  
+  
+  
+  <meta name="description" content="浅克隆 常见浅克隆 浅克隆的问题   深克隆 深克隆的方案 JSON.stringify cloneDeep的简单实现   三方库深克隆源码分析 Jquery.extend   BMW WARNING   浅克隆常见浅克隆在日常代码中，常用的对象克隆方式较多，多数直接使用的API是浅克隆。  Object.assign  const circle = (radius) =&amp;gt; &amp;#123">
+<meta name="keywords" content="JS,ES,实战">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES克隆实现">
+<meta property="og:url" content="http://www.skyline.show/ES克隆实现.html">
+<meta property="og:site_name" content="Skyline&#39;s blog">
+<meta property="og:description" content="浅克隆 常见浅克隆 浅克隆的问题   深克隆 深克隆的方案 JSON.stringify cloneDeep的简单实现   三方库深克隆源码分析 Jquery.extend   BMW WARNING   浅克隆常见浅克隆在日常代码中，常用的对象克隆方式较多，多数直接使用的API是浅克隆。  Object.assign  const circle = (radius) =&amp;gt; &amp;#123">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-02-14T09:54:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES克隆实现">
+<meta name="twitter:description" content="浅克隆 常见浅克隆 浅克隆的问题   深克隆 深克隆的方案 JSON.stringify cloneDeep的简单实现   三方库深克隆源码分析 Jquery.extend   BMW WARNING   浅克隆常见浅克隆在日常代码中，常用的对象克隆方式较多，多数直接使用的API是浅克隆。  Object.assign  const circle = (radius) =&amp;gt; &amp;#123">
+  
+    <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ES克隆实现" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      ES克隆实现
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-07-30T07:56:13.000Z" itemprop="datePublished">2017-07-30</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-02-14T09:54:20.000Z" itemprop="datePublished">2023-02-14</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#浅克隆">浅克隆</a><ul>
+<li><a href="#常见浅克隆">常见浅克隆</a></li>
+<li><a href="#浅克隆的问题">浅克隆的问题</a></li>
+</ul>
+</li>
+<li><a href="#深克隆">深克隆</a><ul>
+<li><a href="#深克隆的方案">深克隆的方案</a></li>
+<li><a href="#jsonstringify">JSON.stringify</a></li>
+<li><a href="#clonedeep的简单实现">cloneDeep的简单实现</a></li>
+</ul>
+</li>
+<li><a href="#三方库深克隆源码分析">三方库深克隆源码分析</a><ul>
+<li><a href="#jqueryextend">Jquery.extend</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="浅克隆"><a href="#浅克隆" class="headerlink" title="浅克隆"></a>浅克隆</h2><h3 id="常见浅克隆"><a href="#常见浅克隆" class="headerlink" title="常见浅克隆"></a>常见浅克隆</h3><p>在日常代码中，常用的对象克隆方式较多，多数直接使用的API是浅克隆。</p>
+<ul>
+<li>Object.assign</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> circle = <span class="function">(<span class="params">radius</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Circle"</span>,</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; radius &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> square = <span class="function">(<span class="params">length</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> proto = &#123;</span><br><span class="line">    type: <span class="string">"Square"</span>,</span><br><span class="line">    <span class="comment">//code</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(<span class="built_in">Object</span>.create(proto), &#123; length &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>…</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> square = &#123;</span><br><span class="line">    type: <span class="string">"Square"</span>,</span><br><span class="line">    borders: [<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>],</span><br><span class="line">    perimeter: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.borders.reduce(<span class="function">(<span class="params">p, n</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> p + n</span><br><span class="line">      &#125;, <span class="number">0</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rectangel = &#123;...square&#125;</span><br><span class="line"></span><br><span class="line">rectangel.type = <span class="string">'Rectangel'</span></span><br><span class="line">rectangel.borders[<span class="number">1</span>] = <span class="number">4</span></span><br><span class="line">rectangel.borders[<span class="number">3</span>] = <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h3 id="浅克隆的问题"><a href="#浅克隆的问题" class="headerlink" title="浅克隆的问题"></a>浅克隆的问题</h3><a id="more"></a>
+<p>由于复杂类型存储方式的不同，如果只是进行简单的赋值，就会造成新对象修改将影响初始对象的相关值。<br>以扩展运算符为例，后续代码的调整导致了正方形的边长被改变。<br><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">square.borders</span><br><span class="line"><span class="comment">// [2, 4, 2, 4]</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="深克隆"><a href="#深克隆" class="headerlink" title="深克隆"></a>深克隆</h2><h3 id="深克隆的方案"><a href="#深克隆的方案" class="headerlink" title="深克隆的方案"></a>深克隆的方案</h3><p>现在已有第三方库的成熟实现，<br>例如，可用lodash underscore 等插件提供的类似于cloneDeep的方法。<br>另常见的用法为使用JSON序列化API,<br>当然，也可尝试自写深克隆函数。</p>
+<h3 id="JSON-stringify"><a href="#JSON-stringify" class="headerlink" title="JSON.stringify"></a>JSON.stringify</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> newObj = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj))</span><br></pre></td></tr></table></figure>
+<p>JSON.stringify存在主要如下问题：</p>
+<ul>
+<li>无法复制函数（JSON.stringify()无法序列化函数）</li>
+<li>原型链，所属的类等信息丢失</li>
+<li>对象循环引用的问题无法解决</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> b = <span class="built_in">JSON</span>.stringify(a)</span><br><span class="line">a <span class="comment">//function ()&#123;&#125;</span></span><br><span class="line">b <span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = []</span><br><span class="line">c <span class="comment">//[]</span></span><br><span class="line"><span class="keyword">var</span> d = <span class="built_in">JSON</span>.stringify(c)</span><br><span class="line">d <span class="comment">//"[]"</span></span><br></pre></td></tr></table></figure>
+<h3 id="cloneDeep的简单实现"><a href="#cloneDeep的简单实现" class="headerlink" title="cloneDeep的简单实现"></a>cloneDeep的简单实现</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> cloneDeep= <span class="function"><span class="keyword">function</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> target = &#123;&#125;;</span><br><span class="line">        <span class="comment">// isArray = false;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> source === <span class="string">'object'</span>)&#123;</span><br><span class="line">        <span class="comment">// source[key] instanceof Array &amp;&amp; (isArray = true)</span></span><br><span class="line">        target = source[key] <span class="keyword">instanceof</span> <span class="built_in">Array</span> ? [] : &#123;&#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> source;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> source) &#123;</span><br><span class="line">        target[key] = <span class="keyword">typeof</span> source[key] === <span class="string">'object'</span> ? cloneDeep(source[key]) : source[key];</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> target; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三方库深克隆源码分析"><a href="#三方库深克隆源码分析" class="headerlink" title="三方库深克隆源码分析"></a>三方库深克隆源码分析</h2><h3 id="Jquery-extend"><a href="#Jquery-extend" class="headerlink" title="Jquery.extend"></a>Jquery.extend</h3><p><a href="https://github.com/jquery/jquery/blob/1472290917f17af05e98007136096784f9051fab/src/core.js#L121" target="_blank" rel="noopener">Jquery extend 源码地址</a><br>Jquery.extend代码使用示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = &#123;</span><br><span class="line">    a: <span class="number">1</span>,</span><br><span class="line">    b: &#123; <span class="attr">f</span>: &#123; <span class="attr">g</span>: <span class="number">1</span> &#125; &#125;,</span><br><span class="line">    c: [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> y = $.extend(&#123;&#125;, x),          <span class="comment">//shallow copy</span></span><br><span class="line">    z = $.extend(<span class="literal">true</span>, &#123;&#125;, x);    <span class="comment">//deep copy</span></span><br><span class="line"></span><br><span class="line">y.b.f === x.b.f       <span class="comment">// true</span></span><br><span class="line">z.b.f === x.b.f       <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>源码分析<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">jQuery.extend = jQuery.fn.extend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> src, <span class="comment">//缓存目标对象属性</span></span><br><span class="line">        copyIsArray, <span class="comment">//标记被复制对象属性是否是数组</span></span><br><span class="line">        copy, <span class="comment">//缓存被复制对象属性</span></span><br><span class="line">        name, options, clone,</span><br><span class="line">        target = <span class="built_in">arguments</span>[<span class="number">0</span>] || &#123;&#125;, <span class="comment">//目标对象，如果没有传入参数，则默认为空对象</span></span><br><span class="line">        i = <span class="number">1</span>, <span class="comment">//标记参数的位置</span></span><br><span class="line">        length = <span class="built_in">arguments</span>.length,</span><br><span class="line">        deep = <span class="literal">false</span>; <span class="comment">//深浅克隆标志</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理深克隆</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> target === <span class="string">"boolean"</span>) &#123;</span><br><span class="line">        deep = target;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果第一个参数为布尔值，则目标对象顺移值第二个参数</span></span><br><span class="line">        target = <span class="built_in">arguments</span>[i] || &#123;&#125;;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理目标参数是非对象情况（注意第二个判断条件是由于typeof用于function返回的是'Function')</span></span><br><span class="line">    <span class="comment">// Handle case when target is a string or something (possible in deep copy)</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> target !== <span class="string">"object"</span> &amp;&amp; !jQuery.isFunction(target)) &#123;</span><br><span class="line">        target = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果传入参数只有一个（任意）则直接赋值Jquery对象</span></span><br><span class="line">    <span class="keyword">if</span> (i === length) &#123;</span><br><span class="line">        target = <span class="keyword">this</span>;</span><br><span class="line">        i--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (; i &lt; length; i++) &#123;</span><br><span class="line">        <span class="comment">//undefined == null true</span></span><br><span class="line">        <span class="comment">// 处理非null与undefined值</span></span><br><span class="line">        <span class="keyword">if</span> ((options = <span class="built_in">arguments</span>[i]) != <span class="literal">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (name <span class="keyword">in</span> options) &#123;</span><br><span class="line">                src = target[name];</span><br><span class="line">                copy = options[name];</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 如果目标属性与被复制对象属性相等</span></span><br><span class="line">                <span class="keyword">if</span> (target === copy) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 如果是纯粹对象或数组，则递归调用。（通过 "&#123;&#125;" 或者 "new Object" 创建的是纯粹对象）</span></span><br><span class="line">                <span class="keyword">if</span> (deep &amp;&amp; copy &amp;&amp; (jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)))) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (copyIsArray) &#123;</span><br><span class="line">                        copyIsArray = <span class="literal">false</span>;</span><br><span class="line">                        clone = src &amp;&amp; jQuery.isArray(src) ? src : [];</span><br><span class="line"></span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        clone = src &amp;&amp; jQuery.isPlainObject(src) ? src : &#123;&#125;;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    target[name] = jQuery.extend(deep, clone, copy);</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (copy !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">                    target[name] = copy;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+<p> <a href="http://jerryzou.com/posts/dive-into-deep-clone-in-javascript/" target="_blank" rel="noopener">深入剖析 JavaScript 的深复制</a></p>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/ES克隆实现.html">http://www.skyline.show/ES克隆实现.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/JS字符串截取substr、substring、slice.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          JS字符串截取substr、substring、slice
+        
+      </div>
+    </a>
+  
+  
+    <a href="/H5+微信移动支付配置.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">H5+微信移动支付配置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浅克隆"><span class="nav-number">1.</span> <span class="nav-text">浅克隆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见浅克隆"><span class="nav-number">1.1.</span> <span class="nav-text">常见浅克隆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浅克隆的问题"><span class="nav-number">1.2.</span> <span class="nav-text">浅克隆的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深克隆"><span class="nav-number">2.</span> <span class="nav-text">深克隆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#深克隆的方案"><span class="nav-number">2.1.</span> <span class="nav-text">深克隆的方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON-stringify"><span class="nav-number">2.2.</span> <span class="nav-text">JSON.stringify</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cloneDeep的简单实现"><span class="nav-number">2.3.</span> <span class="nav-text">cloneDeep的简单实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三方库深克隆源码分析"><span class="nav-number">3.</span> <span class="nav-text">三方库深克隆源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Jquery-extend"><span class="nav-number">3.1.</span> <span class="nav-text">Jquery.extend</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2023 Skyline&#39;s blog All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Skyline&#39;s blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
