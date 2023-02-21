@@ -13,20 +13,20 @@
   
   
   
-  <meta name="description" content="属性描述符 属性分类 Enumerable Configurable   属性创建 直接创建 defineProperty Object.create   扩展、封印与冻结 preventExtensions seal freeze   屏蔽、检测与遍历 属性屏蔽 属性检测 属性遍历   BMW WARNING   属性描述符属性分类 数据属性 Configurable Enumerable">
+  <meta name="description" content="属性描述符 属性分类 Enumerable Configurable   属性创建 直接创建 defineProperty Object.create   扩展、封印与冻结 preventExtensions seal freeze   属性的屏蔽、检测与遍历 属性屏蔽 属性检测 属性遍历   BMW WARNING   属性描述符属性分类 数据属性 Configurable Enumera">
 <meta name="keywords" content="JS,ES,语法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES对象属性">
 <meta property="og:url" content="http://www.skyline.show/ES对象属性.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="属性描述符 属性分类 Enumerable Configurable   属性创建 直接创建 defineProperty Object.create   扩展、封印与冻结 preventExtensions seal freeze   屏蔽、检测与遍历 属性屏蔽 属性检测 属性遍历   BMW WARNING   属性描述符属性分类 数据属性 Configurable Enumerable">
+<meta property="og:description" content="属性描述符 属性分类 Enumerable Configurable   属性创建 直接创建 defineProperty Object.create   扩展、封印与冻结 preventExtensions seal freeze   属性的屏蔽、检测与遍历 属性屏蔽 属性检测 属性遍历   BMW WARNING   属性描述符属性分类 数据属性 Configurable Enumera">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105422.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105558.png">
-<meta property="og:updated_time" content="2023-02-09T01:12:14.000Z">
+<meta property="og:updated_time" content="2023-02-15T07:41:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES对象属性">
-<meta name="twitter:description" content="属性描述符 属性分类 Enumerable Configurable   属性创建 直接创建 defineProperty Object.create   扩展、封印与冻结 preventExtensions seal freeze   屏蔽、检测与遍历 属性屏蔽 属性检测 属性遍历   BMW WARNING   属性描述符属性分类 数据属性 Configurable Enumerable">
+<meta name="twitter:description" content="属性描述符 属性分类 Enumerable Configurable   属性创建 直接创建 defineProperty Object.create   扩展、封印与冻结 preventExtensions seal freeze   属性的屏蔽、检测与遍历 属性屏蔽 属性检测 属性遍历   BMW WARNING   属性描述符属性分类 数据属性 Configurable Enumera">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/JS%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A720210928105422.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -191,7 +191,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-09T01:12:14.000Z" itemprop="datePublished">2023-02-09</time>
+      <time datetime="2023-02-15T07:41:13.000Z" itemprop="datePublished">2023-02-15</time>
     </a><span style="color: #999">|</span>
 
       
@@ -226,7 +226,7 @@
 <li><a href="#freeze">freeze</a></li>
 </ul>
 </li>
-<li><a href="#屏蔽检测与遍历">屏蔽、检测与遍历</a><ul>
+<li><a href="#属性的屏蔽检测与遍历">属性的屏蔽、检测与遍历</a><ul>
 <li><a href="#属性屏蔽">属性屏蔽</a></li>
 <li><a href="#属性检测">属性检测</a></li>
 <li><a href="#属性遍历">属性遍历</a></li>
@@ -272,15 +272,15 @@
 <p>Object.getOwnPropertyDescriptor(s) 查看属性描述符</p>
 <h2 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h2><h3 id="preventExtensions"><a href="#preventExtensions" class="headerlink" title="preventExtensions"></a>preventExtensions</h3><p>Object.preventExtensions()禁止扩展，即防止对象添加新的属性，Object.isExtensible()检查是否可扩展</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> object1 = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(object1)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(object1, <span class="string">'property1'</span>, &#123;</span><br><span class="line">    value: <span class="number">42</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e)</span><br><span class="line">  <span class="comment">// expected output: TypeError: Cannot define property property1, object is not extensible</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="seal"><a href="#seal" class="headerlink" title="seal"></a>seal</h3><p>Object.seal()封印对象，防止对象添加新的属性，且将所有属性的 Configurable 置为 false Object.isSealed()检查是否被封印</p>
-<h3 id="freeze"><a href="#freeze" class="headerlink" title="freeze"></a>freeze</h3><p>Object.freeze()冻结对象，防止对象添加新的属性，且将所有属性的 Configurable 置为 false ，<br>数据属性的所有 writable 设置为 false，防止对象属性直接重新赋值， Object.isFrozen()检查是否被冻结。</p>
+<h3 id="seal"><a href="#seal" class="headerlink" title="seal"></a>seal</h3><p>Object.seal()封印对象，防止对象添加新的属性，且将所有属性的 Configurable 置为 false。<br>Object.isSealed()检查是否被封印</p>
+<h3 id="freeze"><a href="#freeze" class="headerlink" title="freeze"></a>freeze</h3><p>Object.freeze()冻结对象，防止对象添加新的属性，<br>将所有属性的 Configurable 置为 false ，<br>同时将数据属性的所有 writable 设置为 false，防止对象属性直接重新赋值。<br>Object.isFrozen()检查是否被冻结。</p>
 <p>被冻结的对象一定被封印了；被封印的对象一定不能扩展。</p>
-<p>当一个被封印的对象所有自有（实例）属性的描述符 writable 改为 false 时，那么此时它也是被冻结的，通过 isFrozen 返回 true</p>
+<p>当一个被封印的对象所有自有（实例）属性的描述符 writable 改为 false 时，那么此时它也是被冻结的，通过 isFrozen 返回 true。</p>
 <p>被冻结对象的访问器属性如果有 set 描述符，则它仍旧是可写的。</p>
 <p>对比如下：</p>
 <p>$$Freeze \space \left{        \begin{array}{lcl}          [[extensible]]: false,\        configurable: false, \       writable: false \        \end{array} \right.$$</p>
 <p>$$seal \space \left{        \begin{array}{lcl}          [[extensible]]: false,\        configurable: false, \             \end{array} \right.$$</p>
-<h2 id="屏蔽、检测与遍历"><a href="#屏蔽、检测与遍历" class="headerlink" title="屏蔽、检测与遍历"></a>屏蔽、检测与遍历</h2><h3 id="属性屏蔽"><a href="#属性屏蔽" class="headerlink" title="属性屏蔽"></a>属性屏蔽</h3><p>原型属性指存在于原型链上的属性。实例中创建与原型中同名的属性，会屏蔽原型中的属性值。delete 可以删除实例中的属性，来重新暴露原型中的属性</p>
+<h2 id="属性的屏蔽、检测与遍历"><a href="#属性的屏蔽、检测与遍历" class="headerlink" title="属性的屏蔽、检测与遍历"></a>属性的屏蔽、检测与遍历</h2><h3 id="属性屏蔽"><a href="#属性屏蔽" class="headerlink" title="属性屏蔽"></a>属性屏蔽</h3><p>原型属性指存在于原型链上的属性。实例中创建与原型中同名的属性，会屏蔽原型中的属性值。delete 可以删除实例中的属性，来重新暴露原型中的属性</p>
 <h3 id="属性检测"><a href="#属性检测" class="headerlink" title="属性检测"></a>属性检测</h3><p>hasOwnProperty()来获取自有（实例）属性</p>
 <p><strong>in 操作符来确定属性是否存在于实例属性与原型链中</strong></p>
 <p>属性检测不受枚举与否影响</p>
@@ -295,19 +295,23 @@
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>I am a bucolic migrant worker but I never walk backwards.</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
 <ul>
 <li>Material</li>
 </ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
 <blockquote>
-<p>《JavaScript 高级程序设计》</p>
+<p> 《JavaScript 高级程序设计》</p>
 </blockquote>
 <ul>
 <li>Warrant</li>
 </ul>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>版权声明： 本博客所有文章除特别声明外， 均采用 CC BY - NC - SA 3.0 协议。 转载请注明出处！</p>
-</blockquote>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/ES对象属性.html">http://www.skyline.show/ES对象属性.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
       
     </div>
@@ -361,19 +365,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/编程程序设计.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/ES对象创建.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          编程程序设计
+          ES对象创建
         
       </div>
     </a>
   
   
-    <a href="/Number相关基础操作.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/CentOS利用systemd开启后台进程.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Number相关基础操作</div>
+      <div class="article-nav-title">CentOS利用systemd开启后台进程</div>
     </a>
   
 </nav>
@@ -387,7 +391,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#属性描述符"><span class="nav-number">1.</span> <span class="nav-text">属性描述符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性分类"><span class="nav-number">1.1.</span> <span class="nav-text">属性分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enumerable"><span class="nav-number">1.2.</span> <span class="nav-text">Enumerable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configurable"><span class="nav-number">1.3.</span> <span class="nav-text">Configurable</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性创建"><span class="nav-number">2.</span> <span class="nav-text">属性创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直接创建"><span class="nav-number">2.1.</span> <span class="nav-text">直接创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#defineProperty"><span class="nav-number">2.2.</span> <span class="nav-text">defineProperty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-create"><span class="nav-number">2.3.</span> <span class="nav-text">Object.create</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展、封印与冻结"><span class="nav-number">3.</span> <span class="nav-text">扩展、封印与冻结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#preventExtensions"><span class="nav-number">3.1.</span> <span class="nav-text">preventExtensions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#seal"><span class="nav-number">3.2.</span> <span class="nav-text">seal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#freeze"><span class="nav-number">3.3.</span> <span class="nav-text">freeze</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#屏蔽、检测与遍历"><span class="nav-number">4.</span> <span class="nav-text">屏蔽、检测与遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性屏蔽"><span class="nav-number">4.1.</span> <span class="nav-text">属性屏蔽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性检测"><span class="nav-number">4.2.</span> <span class="nav-text">属性检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性遍历"><span class="nav-number">4.3.</span> <span class="nav-text">属性遍历</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#属性描述符"><span class="nav-number">1.</span> <span class="nav-text">属性描述符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性分类"><span class="nav-number">1.1.</span> <span class="nav-text">属性分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enumerable"><span class="nav-number">1.2.</span> <span class="nav-text">Enumerable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configurable"><span class="nav-number">1.3.</span> <span class="nav-text">Configurable</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性创建"><span class="nav-number">2.</span> <span class="nav-text">属性创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直接创建"><span class="nav-number">2.1.</span> <span class="nav-text">直接创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#defineProperty"><span class="nav-number">2.2.</span> <span class="nav-text">defineProperty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-create"><span class="nav-number">2.3.</span> <span class="nav-text">Object.create</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展、封印与冻结"><span class="nav-number">3.</span> <span class="nav-text">扩展、封印与冻结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#preventExtensions"><span class="nav-number">3.1.</span> <span class="nav-text">preventExtensions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#seal"><span class="nav-number">3.2.</span> <span class="nav-text">seal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#freeze"><span class="nav-number">3.3.</span> <span class="nav-text">freeze</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性的屏蔽、检测与遍历"><span class="nav-number">4.</span> <span class="nav-text">属性的屏蔽、检测与遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性屏蔽"><span class="nav-number">4.1.</span> <span class="nav-text">属性屏蔽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性检测"><span class="nav-number">4.2.</span> <span class="nav-text">属性检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性遍历"><span class="nav-number">4.3.</span> <span class="nav-text">属性遍历</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

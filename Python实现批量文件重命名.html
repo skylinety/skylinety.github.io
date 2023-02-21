@@ -3,30 +3,28 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>javascript对象扩展、封印与冻结 | Skyline&#39;s blog</title>
+  <title>python实现批量文件重命名 | Skyline&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
-  <meta name="keywords" content="总结">
+  <meta name="keywords" content="实战Python">
   
   
   
   
-  <meta name="description" content="扩展、封印与冻结要点 Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展 Object.seal()封印对象，Object.isSealed()检查是否被封印 Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结 被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符writa">
-<meta name="keywords" content="总结">
+  <meta name="description" content="使用说明 脚本代码 BMW WARNING   使用说明将下面的脚本写入命名为rename.py的文件并，放到要批量修改文件名的文件夹下使用如下命令 python3 rename.py [测试名字]# 或直接输入# python3 rename.py 脚本代码# rename.py# 导入os库import osimport sys# 文件存放的路径path = r&quot;./&quot;# 将命令中第二个">
+<meta name="keywords" content="实战,Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Javascript对象扩展、封印与冻结">
-<meta property="og:url" content="http://www.skyline.show/Javascript对象扩展、封印与冻结.html">
+<meta property="og:title" content="Python实现批量文件重命名">
+<meta property="og:url" content="http://www.skyline.show/Python实现批量文件重命名.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="扩展、封印与冻结要点 Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展 Object.seal()封印对象，Object.isSealed()检查是否被封印 Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结 被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符writa">
+<meta property="og:description" content="使用说明 脚本代码 BMW WARNING   使用说明将下面的脚本写入命名为rename.py的文件并，放到要批量修改文件名的文件夹下使用如下命令 python3 rename.py [测试名字]# 或直接输入# python3 rename.py 脚本代码# rename.py# 导入os库import osimport sys# 文件存放的路径path = r&quot;./&quot;# 将命令中第二个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ovhnd57o6.bkt.clouddn.com/8284EEDA9E61CD4DA3CA8A04281F2AB7.png-content">
-<meta property="og:updated_time" content="2018-01-24T08:17:54.000Z">
+<meta property="og:updated_time" content="2023-02-15T07:41:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Javascript对象扩展、封印与冻结">
-<meta name="twitter:description" content="扩展、封印与冻结要点 Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展 Object.seal()封印对象，Object.isSealed()检查是否被封印 Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结 被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符writa">
-<meta name="twitter:image" content="http://ovhnd57o6.bkt.clouddn.com/8284EEDA9E61CD4DA3CA8A04281F2AB7.png-content">
+<meta name="twitter:title" content="Python实现批量文件重命名">
+<meta name="twitter:description" content="使用说明 脚本代码 BMW WARNING   使用说明将下面的脚本写入命名为rename.py的文件并，放到要批量修改文件名的文件夹下使用如下命令 python3 rename.py [测试名字]# 或直接输入# python3 rename.py 脚本代码# rename.py# 导入os库import osimport sys# 文件存放的路径path = r&quot;./&quot;# 将命令中第二个">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -166,7 +164,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Javascript对象扩展、封印与冻结" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-Python实现批量文件重命名" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -174,7 +172,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      Javascript对象扩展、封印与冻结
+      Python实现批量文件重命名
     </h1>
   
 
@@ -190,41 +188,51 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-24T08:17:54.000Z" itemprop="datePublished">2018-01-24</time>
+      <time datetime="2023-02-15T07:41:12.000Z" itemprop="datePublished">2023-02-15</time>
     </a><span style="color: #999">|</span>
 
       
     
     <span style="color: #999">分类于</span>
     
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!-- <span style="color: #999">|</span> -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="扩展、封印与冻结"><a href="#扩展、封印与冻结" class="headerlink" title="扩展、封印与冻结"></a>扩展、封印与冻结</h4><h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><ul>
-<li>Object.preventExtensions()禁止扩展，Object.isExtensible()检查是否可扩展</li>
-<li>Object.seal()封印对象，Object.isSealed()检查是否被封印</li>
-<li>Object.freeze()冻结对象，Object.isFrozen()检查是否被冻结</li>
-<li>被冻结的对象一定被封印了；当一个被封印的对象所有自有（实例）属性的描述符writable改为false时，那么此时它也是被冻结的，通过isFrozen返回true</li>
-<li>被冻结对象的访问器属性如果有set描述符，则它仍旧是可写的</li>
-<li>冻结与封印只针对首层属性，如果对象包含对象属性，该属性下对象仍旧是乐意改变的</li>
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#使用说明">使用说明</a></li>
+<li><a href="#脚本代码">脚本代码</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
-<p><img src="http://ovhnd57o6.bkt.clouddn.com/8284EEDA9E61CD4DA3CA8A04281F2AB7.png-content" alt="freeze.png-content"></p>
-<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p><code>var c = d = {name: &quot;skyline liu&quot;, age: &quot;21&quot;, phone: &quot;10086&quot;}</code><br><code>Object.getOwnPropertyDescriptors(c)</code><br><code>Object.getOwnPropertyDescriptors(d)</code></p>
-<h6 id="☞-c、d属性的描述符"><a href="#☞-c、d属性的描述符" class="headerlink" title="☞ c、d属性的描述符"></a>☞ c、d属性的描述符</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    age: &#123;</span><br><span class="line">        value: <span class="string">"21"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    name: &#123;</span><br><span class="line">        value: <span class="string">"skyline liu"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    phone: &#123;</span><br><span class="line">        value: <span class="string">"10086"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>Object.freeze(c)</code><br><code>Object.getOwnPropertyDescriptors(c)</code></p>
-<h6 id="☞c属性的描述符"><a href="#☞c属性的描述符" class="headerlink" title="☞c属性的描述符"></a>☞c属性的描述符</h6><a id="more"></a>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    age: &#123;</span><br><span class="line">        value: <span class="string">"21"</span>,</span><br><span class="line">        writable: <span class="literal">false</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    name: &#123;</span><br><span class="line">        value: <span class="string">"skyline liu"</span>,</span><br><span class="line">        writable: <span class="literal">false</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    phone: &#123;</span><br><span class="line">        value: <span class="string">"10086"</span>,</span><br><span class="line">        writable: <span class="literal">false</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>Object.seal(d)</code><br><code>Object.getOwnPropertyDescriptors(d)</code></p>
-<h6 id="☞-d属性的描述符"><a href="#☞-d属性的描述符" class="headerlink" title="☞ d属性的描述符"></a>☞ d属性的描述符</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    age: &#123;</span><br><span class="line">        value: <span class="string">"21"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    name: &#123;</span><br><span class="line">        value: <span class="string">"skyline liu"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    phone: &#123;</span><br><span class="line">        value: <span class="string">"10086"</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="☞-e的对象属性"><a href="#☞-e的对象属性" class="headerlink" title="☞ e的对象属性"></a>☞ e的对象属性</h6><p>想要e完全不可改变，可以通过一个递归来冻结所有属性</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> e = &#123;<span class="attr">a</span>: &#123;<span class="attr">b</span>:<span class="number">1</span>&#125;&#125;</span><br><span class="line"><span class="built_in">Object</span>.freeze(e)</span><br><span class="line">e.a.b = <span class="number">2</span></span><br><span class="line">e.a.b <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<!-- /code_chunk_output -->
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p>将下面的脚本写入命名为rename.py的文件并，放到要批量修改文件名的文件夹下<br>使用如下命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python3 rename.py [测试名字]</span><br><span class="line"># 或直接输入</span><br><span class="line"># python3 rename.py</span><br></pre></td></tr></table></figure>
+<h2 id="脚本代码"><a href="#脚本代码" class="headerlink" title="脚本代码"></a>脚本代码</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># rename.py</span></span><br><span class="line"><span class="comment"># 导入os库</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件存放的路径</span></span><br><span class="line">path = <span class="string">r"./"</span></span><br><span class="line"><span class="comment"># 将命令中第二个参数作为输入，多个参数空格隔开</span></span><br><span class="line"><span class="keyword">if</span> len(sys.argv) &gt;= <span class="number">2</span>:</span><br><span class="line">    base = sys.argv[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># 控制台输入</span></span><br><span class="line">    base = input(<span class="string">'Please input base name: '</span>)  </span><br><span class="line"></span><br><span class="line">print(<span class="string">"You inputted "</span>, base)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历更改文件名</span></span><br><span class="line">num = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> old <span class="keyword">in</span> os.listdir(path):</span><br><span class="line">    <span class="keyword">if</span> old == <span class="string">'rename.py'</span>:</span><br><span class="line">        print(<span class="string">'Skip script!'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        new = base + <span class="string">'_'</span> + str(num) + os.path.splitext(old)[<span class="number">-1</span>]</span><br><span class="line">        os.rename(os.path.join(path, old),</span><br><span class="line">                  os.path.join(path, new))</span><br><span class="line">        print(<span class="string">'Rename'</span>, old, <span class="string">'to'</span>, new)</span><br><span class="line">    num = num + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'Succeed!!!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取文件名后缀 os.path.splitext(name)[-1]</span></span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><a id="more"></a>
+<ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️</p>
 <blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/Javascript对象扩展、封印与冻结.html">http://www.skyline.show/Javascript对象扩展、封印与冻结.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
 </blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/Python实现批量文件重命名.html">http://www.skyline.show/Python实现批量文件重命名.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
       
     </div>
@@ -270,7 +278,7 @@ var a = new Donate({
 
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
 
     </footer>
   </div>
@@ -288,9 +296,9 @@ var a = new Donate({
     </a>
   
   
-    <a href="/CSS常见效果实现.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/H5+开发常见问题.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">CSS常见效果实现</div>
+      <div class="article-nav-title">H5+开发常见问题</div>
     </a>
   
 </nav>
@@ -304,7 +312,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展、封印与冻结"><span class="nav-number">1.</span> <span class="nav-text">扩展、封印与冻结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#要点"><span class="nav-number">1.1.</span> <span class="nav-text">要点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码"><span class="nav-number">1.2.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-c、d属性的描述符"><span class="nav-number">1.2.1.</span> <span class="nav-text">☞ c、d属性的描述符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#☞c属性的描述符"><span class="nav-number">1.2.2.</span> <span class="nav-text">☞c属性的描述符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-d属性的描述符"><span class="nav-number">1.2.3.</span> <span class="nav-text">☞ d属性的描述符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#☞-e的对象属性"><span class="nav-number">1.2.4.</span> <span class="nav-text">☞ e的对象属性</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用说明"><span class="nav-number">1.</span> <span class="nav-text">使用说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚本代码"><span class="nav-number">2.</span> <span class="nav-text">脚本代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>
