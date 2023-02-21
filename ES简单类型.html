@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Skyline&#39;s blog">
 <meta property="og:description" content="ES 类型 Number Number进制表示 NaN   Null &amp;amp; undefined null vs undefined   String 字符串替换 字符串截取   BMW WARNING   ES 类型ES 将会类型分为简单类型（原始类型）和复杂类型（结构类型）其中常见的类型可用 typeof 进行简单判定。 // Primitives:Boolean : typeof">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-02-15T07:26:31.000Z">
+<meta property="og:updated_time" content="2023-02-15T08:48:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES简单类型">
 <meta name="twitter:description" content="ES 类型 Number Number进制表示 NaN   Null &amp;amp; undefined null vs undefined   String 字符串替换 字符串截取   BMW WARNING   ES 类型ES 将会类型分为简单类型（原始类型）和复杂类型（结构类型）其中常见的类型可用 typeof 进行简单判定。 // Primitives:Boolean : typeof">
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-15T07:26:31.000Z" itemprop="datePublished">2023-02-15</time>
+      <time datetime="2023-02-15T08:48:57.000Z" itemprop="datePublished">2023-02-15</time>
     </a><span style="color: #999">|</span>
 
       
@@ -295,6 +295,39 @@
 <h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><h3 id="字符串替换"><a href="#字符串替换" class="headerlink" title="字符串替换"></a>字符串替换</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// String.prototype.replace()</span></span><br><span class="line">str.replace(regexp|substr, newSubstr|<span class="function"><span class="keyword">function</span>)</span></span><br></pre></td></tr></table></figure>
 <p>字符串 replace 函数，接收两个参数，返回一个新的字符串。</p>
 <p>第一个参数为匹配模式，第二参数为替换方案。<br>如果第一参数为字符串，则字符串中只有符合匹配的第一个位置会被替换。</p>
+<p>如果第一个参数是全局匹配模式的正则表达式，同时指定字符串作为第二个参数；<br>可以下列字符序列表中的字符序列，将正则的到的值插入结果字符串。</p>
+<p>字符序列表</p>
+<table>
+<thead>
+<tr>
+<th>字符序列</th>
+<th>正则属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$&amp;</td>
+<td>regExp.lastMatch</td>
+<td>匹配的子串（即匹配项）</td>
+</tr>
+<tr>
+<td>$’</td>
+<td>regExp.leftContext</td>
+<td>匹配子串左边内容</td>
+</tr>
+<tr>
+<td>$`</td>
+<td>regExp.rightContext</td>
+<td>匹配子串右边内容</td>
+</tr>
+<tr>
+<td>$n</td>
+<td>regExp[“$n”]</td>
+<td>匹配第n个捕获组子串</td>
+</tr>
+</tbody>
+</table>
 <p>如果第一个参数是全局匹配模式的正则表达式，同时指定一个函数作为第二个参数；<br>当匹配执行后，第二参数对应的函数就会执行，该函数的返回值作为替换字符串。<br>第二参数对应的函数，其参数如下：</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">match,p1,p2, ... ,offset, string, groups</span>)</span>&#123;<span class="keyword">return</span> newStr&#125;</span><br></pre></td></tr></table></figure>
 <p>该函数的参数解析如下：</p>
@@ -427,19 +460,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/ES基础汇总.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/ElementUI相关使用.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          ES基础汇总
+          ElementUI相关使用
         
       </div>
     </a>
   
   
-    <a href="/跨境物流查询.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ES基础汇总.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">跨境物流查询</div>
+      <div class="article-nav-title">ES基础汇总</div>
     </a>
   
 </nav>

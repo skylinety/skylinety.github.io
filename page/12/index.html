@@ -420,7 +420,7 @@
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="编程术语"><a href="#编程术语" class="headerlink" title="编程术语"></a>编程术语</h2><h3 id="鸭子类型"><a href="#鸭子类型" class="headerlink" title="鸭子类型"></a>鸭子类型</h3><p>当看到一只鸟包含当前关注的所有鸭子的特征，即走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子类型。<br>以TypeScript类型系统为例。<br>TypeScript 选择了一种基于属性的类型系统（Structural type system）。<br>这种类型系统不再关注一个变量被标称的类型（由哪一个构造器构造），而是 在进行类型检查时，将对象拆开，逐个去比较组成这个对象的每一个属性或方法。<br>如果一个对象有着一个类型所要求的所有属性或方法，那么类型检查通过，实际编程时就可以当作这个类型来使用。</p>
+<h2 id="编程术语"><a href="#编程术语" class="headerlink" title="编程术语"></a>编程术语</h2><h3 id="鸭子类型"><a href="#鸭子类型" class="headerlink" title="鸭子类型"></a>鸭子类型</h3><p>当看到一只鸟包含当前关注的所有鸭子的特征，即走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子类型。<br>以TypeScript类型系统为例：<br>TypeScript 选择了一种基于属性的类型系统（Structural type system）。<br>这种类型系统不再关注一个变量被标称的类型（由哪一个构造器构造），而是 在进行类型检查时，将对象拆开，逐个去比较组成这个对象的每一个属性或方法。<br>如果一个对象有着一个类型所要求的所有属性或方法，那么类型检查通过，实际编程时就可以当作这个类型来使用。</p>
 <h3 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h3>
         <!-- 
 
@@ -438,7 +438,7 @@
 BMW WARNING
 
 
-编程术语鸭子类型当看到一只鸟包含当前关注的所有鸭子的特征，即走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子类型。以TypeScript类型系统为例。TypeScript 选择了一种基于属性的类型系统（Structural type system）。这种类型系......  -->
+编程术语鸭子类型当看到一只鸟包含当前关注的所有鸭子的特征，即走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子类型。以TypeScript类型系统为例：TypeScript 选择了一种基于属性的类型系统（Structural type system）。这种类型系......  -->
         <p class="article-more-link">
           <a href="/计算机常见术语.html#more">阅读全文</a>
         </p>
@@ -458,7 +458,7 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-chapter4-5《JavaScript高级程序设计》笔记"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES基本包装类型"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -466,7 +466,7 @@ BMW WARNING
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/chapter4-5《JavaScript高级程序设计》笔记.html">chapter4-5《JavaScript高级程序设计》笔记</a>
+      <a class="article-title" href="/ES基本包装类型.html">ES基本包装类型</a>
     </h1>
   
 
@@ -481,140 +481,49 @@ BMW WARNING
 
       
     
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><blockquote>
-<p>《JavaScript高级程序设计》</p>
-</blockquote>
-<hr>
-<h4 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h4><ul>
-<li>作用域链的作用是保证最执行环境有权访问的所有变量和函数的有序访问</li>
-<li>作用域链最前端始终都是当前代码所在环境的变量对象，而后一步一步向外成延伸，直到全局执行环境</li>
-<li>标志符解析是沿着作用域链一级一级搜索的过程，直到找到为止，故而位于作用域链最前端的变量作为当前环境的变量</li>
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#常见的基本包装类型">常见的基本包装类型</a></li>
+<li><a href="#基本包装类型的对象生存期">基本包装类型的对象生存期</a></li>
+<li><a href="#构造函数与转型函数">构造函数与转型函数</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
-<hr>
-<h4 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><ul>
-<li>两种方式，对象字面量与构造函数</li>
-<li>元字符需要进行转义</li>
-<li>RegExp构造函数接受两个参数。第一个是要匹配的字符串模式，第二个是可选的标识字符串</li>
-<li>构造函数使用的模式字符串需要对元字符进行双重转义</li>
-</ul>
-<p>举个栗子：<br>字面量定义： <code>/\.at\\skyline/gi</code><br>构造函数定义： <code>new RegExp(&#39;\\.at\\\\skyline&#39;, &#39;gi&#39;)</code></p>
-<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><h6 id="☞-exec"><a href="#☞-exec" class="headerlink" title="☞ exec"></a>☞ exec</h6><p>专为捕获组设计，当匹配成功时，返回数组，<strong>失败返回null</strong>。返回的数组跟正则是否有子串（圆括号内，圆括号被称为捕获括号），是否全局，开始匹配的位置（lastIndex指定）有关。<br>代码1：非全局有子串</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str=<span class="string">"Skyline should be hardworking(Skyline up up up)"</span>; </span><br><span class="line"><span class="keyword">var</span> reg=<span class="regexp">/Sky(line)/</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str));</span><br><span class="line"><span class="comment">// ["Skyline", "line", index: 0, input: "Skyline should be hardworking(Skyline up up up)"]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str));</span><br><span class="line"><span class="comment">// ["Skyline", "line", index: 0, input: "Skyline should be hardworking(Skyline up up up)"]</span></span><br></pre></td></tr></table></figure>
-<p>未开启全局，此函数的作用和String类型的match()函数是一样的，只能够在字符串中匹配一次，如果没有找到匹配的字符串，那么返回null</p>
-<p>代码2：全局有子串</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> str1=<span class="string">"Skyline should be hardworking(Skyline up up up Skyline)"</span>; </span><br><span class="line"><span class="keyword">var</span> reg1=<span class="regexp">/Skylin(e)/g</span>;</span><br><span class="line">reg1.lastIndex = <span class="number">8</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg1.exec(str1));</span><br><span class="line"><span class="comment">// VM1002:4 (2) ["Skyline", "e", index: 30, input: "Skyline should be hardworking(Skyline up up up Skyline)"]</span></span><br><span class="line"><span class="built_in">console</span>.log(reg1.lastIndex);</span><br><span class="line"><span class="comment">// 37</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg1.exec(str1));</span><br><span class="line"><span class="comment">// VM1016:1 (2) ["Skyline", "e", index: 47, input: "Skyline should be hardworking(Skyline up up up Skyline)"]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg1.exec(str1));</span><br><span class="line"><span class="comment">// VM1021:1 null</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg1.exec(str1));</span><br><span class="line"><span class="comment">// VM3222:1 (2) ["Skyline", "e", index: 0, input: "Skyline should be hardworking(Skyline up up up Skyline)"]</span></span><br></pre></td></tr></table></figure>
-<p>开启全局，此函数返回值同样是一个数组，并且也只能够在字符串中匹配一次。不过此时，此函数一般会和lastIndex属性匹配使用，此函数会在lastIndex属性指定的字符处开始检索字符串。<strong>返回为null时。lastIndex重置为0</strong></p>
-<hr>
-<h4 id="基本包装类型"><a href="#基本包装类型" class="headerlink" title="基本包装类型"></a>基本包装类型</h4><h5 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h5><ul>
-<li>包括Boolean、Number、String三种</li>
-<li>创建方式包括转型函数（见下）和字面量</li>
-<li>引用类型与基本包装类型的主要区别就是对象的生存期</li>
-</ul>
-<h5 id="基本包装类型的对象生存期"><a href="#基本包装类型的对象生存期" class="headerlink" title="基本包装类型的对象生存期"></a>基本包装类型的对象生存期</h5><h6 id="☞-代码"><a href="#☞-代码" class="headerlink" title="☞ 代码"></a>☞ 代码</h6><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">'skyline'</span></span><br><span class="line">s.age = <span class="number">23</span></span><br><span class="line"><span class="built_in">console</span>.log(s.age)</span><br></pre></td></tr></table></figure>
-<p>以上代码可以想象成如下JS代码周期</p>
-<h6 id="☞-图示"><a href="#☞-图示" class="headerlink" title="☞ 图示"></a>☞ 图示</h6><p><img src="http://ovhnd57o6.bkt.clouddn.com/A724BE3A20AAF7086F2C651E8AF9E570.png-content" alt="基本包装类型.png-content"></p>
-<p>当最后访问s.age时又创建了一个新的对象，故age不存在</p>
-<h5 id="构造函数与转型函数"><a href="#构造函数与转型函数" class="headerlink" title="构造函数与转型函数"></a>构造函数与转型函数</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="built_in">String</span>(<span class="string">'skyline'</span>)<span class="comment">//转型函数，产生基本包装类型，相当于字面量创建</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> str)<span class="comment">//string</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'skyline'</span>)<span class="comment">//构造函数，产生引用类型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> obj)<span class="comment">//object</span></span><br></pre></td></tr></table></figure>
-<h5 id="字符串的模式匹配方法"><a href="#字符串的模式匹配方法" class="headerlink" title="字符串的模式匹配方法"></a>字符串的模式匹配方法</h5><h6 id="☞-概述"><a href="#☞-概述" class="headerlink" title="☞ 概述"></a>☞ 概述</h6><p>（括号内多参数’,’隔开，不同类型参数’/‘隔开，括号内的-表示可选参数）</p>
-<table>
-<thead>
-<tr>
-<th>方法名</th>
-<th>描述</th>
-<th>参数类型</th>
-<th>参数说明</th>
-<th>返回 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>match</td>
-<td>本质与正则exec相同</td>
-<td>regExp</td>
-<td>&nbsp;</td>
-<td>与exec相同</td>
-</tr>
-<tr>
-<td>search</td>
-<td>查找字符串第一个匹配项</td>
-<td>regExp</td>
-<td>&nbsp;</td>
-<td>字符串第一个匹配项索引，无则-1</td>
-</tr>
-<tr>
-<td>indexOf</td>
-<td>查找字符串第一个子字符</td>
-<td>str，开始位置（-）</td>
-<td>&nbsp;</td>
-<td>字符串第一个子字符串索引，无则-1</td>
-</tr>
-<tr>
-<td>replace</td>
-<td>替代字符串</td>
-<td>regExp/str, str/fn(…args)</td>
-<td>分别指定目标字符与替换字符</td>
-<td>替换后的字符串</td>
-</tr>
-<tr>
-<td>split</td>
-<td>指定分隔符分割字符串</td>
-<td>regExp/str, num(-)</td>
-<td>分别指定分隔字符与返回的数组长度</td>
-<td>分隔后所有字符组成的数组</td>
-</tr>
-</tbody>
-</table>
-<h6 id="☞-详解"><a href="#☞-详解" class="headerlink" title="☞ 详解"></a>☞ 详解</h6><p>replace<br>要替换所有子串，<strong>第一个参数需要提供全局（g）标志的正则表达式。第二个参数是字符串时，可以使用字符序列表中的字符序列，将正则的到的值插入结果字符串；第二个参数是函数时，参数依次是匹配项，捕获组，匹配项位置，输入</strong></p>
-<p>字符序列表</p>
-<table>
-<thead>
-<tr>
-<th>字符序列</th>
-<th>正则属性</th>
-<th>表意</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$&amp;</td>
-<td>regExp.lastMatch</td>
-<td>匹配整个模式的子串（匹配项）</td>
-</tr>
-<tr>
-<td>$’</td>
-<td>regExp.leftContext</td>
-<td>匹配子串左边内容</td>
-</tr>
-<tr>
-<td>$`</td>
-<td>regExp.rightContext</td>
-<td>匹配子串右边内容</td>
-</tr>
-<tr>
-<td>$n</td>
-<td>regExp[“$n”]</td>
-<td>匹配第n个捕获组子串</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>本文作者： Skyline(lty)<br>本文链接： <a href="http://www.skyline.show/chapter4-5《JavaScript高级程序设计》笔记.html">http://www.skyline.show/chapter4-5《JavaScript高级程序设计》笔记.html</a><br>版权声明： 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 许可协议</a>。转载请注明出处！</p>
-</blockquote>
+<!-- /code_chunk_output -->
+<h2 id="常见的基本包装类型"><a href="#常见的基本包装类型" class="headerlink" title="常见的基本包装类型"></a>常见的基本包装类型</h2><p>常见的基本包装类型，包括Boolean、Number、String三种。<br>其创建方式包括转型函数和字面量，不包含构造函数。<br>引用类型与基本包装类型的主要区别就是对象的生存期。</p>
+<h2 id="基本包装类型的对象生存期"><a href="#基本包装类型的对象生存期" class="headerlink" title="基本包装类型的对象生存期"></a>基本包装类型的对象生存期</h2><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="string">'skyline'</span></span><br><span class="line">s.age = <span class="number">23</span></span><br><span class="line"><span class="built_in">console</span>.log(s.age)</span><br></pre></td></tr></table></figure>
+<p>以上代码可以想象成如下代码周期，通过使用构造函数来模拟包装：</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%9F%BA%E6%9C%AC%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B20230221163543.png" alt="ES基本包装类型20230221163543"></p>
+<p>当最后访问s.age时相当于又包装了一个新的对象，故其age不存在。</p>
+<h2 id="构造函数与转型函数"><a href="#构造函数与转型函数" class="headerlink" title="构造函数与转型函数"></a>构造函数与转型函数</h2>
+        <!-- 
 
+
+常见的基本包装类型
+基本包装类型的对象生存期
+构造函数与转型函数
+BMW WARNING
+
+
+常见的基本包装类型常见的基本包装类型，包括Boolean、Number、String三种。其创建方式包括转型函数和字面量，不包含构造函数。引用类型与基本包装类型的主要区别就是对象的生存期。
+基本包装类型的对象生存期var s = 'skyline's.age = 23console.log(s......  -->
+        <p class="article-more-link">
+          <a href="/ES基本包装类型.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/高程/">高程</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>
@@ -671,6 +580,8 @@ BMW WARNING
 <li><a href="#tdztemporal-dead-zone">TDZ(Temporal Dead Zone)</a></li>
 </ul>
 </li>
+<li><a href="#函数创建">函数创建</a></li>
+<li><a href="#作用域链">作用域链</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
@@ -704,11 +615,13 @@ ES6 默认参数
 TDZ(Temporal Dead Zone)
 
 
+函数创建
+作用域链
 BMW WARNING
 
 
 函数的长度函数的长度等于形参的个数。
-function skyline(a, b, c)&#123;    console.log(`输入$&#123;arguments.length&#125......  -->
+function skyline(a, b, c)&#123;    console.log(`输入$&#123;arguments.l......  -->
         <p class="article-more-link">
           <a href="/ES函数.html#more">阅读全文</a>
         </p>

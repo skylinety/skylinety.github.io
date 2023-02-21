@@ -13,18 +13,18 @@
   
   
   
-  <meta name="description" content="正则对象 正则创建 双重转义 RegExp.prototype.exec() 正则标志   基本规则 正则使用 汇总表 匹配定长字符   BMW WARNING   正则对象正则创建正则创建有两种方式，对象字面量与构造函数。使用构造函数 RegExp 创建时接受两个参数。第一个是要匹配的字符串模式，第二个是可选的标识字符串。当创建的字符中包含元字符(正则中有特殊含义或功能的字符)时，要表示原">
+  <meta name="description" content="正则对象 正则创建 双重转义 RegExp.prototype.exec() 正则标志   基本规则 正则使用 基础使用汇总 匹配定长字符   BMW WARNING   正则对象正则创建正则创建有两种方式，对象字面量与构造函数。使用构造函数 RegExp 创建时接受两个参数。第一个是要匹配的字符串模式，第二个是可选的标识字符串。当创建的字符中包含元字符(正则中有特殊含义或功能的字符)时，要">
 <meta name="keywords" content="JS,ES,实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES常用正则">
 <meta property="og:url" content="http://www.skyline.show/ES常用正则.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="正则对象 正则创建 双重转义 RegExp.prototype.exec() 正则标志   基本规则 正则使用 汇总表 匹配定长字符   BMW WARNING   正则对象正则创建正则创建有两种方式，对象字面量与构造函数。使用构造函数 RegExp 创建时接受两个参数。第一个是要匹配的字符串模式，第二个是可选的标识字符串。当创建的字符中包含元字符(正则中有特殊含义或功能的字符)时，要表示原">
+<meta property="og:description" content="正则对象 正则创建 双重转义 RegExp.prototype.exec() 正则标志   基本规则 正则使用 基础使用汇总 匹配定长字符   BMW WARNING   正则对象正则创建正则创建有两种方式，对象字面量与构造函数。使用构造函数 RegExp 创建时接受两个参数。第一个是要匹配的字符串模式，第二个是可选的标识字符串。当创建的字符中包含元字符(正则中有特殊含义或功能的字符)时，要">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-02-09T08:55:25.000Z">
+<meta property="og:updated_time" content="2023-02-15T08:48:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES常用正则">
-<meta name="twitter:description" content="正则对象 正则创建 双重转义 RegExp.prototype.exec() 正则标志   基本规则 正则使用 汇总表 匹配定长字符   BMW WARNING   正则对象正则创建正则创建有两种方式，对象字面量与构造函数。使用构造函数 RegExp 创建时接受两个参数。第一个是要匹配的字符串模式，第二个是可选的标识字符串。当创建的字符中包含元字符(正则中有特殊含义或功能的字符)时，要表示原">
+<meta name="twitter:description" content="正则对象 正则创建 双重转义 RegExp.prototype.exec() 正则标志   基本规则 正则使用 基础使用汇总 匹配定长字符   BMW WARNING   正则对象正则创建正则创建有两种方式，对象字面量与构造函数。使用构造函数 RegExp 创建时接受两个参数。第一个是要匹配的字符串模式，第二个是可选的标识字符串。当创建的字符中包含元字符(正则中有特殊含义或功能的字符)时，要">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-09T08:55:25.000Z" itemprop="datePublished">2023-02-09</time>
+      <time datetime="2023-02-15T08:48:57.000Z" itemprop="datePublished">2023-02-15</time>
     </a><span style="color: #999">|</span>
 
       
@@ -214,7 +214,7 @@
 </li>
 <li><a href="#基本规则">基本规则</a></li>
 <li><a href="#正则使用">正则使用</a><ul>
-<li><a href="#汇总表">汇总表</a></li>
+<li><a href="#基础使用汇总">基础使用汇总</a></li>
 <li><a href="#匹配定长字符">匹配定长字符</a></li>
 </ul>
 </li>
@@ -242,7 +242,7 @@
 <li>非全局有子串</li>
 </ul>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">'Skyline should be hardworking(Skyline up up up)'</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/Sky(line)/</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str))</span><br><span class="line"><span class="comment">// ["Skyline", "line", index: 0, input: "Skyline should be hardworking(Skyline up up up)"]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str))</span><br><span class="line"><span class="comment">// ["Skyline", "line", index: 0, input: "Skyline should be hardworking(Skyline up up up)"]</span></span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg))</span><br><span class="line"><span class="comment">// ["Skyline", "line", index: 0, input: "Skyline should be hardworking(Skyline up up up)"]</span></span><br></pre></td></tr></table></figure>
-<p>未开启全局，多次执行返回结果一致。<br>此时函数的用法与 String.prototype.match 类似。<br>只能够在字符串中匹配一次，用于获取匹配的字符串。<br>如果没有找到匹配的字符串，那么返回 null。</p>
+<p>未开启全局，多次执行返回结果一致，<br>此时函数的用法与 String.prototype.match 类似，<br>只能够在字符串中匹配一次，用于获取匹配的字符串；<br>如果没有找到匹配的字符串，那么返回 null。</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">string.match(RegExpObject)</span><br></pre></td></tr></table></figure>
 <ul>
 <li>全局有子串</li>
@@ -263,7 +263,7 @@
 <li>i<br>忽略大小写标志。<br>通过 RegExp.prototype.ignore 来获取是否设定。</li>
 </ul>
 <p>全局标志通常配合 exec 和 replace 使用，前文已述。<br>粘滞标志通常和 test 配合使用，当粘滞设定，test 会从 lastIndex 处检索，每次检索更新 lastIndex 位置。</p>
-<h2 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a>基本规则</h2><h2 id="正则使用"><a href="#正则使用" class="headerlink" title="正则使用"></a>正则使用</h2><h3 id="汇总表"><a href="#汇总表" class="headerlink" title="汇总表"></a>汇总表</h3><table>
+<h2 id="基本规则"><a href="#基本规则" class="headerlink" title="基本规则"></a>基本规则</h2><h2 id="正则使用"><a href="#正则使用" class="headerlink" title="正则使用"></a>正则使用</h2><h3 id="基础使用汇总"><a href="#基础使用汇总" class="headerlink" title="基础使用汇总"></a>基础使用汇总</h3><table>
 <thead>
 <tr>
 <th>简述</th>
@@ -380,7 +380,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则对象"><span class="nav-number">1.</span> <span class="nav-text">正则对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则创建"><span class="nav-number">1.1.</span> <span class="nav-text">正则创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双重转义"><span class="nav-number">1.2.</span> <span class="nav-text">双重转义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RegExp-prototype-exec"><span class="nav-number">1.3.</span> <span class="nav-text">RegExp.prototype.exec()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则标志"><span class="nav-number">1.4.</span> <span class="nav-text">正则标志</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本规则"><span class="nav-number">2.</span> <span class="nav-text">基本规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则使用"><span class="nav-number">3.</span> <span class="nav-text">正则使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#汇总表"><span class="nav-number">3.1.</span> <span class="nav-text">汇总表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配定长字符"><span class="nav-number">3.2.</span> <span class="nav-text">匹配定长字符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则对象"><span class="nav-number">1.</span> <span class="nav-text">正则对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则创建"><span class="nav-number">1.1.</span> <span class="nav-text">正则创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双重转义"><span class="nav-number">1.2.</span> <span class="nav-text">双重转义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RegExp-prototype-exec"><span class="nav-number">1.3.</span> <span class="nav-text">RegExp.prototype.exec()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则标志"><span class="nav-number">1.4.</span> <span class="nav-text">正则标志</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本规则"><span class="nav-number">2.</span> <span class="nav-text">基本规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则使用"><span class="nav-number">3.</span> <span class="nav-text">正则使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础使用汇总"><span class="nav-number">3.1.</span> <span class="nav-text">基础使用汇总</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配定长字符"><span class="nav-number">3.2.</span> <span class="nav-text">匹配定长字符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>
