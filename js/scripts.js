@@ -159,6 +159,6 @@
   });
 
   $(document).ready(function() {
-    $("#articleInner").find('table').wrap("<div style='width:100%;overflow:scroll'></div>")
+    // $("#articleInner").find('table').wrap("<div style='width:100%;overflow:scroll'></div>")
   })
 })(jQuery);

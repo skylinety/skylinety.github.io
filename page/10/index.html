@@ -319,6 +319,99 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-CSS弹性布局主轴元素设置单独对齐方式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/CSS弹性布局主轴元素设置单独对齐方式.html">CSS弹性布局主轴元素设置单独对齐方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2018-07-30T07:14:56.000Z" itemprop="datePublished">2018-07-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#效果图示">效果图示</a></li>
+<li><a href="#效果实现">效果实现</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="效果图示"><a href="#效果图示" class="headerlink" title="效果图示"></a>效果图示</h2><p>灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。<br>通过设置特定属性将最后红框圈出的元素置于容器最右侧。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145752.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145752"><br>实现效果<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617145350.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617145350"></p>
+<h2 id="效果实现"><a href="#效果实现" class="headerlink" title="效果实现"></a>效果实现</h2><ul>
+<li>方案 1<br>为红框子元素设定如下属性</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  flex-grow: 1; //红框子项目将占据了所有剩余空间</span><br><span class="line">  display: flex; //将自身设置为flex,作为容器之后就可以单独对内部文字项目进行右对齐</span><br><span class="line">  justify-content: flex-end; // 单独对内部文字项目进行右对齐</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过浏览器检视如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%BC%B9%E6%80%A7%E5%B8%83%E5%B1%80flex%E4%B8%BB%E8%BD%B4%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E5%8D%95%E7%8B%AC%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F20220617150203.png" alt="CSS弹性布局flex主轴元素设置单独对齐方式20220617150203"></p>
+<ul>
+<li>方案 2</li>
+</ul>
+<p>将前 3 个子元素进行一层包裹，然后调整容器的 justify-content<br><code>justify-content: space-between</code></p>
+<ul>
+<li>方案 3</li>
+</ul>
+<p>为红框子项目添加如下属性</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">margin-left</span>: <span class="selector-tag">auto</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>方案 4</li>
+</ul>
+<p>为红框子项目添加如下属性</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.red</span> &#123;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">text-align</span>: right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
+        <!-- 
+
+
+效果图示
+效果实现
+BMW WARNING
+
+
+效果图示灰色为 flex 盒子，其水平方向的主轴内部有 4 个子元素。通过设置特定属性将最后红框圈出的元素置于容器最右侧。
+实现效果
+效果实现
+方案 1为红框子元素设定如下属性
+
+.red &#123;  flex-grow: 1; //红框子项目将占据了所有剩余空间  display: flex; //将自身设置为flex,作为容器之后......  -->
+        <p class="article-more-link">
+          <a href="/CSS弹性布局主轴元素设置单独对齐方式.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-ES继承的实现"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1260,155 +1353,6 @@ overflow-w......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中ls的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中ls的使用.html">Shell中ls的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-12-30T07:14:56.000Z" itemprop="datePublished">2017-12-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#基础使用">基础使用</a><ul>
-<li><a href="#参数">参数</a></li>
-<li><a href="#常见用法">常见用法</a></li>
-</ul>
-</li>
-<li><a href="#权限">权限</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>ls 即 list，列出目录内容</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>使用</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>ls -1</td>
-<td>换行列出文件</td>
-</tr>
-<tr>
-<td>l</td>
-<td>ls -l</td>
-<td>换行列出文件详细信息</td>
-</tr>
-<tr>
-<td>a</td>
-<td>ls -a</td>
-<td>列出所有文件，包括隐藏文件</td>
-</tr>
-<tr>
-<td>d</td>
-<td>ls -d</td>
-<td>列出当前目录本身，而不是其下内容</td>
-</tr>
-<tr>
-<td>h</td>
-<td>ls -h</td>
-<td>文件大小可读化输出，需要与 -l 配合使用</td>
-</tr>
-</tbody>
-</table>
-<h3 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h3>
-        <!-- 
-
-
-基础使用
-参数
-常见用法
-
-
-权限
-BMW WARNING
-
-
-基础使用参数ls 即 list，列出目录内容
-
-
-
-参数
-使用
-描述
-
-
-
-
-1
-ls -1
-换行列出文件
-
-
-l
-ls -l
-换行列出文件详细信息
-
-
-a
-ls -a
-列出所有文件，包括隐藏文件
-
-
-d
-ls -d
-列出当前目录本身，而不是其下内容
-
-
-h
-ls -h
-文件大小可读化输出，需要与 -l 配合使用
-
-
-
-常......  -->
-        <p class="article-more-link">
-          <a href="/Shell中ls的使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>
