@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-ES基础汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-ES简单类型"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES基础汇总.html">ES基础汇总</a>
+      <a class="article-title" href="/ES简单类型.html">ES简单类型</a>
     </h1>
   
 
@@ -352,13 +352,55 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#switch-语句">switch 语句</a></li>
-<li><a href="#js-与-es">JS 与 ES</a></li>
+<li><a href="#es-类型">ES 类型</a></li>
+<li><a href="#number">Number</a><ul>
+<li><a href="#number进制表示">Number进制表示</a></li>
+<li><a href="#nan">NaN</a></li>
+</ul>
+</li>
+<li><a href="#null--undefined">Null &amp; undefined</a><ul>
+<li><a href="#null-vs-undefined">null vs undefined</a></li>
+</ul>
+</li>
+<li><a href="#string">String</a><ul>
+<li><a href="#字符串替换">字符串替换</a></li>
+<li><a href="#字符串截取">字符串截取</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="switch-语句"><a href="#switch-语句" class="headerlink" title="switch 语句"></a>switch 语句</h2><p><strong>switch 使用的是全等判定</strong><br>通过为每个 case 语句后添加 break 来避免执行多个 case 的情况，合并多种情况时最好加入注释</p>
-<h2 id="JS-与-ES"><a href="#JS-与-ES" class="headerlink" title="JS 与 ES"></a>JS 与 ES</h2><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%9F%BA%E7%A1%80%E6%B1%87%E6%80%BB20220613142541.png" alt="ES基础汇总20220613142541"></p>
+<h2 id="ES-类型"><a href="#ES-类型" class="headerlink" title="ES 类型"></a>ES 类型</h2><p>ES 将会类型分为简单类型（原始类型）和复杂类型（结构类型）<br>其中常见的类型可用 typeof 进行简单判定。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Primitives:</span></span><br><span class="line"><span class="built_in">Boolean</span> : <span class="keyword">typeof</span> instance === <span class="string">"boolean"</span></span><br><span class="line"><span class="built_in">Number</span> : <span class="keyword">typeof</span> instance === <span class="string">"number"</span></span><br><span class="line"><span class="built_in">String</span> : <span class="keyword">typeof</span> instance === <span class="string">"string"</span></span><br><span class="line">BigInt : <span class="keyword">typeof</span> instance === <span class="string">"bigint"</span></span><br><span class="line"><span class="built_in">Symbol</span> : <span class="keyword">typeof</span> instance === <span class="string">"symbol"</span></span><br><span class="line"><span class="literal">undefined</span> : <span class="keyword">typeof</span> instance === <span class="string">"undefined"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Structural Types:</span></span><br><span class="line"><span class="built_in">Object</span> : <span class="keyword">typeof</span> instance === <span class="string">"object"</span></span><br><span class="line"><span class="built_in">Function</span> : <span class="keyword">typeof</span> instance === <span class="string">"function"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Structural Root Primitive:</span></span><br><span class="line"><span class="literal">null</span> : <span class="keyword">typeof</span> instance === <span class="string">"object"</span></span><br></pre></td></tr></table></figure>
+<p>对于复杂类型中 Array、RegExp 等对象的判定，要得到其明确类型而非’object’<br>需要使用<br><code>Object.prototype.toString.call</code><br>例如</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Array</span>: <span class="built_in">Object</span>.prototype.toString.call(instance) <span class="comment">//'[object Array]'</span></span><br><span class="line"><span class="built_in">RegExp</span>: <span class="built_in">Object</span>.prototype.toString.call(instance) <span class="comment">//'[object RegExp]'</span></span><br></pre></td></tr></table></figure>
+<h2 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h2><h3 id="Number进制表示"><a href="#Number进制表示" class="headerlink" title="Number进制表示"></a>Number进制表示</h3>
+        <!-- 
 
+
+ES 类型
+Number
+Number进制表示
+NaN
+
+
+Null &amp; undefined
+null vs undefined
+
+
+String
+字符串替换
+字符串截取
+
+
+BMW WARNING
+
+
+ES 类型ES 将会类型分为简单类型（原始类型）和复杂类型（结构类型）其中常见的类型可用 typeof 进行简单判定。
+// Primitives:Boolean : type......  -->
+        <p class="article-more-link">
+          <a href="/ES简单类型.html#more">阅读全文</a>
+        </p>
       
     </div>
     <footer class="article-footer">
