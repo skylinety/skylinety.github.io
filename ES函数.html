@@ -13,23 +13,23 @@
   
   
   
-  <meta name="description" content="函数的长度 函数参数 参数传递 按值传递 引用传递   ES6 默认参数 默认参数的影响 作用域前后变化 懒执行 TDZ(Temporal Dead Zone)   函数创建 作用域链 BMW WARNING   函数的长度函数的长度等于形参的个数。 function skyline(a, b, c)&amp;#123;    console.log(`输入$&amp;#123;arguments.leng">
+  <meta name="description" content="函数的长度 函数参数 参数传递 按值传递 引用传递   ES6 默认参数 默认参数的影响 作用域前后变化 懒执行 TDZ(Temporal Dead Zone)   函数创建 作用域链 箭头函数 BMW WARNING   函数的长度函数的长度等于形参的个数。 function skyline(a, b, c)&amp;#123;    console.log(`输入$&amp;#123;arguments">
 <meta name="keywords" content="JS,ES,语法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES函数">
 <meta property="og:url" content="http://www.skyline.show/ES函数.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="函数的长度 函数参数 参数传递 按值传递 引用传递   ES6 默认参数 默认参数的影响 作用域前后变化 懒执行 TDZ(Temporal Dead Zone)   函数创建 作用域链 BMW WARNING   函数的长度函数的长度等于形参的个数。 function skyline(a, b, c)&amp;#123;    console.log(`输入$&amp;#123;arguments.leng">
+<meta property="og:description" content="函数的长度 函数参数 参数传递 按值传递 引用传递   ES6 默认参数 默认参数的影响 作用域前后变化 懒执行 TDZ(Temporal Dead Zone)   函数创建 作用域链 箭头函数 BMW WARNING   函数的长度函数的长度等于形参的个数。 function skyline(a, b, c)&amp;#123;    console.log(`输入$&amp;#123;arguments">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613193938.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613194012.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020230210172132.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020230210172219.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020230210173242.png">
-<meta property="og:updated_time" content="2023-02-15T08:48:57.000Z">
+<meta property="og:updated_time" content="2023-03-02T06:02:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES函数">
-<meta name="twitter:description" content="函数的长度 函数参数 参数传递 按值传递 引用传递   ES6 默认参数 默认参数的影响 作用域前后变化 懒执行 TDZ(Temporal Dead Zone)   函数创建 作用域链 BMW WARNING   函数的长度函数的长度等于形参的个数。 function skyline(a, b, c)&amp;#123;    console.log(`输入$&amp;#123;arguments.leng">
+<meta name="twitter:description" content="函数的长度 函数参数 参数传递 按值传递 引用传递   ES6 默认参数 默认参数的影响 作用域前后变化 懒执行 TDZ(Temporal Dead Zone)   函数创建 作用域链 箭头函数 BMW WARNING   函数的长度函数的长度等于形参的个数。 function skyline(a, b, c)&amp;#123;    console.log(`输入$&amp;#123;arguments">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%87%BD%E6%95%B020220613193938.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
@@ -194,7 +194,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-15T08:48:57.000Z" itemprop="datePublished">2023-02-15</time>
+      <time datetime="2023-03-02T06:02:18.000Z" itemprop="datePublished">2023-03-02</time>
     </a><span style="color: #999">|</span>
 
       
@@ -227,6 +227,7 @@
 </li>
 <li><a href="#函数创建">函数创建</a></li>
 <li><a href="#作用域链">作用域链</a></li>
+<li><a href="#箭头函数">箭头函数</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
@@ -283,6 +284,27 @@
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">haha</span>(<span class="params">x = x</span>) </span>&#123;&#125;</span><br><span class="line">haha() <span class="comment">//Uncaught ReferenceError: Cannot access 'x' before initialization</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">skyline</span>(<span class="params">x = y, y</span>) </span>&#123;&#125;</span><br><span class="line">skyline(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">skyline(<span class="literal">undefined</span>, <span class="number">2</span>) <span class="comment">//Uncaught ReferenceError: Cannot access 'y' before initialization</span></span><br></pre></td></tr></table></figure>
 <h2 id="函数创建"><a href="#函数创建" class="headerlink" title="函数创建"></a>函数创建</h2><p>函数创建一般有函数声明与函数表达式两种方式。<br>函数表达式: <code>let fn1 = function() {}</code><br>函数声明: <code>function fn2() {}</code><br>Javascript 解析器会率先读取函数声明，在函数代码执行之前，已经将函数声明提升到执行环境，故可以在声明前执行。<br>但是，函数表达式提前执行会导致错误。</p>
 <h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><p>作用域链的作用是保证最执行环境有权访问的所有变量和函数的有序访问。<br>作用域链最前端始终都是当前代码所在环境的变量对象，而后一步一步向外成延伸，直到全局执行环境。<br>标志符解析是沿着作用域链一级一级搜索的过程，直到找到为止，故而位于作用域链最前端的变量作为当前环境的变量。</p>
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>ES6将函数的书写语法简单化，可以直接通过如下方式书写</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> skyline = <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">'skyline'</span></span><br></pre></td></tr></table></figure>
+<p>箭头函数需要注意如下几点：</p>
+<ul>
+<li>返回对象包裹</li>
+</ul>
+<p>当返回一个对象时，需要写return或用括号包裹</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> skyline = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;<span class="attr">name</span>: <span class="string">'skyline'</span>&#125;)</span><br><span class="line"><span class="comment">// const skyline = () =&gt; &#123;return &#123;name: 'skyline'&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>this指向改变</li>
+</ul>
+<p>this指向跟定义绑定而不是执行时</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> skyline = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sky</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> me = &#123;skyline,sky&#125;</span><br><span class="line">me.skyline()</span><br><span class="line"><span class="comment">// window</span></span><br><span class="line">me.sky()</span><br><span class="line"><span class="comment">// &#123;skyline: ƒ, sky: ƒ&#125;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>函数参数</li>
+</ul>
+<p>函数内部不可使用arguments，<br>可以用剩余参数符获取，并且得到的是一个数组而不是类数组。</p>
+<ul>
+<li>不做Generator</li>
+</ul>
+<p>不用使用yield命令，不用做Generator函数</p>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
@@ -378,7 +400,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的长度"><span class="nav-number">1.</span> <span class="nav-text">函数的长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数参数"><span class="nav-number">2.</span> <span class="nav-text">函数参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数传递"><span class="nav-number">3.</span> <span class="nav-text">参数传递</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按值传递"><span class="nav-number">3.1.</span> <span class="nav-text">按值传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用传递"><span class="nav-number">3.2.</span> <span class="nav-text">引用传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6-默认参数"><span class="nav-number">4.</span> <span class="nav-text">ES6 默认参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认参数的影响"><span class="nav-number">4.1.</span> <span class="nav-text">默认参数的影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域前后变化"><span class="nav-number">4.2.</span> <span class="nav-text">作用域前后变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#懒执行"><span class="nav-number">4.3.</span> <span class="nav-text">懒执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TDZ-Temporal-Dead-Zone"><span class="nav-number">4.4.</span> <span class="nav-text">TDZ(Temporal Dead Zone)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数创建"><span class="nav-number">5.</span> <span class="nav-text">函数创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域链"><span class="nav-number">6.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">7.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的长度"><span class="nav-number">1.</span> <span class="nav-text">函数的长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数参数"><span class="nav-number">2.</span> <span class="nav-text">函数参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数传递"><span class="nav-number">3.</span> <span class="nav-text">参数传递</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按值传递"><span class="nav-number">3.1.</span> <span class="nav-text">按值传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用传递"><span class="nav-number">3.2.</span> <span class="nav-text">引用传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6-默认参数"><span class="nav-number">4.</span> <span class="nav-text">ES6 默认参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认参数的影响"><span class="nav-number">4.1.</span> <span class="nav-text">默认参数的影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域前后变化"><span class="nav-number">4.2.</span> <span class="nav-text">作用域前后变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#懒执行"><span class="nav-number">4.3.</span> <span class="nav-text">懒执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TDZ-Temporal-Dead-Zone"><span class="nav-number">4.4.</span> <span class="nav-text">TDZ(Temporal Dead Zone)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数创建"><span class="nav-number">5.</span> <span class="nav-text">函数创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域链"><span class="nav-number">6.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数"><span class="nav-number">7.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">8.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

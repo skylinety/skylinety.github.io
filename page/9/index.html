@@ -319,6 +319,128 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#页面渲染">页面渲染</a><ul>
+<li><a href="#渲染流程">渲染流程</a></li>
+<li><a href="#渲染原理">渲染原理</a></li>
+<li><a href="#layout">Layout</a></li>
+<li><a href="#paint">Paint</a></li>
+</ul>
+</li>
+<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
+<li><a href="#回流触发">回流触发</a></li>
+<li><a href="#重绘触发">重绘触发</a></li>
+</ul>
+</li>
+<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
+<li><a href="#浏览器优化">浏览器优化</a></li>
+<li><a href="#代码优化">代码优化</a></li>
+</ul>
+</li>
+<li><a href="#像素管道">像素管道</a><ul>
+<li><a href="#像素管道组成">像素管道组成</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
+<ul>
+<li>解析 HTML 节点，创建 DOM 树</li>
+<li>解析 CSS 创建 CSSOM 树</li>
+<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
+<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
+<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
+<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
+</ul>
+</li>
+<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
+<li>Paint， 绘制 renderTree 到页面上</li>
+</ul>
+<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
+<h3 id="渲染原理"><a href="#渲染原理" class="headerlink" title="渲染原理"></a>渲染原理</h3>
+        <!-- 
+
+
+页面渲染
+渲染流程
+渲染原理
+Layout
+Paint
+
+
+回流与重绘触发
+回流触发
+重绘触发
+
+
+回流与重绘优化
+浏览器优化
+代码优化
+
+
+像素管道
+像素管道组成
+
+
+BMW WARNING
+
+
+页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
+
+解析 HTML 节点，创建 DOM 树
+解析 CSS 创建 CSSOM......  -->
+        <p class="article-more-link">
+          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Git常见操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -531,128 +653,6 @@ skyline=1echo '$skyline`echo 1`'#......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#页面渲染">页面渲染</a><ul>
-<li><a href="#渲染流程">渲染流程</a></li>
-<li><a href="#渲染原理">渲染原理</a></li>
-<li><a href="#layout">Layout</a></li>
-<li><a href="#paint">Paint</a></li>
-</ul>
-</li>
-<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
-<li><a href="#回流触发">回流触发</a></li>
-<li><a href="#重绘触发">重绘触发</a></li>
-</ul>
-</li>
-<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
-<li><a href="#浏览器优化">浏览器优化</a></li>
-<li><a href="#代码优化">代码优化</a></li>
-</ul>
-</li>
-<li><a href="#像素管道">像素管道</a><ul>
-<li><a href="#像素管道组成">像素管道组成</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
-<ul>
-<li>解析 HTML 节点，创建 DOM 树</li>
-<li>解析 CSS 创建 CSSOM 树</li>
-<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
-<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
-<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
-<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
-</ul>
-</li>
-<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
-<li>Paint， 绘制 renderTree 到页面上</li>
-</ul>
-<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820220420180352.png" alt="浏览器回流与重绘20220420180352"><br><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Refactor&amp;Optimization/Repaint.drawio" target="_blank" rel="noopener">图片源文件</a></p>
-<h3 id="渲染原理"><a href="#渲染原理" class="headerlink" title="渲染原理"></a>渲染原理</h3>
-        <!-- 
-
-
-页面渲染
-渲染流程
-渲染原理
-Layout
-Paint
-
-
-回流与重绘触发
-回流触发
-重绘触发
-
-
-回流与重绘优化
-浏览器优化
-代码优化
-
-
-像素管道
-像素管道组成
-
-
-BMW WARNING
-
-
-页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
-
-解析 HTML 节点，创建 DOM 树
-解析 CSS 创建 CSSOM......  -->
-        <p class="article-more-link">
-          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
 
     </footer>
   </div>
