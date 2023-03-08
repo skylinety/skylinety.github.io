@@ -319,7 +319,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-H5+微信移动支付配置"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-H5+开发常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -327,7 +327,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/H5+微信移动支付配置.html">H5+微信移动支付配置</a>
+      <a class="article-title" href="/H5+开发常见问题.html">H5+开发常见问题</a>
     </h1>
   
 
@@ -352,32 +352,33 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#关键代码">关键代码</a></li>
-<li><a href="#相关问题">相关问题</a></li>
+<li><a href="#h5">H5+</a></li>
+<li><a href="#plus-对象找不到">plus 对象找不到</a></li>
+<li><a href="#hbuilder-打包-app-点击手机返回键直接退出到桌面">hbuilder 打包 app 点击手机返回键直接退出到桌面</a></li>
+<li><a href="#hbuilder-打-ipa-包安装失败">Hbuilder 打 ipa 包安装失败</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><p>本文采用 dcloud 开源的 JSBridge 库 H5+，详情查阅官方文档<br><a href="http://www.html5plus.org/doc/h5p.html" target="_blank" rel="noopener">H5+ API</a><br>支付插件配置地址<a href="https://ask.dcloud.net.cn/article/71" target="_blank" rel="noopener">支付插件</a></p>
-<p>（框架 vue)</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      payType: <span class="string">'2'</span>,</span><br><span class="line">      payTypes: [</span><br><span class="line">       &#123;</span><br><span class="line">         <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">         key: <span class="string">'1'</span>,</span><br><span class="line">         value: <span class="string">'支付宝'</span></span><br><span class="line">       &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// icon: 'http://dn-placeholder.qbox.me/110x110/FF2D55/000',</span></span><br><span class="line">        key: <span class="string">'2'</span>,</span><br><span class="line">        value: <span class="string">'微信支付'</span></span><br><span class="line">      &#125;],</span><br><span class="line">      channels: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取服务</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    getSerivces() &#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">      plus.payment.getChannels(<span class="function"><span class="keyword">function</span>(<span class="params">channels</span>)</span>&#123;</span><br><span class="line">          me.channels=channels;</span><br><span class="line">      &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">          alert(<span class="string">"获取支付通道失败："</span>+e.message);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 支付 */</span></span><br><span class="line">    pay()&#123;</span><br><span class="line">      <span class="keyword">let</span> me = <span class="keyword">this</span>;</span><br><span class="line">      SelectPayType(&#123;<span class="attr">orderNum</span>: <span class="keyword">this</span>.activeOrderNum, <span class="attr">payType</span>: <span class="keyword">this</span>.payType&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.code == <span class="number">101</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> channel,</span><br><span class="line">            data = <span class="built_in">JSON</span>.parse(res.data);</span><br><span class="line"></span><br><span class="line">          <span class="keyword">var</span> payType = me.payType == <span class="string">'1'</span> ? <span class="string">'alipay'</span> : <span class="string">'wxpay'</span>;</span><br><span class="line"></span><br><span class="line">          me.channels.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">            val.id == payType &amp;&amp; (channel = val)</span><br><span class="line">          &#125;)</span><br><span class="line"></span><br><span class="line">          plus.payment.request(channel, data, <span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">            me.isShowPayTypes = <span class="literal">false</span>;</span><br><span class="line">            plus.nativeUI.alert(<span class="string">"支付成功！订单状态将在稍后更新，请不要重复付款"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                back();</span><br><span class="line">            &#125;);</span><br><span class="line">            me.jump(&#123;<span class="attr">name</span>:<span class="string">'订单详情'</span>,<span class="attr">query</span>:&#123;<span class="attr">orderNum</span>: me.activeOrderNum&#125;&#125;)</span><br><span class="line">          &#125;,<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">              plus.nativeUI.alert(<span class="string">"支付失败："</span> + error.code);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          me.$vux.toast.show(&#123;</span><br><span class="line">            text: res.message,</span><br><span class="line">            type: <span class="string">'warn'</span></span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  mounted()&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</span><br><span class="line">     <span class="keyword">this</span>.getSerivces()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">// getSerivces()</span></span><br><span class="line">     <span class="comment">// document.addEventListener('plusready', this.getSerivces,false)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//selectPayType是请求支付需要相关字段，需要查看相关平台接口文档，本文为微信，返回的字段如下</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"package"</span>: <span class="string">"Sign=WXPay"</span>,</span><br><span class="line">    <span class="string">"appid"</span>: <span class="string">"wx7xxxxxx4987f28"</span>,</span><br><span class="line">    <span class="string">"sign"</span>: <span class="string">"51B0ADxxxxx4E480486C70BD64BF44E1D"</span>,</span><br><span class="line">    <span class="string">"partnerid"</span>: <span class="string">"148xxx722"</span>,</span><br><span class="line">    <span class="string">"prepayid"</span>: <span class="string">"wx2017xxxxxx2fc85d2cc3c0205143628"</span>,</span><br><span class="line">    <span class="string">"noncestr"</span>: <span class="string">"k2xxxxx3X2D1O4YCz7Hn4s"</span>,</span><br><span class="line">    <span class="string">"timestamp"</span>: <span class="string">"1503312709"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h2><p>提示 支付失败：-100 支付失败：[payment 微信：-1] 的问题</p>
-<p>微信支付不能真机调试，只能打包安装测试，因为要 app 的真实签名。<br>真机调试用的是 dcloud 的调试基座 app 的 wx0411fa6a39d61297。<br>如果嫌打包麻烦，可以把后端返回的数据 appid 换成 wx0411fa6a39d61297<br>安卓平台下，首先查看微信开放平台配置的参数与提交打包的参数是否一致，主要包括(应用签名、包名)。<br>其中应用签名如果使用的 DCloud 公用证书则必须是“59201CF6589202CB2CDAB26752472112”。<br>开发信息<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/H5%2B%E5%BE%AE%E4%BF%A1%E7%A7%BB%E5%8A%A8%E6%94%AF%E4%BB%98%E9%85%8D%E7%BD%AE20220623180104.png" alt="H5+微信移动支付配置20220623180104"></p>
-<p>配置信息<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/H5%2B%E5%BE%AE%E4%BF%A1%E7%A7%BB%E5%8A%A8%E6%94%AF%E4%BB%98%E9%85%8D%E7%BD%AE20220623180222.png" alt="H5+微信移动支付配置20220623180222"></p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
+<h2 id="H5"><a href="#H5" class="headerlink" title="H5+"></a>H5+</h2><p>本文采用 dcloud 开源的 JSBridge 库 H5+，详情查阅官方文档<br><a href="http://www.html5plus.org/doc/h5p.html" target="_blank" rel="noopener">H5+ API</a></p>
+<h2 id="plus-对象找不到"><a href="#plus-对象找不到" class="headerlink" title="plus 对象找不到"></a>plus 对象找不到</h2><p>h5+ 通过暴露对象 plus 来提供相关 API。<br>开发时，只有移动端才会注入 plus 对象，需要依赖手机模拟器或者真机进行调试，直接网页端调试不会有该对象出现。<br>若 plus 对象找不到，一般来说是由于业务代码执行时，plus 对象尚未初始化完成。<br>通过<code>plusready</code>来保证初始化完成后执行业务代码<br>以 vue 为例，在项目入口文件中添加如下代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Vue.prototype.$plusExtends = <span class="function">(<span class="params">fn</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">window</span>.plus) &#123;</span><br><span class="line">    setTimeout(fn, <span class="number">0</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.addEventListener(<span class="string">'plusready'</span>, fn, <span class="literal">false</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>业务组件使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$plusExtends(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> cmr = <span class="built_in">window</span>.plus.xxx</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="hbuilder-打包-app-点击手机返回键直接退出到桌面"><a href="#hbuilder-打包-app-点击手机返回键直接退出到桌面" class="headerlink" title="hbuilder 打包 app 点击手机返回键直接退出到桌面"></a>hbuilder 打包 app 点击手机返回键直接退出到桌面</h2>
         <!-- 
 
 
-关键代码
-相关问题
+H5+
+plus 对象找不到
+hbuilder 打包 app 点击手机返回键直接退出到桌面
+Hbuilder 打 ipa 包安装失败
 BMW WARNING
 
 
-关键代码本文采用 dcloud 开源的 JSBridge 库 H5+，详情查阅官方文档H5+ API支付插件配置地址支付插件
-（框架 vue)
-data () &#123;    return &#123;      payType: '2',      payTypes: [       &#123;         // icon: ......  -->
+H5+本文采用 dcloud 开源的 JSBridge 库 H5+，详情查阅官方文档H5+ API
+plus 对象找不到h5+ 通过暴露对象 plus 来提供相关 API。开发时，只有移动端才会注入 plus 对象，需要依赖手......  -->
         <p class="article-more-link">
-          <a href="/H5+微信移动支付配置.html#more">阅读全文</a>
+          <a href="/H5+开发常见问题.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -561,38 +562,55 @@ CSS 行溢出省略号单行溢出省略号div &#123;  width: 100px;  overflow: 
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#编程术语">编程术语</a><ul>
+<li><a href="#web领域">Web领域</a><ul>
+<li><a href="#前端工程化">前端工程化</a></li>
+<li><a href="#大前端">大前端</a></li>
+<li><a href="#微前端">微前端</a></li>
+</ul>
+</li>
+<li><a href="#软件工程领域">软件工程领域</a><ul>
 <li><a href="#鸭子类型">鸭子类型</a></li>
 <li><a href="#函数重载">函数重载</a></li>
 <li><a href="#函数签名">函数签名</a></li>
 </ul>
 </li>
-<li><a href="#网络安全术语">网络安全术语</a><ul>
+<li><a href="#网络安全领域">网络安全领域</a><ul>
 <li><a href="#沙盒沙箱">沙盒（沙箱）</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="编程术语"><a href="#编程术语" class="headerlink" title="编程术语"></a>编程术语</h2><h3 id="鸭子类型"><a href="#鸭子类型" class="headerlink" title="鸭子类型"></a>鸭子类型</h3><p>当看到一只鸟包含当前关注的所有鸭子的特征，即走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子类型。<br>以TypeScript类型系统为例：<br>TypeScript 选择了一种基于属性的类型系统（Structural type system）。<br>这种类型系统不再关注一个变量被标称的类型（由哪一个构造器构造），而是 在进行类型检查时，将对象拆开，逐个去比较组成这个对象的每一个属性或方法。<br>如果一个对象有着一个类型所要求的所有属性或方法，那么类型检查通过，实际编程时就可以当作这个类型来使用。</p>
-<h3 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h3>
+<h2 id="Web领域"><a href="#Web领域" class="headerlink" title="Web领域"></a>Web领域</h2><h3 id="前端工程化"><a href="#前端工程化" class="headerlink" title="前端工程化"></a>前端工程化</h3><p>在前后端未分离时代，前端能做的工作很少，<br>开发基本的展示页面，另外涉及少量的页面交互逻辑，<br>相比后端，只能算整个大的项目工程中的一小部分。<br>随着现代应用的复杂化，前端需要承担的职责和开发工作越来越多，前后端开始分离。</p>
+<p>前端工程化是将软件工程中的原理与思路用在前端开发上使前端被单独视作一个工程，<br>从而让前端软件易于迭代，便于维护，高效开发，质量可靠。</p>
+<p>前端工程化的前提是前后端分离。<br>在现代前端中，需要做到：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">基本展示页面开发</span><br><span class="line"></span><br><span class="line">页面完整交互逻辑与页面特效</span><br><span class="line"></span><br><span class="line">基础项目构建（gulp、webpack、rollup）</span><br><span class="line"></span><br><span class="line">JS预编译(TS、JSX、TSX)</span><br><span class="line"></span><br><span class="line">CSS预编译（SCSS、Less）</span><br><span class="line"></span><br><span class="line">代码体积压缩(uglyJS)</span><br><span class="line"></span><br><span class="line">前端请求代理，接口数据模拟(Mock)</span><br><span class="line"></span><br><span class="line">代码模块化开发(RequireJS、ES6)</span><br><span class="line"></span><br><span class="line">代码打包部署(webpack、vue-cli)</span><br><span class="line"></span><br><span class="line">前端项目版本迭代</span><br><span class="line"></span><br><span class="line">前端性能监控</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>前端需要承担日益增加的职责，也就一步步向工程化演进。<br>这些开发过程职责合起来就是一个较大的工程。<br>这些前端职责随着发展不断演变引入的，后续也会有不同的新职责随着演变不断更新。</p>
+<h3 id="大前端"><a href="#大前端" class="headerlink" title="大前端"></a>大前端</h3>
         <!-- 
 
 
-编程术语
+Web领域
+前端工程化
+大前端
+微前端
+
+
+软件工程领域
 鸭子类型
 函数重载
 函数签名
 
 
-网络安全术语
+网络安全领域
 沙盒（沙箱）
 
 
 BMW WARNING
 
 
-编程术语鸭子类型当看到一只鸟包含当前关注的所有鸭子的特征，即走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子类型。以TypeScript类型系统为例：TypeScript 选择了一种基于属性的类型系统（Structural type system）。这种类型系......  -->
+Web领域前端工程化在前后端未分离时代，前端能做的工作很少，开发基本的展示页面，另外涉及少量的页面交互逻辑，相比后端，只能算整个大的项目工程中的一小部分。随着现代应用的复杂化，前端需要承担的职责和开发工作越来越多，前后端开始分离。
+前端......  -->
         <p class="article-more-link">
           <a href="/计算机常见术语.html#more">阅读全文</a>
         </p>
