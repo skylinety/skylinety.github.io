@@ -319,6 +319,185 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Shell中chmod的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中chmod的使用.html">Shell中chmod的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-28T02:03:33.000Z" itemprop="datePublished">2022-06-28</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#文件权限">文件权限</a><ul>
+<li><a href="#权限查看">权限查看</a></li>
+<li><a href="#权属调整">权属调整</a></li>
+</ul>
+</li>
+<li><a href="#使用字符赋权">使用字符赋权</a><ul>
+<li><a href="#字符含义">字符含义</a></li>
+<li><a href="#添加权限">添加权限</a></li>
+<li><a href="#删除权限">删除权限</a></li>
+<li><a href="#赋予权限">赋予权限</a></li>
+</ul>
+</li>
+<li><a href="#使用数字赋权">使用数字赋权</a></li>
+<li><a href="#特殊权限">特殊权限</a><ul>
+<li><a href="#权限进阶">权限进阶</a></li>
+<li><a href="#suid">SUID</a></li>
+<li><a href="#sgid">SGID</a></li>
+<li><a href="#sticky-bit">Sticky bit</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h2><h3 id="权限查看"><a href="#权限查看" class="headerlink" title="权限查看"></a>权限查看</h3><p>通过<code>ls -lh</code>命令可以查看文件权限</p>
+<p>已拿到某个文件夹的权限<code>drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs</code>为例，其含义如下</p>
+<table>
+<thead>
+<tr>
+<th>文件格式</th>
+<th>所有者权限(u)</th>
+<th>群组权限(g)</th>
+<th>其他人权限(o)</th>
+<th>ACL 权限</th>
+<th>引用计数</th>
+<th>所有者</th>
+<th>所在组</th>
+<th>大小</th>
+<th>最后修改日期</th>
+<th>文件名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>d</td>
+<td>rwx</td>
+<td>r-x</td>
+<td>r-x</td>
+<td>+</td>
+<td>5</td>
+<td>macmini</td>
+<td>staff</td>
+<td>238B</td>
+<td>Jun 15 16:39</td>
+<td>Docs</td>
+</tr>
+</tbody>
+</table>
+<p>第一位为文件格式，其字符含义对照如下</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>文件</td>
+</tr>
+<tr>
+<td>d</td>
+<td>文件夹（directory）</td>
+</tr>
+<tr>
+<td>l</td>
+<td>连接（link）</td>
+</tr>
+<tr>
+<td>c</td>
+<td>字符设备（char）</td>
+</tr>
+<tr>
+<td>b</td>
+<td>块设备（block）</td>
+</tr>
+<tr>
+<td>s</td>
+<td>套接字（sockets）</td>
+</tr>
+<tr>
+<td>p</td>
+<td>管道（pipe）</td>
+</tr>
+</tbody>
+</table>
+<p>其余 2-10 位位权限位，以 3 个为 1 组，且均为『rwx』 的 3 个参数的组合。</p>
+<p>要注意的是，这三个权限的位置不会改变，如果没有权限，该位置以[ - ]占位。</p>
+<h3 id="权属调整"><a href="#权属调整" class="headerlink" title="权属调整"></a>权属调整</h3>
+        <!-- 
+
+
+文件权限
+权限查看
+权属调整
+
+
+使用字符赋权
+字符含义
+添加权限
+删除权限
+赋予权限
+
+
+使用数字赋权
+特殊权限
+权限进阶
+SUID
+SGID
+Sticky bit
+
+
+BMW WARNING
+
+
+文件权限权限查看通过ls -lh命令可以查看文件权限
+已拿到某个文件夹的权限drwxr-xr-x+ 7 macmini staff 238B Jun 15 16:39 Docs为例，其含义......  -->
+        <p class="article-more-link">
+          <a href="/Shell中chmod的使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-ES文件下载实现"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -388,6 +567,59 @@ BMW WARNING
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-PicGo"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/PicGo.html">PicGo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:05.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="程序员的笔记"><a href="#程序员的笔记" class="headerlink" title="程序员的笔记"></a>程序员的笔记</h2><p>VSCode 编辑器的 Web 版 上线极大的方便了在 GitHub 上做笔记，在 Github 仓库主页，按一下小数点（.）这个键，或将地址栏的 com 换成 dev 即可。<br>在市面的大多数笔记软件中，Quiver Markdown 优化不错，但是同步基本没有，并且官方近两年没更新。Notion 用户界面比较舒适，但是基本不支持 Markdown 语法。<br>Notion 笔记示例 如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PicGo20210918152058.png" alt="PicGo20210918152058"></p>
+<p>如 Quiver 一样，大多数笔记软件导出 Markdown 会将图片集中一个单独的文件，如果想要把导出的 Markdown 用在其他地方，不等不同时拷贝对应的图片的本地文件夹，将笔记中的图片放在图床中，是一个很好的处理方式。<br>PicGo 作为一个图床上传工具，在 VSCode 提供了对应的插件</p>
+<h2 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h2><h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3>
+        <!-- 程序员的笔记VSCode 编辑器的 Web 版 上线极大的方便了在 GitHub 上做笔记，在 Github 仓库主页，按一下小数点（.）这个键，或将地址栏的 com 换成 dev 即可。在市面的大多数笔记软件中，Quiver Markdown 优化不错，但是同步基本没有，并且官方近两年没更新。Notion 用户界面比较舒适，但是基本不支持 Markdown 语法。Notion 笔记示例 如......  -->
+        <p class="article-more-link">
+          <a href="/PicGo.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Extensions/">Extensions</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VSCode/">VSCode</a></li></ul>
 
     </footer>
   </div>
@@ -498,7 +730,7 @@ git reflog show &lt;bra......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-PicGo"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Charles抓取Https包"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -506,7 +738,7 @@ git reflog show &lt;bra......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/PicGo.html">PicGo</a>
+      <a class="article-title" href="/Charles抓取Https包.html">Charles抓取Https包</a>
     </h1>
   
 
@@ -515,7 +747,7 @@ git reflog show &lt;bra......  -->
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:05.000Z" itemprop="datePublished">2022-06-21</time>
+      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
     </a>
 
 
@@ -528,12 +760,47 @@ git reflog show &lt;bra......  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="程序员的笔记"><a href="#程序员的笔记" class="headerlink" title="程序员的笔记"></a>程序员的笔记</h2><p>VSCode 编辑器的 Web 版 上线极大的方便了在 GitHub 上做笔记，在 Github 仓库主页，按一下小数点（.）这个键，或将地址栏的 com 换成 dev 即可。<br>在市面的大多数笔记软件中，Quiver Markdown 优化不错，但是同步基本没有，并且官方近两年没更新。Notion 用户界面比较舒适，但是基本不支持 Markdown 语法。<br>Notion 笔记示例 如下<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/PicGo20210918152058.png" alt="PicGo20210918152058"></p>
-<p>如 Quiver 一样，大多数笔记软件导出 Markdown 会将图片集中一个单独的文件，如果想要把导出的 Markdown 用在其他地方，不等不同时拷贝对应的图片的本地文件夹，将笔记中的图片放在图床中，是一个很好的处理方式。<br>PicGo 作为一个图床上传工具，在 VSCode 提供了对应的插件</p>
-<h2 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h2><h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3>
-        <!-- 程序员的笔记VSCode 编辑器的 Web 版 上线极大的方便了在 GitHub 上做笔记，在 Github 仓库主页，按一下小数点（.）这个键，或将地址栏的 com 换成 dev 即可。在市面的大多数笔记软件中，Quiver Markdown 优化不错，但是同步基本没有，并且官方近两年没更新。Notion 用户界面比较舒适，但是基本不支持 Markdown 语法。Notion 笔记示例 如......  -->
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#抓取手机基础包">抓取手机基础包</a><ul>
+<li><a href="#mac-配置">Mac 配置</a></li>
+<li><a href="#手机端配置">手机端配置</a></li>
+</ul>
+</li>
+<li><a href="#https-抓包">Https 抓包</a><ul>
+<li><a href="#ssl-代理配置">SSL 代理配置</a></li>
+<li><a href="#mac-安装证书">Mac 安装证书</a></li>
+<li><a href="#手机安装证书">手机安装证书</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="抓取手机基础包"><a href="#抓取手机基础包" class="headerlink" title="抓取手机基础包"></a>抓取手机基础包</h2><h3 id="Mac-配置"><a href="#Mac-配置" class="headerlink" title="Mac 配置"></a>Mac 配置</h3><p>查看或配置 Mac 代理端口<br>Proxy &gt; Proxy Settings &gt; Port<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Charles%E6%8A%93%E5%8F%96Https%E5%8C%8520220221153215.png" alt="Charles抓取Https包20220221153215"></p>
+<h3 id="手机端配置"><a href="#手机端配置" class="headerlink" title="手机端配置"></a>手机端配置</h3>
+        <!-- 
+
+
+抓取手机基础包
+Mac 配置
+手机端配置
+
+
+Https 抓包
+SSL 代理配置
+Mac 安装证书
+手机安装证书
+
+
+BMW WARNING
+
+
+抓取手机基础包Mac 配置查看或配置 Mac 代理端口Proxy &gt; Proxy Settings &gt; Port
+手机端配置
+连接 Mac 统一网络，点击网络后的 i 图标，在 配置代理时选择手动，查看 Mac 地址，并将 Mac......  -->
         <p class="article-more-link">
-          <a href="/PicGo.html#more">阅读全文</a>
+          <a href="/Charles抓取Https包.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -541,7 +808,7 @@ git reflog show &lt;bra......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Extensions/">Extensions</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VSCode/">VSCode</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Charles/">Charles</a></li></ul>
 
     </footer>
   </div>
@@ -626,94 +893,6 @@ I am a bucolic migra......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Photoshop/">Photoshop</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Charles抓取Https包"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Charles抓取Https包.html">Charles抓取Https包</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:04.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#抓取手机基础包">抓取手机基础包</a><ul>
-<li><a href="#mac-配置">Mac 配置</a></li>
-<li><a href="#手机端配置">手机端配置</a></li>
-</ul>
-</li>
-<li><a href="#https-抓包">Https 抓包</a><ul>
-<li><a href="#ssl-代理配置">SSL 代理配置</a></li>
-<li><a href="#mac-安装证书">Mac 安装证书</a></li>
-<li><a href="#手机安装证书">手机安装证书</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="抓取手机基础包"><a href="#抓取手机基础包" class="headerlink" title="抓取手机基础包"></a>抓取手机基础包</h2><h3 id="Mac-配置"><a href="#Mac-配置" class="headerlink" title="Mac 配置"></a>Mac 配置</h3><p>查看或配置 Mac 代理端口<br>Proxy &gt; Proxy Settings &gt; Port<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Charles%E6%8A%93%E5%8F%96Https%E5%8C%8520220221153215.png" alt="Charles抓取Https包20220221153215"></p>
-<h3 id="手机端配置"><a href="#手机端配置" class="headerlink" title="手机端配置"></a>手机端配置</h3>
-        <!-- 
-
-
-抓取手机基础包
-Mac 配置
-手机端配置
-
-
-Https 抓包
-SSL 代理配置
-Mac 安装证书
-手机安装证书
-
-
-BMW WARNING
-
-
-抓取手机基础包Mac 配置查看或配置 Mac 代理端口Proxy &gt; Proxy Settings &gt; Port
-手机端配置
-连接 Mac 统一网络，点击网络后的 i 图标，在 配置代理时选择手动，查看 Mac 地址，并将 Mac......  -->
-        <p class="article-more-link">
-          <a href="/Charles抓取Https包.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Charles/">Charles</a></li></ul>
 
     </footer>
   </div>
@@ -921,6 +1100,72 @@ Widget build(BuildContext context) &#123;  return WillPopScope(      onWillPop: 
 <!-- Table of Contents -->
 
   
+    <article id="post-ElementUI相关使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ElementUI相关使用.html">ElementUI相关使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Form-使用"><a href="#Form-使用" class="headerlink" title="Form 使用"></a>Form 使用</h2><h3 id="Form-校验"><a href="#Form-校验" class="headerlink" title="Form 校验"></a>Form 校验</h3><p>validate 函数回调不执行</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$refs[formName].validate(<span class="function">(<span class="params">valid</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">' submit!!'</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'error submit!!'</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>执行打印后，无相关打印信息。<br>出现这种问题的原因多为自定义校验规则的函数没有执行 callback 回调。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> validatePassword = <span class="function">(<span class="params">rule, value, callback</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (value === <span class="string">''</span>) &#123;</span><br><span class="line">    callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'请输入密码'</span>)) <span class="comment">// 检查</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.ruleForm.checkPass !== <span class="string">''</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$refs.ruleForm.validateField(<span class="string">'checkPass'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    callback() <span class="comment">// 检查</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述检查无问题，检查是否为 JSX 写法，JSX 写法下 model 传值不能如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    v-model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    rules=&#123;<span class="keyword">this</span>.rules&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>通过如上方式，无法将 model 值传入<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ElementUI%E7%9B%B8%E5%85%B3%E4%BD%BF%E7%94%A820220314204155.png" alt="ElementUI相关使用20220314204155"><br>将传值方式更改为 props 传值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    props=&#123;&#123;</span><br><span class="line">        model: <span class="keyword">this</span>.params,</span><br><span class="line">        rules: <span class="keyword">this</span>.rules,</span><br><span class="line">    &#125;&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>原因多在于 Vue 对于 JSX 语法支持的问题。<br>另一个类似而常见的问题在于 ElementUI 占用了 props 传值导致的问题<br>例如一个 ElTree 的例子。<br>其 data 为</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    departments:[</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        children: [],</span><br><span class="line">        deptName: <span class="string">'教育部'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">    defaultProps: &#123;</span><br><span class="line">      children: <span class="string">'children'</span>,</span><br><span class="line">      label: <span class="string">'deptName'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>各属性使用如下方式传值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;<span class="keyword">this</span>.defaultProps&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码并不能将 label 正确地展示出来<br>应调整为如下写法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;&#123;</span><br><span class="line">    props: <span class="keyword">this</span>.defaultProps,</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Form-表单数字"><a href="#Form-表单数字" class="headerlink" title="Form 表单数字"></a>Form 表单数字</h3>
+        <!-- Form 使用Form 校验validate 函数回调不执行
+this.$refs[formName].validate((valid) =&gt; &#123;  if (valid) &#123;    console.log(' submit!!')  &#125; else &#123;    console.log('error submit!!')    return false......  -->
+        <p class="article-more-link">
+          <a href="/ElementUI相关使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-JS垃圾回收机制"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -999,128 +1244,6 @@ BMW WARNING
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ElementUI相关使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ElementUI相关使用.html">ElementUI相关使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Form-使用"><a href="#Form-使用" class="headerlink" title="Form 使用"></a>Form 使用</h2><h3 id="Form-校验"><a href="#Form-校验" class="headerlink" title="Form 校验"></a>Form 校验</h3><p>validate 函数回调不执行</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$refs[formName].validate(<span class="function">(<span class="params">valid</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">' submit!!'</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'error submit!!'</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>执行打印后，无相关打印信息。<br>出现这种问题的原因多为自定义校验规则的函数没有执行 callback 回调。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> validatePassword = <span class="function">(<span class="params">rule, value, callback</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (value === <span class="string">''</span>) &#123;</span><br><span class="line">    callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'请输入密码'</span>)) <span class="comment">// 检查</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.ruleForm.checkPass !== <span class="string">''</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$refs.ruleForm.validateField(<span class="string">'checkPass'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    callback() <span class="comment">// 检查</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述检查无问题，检查是否为 JSX 写法，JSX 写法下 model 传值不能如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    v-model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    rules=&#123;<span class="keyword">this</span>.rules&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-<p>通过如上方式，无法将 model 值传入<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ElementUI%E7%9B%B8%E5%85%B3%E4%BD%BF%E7%94%A820220314204155.png" alt="ElementUI相关使用20220314204155"><br>将传值方式更改为 props 传值</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    props=&#123;&#123;</span><br><span class="line">        model: <span class="keyword">this</span>.params,</span><br><span class="line">        rules: <span class="keyword">this</span>.rules,</span><br><span class="line">    &#125;&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-<p>原因多在于 Vue 对于 JSX 语法支持的问题。<br>另一个类似而常见的问题在于 ElementUI 占用了 props 传值导致的问题<br>例如一个 ElTree 的例子。<br>其 data 为</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    departments:[</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        children: [],</span><br><span class="line">        deptName: <span class="string">'教育部'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">    defaultProps: &#123;</span><br><span class="line">      children: <span class="string">'children'</span>,</span><br><span class="line">      label: <span class="string">'deptName'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<p>各属性使用如下方式传值</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;<span class="keyword">this</span>.defaultProps&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
-<p>上述代码并不能将 label 正确地展示出来<br>应调整为如下写法</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;&#123;</span><br><span class="line">    props: <span class="keyword">this</span>.defaultProps,</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="Form-表单数字"><a href="#Form-表单数字" class="headerlink" title="Form 表单数字"></a>Form 表单数字</h3>
-        <!-- Form 使用Form 校验validate 函数回调不执行
-this.$refs[formName].validate((valid) =&gt; &#123;  if (valid) &#123;    console.log(' submit!!')  &#125; else &#123;    console.log('error submit!!')    return false......  -->
-        <p class="article-more-link">
-          <a href="/ElementUI相关使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ES基础汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES基础汇总.html">ES基础汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-21T10:02:02.000Z" itemprop="datePublished">2022-06-21</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#switch-语句">switch 语句</a></li>
-<li><a href="#js-与-es">JS 与 ES</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="switch-语句"><a href="#switch-语句" class="headerlink" title="switch 语句"></a>switch 语句</h2><p><strong>switch 使用的是全等判定</strong><br>通过为每个 case 语句后添加 break 来避免执行多个 case 的情况，合并多种情况时最好加入注释</p>
-<h2 id="JS-与-ES"><a href="#JS-与-ES" class="headerlink" title="JS 与 ES"></a>JS 与 ES</h2><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E5%9F%BA%E7%A1%80%E6%B1%87%E6%80%BB20220613142541.png" alt="ES基础汇总20220613142541"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>
