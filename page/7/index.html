@@ -319,6 +319,96 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-ES类的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES类的使用.html">ES类的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#静态类实例原型属性与方法">静态（类）、实例、原型属性与方法</a><ul>
+<li><a href="#es5">ES5</a></li>
+<li><a href="#es6">ES6</a></li>
+<li><a href="#属性访问结论">属性访问结论</a></li>
+</ul>
+</li>
+<li><a href="#class">Class</a><ul>
+<li><a href="#原型方法语法糖">原型方法语法糖</a></li>
+<li><a href="#class-中属性与方法的枚举性质">Class 中属性与方法的枚举性质</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="静态（类）、实例、原型属性与方法"><a href="#静态（类）、实例、原型属性与方法" class="headerlink" title="静态（类）、实例、原型属性与方法"></a>静态（类）、实例、原型属性与方法</h2><h3 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h3><p>Baby 类</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对象构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Baby</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> className = <span class="string">"Baby"</span>;</span><br><span class="line">  <span class="comment">//实例属性，每个实例私有，在对象实例化后调用，实例属性在对象实力化后创建</span></span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.weight = <span class="string">"3kg"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg()); <span class="comment">//使用原型方法扩充的方法可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.sex); <span class="comment">//使用原型方法扩充的属性可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(Baby.age, <span class="keyword">this</span>.age); <span class="comment">//静态属性调用时格式为[对象.静态属性]</span></span><br><span class="line">  &#125;; <span class="comment">//对象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类方法 (实际是静态方法直接调用)，只有类才能访问类方法，实例不能访问 ，在类方法中通过this只能访问类属性不能访问其他属性，即在本例中，Run方法只能访问到this.age</span></span><br><span class="line">Baby.Run = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"跑起来！！！"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型方法，如果原型方法当作静态方法直接调用时，this.name无法被调用</span></span><br><span class="line">Baby.prototype.msg = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"我叫："</span> + <span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类属性 在类的外部。公有静态属性不能使用 【this.属性】，只能使用 【对象.属性】 调用，只有类才能访问类属性，实例不能访问</span></span><br><span class="line">Baby.age = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型属性，所有实例共有，【this.属性】这种写法访问时，先会访问实例对象属性，没有实例对象属性就会访问原型属性 ，也可以当成公有静态属性使用【对象.prototype.原型属性。</span></span><br><span class="line">Baby.prototype.sex = <span class="string">"男娃娃"</span>;</span><br></pre></td></tr></table></figure>
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//实例方法和原型方法需要实例化对象后才可以使</span></span><br><span class="line"><span class="keyword">var</span> bob = <span class="keyword">new</span> Baby(<span class="string">"bob"</span>);</span><br><span class="line">Baby.name;</span><br><span class="line"><span class="comment">//"Baby" :每一个类都有一个基本的name属性</span></span><br><span class="line"></span><br><span class="line">bob.name;</span><br><span class="line"><span class="comment">//"bob"</span></span><br><span class="line"></span><br><span class="line">Baby.weight;</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line">bob.weight;</span><br><span class="line"><span class="comment">//"3kg"</span></span><br><span class="line"></span><br><span class="line">Baby.hello();</span><br><span class="line"><span class="comment">//Uncaught TypeError: Baby.hello is not a function</span></span><br><span class="line"></span><br><span class="line">bob.hello();</span><br><span class="line"><span class="comment">// bob</span></span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">// undefined :this.msg没有返回所以undefined</span></span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">// 20 undefined</span></span><br><span class="line"></span><br><span class="line">Baby.Run(); <span class="comment">//跑起来！！！</span></span><br><span class="line"><span class="comment">//类方法也是静态方法，可以直接使用 【对象.静态方法()】</span></span><br><span class="line"></span><br><span class="line">bob.run(); <span class="comment">// TypeError: bob.run is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.msg();</span><br><span class="line"><span class="comment">// Uncaught TypeError: Baby.msg is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg();</span><br><span class="line"><span class="comment">// 我叫：undefined</span></span><br><span class="line"><span class="comment">//原型方法当成静态方法使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">bob.msg();</span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">//原型方法必须实例化对象</span></span><br><span class="line"></span><br><span class="line">bob.age;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="comment">//错误，公有静态属性只能使用 【对象.属性】调用</span></span><br><span class="line"></span><br><span class="line">Baby.age;</span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">//原型属性当作静态属性使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">Baby.sex;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">bob.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br></pre></td></tr></table></figure>
+<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3>
+        <!-- 
+
+
+静态（类）、实例、原型属性与方法
+ES5
+ES6
+属性访问结论
+
+
+Class
+原型方法语法糖
+Class 中属性与方法的枚举性质
+
+
+BMW WARNING
+
+
+静态（类）、实例、原型属性与方法ES5Baby 类
+//对象构造函数function Baby(name) &#123;  var className = "Baby";  //实例属性，每个实例私有，在对象实例化后调用，实......  -->
+        <p class="article-more-link">
+          <a href="/ES类的使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-CentOS利用systemd开启后台进程"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -414,96 +504,6 @@ vi /etc/syst......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-ES类的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES类的使用.html">ES类的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#静态类实例原型属性与方法">静态（类）、实例、原型属性与方法</a><ul>
-<li><a href="#es5">ES5</a></li>
-<li><a href="#es6">ES6</a></li>
-<li><a href="#属性访问结论">属性访问结论</a></li>
-</ul>
-</li>
-<li><a href="#class">Class</a><ul>
-<li><a href="#原型方法语法糖">原型方法语法糖</a></li>
-<li><a href="#class-中属性与方法的枚举性质">Class 中属性与方法的枚举性质</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="静态（类）、实例、原型属性与方法"><a href="#静态（类）、实例、原型属性与方法" class="headerlink" title="静态（类）、实例、原型属性与方法"></a>静态（类）、实例、原型属性与方法</h2><h3 id="ES5"><a href="#ES5" class="headerlink" title="ES5"></a>ES5</h3><p>Baby 类</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//对象构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Baby</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> className = <span class="string">"Baby"</span>;</span><br><span class="line">  <span class="comment">//实例属性，每个实例私有，在对象实例化后调用，实例属性在对象实力化后创建</span></span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.weight = <span class="string">"3kg"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg()); <span class="comment">//使用原型方法扩充的方法可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.sex); <span class="comment">//使用原型方法扩充的属性可以在类内部使用</span></span><br><span class="line">    <span class="built_in">console</span>.log(Baby.age, <span class="keyword">this</span>.age); <span class="comment">//静态属性调用时格式为[对象.静态属性]</span></span><br><span class="line">  &#125;; <span class="comment">//对象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类方法 (实际是静态方法直接调用)，只有类才能访问类方法，实例不能访问 ，在类方法中通过this只能访问类属性不能访问其他属性，即在本例中，Run方法只能访问到this.age</span></span><br><span class="line">Baby.Run = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"跑起来！！！"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型方法，如果原型方法当作静态方法直接调用时，this.name无法被调用</span></span><br><span class="line">Baby.prototype.msg = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"我叫："</span> + <span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//类属性 在类的外部。公有静态属性不能使用 【this.属性】，只能使用 【对象.属性】 调用，只有类才能访问类属性，实例不能访问</span></span><br><span class="line">Baby.age = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//原型属性，所有实例共有，【this.属性】这种写法访问时，先会访问实例对象属性，没有实例对象属性就会访问原型属性 ，也可以当成公有静态属性使用【对象.prototype.原型属性。</span></span><br><span class="line">Baby.prototype.sex = <span class="string">"男娃娃"</span>;</span><br></pre></td></tr></table></figure>
-<p>使用</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//实例方法和原型方法需要实例化对象后才可以使</span></span><br><span class="line"><span class="keyword">var</span> bob = <span class="keyword">new</span> Baby(<span class="string">"bob"</span>);</span><br><span class="line">Baby.name;</span><br><span class="line"><span class="comment">//"Baby" :每一个类都有一个基本的name属性</span></span><br><span class="line"></span><br><span class="line">bob.name;</span><br><span class="line"><span class="comment">//"bob"</span></span><br><span class="line"></span><br><span class="line">Baby.weight;</span><br><span class="line"><span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line">bob.weight;</span><br><span class="line"><span class="comment">//"3kg"</span></span><br><span class="line"></span><br><span class="line">Baby.hello();</span><br><span class="line"><span class="comment">//Uncaught TypeError: Baby.hello is not a function</span></span><br><span class="line"></span><br><span class="line">bob.hello();</span><br><span class="line"><span class="comment">// bob</span></span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">// undefined :this.msg没有返回所以undefined</span></span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">// 20 undefined</span></span><br><span class="line"></span><br><span class="line">Baby.Run(); <span class="comment">//跑起来！！！</span></span><br><span class="line"><span class="comment">//类方法也是静态方法，可以直接使用 【对象.静态方法()】</span></span><br><span class="line"></span><br><span class="line">bob.run(); <span class="comment">// TypeError: bob.run is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.msg();</span><br><span class="line"><span class="comment">// Uncaught TypeError: Baby.msg is not a function</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.msg();</span><br><span class="line"><span class="comment">// 我叫：undefined</span></span><br><span class="line"><span class="comment">//原型方法当成静态方法使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">bob.msg();</span><br><span class="line"><span class="comment">// 我叫：bob</span></span><br><span class="line"><span class="comment">//原型方法必须实例化对象</span></span><br><span class="line"></span><br><span class="line">bob.age;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"><span class="comment">//错误，公有静态属性只能使用 【对象.属性】调用</span></span><br><span class="line"></span><br><span class="line">Baby.age;</span><br><span class="line"><span class="comment">// 20</span></span><br><span class="line"></span><br><span class="line">Baby.prototype.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br><span class="line"><span class="comment">//原型属性当作静态属性使用时【对象.prototype.方法()】</span></span><br><span class="line"></span><br><span class="line">Baby.sex;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">bob.sex;</span><br><span class="line"><span class="comment">// 男娃娃</span></span><br></pre></td></tr></table></figure>
-<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3>
-        <!-- 
-
-
-静态（类）、实例、原型属性与方法
-ES5
-ES6
-属性访问结论
-
-
-Class
-原型方法语法糖
-Class 中属性与方法的枚举性质
-
-
-BMW WARNING
-
-
-静态（类）、实例、原型属性与方法ES5Baby 类
-//对象构造函数function Baby(name) &#123;  var className = "Baby";  //实例属性，每个实例私有，在对象实例化后调用，实......  -->
-        <p class="article-more-link">
-          <a href="/ES类的使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Number相关基础操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -586,6 +586,89 @@ toLocaleStringtoLocaleString 默认保留 3 位小数......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-编程程序设计"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/编程程序设计.html">编程程序设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#面向对象object-oriented-programming">面向对象（Object Oriented Programming）</a><ul>
+<li><a href="#三大基本特性">三大基本特性</a></li>
+<li><a href="#五大基本原则">五大基本原则</a></li>
+<li><a href="#优缺点">优缺点</a></li>
+</ul>
+</li>
+<li><a href="#面向过程-procedure-oriented">面向过程 (Procedure Oriented)</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="面向对象（Object-Oriented-Programming）"><a href="#面向对象（Object-Oriented-Programming）" class="headerlink" title="面向对象（Object Oriented Programming）"></a>面向对象（Object Oriented Programming）</h2><h3 id="三大基本特性"><a href="#三大基本特性" class="headerlink" title="三大基本特性"></a>三大基本特性</h3><p>面向对象编程就是在编程过程中将客观事物抽象化，在抽象的类中提供数据和操作方法，在有不同的情形和需求下通过继承和多态来实现复用与扩展。</p>
+<ul>
+<li>封装<br>客观事物封装成抽象的类。</li>
+<li>继承<br>指可以让某个类型的对象获得另一个类型的对象的属性的方法。</li>
+<li>多态<br>多态，是指类实例的相同方法在不同情形有不同执行逻辑。</li>
+</ul>
+<h3 id="五大基本原则"><a href="#五大基本原则" class="headerlink" title="五大基本原则"></a>五大基本原则</h3>
+        <!-- 
+
+
+面向对象（Object Oriented Programming）
+三大基本特性
+五大基本原则
+优缺点
+
+
+面向过程 (Procedure Oriented)
+BMW WARNING
+
+
+面向对象（Object Oriented Programming）三大基本特性面向对象编程就是在编程过程中将客观事物抽象化，在抽象的类中提供数据和操作方法，在有不同的情形和需求下通过继承和多态来实现复......  -->
+        <p class="article-more-link">
+          <a href="/编程程序设计.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software/">Software</a></li></ul>
 
     </footer>
   </div>
@@ -837,7 +920,7 @@ refs 使用
 <!-- Table of Contents -->
 
   
-    <article id="post-编程程序设计"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -845,90 +928,7 @@ refs 使用
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/编程程序设计.html">编程程序设计</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#面向对象object-oriented-programming">面向对象（Object Oriented Programming）</a><ul>
-<li><a href="#三大基本特性">三大基本特性</a></li>
-<li><a href="#五大基本原则">五大基本原则</a></li>
-<li><a href="#优缺点">优缺点</a></li>
-</ul>
-</li>
-<li><a href="#面向过程-procedure-oriented">面向过程 (Procedure Oriented)</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="面向对象（Object-Oriented-Programming）"><a href="#面向对象（Object-Oriented-Programming）" class="headerlink" title="面向对象（Object Oriented Programming）"></a>面向对象（Object Oriented Programming）</h2><h3 id="三大基本特性"><a href="#三大基本特性" class="headerlink" title="三大基本特性"></a>三大基本特性</h3><p>面向对象编程就是在编程过程中将客观事物抽象化，在抽象的类中提供数据和操作方法，在有不同的情形和需求下通过继承和多态来实现复用与扩展。</p>
-<ul>
-<li>封装<br>客观事物封装成抽象的类。</li>
-<li>继承<br>指可以让某个类型的对象获得另一个类型的对象的属性的方法。</li>
-<li>多态<br>多态，是指类实例的相同方法在不同情形有不同执行逻辑。</li>
-</ul>
-<h3 id="五大基本原则"><a href="#五大基本原则" class="headerlink" title="五大基本原则"></a>五大基本原则</h3>
-        <!-- 
-
-
-面向对象（Object Oriented Programming）
-三大基本特性
-五大基本原则
-优缺点
-
-
-面向过程 (Procedure Oriented)
-BMW WARNING
-
-
-面向对象（Object Oriented Programming）三大基本特性面向对象编程就是在编程过程中将客观事物抽象化，在抽象的类中提供数据和操作方法，在有不同的情形和需求下通过继承和多态来实现复......  -->
-        <p class="article-more-link">
-          <a href="/编程程序设计.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Software/">Software</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-MacOS应用清单"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/MacOS应用清单.html">MacOS应用清单</a>
+      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
     </h1>
   
 
@@ -953,56 +953,50 @@ BMW WARNING
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#开发">开发</a></li>
-<li><a href="#学习">学习</a></li>
-<li><a href="#效率">效率</a><ul>
-<li><a href="#汇总">汇总</a></li>
-<li><a href="#barrier">barrier</a></li>
+<li><a href="#firewalld1">firewalld[^1]</a><ul>
+<li><a href="#concepts">Concepts</a></li>
+<li><a href="#zones">Zones</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#runtime">Runtime</a></li>
+<li><a href="#state">State</a></li>
+<li><a href="#port">Port</a></li>
+<li><a href="#source">Source</a></li>
 </ul>
 </li>
-<li><a href="#娱乐">娱乐</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><h2 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h2>
+<h2 id="firewalld-1"><a href="#firewalld-1" class="headerlink" title="firewalld[^1]"></a>firewalld[^1]</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld 采用区域与服务的概念来控制流量的出入。</p>
+<ul>
+<li>zones</li>
+<li>services</li>
+</ul>
+<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
+<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3>
         <!-- 
 
 
-开发
-学习
-效率
-汇总
-barrier
+firewalld[^1]
+Concepts
+Zones
+Services
+Runtime
+State
+Port
+Source
 
 
-娱乐
 BMW WARNING
 
 
-开发学习效率
-汇总
+firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。
 
+zones
+services
 
-APP
-DESC
-Free
-Web
-
-
-
-
-Sharemouse
-跨端键鼠共用工具
-trial
-https://github.com/debauchee/barrier
-
-
-Synergy
-跨端键鼠共用工具
-false
-https://github.com/debauchee/barr......  -->
+firewalld 是 CentOS 7/8, Red Hat Enterprise Lin......  -->
         <p class="article-more-link">
-          <a href="/MacOS应用清单.html#more">阅读全文</a>
+          <a href="/CentOS防火墙.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1010,7 +1004,7 @@ https://github.com/debauchee/barr......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
 
     </footer>
   </div>
@@ -1020,7 +1014,7 @@ https://github.com/debauchee/barr......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-MacOS基本操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1028,7 +1022,7 @@ https://github.com/debauchee/barr......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/MacOS基本操作.html">MacOS基本操作</a>
+      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
     </h1>
   
 
@@ -1053,65 +1047,48 @@ https://github.com/debauchee/barr......  -->
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#macos-beta-系统更新开启">Macos Beta 系统更新开启</a></li>
-<li><a href="#网络磁盘映射">网络磁盘映射</a></li>
-<li><a href="#剪切移动">剪切（移动）</a><ul>
-<li><a href="#常规">常规</a></li>
-<li><a href="#快捷键">快捷键</a></li>
+<li><a href="#location">location</a><ul>
+<li><a href="#基础使用">基础使用</a></li>
+<li><a href="#url-match">URL-match</a></li>
+<li><a href="#modifier">modifier</a></li>
 </ul>
 </li>
-<li><a href="#直接删除文件">直接删除文件</a></li>
-<li><a href="#修改终端用户名">修改终端用户名</a></li>
-<li><a href="#启用-ssd-的-trim-支持">启用 SSD 的 TRIM 支持</a></li>
-<li><a href="#关闭-sip">关闭 SIP</a></li>
-<li><a href="#设定文件默认打开方式">设定文件默认打开方式</a><ul>
-<li><a href="#单文件">单文件</a></li>
-<li><a href="#同类文件">同类文件</a></li>
+<li><a href="#proxy_pass">proxy_pass</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#uri">URI</a></li>
+<li><a href="#斜杠问题">斜杠（/）问题</a></li>
+<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
 </ul>
 </li>
-<li><a href="#打开允许未知来源-app-选项">打开允许未知来源 app 选项</a></li>
-<li><a href="#设定快捷打开程序快捷键">设定快捷打开程序快捷键</a><ul>
-<li><a href="#设置-automator-任务">设置 automator 任务</a></li>
-<li><a href="#设置程序打开快捷键">设置程序打开快捷键</a></li>
-</ul>
-</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="Macos-Beta-系统更新开启"><a href="#Macos-Beta-系统更新开启" class="headerlink" title="Macos Beta 系统更新开启"></a>Macos Beta 系统更新开启</h2><p>在apple beta 地址上登录<br><a href="https://beta.apple.com" target="_blank" rel="noopener">https://beta.apple.com</a></p>
-<p>在如下网站下载 <a href="https://beta.apple.com/sp/betaprogram/enroll#macos" target="_blank" rel="noopener">MacOS Public Beta Access Utility</a>工具<br>注意开启前在Time Mechine中进行系统备份<br>下载工具安装后即可开启。</p>
-<h2 id="网络磁盘映射"><a href="#网络磁盘映射" class="headerlink" title="网络磁盘映射"></a>网络磁盘映射</h2><p>在 finder 下操作 ⌘ + k<br>在弹出框中输入网络共享服务地址<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/MacOS%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C20211227153214.png" alt="MacOS基本操作20211227153214"><br>一般有 Samba 或 AFP 等方式共享服务<br>常见地址如下</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">afp://192.168.2.20</span><br><span class="line">smb://192.168.2.20</span><br></pre></td></tr></table></figure>
-<h2 id="剪切（移动）"><a href="#剪切（移动）" class="headerlink" title="剪切（移动）"></a>剪切（移动）</h2>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3>
         <!-- 
 
 
-Macos Beta 系统更新开启
-网络磁盘映射
-剪切（移动）
-常规
-快捷键
+location
+基础使用
+URL-match
+modifier
 
 
-直接删除文件
-修改终端用户名
-启用 SSD 的 TRIM 支持
-关闭 SIP
-设定文件默认打开方式
-单文件
-同类文件
+proxy_pass
+简述
+URI
+斜杠（/）问题
+\$uri \$request_uri
 
 
-打开允许未知来源 app 选项
-设定快捷打开程序快捷键
-设置 automator 任务
-设置程序打开快捷键
+BMW WARNING
 
 
-
-
-Macos Beta 系统更新开启在apple beta 地址上登录......  -->
+location基础使用location 位于 server 下或位于另一个 location 中，基本使用如下
+location [modifier] [URL-match] &#123;  ......  -->
         <p class="article-more-link">
-          <a href="/MacOS基本操作.html#more">阅读全文</a>
+          <a href="/Nginx基础.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1119,7 +1096,7 @@ Macos Beta 系统更新开启在apple beta 地址上登录......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
 
     </footer>
   </div>
