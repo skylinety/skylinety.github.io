@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Skyline&#39;s blog">
 <meta property="og:description" content="防抖 防抖的理解 防抖基础版本 立即执行首次 this绑定与event   节流 节流的理解 节流基础版本 this绑定与event 头尾执行定制   BMW WARNING   防抖防抖的理解防抖debounce ，即防止抖动。当事件不停地触发时，浏览器为了应对同一时间段的大量任务，交互区域表现出来就像是在抖动。防抖将事件触发规定在单位时间内，单位时间内新事件触发会丢弃上次事件并重新计算下">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-03-02T06:17:19.000Z">
+<meta property="og:updated_time" content="2023-03-03T03:53:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES防抖和节流">
 <meta name="twitter:description" content="防抖 防抖的理解 防抖基础版本 立即执行首次 this绑定与event   节流 节流的理解 节流基础版本 this绑定与event 头尾执行定制   BMW WARNING   防抖防抖的理解防抖debounce ，即防止抖动。当事件不停地触发时，浏览器为了应对同一时间段的大量任务，交互区域表现出来就像是在抖动。防抖将事件触发规定在单位时间内，单位时间内新事件触发会丢弃上次事件并重新计算下">
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-03-02T06:17:19.000Z" itemprop="datePublished">2023-03-02</time>
+      <time datetime="2023-03-03T03:53:29.000Z" itemprop="datePublished">2023-03-03</time>
     </a><span style="color: #999">|</span>
 
       
@@ -246,7 +246,7 @@
 </ul>
 <h3 id="节流基础版本"><a href="#节流基础版本" class="headerlink" title="节流基础版本"></a>节流基础版本</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> t = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!t) &#123;</span><br><span class="line">            t = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                t = <span class="literal">null</span>;</span><br><span class="line">                fn()</span><br><span class="line">            &#125;, time)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="this绑定与event-1"><a href="#this绑定与event-1" class="headerlink" title="this绑定与event"></a>this绑定与event</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> t = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> args = <span class="built_in">arguments</span></span><br><span class="line">        <span class="keyword">if</span> (!t) &#123;</span><br><span class="line">            t = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                t = <span class="literal">null</span>;</span><br><span class="line">                fn.apply(<span class="keyword">this</span>, args)</span><br><span class="line">            &#125;, time)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="头尾执行定制"><a href="#头尾执行定制" class="headerlink" title="头尾执行定制"></a>头尾执行定制</h3><p>节流的需求不同，往往有事件触发时（头）立即执行，事件停止触发（尾）后不再执行的需求。<br>可能需要执行有头有尾，有头无尾，无头有尾。<br>这一部分内容实现需要引入时间戳来实现，具体参照underscore等三方库的完整轮子。<br>文章对应<a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/HTML&amp;CSS/CSS/Debounce_Throttle.html" target="_blank" rel="noopener">示例</a>文件可在浏览器直接执行。</p>
+<h3 id="头尾执行定制"><a href="#头尾执行定制" class="headerlink" title="头尾执行定制"></a>头尾执行定制</h3><p>节流的需求不同，往往有事件触发时（头）立即执行，事件停止触发（尾）后不再执行的需求。<br>可能需要执行有头有尾，有头无尾，无头有尾。<br>这一部分内容实现需要引入时间戳来实现，具体参照underscore等三方库的完整轮子。<br>文章对应<a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/JS/ES/Debounce_Throttle.html" target="_blank" rel="noopener">示例</a>文件可在浏览器直接执行。</p>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
@@ -264,7 +264,7 @@
 <li>Warrant</li>
 </ul>
 <p>本文作者： Skyline(lty)</p>
-<p>文章链接：<a href="http://www.skyline.show/ES防抖和节流$.html">http://www.skyline.show/ES防抖和节流$.html</a></p>
+<p>文章链接：<a href="http://www.skyline.show/ES防抖和节流.html">http://www.skyline.show/ES防抖和节流.html</a></p>
 <p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
       
@@ -318,6 +318,15 @@ var a = new Donate({
   
     
 <nav id="article-nav">
+  
+    <a href="/ES事件轮询.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          ES事件轮询
+        
+      </div>
+    </a>
   
   
     <a href="/计算机机器码.html" id="article-nav-older" class="article-nav-link-wrap">

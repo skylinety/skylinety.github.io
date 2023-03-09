@@ -3,28 +3,31 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>number相关基础操作 | Skyline&#39;s blog</title>
+  <title>es事件轮询 | Skyline&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
   <meta name="baidu-site-verification" content="8E0ReY1tJJ">
   
-  <meta name="keywords" content="JSES实战">
+  <meta name="keywords" content="JSES原理">
   
   
   
   
-  <meta name="description" content="保留小数 四舍五入 不取舍   添加千位分隔符 toLocaleString 正则   BMW WARNING   保留小数四舍五入toFixed (2.123123123).toFixed(3); // 输出结果为 2.123(2.123923123).toFixed(3); // 输出结果为 2.124 toLocaleStringtoLocaleString 默认保留 3 位小数，且会">
-<meta name="keywords" content="JS,ES,实战">
+  <meta name="description" content="执行机制单线程JS 设计为单线程脚本语言，主线程只能同时处理一个任务。为了防止主线程阻塞，事件轮询机制应运而生（event loop）先看如下一个常见示例 console.log(1)setTimeout(() =&amp;gt; &amp;#123;  console.log(5)&amp;#125;, 0)setTimeout(() =&amp;gt; &amp;#123;  console.log(6)&amp;#125;, 10)Pro">
+<meta name="keywords" content="JS,ES,原理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Number相关基础操作">
-<meta property="og:url" content="http://www.skyline.show/Number相关基础操作.html">
+<meta property="og:title" content="ES事件轮询">
+<meta property="og:url" content="http://www.skyline.show/ES事件轮询.html">
 <meta property="og:site_name" content="Skyline&#39;s blog">
-<meta property="og:description" content="保留小数 四舍五入 不取舍   添加千位分隔符 toLocaleString 正则   BMW WARNING   保留小数四舍五入toFixed (2.123123123).toFixed(3); // 输出结果为 2.123(2.123923123).toFixed(3); // 输出结果为 2.124 toLocaleStringtoLocaleString 默认保留 3 位小数，且会">
+<meta property="og:description" content="执行机制单线程JS 设计为单线程脚本语言，主线程只能同时处理一个任务。为了防止主线程阻塞，事件轮询机制应运而生（event loop）先看如下一个常见示例 console.log(1)setTimeout(() =&amp;gt; &amp;#123;  console.log(5)&amp;#125;, 0)setTimeout(() =&amp;gt; &amp;#123;  console.log(6)&amp;#125;, 10)Pro">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-02-04T08:24:24.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2%2420230202094126.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2%2420230202094201.png">
+<meta property="og:updated_time" content="2023-03-03T03:53:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Number相关基础操作">
-<meta name="twitter:description" content="保留小数 四舍五入 不取舍   添加千位分隔符 toLocaleString 正则   BMW WARNING   保留小数四舍五入toFixed (2.123123123).toFixed(3); // 输出结果为 2.123(2.123923123).toFixed(3); // 输出结果为 2.124 toLocaleStringtoLocaleString 默认保留 3 位小数，且会">
+<meta name="twitter:title" content="ES事件轮询">
+<meta name="twitter:description" content="执行机制单线程JS 设计为单线程脚本语言，主线程只能同时处理一个任务。为了防止主线程阻塞，事件轮询机制应运而生（event loop）先看如下一个常见示例 console.log(1)setTimeout(() =&amp;gt; &amp;#123;  console.log(5)&amp;#125;, 0)setTimeout(() =&amp;gt; &amp;#123;  console.log(6)&amp;#125;, 10)Pro">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2%2420230202094126.png">
   
     <link rel="alternate" href="/atom.xml" title="Skyline&#39;s blog" type="application/atom+xml">
   
@@ -164,7 +167,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Number相关基础操作" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-ES事件轮询" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -172,7 +175,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      Number相关基础操作
+      ES事件轮询
     </h1>
   
 
@@ -183,12 +186,12 @@
     
     <span style="color: #999">发表于</span>
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:16.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2023-03-03T03:53:29.000Z" itemprop="datePublished">2023-03-03</time>
     </a><span style="color: #999">|</span>
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-04T08:24:24.000Z" itemprop="datePublished">2023-02-04</time>
+      <time datetime="2023-03-03T03:53:29.000Z" itemprop="datePublished">2023-03-03</time>
     </a><span style="color: #999">|</span>
 
       
@@ -202,46 +205,25 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#保留小数">保留小数</a><ul>
-<li><a href="#四舍五入">四舍五入</a></li>
-<li><a href="#不取舍">不取舍</a></li>
-</ul>
-</li>
-<li><a href="#添加千位分隔符">添加千位分隔符</a><ul>
-<li><a href="#tolocalestring">toLocaleString</a></li>
-<li><a href="#正则">正则</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="保留小数"><a href="#保留小数" class="headerlink" title="保留小数"></a>保留小数</h2><h3 id="四舍五入"><a href="#四舍五入" class="headerlink" title="四舍五入"></a>四舍五入</h3><p><strong>toFixed</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">2.123123123</span>).toFixed(<span class="number">3</span>); <span class="comment">// 输出结果为 2.123</span></span><br><span class="line">(<span class="number">2.123923123</span>).toFixed(<span class="number">3</span>); <span class="comment">// 输出结果为 2.124</span></span><br></pre></td></tr></table></figure>
-<p><strong>toLocaleString</strong><br>toLocaleString 默认保留 3 位小数，且会产生千位分隔符</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">12332.123923123</span>).toLocaleString(<span class="literal">undefined</span>, &#123;</span><br><span class="line">  minimumFractionDigits: <span class="number">5</span>,</span><br><span class="line">  maximumFractionDigits: <span class="number">6</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 输出结果为 '12,332.123923'</span></span><br></pre></td></tr></table></figure>
-<p>可通过 minimumFractionDigits，maximumFractionDigits 来指定保留参数的长度</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">2.123923123</span>).toLocaleString(<span class="literal">undefined</span>, &#123;</span><br><span class="line">  minimumFractionDigits: <span class="number">5</span>,</span><br><span class="line">  maximumFractionDigits: <span class="number">6</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 输出结果为 '2.123923'</span></span><br></pre></td></tr></table></figure>
-<h3 id="不取舍"><a href="#不取舍" class="headerlink" title="不取舍"></a>不取舍</h3><a id="more"></a>
-<p><strong>Math.floor</strong></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Math</span>.floor(<span class="number">15.7784514</span> * <span class="number">1000</span>) / <span class="number">1000</span>; <span class="comment">// 输出结果为 15.778</span></span><br></pre></td></tr></table></figure>
-<h2 id="添加千位分隔符"><a href="#添加千位分隔符" class="headerlink" title="添加千位分隔符"></a>添加千位分隔符</h2><h3 id="toLocaleString-NaN"><a href="#toLocaleString-NaN" class="headerlink" title="toLocaleString"></a>toLocaleString</h3><p>通过 toLocaleString 很容易直接添加千位。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString(<span class="string">"en-US"</span>);</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span>).toLocaleString();</span><br><span class="line"><span class="comment">// '1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
-<p>toLocaleString 将字符本地串化，第一个参数为串化标准，默认为’en-US’。<br>对于小数而言，其会四舍五入保留 3 位</p>
-<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">(<span class="number">1231234234234</span> + <span class="string">""</span>).replace(<span class="regexp">/(\d)(?=(\d&#123;3&#125;)+$)/g</span>, <span class="string">"$1,"</span>);</span><br><span class="line"><span class="comment">//'1,231,234,234,234'</span></span><br></pre></td></tr></table></figure>
-<p><strong>设计正则解析</strong></p>
-<ul>
-<li><code>+</code><br>匹配前面一个表达式 1 次或者多次。等价于{1,}。</li>
-<li><code>x(?=y)</code><br>匹配 x 仅仅当 x 后面跟着 y。这种叫做先行断言。</li>
-</ul>
-<p>整个正则的意思为后面跟有三个或三的倍数个连续数字的数后面加上逗号</p>
+        <h2 id="执行机制"><a href="#执行机制" class="headerlink" title="执行机制"></a>执行机制</h2><h3 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h3><p>JS 设计为单线程脚本语言，主线程只能同时处理一个任务。<br>为了防止主线程阻塞，事件轮询机制应运而生（event loop）<br>先看如下一个常见示例</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">6</span>)</span><br><span class="line">&#125;, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve()</span><br><span class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1 2 3 4 5 6</span></span><br></pre></td></tr></table></figure>
+<h3 id="同异步"><a href="#同异步" class="headerlink" title="同异步"></a>同异步</h3><a id="more"></a>
+<p>todo</p>
+<h3 id="执行栈"><a href="#执行栈" class="headerlink" title="执行栈"></a>执行栈</h3><p>函数的执行时会被放入栈中，多个函数嵌套时，遵循栈的原则，即先进后出。</p>
+<h2 id="宏微任务"><a href="#宏微任务" class="headerlink" title="宏微任务"></a>宏微任务</h2><p>JS 主程序（整体代码）就是一个宏任务，主程序开始执行时，将其内部执行函数不断入栈出栈。<br>微任务在代码执行过程中产生并进入微任务队列。<br>宏任务执行过程中若遇到调用 WebAPI（UI 事件注册，定时器注册）等代码，会交于对应触发线程，主程序往后执行。<br>当前宏任务执行完成后，将微任务依次放入执行栈执行，直到当前微任务队列被会清空。<br>宏任务队列中下一个宏任务放入执行栈执行。<br>新的宏任务进入队列时机取决于触发线程什么时候返回结果，拿到结果时，宏任务回调进入宏任务队列中等待执行。<br>任务的执行遵循队列的原则，即先进先出。</p>
+<p>常见的任务<br>宏任务： script( 整体代码)、setTimeout、setInterval、I/O、UI 交互事件<br>微任务： Promise、async/await、MutaionObserver、process.nextTick(Node.js)</p>
+<h2 id="事件轮询"><a href="#事件轮询" class="headerlink" title="事件轮询"></a>事件轮询</h2><p>JS 执行机制为：<br>主程序作为一个宏任务，首先执行。<br>执行一个宏任务，执行完毕后，清空执行该宏任务产生的微任务。执行下一个宏任务，继续清执行空其产生的微任务，由此循环往复。<br>通过不断地轮询，不断地在上述过程循环，就像是在宏任务与微任务之前转圈圈。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2%2420230202094126.png" alt="ES事件轮询$20230202094126"></p>
+<p>进一步简化图示，可以看成一个队列中的代码依次进入执行栈执行。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ES%E4%BA%8B%E4%BB%B6%E8%BD%AE%E8%AF%A2%2420230202094201.png" alt="ES事件轮询$20230202094201"></p>
+<h2 id="轮询与页面渲染"><a href="#轮询与页面渲染" class="headerlink" title="轮询与页面渲染"></a>轮询与页面渲染</h2><p>主入口程序为宏任务，将每次轮询的宏任务和其产生的微任务看做一对，<br>宏任务先执行，微任务后执行（很多文章观点为微任务先执行，这是抛开主程序为宏任务的观点），<br>每次轮询中队列内执行会先于DOM渲染，只有微任务队列最后一个任务被执行，DOM才会被渲染。</p>
+<p>由于alert会阻塞DOM渲染，故示例代码中间定时器的时间延长，方便观察DOM渲染的时机。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">alert(<span class="string">'首次轮询宏任务（主入口程序）'</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createEL</span>(<span class="params">tag = <span class="string">'h3'</span>, content</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> e = <span class="built_in">document</span>.createElement(tag)</span><br><span class="line">    e.innerHTML = content</span><br><span class="line">    <span class="keyword">return</span> e</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(createEL(<span class="string">'h3'</span>, <span class="string">'number 1'</span>))</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    alert(<span class="string">'第二轮轮询只有宏任务'</span>)</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(createEL(<span class="string">'h3'</span>, <span class="string">'number 5'</span>))</span><br><span class="line">&#125;, <span class="number">3000</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(createEL(<span class="string">'h3'</span>, <span class="string">'number 6'</span>))</span><br><span class="line">    alert(<span class="string">'第三轮轮询宏任务'</span>)</span><br><span class="line">    <span class="built_in">Promise</span>.resolve()</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(createEL(<span class="string">'h3'</span>, <span class="string">'number 7'</span>))</span><br><span class="line">        alert(<span class="string">'第三轮轮询微任务'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, <span class="number">10000</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve()</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(createEL(<span class="string">'h3'</span>, <span class="string">'number 3'</span>))</span><br><span class="line">        alert(<span class="string">'首次轮询微任务'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(createEL(<span class="string">'h3'</span>, <span class="string">'number 4'</span>))</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(createEL(<span class="string">'h3'</span>, <span class="string">'number 2'</span>))</span><br></pre></td></tr></table></figure>
+<p>可以观察到，只有每一轮的轮询最后的微任务执行完成，与该次轮询关联的DOM渲染才会执行。</p>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️</p>
 <blockquote>
 <p>I am a bucolic migant worker but I never walk backwards.</p>
 </blockquote>
@@ -255,7 +237,7 @@
 <li>Warrant</li>
 </ul>
 <p>本文作者： Skyline(lty)</p>
-<p>文章链接：<a href="http://www.skyline.show/Number相关基础操作.html">http://www.skyline.show/Number相关基础操作.html</a></p>
+<p>文章链接：<a href="http://www.skyline.show/ES事件轮询.html">http://www.skyline.show/ES事件轮询$.html</a></p>
 <p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
       
@@ -302,7 +284,7 @@ var a = new Donate({
 
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原理/">原理</a></li></ul>
 
     </footer>
   </div>
@@ -310,19 +292,10 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/ES类的使用.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          ES类的使用
-        
-      </div>
-    </a>
   
-  
-    <a href="/计算机字符储存与编码.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/ES防抖和节流.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">计算机字符储存与编码</div>
+      <div class="article-nav-title">ES防抖和节流</div>
     </a>
   
 </nav>
@@ -336,7 +309,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#保留小数"><span class="nav-number">1.</span> <span class="nav-text">保留小数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#四舍五入"><span class="nav-number">1.1.</span> <span class="nav-text">四舍五入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不取舍"><span class="nav-number">1.2.</span> <span class="nav-text">不取舍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加千位分隔符"><span class="nav-number">2.</span> <span class="nav-text">添加千位分隔符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#toLocaleString-NaN"><span class="nav-number">2.1.</span> <span class="nav-text">toLocaleString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则"><span class="nav-number">2.2.</span> <span class="nav-text">正则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#执行机制"><span class="nav-number">1.</span> <span class="nav-text">执行机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单线程"><span class="nav-number">1.1.</span> <span class="nav-text">单线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同异步"><span class="nav-number">1.2.</span> <span class="nav-text">同异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行栈"><span class="nav-number">1.3.</span> <span class="nav-text">执行栈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宏微任务"><span class="nav-number">2.</span> <span class="nav-text">宏微任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件轮询"><span class="nav-number">3.</span> <span class="nav-text">事件轮询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#轮询与页面渲染"><span class="nav-number">4.</span> <span class="nav-text">轮询与页面渲染</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

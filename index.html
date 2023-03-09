@@ -319,6 +319,60 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-ES事件轮询"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES事件轮询.html">ES事件轮询</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-03-03T03:53:29.000Z" itemprop="datePublished">2023-03-03</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="执行机制"><a href="#执行机制" class="headerlink" title="执行机制"></a>执行机制</h2><h3 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h3><p>JS 设计为单线程脚本语言，主线程只能同时处理一个任务。<br>为了防止主线程阻塞，事件轮询机制应运而生（event loop）<br>先看如下一个常见示例</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">6</span>)</span><br><span class="line">&#125;, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve()</span><br><span class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1 2 3 4 5 6</span></span><br></pre></td></tr></table></figure>
+<h3 id="同异步"><a href="#同异步" class="headerlink" title="同异步"></a>同异步</h3>
+        <!-- 执行机制单线程JS 设计为单线程脚本语言，主线程只能同时处理一个任务。为了防止主线程阻塞，事件轮询机制应运而生（event loop）先看如下一个常见示例
+console.log(1)setTimeout(() =&gt; &#123;  console.log(5)&#125;, 0)setTimeout(() =&gt; &#123;  console.log(6)&#125;, 10)......  -->
+        <p class="article-more-link">
+          <a href="/ES事件轮询.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原理/">原理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-ES防抖和节流"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1161,155 +1215,6 @@ TS 代码提高了代码可读性，减少代码注释工作量
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-前端工程启动常见包错误"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/前端工程启动常见包错误.html">前端工程启动常见包错误</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-01-24T09:57:08.000Z" itemprop="datePublished">2023-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#node-sass-错误">node-sass 错误</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="node-sass-错误"><a href="#node-sass-错误" class="headerlink" title="node-sass 错误"></a>node-sass 错误</h2><p>项目启动过程报错，<br><code>this.getOptions is not a function</code><br><code>styles is not a function</code><br>等错误。<br>造成错误的原因为<br>node node-sass sass-loader 三者版本不对应。<br>可尝试如下方案进行解决。<br>删除关联包</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm uninstall --save sass-loader node-sass</span><br></pre></td></tr></table></figure>
-<p>或直接删除 lock 文件与 node_modules<br>重新安装包。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install sass-loader node-sass --save-dev</span><br></pre></td></tr></table></figure>
-<p>若使用较老版本 node，可能问题不会解决。<br>检查包对应关系</p>
-<table>
-<thead>
-<tr>
-<th>NodeJS</th>
-<th>Supported node-sass version</th>
-<th>Node Module</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Node</td>
-<td>17 7.0+</td>
-<td>102</td>
-</tr>
-<tr>
-<td>Node</td>
-<td>16 6.0+</td>
-<td>93</td>
-</tr>
-<tr>
-<td>Node</td>
-<td>15 5.0+, &lt;7.0</td>
-<td>88</td>
-</tr>
-<tr>
-<td>Node</td>
-<td>14 4.14+</td>
-<td>83</td>
-</tr>
-<tr>
-<td>Node</td>
-<td>13 4.13+, &lt;5.0</td>
-<td>79</td>
-</tr>
-<tr>
-<td>Node</td>
-<td>12 4.12+, &lt;8.0</td>
-<td>72</td>
-</tr>
-<tr>
-<td>Node</td>
-<td>11 4.10+, &lt;5.0</td>
-<td>67</td>
-</tr>
-<tr>
-<td>Node</td>
-<td>10 4.9+, &lt;6.0</td>
-<td>64</td>
-</tr>
-<tr>
-<td>Node</td>
-<td>8 4.5.3+, &lt;5.0</td>
-<td>57</td>
-</tr>
-<tr>
-<td>Node</td>
-<td>&lt;8 &lt;5.0</td>
-<td>&lt;57</td>
-</tr>
-</tbody>
-</table>
-<p>详细对应关系见<a href="https://github.com/sass/node-sass" target="_blank" rel="noopener">node-sass</a><br>sass-loader 与 node-sass 部分对应</p>
-<table>
-<thead>
-<tr>
-<th>sass-loader</th>
-<th>node-sass</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>4.1.1</td>
-<td>4.3.0</td>
-</tr>
-<tr>
-<td>7.0.3</td>
-<td>4.7.2</td>
-</tr>
-<tr>
-<td>7.3.1</td>
-<td>4.14.1</td>
-</tr>
-<tr>
-<td>10.0.1</td>
-<td>6.0.1</td>
-</tr>
-</tbody>
-</table>
-<p>将包对应重新安装。<br>过程中可能出现 npm rebuild node-sass 等错误提示，按照提示操作。<br>上述过程操作后仍旧没解决问题，使用</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yarn config <span class="built_in">set</span> sass-binary-site http://npm.taobao.org/mirrors/node-sass</span><br></pre></td></tr></table></figure>
-<p>重新操作上述流程。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
 
     </footer>
   </div>
