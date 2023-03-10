@@ -91,7 +91,7 @@
                   
                     <div class="item active">
                   
-                    <img id="carousel-img0" src="/css/images/home-bg.jpg">
+                    <img id="carousel-img0" src="https://source.unsplash.com/collection/954550/1920x1080">
                   </div>
 
                   <!-- 自适应大图 -->
@@ -105,48 +105,6 @@
                         } else {
                           imageTag0.style.height = document.body.clientHeight + "px";
                           imageTag0.style.marginLeft = -(document.body.clientHeight * img0.width / img0.height - document.body.clientWidth) / 2 + "px";
-                        }
-                      };
-                  </script>
-                
-                  
-                    <div class="item">
-                  
-                    <img id="carousel-img1" src="/css/images/sample.jpg">
-                  </div>
-
-                  <!-- 自适应大图 -->
-                  <script>
-                      var img1 = new Image();
-                      var imageTag1 = document.getElementById("carousel-img1");
-                      img1.src = imageTag1.src;
-                      img1.onload=function(){
-                        if (img1.width / img1.height <= document.body.clientWidth / document.body.clientHeight) {
-                          imageTag1.style.width = document.body.clientWidth + "px";
-                        } else {
-                          imageTag1.style.height = document.body.clientHeight + "px";
-                          imageTag1.style.marginLeft = -(document.body.clientHeight * img1.width / img1.height - document.body.clientWidth) / 2 + "px";
-                        }
-                      };
-                  </script>
-                
-                  
-                    <div class="item">
-                  
-                    <img id="carousel-img2" src="https://source.unsplash.com/collection/954550/1920x1080">
-                  </div>
-
-                  <!-- 自适应大图 -->
-                  <script>
-                      var img2 = new Image();
-                      var imageTag2 = document.getElementById("carousel-img2");
-                      img2.src = imageTag2.src;
-                      img2.onload=function(){
-                        if (img2.width / img2.height <= document.body.clientWidth / document.body.clientHeight) {
-                          imageTag2.style.width = document.body.clientWidth + "px";
-                        } else {
-                          imageTag2.style.height = document.body.clientHeight + "px";
-                          imageTag2.style.marginLeft = -(document.body.clientHeight * img2.width / img2.height - document.body.clientWidth) / 2 + "px";
                         }
                       };
                   </script>
@@ -297,9 +255,9 @@
                     </li> -->
 
                 </ul>
-                <a href="https://pages.coding.me" style="position: absolute;bottom: 20px;right: 20px; pointer-events: auto; cursor: pointer;">
+                <!-- <a href="https://pages.coding.me" style="position: absolute;bottom: 20px;right: 20px; pointer-events: auto; cursor: pointer;">
                   <img width="75px" height="75px" src="http://ovhogx4rt.bkt.clouddn.com/f7272a0b7cd340571725c6734c6bdd6f.png" alt="coding">
-                </a>
+                </a> -->
             </section>
             <hamburger>
                 <i></i>
@@ -399,6 +357,188 @@ BMW WARNING
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ElementUI相关使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ElementUI相关使用.html">ElementUI相关使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Form-使用"><a href="#Form-使用" class="headerlink" title="Form 使用"></a>Form 使用</h2><h3 id="Form-校验"><a href="#Form-校验" class="headerlink" title="Form 校验"></a>Form 校验</h3><p>validate 函数回调不执行</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.$refs[formName].validate(<span class="function">(<span class="params">valid</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">' submit!!'</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'error submit!!'</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>执行打印后，无相关打印信息。<br>出现这种问题的原因多为自定义校验规则的函数没有执行 callback 回调。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> validatePassword = <span class="function">(<span class="params">rule, value, callback</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (value === <span class="string">''</span>) &#123;</span><br><span class="line">    callback(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'请输入密码'</span>)) <span class="comment">// 检查</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.ruleForm.checkPass !== <span class="string">''</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.$refs.ruleForm.validateField(<span class="string">'checkPass'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    callback() <span class="comment">// 检查</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述检查无问题，检查是否为 JSX 写法，JSX 写法下 model 传值不能如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    v-model=&#123;<span class="keyword">this</span>.params&#125;</span><br><span class="line">    rules=&#123;<span class="keyword">this</span>.rules&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>通过如上方式，无法将 model 值传入<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/ElementUI%E7%9B%B8%E5%85%B3%E4%BD%BF%E7%94%A820220314204155.png" alt="ElementUI相关使用20220314204155"><br>将传值方式更改为 props 传值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">    <span class="class"><span class="keyword">class</span></span>=<span class="string">'info-form reset-el-form'</span></span><br><span class="line">    label-position=<span class="string">'top'</span></span><br><span class="line">    label-width=<span class="string">'80px'</span></span><br><span class="line">    ref=<span class="string">'ruleForm'</span></span><br><span class="line">    props=&#123;&#123;</span><br><span class="line">        model: <span class="keyword">this</span>.params,</span><br><span class="line">        rules: <span class="keyword">this</span>.rules,</span><br><span class="line">    &#125;&#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>原因多在于 Vue 对于 JSX 语法支持的问题。<br>另一个类似而常见的问题在于 ElementUI 占用了 props 传值导致的问题<br>例如一个 ElTree 的例子。<br>其 data 为</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    departments:[</span><br><span class="line">      &#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        children: [],</span><br><span class="line">        deptName: <span class="string">'教育部'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">    defaultProps: &#123;</span><br><span class="line">      children: <span class="string">'children'</span>,</span><br><span class="line">      label: <span class="string">'deptName'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>各属性使用如下方式传值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;<span class="keyword">this</span>.defaultProps&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码并不能将 label 正确地展示出来<br>应调整为如下写法</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-tree</span><br><span class="line">  <span class="class"><span class="keyword">class</span></span>=<span class="string">'filter-tree'</span></span><br><span class="line">  data=&#123;<span class="keyword">this</span>.departments&#125;</span><br><span class="line">  props=&#123;&#123;</span><br><span class="line">    props: <span class="keyword">this</span>.defaultProps,</span><br><span class="line">  &#125;&#125;</span><br><span class="line">  ref=<span class="string">'tree'</span></span><br><span class="line">&gt;&lt;<span class="regexp">/el-tree&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Form-表单数字"><a href="#Form-表单数字" class="headerlink" title="Form 表单数字"></a>Form 表单数字</h3>
+        <!-- Form 使用Form 校验validate 函数回调不执行
+this.$refs[formName].validate((valid) =&gt; &#123;  if (valid) &#123;    console.log(' submit!!')  &#125; else &#123;    console.log('error submit!!')    return false......  -->
+        <p class="article-more-link">
+          <a href="/ElementUI相关使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Flutter基础控件使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Flutter基础控件使用.html">Flutter基础控件使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-06-21T10:02:03.000Z" itemprop="datePublished">2022-06-21</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#gesturedetector">GestureDetector</a><ul>
+<li><a href="#基础事件">基础事件</a></li>
+</ul>
+</li>
+<li><a href="#floatingactionbutton">FloatingActionButton</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#效果">效果</a></li>
+</ul>
+</li>
+<li><a href="#persistentfooterbuttons">persistentFooterButtons</a><ul>
+<li><a href="#简述-1">简述</a></li>
+<li><a href="#代码">代码</a></li>
+<li><a href="#效果-1">效果</a></li>
+</ul>
+</li>
+<li><a href="#listtile">ListTile</a><ul>
+<li><a href="#padding-调整">padding 调整</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="GestureDetector"><a href="#GestureDetector" class="headerlink" title="GestureDetector"></a>GestureDetector</h2><h3 id="基础事件"><a href="#基础事件" class="headerlink" title="基础事件"></a>基础事件</h3><ul>
+<li>onTap</li>
+<li>onTapDown</li>
+<li>onTapUp</li>
+<li>onLongPress</li>
+<li>onLongPressUp</li>
+<li>onLongPressDown</li>
+<li>onDoubleTap</li>
+</ul>
+<h2 id="FloatingActionButton"><a href="#FloatingActionButton" class="headerlink" title="FloatingActionButton"></a>FloatingActionButton</h2>
+        <!-- 
+
+
+GestureDetector
+基础事件
+
+
+FloatingActionButton
+简述
+效果
+
+
+persistentFooterButtons
+简述
+代码
+效果
+
+
+ListTile
+padding 调整
+
+
+BMW WARNING
+
+
+GestureDetector基础事件
+onTap
+onTapDown
+onTapUp
+onLongPress
+onLongPressUp
+o......  -->
+        <p class="article-more-link">
+          <a href="/Flutter基础控件使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flutter/">Flutter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mobile/">Mobile</a></li></ul>
 
     </footer>
   </div>
@@ -772,104 +912,6 @@ HS Code物流单号可以直接在官网查询http://new.wherexp......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-CSS基础属性"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CSS基础属性.html">CSS基础属性</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-15T07:58:53.000Z" itemprop="datePublished">2022-06-15</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="background"><a href="#background" class="headerlink" title="background"></a>background</h2><p>background-size</p>
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>描述</th>
-<th>特征</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>contain</td>
-<td>缩放图片直到长或宽延伸到边界，包含（contain）在容器中，background-repeat: no-repeat 会造成背景留白</td>
-<td>留白</td>
-</tr>
-<tr>
-<td>cover</td>
-<td>缩放图片直到覆盖（cover）容器，超出裁剪</td>
-<td>裁剪</td>
-</tr>
-<tr>
-<td>auto</td>
-<td>默认属性，保持图片原有比例</td>
-<td>原比例</td>
-</tr>
-<tr>
-<td>100% 100%</td>
-<td><strong>缩放图片正好填充完宽高</strong></td>
-<td>填充</td>
-</tr>
-</tbody>
-</table>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
-<li>Bulletin</li>
-</ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️。</p>
-<blockquote>
-<p>I am a bucolic migant worker but I never walk backwards.</p>
-</blockquote>
-<ul>
-<li>Material</li>
-</ul>
-<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
-<blockquote>
-</blockquote>
-<ul>
-<li>Warrant</li>
-</ul>
-<p>本文作者： Skyline(lty)</p>
-<p>文章链接：<a href="http://www.skyline.show/CSS基础属性.html">http://www.skyline.show/CSS 基础属性.html</a></p>
-<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-CSS样式命中优先级"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1020,7 +1062,7 @@ ID
 <!-- Table of Contents -->
 
   
-    <article id="post-HTML标签"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-CSS基础属性"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1028,7 +1070,7 @@ ID
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/HTML标签.html">HTML标签</a>
+      <a class="article-title" href="/CSS基础属性.html">CSS基础属性</a>
     </h1>
   
 
@@ -1037,7 +1079,7 @@ ID
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-10T08:10:24.000Z" itemprop="datePublished">2022-06-10</time>
+      <time datetime="2022-06-15T07:58:53.000Z" itemprop="datePublished">2022-06-15</time>
     </a>
 
 
@@ -1050,198 +1092,65 @@ ID
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#script">script</a><ul>
-<li><a href="#type-属性">type 属性</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="script"><a href="#script" class="headerlink" title="script"></a>script</h2><h3 id="type-属性"><a href="#type-属性" class="headerlink" title="type 属性"></a>type 属性</h3><p>defer 要等到整个页面在内存中 DOM 渲染结束与其他脚本执行之后，才会执行；<br>async 一旦下载完，渲染引擎就会中断渲染，执行改脚本，再继续渲染。<strong>defer 是“渲染完再执行”，async 是“下载完就执行”</strong>。</p>
+        <h2 id="background"><a href="#background" class="headerlink" title="background"></a>background</h2><p>background-size</p>
 <table>
 <thead>
 <tr>
-<th>type 值</th>
-<th>async</th>
-<th>defer</th>
+<th>值</th>
+<th>描述</th>
+<th>特征</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>描述</td>
-<td>立即下载脚本，不妨碍其他操作，不依赖其他脚本，不阻塞文档</td>
-<td>延迟脚本到文档被解析与显示之后</td>
+<td>contain</td>
+<td>缩放图片直到长或宽延伸到边界，包含（contain）在容器中，background-repeat: no-repeat 会造成背景留白</td>
+<td>留白</td>
 </tr>
 <tr>
-<td>要点</td>
-<td>下载完就执行</td>
-<td>渲染完再执行</td>
+<td>cover</td>
+<td>缩放图片直到覆盖（cover）容器，超出裁剪</td>
+<td>裁剪</td>
 </tr>
 <tr>
-<td>适用范围</td>
-<td>外部引入脚本</td>
-<td>外部引入脚本</td>
+<td>auto</td>
+<td>默认属性，保持图片原有比例</td>
+<td>原比例</td>
 </tr>
 <tr>
-<td>多个执行顺序</td>
-<td>不保证加载顺序</td>
-<td>先后顺序</td>
+<td>100% 100%</td>
+<td><strong>缩放图片正好填充完宽高</strong></td>
+<td>填充</td>
 </tr>
 </tbody>
 </table>
-<p>多个执行顺序指同时出现多个 type 设置为 async 或 defer 的 script 标签。<br>type=”module”是表明引入的是一个 ES6 模块脚本，其脚本内的模块需要遵循 ES6 模块规范，其他表现类似于 type 指定为 defer</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
-        <!-- 
-
-
-script
-type 属性
-
-
-BMW WARNING
-
-
-scripttype 属性defer 要等到整个页面在内存中 DOM 渲染结束与其他脚本执行之后，才会执行；async 一旦下载完，渲染引擎就会中断渲染，执行改脚本，再继续渲染。defer 是“渲染完再执行”，async 是“下载完就执行”。
-
-
-
-type 值
-async
-defer
-
-
-
-
-描述
-立即下载脚本，不妨碍其他......  -->
-        <p class="article-more-link">
-          <a href="/HTML标签.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Nas使用frp内网穿透"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Nas使用frp内网穿透.html">Nas使用frp内网穿透</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-06-09T09:41:58.000Z" itemprop="datePublished">2022-06-09</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问，<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️。</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
 <ul>
-<li><a href="#简介">简介</a></li>
-<li><a href="#server-端">Server 端</a><ul>
-<li><a href="#下载包">下载包</a></li>
-<li><a href="#试运行">试运行</a></li>
-<li><a href="#后台运行服务">后台运行服务</a></li>
+<li>Material</li>
 </ul>
-</li>
-<li><a href="#client-端">Client 端</a><ul>
-<li><a href="#frpc-配置">frpc 配置</a></li>
-<li><a href="#添加-docker-镜像">添加 docker 镜像</a></li>
-<li><a href="#启动容器">启动容器</a></li>
-<li><a href="#套件映射">套件映射</a></li>
-<li><a href="#frpcini">frpc.ini</a></li>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Warrant</li>
 </ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
-<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<p>github 国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
-<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
-<p>尝试启动服务</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
-<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
-<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure>
-<p>修改 frp.service 内容如下：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>重置守护进程服务</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启服务</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
-<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
-<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> frp</span><br></pre></td></tr></table></figure>
-<p>即可。</p>
-<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc-配置"><a href="#frpc-配置" class="headerlink" title="frpc 配置"></a>frpc 配置</h3>
-        <!-- 
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/CSS基础属性.html">http://www.skyline.show/CSS 基础属性.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
 
-
-简介
-Server 端
-下载包
-试运行
-后台运行服务
-
-
-Client 端
-frpc 配置
-添加 docker 镜像
-启动容器
-套件映射
-frpc.ini
-
-
-
-
-简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示：
-Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 ......  -->
-        <p class="article-more-link">
-          <a href="/Nas使用frp内网穿透.html#more">阅读全文</a>
-        </p>
       
     </div>
     <footer class="article-footer">
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li></ul>
 
     </footer>
   </div>

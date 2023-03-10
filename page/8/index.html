@@ -91,7 +91,7 @@
                   
                     <div class="item active">
                   
-                    <img id="carousel-img0" src="/css/images/home-bg.jpg">
+                    <img id="carousel-img0" src="https://source.unsplash.com/collection/954550/1920x1080">
                   </div>
 
                   <!-- 自适应大图 -->
@@ -105,48 +105,6 @@
                         } else {
                           imageTag0.style.height = document.body.clientHeight + "px";
                           imageTag0.style.marginLeft = -(document.body.clientHeight * img0.width / img0.height - document.body.clientWidth) / 2 + "px";
-                        }
-                      };
-                  </script>
-                
-                  
-                    <div class="item">
-                  
-                    <img id="carousel-img1" src="/css/images/sample.jpg">
-                  </div>
-
-                  <!-- 自适应大图 -->
-                  <script>
-                      var img1 = new Image();
-                      var imageTag1 = document.getElementById("carousel-img1");
-                      img1.src = imageTag1.src;
-                      img1.onload=function(){
-                        if (img1.width / img1.height <= document.body.clientWidth / document.body.clientHeight) {
-                          imageTag1.style.width = document.body.clientWidth + "px";
-                        } else {
-                          imageTag1.style.height = document.body.clientHeight + "px";
-                          imageTag1.style.marginLeft = -(document.body.clientHeight * img1.width / img1.height - document.body.clientWidth) / 2 + "px";
-                        }
-                      };
-                  </script>
-                
-                  
-                    <div class="item">
-                  
-                    <img id="carousel-img2" src="https://source.unsplash.com/collection/954550/1920x1080">
-                  </div>
-
-                  <!-- 自适应大图 -->
-                  <script>
-                      var img2 = new Image();
-                      var imageTag2 = document.getElementById("carousel-img2");
-                      img2.src = imageTag2.src;
-                      img2.onload=function(){
-                        if (img2.width / img2.height <= document.body.clientWidth / document.body.clientHeight) {
-                          imageTag2.style.width = document.body.clientWidth + "px";
-                        } else {
-                          imageTag2.style.height = document.body.clientHeight + "px";
-                          imageTag2.style.marginLeft = -(document.body.clientHeight * img2.width / img2.height - document.body.clientWidth) / 2 + "px";
                         }
                       };
                   </script>
@@ -297,9 +255,9 @@
                     </li> -->
 
                 </ul>
-                <a href="https://pages.coding.me" style="position: absolute;bottom: 20px;right: 20px; pointer-events: auto; cursor: pointer;">
+                <!-- <a href="https://pages.coding.me" style="position: absolute;bottom: 20px;right: 20px; pointer-events: auto; cursor: pointer;">
                   <img width="75px" height="75px" src="http://ovhogx4rt.bkt.clouddn.com/f7272a0b7cd340571725c6734c6bdd6f.png" alt="coding">
-                </a>
+                </a> -->
             </section>
             <hamburger>
                 <i></i>
@@ -320,6 +278,87 @@
       <div id="content" class="outer">
         
           <section id="main" style="float:none;">
+  
+    <article id="post-Nginx常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Nginx常见问题汇总.html">Nginx常见问题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#proxy_pass-代理接口不能访问">proxy_pass 代理接口不能访问</a><ul>
+<li><a href="#问题描述">问题描述</a></li>
+<li><a href="#配置">配置</a></li>
+</ul>
+</li>
+<li><a href="#页面刷新不能进入">页面刷新不能进入</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="proxy-pass-代理接口不能访问"><a href="#proxy-pass-代理接口不能访问" class="headerlink" title="proxy_pass 代理接口不能访问"></a>proxy_pass 代理接口不能访问</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>客户端访问接口，发起请求<br><a href="http://aaa.com/file/123.png" target="_blank" rel="noopener">http://aaa.com/file/123.png</a></p>
+<p>真实接口地址为<br><a href="http://bbb.com/123.png" target="_blank" rel="noopener">http://bbb.com/123.png</a></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3>
+        <!-- 
+
+
+proxy_pass 代理接口不能访问
+问题描述
+配置
+
+
+页面刷新不能进入
+BMW WARNING
+
+
+proxy_pass 代理接口不能访问问题描述客户端访问接口，发起请求http://aaa.com/file/123.png
+真实接口地址为http://bbb.com/123.png
+配置
+检查配置，正确的配置如下
+location ^~ /file/ &#123;    pro......  -->
+        <p class="article-more-link">
+          <a href="/Nginx常见问题汇总.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
   
     <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
@@ -396,7 +435,7 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-VIM基本使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Nas使用frp内网穿透"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -404,7 +443,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/VIM基本使用.html">VIM基本使用</a>
+      <a class="article-title" href="/Nas使用frp内网穿透.html">Nas使用frp内网穿透</a>
     </h1>
   
 
@@ -418,105 +457,82 @@
 
 
       
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
       <!--  -->
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="VIM-基本使用"><a href="#VIM-基本使用" class="headerlink" title="VIM 基本使用"></a>VIM 基本使用</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#vim-基本使用">VIM 基本使用</a><ul>
-<li><a href="#模式">模式</a><ul>
-<li><a href="#正常模式-normal-mode">正常模式 (Normal-mode)</a></li>
-<li><a href="#插入模式-insert-mode">插入模式 (Insert-mode)</a></li>
-<li><a href="#命令模式-command-mode">命令模式 (Command-mode)</a></li>
-<li><a href="#可视模式-visual-mode">可视模式 (Visual-mode)</a></li>
+<li><a href="#简介">简介</a></li>
+<li><a href="#server-端">Server 端</a><ul>
+<li><a href="#下载包">下载包</a></li>
+<li><a href="#试运行">试运行</a></li>
+<li><a href="#后台运行服务">后台运行服务</a></li>
 </ul>
 </li>
-<li><a href="#vimrc">.vimrc</a><ul>
-<li><a href="#inoremap">inoremap</a></li>
-</ul>
-</li>
+<li><a href="#client-端">Client 端</a><ul>
+<li><a href="#frpc-配置">frpc 配置</a></li>
+<li><a href="#添加-docker-镜像">添加 docker 镜像</a></li>
+<li><a href="#启动容器">启动容器</a></li>
+<li><a href="#套件映射">套件映射</a></li>
+<li><a href="#frpcini">frpc.ini</a></li>
 </ul>
 </li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><h3 id="正常模式-Normal-mode"><a href="#正常模式-Normal-mode" class="headerlink" title="正常模式 (Normal-mode)"></a>正常模式 (Normal-mode)</h3><p>正常模式一般用于浏览文件，同时包括一些复制、粘贴、删除等快捷操作。<br>其他模式通常通过 ESC 键返回正常模式。</p>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>按键</th>
-<th>EN</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>撤销</td>
-<td>u</td>
-<td>undo</td>
-</tr>
-</tbody>
-</table>
-<h3 id="插入模式-Insert-mode"><a href="#插入模式-Insert-mode" class="headerlink" title="插入模式 (Insert-mode)"></a>插入模式 (Insert-mode)</h3><p>用于编辑文档，直接输入内容。</p>
-<h3 id="命令模式-Command-mode"><a href="#命令模式-Command-mode" class="headerlink" title="命令模式 (Command-mode)"></a>命令模式 (Command-mode)</h3><p>输入:或/进入命令模式<br>命令模式用于执行 VIM 提供的相关指令。</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>按键</th>
-<th>EN</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>移动</td>
-<td>:m</td>
-<td>move</td>
-</tr>
-<tr>
-<td>设定</td>
-<td>:set</td>
-</tr>
-</tbody>
-</table>
-<p><strong>:m</strong><br>:m 多用于换行操作，当前行的位置为 0.具体使用如下</p>
-<ul>
-<li>:m -2 移动到-2 行的位置(当前行与上一行互换)</li>
-<li>:m +1 移动到+1 行的位置(当前行与下一行互换)</li>
-<li>:m 0 移动到首行的位置</li>
-<li>:m $ 移动到尾行的位置</li>
-</ul>
-<p><strong>:set</strong><br>:set number 显示行索引</p>
-<h3 id="可视模式-Visual-mode"><a href="#可视模式-Visual-mode" class="headerlink" title="可视模式 (Visual-mode)"></a>可视模式 (Visual-mode)</h3>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
+<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>github 国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
+<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
+<p>尝试启动服务</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
+<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
+<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure>
+<p>修改 frp.service 内容如下：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>重置守护进程服务</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启服务</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
+<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
+<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> frp</span><br></pre></td></tr></table></figure>
+<p>即可。</p>
+<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc-配置"><a href="#frpc-配置" class="headerlink" title="frpc 配置"></a>frpc 配置</h3>
         <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-VIM 基本使用
 
 
-VIM 基本使用
-模式
-正常模式 (Normal-mode)
-插入模式 (Insert-mode)
-命令模式 (Command-mode)
-可视模式 (Visual-mode)
+简介
+Server 端
+下载包
+试运行
+后台运行服务
 
 
-.vimrc
-inoremap
-
-
+Client 端
+frpc 配置
+添加 docker 镜像
+启动容器
+套件映射
+frpc.ini
 
 
 
 
-模式正常模式 (Normal-mode)正常模式一般用于浏览文件，......  -->
+简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示：
+Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 ......  -->
         <p class="article-more-link">
-          <a href="/VIM基本使用.html#more">阅读全文</a>
+          <a href="/Nas使用frp内网穿透.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -524,6 +540,8 @@ inoremap
       
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+
     </footer>
   </div>
   
@@ -624,6 +642,79 @@ https://github.com/debauchee/barr......  -->
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-frp内网穿透"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/frp内网穿透.html">frp内网穿透</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="frp-内网穿透"><a href="#frp-内网穿透" class="headerlink" title="frp 内网穿透"></a>frp 内网穿透</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
+<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>github国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
+<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
+<p>尝试启动服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
+<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
+<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure></p>
+<p>修改 frp.service 内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>重置守护进程服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+<p>开启服务</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
+<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
+<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable frp</span><br></pre></td></tr></table></figure></p>
+<p>即可。</p>
+<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc配置"><a href="#frpc配置" class="headerlink" title="frpc配置"></a>frpc配置</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+frp 内网穿透简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示：
+Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 https://github.com/fatedier/frp/relea......  -->
+        <p class="article-more-link">
+          <a href="/frp内网穿透.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
     </footer>
   </div>
   
@@ -741,7 +832,7 @@ Macos Beta 系统更新开启在apple beta 地址上登录......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-frp内网穿透"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-IpadOS常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -749,80 +840,7 @@ Macos Beta 系统更新开启在apple beta 地址上登录......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/frp内网穿透.html">frp内网穿透</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="frp-内网穿透"><a href="#frp-内网穿透" class="headerlink" title="frp 内网穿透"></a>frp 内网穿透</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>frp 是一款开源的内网穿透软件，github 主页为：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a><br>其架构如下图所示：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117182759.png" alt="20220117182759"></p>
-<h2 id="Server-端"><a href="#Server-端" class="headerlink" title="Server 端"></a>Server 端</h2><h3 id="下载包"><a href="#下载包" class="headerlink" title="下载包"></a>下载包</h3><p>在 Release 页面下载服务器 CPU 架构对应的版本 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a><br>如果不知道，可以通过 lscpu 命令查看，一般为 arm_64 位或 X86_64 位。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/20220117185544.png" alt="20220117185544"><br>确定后通过 weget 命令下载。如 X86_64 对应下载为</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">weget https://github.com/fatedier/frp/releases/download/v0.38.0/frp_0.38.0_freebsd_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<p>github国内速度较慢，也可通过迅雷等工具下载到本地后通过 SecureCRT 等工具上传.</p>
-<h3 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf frp_0.38.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<p>解压成功后<br>打开目录下的 frps.ini 文件，修改如下</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">token = mima</span><br></pre></td></tr></table></figure>
-<p>尝试启动服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
-<p>成功一般有 success 提示信息，如果遇到 Segmentation fault 错误，检查下载的包版本是否有错。</p>
-<h3 id="后台运行服务"><a href="#后台运行服务" class="headerlink" title="后台运行服务"></a>后台运行服务</h3><p>创建服务文件：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">touch /etc/systemd/system/frp.service</span><br></pre></td></tr></table></figure></p>
-<p>修改 frp.service 内容如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=FRP service</span><br><span class="line">After=network.target syslog.target</span><br><span class="line">Wants=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/root/apps/frp/frps -c /root/apps/frp/frps.ini</span><br><span class="line">Restart=always</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-<p>重置守护进程服务</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>开启服务</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">systemctl start frp</span><br></pre></td></tr></table></figure>
-<p>检查服务是否开启成功，查看 7000 端口是否开启服务即可。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -anp | grep 7000</span><br></pre></td></tr></table></figure>
-<p>注意，此处需要在服务器提供网站对应的配置处将 7000 端口的防火墙限制打开，centos 等系统下，注意 firewalld 是否开放防火墙端口。<br>如上操作完成后，服务即后台启动成功。<br>要想服务开机自启动，输入：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl enable frp</span><br></pre></td></tr></table></figure></p>
-<p>即可。</p>
-<h2 id="Client-端"><a href="#Client-端" class="headerlink" title="Client 端"></a>Client 端</h2><h3 id="frpc配置"><a href="#frpc配置" class="headerlink" title="frpc配置"></a>frpc配置</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-frp 内网穿透简介frp 是一款开源的内网穿透软件，github 主页为：https://github.com/fatedier/frp其架构如下图所示：
-Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 https://github.com/fatedier/frp/relea......  -->
-        <p class="article-more-link">
-          <a href="/frp内网穿透.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-iPadOS常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/iPadOS常见问题.html">iPadOS常见问题</a>
+      <a class="article-title" href="/IpadOS常见问题.html">iPadOS常见问题</a>
     </h1>
   
 
@@ -896,7 +914,7 @@ Warrant
 Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软件问题
 部分软件可能手触屏幕会有断触问......  -->
         <p class="article-more-link">
-          <a href="/iPadOS常见问题.html#more">阅读全文</a>
+          <a href="/IpadOS常见问题.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -912,7 +930,7 @@ Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软�
 <!-- Table of Contents -->
 
   
-    <article id="post-CentOS防火墙"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Shell条件判定"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -920,7 +938,7 @@ Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软�
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/CentOS防火墙.html">CentOS防火墙</a>
+      <a class="article-title" href="/Shell条件判定.html">Shell条件判定</a>
     </h1>
   
 
@@ -929,13 +947,13 @@ Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软�
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+      <time datetime="2022-01-17T07:47:15.000Z" itemprop="datePublished">2022-01-17</time>
     </a>
 
 
       
     
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
@@ -945,50 +963,41 @@ Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软�
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#firewalld1">firewalld[^1]</a><ul>
-<li><a href="#concepts">Concepts</a></li>
-<li><a href="#zones">Zones</a></li>
-<li><a href="#services">Services</a></li>
-<li><a href="#runtime">Runtime</a></li>
-<li><a href="#state">State</a></li>
-<li><a href="#port">Port</a></li>
-<li><a href="#source">Source</a></li>
+<li><a href="#if">if</a><ul>
+<li><a href="#基本语法">基本语法</a></li>
+<li><a href="#条件包裹括号">条件包裹括号</a></li>
+<li><a href="#常见判定条件">常见判定条件</a></li>
 </ul>
 </li>
+<li><a href="#三元">三元</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="firewalld-1"><a href="#firewalld-1" class="headerlink" title="firewalld[^1]"></a>firewalld[^1]</h2><h3 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h3><p>firewalld 采用区域与服务的概念来控制流量的出入。</p>
-<ul>
-<li>zones</li>
-<li>services</li>
-</ul>
-<p>firewalld 是 CentOS 7/8, Red Hat Enterprise Linux 7 (RHEL 7), Fedora 18+等 Linux 发行版本默认防火墙程序。<br>其命令行工具为 firewall-cmd</p>
-<h3 id="Zones"><a href="#Zones" class="headerlink" title="Zones"></a>Zones</h3>
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> 条件; <span class="keyword">then</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">elif</span> 条件; <span class="keyword">then</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p>其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致</p>
+<h3 id="条件包裹括号"><a href="#条件包裹括号" class="headerlink" title="条件包裹括号"></a>条件包裹括号</h3>
         <!-- 
 
 
-firewalld[^1]
-Concepts
-Zones
-Services
-Runtime
-State
-Port
-Source
+if
+基本语法
+条件包裹括号
+常见判定条件
 
 
+三元
 BMW WARNING
 
 
-firewalld[^1]Conceptsfirewalld 采用区域与服务的概念来控制流量的出入。
+if基本语法if 条件; then    命令elif 条件; then    命令else    命令fi
+其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致
+条件包裹括号
 
-zones
-services
+command
 
-firewalld 是 CentOS 7/8, Red Hat Enterprise Lin......  -->
+if 后直接接条件无任何括号包裹。表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首......  -->
         <p class="article-more-link">
-          <a href="/CentOS防火墙.html#more">阅读全文</a>
+          <a href="/Shell条件判定.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -996,7 +1005,105 @@ firewalld 是 CentOS 7/8, Red Hat Enterprise Lin......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Husky使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Husky使用.html">Husky使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-13T07:47:15.000Z" itemprop="datePublished">2022-01-13</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#husky-使用配置">Husky 使用配置</a><ul>
+<li><a href="#husky-简述">husky 简述</a></li>
+<li><a href="#v5">V5+</a></li>
+<li><a href="#v4">V4</a></li>
+</ul>
+</li>
+<li><a href="#husky-配置更新">Husky 配置更新</a><ul>
+<li><a href="#git-hooks-说明">git hooks 说明</a></li>
+<li><a href="#v4-工作原理">V4 工作原理</a></li>
+<li><a href="#v5-原理">V5+ 原理</a></li>
+<li><a href="#后续问题">后续问题</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Husky-使用配置"><a href="#Husky-使用配置" class="headerlink" title="Husky 使用配置"></a>Husky 使用配置</h2><h3 id="husky-简述"><a href="#husky-简述" class="headerlink" title="husky 简述"></a>husky 简述</h3><p>husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。</p>
+<p>以代码校验为例来说明</p>
+<p>代码校验 lint-staged 相关配置如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">		<span class="string">"lint-staged"</span>: <span class="string">"^11.1.2"</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	...,</span><br><span class="line">	<span class="string">"lint-staged"</span>: &#123;</span><br><span class="line">        <span class="string">"*.&#123;js,jsx,ts,tsx,vue&#125;"</span>: <span class="string">"eslint --cache --fix"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>后续代码中，其余配置为 husky 相关，通过这些配置，我们在 commit 代码时，会校验代码错误与格式，校验不通过会有提示。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Husky%E4%BD%BF%E7%94%A820210924150933.png" alt="Husky使用20210924150933"></p>
+<p>Husky 在版本 5 中配置做了大变动，具体前后的配置以版本来说明。</p>
+<h3 id="V5"><a href="#V5" class="headerlink" title="V5+"></a>V5+</h3>
+        <!-- 
+
+
+Husky 使用配置
+husky 简述
+V5+
+V4
+
+
+Husky 配置更新
+git hooks 说明
+V4 工作原理
+V5+ 原理
+后续问题
+
+
+BMW WARNING
+
+
+Husky 使用配置husky 简述husky 支持所有 git 相关钩子，在对应 git 操作触发时，可以执行测试、代码校验等相关任务。
+以代码校验为例来说明
+代码校验 lint-staged 相关配置如下
+......  -->
+        <p class="article-more-link">
+          <a href="/Husky使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
 
     </footer>
   </div>
@@ -1079,238 +1186,6 @@ BMW WARNING
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell常见操作汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell常见操作汇总.html">Shell常见操作汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T10:06:41.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#获取执行脚本的位置">获取执行脚本的位置</a></li>
-<li><a href="#shell-脚本相互调用">Shell 脚本相互调用</a></li>
-<li><a href="#脚本中断与执行">脚本中断与执行</a></li>
-<li><a href="#判定目录或文件存在">判定目录或文件存在</a></li>
-<li><a href="#算数命令">算数命令</a></li>
-<li><a href="#查看目录下文件夹">查看目录下文件夹</a></li>
-<li><a href="#创建嵌套文件夹并进入">创建嵌套文件夹并进入</a></li>
-<li><a href="#查看远程服务及端口是否开启">查看远程服务及端口是否开启</a></li>
-<li><a href="#设置别名">设置别名</a><ul>
-<li><a href="#临时别名">临时别名</a></li>
-<li><a href="#永久生效">永久生效</a></li>
-</ul>
-</li>
-<li><a href="#查看端口占用">查看端口占用</a></li>
-<li><a href="#删除目录下模糊匹配的文件">删除目录下模糊匹配的文件</a><ul>
-<li><a href="#命令">命令</a></li>
-<li><a href="#解析">解析</a></li>
-</ul>
-</li>
-<li><a href="#查找目录下包含指定字符的文件">查找目录下包含指定字符的文件</a><ul>
-<li><a href="#命令-1">命令</a></li>
-<li><a href="#解析-1">解析</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="获取执行脚本的位置"><a href="#获取执行脚本的位置" class="headerlink" title="获取执行脚本的位置"></a>获取执行脚本的位置</h2><p>通过<code>dirname &quot;$0&quot;</code>获取当前执行脚本所在位置。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">BASEDIR=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$BASEDIR</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/a.sh" target="_blank" rel="noopener">示例</a></p>
-<h2 id="Shell-脚本相互调用"><a href="#Shell-脚本相互调用" class="headerlink" title="Shell 脚本相互调用"></a>Shell 脚本相互调用</h2><p>在 Shell 脚本内部调用其他 Shell 脚本，使用如下方法：</p>
-<ul>
-<li>sh</li>
-<li>source</li>
-<li>点号(.)</li>
-</ul>
-<p>使用点号和 source 的效果基本一致，等同于将其他脚本的内部内容放在当前脚本运行。<br>引入脚本和当前脚本执行时位于同一进程中，引入脚本可以获取到当前脚本中的变量。<br>sh 引入的脚本会单开一个子进程，其无法获取到当前脚本中的变量，要获取该变量，需要使用 export 导出。<br>有如下两个在同级目录的脚本 a 和 b<br><code>a.sh</code></p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">a=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"b is <span class="variable">$b</span>"</span></span><br><span class="line"><span class="comment"># b is</span></span><br><span class="line">BASEDIR=$(dirname <span class="string">"<span class="variable">$0</span>"</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$BASEDIR</span></span><br><span class="line">. <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"b is <span class="variable">$b</span>"</span></span><br><span class="line"><span class="comment"># b is 2</span></span><br><span class="line"><span class="built_in">source</span> <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br><span class="line">sh <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is</span></span><br><span class="line"><span class="built_in">export</span> a</span><br><span class="line">sh <span class="string">"<span class="variable">$BASEDIR</span>/b.sh"</span></span><br><span class="line"><span class="comment"># a is 1</span></span><br></pre></td></tr></table></figure>
-<p><code>b.sh</code></p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"a is <span class="variable">$a</span>"</span></span><br><span class="line">b=2</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/a.sh" target="_blank" rel="noopener">示例</a></p>
-<h2 id="脚本中断与执行"><a href="#脚本中断与执行" class="headerlink" title="脚本中断与执行"></a>脚本中断与执行</h2>
-        <!-- 
-
-
-获取执行脚本的位置
-Shell 脚本相互调用
-脚本中断与执行
-判定目录或文件存在
-算数命令
-查看目录下文件夹
-创建嵌套文件夹并进入
-查看远程服务及端口是否开启
-设置别名
-临时别名
-永久生效
-
-
-查看端口占用
-删除目录下模糊匹配的文件
-命令
-解析
-
-
-查找目录下包含指定字符的文件
-命令
-解析
-
-
-BMW WARNING
-
-
-获取执行脚本的位置通过dirname &quot;$0&quot......  -->
-        <p class="article-more-link">
-          <a href="/Shell常见操作汇总.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Shell中sed的使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中sed的使用.html">Shell中sed的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T08:29:03.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#sed-简介">sed 简介</a></li>
-<li><a href="#选项参数">选项参数</a><ul>
-<li><a href="#-n">-n</a></li>
-<li><a href="#-e">-e</a></li>
-<li><a href="#-i">-i</a></li>
-</ul>
-</li>
-<li><a href="#命令参数">命令参数</a><ul>
-<li><a href="#ia">i/a</a></li>
-<li><a href="#d">d</a></li>
-<li><a href="#p">p</a></li>
-<li><a href="#sc">s/c</a></li>
-</ul>
-</li>
-<li><a href="#常见用法">常见用法</a><ul>
-<li><a href="#文末插入">文末插入</a></li>
-<li><a href="#替换字符">替换字符</a></li>
-<li><a href="#获取行数">获取行数</a></li>
-<li><a href="#获取字符行号">获取字符行号</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="sed-简介"><a href="#sed-简介" class="headerlink" title="sed 简介"></a>sed 简介</h2><p>sed 是一种流文本编辑器，用于读取指定文件或标准输入。<br>如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。<br>本文后续内容以<a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/Shell/skyline.txt" target="_blank" rel="noopener">skyline.txt</a>示例，可在根目录执行下述脚本。<br>其文本内容为</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">test</span><br><span class="line">skyline</span><br><span class="line">test2</span><br><span class="line">skyline test</span><br></pre></td></tr></table></figure>
-<h2 id="选项参数"><a href="#选项参数" class="headerlink" title="选项参数"></a>选项参数</h2><h3 id="n"><a href="#n" class="headerlink" title="-n"></a>-n</h3>
-        <!-- 
-
-
-sed 简介
-选项参数
--n
--e
--i
-
-
-命令参数
-i/a
-d
-p
-s/c
-
-
-常见用法
-文末插入
-替换字符
-获取行数
-获取字符行号
-
-
-BMW WARNING
-
-
-sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输入。如果没有文件被指定，可由命令列表来指定输入，进行相应修改后写入到标准输出。本文后续内容以skyline.txt示例，可在根目录执行下述脚本。其文本内容......  -->
-        <p class="article-more-link">
-          <a href="/Shell中sed的使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>

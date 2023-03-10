@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>vue渲染机制 | 鹧鸪天</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="JS原理Vue">
+  
+  
+  
+  
+  <meta name="description" content="VDOM 渲染流程 Template优化 模板语法的优势 VDOM的优化 静态节点提升 补丁标记（更新类型标记） Tree Flatting   BMW WARNING   VDOM在 JQuery 同时代，大多数的框架首先都是直接操作 DOM 元素。但是不管多简单的 DOM 元素，都包含了较为复杂的属性。打开任意网页，右键审查元素，在控制台输入 Object.keys(console.di">
+<meta name="keywords" content="JS,原理,Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue渲染机制">
+<meta property="og:url" content="http://www.skyline.show/Vue渲染机制.html">
+<meta property="og:site_name" content="鹧鸪天">
+<meta property="og:description" content="VDOM 渲染流程 Template优化 模板语法的优势 VDOM的优化 静态节点提升 补丁标记（更新类型标记） Tree Flatting   BMW WARNING   VDOM在 JQuery 同时代，大多数的框架首先都是直接操作 DOM 元素。但是不管多简单的 DOM 元素，都包含了较为复杂的属性。打开任意网页，右键审查元素，在控制台输入 Object.keys(console.di">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%2420230222094020.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%2420230210110315.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%2420230222093857.png">
+<meta property="og:updated_time" content="2023-03-04T06:01:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue渲染机制">
+<meta name="twitter:description" content="VDOM 渲染流程 Template优化 模板语法的优势 VDOM的优化 静态节点提升 补丁标记（更新类型标记） Tree Flatting   BMW WARNING   VDOM在 JQuery 同时代，大多数的框架首先都是直接操作 DOM 元素。但是不管多简单的 DOM 元素，都包含了较为复杂的属性。打开任意网页，右键审查元素，在控制台输入 Object.keys(console.di">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%2420230222094020.png">
+  
+    <link rel="alternate" href="/atom.xml" title="鹧鸪天" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Vue渲染机制" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Vue渲染机制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-03-04T06:01:04.000Z" itemprop="datePublished">2023-03-04</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-03-04T06:01:04.000Z" itemprop="datePublished">2023-03-04</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#vdom">VDOM</a></li>
+<li><a href="#渲染流程">渲染流程</a></li>
+<li><a href="#template优化">Template优化</a><ul>
+<li><a href="#模板语法的优势">模板语法的优势</a></li>
+<li><a href="#vdom的优化">VDOM的优化</a></li>
+<li><a href="#静态节点提升">静态节点提升</a></li>
+<li><a href="#补丁标记更新类型标记">补丁标记（更新类型标记）</a></li>
+<li><a href="#tree-flatting">Tree Flatting</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="VDOM"><a href="#VDOM" class="headerlink" title="VDOM"></a>VDOM</h2><p>在 JQuery 同时代，大多数的框架首先都是直接操作 DOM 元素。<br>但是不管多简单的 DOM 元素，都包含了较为复杂的属性。<br>打开任意网页，右键审查元素，在控制台输入</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(<span class="built_in">console</span>.dir($<span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%2420230222094020.png" alt="Vue渲染机制$20230222094020"></p>
+<p>截图仅为很小的部分，可以看到即便是最简单的叶子节点，其都有较为庞大的身躯。<br>直接操作 DOM，当交互复杂时，不可避免会频繁操作 DOM， 这将造成浏览器回流重绘等性能问题。<br>最为直接的表现就是页面卡顿。</p>
+<p>真实 DOM 上的额外的属性与方法往往与我们的操作无关，最终实现的效果也毫无关系。<br>于是为 DOM 瘦身，同时将频繁操作统一一步进行等理念应运而生。</p>
+<p>虚拟 Dom，由 React 最先提出，她不是一种标准，更像是思想理念，或者说是一种设计，一个模式。<br>VDom 可以被看做是 UI 在内存中的虚拟。</p>
+<p>假定 HTML 为：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"skyline"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>则用 JS 对象简单实现的 VDOM 类似如下：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  type: <span class="string">'div'</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    id: <span class="string">'skyline'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  children: [</span><br><span class="line">    &#123;</span><br><span class="line">        type: <span class="string">'h3'</span>,</span><br><span class="line">        props: &#123;</span><br><span class="line">            class: 'title'</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        type: <span class="string">'p'</span>,</span><br><span class="line">        props: &#123;&#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每一个节点可以称为虚拟节点 vnode 。<br>不同框架定义的节点属性可能不同，但大体都有上述属性。<br>若以上节点为根节点，子节点不断扩展，便可联结壮大这颗 VDOM 树。</p>
+<p>Vue render 函数返回 VDOM(准确来说是 AST，即虚拟语法树)。<br>通过官方的工具进行如下 <a href="https://template-explorer.vuejs.org/#eyJzcmMiOiI8ZGl2IGlkPVwic2t5bGluZVwiPlxuICAgIDxoMyBjbGFzcz1cInRpdGxlXCI+PC9IMz5cbiAgICA8cD57eyBuYW1lIH19PC9wPlxuPC9kaXY+XG4iLCJvcHRpb25zIjp7fX0=" target="_blank" rel="noopener">Demo</a>:</p>
+<p>仍以前述 HTML 模板为例，上述模板会被解析成 Render 语法</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  createElementVNode <span class="keyword">as</span> _createElementVNode,</span><br><span class="line">  toDisplayString <span class="keyword">as</span> _toDisplayString,</span><br><span class="line">  openBlock <span class="keyword">as</span> _openBlock,</span><br><span class="line">  createElementBlock <span class="keyword">as</span> _createElementBlock,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">_ctx, _cache, $props, $setup, $data, $options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    _openBlock(),</span><br><span class="line">    _createElementBlock(<span class="string">'div'</span>, &#123; <span class="attr">id</span>: <span class="string">'skyline'</span> &#125;, [</span><br><span class="line">      _createElementVNode(<span class="string">'h3'</span>, &#123; <span class="attr">class</span>: <span class="string">'title'</span> &#125;),</span><br><span class="line">      _createElementVNode(<span class="string">'p'</span>, <span class="literal">null</span>, _toDisplayString(_ctx.name), <span class="number">1</span> <span class="comment">/* TEXT */</span>),</span><br><span class="line">    ])</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check the console for the AST</span></span><br></pre></td></tr></table></figure>
+<p>通过打开控制台找到 AST，可以看到:</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%2420230210110315.png" alt="Vue渲染机制$20230210110315"></p>
+<p>VDOM实质是在真实DOM和JS之间做“缓存”的作用，<br>减轻了真实DOM更新与构建缓慢带来的影响。</p>
+<h2 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h2><p>Vue底层将模板语法编译成 Render（或直接写Render函数），<br>通过Render创建VDOM，<br>通过mount将VDOM挂载或更新成真实DOM。</p>
+<p>具体用一个官方图来说明</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%2420230222093857.png" alt="Vue渲染机制$20230222093857"></p>
+<h2 id="Template优化"><a href="#Template优化" class="headerlink" title="Template优化"></a>Template优化</h2><a id="more"></a>
+<h3 id="模板语法的优势"><a href="#模板语法的优势" class="headerlink" title="模板语法的优势"></a>模板语法的优势</h3><p>相比Template语法，render函数写法可以直接操作vnode，代码编写更加灵活，主要用于高动态渲染逻辑，而Template可以高效应付大部分代码场景。<br>Vue 推荐使用 Template 语法。<br>不仅仅因为模板语法跟贴近 HTML，可复用现有的HTML代码段，应用CSS样式<br>也因为模板语法固定，Vue底层对模板语法转换成 Render 函数进行语法分析时，做了很多优化。<br>这些优化都是基于将模板上的语法信息放在了VDOM上。</p>
+<h3 id="VDOM的优化"><a href="#VDOM的优化" class="headerlink" title="VDOM的优化"></a>VDOM的优化</h3><p>React等框架在更新等动作都基于运行时，当页面对应的数据状态发生改变时，<br>代码无法预知新的VDOM，故而需要重新遍历生成整个新的VDOM来保证页面更新的准确性。</p>
+<p>用过这些框架都知道，许多地方的vnode往往没有任何变化，完全没有必要遍历和新建这些vnode；<br>同时与数据状态绑定的节点有框架设定的特定的语法信息，可将这些语法信息进行标记。<br>Vue从这些切入点进行了优化工作。</p>
+<h3 id="静态节点提升"><a href="#静态节点提升" class="headerlink" title="静态节点提升"></a>静态节点提升</h3><p>Vue将与页面数据状态无关联的节点（静态节点）放在render函数之外形成闭包，<br>当页面更新时，这些节点被不会在渲染函数中遍历和重新生成节点。</p>
+<p>优化后的模板语法通过工具查看如下<a href="https://template-explorer.vuejs.org/#eyJzcmMiOiI8ZGl2IGlkPVwic2t5bGluZVwiPlxuICAgIDxoMyBjbGFzcz1cInRpdGxlXCI+PC9IMz5cbiAgICA8cD57eyBuYW1lIH19PC9wPlxuPC9kaXY+XG4iLCJvcHRpb25zIjp7fX0=" target="_blank" rel="noopener">示例</a></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createElementVNode <span class="keyword">as</span> _createElementVNode, toDisplayString <span class="keyword">as</span> _toDisplayString, openBlock <span class="keyword">as</span> _openBlock, createElementBlock <span class="keyword">as</span> _createElementBlock &#125; <span class="keyword">from</span> <span class="string">"vue"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> _hoisted_1 = &#123; <span class="attr">id</span>: <span class="string">"skyline"</span> &#125;</span><br><span class="line"><span class="keyword">const</span> _hoisted_2 = <span class="comment">/*#__PURE__*/</span>_createElementVNode(<span class="string">"h3"</span>, &#123; <span class="attr">class</span>: <span class="string">"title"</span> &#125;, <span class="literal">null</span>, <span class="number">-1</span> <span class="comment">/* HOISTED */</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">_ctx, _cache, $props, $setup, $data, $options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (_openBlock(), _createElementBlock(<span class="string">"div"</span>, _hoisted_1, [</span><br><span class="line">    _hoisted_2,</span><br><span class="line">    _createElementVNode(<span class="string">"p"</span>, <span class="literal">null</span>, _toDisplayString(_ctx.name), <span class="number">1</span> <span class="comment">/* TEXT */</span>)</span><br><span class="line">  ]))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check the console for the AST</span></span><br></pre></td></tr></table></figure>
+<p>Vue将不会变化的div和h3节点放在render之外，<br>当页面更新时直接使用这些节点从而提升效率。</p>
+<p>同时，连续的静态节点会被看做一个大的静态“HTML节点”通过innerHTML挂载。<br>当组件多次复用时，这些静态节点也会直接克隆出新的DOM节点。</p>
+<p>如下<a href="https://vue-next-template-explorer.netlify.app/#eyJzcmMiOiI8ZGl2IGlkPVwic2t5bGluZVwiPlxuICAgIDxoMyBjbGFzcz1cInRpdGxlXCI+PC9IMz5cbiAgICA8aDMgY2xhc3M9XCJ0aXRsZVwiPjwvSDM+XG4gICAgPGgzIGNsYXNzPVwidGl0bGVcIj48L0gzPlxuICAgIDxoMyBjbGFzcz1cInRpdGxlXCI+PC9IMz5cbiAgICA8aDMgY2xhc3M9XCJ0aXRsZVwiPjwvSDM+XG4gICAgPHA+e3sgbmFtZSB9fTwvcD5cbjwvZGl2PlxuIiwic3NyIjpmYWxzZSwib3B0aW9ucyI6eyJob2lzdFN0YXRpYyI6dHJ1ZX19" target="_blank" rel="noopener">示例</a></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;div id=<span class="string">"skyline"</span>&gt;</span><br><span class="line">    &lt;h3 <span class="class"><span class="keyword">class</span></span>=<span class="string">"title"</span>&gt;&lt;<span class="regexp">/H3&gt;</span></span><br><span class="line"><span class="regexp">    &lt;h3 class="title"&gt;&lt;/</span>H3&gt;</span><br><span class="line">    &lt;h3 <span class="class"><span class="keyword">class</span></span>=<span class="string">"title"</span>&gt;&lt;<span class="regexp">/H3&gt;</span></span><br><span class="line"><span class="regexp">    &lt;h3 class="title"&gt;&lt;/</span>H3&gt;</span><br><span class="line">    &lt;h3 <span class="class"><span class="keyword">class</span></span>=<span class="string">"title"</span>&gt;&lt;<span class="regexp">/H3&gt;</span></span><br><span class="line"><span class="regexp">    &lt;p&gt;&#123;&#123; name &#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+<p>编译成</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createElementVNode <span class="keyword">as</span> _createElementVNode, toDisplayString <span class="keyword">as</span> _toDisplayString, createStaticVNode <span class="keyword">as</span> _createStaticVNode, openBlock <span class="keyword">as</span> _openBlock, createElementBlock <span class="keyword">as</span> _createElementBlock &#125; <span class="keyword">from</span> <span class="string">"vue"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> _hoisted_1 = &#123; <span class="attr">id</span>: <span class="string">"skyline"</span> &#125;</span><br><span class="line"><span class="keyword">const</span> _hoisted_2 = <span class="comment">/*#__PURE__*/</span>_createStaticVNode(<span class="string">"&lt;h3 class=\"title\"&gt;&lt;/h3&gt;&lt;h3 class=\"title\"&gt;&lt;/h3&gt;&lt;h3 class=\"title\"&gt;&lt;/h3&gt;&lt;h3 class=\"title\"&gt;&lt;/h3&gt;&lt;h3 class=\"title\"&gt;&lt;/h3&gt;"</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">_ctx, _cache, $props, $setup, $data, $options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (_openBlock(), _createElementBlock(<span class="string">"div"</span>, _hoisted_1, [</span><br><span class="line">    _hoisted_2,</span><br><span class="line">    _createElementVNode(<span class="string">"p"</span>, <span class="literal">null</span>, _toDisplayString(_ctx.name), <span class="number">1</span> <span class="comment">/* TEXT */</span>)</span><br><span class="line">  ]))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check the console for the AST</span></span><br></pre></td></tr></table></figure>
+<h3 id="补丁标记（更新类型标记）"><a href="#补丁标记（更新类型标记）" class="headerlink" title="补丁标记（更新类型标记）"></a>补丁标记（更新类型标记）</h3><p>Vue为不同的模板语法，如双大括号，类绑定等，<br>添加了特殊的补丁更新标记（<a href="https://github.com/vuejs/core/blob/main/packages/shared/src/patchFlags.ts" target="_blank" rel="noopener">patch flag</a>）来更新VNode节点内容。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> enum PatchFlags &#123;</span><br><span class="line">    TEXT = <span class="number">1</span>,</span><br><span class="line">        CLASS = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,</span><br><span class="line">        STYLE = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,</span><br><span class="line">        PROPS = <span class="number">1</span> &lt;&lt; <span class="number">3</span>,</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当对如下<a href="https://template-explorer.vuejs.org/#eyJzcmMiOiI8ZGl2IDppZD1cInNreWxpbmVcIj5cbiAgPGgzIDpjbGFzcz1cInRpdGxlXCI+PC9oMz5cbiAgPHAgOmNsYXNzPVwiY29udGVudFwiIDppZD1cImN0eFwiPnt7IG5hbWUgfX08L3A+XG48L2Rpdj4iLCJvcHRpb25zIjp7fX0=" target="_blank" rel="noopener">模板</a>进行解析时，</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;div :id=<span class="string">"skyline"</span>&gt;</span><br><span class="line">  &lt;h3 :<span class="class"><span class="keyword">class</span></span>=<span class="string">"title"</span>&gt;&lt;<span class="regexp">/h3&gt;</span></span><br><span class="line"><span class="regexp">  &lt;p :class="content" :id="ctx"&gt;&#123;&#123; name &#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+<p>会被解析成</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">_ctx, _cache, $props, $setup, $data, $options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (_openBlock(), _createElementBlock(<span class="string">"div"</span>, &#123; <span class="attr">id</span>: _ctx.skyline &#125;, [</span><br><span class="line">    _createElementVNode(<span class="string">"h3"</span>, &#123;</span><br><span class="line">      class: _normalizeClass(_ctx.title)</span><br><span class="line">    &#125;, <span class="literal">null</span>, <span class="number">2</span> <span class="comment">/* CLASS */</span>),</span><br><span class="line">    _createElementVNode(<span class="string">"p"</span>, &#123;</span><br><span class="line">      class: _normalizeClass(_ctx.content),</span><br><span class="line">      id: _ctx.ctx</span><br><span class="line">    &#125;, _toDisplayString(_ctx.name), <span class="number">11</span> <span class="comment">/* TEXT(1), CLASS(2), PROPS(8) */</span>, [<span class="string">"id"</span>])</span><br><span class="line">  ], <span class="number">8</span> <span class="comment">/* PROPS */</span>, [<span class="string">"id"</span>]))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在_createElementVNode函数内部，不同的更新标记进行位检查运算执行不同的内容</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (vnode.patchFlag &amp; PatchFlags.CLASS <span class="comment">/* 2 */</span>) &#123;</span><br><span class="line">  <span class="comment">// update the element's class</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (vnode.patchFlag &amp; PatchFlags.PROPS <span class="comment">/* 8 */</span>) &#123;</span><br><span class="line">  <span class="comment">// update the element's props</span></span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>多种更新标记会被合成一个数，如模板中的p标签含有文本，类以及属性传递，<br>会相加合并成一个数例如上例的11。<br>在进行if判断时，通过左移形成的标记多个相加也可进行判定。</p>
+<p>标记合并：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="number">000000001</span> +</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="number">000000010</span> +</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="number">000000100</span> =</span><br><span class="line"><span class="comment">// 8</span></span><br><span class="line"><span class="number">000000111</span></span><br><span class="line"><span class="comment">// 11</span></span><br></pre></td></tr></table></figure>
+<p>if判定：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// vnode.patchFlag &amp; PatchFlags.TEXT</span></span><br><span class="line"><span class="number">000000111</span> &amp;</span><br><span class="line"><span class="comment">// 11</span></span><br><span class="line"><span class="number">000000001</span> =</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="number">000000001</span> </span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// vnode.patchFlag &amp; PatchFlags.CLASS</span></span><br><span class="line"><span class="number">000000111</span> &amp;</span><br><span class="line"><span class="comment">// 11</span></span><br><span class="line"><span class="number">000000010</span> =</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="number">000000010</span> </span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// vnode.patchFlag &amp; PatchFlags.PROPS</span></span><br><span class="line"><span class="number">000000111</span> &amp;</span><br><span class="line"><span class="comment">// 11</span></span><br><span class="line"><span class="number">000000100</span> =</span><br><span class="line"><span class="comment">// 8</span></span><br><span class="line"><span class="number">000000100</span> </span><br><span class="line"><span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+<p>当合并后，TEXT，CLASS，PROPS的更新也能被监测到。</p>
+<h3 id="Tree-Flatting"><a href="#Tree-Flatting" class="headerlink" title="Tree Flatting"></a>Tree Flatting</h3><p>官方将Tree Flattening 中文命名为树结构打平，<br>其含义为将区块中不携带patch flag的VNode踢出后续更新的遍历和重新渲染，极大的减少需要遍历的节点数目。<br>例如上述的</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;div id=<span class="string">"skyline"</span>&gt;</span><br><span class="line">    &lt;h3 <span class="class"><span class="keyword">class</span></span>=<span class="string">"title"</span>&gt;&lt;<span class="regexp">/H3&gt;</span></span><br><span class="line"><span class="regexp">    &lt;h3 class="title"&gt;&lt;/</span>H3&gt;</span><br><span class="line">    &lt;h3 <span class="class"><span class="keyword">class</span></span>=<span class="string">"title"</span>&gt;&lt;<span class="regexp">/H3&gt;</span></span><br><span class="line"><span class="regexp">    &lt;h3 class="title"&gt;&lt;/</span>H3&gt;</span><br><span class="line">    &lt;h3 <span class="class"><span class="keyword">class</span></span>=<span class="string">"title"</span>&gt;&lt;<span class="regexp">/H3&gt;</span></span><br><span class="line"><span class="regexp">    &lt;p&gt;&#123;&#123; name &#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+<p>会被扁平化为</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">div 根区块</span><br><span class="line">  p 带有name文本</span><br></pre></td></tr></table></figure>
+<p>来进行遍历。</p>
+<p>这里引入区块（block）的概念，<br>当一个模板内部内容稳定不包含动态增减结构的指令如v-if，v-for等时，<br>可以将这一部分认为是一个区块。<br>动态内容整体部分也被看做是一个区块而包含在另一个区块中。<br>可以看到，上面的所有示例都会在render函数涉及到 createElementBlock。<br>测试如下示例</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;div id=<span class="string">"skyline"</span>&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p v-<span class="keyword">if</span>=<span class="string">"name"</span>&gt;&#123;&#123; name &#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+<p>会被编译成</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">_ctx, _cache, $props, $setup, $data, $options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (_openBlock(), _createElementBlock(<span class="string">"div"</span>, &#123; <span class="attr">id</span>: <span class="string">"skyline"</span> &#125;, [</span><br><span class="line">    _createElementVNode(<span class="string">"div"</span>, <span class="literal">null</span>, [</span><br><span class="line">      (_ctx.name)</span><br><span class="line">        ? (_openBlock(), _createElementBlock(<span class="string">"p"</span>, &#123; <span class="attr">key</span>: <span class="number">0</span> &#125;, _toDisplayString(_ctx.name), <span class="number">1</span> <span class="comment">/* TEXT */</span>))</span><br><span class="line">        : _createCommentVNode(<span class="string">"v-if"</span>, <span class="literal">true</span>)</span><br><span class="line">    ])</span><br><span class="line">  ]))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github 仓库</a>点亮 ⭐️</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+<p><a href="https://vuejs.org//guide/extras/rendering-mechanism.html" target="_blank" rel="noopener">https://vuejs.org//guide/extras/rendering-mechanism.html</a></p>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/Vue渲染机制.html">http://www.skyline.show/Vue 渲染机制.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原理/">原理</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/Vue数据驱动原理.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Vue数据驱动原理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VDOM"><span class="nav-number">1.</span> <span class="nav-text">VDOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染流程"><span class="nav-number">2.</span> <span class="nav-text">渲染流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template优化"><span class="nav-number">3.</span> <span class="nav-text">Template优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板语法的优势"><span class="nav-number">3.1.</span> <span class="nav-text">模板语法的优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VDOM的优化"><span class="nav-number">3.2.</span> <span class="nav-text">VDOM的优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态节点提升"><span class="nav-number">3.3.</span> <span class="nav-text">静态节点提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补丁标记（更新类型标记）"><span class="nav-number">3.4.</span> <span class="nav-text">补丁标记（更新类型标记）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tree-Flatting"><span class="nav-number">3.5.</span> <span class="nav-text">Tree Flatting</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2023 鹧鸪天 All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            鹧鸪天
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

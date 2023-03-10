@@ -91,7 +91,7 @@
                   
                     <div class="item active">
                   
-                    <img id="carousel-img0" src="/css/images/home-bg.jpg">
+                    <img id="carousel-img0" src="https://source.unsplash.com/collection/954550/1920x1080">
                   </div>
 
                   <!-- 自适应大图 -->
@@ -105,48 +105,6 @@
                         } else {
                           imageTag0.style.height = document.body.clientHeight + "px";
                           imageTag0.style.marginLeft = -(document.body.clientHeight * img0.width / img0.height - document.body.clientWidth) / 2 + "px";
-                        }
-                      };
-                  </script>
-                
-                  
-                    <div class="item">
-                  
-                    <img id="carousel-img1" src="/css/images/sample.jpg">
-                  </div>
-
-                  <!-- 自适应大图 -->
-                  <script>
-                      var img1 = new Image();
-                      var imageTag1 = document.getElementById("carousel-img1");
-                      img1.src = imageTag1.src;
-                      img1.onload=function(){
-                        if (img1.width / img1.height <= document.body.clientWidth / document.body.clientHeight) {
-                          imageTag1.style.width = document.body.clientWidth + "px";
-                        } else {
-                          imageTag1.style.height = document.body.clientHeight + "px";
-                          imageTag1.style.marginLeft = -(document.body.clientHeight * img1.width / img1.height - document.body.clientWidth) / 2 + "px";
-                        }
-                      };
-                  </script>
-                
-                  
-                    <div class="item">
-                  
-                    <img id="carousel-img2" src="https://source.unsplash.com/collection/954550/1920x1080">
-                  </div>
-
-                  <!-- 自适应大图 -->
-                  <script>
-                      var img2 = new Image();
-                      var imageTag2 = document.getElementById("carousel-img2");
-                      img2.src = imageTag2.src;
-                      img2.onload=function(){
-                        if (img2.width / img2.height <= document.body.clientWidth / document.body.clientHeight) {
-                          imageTag2.style.width = document.body.clientWidth + "px";
-                        } else {
-                          imageTag2.style.height = document.body.clientHeight + "px";
-                          imageTag2.style.marginLeft = -(document.body.clientHeight * img2.width / img2.height - document.body.clientWidth) / 2 + "px";
                         }
                       };
                   </script>
@@ -297,9 +255,9 @@
                     </li> -->
 
                 </ul>
-                <a href="https://pages.coding.me" style="position: absolute;bottom: 20px;right: 20px; pointer-events: auto; cursor: pointer;">
+                <!-- <a href="https://pages.coding.me" style="position: absolute;bottom: 20px;right: 20px; pointer-events: auto; cursor: pointer;">
                   <img width="75px" height="75px" src="http://ovhogx4rt.bkt.clouddn.com/f7272a0b7cd340571725c6734c6bdd6f.png" alt="coding">
-                </a>
+                </a> -->
             </section>
             <hamburger>
                 <i></i>
@@ -320,6 +278,344 @@
       <div id="content" class="outer">
         
           <section id="main" style="float:none;">
+  
+    <article id="post-数据结构之树"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/数据结构之树.html">数据结构之树</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-02-02T07:19:17.000Z" itemprop="datePublished">2023-02-02</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#二叉树">二叉树</a><ul>
+<li><a href="#二叉树遍历">二叉树遍历</a></li>
+<li><a href="#完全二叉树">完全二叉树</a></li>
+<li><a href="#满二叉树">满二叉树</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230202135508.png" alt="数据结构之树$20230202135508"></p>
+<p>深度优先遍历（DFS），根据父节点被访问的次序，分为：</p>
+<ul>
+<li>先序遍历（Preorder）</li>
+</ul>
+<p>父节点先于左右子树被遍历。<br>上述二叉树对应结果为</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">ABDHIEJKCFLG</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112727.png" alt="数据结构之树$20230208112727"></p>
+<ul>
+<li>中序遍历（Inorder）</li>
+</ul>
+<p>父节点遍历次序位于左右子树中间。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">HDIBJEKALFCG</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112757.png" alt="数据结构之树$20230208112757"></p>
+<ul>
+<li>后序遍历（Postorder）</li>
+</ul>
+<p>父节点后于左右子树被遍历</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">HIDJKEBLFGCA</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112821.png" alt="数据结构之树$20230208112821"></p>
+<p>无论父节点被访问的次序，子树总是先左后右被遍历。</p>
+<p>二叉树的深度优先遍历用 Python3 实现如下（<a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener">对应 leetcode 题目</a>）</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">  <span class="comment"># 先序遍历</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">preorderTraversal</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[int]:</span></span><br><span class="line">      ret = []</span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(root)</span>:</span></span><br><span class="line">          <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">              <span class="keyword">return</span></span><br><span class="line">          ret.append(root.val)</span><br><span class="line">          <span class="keyword">if</span> root.left:</span><br><span class="line">                traversal(root.left)</span><br><span class="line">          <span class="keyword">if</span> root.right:</span><br><span class="line">                traversal(root.right)</span><br><span class="line">      traversal(root)</span><br><span class="line">      <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 中序遍历</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inorderTraversal</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[int]:</span></span><br><span class="line">        ret = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(root)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">if</span> root.left:</span><br><span class="line">                 traversal(root.left)</span><br><span class="line">            ret.append(root.val)</span><br><span class="line">            <span class="keyword">if</span> root.right:</span><br><span class="line">                 traversal(root.right)</span><br><span class="line">        traversal(root)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">  <span class="comment"># 后序遍历</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">postorderTraversal</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[int]:</span></span><br><span class="line">      ret = []</span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(root)</span>:</span></span><br><span class="line">          <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">              <span class="keyword">return</span></span><br><span class="line">          <span class="keyword">if</span> root.left:</span><br><span class="line">                traversal(root.left)</span><br><span class="line">          <span class="keyword">if</span> root.right:</span><br><span class="line">                traversal(root.right)</span><br><span class="line">          ret.append(root.val)</span><br><span class="line">      traversal(root)</span><br><span class="line">      <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<p>另外还可使用广度优先遍历（BFS），即层次（层序）遍历。<br>从左到右一层一层访问所有节点</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">ABCDEFGHIJKL</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112932.png" alt="数据结构之树$20230208112932"></p>
+<p>层次遍历用 Python 实现如下（<a href="https://leetcode.cn/problems/binary-tree-level-order-traversal/" target="_blank" rel="noopener">对应 leetcode 题目</a>）</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># @lc code=start</span></span><br><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># 递归版本</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrderRecursion</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        ret = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(preLevel)</span>:</span></span><br><span class="line">            level = []</span><br><span class="line">            cells = []</span><br><span class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> preLevel:</span><br><span class="line">                cells.append(node.val)</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    level.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    level.append(node.right)</span><br><span class="line">            ret.append(cells)</span><br><span class="line">            <span class="keyword">if</span> len(level):</span><br><span class="line">                traversal(level)</span><br><span class="line">        traversal([root])</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 双层循环版本</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrder</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        ret = []</span><br><span class="line">        level = [root]</span><br><span class="line">        <span class="keyword">while</span> len(level):</span><br><span class="line">            cells = []</span><br><span class="line">            preLevel = level</span><br><span class="line">            level = []</span><br><span class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> preLevel:</span><br><span class="line">                cells.append(node.val)</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    level.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    level.append(node.right)</span><br><span class="line">            ret.append(cells)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 双层循环版本使用队列优化空间</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrderQueue</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        ret = []</span><br><span class="line">        level = [root]</span><br><span class="line">        <span class="keyword">while</span> len(level):</span><br><span class="line">            cells = []</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(level)):</span><br><span class="line">                node = level.pop(<span class="number">0</span>)</span><br><span class="line">                cells.append(node.val)</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    level.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    level.append(node.right)</span><br><span class="line">            ret.append(cells)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<p>可以看到，对于变长数组的循环，可以采用while方式进行。</p>
+<h3 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h3>
+        <!-- 
+
+
+二叉树
+二叉树遍历
+完全二叉树
+满二叉树
+
+
+BMW WARNING
+
+
+二叉树二叉树遍历
+深度优先遍历（DFS），根据父节点被访问的次序，分为：
+
+先序遍历（Preorder）
+
+父节点先于左右子树被遍历。上述二叉树对应结果为
+ABDHIEJKCFLG
+
+
+中序遍历（Inorder）
+
+父节点遍历次序位于左右子树中间。
+HDIBJEKALFCG
+
+
+后序遍历（Postorder）
+
+......  -->
+        <p class="article-more-link">
+          <a href="/数据结构之树.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Vue渲染机制"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Vue渲染机制.html">Vue渲染机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-03-04T06:01:04.000Z" itemprop="datePublished">2023-03-04</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#vdom">VDOM</a></li>
+<li><a href="#渲染流程">渲染流程</a></li>
+<li><a href="#template优化">Template优化</a><ul>
+<li><a href="#模板语法的优势">模板语法的优势</a></li>
+<li><a href="#vdom的优化">VDOM的优化</a></li>
+<li><a href="#静态节点提升">静态节点提升</a></li>
+<li><a href="#补丁标记更新类型标记">补丁标记（更新类型标记）</a></li>
+<li><a href="#tree-flatting">Tree Flatting</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="VDOM"><a href="#VDOM" class="headerlink" title="VDOM"></a>VDOM</h2><p>在 JQuery 同时代，大多数的框架首先都是直接操作 DOM 元素。<br>但是不管多简单的 DOM 元素，都包含了较为复杂的属性。<br>打开任意网页，右键审查元素，在控制台输入</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(<span class="built_in">console</span>.dir($<span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%2420230222094020.png" alt="Vue渲染机制$20230222094020"></p>
+<p>截图仅为很小的部分，可以看到即便是最简单的叶子节点，其都有较为庞大的身躯。<br>直接操作 DOM，当交互复杂时，不可避免会频繁操作 DOM， 这将造成浏览器回流重绘等性能问题。<br>最为直接的表现就是页面卡顿。</p>
+<p>真实 DOM 上的额外的属性与方法往往与我们的操作无关，最终实现的效果也毫无关系。<br>于是为 DOM 瘦身，同时将频繁操作统一一步进行等理念应运而生。</p>
+<p>虚拟 Dom，由 React 最先提出，她不是一种标准，更像是思想理念，或者说是一种设计，一个模式。<br>VDom 可以被看做是 UI 在内存中的虚拟。</p>
+<p>假定 HTML 为：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"skyline"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span> <span class="attr">class</span>=<span class="string">"title"</span>&gt;</span><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>则用 JS 对象简单实现的 VDOM 类似如下：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  type: <span class="string">'div'</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    id: <span class="string">'skyline'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  children: [</span><br><span class="line">    &#123;</span><br><span class="line">        type: <span class="string">'h3'</span>,</span><br><span class="line">        props: &#123;</span><br><span class="line">            class: 'title'</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        type: <span class="string">'p'</span>,</span><br><span class="line">        props: &#123;&#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每一个节点可以称为虚拟节点 vnode 。<br>不同框架定义的节点属性可能不同，但大体都有上述属性。<br>若以上节点为根节点，子节点不断扩展，便可联结壮大这颗 VDOM 树。</p>
+<p>Vue render 函数返回 VDOM(准确来说是 AST，即虚拟语法树)。<br>通过官方的工具进行如下 <a href="https://template-explorer.vuejs.org/#eyJzcmMiOiI8ZGl2IGlkPVwic2t5bGluZVwiPlxuICAgIDxoMyBjbGFzcz1cInRpdGxlXCI+PC9IMz5cbiAgICA8cD57eyBuYW1lIH19PC9wPlxuPC9kaXY+XG4iLCJvcHRpb25zIjp7fX0=" target="_blank" rel="noopener">Demo</a>:</p>
+<p>仍以前述 HTML 模板为例，上述模板会被解析成 Render 语法</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  createElementVNode <span class="keyword">as</span> _createElementVNode,</span><br><span class="line">  toDisplayString <span class="keyword">as</span> _toDisplayString,</span><br><span class="line">  openBlock <span class="keyword">as</span> _openBlock,</span><br><span class="line">  createElementBlock <span class="keyword">as</span> _createElementBlock,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">_ctx, _cache, $props, $setup, $data, $options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    _openBlock(),</span><br><span class="line">    _createElementBlock(<span class="string">'div'</span>, &#123; <span class="attr">id</span>: <span class="string">'skyline'</span> &#125;, [</span><br><span class="line">      _createElementVNode(<span class="string">'h3'</span>, &#123; <span class="attr">class</span>: <span class="string">'title'</span> &#125;),</span><br><span class="line">      _createElementVNode(<span class="string">'p'</span>, <span class="literal">null</span>, _toDisplayString(_ctx.name), <span class="number">1</span> <span class="comment">/* TEXT */</span>),</span><br><span class="line">    ])</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check the console for the AST</span></span><br></pre></td></tr></table></figure>
+<p>通过打开控制台找到 AST，可以看到:</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%2420230210110315.png" alt="Vue渲染机制$20230210110315"></p>
+<p>VDOM实质是在真实DOM和JS之间做“缓存”的作用，<br>减轻了真实DOM更新与构建缓慢带来的影响。</p>
+<h2 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h2><p>Vue底层将模板语法编译成 Render（或直接写Render函数），<br>通过Render创建VDOM，<br>通过mount将VDOM挂载或更新成真实DOM。</p>
+<p>具体用一个官方图来说明</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6%2420230222093857.png" alt="Vue渲染机制$20230222093857"></p>
+<h2 id="Template优化"><a href="#Template优化" class="headerlink" title="Template优化"></a>Template优化</h2>
+        <!-- 
+
+
+VDOM
+渲染流程
+Template优化
+模板语法的优势
+VDOM的优化
+静态节点提升
+补丁标记（更新类型标记）
+Tree Flatting
+
+
+BMW WARNING
+
+
+VDOM在 JQuery 同时代，大多数的框架首先都是直接操作 DOM 元素。但是不管多简单的 DOM 元素，都包含了较为复杂的属性。打开任意网页，右键审查元素，在控制台输入
+Object.keys(console......  -->
+        <p class="article-more-link">
+          <a href="/Vue渲染机制.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原理/">原理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Vue数据驱动原理"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Vue数据驱动原理.html">Vue数据驱动原理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-03-04T06:01:04.000Z" itemprop="datePublished">2023-03-04</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#数据驱动流程">数据驱动流程</a></li>
+<li><a href="#init">init</a><ul>
+<li><a href="#初始化数据与功能函数">初始化数据与功能函数</a></li>
+<li><a href="#进行数据代理">进行数据代理</a></li>
+</ul>
+</li>
+<li><a href="#mount">mount</a><ul>
+<li><a href="#vueprototypemount">Vue.prototype.$mount</a></li>
+<li><a href="#模版编译">模版编译</a></li>
+<li><a href="#创建-watcher-实例">创建 watcher 实例</a></li>
+</ul>
+</li>
+<li><a href="#render">render</a><ul>
+<li><a href="#vueprototype_render">Vue.prototype._render</a></li>
+<li><a href="#createelement-创建-vnode">createElement 创建 Vnode</a></li>
+<li><a href="#树形结构扁平化">树形结构扁平化</a></li>
+</ul>
+</li>
+<li><a href="#update">update</a><ul>
+<li><a href="#vueprototype_update">Vue.prototype._update</a></li>
+<li><a href="#页面渲染">页面渲染</a></li>
+<li><a href="#偏函数技巧">偏函数技巧</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="数据驱动流程"><a href="#数据驱动流程" class="headerlink" title="数据驱动流程"></a>数据驱动流程</h2><blockquote>
+<p>本文对应的 Vue 版本为 2.5.17</p>
+</blockquote>
+<p>数据驱动是指视图由数据来调配生成，视图的更新不直接操作 DOM，而是直接修改数据。</p>
+<p>Vue 是数据驱动的，其数据驱动流程大致如下：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8%E5%8E%9F%E7%90%86%2420230304194743.png" alt="Vue数据驱动原理$20230304194743"></p>
+<h2 id="init"><a href="#init" class="headerlink" title="init"></a>init</h2><h3 id="初始化数据与功能函数"><a href="#初始化数据与功能函数" class="headerlink" title="初始化数据与功能函数"></a>初始化数据与功能函数</h3>
+        <!-- 
+
+
+数据驱动流程
+init
+初始化数据与功能函数
+进行数据代理
+
+
+mount
+Vue.prototype.$mount
+模版编译
+创建 watcher 实例
+
+
+render
+Vue.prototype._render
+createElement 创建 Vnode
+树形结构扁平化
+
+
+update
+Vue.prototype._update
+页面渲染
+偏函数技巧
+
+
+BMW WARNIN......  -->
+        <p class="article-more-link">
+          <a href="/Vue数据驱动原理.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原理/">原理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
   
     <article id="post-ES事件轮询"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
@@ -742,127 +1038,6 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-数据结构之树"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/数据结构之树.html">数据结构之树</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-02T07:19:17.000Z" itemprop="datePublished">2023-02-02</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#二叉树">二叉树</a><ul>
-<li><a href="#二叉树遍历">二叉树遍历</a></li>
-<li><a href="#完全二叉树">完全二叉树</a></li>
-<li><a href="#满二叉树">满二叉树</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230202135508.png" alt="数据结构之树$20230202135508"></p>
-<p>深度优先遍历（DFS），根据父节点被访问的次序，分为：</p>
-<ul>
-<li>先序遍历（Preorder）</li>
-</ul>
-<p>父节点先于左右子树被遍历。<br>上述二叉树对应结果为</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">ABDHIEJKCFLG</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112727.png" alt="数据结构之树$20230208112727"></p>
-<ul>
-<li>中序遍历（Inorder）</li>
-</ul>
-<p>父节点遍历次序位于左右子树中间。</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">HDIBJEKALFCG</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112757.png" alt="数据结构之树$20230208112757"></p>
-<ul>
-<li>后序遍历（Postorder）</li>
-</ul>
-<p>父节点后于左右子树被遍历</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">HIDJKEBLFGCA</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112821.png" alt="数据结构之树$20230208112821"></p>
-<p>无论父节点被访问的次序，子树总是先左后右被遍历。</p>
-<p>二叉树的深度优先遍历用 Python3 实现如下（<a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener">对应 leetcode 题目</a>）</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">  <span class="comment"># 先序遍历</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">preorderTraversal</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[int]:</span></span><br><span class="line">      ret = []</span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(root)</span>:</span></span><br><span class="line">          <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">              <span class="keyword">return</span></span><br><span class="line">          ret.append(root.val)</span><br><span class="line">          <span class="keyword">if</span> root.left:</span><br><span class="line">                traversal(root.left)</span><br><span class="line">          <span class="keyword">if</span> root.right:</span><br><span class="line">                traversal(root.right)</span><br><span class="line">      traversal(root)</span><br><span class="line">      <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 中序遍历</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inorderTraversal</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[int]:</span></span><br><span class="line">        ret = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(root)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">if</span> root.left:</span><br><span class="line">                 traversal(root.left)</span><br><span class="line">            ret.append(root.val)</span><br><span class="line">            <span class="keyword">if</span> root.right:</span><br><span class="line">                 traversal(root.right)</span><br><span class="line">        traversal(root)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">  <span class="comment"># 后序遍历</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">postorderTraversal</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[int]:</span></span><br><span class="line">      ret = []</span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(root)</span>:</span></span><br><span class="line">          <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">              <span class="keyword">return</span></span><br><span class="line">          <span class="keyword">if</span> root.left:</span><br><span class="line">                traversal(root.left)</span><br><span class="line">          <span class="keyword">if</span> root.right:</span><br><span class="line">                traversal(root.right)</span><br><span class="line">          ret.append(root.val)</span><br><span class="line">      traversal(root)</span><br><span class="line">      <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
-<p>另外还可使用广度优先遍历（BFS），即层次（层序）遍历。<br>从左到右一层一层访问所有节点</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">ABCDEFGHIJKL</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112932.png" alt="数据结构之树$20230208112932"></p>
-<p>层次遍历用 Python 实现如下（<a href="https://leetcode.cn/problems/binary-tree-level-order-traversal/" target="_blank" rel="noopener">对应 leetcode 题目</a>）</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># @lc code=start</span></span><br><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># 递归版本</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrderRecursion</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        ret = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(preLevel)</span>:</span></span><br><span class="line">            level = []</span><br><span class="line">            cells = []</span><br><span class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> preLevel:</span><br><span class="line">                cells.append(node.val)</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    level.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    level.append(node.right)</span><br><span class="line">            ret.append(cells)</span><br><span class="line">            <span class="keyword">if</span> len(level):</span><br><span class="line">                traversal(level)</span><br><span class="line">        traversal([root])</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 双层循环版本</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrder</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        ret = []</span><br><span class="line">        level = [root]</span><br><span class="line">        <span class="keyword">while</span> len(level):</span><br><span class="line">            cells = []</span><br><span class="line">            preLevel = level</span><br><span class="line">            level = []</span><br><span class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> preLevel:</span><br><span class="line">                cells.append(node.val)</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    level.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    level.append(node.right)</span><br><span class="line">            ret.append(cells)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 双层循环版本使用队列优化空间</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrderQueue</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        ret = []</span><br><span class="line">        level = [root]</span><br><span class="line">        <span class="keyword">while</span> len(level):</span><br><span class="line">            cells = []</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(level)):</span><br><span class="line">                node = level.pop(<span class="number">0</span>)</span><br><span class="line">                cells.append(node.val)</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    level.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    level.append(node.right)</span><br><span class="line">            ret.append(cells)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
-<p>可以看到，对于变长数组的循环，可以采用while方式进行。</p>
-<h3 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h3>
-        <!-- 
-
-
-二叉树
-二叉树遍历
-完全二叉树
-满二叉树
-
-
-BMW WARNING
-
-
-二叉树二叉树遍历
-深度优先遍历（DFS），根据父节点被访问的次序，分为：
-
-先序遍历（Preorder）
-
-父节点先于左右子树被遍历。上述二叉树对应结果为
-ABDHIEJKCFLG
-
-
-中序遍历（Inorder）
-
-父节点遍历次序位于左右子树中间。
-HDIBJEKALFCG
-
-
-后序遍历（Postorder）
-
-......  -->
-        <p class="article-more-link">
-          <a href="/数据结构之树.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-ES闭包"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1081,118 +1256,6 @@ https://technical.city/zh/video/......  -->
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Others/">Others</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Chrome使用小技巧"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Chrome使用小技巧.html">Chrome使用小技巧</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-01-24T09:57:10.000Z" itemprop="datePublished">2023-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#打开功能选项">打开功能选项</a></li>
-<li><a href="#设置中开启字幕">设置中开启字幕</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Chrome-开启实时字幕"><a href="#Chrome-开启实时字幕" class="headerlink" title="Chrome 开启实时字幕"></a>Chrome 开启实时字幕</h2><h3 id="打开功能选项"><a href="#打开功能选项" class="headerlink" title="打开功能选项"></a>打开功能选项</h3><p>chrome 地址栏输入<code>chrome://flags/</code><br>并搜索 live caption<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Chrome%E5%BC%80%E5%90%AF%E5%AE%9E%E6%97%B6%E5%AD%97%E5%B9%9520220922135035.png" alt="Chrome开启实时字幕20220922135035"><br>将选项置为 Enabled，重启电脑。</p>
-<h3 id="设置中开启字幕"><a href="#设置中开启字幕" class="headerlink" title="设置中开启字幕"></a>设置中开启字幕</h3><p>在高级设置中开启 live caption。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Chrome%E5%BC%80%E5%90%AF%E5%AE%9E%E6%97%B6%E5%AD%97%E5%B9%9520220922134906.png" alt="Chrome开启实时字幕20220922134906"></p>
-<p>当用浏览器播放视频时，会自动出现字幕<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Chrome%E5%BC%80%E5%90%AF%E5%AE%9E%E6%97%B6%E5%AD%97%E5%B9%9520220922135644.png" alt="Chrome开启实时字幕20220922135644"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/APPs/">APPs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Chrome/">Chrome</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Echarts常见使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Echarts常见使用.html">Echarts常见使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-01-24T09:57:08.000Z" itemprop="datePublished">2023-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Echarts-图表背景图"><a href="#Echarts-图表背景图" class="headerlink" title="Echarts 图表背景图"></a>Echarts 图表背景图</h2><p>给图表设定背景图，一般有两种方式，第一种设定 option 中的 graphic</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> option = &#123;</span><br><span class="line">  graphic: [</span><br><span class="line">    &#123;</span><br><span class="line">      type: <span class="string">'image'</span>, <span class="comment">// 图形元素类型</span></span><br><span class="line">      id: <span class="string">'logo'</span>, <span class="comment">// 更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。</span></span><br><span class="line">      right: <span class="string">'center'</span>, <span class="comment">// 根据父元素进行定位 （居中）</span></span><br><span class="line">      bottom: <span class="string">'0%'</span>, <span class="comment">// 根据父元素进行定位   （0%）, 如果bottom的值是 0，也可以删除该bottom属性值。</span></span><br><span class="line">      z: <span class="number">0</span>, <span class="comment">// 层叠</span></span><br><span class="line">      bounding: <span class="string">'all'</span>, <span class="comment">// 决定此图形元素在定位时，对自身的包围盒计算方式</span></span><br><span class="line">      style: &#123;</span><br><span class="line">        <span class="comment">// image: "https://www.boxuegu.com/assets/user/background1.png",</span></span><br><span class="line">        width: <span class="number">945</span>,</span><br><span class="line">        height: <span class="number">800</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>另一种方式为直接给图表容器设定背景图。</p>
-<h2 id="Legend-使用"><a href="#Legend-使用" class="headerlink" title="Legend 使用"></a>Legend 使用</h2><h2 id="Legend-超出滚动"><a href="#Legend-超出滚动" class="headerlink" title="Legend 超出滚动"></a>Legend 超出滚动</h2>
-        <!-- Echarts 图表背景图给图表设定背景图，一般有两种方式，第一种设定 option 中的 graphic
-const option = &#123;  graphic: [    &#123;      type: 'image', // 图形元素类型      id: 'logo', // 更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。      right: 'cen......  -->
-        <p class="article-more-link">
-          <a href="/Echarts常见使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Echarts/">Echarts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
 
     </footer>
   </div>
