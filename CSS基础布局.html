@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>css基础布局 | 鹧鸪天</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="HTML&CSSCSS语法">
+  
+  
+  
+  
+  <meta name="description" content="居中布局 居中布局概述 flex position+transform position+margin table-cell   三栏布局 三栏布局概述 基础三栏布局 圣杯布局 双飞翼布局 三栏布局对比   BMW WARNING   居中布局居中布局概述   方案 宽高固定     flex 否   position+transition 否   position+margin 是   d">
+<meta name="keywords" content="HTML&amp;CSS,CSS,语法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS基础布局">
+<meta property="og:url" content="http://www.skyline.show/CSS基础布局.html">
+<meta property="og:site_name" content="鹧鸪天">
+<meta property="og:description" content="居中布局 居中布局概述 flex position+transform position+margin table-cell   三栏布局 三栏布局概述 基础三栏布局 圣杯布局 双飞翼布局 三栏布局对比   BMW WARNING   居中布局居中布局概述   方案 宽高固定     flex 否   position+transition 否   position+margin 是   d">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%9F%BA%E7%A1%80%E5%B8%83%E5%B1%80%2420230307181645.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%9F%BA%E7%A1%80%E5%B8%83%E5%B1%80%2420230307181949.png">
+<meta property="og:updated_time" content="2023-03-11T10:19:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS基础布局">
+<meta name="twitter:description" content="居中布局 居中布局概述 flex position+transform position+margin table-cell   三栏布局 三栏布局概述 基础三栏布局 圣杯布局 双飞翼布局 三栏布局对比   BMW WARNING   居中布局居中布局概述   方案 宽高固定     flex 否   position+transition 否   position+margin 是   d">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%9F%BA%E7%A1%80%E5%B8%83%E5%B1%80%2420230307181645.png">
+  
+    <link rel="alternate" href="/atom.xml" title="鹧鸪天" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-CSS基础布局" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      CSS基础布局
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-03-11T10:19:31.000Z" itemprop="datePublished">2023-03-11</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-03-11T10:19:31.000Z" itemprop="datePublished">2023-03-11</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#居中布局">居中布局</a><ul>
+<li><a href="#居中布局概述">居中布局概述</a></li>
+<li><a href="#flex">flex</a></li>
+<li><a href="#positiontransform">position+transform</a></li>
+<li><a href="#positionmargin">position+margin</a></li>
+<li><a href="#table-cell">table-cell</a></li>
+</ul>
+</li>
+<li><a href="#三栏布局">三栏布局</a><ul>
+<li><a href="#三栏布局概述">三栏布局概述</a></li>
+<li><a href="#基础三栏布局">基础三栏布局</a></li>
+<li><a href="#圣杯布局">圣杯布局</a></li>
+<li><a href="#双飞翼布局">双飞翼布局</a></li>
+<li><a href="#三栏布局对比">三栏布局对比</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="居中布局"><a href="#居中布局" class="headerlink" title="居中布局"></a>居中布局</h2><h3 id="居中布局概述"><a href="#居中布局概述" class="headerlink" title="居中布局概述"></a>居中布局概述</h3><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>宽高固定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>flex</td>
+<td>否</td>
+</tr>
+<tr>
+<td>position+transition</td>
+<td>否</td>
+</tr>
+<tr>
+<td>position+margin</td>
+<td>是</td>
+</tr>
+<tr>
+<td>display:table-cell</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<p>几种<a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/HTML&amp;CSS/CSS/CSS_center_layout.html" target="_blank" rel="noopener">实现方案</a>使用共同的类样式：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.simulated_body</span> &#123;</span><br><span class="line">  <span class="attribute">resize</span>: both;</span><br><span class="line">  <span class="attribute">overflow</span>: scroll;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.example</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#eee</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.cell</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><a id="more"></a>
+<p>flex 实现居中比较简单，该方案无需宽高固定，当前用得比较多。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>flex<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"simulated_body"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span></span></span><br><span class="line"><span class="tag">    <span class="attr">class</span>=<span class="string">"example"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">style</span>=<span class="string">"display: flex;justify-content: center;align-items: center;"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span>&gt;</span></span><br><span class="line">      I am a bucolic migrant worker but I never walk backwards.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="position-transform"><a href="#position-transform" class="headerlink" title="position+transform"></a>position+transform</h3><p>position+transform 实现在 flex 之前比较常见，该方案无需宽高固定。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>position+transform<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"simulated_body"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span> <span class="attr">style</span>=<span class="string">"position: relative;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">"cell"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">style</span>=<span class="string">"position: absolute;top: 50%;left: 50%;transform:translate(-50%, -50%)"</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">      I am a bucolic migrant worker but I never walk backwards.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="position-margin"><a href="#position-margin" class="headerlink" title="position+margin"></a>position+margin</h3><p>position+margin 细分由两种方式，两种细分方案都需宽高固定，<br>主要不同点在于 magin 设定 auto 还是负值。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>position+margin:auto<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"simulated_body"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span> <span class="attr">style</span>=<span class="string">"position: relative;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">"cell"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">style</span>=<span class="string">"margin: auto;position: absolute;top: 0;left: 0;right: 0;bottom: 0;"</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">      I am a bucolic migrant worker but I never walk backwards.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>position+margin:负值<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"simulated_body"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span> <span class="attr">style</span>=<span class="string">"position: relative;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">"cell"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">style</span>=<span class="string">"margin: -50px 0 0 -50px;position: absolute;top: 50%;left:50%"</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">      I am a bucolic migrant worker but I never walk backwards.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="table-cell"><a href="#table-cell" class="headerlink" title="table-cell"></a>table-cell</h3><p>table-cell 布局来实现局限性较大，较少使用。<br>该方案需宽高固定，另外需要注意的是，table-cell 设定百分比宽度无效。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>table-cell<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"simulated_body"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span></span></span><br><span class="line"><span class="tag">    <span class="attr">class</span>=<span class="string">"example"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">style</span>=<span class="string">"display: table-cell;vertical-align: middle;width: 500px;"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"margin: auto"</span>&gt;</span></span><br><span class="line">      I am a bucolic migrant worker but I never walk backwards.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="三栏布局"><a href="#三栏布局" class="headerlink" title="三栏布局"></a>三栏布局</h2><h3 id="三栏布局概述"><a href="#三栏布局概述" class="headerlink" title="三栏布局概述"></a>三栏布局概述</h3><p>三栏布局是最常见的基本布局，其有多重实现方式，<br>后续三种实现方式的<a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/HTML&amp;CSS/CSS/CSS_layout.html" target="_blank" rel="noopener">示例</a>中，使用统一的基本样式为</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.simulated_body</span> &#123;</span><br><span class="line">  resize: both;0</span><br><span class="line">  <span class="selector-tag">overflow</span>: <span class="selector-tag">scroll</span>;</span><br><span class="line">  <span class="selector-tag">width</span>: 50%;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.example</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#eee</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.cell</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">background</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.text</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: violet;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>布局中的关键样式，通过书写内联样式来方便对比查看。</p>
+<h3 id="基础三栏布局"><a href="#基础三栏布局" class="headerlink" title="基础三栏布局"></a>基础三栏布局</h3><p>基础三栏布局主要运用了 float、overflow 等属性来实现,<br>其中，overflow 用于形成 BFC 来排斥外部浮动元素</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>基础三栏布局<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"simulated_body"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: left; "</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: right; "</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"text"</span> <span class="attr">style</span>=<span class="string">"overflow: hidden;"</span>&gt;</span></span><br><span class="line">      I am a bucolic migrant worker but I never walk backwards.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="圣杯布局"><a href="#圣杯布局" class="headerlink" title="圣杯布局"></a>圣杯布局</h3><p>圣杯布局主要运用了 float、margin、position 等属性来实现，<br>使用 margin 负值来拖拽元素，使用 padding 正值来预留左右占位空间。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>圣杯布局<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"simulated_body"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span> <span class="attr">style</span>=<span class="string">"padding: 0 50px; "</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"text"</span> <span class="attr">style</span>=<span class="string">"float: left;width: 100%;"</span>&gt;</span></span><br><span class="line">      I am a bucolic migrant worker but I never walk backwards.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">"cell"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">style</span>=<span class="string">"float: left;margin-left: -100%;position: relative;left: -50px;"</span></span></span><br><span class="line"><span class="tag">    &gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: left;margin-right: -50px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="双飞翼布局"><a href="#双飞翼布局" class="headerlink" title="双飞翼布局"></a>双飞翼布局</h3><p>双飞翼布局主要运用了 float、margin、等属性来实现，同时为内容 DOM 添加了包裹层，<br>使用 margin 负值来拖拽元素，正值来预留左右占位空间。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>双飞翼布局<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"simulated_body"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"content"</span> <span class="attr">style</span>=<span class="string">"float: left; width: 100%"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"text"</span> <span class="attr">style</span>=<span class="string">"margin: 0 50px;"</span>&gt;</span></span><br><span class="line">        I am a bucolic migrant worker but I never walk backwards.</span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: left; margin-left: -100%;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cell"</span> <span class="attr">style</span>=<span class="string">"float: left; margin-left: -50px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="三栏布局对比"><a href="#三栏布局对比" class="headerlink" title="三栏布局对比"></a>三栏布局对比</h3><p><a href="https://github.com/skylinety/Blog/blob/main/Demos/Major/HTML&amp;CSS/CSS/CSS_layout.html" target="_blank" rel="noopener">三栏布局</a>各种方式最终呈现效果基本一致。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%9F%BA%E7%A1%80%E5%B8%83%E5%B1%80%2420230307181645.png" alt="CSS基础布局$20230307181645"></p>
+<p>基础三栏布局实现简单，但需要将中间栏正文内容置于文档最后；<br>在浏览器渲染时，中间栏内容部分最后渲染，这并不合理，需要进行优化。</p>
+<p>圣杯布局在未增加 DOM 的情况下将中间栏 DOM 前置；<br>双飞翼布局将中间栏 DOM 前置，但为内容层新增了一层 DOM。</p>
+<p>圣杯布局没有添加 DOM 就实现了优化，<br>但是存在一个问题，当中间栏宽度小于右边栏宽度时，圣杯布局的样式会出现混乱。<br>将示例中的容器拖动到一定程度，显示效果如下：</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/CSS%E5%9F%BA%E7%A1%80%E5%B8%83%E5%B1%80%2420230307181949.png" alt="CSS基础布局$20230307181949"></p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/CSS基础布局.html">http://www.skyline.show/CSS 基础布局.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML-CSS/">HTML&CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/Vue数据驱动原理.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Vue数据驱动原理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#居中布局"><span class="nav-number">1.</span> <span class="nav-text">居中布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#居中布局概述"><span class="nav-number">1.1.</span> <span class="nav-text">居中布局概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex"><span class="nav-number">1.2.</span> <span class="nav-text">flex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#position-transform"><span class="nav-number">1.3.</span> <span class="nav-text">position+transform</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#position-margin"><span class="nav-number">1.4.</span> <span class="nav-text">position+margin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#table-cell"><span class="nav-number">1.5.</span> <span class="nav-text">table-cell</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三栏布局"><span class="nav-number">2.</span> <span class="nav-text">三栏布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三栏布局概述"><span class="nav-number">2.1.</span> <span class="nav-text">三栏布局概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础三栏布局"><span class="nav-number">2.2.</span> <span class="nav-text">基础三栏布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#圣杯布局"><span class="nav-number">2.3.</span> <span class="nav-text">圣杯布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双飞翼布局"><span class="nav-number">2.4.</span> <span class="nav-text">双飞翼布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三栏布局对比"><span class="nav-number">2.5.</span> <span class="nav-text">三栏布局对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">3.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2023 鹧鸪天 All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            鹧鸪天
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
