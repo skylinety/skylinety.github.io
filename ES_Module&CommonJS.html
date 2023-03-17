@@ -13,18 +13,18 @@
   
   
   
-  <meta name="description" content="模块系统 ESM VS CJS ESM VS CJS 要点解析 模块输出 模块加载   tree shaking BMW WARNING   模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚本引入">
+  <meta name="description" content="模块系统 ESM VS CJS 模块对比 模块输出 加载时机 加载方式   tree shaking BMW WARNING   模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚本引入的顺序，脚本">
 <meta name="keywords" content="JS,ES,语法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES_Module&amp;CommonJS">
 <meta property="og:url" content="http://www.skyline.show/ES_Module&CommonJS.html">
 <meta property="og:site_name" content="鹧鸪天">
-<meta property="og:description" content="模块系统 ESM VS CJS ESM VS CJS 要点解析 模块输出 模块加载   tree shaking BMW WARNING   模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚本引入">
+<meta property="og:description" content="模块系统 ESM VS CJS 模块对比 模块输出 加载时机 加载方式   tree shaking BMW WARNING   模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚本引入的顺序，脚本">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-02-04T08:24:24.000Z">
+<meta property="og:updated_time" content="2023-03-06T05:02:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES_Module&amp;CommonJS">
-<meta name="twitter:description" content="模块系统 ESM VS CJS ESM VS CJS 要点解析 模块输出 模块加载   tree shaking BMW WARNING   模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚本引入">
+<meta name="twitter:description" content="模块系统 ESM VS CJS 模块对比 模块输出 加载时机 加载方式   tree shaking BMW WARNING   模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚本引入的顺序，脚本">
   
     <link rel="alternate" href="/atom.xml" title="鹧鸪天" type="application/atom+xml">
   
@@ -188,7 +188,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-04T08:24:24.000Z" itemprop="datePublished">2023-02-04</time>
+      <time datetime="2023-03-06T05:02:41.000Z" itemprop="datePublished">2023-03-06</time>
     </a><span style="color: #999">|</span>
 
       
@@ -206,10 +206,11 @@
 <!-- code_chunk_output -->
 <ul>
 <li><a href="#模块系统">模块系统</a></li>
-<li><a href="#esm-vs-cjs">ESM VS CJS</a></li>
-<li><a href="#esm-vs-cjs-要点解析">ESM VS CJS 要点解析</a><ul>
+<li><a href="#esm-vs-cjs">ESM VS CJS</a><ul>
+<li><a href="#模块对比">模块对比</a></li>
 <li><a href="#模块输出">模块输出</a></li>
-<li><a href="#模块加载">模块加载</a></li>
+<li><a href="#加载时机">加载时机</a></li>
+<li><a href="#加载方式">加载方式</a></li>
 </ul>
 </li>
 <li><a href="#tree-shaking">tree shaking</a></li>
@@ -227,7 +228,7 @@
 <li>命名空间</li>
 <li>立即执行匿名函数 + 闭包</li>
 </ul>
-<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，在 ES6 模块系统后使用频率降低，如下简单对比。</p>
+<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，<br>在 ES6 模块系统后使用频率降低，如下简单对比。</p>
 <p>AMD 典型示例</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>CMD 典型示例</p>
@@ -235,7 +236,9 @@
 <p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>ES6 兼容 Node.js 模块方案</p>
-<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><table>
+<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><h3 id="模块对比"><a href="#模块对比" class="headerlink" title="模块对比"></a>模块对比</h3><a id="more"></a>
+<p>这里将最常用的 ES6 模块和 CommonJS 模块进行简单对比：</p>
+<table>
 <thead>
 <tr>
 <th>标准</th>
@@ -259,36 +262,28 @@
 </tr>
 </tbody>
 </table>
-<h2 id="ESM-VS-CJS-要点解析"><a href="#ESM-VS-CJS-要点解析" class="headerlink" title="ESM VS CJS 要点解析"></a>ESM VS CJS 要点解析</h2><a id="more"></a>
 <h3 id="模块输出"><a href="#模块输出" class="headerlink" title="模块输出"></a>模块输出</h3><ul>
 <li>ES6</li>
 </ul>
-<p>ES6 模块输出的是对值的引用，<strong>即便是简单类型，模块内值的改变也会引起之后值得改变</strong><br>JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个只读引用。<br>等到脚本真正执行时，再根据这个<strong>只读引用</strong>，到被加载的那个模块里面去取值（对象存在于导出模块的文件）。<br>ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</p>
-<p>例 1</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> counter = <span class="number">3</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">incCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  counter++</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; counter, incCounter &#125; <span class="keyword">from</span> <span class="string">'./lib'</span></span><br><span class="line"><span class="built_in">console</span>.log(counter) <span class="comment">// 3</span></span><br><span class="line">incCounter()</span><br><span class="line"><span class="built_in">console</span>.log(counter) <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-<p>例 2</p>
+<p>ES6 模块输出的是对值的引用，<strong>即便是简单类型，模块内值的改变也会引起之后 import 值的改变</strong><br>JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个只读引用。<br>等到脚本真正执行时，再根据这个<strong>只读引用</strong>，到被加载的那个模块里面去取值（可简单看作对象存在于导出模块的文件）；<br>即 ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</p>
+<p>模块内值的改变：</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// mod.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">C</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.sum = <span class="number">0</span></span><br><span class="line">  <span class="keyword">this</span>.add = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.sum += <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>.show = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.sum)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> c = <span class="keyword">new</span> C()</span><br><span class="line"></span><br><span class="line"><span class="comment">// x.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; c &#125; <span class="keyword">from</span> <span class="string">'./mod'</span></span><br><span class="line">c.add()</span><br><span class="line"></span><br><span class="line"><span class="comment">// y.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; c &#125; <span class="keyword">from</span> <span class="string">'./mod'</span></span><br><span class="line">c.show()</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./x'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./y'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出1</span></span><br></pre></td></tr></table></figure>
-<p>引用只读</p>
+<p>模块内值的改变：也会引起之后 import 值的改变。</p>
+<p>引用只读：</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; obj &#125; <span class="keyword">from</span> <span class="string">'./lib'</span></span><br><span class="line"></span><br><span class="line">obj.prop = <span class="number">123</span> <span class="comment">// OK</span></span><br><span class="line">obj = &#123;&#125; <span class="comment">// TypeError</span></span><br></pre></td></tr></table></figure>
-<p>main.js 从 lib.js 输入变量 obj，可以对 obj 添加属性，但是重新赋值就会报错。<br>因为变量 obj 指向的地址是只读的，不能重新赋值，这就好比 main.js 创造了一个名为 obj 的 const 变量</p>
+<p>main.js 从 lib.js 输入变量 obj，可以对 obj 添加属性，但是重新赋值就会报错。<br>因为变量 obj 指向的地址是只读的，<strong>不能重新赋值</strong>，这就好比 main.js 创造了一个名为 obj 的 const 变量</p>
 <ul>
 <li>CommonJS</li>
 </ul>
 <p>对应 CommonJS 规范中，导出的是一个对象，引入时采用的是对象的浅拷贝（在导出和导入时各有一个对象生成）。<br>该对象的属性如果是简单类型，模块内部值得改变则不会对之后引用产生影响</p>
 <figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">var</span> counter = <span class="number">3</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">incCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  counter++</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  counter: counter,</span><br><span class="line">  incCounter: incCounter,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">var</span> mod = <span class="built_in">require</span>(<span class="string">'./lib'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(mod.counter) <span class="comment">// 3</span></span><br><span class="line">mod.incCounter() <span class="comment">// 引起lib.js中counter 值改变为4</span></span><br><span class="line"><span class="built_in">console</span>.log(mod.counter) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-<h3 id="模块加载"><a href="#模块加载" class="headerlink" title="模块加载"></a>模块加载</h3><ul>
-<li>加载时机</li>
-</ul>
-<p>CommonJS 导出的是一个对象（即 module.exports 属性），该对象只有在脚本运行完才会生成。<br>而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成</p>
-<ul>
-<li>加载方式</li>
-</ul>
-<p>commonJS 规范用同步的方式加载模块.<br>例如实现该规范的 nodeJS，因为在服务端，模块文件都存在本地磁盘，可以进行快速度读取，等待模块加载不会耗费过多的时间，所以这样做不会有问题。<br>但是在浏览器端，限于网络等各种原因，需要使用异步加载获取更好的体验。</p>
-<h2 id="tree-shaking"><a href="#tree-shaking" class="headerlink" title="tree shaking"></a>tree shaking</h2><p>由于 ES6 的模块暴露的是引用而不是生成一个对象.<br>从加载时机来看，ES6 的 import 命令会被 JavaScript 引擎静态分析编译时就分析是否被引用，而不是在代码运行时加载。<br>编译时加载使得对 ES6 静态分析并进行无用代码删除成为可能。<br>这就是为什么 ES6 出来之后，tree shaking 才成为可能，这也是为什么要使用 tree shaking，必须使用 ES6 模块。</p>
+<h3 id="加载时机"><a href="#加载时机" class="headerlink" title="加载时机"></a>加载时机</h3><p>CommonJS 导出的是一个对象（即 module.exports 属性），该对象只有在脚本运行完才会生成。<br>而 ES6 模块不是对象，它的对外接口只是一种静态引用，在代码静态解析阶段就会生成</p>
+<h3 id="加载方式"><a href="#加载方式" class="headerlink" title="加载方式"></a>加载方式</h3><p>commonJS 规范用同步的方式加载模块。<br>例如实现该规范的 nodeJS，因为在服务端，模块文件都存在本地磁盘，<br>可以进行快速度读取，等待模块加载不会耗费过多的时间，所以这样做不会有问题。<br>但是在浏览器端，限于网络等各种原因，需要使用异步加载获取更好的体验。</p>
+<h2 id="tree-shaking"><a href="#tree-shaking" class="headerlink" title="tree shaking"></a>tree shaking</h2><p>ES6 的模块的 import 只是只读引用，而不是新生成一个对象。<br>当 webpack 等工具在编译时，ES6 的模块会被分析编译时就分析是否 import 导入而被引用，而不存在在代码运行时才知道要加载哪些模块；<br>在编译时，编译工具分析 ES6 中无引用的模块代码，并将其删除，这就是所说的摇树优化（tree shaking）。<br>由于 ES6 模块只读引用的设计，以及编译时就加载模块，使得 tree shaking 成为可能。<br>这也是要进行 tree shaking，必须使用 ES6 模块的原因。</p>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
-<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a>  欢迎访问。</p>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。</p>
 <blockquote>
 <p>I am a bucolic migrant worker but I never walk backwards.</p>
 </blockquote>
@@ -359,19 +354,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/Webpack中DllPlugin使用.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/排序算法.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          Webpack中DllPlugin使用
+          排序算法
         
       </div>
     </a>
   
   
-    <a href="/Shell中grep的使用.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/Webpack中DllPlugin使用.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Shell中grep的使用</div>
+      <div class="article-nav-title">Webpack中DllPlugin使用</div>
     </a>
   
 </nav>
@@ -385,7 +380,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块系统"><span class="nav-number">1.</span> <span class="nav-text">模块系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ESM-VS-CJS"><span class="nav-number">2.</span> <span class="nav-text">ESM VS CJS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ESM-VS-CJS-要点解析"><span class="nav-number">3.</span> <span class="nav-text">ESM VS CJS 要点解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模块输出"><span class="nav-number">3.1.</span> <span class="nav-text">模块输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块加载"><span class="nav-number">3.2.</span> <span class="nav-text">模块加载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tree-shaking"><span class="nav-number">4.</span> <span class="nav-text">tree shaking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块系统"><span class="nav-number">1.</span> <span class="nav-text">模块系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ESM-VS-CJS"><span class="nav-number">2.</span> <span class="nav-text">ESM VS CJS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模块对比"><span class="nav-number">2.1.</span> <span class="nav-text">模块对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块输出"><span class="nav-number">2.2.</span> <span class="nav-text">模块输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载时机"><span class="nav-number">2.3.</span> <span class="nav-text">加载时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载方式"><span class="nav-number">2.4.</span> <span class="nav-text">加载方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tree-shaking"><span class="nav-number">3.</span> <span class="nav-text">tree shaking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>

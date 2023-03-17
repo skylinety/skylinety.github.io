@@ -279,6 +279,119 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Vue数据驱动原理"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Vue数据驱动原理.html">Vue数据驱动原理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-03-04T06:01:04.000Z" itemprop="datePublished">2023-03-04</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#数据驱动流程">数据驱动流程</a></li>
+<li><a href="#init">init</a><ul>
+<li><a href="#初始化数据与功能函数">初始化数据与功能函数</a></li>
+<li><a href="#进行数据代理">进行数据代理</a></li>
+</ul>
+</li>
+<li><a href="#mount">mount</a><ul>
+<li><a href="#vueprototypemount">Vue.prototype.$mount</a></li>
+<li><a href="#模版编译">模版编译</a></li>
+<li><a href="#创建-watcher-实例">创建 watcher 实例</a></li>
+</ul>
+</li>
+<li><a href="#render">render</a><ul>
+<li><a href="#vueprototype_render">Vue.prototype._render</a></li>
+<li><a href="#createelement-创建-vnode">createElement 创建 Vnode</a></li>
+<li><a href="#树形结构扁平化">树形结构扁平化</a></li>
+</ul>
+</li>
+<li><a href="#update">update</a><ul>
+<li><a href="#vueprototype_update">Vue.prototype._update</a></li>
+<li><a href="#页面渲染">页面渲染</a></li>
+<li><a href="#偏函数技巧">偏函数技巧</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="数据驱动流程"><a href="#数据驱动流程" class="headerlink" title="数据驱动流程"></a>数据驱动流程</h2><blockquote>
+<p>本文对应的 Vue 版本为 2.5.17</p>
+</blockquote>
+<p>数据驱动是指视图由数据来调配生成，视图的更新不直接操作 DOM，而是直接修改数据。</p>
+<p>Vue 是数据驱动的，其数据驱动流程大致如下：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8%E5%8E%9F%E7%90%86%2420230304194743.png" alt="Vue数据驱动原理$20230304194743"></p>
+<h2 id="init"><a href="#init" class="headerlink" title="init"></a>init</h2><h3 id="初始化数据与功能函数"><a href="#初始化数据与功能函数" class="headerlink" title="初始化数据与功能函数"></a>初始化数据与功能函数</h3>
+        <!-- 
+
+
+数据驱动流程
+init
+初始化数据与功能函数
+进行数据代理
+
+
+mount
+Vue.prototype.$mount
+模版编译
+创建 watcher 实例
+
+
+render
+Vue.prototype._render
+createElement 创建 Vnode
+树形结构扁平化
+
+
+update
+Vue.prototype._update
+页面渲染
+偏函数技巧
+
+
+BMW WARNIN......  -->
+        <p class="article-more-link">
+          <a href="/Vue数据驱动原理.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原理/">原理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-数据结构之树"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -487,119 +600,6 @@ VDOM在 JQuery 同时代，大多数的框架首先都是直接操作 DOM 元素
 Object.keys(console......  -->
         <p class="article-more-link">
           <a href="/Vue渲染机制.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原理/">原理</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Vue数据驱动原理"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Vue数据驱动原理.html">Vue数据驱动原理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-03-04T06:01:04.000Z" itemprop="datePublished">2023-03-04</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#数据驱动流程">数据驱动流程</a></li>
-<li><a href="#init">init</a><ul>
-<li><a href="#初始化数据与功能函数">初始化数据与功能函数</a></li>
-<li><a href="#进行数据代理">进行数据代理</a></li>
-</ul>
-</li>
-<li><a href="#mount">mount</a><ul>
-<li><a href="#vueprototypemount">Vue.prototype.$mount</a></li>
-<li><a href="#模版编译">模版编译</a></li>
-<li><a href="#创建-watcher-实例">创建 watcher 实例</a></li>
-</ul>
-</li>
-<li><a href="#render">render</a><ul>
-<li><a href="#vueprototype_render">Vue.prototype._render</a></li>
-<li><a href="#createelement-创建-vnode">createElement 创建 Vnode</a></li>
-<li><a href="#树形结构扁平化">树形结构扁平化</a></li>
-</ul>
-</li>
-<li><a href="#update">update</a><ul>
-<li><a href="#vueprototype_update">Vue.prototype._update</a></li>
-<li><a href="#页面渲染">页面渲染</a></li>
-<li><a href="#偏函数技巧">偏函数技巧</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="数据驱动流程"><a href="#数据驱动流程" class="headerlink" title="数据驱动流程"></a>数据驱动流程</h2><blockquote>
-<p>本文对应的 Vue 版本为 2.5.17</p>
-</blockquote>
-<p>数据驱动是指视图由数据来调配生成，视图的更新不直接操作 DOM，而是直接修改数据。</p>
-<p>Vue 是数据驱动的，其数据驱动流程大致如下：<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Vue%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8%E5%8E%9F%E7%90%86%2420230304194743.png" alt="Vue数据驱动原理$20230304194743"></p>
-<h2 id="init"><a href="#init" class="headerlink" title="init"></a>init</h2><h3 id="初始化数据与功能函数"><a href="#初始化数据与功能函数" class="headerlink" title="初始化数据与功能函数"></a>初始化数据与功能函数</h3>
-        <!-- 
-
-
-数据驱动流程
-init
-初始化数据与功能函数
-进行数据代理
-
-
-mount
-Vue.prototype.$mount
-模版编译
-创建 watcher 实例
-
-
-render
-Vue.prototype._render
-createElement 创建 Vnode
-树形结构扁平化
-
-
-update
-Vue.prototype._update
-页面渲染
-偏函数技巧
-
-
-BMW WARNIN......  -->
-        <p class="article-more-link">
-          <a href="/Vue数据驱动原理.html#more">阅读全文</a>
         </p>
       
     </div>

@@ -13,20 +13,20 @@
   
   
   
-  <meta name="description" content="引号 路径符 重定向符 命令执行符 符号标记 BMW WARNING   引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&amp;#39;进行命令替换。 反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。 skyline=1echo &apos;$skyline`echo 1`&apos;# $s">
+  <meta name="description" content="基础符号 引号   路径符 重定向符 重定向符表 &amp;gt; &amp;gt;&amp;gt; \&amp;lt;   命令执行符 | ! \&amp;amp; \&amp;amp;\&amp;amp; ;   符号标记 符号标记表 ? * \&amp;lt;\&amp;lt; #   BMW WARNING   基础符号引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换，’&amp;#39;进行命令替换。 反引">
 <meta name="keywords" content="语法,Shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shell中的符号">
 <meta property="og:url" content="http://www.skyline.show/Shell中的符号.html">
 <meta property="og:site_name" content="鹧鸪天">
-<meta property="og:description" content="引号 路径符 重定向符 命令执行符 符号标记 BMW WARNING   引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&amp;#39;进行命令替换。 反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。 skyline=1echo &apos;$skyline`echo 1`&apos;# $s">
+<meta property="og:description" content="基础符号 引号   路径符 重定向符 重定向符表 &amp;gt; &amp;gt;&amp;gt; \&amp;lt;   命令执行符 | ! \&amp;amp; \&amp;amp;\&amp;amp; ;   符号标记 符号标记表 ? * \&amp;lt;\&amp;lt; #   BMW WARNING   基础符号引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换，’&amp;#39;进行命令替换。 反引">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%AD%E7%9A%84%E7%AC%A6%E5%8F%B720220322152340.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%AD%E7%9A%84%E7%AC%A6%E5%8F%B720220322165809.png">
-<meta property="og:updated_time" content="2023-02-04T07:45:55.000Z">
+<meta property="og:updated_time" content="2023-03-11T06:52:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell中的符号">
-<meta name="twitter:description" content="引号 路径符 重定向符 命令执行符 符号标记 BMW WARNING   引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换’&amp;#39;进行命令替换。 反引号与$()是一样的。 `或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。 skyline=1echo &apos;$skyline`echo 1`&apos;# $s">
+<meta name="twitter:description" content="基础符号 引号   路径符 重定向符 重定向符表 &amp;gt; &amp;gt;&amp;gt; \&amp;lt;   命令执行符 | ! \&amp;amp; \&amp;amp;\&amp;amp; ;   符号标记 符号标记表 ? * \&amp;lt;\&amp;lt; #   BMW WARNING   基础符号引号单引号和双引号主要可用于解决字符串中间有空格的问题。单引号将剥夺字符串中特殊字符的含义。双引号中的’$’进行参数替换，’&amp;#39;进行命令替换。 反引">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%AD%E7%9A%84%E7%AC%A6%E5%8F%B720220322152340.png">
   
     <link rel="alternate" href="/atom.xml" title="鹧鸪天" type="application/atom+xml">
@@ -191,7 +191,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-02-04T07:45:55.000Z" itemprop="datePublished">2023-02-04</time>
+      <time datetime="2023-03-11T06:52:33.000Z" itemprop="datePublished">2023-03-11</time>
     </a><span style="color: #999">|</span>
 
       
@@ -208,18 +208,42 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
+<li><a href="#基础符号">基础符号</a><ul>
 <li><a href="#引号">引号</a></li>
+</ul>
+</li>
 <li><a href="#路径符">路径符</a></li>
-<li><a href="#重定向符">重定向符</a></li>
-<li><a href="#命令执行符">命令执行符</a></li>
-<li><a href="#符号标记">符号标记</a></li>
+<li><a href="#重定向符">重定向符</a><ul>
+<li><a href="#重定向符表">重定向符表</a></li>
+<li><a href="#">></a></li>
+<li><a href="#-1">>></a></li>
+<li><a href="#-2">\&lt;</a></li>
+</ul>
+</li>
+<li><a href="#命令执行符">命令执行符</a><ul>
+<li><a href="#-3">|</a></li>
+<li><a href="#-4">!</a></li>
+<li><a href="#-5">\&amp;</a></li>
+<li><a href="#-6">\&amp;\&amp;</a></li>
+<li><a href="#-7">;</a></li>
+</ul>
+</li>
+<li><a href="#符号标记">符号标记</a><ul>
+<li><a href="#符号标记表">符号标记表</a></li>
+<li><a href="#-8">?</a></li>
+<li><a href="#-9">*</a></li>
+<li><a href="#-10">\&lt;\&lt;</a></li>
+<li><a href="#-11">#</a></li>
+</ul>
+</li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h2><p>单引号和双引号主要可用于解决字符串中间有空格的问题。<br>单引号将剥夺字符串中特殊字符的含义。<br>双引号中的’$’进行参数替换’<code>&#39;进行命令替换。
+<h2 id="基础符号"><a href="#基础符号" class="headerlink" title="基础符号"></a>基础符号</h2><h3 id="引号"><a href="#引号" class="headerlink" title="引号"></a>引号</h3><p>单引号和双引号主要可用于解决字符串中间有空格的问题。<br>单引号将剥夺字符串中特殊字符的含义。<br>双引号中的’$’进行参数替换，’<code>&#39;进行命令替换。
 反引号与$()是一样的。 `</code>或者$()会将其中的语句当作命令执行一遍，再将结果充当原命令行一部分。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'$skyline`echo 1`'</span></span><br><span class="line"><span class="comment"># $skyline`echo 1`</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$skyline</span>`echo 1`"</span></span><br><span class="line"><span class="comment"># 11</span></span><br></pre></td></tr></table></figure>
-<h2 id="路径符"><a href="#路径符" class="headerlink" title="路径符"></a>路径符</h2><p>Shell 中路径相关的符号，如下表所示</p>
+<h2 id="路径符"><a href="#路径符" class="headerlink" title="路径符"></a>路径符</h2><a id="more"></a>
+<p>Shell 中路径相关的符号，如下表所示</p>
 <table>
 <thead>
 <tr>
@@ -251,11 +275,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2><a id="more"></a>
-<ul>
-<li>重定向符表</li>
-</ul>
-<p>Shell 中包含输入与输出重定向相关的符号，如下表所示</p>
+<h2 id="重定向符"><a href="#重定向符" class="headerlink" title="重定向符"></a>重定向符</h2><h3 id="重定向符表"><a href="#重定向符表" class="headerlink" title="重定向符表"></a>重定向符表</h3><p>Shell 中包含输入与输出重定向相关的符号，如下表所示</p>
 <table>
 <thead>
 <tr>
@@ -302,34 +322,19 @@
 </tr>
 </tbody>
 </table>
-<ul>
-<li>></li>
-</ul>
-<p>定义<br>输出重定向<br>command &gt; file 将 command 的输出重定向到 file<br>常见用法</p>
+<h3 id><a href="#" class="headerlink" title=">"></a>></h3><p>定义：输出重定向<br>command &gt; file 将 command 的输出重定向到 file<br>常见用法</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> Hello &gt; test.txt</span><br></pre></td></tr></table></figure>
-<p>上述命令控制台不会有任何输出，Hello 文本将直接覆盖写入 test.txt</p>
+<p>上述命令控制台不会有任何输出，Hello 文本将直接覆盖写入 test.txt。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<p>2指标准错误，1指标准输出，将标准错误重定向到标准输出<br>将错误的信息重新定向到输出，即”2&gt;1”，按照上面的写法，系统会将错误的信息重定向到一个名字为 1 的文件中，会有歧义，因此加&amp;进行区分。<br>这里的  2  和  &gt;  之间不可以有空格，2&gt;  是一体的时候才表示错误输出 ​</p>
+<p>2 指标准错误，1 指标准输出，将标准错误重定向到标准输出<br>将错误的信息重新定向到输出，即”2&gt;1”，按照上面的写法，系统会将错误的信息重定向到一个名字为 1 的文件中，会有歧义，因此加&amp;进行区分。<br>这里的  2  和  &gt;  之间不可以有空格，2&gt;  是一体的时候才表示错误输出 ​</p>
 <pre><code>&gt; /dev/null
 /dev/null 是一个特殊的文件，写入到它的内容都会被丢弃，会起到&quot;禁止输出&quot;的效果
-</code></pre><ul>
-<li>>&gt;</li>
-</ul>
-<p>表示追加到文件末尾，而不是一个&gt;时的覆盖</p>
-<ul>
-<li>&lt;</li>
-</ul>
-<p>输入重定向</p>
+</code></pre><h3 id="gt"><a href="#gt" class="headerlink" title=">&gt;"></a>>&gt;</h3><p>表示追加到文件末尾，而不是一个&gt;时的覆盖</p>
+<h3 id="lt"><a href="#lt" class="headerlink" title="&lt;"></a>&lt;</h3><p>输入重定向</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">command</span> &lt; file</span><br></pre></td></tr></table></figure>
 <p>将输入重定向到 file，即将 file 中的内容作为 command 的参数</p>
-<h2 id="命令执行符"><a href="#命令执行符" class="headerlink" title="命令执行符"></a>命令执行符</h2><ul>
-<li>|</li>
-</ul>
-<p>管道，管道的作用是提供一个通道，将上一个程序的标准输出重定向到下一个程序作为下一个程序的标准输入<br>管道命令只处理前一个命令正确输出，不处理错误输出。<br>管道右边的命令，必须能够接收标准输入的数据流命令，否则，管道后的命令将会抛弃之前的产生的结果<br>管道符可以连接多个命令，多个管道时，控制台输出最后一个命令的内容</p>
-<ul>
-<li>!</li>
-</ul>
-<p>shell 中!叫做事件提示符，可以方便的引用历史命令，当!  后面跟随的字母不是“空格、换行、回车、=和(”时，可以做命令替换</p>
+<h2 id="命令执行符"><a href="#命令执行符" class="headerlink" title="命令执行符"></a>命令执行符</h2><h3 id="-1"><a href="#-1" class="headerlink" title="|"></a>|</h3><p>管道，管道的作用是提供一个通道，将上一个程序的标准输出重定向到下一个程序作为下一个程序的标准输入<br>管道命令只处理前一个命令正确输出，不处理错误输出。<br>管道右边的命令，必须能够接收标准输入的数据流命令，否则，管道后的命令将会抛弃之前的产生的结果<br>管道符可以连接多个命令，多个管道时，控制台输出最后一个命令的内容</p>
+<h3 id="-2"><a href="#-2" class="headerlink" title="!"></a>!</h3><p>shell 中!叫做事件提示符，可以方便的引用历史命令，当!  后面跟随的字母不是“空格、换行、回车、=和(”时，可以做命令替换</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">!n</span><br></pre></td></tr></table></figure>
 <p>替换命令历史中第 n 个命令</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">!-n</span><br></pre></td></tr></table></figure>
@@ -340,25 +345,13 @@
 <p>引用最近的以 string  开始的命令<br>注意一定是开始的位置,这条命令在你运行一个命令之后忘记了这个命令的参数是什么，直接!命令既可 ​​</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">!?string?</span><br></pre></td></tr></table></figure>
 <p>指向包含这个字符串 string 的命令，包含字符即可</p>
-<ul>
-<li>&amp;</li>
-</ul>
-<p>所有命令同时进行</p>
+<h3 id="amp"><a href="#amp" class="headerlink" title="&amp;"></a>&amp;</h3><p>所有命令同时进行</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">command1 &amp; command2 &amp; command3</span><br></pre></td></tr></table></figure>
-<ul>
-<li>&amp;&amp;</li>
-</ul>
-<p>命令依次执行<br>只有前面命令执行成功，后面命令才继续执行</p>
+<h3 id="amp-amp"><a href="#amp-amp" class="headerlink" title="&amp;&amp;"></a>&amp;&amp;</h3><p>命令依次执行<br>只有前面命令执行成功，后面命令才继续执行</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">command1 &amp;&amp; command2</span><br></pre></td></tr></table></figure>
-<ul>
-<li>;</li>
-</ul>
-<p>命令依次执行<br>前面命令执行不管成功否，后面命令继续执行</p>
+<h3 id="-3"><a href="#-3" class="headerlink" title=";"></a>;</h3><p>命令依次执行<br>前面命令执行不管成功否，后面命令继续执行</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">command1; command2; command3</span><br></pre></td></tr></table></figure>
-<h2 id="符号标记"><a href="#符号标记" class="headerlink" title="符号标记"></a>符号标记</h2><ul>
-<li>符号标记表</li>
-</ul>
-<table>
+<h2 id="符号标记"><a href="#符号标记" class="headerlink" title="符号标记"></a>符号标记</h2><h3 id="符号标记表"><a href="#符号标记表" class="headerlink" title="符号标记表"></a>符号标记表</h3><table>
 <thead>
 <tr>
 <th>符号</th>
@@ -395,32 +388,25 @@
 <tr>
 <td>_</td>
 <td><code>mkdir -p ~/123/456 &amp;&amp; cd $_</code></td>
-<td>_指定上个指令的输入参数，有其他用法不常用</td>
+<td>_指定上个指令的输入参数，另有其他不常用用法</td>
 </tr>
 </tbody>
 </table>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%AD%E7%9A%84%E7%AC%A6%E5%8F%B720220322152340.png" alt="Shell中的符号20220322152340"></p>
-<ul>
-<li>?</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls ?.js</span><br><span class="line"><span class="comment"># 会列出a.js,b.js，不会列出ab.js</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>*</li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls *.js</span><br><span class="line"><span class="comment"># 会列出当前目录下所有.js后缀文件</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>&lt;&lt;</li>
-</ul>
-<p>将开始标记 tag 和结束标记 tag 之间的内容作为输入。<br>标记常指定为 EOF 即（End Of File)，也可指定其他字符。此符号常与 cat 一起使用</p>
+<h3 id="-4"><a href="#-4" class="headerlink" title="?"></a>?</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls ?.js</span><br><span class="line"><span class="comment"># 会列出a.js,b.js，不会列出ab.js</span></span><br></pre></td></tr></table></figure>
+<h3 id="-5"><a href="#-5" class="headerlink" title="*"></a>*</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ls *.js</span><br><span class="line"><span class="comment"># 会列出当前目录下所有.js后缀文件</span></span><br></pre></td></tr></table></figure>
+<h3 id="lt-lt"><a href="#lt-lt" class="headerlink" title="&lt;&lt;"></a>&lt;&lt;</h3><p>将开始标记 tag 和结束标记 tag 之间的内容作为输入。<br>标记常指定为 EOF 即（End Of File)，也可指定其他字符。此符号常与 cat 一起使用</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;&gt; b.js</span><br></pre></td></tr></table></figure>
 <p>将后续输入的内容追加到 b.js 中，后续输入回车可换行，直到遇到 EOF 后退出文本编辑。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Shell%E4%B8%AD%E7%9A%84%E7%AC%A6%E5%8F%B720220322165809.png" alt="Shell中的符号20220322165809"></p>
+<h3 id="-6"><a href="#-6" class="headerlink" title="\"></a>\</h3><p>#常用于注释，另有其他用法。</p>
 <ul>
-<li>#</li>
+<li>剔除字符中的由<strong>头部开始指定</strong>字符</li>
 </ul>
-<p>#常用于注释，其他用法包括<br>为剔除字符中的由头部开始指定字符</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=<span class="string">'Skyline Liu!'</span>;</span><br><span class="line"><span class="built_in">echo</span> How-To <span class="variable">$&#123;skyline#Skyline&#125;</span></span><br><span class="line"><span class="comment"># echo How-To $&#123;skyline#Liu&#125; 不会剔除Liu字符，不生效</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">skyline=<span class="string">'Skyline Liu!'</span>;</span><br><span class="line"><span class="built_in">echo</span> Hello <span class="variable">$&#123;skyline#Skyline&#125;</span></span><br><span class="line"><span class="comment"># Hello Liu!</span></span><br><span class="line"><span class="built_in">echo</span> Hello <span class="variable">$&#123;skyline#Liu&#125;</span></span><br><span class="line"><span class="comment"># Hello Skyline Liu!</span></span><br><span class="line"><span class="comment"># Liu不是开头字符，不生效</span></span><br></pre></td></tr></table></figure>
 <p>指定的字符非变量开始字符为首字符（本例需要 S 开头），不起任何作用</p>
-<p>获取字符或数组的长度</p>
+<ul>
+<li>获取字符或数组的长度</li>
+</ul>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">dir=<span class="string">'/a/b/c'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#dir&#125;</span></span><br><span class="line"><span class="comment"># 6</span></span><br><span class="line">arr=(1 2 3)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#arr&#125;</span></span><br><span class="line"><span class="comment"># 3</span></span><br></pre></td></tr></table></figure>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
@@ -491,19 +477,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/浏览器回流与重绘.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/Git常见操作.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          浏览器回流与重绘
+          Git常见操作
         
       </div>
     </a>
   
   
-    <a href="/Git常见操作.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/排序算法.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Git常见操作</div>
+      <div class="article-nav-title">排序算法</div>
     </a>
   
 </nav>
@@ -517,7 +503,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引号"><span class="nav-number">1.</span> <span class="nav-text">引号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路径符"><span class="nav-number">2.</span> <span class="nav-text">路径符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向符"><span class="nav-number">3.</span> <span class="nav-text">重定向符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令执行符"><span class="nav-number">4.</span> <span class="nav-text">命令执行符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#符号标记"><span class="nav-number">5.</span> <span class="nav-text">符号标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">6.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础符号"><span class="nav-number">1.</span> <span class="nav-text">基础符号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引号"><span class="nav-number">1.1.</span> <span class="nav-text">引号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路径符"><span class="nav-number">2.</span> <span class="nav-text">路径符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向符"><span class="nav-number">3.</span> <span class="nav-text">重定向符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重定向符表"><span class="nav-number">3.1.</span> <span class="nav-text">重定向符表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">3.2.</span> <span class="nav-text">&gt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gt"><span class="nav-number">3.3.</span> <span class="nav-text">&gt;&gt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt"><span class="nav-number">3.4.</span> <span class="nav-text">&lt;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令执行符"><span class="nav-number">4.</span> <span class="nav-text">命令执行符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-number">4.1.</span> <span class="nav-text">|</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-2"><span class="nav-number">4.2.</span> <span class="nav-text">!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#amp"><span class="nav-number">4.3.</span> <span class="nav-text">&amp;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#amp-amp"><span class="nav-number">4.4.</span> <span class="nav-text">&amp;&amp;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-3"><span class="nav-number">4.5.</span> <span class="nav-text">;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#符号标记"><span class="nav-number">5.</span> <span class="nav-text">符号标记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#符号标记表"><span class="nav-number">5.1.</span> <span class="nav-text">符号标记表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-4"><span class="nav-number">5.2.</span> <span class="nav-text">?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-5"><span class="nav-number">5.3.</span> <span class="nav-text">*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-lt"><span class="nav-number">5.4.</span> <span class="nav-text">&lt;&lt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-6"><span class="nav-number">5.5.</span> <span class="nav-text">\</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">6.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>
