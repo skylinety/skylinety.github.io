@@ -279,6 +279,78 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Python实现批量文件重命名"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Python实现批量文件重命名.html">Python实现批量文件重命名</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#使用说明">使用说明</a></li>
+<li><a href="#脚本代码">脚本代码</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p>将下面的脚本写入命名为rename.py的文件并，放到要批量修改文件名的文件夹下<br>使用如下命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python3 rename.py [测试名字]</span><br><span class="line"># 或直接输入</span><br><span class="line"># python3 rename.py</span><br></pre></td></tr></table></figure>
+<h2 id="脚本代码"><a href="#脚本代码" class="headerlink" title="脚本代码"></a>脚本代码</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># rename.py</span></span><br><span class="line"><span class="comment"># 导入os库</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件存放的路径</span></span><br><span class="line">path = <span class="string">r"./"</span></span><br><span class="line"><span class="comment"># 将命令中第二个参数作为输入，多个参数空格隔开</span></span><br><span class="line"><span class="keyword">if</span> len(sys.argv) &gt;= <span class="number">2</span>:</span><br><span class="line">    base = sys.argv[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># 控制台输入</span></span><br><span class="line">    base = input(<span class="string">'Please input base name: '</span>)  </span><br><span class="line"></span><br><span class="line">print(<span class="string">"You inputted "</span>, base)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历更改文件名</span></span><br><span class="line">num = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> old <span class="keyword">in</span> os.listdir(path):</span><br><span class="line">    <span class="keyword">if</span> old == <span class="string">'rename.py'</span>:</span><br><span class="line">        print(<span class="string">'Skip script!'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        new = base + <span class="string">'_'</span> + str(num) + os.path.splitext(old)[<span class="number">-1</span>]</span><br><span class="line">        os.rename(os.path.join(path, old),</span><br><span class="line">                  os.path.join(path, new))</span><br><span class="line">        print(<span class="string">'Rename'</span>, old, <span class="string">'to'</span>, new)</span><br><span class="line">    num = num + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'Succeed!!!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取文件名后缀 os.path.splitext(name)[-1]</span></span><br></pre></td></tr></table></figure>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
+        <!-- 
+
+
+使用说明
+脚本代码
+BMW WARNING
+
+
+使用说明将下面的脚本写入命名为rename.py的文件并，放到要批量修改文件名的文件夹下使用如下命令
+python3 rename.py [测试名字]# 或直接输入# python3 rename.py
+脚本代码# rename.py# 导入os库import osimport sys# 文件存放的路径path = r"./"# 将命令中......  -->
+        <p class="article-more-link">
+          <a href="/Python实现批量文件重命名.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-ES数组去重"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -499,78 +571,6 @@ data () &#123;    return &#123;      payType: '2',      payTypes: [       &#123;
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/H5/">H5+</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mobile/">Mobile</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Python实现批量文件重命名"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Python实现批量文件重命名.html">Python实现批量文件重命名</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2017-07-30T07:14:56.000Z" itemprop="datePublished">2017-07-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#使用说明">使用说明</a></li>
-<li><a href="#脚本代码">脚本代码</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><p>将下面的脚本写入命名为rename.py的文件并，放到要批量修改文件名的文件夹下<br>使用如下命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python3 rename.py [测试名字]</span><br><span class="line"># 或直接输入</span><br><span class="line"># python3 rename.py</span><br></pre></td></tr></table></figure>
-<h2 id="脚本代码"><a href="#脚本代码" class="headerlink" title="脚本代码"></a>脚本代码</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># rename.py</span></span><br><span class="line"><span class="comment"># 导入os库</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件存放的路径</span></span><br><span class="line">path = <span class="string">r"./"</span></span><br><span class="line"><span class="comment"># 将命令中第二个参数作为输入，多个参数空格隔开</span></span><br><span class="line"><span class="keyword">if</span> len(sys.argv) &gt;= <span class="number">2</span>:</span><br><span class="line">    base = sys.argv[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># 控制台输入</span></span><br><span class="line">    base = input(<span class="string">'Please input base name: '</span>)  </span><br><span class="line"></span><br><span class="line">print(<span class="string">"You inputted "</span>, base)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历更改文件名</span></span><br><span class="line">num = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> old <span class="keyword">in</span> os.listdir(path):</span><br><span class="line">    <span class="keyword">if</span> old == <span class="string">'rename.py'</span>:</span><br><span class="line">        print(<span class="string">'Skip script!'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        new = base + <span class="string">'_'</span> + str(num) + os.path.splitext(old)[<span class="number">-1</span>]</span><br><span class="line">        os.rename(os.path.join(path, old),</span><br><span class="line">                  os.path.join(path, new))</span><br><span class="line">        print(<span class="string">'Rename'</span>, old, <span class="string">'to'</span>, new)</span><br><span class="line">    num = num + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'Succeed!!!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取文件名后缀 os.path.splitext(name)[-1]</span></span><br></pre></td></tr></table></figure>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2>
-        <!-- 
-
-
-使用说明
-脚本代码
-BMW WARNING
-
-
-使用说明将下面的脚本写入命名为rename.py的文件并，放到要批量修改文件名的文件夹下使用如下命令
-python3 rename.py [测试名字]# 或直接输入# python3 rename.py
-脚本代码# rename.py# 导入os库import osimport sys# 文件存放的路径path = r"./"# 将命令中......  -->
-        <p class="article-more-link">
-          <a href="/Python实现批量文件重命名.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
 
     </footer>
   </div>
