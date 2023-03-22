@@ -525,89 +525,6 @@ TS 代码提高了代码可读性，减少代码注释工作量
 <!-- Table of Contents -->
 
   
-    <article id="post-Echarts常见使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Echarts常见使用.html">Echarts常见使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-01-24T09:57:08.000Z" itemprop="datePublished">2023-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#echarts-图表背景图">Echarts 图表背景图</a></li>
-<li><a href="#echarts-动态柱状图">Echarts 动态柱状图</a></li>
-<li><a href="#legend-使用">Legend 使用</a><ul>
-<li><a href="#legend-超出滚动">Legend 超出滚动</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Echarts-图表背景图"><a href="#Echarts-图表背景图" class="headerlink" title="Echarts 图表背景图"></a>Echarts 图表背景图</h2><p>给图表设定背景图，一般有两种方式，第一种设定 option 中的 graphic</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> option = &#123;</span><br><span class="line">    graphic: [&#123;</span><br><span class="line">        type: <span class="string">'image'</span>, <span class="comment">// 图形元素类型</span></span><br><span class="line">        id: <span class="string">'logo'</span>, <span class="comment">// 更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。</span></span><br><span class="line">        right: <span class="string">'center'</span>, <span class="comment">// 根据父元素进行定位 （居中）</span></span><br><span class="line">        bottom: <span class="string">'0%'</span>, <span class="comment">// 根据父元素进行定位   （0%）, 如果bottom的值是 0，也可以删除该bottom属性值。</span></span><br><span class="line">        z: <span class="number">0</span>, <span class="comment">// 层叠</span></span><br><span class="line">        bounding: <span class="string">'all'</span>, <span class="comment">// 决定此图形元素在定位时，对自身的包围盒计算方式</span></span><br><span class="line">        style: &#123;</span><br><span class="line">            <span class="comment">// image: "https://www.boxuegu.com/assets/user/background1.png",</span></span><br><span class="line">            width: <span class="number">945</span>,</span><br><span class="line">            height: <span class="number">800</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;, ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>另一种方式为直接给图表容器设定背景图。</p>
-<h2 id="Echarts-动态柱状图"><a href="#Echarts-动态柱状图" class="headerlink" title="Echarts 动态柱状图"></a>Echarts 动态柱状图</h2><p>要让柱状图平滑地向左移动，效果如下：</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Echarts%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8QQ20230317-144305-HD.gif" alt="Echarts常见使用QQ20230317-144305-HD"></p>
-<p>目前有三个方案。<br>一是修改x轴和data数据，将数组头部数据放大最末位置然后用setOption刷新图表。<br>另外两种方案都是使用datazoom来实现。<br>可以修改datazoom的startValue和endValue然后setOption来刷新图表实现，<br>目前，echarts已经在API中支持对应的Action，推荐的实现方案如下：</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'DynamicBar'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      startValue: <span class="number">0</span>,</span><br><span class="line">      endValue: <span class="number">3</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    init() &#123;</span><br><span class="line">      <span class="keyword">const</span> dom = <span class="built_in">document</span>.getElementById(<span class="string">'dynamicBar'</span>)</span><br><span class="line">      <span class="keyword">this</span>.chart = echarts.init(dom)</span><br><span class="line">    &#125;,</span><br><span class="line">    refresh(option) &#123;</span><br><span class="line">      <span class="keyword">this</span>.chart.setOption(option)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">this</span>.init()</span><br><span class="line">    <span class="keyword">this</span>.refresh(option)</span><br><span class="line">    setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.startValue++</span><br><span class="line">      <span class="keyword">this</span>.endValue++</span><br><span class="line">      <span class="keyword">this</span>.chart.dispatchAction(&#123;</span><br><span class="line">        type: <span class="string">'dataZoom'</span>,</span><br><span class="line">        startValue: <span class="keyword">this</span>.startValue % <span class="number">3</span>,</span><br><span class="line">        endValue: (<span class="keyword">this</span>.endValue % <span class="number">3</span>) + <span class="number">4</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Legend-使用"><a href="#Legend-使用" class="headerlink" title="Legend 使用"></a>Legend 使用</h2>
-        <!-- 
-
-
-Echarts 图表背景图
-Echarts 动态柱状图
-Legend 使用
-Legend 超出滚动
-
-
-BMW WARNING
-
-
-Echarts 图表背景图给图表设定背景图，一般有两种方式，第一种设定 option 中的 graphic
-const option = &#123;    graphic: [&#123;        type: 'image', // 图形元素类型 ......  -->
-        <p class="article-more-link">
-          <a href="/Echarts常见使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Echarts/">Echarts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-前端工程启动常见包错误"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -748,6 +665,89 @@ const option = &#123;    graphic: [&#123;        type: 'image', // 图形元素�
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Echarts常见使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Echarts常见使用.html">Echarts常见使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-01-24T09:57:08.000Z" itemprop="datePublished">2023-01-24</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#echarts-图表背景图">Echarts 图表背景图</a></li>
+<li><a href="#echarts-动态柱状图">Echarts 动态柱状图</a></li>
+<li><a href="#legend-使用">Legend 使用</a><ul>
+<li><a href="#legend-超出滚动">Legend 超出滚动</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Echarts-图表背景图"><a href="#Echarts-图表背景图" class="headerlink" title="Echarts 图表背景图"></a>Echarts 图表背景图</h2><p>给图表设定背景图，一般有两种方式，第一种设定 option 中的 graphic</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> option = &#123;</span><br><span class="line">    graphic: [&#123;</span><br><span class="line">        type: <span class="string">'image'</span>, <span class="comment">// 图形元素类型</span></span><br><span class="line">        id: <span class="string">'logo'</span>, <span class="comment">// 更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。</span></span><br><span class="line">        right: <span class="string">'center'</span>, <span class="comment">// 根据父元素进行定位 （居中）</span></span><br><span class="line">        bottom: <span class="string">'0%'</span>, <span class="comment">// 根据父元素进行定位   （0%）, 如果bottom的值是 0，也可以删除该bottom属性值。</span></span><br><span class="line">        z: <span class="number">0</span>, <span class="comment">// 层叠</span></span><br><span class="line">        bounding: <span class="string">'all'</span>, <span class="comment">// 决定此图形元素在定位时，对自身的包围盒计算方式</span></span><br><span class="line">        style: &#123;</span><br><span class="line">            <span class="comment">// image: "https://www.boxuegu.com/assets/user/background1.png",</span></span><br><span class="line">            width: <span class="number">945</span>,</span><br><span class="line">            height: <span class="number">800</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;, ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一种方式为直接给图表容器设定背景图。</p>
+<h2 id="Echarts-动态柱状图"><a href="#Echarts-动态柱状图" class="headerlink" title="Echarts 动态柱状图"></a>Echarts 动态柱状图</h2><p>要让柱状图平滑地向左移动，效果如下：</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Echarts%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8QQ20230317-144305-HD.gif" alt="Echarts常见使用QQ20230317-144305-HD"></p>
+<p>目前有三个方案。<br>一是修改x轴和data数据，将数组头部数据放大最末位置然后用setOption刷新图表。<br>另外两种方案都是使用datazoom来实现。<br>可以修改datazoom的startValue和endValue然后setOption来刷新图表实现，<br>目前，echarts已经在API中支持对应的Action，推荐的实现方案如下：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'DynamicBar'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      startValue: <span class="number">0</span>,</span><br><span class="line">      endValue: <span class="number">3</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    init() &#123;</span><br><span class="line">      <span class="keyword">const</span> dom = <span class="built_in">document</span>.getElementById(<span class="string">'dynamicBar'</span>)</span><br><span class="line">      <span class="keyword">this</span>.chart = echarts.init(dom)</span><br><span class="line">    &#125;,</span><br><span class="line">    refresh(option) &#123;</span><br><span class="line">      <span class="keyword">this</span>.chart.setOption(option)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">this</span>.init()</span><br><span class="line">    <span class="keyword">this</span>.refresh(option)</span><br><span class="line">    setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.startValue++</span><br><span class="line">      <span class="keyword">this</span>.endValue++</span><br><span class="line">      <span class="keyword">this</span>.chart.dispatchAction(&#123;</span><br><span class="line">        type: <span class="string">'dataZoom'</span>,</span><br><span class="line">        startValue: <span class="keyword">this</span>.startValue % <span class="number">3</span>,</span><br><span class="line">        endValue: (<span class="keyword">this</span>.endValue % <span class="number">3</span>) + <span class="number">4</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Legend-使用"><a href="#Legend-使用" class="headerlink" title="Legend 使用"></a>Legend 使用</h2>
+        <!-- 
+
+
+Echarts 图表背景图
+Echarts 动态柱状图
+Legend 使用
+Legend 超出滚动
+
+
+BMW WARNING
+
+
+Echarts 图表背景图给图表设定背景图，一般有两种方式，第一种设定 option 中的 graphic
+const option = &#123;    graphic: [&#123;        type: 'image', // 图形元素类型 ......  -->
+        <p class="article-more-link">
+          <a href="/Echarts常见使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Echarts/">Echarts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
 
     </footer>
   </div>
