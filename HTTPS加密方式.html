@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/95585823EED7AA6BF3D447928A82BBD2.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/52D49F4E0B961719AF0FD35F97F2AFC6.jpg">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/skylinety/blog-pics/HTTPS加密方式/resources/1706630D2F6DDCBF7002BAFFAEE2D75E.jpg">
-<meta property="og:updated_time" content="2023-03-11T10:09:09.000Z">
+<meta property="og:updated_time" content="2023-03-16T03:03:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTPS加密方式">
 <meta name="twitter:description" content="HTTPS概述 加密缘由 HTTPS HTTPS VS HTTP   常见加密方式 摘要算法 对称加密（共享密钥加密算法） 非对称加密 对称 + 非对称   中间人攻击 非对称加密中间人攻击 非对称与对称方案中的中间人攻击 信息抵赖   数字证书与签名 数字证书 数字签名 证书掉包 证书实例 证书申请流程 本地CA机构公钥 证书链 服务端找到正确的密钥X   HTTPS请求流程图解 拓展 S">
@@ -204,7 +204,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-03-11T10:09:09.000Z" itemprop="datePublished">2023-03-11</time>
+      <time datetime="2023-03-16T03:03:55.000Z" itemprop="datePublished">2023-03-16</time>
     </a><span style="color: #999">|</span>
 
       
@@ -309,7 +309,7 @@
 <li>DES</li>
 <li>AES</li>
 </ul>
-<h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><p>非对称加密将秘钥分为公钥与私钥，使用单组非对称加密密钥，只能保证单边通信可靠性。<br>客户端公钥加密，服务器私钥解密，客户端到服务器的通信是可靠的，但是反之，服务器向客户端传递信息，如果用私钥加密，则由于公钥是公开的，发送的内容很容易就能解密<br>若使用两组公钥私钥，客户端服务器分别保留一把公钥，一把私钥，就可实现双边通信的可靠性。<br>但是，这种方案可行性差，主要原因是<strong>非对称加密算法非常耗时</strong>，非常影响用户体验，<br>同时，非对称加密也存在中间人攻击的风险。</p>
+<h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><p>非对称加密将秘钥分为公钥与私钥，使用单组非对称加密密钥，只能保证单边通信可靠性。<br>客户端公钥加密，服务器私钥解密，客户端到服务器的通信是可靠的，<br>但是反之，服务器向客户端传递信息，如果用私钥加密，则由于公钥是公开的，发送的内容很容易就能解密<br>若使用两组公钥私钥，客户端服务器分别保留一把公钥，一把私钥，就可实现双边通信的可靠性。<br>但是，这种方案可行性差，主要原因是<strong>非对称加密算法非常耗时</strong>，非常影响用户体验，<br>同时，非对称加密也存在中间人攻击的风险。</p>
 <p>常见的非对称加密算法：</p>
 <ul>
 <li>RSA</li>
@@ -416,7 +416,7 @@
 </ul>
 <p>第一次登录时服务器会返回公钥并会给出公钥指纹（摘要算法获取公钥的摘要），用户可以拿到指纹与服务器提供商提供的指纹做对比，验证是否一致</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">　　$ ssh user@host</span><br><span class="line"></span><br><span class="line">　　The authenticity of host &apos;host (12.18.429.21)&apos; can&apos;t be established.</span><br><span class="line"></span><br><span class="line">　　RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.</span><br><span class="line"></span><br><span class="line">　　Are you sure you want to continue connecting (yes/no)?</span><br></pre></td></tr></table></figure>
-<p>如果一致，用户确认之后，公钥将会加密用户输入的密码给服务器，让后建立连接</p>
+<p>如果一致，用户确认之后，公钥将会加密用户输入的密码给服务器，然后建立连接</p>
 <ul>
 <li>公钥登录</li>
 </ul>
