@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>http缓存 | 鹧鸪天</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="google-site-verification" content="D1h-KykTKkHWWZvIvkNSIvgrB7xc8KacZZtoIA8asgc">
+  <meta name="baidu-site-verification" content="8E0ReY1tJJ">
+  
+  <meta name="keywords" content="CSNetwork">
+  
+  
+  
+  
+  <meta name="description" content="缓存的优势 缓存位置 memory cache disk cache   缓存过程 缓存流程   缓存相关头部 Expires Cache-Control（优先级高）   协商缓存头部 Last-Modified / If-Modified-Since Etag / If-None-Match（优先级高）   常见场景 频繁变动资源 会变化的资源 不常变化资源   BMW WARNING">
+<meta name="keywords" content="CS,Network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP缓存">
+<meta property="og:url" content="http://www.skyline.show/HTTP缓存.html">
+<meta property="og:site_name" content="鹧鸪天">
+<meta property="og:description" content="缓存的优势 缓存位置 memory cache disk cache   缓存过程 缓存流程   缓存相关头部 Expires Cache-Control（优先级高）   协商缓存头部 Last-Modified / If-Modified-Since Etag / If-None-Match（优先级高）   常见场景 频繁变动资源 会变化的资源 不常变化资源   BMW WARNING">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/HTTP%E7%BC%93%E5%AD%98%2420230328120139.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/HTTP%E7%BC%93%E5%AD%98%2420230328144813.png">
+<meta property="og:updated_time" content="2023-03-22T06:56:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP缓存">
+<meta name="twitter:description" content="缓存的优势 缓存位置 memory cache disk cache   缓存过程 缓存流程   缓存相关头部 Expires Cache-Control（优先级高）   协商缓存头部 Last-Modified / If-Modified-Since Etag / If-None-Match（优先级高）   常见场景 频繁变动资源 会变化的资源 不常变化资源   BMW WARNING">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/HTTP%E7%BC%93%E5%AD%98%2420230328120139.png">
+  
+    <link rel="alternate" href="/atom.xml" title="鹧鸪天" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css">
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-HTTP缓存" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      HTTP缓存
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    
+    <span style="color: #999">发表于</span>
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-03-22T06:56:44.000Z" itemprop="datePublished">2023-03-22</time>
+    </a><span style="color: #999">|</span>
+
+
+    <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-03-22T06:56:44.000Z" itemprop="datePublished">2023-03-22</time>
+    </a><span style="color: #999">|</span>
+
+      
+    
+    <span style="color: #999">分类于</span>
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!-- <span style="color: #999">|</span> -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#缓存的优势">缓存的优势</a></li>
+<li><a href="#缓存位置">缓存位置</a><ul>
+<li><a href="#memory-cache">memory cache</a></li>
+<li><a href="#disk-cache">disk cache</a></li>
+</ul>
+</li>
+<li><a href="#缓存过程">缓存过程</a><ul>
+<li><a href="#缓存流程">缓存流程</a></li>
+</ul>
+</li>
+<li><a href="#缓存相关头部">缓存相关头部</a><ul>
+<li><a href="#expires">Expires</a></li>
+<li><a href="#cache-control优先级高">Cache-Control（优先级高）</a></li>
+</ul>
+</li>
+<li><a href="#协商缓存头部">协商缓存头部</a><ul>
+<li><a href="#last-modified--if-modified-since">Last-Modified / If-Modified-Since</a></li>
+<li><a href="#etag--if-none-match优先级高">Etag / If-None-Match（优先级高）</a></li>
+</ul>
+</li>
+<li><a href="#常见场景">常见场景</a><ul>
+<li><a href="#频繁变动资源">频繁变动资源</a></li>
+<li><a href="#会变化的资源">会变化的资源</a></li>
+<li><a href="#不常变化资源">不常变化资源</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="缓存的优势"><a href="#缓存的优势" class="headerlink" title="缓存的优势"></a>缓存的优势</h2><ul>
+<li>减少网络带宽消耗</li>
+</ul>
+<p>通过减少网络请求数量来减少网络流量消耗</p>
+<ul>
+<li>降低服务器压力</li>
+</ul>
+<p>并发的大量的请求会使得服务器负载过重，减少网络请求能是服务器与更多地客户端建立连接，<br>减少过载死机的次数。</p>
+<ul>
+<li>加快页面打开速度</li>
+</ul>
+<p>直接使用本地的缓存，能明显地加快页面响应速度</p>
+<h2 id="缓存位置"><a href="#缓存位置" class="headerlink" title="缓存位置"></a>缓存位置</h2><h3 id="memory-cache"><a href="#memory-cache" class="headerlink" title="memory cache"></a>memory cache</h3><a id="more"></a>
+<p>内存中的缓存，优先读取，其特点是快速读取。<br>内存缓存会将编译解析后的文件，直接存入该进程的内存中，占据该进程一定的内存资源，以方便下次运行使用时的快速读取。<br>一旦该进程关闭（一般为页面关闭），则该进程的内存则会清空。<br>通常Base64格式的图片会存在内存缓存中。</p>
+<h3 id="disk-cache"><a href="#disk-cache" class="headerlink" title="disk cache"></a>disk cache</h3><p>硬盘中的缓存其特点为读取复杂，涉及I/O操作。<br>当从硬盘中读取到缓存后，会重新解析该缓存内容，速度比内存缓存慢。<br>大多数需要缓存的文件都存在硬盘中。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/HTTP%E7%BC%93%E5%AD%98%2420230328120139.png" alt="HTTP缓存$20230328120139"></p>
+<h2 id="缓存过程"><a href="#缓存过程" class="headerlink" title="缓存过程"></a>缓存过程</h2><h3 id="缓存流程"><a href="#缓存流程" class="headerlink" title="缓存流程"></a>缓存流程</h3><p>浏览器首次发起请求通过Cache-Control（no-store）判断是否缓存资源。<br>若缓存资源，后续根据Cache-Control（max-age）来判断资源是否有效来决定使用缓存（强缓存）还是重新和服务器协商要资源（协商缓存）。<br>若资源失效，浏览器与服务器协商，则通过E-tag/If-None-Match来判断服务器原缓存资源与其最新资源是否一致。</p>
+<p>这里描述时用优先级更高的Cache-control代替Expires，<br>用E-tag/If-None-Match代替了Last-modified/If-modified-Since，他们的主要功能分别对应一致。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/HTTP%E7%BC%93%E5%AD%98%2420230328144813.png" alt="HTTP缓存$20230328144813"></p>
+<h2 id="缓存相关头部"><a href="#缓存相关头部" class="headerlink" title="缓存相关头部"></a>缓存相关头部</h2><h3 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h3><p>服务器返回该请求结果缓存的到期时间。<br>当再次发起该请求时，如果客户端的时间小于Expires的值，则直接使用缓存结果，即强缓存生效。<br>Expires 是HTTP/1.0的字段，在http1.1之后使用Cache-Control代替<br>Expires 取值是GMT等绝对时间值。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">expires: Wed Jul <span class="number">01</span> <span class="number">2020</span> <span class="number">11</span>: <span class="number">42</span>: <span class="number">30</span> GMT + <span class="number">0800</span></span><br></pre></td></tr></table></figure>
+<p>GMT(Greenwich Mean Time，格林威治标准时间)</p>
+<p>Expires控制缓存的原理是使用客户端的时间与服务端返回的时间做对比，<br>当客户端和服务端时间因为各种原因不同步时（比如不同时区），强制缓存则会不准确而失去意义</p>
+<h3 id="Cache-Control（优先级高）"><a href="#Cache-Control（优先级高）" class="headerlink" title="Cache-Control（优先级高）"></a>Cache-Control（优先级高）</h3><p>Cache-Control在http1.1引入以解决Expires存在的问题，<br>故而与Expires同时出现时，Cache-Control优先级较高。</p>
+<table>
+<thead>
+<tr>
+<th>取值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public</td>
+<td>所有内容都将被缓存（客户端和代理服务器都可缓存）</td>
+</tr>
+<tr>
+<td>private</td>
+<td>所有内容只有客户端可以缓存，代理服务器不能缓存，Cache-Control的默认取值</td>
+</tr>
+<tr>
+<td>no-cache</td>
+<td>客户端会缓存内容，但是是否使用缓存则需要经过协商缓存来验证决定（即直接使用协商缓存）</td>
+</tr>
+<tr>
+<td>no-store</td>
+<td>所有内容都不会被缓存，即不使用强制缓存，也不使用协商缓存</td>
+</tr>
+<tr>
+<td>max-age=xxx (xxx is numeric), s-maxage=xxx</td>
+<td>缓存内容将在xxx<strong>秒</strong>后失效</td>
+</tr>
+</tbody>
+</table>
+<p>Cache-Control: max-age=xxx与Expires指定具体时间值不同的是，max-age与s-maxage是一个相对值, s-maxage对应代理服务器，max-age对应客户端。</p>
+<p>对Cache-Control/Expires进行识别后一般存在如下三种情况：<br>当浏览器中不存在缓存结果与标识，无缓存资源时，直接向服务器请求，一般为第一次请求或禁用缓存。<br>存在缓存结果与标识，但缓存结果失效，则与服务器进行协商缓存，协商缓存生效。<br>存在缓存结果与标识，且缓存结果有效，则直接取缓存，强缓存生效。</p>
+<p>Cache-Control/Expires主要用于判定内容直接从浏览器获取还是需要向服务器获取或协商。</p>
+<h2 id="协商缓存头部"><a href="#协商缓存头部" class="headerlink" title="协商缓存头部"></a>协商缓存头部</h2><h3 id="Last-Modified-If-Modified-Since"><a href="#Last-Modified-If-Modified-Since" class="headerlink" title="Last-Modified / If-Modified-Since"></a>Last-Modified / If-Modified-Since</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">Last-Modified</span><br></pre></td></tr></table></figure>
+<p>响应头，资源最后被修改时间（时间戳）</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">If-Modified-Since</span><br></pre></td></tr></table></figure>
+<p>请求头，浏览器向服务器再次请求该资源时，<br>发送之前请求资源获取的Last-Modified值，服务器将请求传递的值与文件最新值做对比。</p>
+<p>Last-Modified单位是秒级的，1秒内的修改Last-Modified无法记录，同时负载均衡或其他原因后各服务器的Last-Modified可能不一致。<br>故而不推荐使用。</p>
+<h3 id="Etag-If-None-Match（优先级高）"><a href="#Etag-If-None-Match（优先级高）" class="headerlink" title="Etag / If-None-Match（优先级高）"></a>Etag / If-None-Match（优先级高）</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Etag</span><br></pre></td></tr></table></figure>
+<p>响应头，服务器生成的资源唯一标识，Etag是服务器唯一资源Hash，资源变更都会生成新的表示，精确度高。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">If-None-Match</span><br></pre></td></tr></table></figure>
+<p>请求头，浏览器向服务器再次请求该资源时，<br>发送之前请求资源获取的Etag值，服务器将请求传递的值与文件最新值做对比。</p>
+<h2 id="常见场景"><a href="#常见场景" class="headerlink" title="常见场景"></a>常见场景</h2><h3 id="频繁变动资源"><a href="#频繁变动资源" class="headerlink" title="频繁变动资源"></a>频繁变动资源</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Cache-Control: no-cache</span><br></pre></td></tr></table></figure>
+<p>使用协商缓存，使得每次请求都需要与浏览器协商，以便及时获取到最新的资源。</p>
+<h3 id="会变化的资源"><a href="#会变化的资源" class="headerlink" title="会变化的资源"></a>会变化的资源</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Cache-control: max-age = <span class="number">2592000</span></span><br></pre></td></tr></table></figure>
+<p>设置一个较短的时间周期，来合理延迟下次需要与服务器协商去资源的时间</p>
+<h3 id="不常变化资源"><a href="#不常变化资源" class="headerlink" title="不常变化资源"></a>不常变化资源</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">Cache-Control:max-age=<span class="number">31536000</span></span><br></pre></td></tr></table></figure>
+<p>设定一个较长额日期如31536000（一年）使得未过期前直接命中缓存（强缓存）</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
+<li>Bulletin</li>
+</ul>
+<p>本文首发于 <a href="http://www.skyline.show">skyline.show</a> 欢迎访问。<br>文章实时更新，如果有什么错误或不严谨之处望请指出，十分感谢。<br>如果你觉得有用，欢迎到<a href="https://github.com/skylinety/Blog" target="_blank" rel="noopener">Github仓库</a>点亮⭐️</p>
+<blockquote>
+<p>I am a bucolic migant worker but I never walk backwards.</p>
+</blockquote>
+<ul>
+<li>Material</li>
+</ul>
+<p>参考资料如下列出，部分引用可能遗漏或不可考，侵删。</p>
+<blockquote>
+</blockquote>
+<ul>
+<li>Warrant</li>
+</ul>
+<p>本文作者： Skyline(lty)</p>
+<p>文章链接：<a href="http://www.skyline.show/HTTP缓存$.html">http://www.skyline.show/HTTP缓存$.html</a></p>
+<p>授权声明： 本博客所有文章除特别声明外， 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank" rel="noopener">CC BY - NC - SA 3.0</a> 协议。 转载请注明出处！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'http://ovhogx4rt.bkt.clouddn.com/wechatpay.jpg',
+  alipayImage: 'http://ovhogx4rt.bkt.clouddn.com/alipay.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Network/">Network</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/CSS基础布局.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">CSS基础布局</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存的优势"><span class="nav-number">1.</span> <span class="nav-text">缓存的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存位置"><span class="nav-number">2.</span> <span class="nav-text">缓存位置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-cache"><span class="nav-number">2.1.</span> <span class="nav-text">memory cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#disk-cache"><span class="nav-number">2.2.</span> <span class="nav-text">disk cache</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存过程"><span class="nav-number">3.</span> <span class="nav-text">缓存过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存流程"><span class="nav-number">3.1.</span> <span class="nav-text">缓存流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存相关头部"><span class="nav-number">4.</span> <span class="nav-text">缓存相关头部</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Expires"><span class="nav-number">4.1.</span> <span class="nav-text">Expires</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Control（优先级高）"><span class="nav-number">4.2.</span> <span class="nav-text">Cache-Control（优先级高）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协商缓存头部"><span class="nav-number">5.</span> <span class="nav-text">协商缓存头部</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Last-Modified-If-Modified-Since"><span class="nav-number">5.1.</span> <span class="nav-text">Last-Modified / If-Modified-Since</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Etag-If-None-Match（优先级高）"><span class="nav-number">5.2.</span> <span class="nav-text">Etag / If-None-Match（优先级高）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见场景"><span class="nav-number">6.</span> <span class="nav-text">常见场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#频繁变动资源"><span class="nav-number">6.1.</span> <span class="nav-text">频繁变动资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#会变化的资源"><span class="nav-number">6.2.</span> <span class="nav-text">会变化的资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不常变化资源"><span class="nav-number">6.3.</span> <span class="nav-text">不常变化资源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">7.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2023 鹧鸪天 All Rights Reserved.</p>
+        <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
+	      
+  		   	<p id="copyRightCn">skyline 保留所有权利</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            鹧鸪天
+          </div>
+          <div class="panel-body">
+            Copyright © 2023 skyline All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
