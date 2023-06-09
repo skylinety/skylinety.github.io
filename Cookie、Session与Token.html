@@ -13,21 +13,21 @@
   
   
   
-  <meta name="description" content="请求信息保存 Cookie 概述 属性分析 第三方 Cookie Cookie 前缀   Session BMW WARNING   请求信息保存Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。Cookie Session 等技术诞生就是为">
+  <meta name="description" content="请求信息保存 Cookie 概述 属性分析 第三方 Cookie Cookie 前缀   Session Token BMW WARNING   请求信息保存Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。Cookie Session 等技">
 <meta name="keywords" content="CS,Network">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cookie、Session与Token">
 <meta property="og:url" content="http://www.skyline.show/Cookie、Session与Token.html">
 <meta property="og:site_name" content="鹧鸪天">
-<meta property="og:description" content="请求信息保存 Cookie 概述 属性分析 第三方 Cookie Cookie 前缀   Session BMW WARNING   请求信息保存Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。Cookie Session 等技术诞生就是为">
+<meta property="og:description" content="请求信息保存 Cookie 概述 属性分析 第三方 Cookie Cookie 前缀   Session Token BMW WARNING   请求信息保存Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。Cookie Session 等技">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220328140802.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220309160801.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220309160722.png">
-<meta property="og:updated_time" content="2023-01-24T09:57:06.000Z">
+<meta property="og:updated_time" content="2023-06-03T10:23:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cookie、Session与Token">
-<meta name="twitter:description" content="请求信息保存 Cookie 概述 属性分析 第三方 Cookie Cookie 前缀   Session BMW WARNING   请求信息保存Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。Cookie Session 等技术诞生就是为">
+<meta name="twitter:description" content="请求信息保存 Cookie 概述 属性分析 第三方 Cookie Cookie 前缀   Session Token BMW WARNING   请求信息保存Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。Cookie Session 等技">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220328140802.png">
   
     <link rel="alternate" href="/atom.xml" title="鹧鸪天" type="application/atom+xml">
@@ -192,7 +192,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-01-24T09:57:06.000Z" itemprop="datePublished">2023-01-24</time>
+      <time datetime="2023-06-03T10:23:20.000Z" itemprop="datePublished">2023-06-03</time>
     </a><span style="color: #999">|</span>
 
       
@@ -218,6 +218,7 @@
 </ul>
 </li>
 <li><a href="#session">Session</a></li>
+<li><a href="#token">Token</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
@@ -226,7 +227,7 @@
 <p>Cookie 是服务端向客户端返回的微量信息。<br>当服务端请求响应头包含 Set-Cookie 属性时，Set-Cookie 对应的信息会自动保存在浏览器中。<br>在下次会话请求中，符合条件的请求会自动在请求头中设置 Cookie 属性，并携带之前保存的信息。<br>服务端请求响应携带 Cookie</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: skyline=hello</span><br></pre></td></tr></table></figure>
 <p>客户端发送请求携带 Cookie</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Cookie: skyline = hello</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Cookie: skyline=hello</span><br></pre></td></tr></table></figure>
 <p><strong>Cookie 信息存在于客户端中，不可跨域携带</strong>。</p>
 <p>Cookie 相关属性</p>
 <table>
@@ -278,6 +279,7 @@
 <li>追踪用户习惯<br>追踪分析用户浏览记录、习惯等</li>
 </ul>
 <p>Cookie 在 localStorage、sessionStorage 等现代浏览器存储 API 诞生前曾一度被用于存储浏览器端的信息并供脚本使用（即充当现今 localStorage 等的角色 ）。<br>但其有一个很严重的弊端就是所有的 Cookie 都会跟随请求携带，影响接口速度与网站性能。<br>在现代浏览器存储 API 诞生后，Cookie 基本不再用于一般的浏览器存储。</p>
+<p>由于Cookie信息存在于客户端中，每次请求都会携带，用户名与密码等关键信息不推荐用此方式存储，容易泄露。</p>
 <h3 id="属性分析"><a href="#属性分析" class="headerlink" title="属性分析"></a>属性分析</h3><ul>
 <li>domain<br>指定接收该 Cookie 的主机，默认限制为当前域名（<a href="http://www.example.com），不包含example.com下的其他子域名。" target="_blank" rel="noopener">www.example.com），不包含example.com下的其他子域名。</a><br>若进行指定 example.com，则包含其他子域名如 blog.example.com</li>
 <li>SameSite<br>Strict: 严格模式，不允许其他网站发送的请求携带 Cookie<br>Lax: 宽松模式，遵照在严格模式，但是允许其他网站跳转到本站时携带 Cookie，默认值<br>None: 不做限制，但需要安全传输。故设定为此值时，通常要求设定 secure</li>
@@ -293,10 +295,19 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: __Secure-skyline=hello; Secure</span><br><span class="line"><span class="built_in">Set</span>-Cookie: __Secure-test=hello; <span class="comment">// 被拦截</span></span><br></pre></td></tr></table></figure>
 <p>__Host-前缀进行了进一步强化，需要设定 Secure; Path=/，同时不能设定 Domin 属性</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: __Host-skyline=hello; Secure; Path=<span class="regexp">/</span></span><br><span class="line"><span class="regexp">Set-Cookie: __Host-skyline=hello; Secure;  /</span><span class="regexp">/ 被拦截</span></span><br><span class="line"><span class="regexp">Set-Cookie: __Host-skyline=hello; Path=/</span> <span class="comment">// 被拦截</span></span><br><span class="line"><span class="built_in">Set</span>-Cookie: __Host-skyline=hello; Secure; Path=<span class="regexp">/; Domain=example.com /</span><span class="regexp">/ 被拦截</span></span><br></pre></td></tr></table></figure>
-<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Session 是一种记录浏览器与客户端会话状态的机制，服务器通过该技术来判断浏览器发送的请求是否为同一次会话，并保留会话间产生的信息。<br>在该技术方案中，首次接收到请求时，服务端会存储客户端此次会话期间的基本信息。<br>会话基本信息并不一定包括用户登录信息，也可能保留游客用户操作相关信息。<br>一个典型的例子为京东游客用户也可以加购保留选择的商品。</p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Session 是一种记录浏览器与客户端会话状态的机制，服务器通过该技术来判断浏览器发送的请求是否为同一次会话，并保留会话间产生的信息。<br>在该技术方案中，首次接收到请求时，<strong>服务端会存储</strong>与客户端此次会话期间的基本信息，客户端只保存SESSIONID，不包含其他信息。</p>
+<p>会话基本信息并不一定包括用户登录信息，也可能保留游客用户操作相关信息。<br>一个典型的例子为京东游客用户也可以加购保留选择的商品。</p>
 <p>保存相关信息后，服务端会发出响应信息并在响应头中添加 Set-Cookie：SESSIONID=XXXXXXX<br>浏览器接收到请求，会自动设定一个 SESSIONID=XXXXXXX 的 Cookie，并为后续的请求自动携带该 Cookie。<br>服务通过比对 SESSIONID 来判定后续请求的会话归属。<br>Cookie 中 SESSIONID 的过期时间即为此次会话的有效时间。</p>
-<p>Session 本质上利用了 Cookie 技术。<br>Session 利用服务端保存会话信息，同时利用 Cookie 保存 SESSIONID。</p>
-<p>第一次请求响应头中包含 Set-Cookie<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220309160801.png" alt="Cookie、Session与Token20220309160801"><br>后续请求中携带 Session 关联 Cookie 信息<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220309160722.png" alt="Cookie、Session与Token20220309160722"></p>
+<p>Session 本质上利用了 Cookie 技术。<br>Session 利用服务端保存会话信息，同时利用 Cookie 携带 SESSIONID。</p>
+<p>第一次请求响应头中包含 Set-Cookie</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220309160801.png" alt="Cookie、Session与Token20220309160801"></p>
+<p>后续请求中携带 Session 关联 Cookie 信息</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220309160722.png" alt="Cookie、Session与Token20220309160722"></p>
+<p>服务端存储Session可以使用内存、文件或数据库。<br>存在内存时一般为包含session信息的闭包对象，但当同时实用的用户较多时，单一服务器存在负载过高的问题，<br>若使用多台服务器，又会存在session信息复制的问题。<br>可以通过存在数据库中让多台服务器来共享session信息，但数据库崩溃也会影响信息获取。</p>
+<h2 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h2><p>Token一般是指JSON Web Token，也就是常说的JWT。</p>
+<p>Token有服务器根据如下三部分生成</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">header.payload.signature</span><br></pre></td></tr></table></figure>
+<p>通过signature中指定的加密算法生成后Token后返给浏览器并存于浏览器存于storage或cookie中，<br>与Session不同的是，服务器不再存储Token信息。<br>浏览器后续请求都会携带Token，这里的Token充当令牌的作用</p>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
@@ -371,19 +382,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/UML类图画图图解.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/CSS格式化上下文.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          UML类图画图图解
+          CSS格式化上下文
         
       </div>
     </a>
   
   
-    <a href="/硬盘MR技术.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/UML类图画图图解.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">硬盘MR技术</div>
+      <div class="article-nav-title">UML类图画图图解</div>
     </a>
   
 </nav>
@@ -397,7 +408,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#请求信息保存"><span class="nav-number">1.</span> <span class="nav-text">请求信息保存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">2.</span> <span class="nav-text">Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性分析"><span class="nav-number">2.2.</span> <span class="nav-text">属性分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方-Cookie"><span class="nav-number">2.3.</span> <span class="nav-text">第三方 Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie-前缀"><span class="nav-number">2.4.</span> <span class="nav-text">Cookie 前缀</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">3.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">4.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#请求信息保存"><span class="nav-number">1.</span> <span class="nav-text">请求信息保存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">2.</span> <span class="nav-text">Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性分析"><span class="nav-number">2.2.</span> <span class="nav-text">属性分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方-Cookie"><span class="nav-number">2.3.</span> <span class="nav-text">第三方 Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie-前缀"><span class="nav-number">2.4.</span> <span class="nav-text">Cookie 前缀</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">3.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Token"><span class="nav-number">4.</span> <span class="nav-text">Token</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BMW-WARNING"><span class="nav-number">5.</span> <span class="nav-text">BMW WARNING</span></a></li></ol>
     
     </div>
   </aside>
