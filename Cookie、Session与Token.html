@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220328140802.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220309160801.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220309160722.png">
-<meta property="og:updated_time" content="2023-06-03T10:23:20.000Z">
+<meta property="og:updated_time" content="2023-10-14T08:10:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cookie、Session与Token">
 <meta name="twitter:description" content="请求信息保存 Cookie 概述 属性分析 第三方 Cookie Cookie 前缀   Session Token BMW WARNING   请求信息保存Http 是无状态（stateless）协议，服务端接收到的每一个请求都是全新请求，之前请求的信息不会被存储。这就导致，服务端无法判定请求是否为同一发送者，需要鉴权的请求，就无法获知用户是否进行过鉴权。Cookie Session 等技">
@@ -192,7 +192,7 @@
 
 
     <span style="color: #999">更新于</span><a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-06-03T10:23:20.000Z" itemprop="datePublished">2023-06-03</time>
+      <time datetime="2023-10-14T08:10:13.000Z" itemprop="datePublished">2023-10-14</time>
     </a><span style="color: #999">|</span>
 
       
@@ -298,16 +298,32 @@
 <h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Session 是一种记录浏览器与客户端会话状态的机制，服务器通过该技术来判断浏览器发送的请求是否为同一次会话，并保留会话间产生的信息。<br>在该技术方案中，首次接收到请求时，<strong>服务端会存储</strong>与客户端此次会话期间的基本信息，客户端只保存SESSIONID，不包含其他信息。</p>
 <p>会话基本信息并不一定包括用户登录信息，也可能保留游客用户操作相关信息。<br>一个典型的例子为京东游客用户也可以加购保留选择的商品。</p>
 <p>保存相关信息后，服务端会发出响应信息并在响应头中添加 Set-Cookie：SESSIONID=XXXXXXX<br>浏览器接收到请求，会自动设定一个 SESSIONID=XXXXXXX 的 Cookie，并为后续的请求自动携带该 Cookie。<br>服务通过比对 SESSIONID 来判定后续请求的会话归属。<br>Cookie 中 SESSIONID 的过期时间即为此次会话的有效时间。</p>
-<p>Session 本质上利用了 Cookie 技术。<br>Session 利用服务端保存会话信息，同时利用 Cookie 携带 SESSIONID。</p>
+<p>Session 本质上利用了 Cookie 技术，是Session技术中传输数据的载体。<br>Session 利用服务端保存会话信息，同时利用 Cookie 携带 SESSIONID。</p>
 <p>第一次请求响应头中包含 Set-Cookie</p>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220309160801.png" alt="Cookie、Session与Token20220309160801"></p>
 <p>后续请求中携带 Session 关联 Cookie 信息</p>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Cookie%E3%80%81Session%E4%B8%8EToken20220309160722.png" alt="Cookie、Session与Token20220309160722"></p>
 <p>服务端存储Session可以使用内存、文件或数据库。<br>存在内存时一般为包含session信息的闭包对象，但当同时实用的用户较多时，单一服务器存在负载过高的问题，<br>若使用多台服务器，又会存在session信息复制的问题。<br>可以通过存在数据库中让多台服务器来共享session信息，但数据库崩溃也会影响信息获取。</p>
 <h2 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h2><p>Token一般是指JSON Web Token，也就是常说的JWT。</p>
-<p>Token有服务器根据如下三部分生成</p>
+<p>Token由服务器根据如下三部分生成</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">header.payload.signature</span><br></pre></td></tr></table></figure>
-<p>通过signature中指定的加密算法生成后Token后返给浏览器并存于浏览器存于storage或cookie中，<br>与Session不同的是，服务器不再存储Token信息。<br>浏览器后续请求都会携带Token，这里的Token充当令牌的作用</p>
+<table>
+<thead>
+<tr>
+<th>header</th>
+<th>payload</th>
+<th>signature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>指定生成签名的算法</td>
+<td>携带信息</td>
+<td>将header与payload经行base64编码后，由服务端使用秘钥和算法加密生成</td>
+</tr>
+</tbody>
+</table>
+<p>通过signature中指定的加密算法生成后Token后返给浏览器存于浏览器storage或cookie中。<br>与Session不同的是，<strong>服务器不再存储Token信息</strong>。<br>浏览器后续请求都会携带Token，这里的Token充当令牌的作用</p>
 <h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><ul>
 <li>Bulletin</li>
 </ul>
@@ -382,19 +398,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/CSS格式化上下文.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/动态规划算法.html" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
-          CSS格式化上下文
+          动态规划算法
         
       </div>
     </a>
   
   
-    <a href="/UML类图画图图解.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/CSS格式化上下文.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">UML类图画图图解</div>
+      <div class="article-nav-title">CSS格式化上下文</div>
     </a>
   
 </nav>

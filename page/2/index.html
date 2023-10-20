@@ -563,6 +563,175 @@ https://technical.city/zh/video/......  -->
 <!-- Table of Contents -->
 
   
+    <article id="post-前端工程启动常见包错误"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/前端工程启动常见包错误.html">前端工程启动常见包错误</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-01-24T09:57:08.000Z" itemprop="datePublished">2023-01-24</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#node-sass-错误">node-sass 错误</a></li>
+<li><a href="#node-incompatible">node incompatible</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="node-sass-错误"><a href="#node-sass-错误" class="headerlink" title="node-sass 错误"></a>node-sass 错误</h2><p>项目启动过程报错，<br><code>this.getOptions is not a function</code><br><code>styles is not a function</code><br>等错误。<br>造成错误的原因为<br>node node-sass sass-loader 三者版本不对应。<br>可尝试如下方案进行解决。<br>删除关联包</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm uninstall --save sass-loader node-sass</span><br></pre></td></tr></table></figure>
+<p>或直接删除 lock 文件与 node_modules<br>重新安装包。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install sass-loader node-sass --save-dev</span><br></pre></td></tr></table></figure>
+<p>若使用较老版本 node，可能问题不会解决。<br>检查包对应关系</p>
+<table>
+<thead>
+<tr>
+<th>NodeJS</th>
+<th>Supported node-sass version</th>
+<th>Node Module</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node 20</td>
+<td>9.0+</td>
+<td>115</td>
+</tr>
+<tr>
+<td>Node 19</td>
+<td>8.0+</td>
+<td>111</td>
+</tr>
+<tr>
+<td>Node 18</td>
+<td>8.0+</td>
+<td>108</td>
+</tr>
+<tr>
+<td>Node 17</td>
+<td>7.0+</td>
+<td>102</td>
+</tr>
+<tr>
+<td>Node 16</td>
+<td>6.0+</td>
+<td>93</td>
+</tr>
+<tr>
+<td>Node 15</td>
+<td>5.0+, &lt;7.0</td>
+<td>88</td>
+</tr>
+<tr>
+<td>Node 14</td>
+<td>4.14+</td>
+<td>83</td>
+</tr>
+<tr>
+<td>Node 13</td>
+<td>4.13+, &lt;5.0</td>
+<td>79</td>
+</tr>
+<tr>
+<td>Node 12</td>
+<td>4.12+, &lt;8.0</td>
+<td>72</td>
+</tr>
+<tr>
+<td>Node 11</td>
+<td>4.10+, &lt;5.0</td>
+<td>67</td>
+</tr>
+<tr>
+<td>Node 10</td>
+<td>4.9+, &lt;6.0</td>
+<td>64</td>
+</tr>
+<tr>
+<td>Node 8</td>
+<td>4.5.3+, &lt;5.0</td>
+<td>57</td>
+</tr>
+<tr>
+<td>Node &lt;8</td>
+<td>&lt;5.0</td>
+<td>&lt;57</td>
+</tr>
+</tbody>
+</table>
+<p>详细对应关系见<a href="https://github.com/sass/node-sass" target="_blank" rel="noopener">node-sass</a></p>
+<p>sass-loader 与 node-sass 部分对应</p>
+<table>
+<thead>
+<tr>
+<th>sass-loader</th>
+<th>node-sass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4.1.1</td>
+<td>4.3.0</td>
+</tr>
+<tr>
+<td>7.0.3</td>
+<td>4.7.2</td>
+</tr>
+<tr>
+<td>7.3.1</td>
+<td>4.14.1</td>
+</tr>
+<tr>
+<td>10.0.1</td>
+<td>6.0.1</td>
+</tr>
+</tbody>
+</table>
+<p>将包对应重新安装。<br>过程中可能出现 npm rebuild node-sass 等错误提示，按照提示操作。<br>上述过程操作后仍旧没解决问题，使用</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yarn config <span class="built_in">set</span> sass-binary-site http://npm.taobao.org/mirrors/node-sass</span><br></pre></td></tr></table></figure>
+<p>重新操作上述流程。</p>
+<h2 id="node-incompatible"><a href="#node-incompatible" class="headerlink" title="node incompatible"></a>node incompatible</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">The engine <span class="string">"node"</span> is incompatible <span class="keyword">with</span> <span class="keyword">this</span> <span class="built_in">module</span>. Expected version <span class="string">"&gt;= 16"</span>. Got <span class="string">"14.17.0"</span></span><br></pre></td></tr></table></figure>
+<p>如果使用的是yarn安装，尝试使用</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yarn --ignore-engines</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-TS基础知识汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -701,7 +870,9 @@ TS 代码提高了代码可读性，减少代码注释工作量
 <h2 id="Echarts-动态柱状图"><a href="#Echarts-动态柱状图" class="headerlink" title="Echarts 动态柱状图"></a>Echarts 动态柱状图</h2><p>要让柱状图平滑地向左移动，效果如下：</p>
 <p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Echarts%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8QQ20230317-144305-HD.gif" alt="Echarts常见使用QQ20230317-144305-HD"></p>
 <p>目前有三个方案。<br>一是修改x轴和data数据，将数组头部数据放大最末位置然后用setOption刷新图表。<br>另外两种方案都是使用datazoom来实现。<br>可以修改datazoom的startValue和endValue然后setOption来刷新图表实现，<br>目前，echarts已经在API中支持对应的Action，推荐的实现方案如下：</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'DynamicBar'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      startValue: <span class="number">0</span>,</span><br><span class="line">      endValue: <span class="number">3</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    init() &#123;</span><br><span class="line">      <span class="keyword">const</span> dom = <span class="built_in">document</span>.getElementById(<span class="string">'dynamicBar'</span>)</span><br><span class="line">      <span class="keyword">this</span>.chart = echarts.init(dom)</span><br><span class="line">    &#125;,</span><br><span class="line">    refresh(option) &#123;</span><br><span class="line">      <span class="keyword">this</span>.chart.setOption(option)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">this</span>.init()</span><br><span class="line">    <span class="keyword">this</span>.refresh(option)</span><br><span class="line">    setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.startValue++</span><br><span class="line">      <span class="keyword">this</span>.endValue++</span><br><span class="line">      <span class="keyword">this</span>.chart.dispatchAction(&#123;</span><br><span class="line">        type: <span class="string">'dataZoom'</span>,</span><br><span class="line">        startValue: <span class="keyword">this</span>.startValue % <span class="number">3</span>,</span><br><span class="line">        endValue: (<span class="keyword">this</span>.endValue % <span class="number">3</span>) + <span class="number">4</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'DynamicBar'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      startValue: <span class="number">0</span>,</span><br><span class="line">      endValue: <span class="number">0</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    init() &#123;</span><br><span class="line">      <span class="keyword">const</span> dom = <span class="built_in">document</span>.getElementById(<span class="string">'dynamicBar'</span>)</span><br><span class="line">      <span class="keyword">this</span>.chart = echarts.init(dom)</span><br><span class="line">    &#125;,</span><br><span class="line">    refresh(option) &#123;</span><br><span class="line">      <span class="keyword">this</span>.chart.setOption(option)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">this</span>.init()</span><br><span class="line">    <span class="keyword">this</span>.refresh(option)</span><br><span class="line">    setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.startValue++</span><br><span class="line">      <span class="keyword">this</span>.endValue++</span><br><span class="line">      <span class="keyword">this</span>.chart.dispatchAction(&#123;</span><br><span class="line">        type: <span class="string">'dataZoom'</span>,</span><br><span class="line">        startValue: <span class="keyword">this</span>.startValue % <span class="number">20</span>, <span class="comment">// X轴数据长度为29，坐标轴只显示10条数据，则需要以20为模进行计算</span></span><br><span class="line">        endValue: (<span class="keyword">this</span>.endValue % <span class="number">20</span>) + <span class="number">9</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>option.js</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">option: &#123;</span><br><span class="line">  dataZoom: [</span><br><span class="line">    &#123;</span><br><span class="line">      show: <span class="literal">false</span>,</span><br><span class="line">      xAxisIndex: [<span class="number">0</span>],</span><br><span class="line">      bottom: <span class="number">0</span>,</span><br><span class="line">      start: <span class="number">0</span>,</span><br><span class="line">      end: <span class="number">9</span></span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Legend-使用"><a href="#Legend-使用" class="headerlink" title="Legend 使用"></a>Legend 使用</h2>
         <!-- 
 
@@ -727,171 +898,6 @@ const option = &#123;    graphic: [&#123;        type: 'image', // 图形元素�
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Echarts/">Echarts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-前端工程启动常见包错误"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/前端工程启动常见包错误.html">前端工程启动常见包错误</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-01-24T09:57:08.000Z" itemprop="datePublished">2023-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#node-sass-错误">node-sass 错误</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="node-sass-错误"><a href="#node-sass-错误" class="headerlink" title="node-sass 错误"></a>node-sass 错误</h2><p>项目启动过程报错，<br><code>this.getOptions is not a function</code><br><code>styles is not a function</code><br>等错误。<br>造成错误的原因为<br>node node-sass sass-loader 三者版本不对应。<br>可尝试如下方案进行解决。<br>删除关联包</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm uninstall --save sass-loader node-sass</span><br></pre></td></tr></table></figure>
-<p>或直接删除 lock 文件与 node_modules<br>重新安装包。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install sass-loader node-sass --save-dev</span><br></pre></td></tr></table></figure>
-<p>若使用较老版本 node，可能问题不会解决。<br>检查包对应关系</p>
-<table>
-<thead>
-<tr>
-<th>NodeJS</th>
-<th>Supported node-sass version</th>
-<th>Node Module</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Node 20</td>
-<td>9.0+</td>
-<td>115</td>
-</tr>
-<tr>
-<td>Node 19</td>
-<td>8.0+</td>
-<td>111</td>
-</tr>
-<tr>
-<td>Node 18</td>
-<td>8.0+</td>
-<td>108</td>
-</tr>
-<tr>
-<td>Node 17</td>
-<td>7.0+</td>
-<td>102</td>
-</tr>
-<tr>
-<td>Node 16</td>
-<td>6.0+</td>
-<td>93</td>
-</tr>
-<tr>
-<td>Node 15</td>
-<td>5.0+, &lt;7.0</td>
-<td>88</td>
-</tr>
-<tr>
-<td>Node 14</td>
-<td>4.14+</td>
-<td>83</td>
-</tr>
-<tr>
-<td>Node 13</td>
-<td>4.13+, &lt;5.0</td>
-<td>79</td>
-</tr>
-<tr>
-<td>Node 12</td>
-<td>4.12+, &lt;8.0</td>
-<td>72</td>
-</tr>
-<tr>
-<td>Node 11</td>
-<td>4.10+, &lt;5.0</td>
-<td>67</td>
-</tr>
-<tr>
-<td>Node 10</td>
-<td>4.9+, &lt;6.0</td>
-<td>64</td>
-</tr>
-<tr>
-<td>Node 8</td>
-<td>4.5.3+, &lt;5.0</td>
-<td>57</td>
-</tr>
-<tr>
-<td>Node &lt;8</td>
-<td>&lt;5.0</td>
-<td>&lt;57</td>
-</tr>
-</tbody>
-</table>
-<p>详细对应关系见<a href="https://github.com/sass/node-sass" target="_blank" rel="noopener">node-sass</a></p>
-<p>sass-loader 与 node-sass 部分对应</p>
-<table>
-<thead>
-<tr>
-<th>sass-loader</th>
-<th>node-sass</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>4.1.1</td>
-<td>4.3.0</td>
-</tr>
-<tr>
-<td>7.0.3</td>
-<td>4.7.2</td>
-</tr>
-<tr>
-<td>7.3.1</td>
-<td>4.14.1</td>
-</tr>
-<tr>
-<td>10.0.1</td>
-<td>6.0.1</td>
-</tr>
-</tbody>
-</table>
-<p>将包对应重新安装。<br>过程中可能出现 npm rebuild node-sass 等错误提示，按照提示操作。<br>上述过程操作后仍旧没解决问题，使用</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">yarn config <span class="built_in">set</span> sass-binary-site http://npm.taobao.org/mirrors/node-sass</span><br></pre></td></tr></table></figure>
-<p>重新操作上述流程。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
 
     </footer>
   </div>
@@ -995,6 +1001,72 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
+    <article id="post-Git常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Git常见问题.html">Git常见问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-11-30T06:00:31.000Z" itemprop="datePublished">2022-11-30</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Git-status-中文展示"><a href="#Git-status-中文展示" class="headerlink" title="Git status 中文展示"></a>Git status 中文展示</h2><p>在使用<code>git status</code>命令时，若文件名包含中文，可能会出现如下情况<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220506142709.png" alt="Git常见问题20220506142709"><br>上图框中实际为中文。<br>输入如下命令解决</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>或直接在 <code>$HOME/.gitconfig</code>文件中附加</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[core]</span><br><span class="line">    quotepath = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220506142815.png" alt="Git常见问题20220506142815"></p>
+<h2 id="文件名过长错误"><a href="#文件名过长错误" class="headerlink" title="文件名过长错误"></a>文件名过长错误</h2><p>文件名过长，报错如下：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Filename too long warning: Clone succeeded, but checkout failed.</span><br></pre></td></tr></table></figure>
+<p>输入如下命令解决</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --system core.longpaths <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="多个-git-进程"><a href="#多个-git-进程" class="headerlink" title="多个 git 进程"></a>多个 git 进程</h2>
+        <!-- Git status 中文展示在使用git status命令时，若文件名包含中文，可能会出现如下情况上图框中实际为中文。输入如下命令解决
+git config --global core.quotepath false
+或直接在 $HOME/.gitconfig文件中附加
+[core]    quotepath = false
+
+文件名过长错误文件名过长，报错如下：
+Filename too......  -->
+        <p class="article-more-link">
+          <a href="/Git常见问题.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Git常见符号"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -1055,72 +1127,6 @@ BMW WARNING
 ..表示对比git log test..mastertest 是由 master 建立的分支，在 test 进行开发多次提交完成对应功能后，切回 master 分支；在合并 test 分支的时候，如果 master 分支在建立 test 分支之后有新的提交，则尝尝需要 rebase 进行变基让提交历史更加美观，通过如上命令来......  -->
         <p class="article-more-link">
           <a href="/Git常见符号.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Git常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Git常见问题.html">Git常见问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-11-30T06:00:31.000Z" itemprop="datePublished">2022-11-30</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Git-status-中文展示"><a href="#Git-status-中文展示" class="headerlink" title="Git status 中文展示"></a>Git status 中文展示</h2><p>在使用<code>git status</code>命令时，若文件名包含中文，可能会出现如下情况<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220506142709.png" alt="Git常见问题20220506142709"><br>上图框中实际为中文。<br>输入如下命令解决</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<p>或直接在 <code>$HOME/.gitconfig</code>文件中附加</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">[core]</span><br><span class="line">    quotepath = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Git%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220506142815.png" alt="Git常见问题20220506142815"></p>
-<h2 id="文件名过长错误"><a href="#文件名过长错误" class="headerlink" title="文件名过长错误"></a>文件名过长错误</h2><p>文件名过长，报错如下：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">Filename too long warning: Clone succeeded, but checkout failed.</span><br></pre></td></tr></table></figure>
-<p>输入如下命令解决</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --system core.longpaths <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h2 id="多个-git-进程"><a href="#多个-git-进程" class="headerlink" title="多个 git 进程"></a>多个 git 进程</h2>
-        <!-- Git status 中文展示在使用git status命令时，若文件名包含中文，可能会出现如下情况上图框中实际为中文。输入如下命令解决
-git config --global core.quotepath false
-或直接在 $HOME/.gitconfig文件中附加
-[core]    quotepath = false
-
-文件名过长错误文件名过长，报错如下：
-Filename too......  -->
-        <p class="article-more-link">
-          <a href="/Git常见问题.html#more">阅读全文</a>
         </p>
       
     </div>
