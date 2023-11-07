@@ -279,6 +279,127 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-数据结构之树"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/数据结构之树.html">数据结构之树</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-02-02T07:19:17.000Z" itemprop="datePublished">2023-02-02</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#二叉树">二叉树</a><ul>
+<li><a href="#二叉树遍历">二叉树遍历</a></li>
+<li><a href="#完全二叉树">完全二叉树</a></li>
+<li><a href="#满二叉树">满二叉树</a></li>
+<li><a href="#二叉搜索树">二叉搜索树</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h3><p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230202135508.png" alt="数据结构之树$20230202135508"></p>
+<p>深度优先遍历（DFS），根据父节点被访问的次序，分为：</p>
+<ul>
+<li>先序遍历（Preorder）</li>
+</ul>
+<p>父节点先于左右子树被遍历。<br>上述二叉树对应结果为</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">ABDHIEJKCFLG</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112727.png" alt="数据结构之树$20230208112727"></p>
+<ul>
+<li>中序遍历（Inorder）</li>
+</ul>
+<p>父节点遍历次序位于左右子树中间。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">HDIBJEKALFCG</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112757.png" alt="数据结构之树$20230208112757"></p>
+<ul>
+<li>后序遍历（Postorder）</li>
+</ul>
+<p>父节点后于左右子树被遍历</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">HIDJKEBLFGCA</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112821.png" alt="数据结构之树$20230208112821"></p>
+<p>无论父节点被访问的次序，子树总是先左后右被遍历。</p>
+<p>二叉树的深度优先遍历用 Python3 实现如下（<a href="https://leetcode.cn/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener">对应 leetcode 题目</a>）</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">  <span class="comment"># 先序遍历</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">preorderTraversal</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[int]:</span></span><br><span class="line">      ret = []</span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(root)</span>:</span></span><br><span class="line">          <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">              <span class="keyword">return</span></span><br><span class="line">          ret.append(root.val)</span><br><span class="line">          <span class="keyword">if</span> root.left:</span><br><span class="line">                traversal(root.left)</span><br><span class="line">          <span class="keyword">if</span> root.right:</span><br><span class="line">                traversal(root.right)</span><br><span class="line">      traversal(root)</span><br><span class="line">      <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 中序遍历</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inorderTraversal</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[int]:</span></span><br><span class="line">        ret = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(root)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">if</span> root.left:</span><br><span class="line">                 traversal(root.left)</span><br><span class="line">            ret.append(root.val)</span><br><span class="line">            <span class="keyword">if</span> root.right:</span><br><span class="line">                 traversal(root.right)</span><br><span class="line">        traversal(root)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">  <span class="comment"># 后序遍历</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">postorderTraversal</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[int]:</span></span><br><span class="line">      ret = []</span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(root)</span>:</span></span><br><span class="line">          <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">              <span class="keyword">return</span></span><br><span class="line">          <span class="keyword">if</span> root.left:</span><br><span class="line">                traversal(root.left)</span><br><span class="line">          <span class="keyword">if</span> root.right:</span><br><span class="line">                traversal(root.right)</span><br><span class="line">          ret.append(root.val)</span><br><span class="line">      traversal(root)</span><br><span class="line">      <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<p>另外还可使用广度优先遍历（BFS），即层次（层序）遍历。<br>从左到右一层一层访问所有节点</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">ABCDEFGHIJKL</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%91%2420230208112932.png" alt="数据结构之树$20230208112932"></p>
+<p>层次遍历用 Python 实现如下（<a href="https://leetcode.cn/problems/binary-tree-level-order-traversal/" target="_blank" rel="noopener">对应 leetcode 题目</a>）</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># @lc code=start</span></span><br><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, left=None, right=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.left = left</span></span><br><span class="line"><span class="comment">#         self.right = right</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># 递归版本</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrderRecursion</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        ret = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">traversal</span><span class="params">(preLevel)</span>:</span></span><br><span class="line">            level = []</span><br><span class="line">            cells = []</span><br><span class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> preLevel:</span><br><span class="line">                cells.append(node.val)</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    level.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    level.append(node.right)</span><br><span class="line">            ret.append(cells)</span><br><span class="line">            <span class="keyword">if</span> len(level):</span><br><span class="line">                traversal(level)</span><br><span class="line">        traversal([root])</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 双层循环版本</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrder</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        ret = []</span><br><span class="line">        level = [root]</span><br><span class="line">        <span class="keyword">while</span> len(level):</span><br><span class="line">            cells = []</span><br><span class="line">            preLevel = level</span><br><span class="line">            level = []</span><br><span class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> preLevel:</span><br><span class="line">                cells.append(node.val)</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    level.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    level.append(node.right)</span><br><span class="line">            ret.append(cells)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 双层循环版本使用队列优化空间</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">levelOrderQueue</span><span class="params">(self, root: Optional[TreeNode])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        ret = []</span><br><span class="line">        level = [root]</span><br><span class="line">        <span class="keyword">while</span> len(level):</span><br><span class="line">            cells = []</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(level)):</span><br><span class="line">                node = level.pop(<span class="number">0</span>)</span><br><span class="line">                cells.append(node.val)</span><br><span class="line">                <span class="keyword">if</span> node.left:</span><br><span class="line">                    level.append(node.left)</span><br><span class="line">                <span class="keyword">if</span> node.right:</span><br><span class="line">                    level.append(node.right)</span><br><span class="line">            ret.append(cells)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<p>可以看到，对于变长数组的循环，可以采用while方式进行。</p>
+<h3 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h3>
+        <!-- 
+
+
+二叉树
+二叉树遍历
+完全二叉树
+满二叉树
+二叉搜索树
+
+
+BMW WARNING
+
+
+二叉树二叉树遍历
+深度优先遍历（DFS），根据父节点被访问的次序，分为：
+
+先序遍历（Preorder）
+
+父节点先于左右子树被遍历。上述二叉树对应结果为
+ABDHIEJKCFLG
+
+
+中序遍历（Inorder）
+
+父节点遍历次序位于左右子树中间。
+HDIBJEKALFCG
+
+
+后序遍历（Postor......  -->
+        <p class="article-more-link">
+          <a href="/数据结构之树.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-ES闭包"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -732,6 +853,91 @@ https://technical.city/zh/video/......  -->
 <!-- Table of Contents -->
 
   
+    <article id="post-Echarts常见使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Echarts常见使用.html">Echarts常见使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2023-01-24T09:57:08.000Z" itemprop="datePublished">2023-01-24</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#echarts-图表背景图">Echarts 图表背景图</a></li>
+<li><a href="#echarts-动态柱状图">Echarts 动态柱状图</a></li>
+<li><a href="#legend-使用">Legend 使用</a><ul>
+<li><a href="#legend-超出滚动">Legend 超出滚动</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Echarts-图表背景图"><a href="#Echarts-图表背景图" class="headerlink" title="Echarts 图表背景图"></a>Echarts 图表背景图</h2><p>给图表设定背景图，一般有两种方式，第一种设定 option 中的 graphic</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> option = &#123;</span><br><span class="line">    graphic: [&#123;</span><br><span class="line">        type: <span class="string">'image'</span>, <span class="comment">// 图形元素类型</span></span><br><span class="line">        id: <span class="string">'logo'</span>, <span class="comment">// 更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。</span></span><br><span class="line">        right: <span class="string">'center'</span>, <span class="comment">// 根据父元素进行定位 （居中）</span></span><br><span class="line">        bottom: <span class="string">'0%'</span>, <span class="comment">// 根据父元素进行定位   （0%）, 如果bottom的值是 0，也可以删除该bottom属性值。</span></span><br><span class="line">        z: <span class="number">0</span>, <span class="comment">// 层叠</span></span><br><span class="line">        bounding: <span class="string">'all'</span>, <span class="comment">// 决定此图形元素在定位时，对自身的包围盒计算方式</span></span><br><span class="line">        style: &#123;</span><br><span class="line">            <span class="comment">// image: "https://www.boxuegu.com/assets/user/background1.png",</span></span><br><span class="line">            width: <span class="number">945</span>,</span><br><span class="line">            height: <span class="number">800</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;, ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一种方式为直接给图表容器设定背景图。</p>
+<h2 id="Echarts-动态柱状图"><a href="#Echarts-动态柱状图" class="headerlink" title="Echarts 动态柱状图"></a>Echarts 动态柱状图</h2><p>要让柱状图平滑地向左移动，效果如下：</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Echarts%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8QQ20230317-144305-HD.gif" alt="Echarts常见使用QQ20230317-144305-HD"></p>
+<p>目前有三个方案。<br>一是修改x轴和data数据，将数组头部数据放大最末位置然后用setOption刷新图表。<br>另外两种方案都是使用datazoom来实现。<br>可以修改datazoom的startValue和endValue然后setOption来刷新图表实现，<br>目前，echarts已经在API中支持对应的Action，推荐的实现方案如下：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'DynamicBar'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      startValue: <span class="number">0</span>,</span><br><span class="line">      endValue: <span class="number">0</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    init() &#123;</span><br><span class="line">      <span class="keyword">const</span> dom = <span class="built_in">document</span>.getElementById(<span class="string">'dynamicBar'</span>)</span><br><span class="line">      <span class="keyword">this</span>.chart = echarts.init(dom)</span><br><span class="line">    &#125;,</span><br><span class="line">    refresh(option) &#123;</span><br><span class="line">      <span class="keyword">this</span>.chart.setOption(option)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">this</span>.init()</span><br><span class="line">    <span class="keyword">this</span>.refresh(option)</span><br><span class="line">    setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.startValue++</span><br><span class="line">      <span class="keyword">this</span>.endValue++</span><br><span class="line">      <span class="keyword">this</span>.chart.dispatchAction(&#123;</span><br><span class="line">        type: <span class="string">'dataZoom'</span>,</span><br><span class="line">        startValue: <span class="keyword">this</span>.startValue % <span class="number">20</span>, <span class="comment">// X轴数据长度为29，坐标轴只显示10条数据，则需要以20为模进行计算</span></span><br><span class="line">        endValue: (<span class="keyword">this</span>.endValue % <span class="number">20</span>) + <span class="number">9</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>option.js</code></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">option: &#123;</span><br><span class="line">  dataZoom: [</span><br><span class="line">    &#123;</span><br><span class="line">      show: <span class="literal">false</span>,</span><br><span class="line">      xAxisIndex: [<span class="number">0</span>],</span><br><span class="line">      bottom: <span class="number">0</span>,</span><br><span class="line">      start: <span class="number">0</span>,</span><br><span class="line">      end: <span class="number">9</span></span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Legend-使用"><a href="#Legend-使用" class="headerlink" title="Legend 使用"></a>Legend 使用</h2>
+        <!-- 
+
+
+Echarts 图表背景图
+Echarts 动态柱状图
+Legend 使用
+Legend 超出滚动
+
+
+BMW WARNING
+
+
+Echarts 图表背景图给图表设定背景图，一般有两种方式，第一种设定 option 中的 graphic
+const option = &#123;    graphic: [&#123;        type: 'image', // 图形元素类型 ......  -->
+        <p class="article-more-link">
+          <a href="/Echarts常见使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Echarts/">Echarts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-TS基础知识汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -813,91 +1019,6 @@ TS 代码提高了代码可读性，减少代码注释工作量
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TS/">TS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Echarts常见使用"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Echarts常见使用.html">Echarts常见使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2023-01-24T09:57:08.000Z" itemprop="datePublished">2023-01-24</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#echarts-图表背景图">Echarts 图表背景图</a></li>
-<li><a href="#echarts-动态柱状图">Echarts 动态柱状图</a></li>
-<li><a href="#legend-使用">Legend 使用</a><ul>
-<li><a href="#legend-超出滚动">Legend 超出滚动</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Echarts-图表背景图"><a href="#Echarts-图表背景图" class="headerlink" title="Echarts 图表背景图"></a>Echarts 图表背景图</h2><p>给图表设定背景图，一般有两种方式，第一种设定 option 中的 graphic</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> option = &#123;</span><br><span class="line">    graphic: [&#123;</span><br><span class="line">        type: <span class="string">'image'</span>, <span class="comment">// 图形元素类型</span></span><br><span class="line">        id: <span class="string">'logo'</span>, <span class="comment">// 更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。</span></span><br><span class="line">        right: <span class="string">'center'</span>, <span class="comment">// 根据父元素进行定位 （居中）</span></span><br><span class="line">        bottom: <span class="string">'0%'</span>, <span class="comment">// 根据父元素进行定位   （0%）, 如果bottom的值是 0，也可以删除该bottom属性值。</span></span><br><span class="line">        z: <span class="number">0</span>, <span class="comment">// 层叠</span></span><br><span class="line">        bounding: <span class="string">'all'</span>, <span class="comment">// 决定此图形元素在定位时，对自身的包围盒计算方式</span></span><br><span class="line">        style: &#123;</span><br><span class="line">            <span class="comment">// image: "https://www.boxuegu.com/assets/user/background1.png",</span></span><br><span class="line">            width: <span class="number">945</span>,</span><br><span class="line">            height: <span class="number">800</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;, ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>另一种方式为直接给图表容器设定背景图。</p>
-<h2 id="Echarts-动态柱状图"><a href="#Echarts-动态柱状图" class="headerlink" title="Echarts 动态柱状图"></a>Echarts 动态柱状图</h2><p>要让柱状图平滑地向左移动，效果如下：</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/Echarts%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8QQ20230317-144305-HD.gif" alt="Echarts常见使用QQ20230317-144305-HD"></p>
-<p>目前有三个方案。<br>一是修改x轴和data数据，将数组头部数据放大最末位置然后用setOption刷新图表。<br>另外两种方案都是使用datazoom来实现。<br>可以修改datazoom的startValue和endValue然后setOption来刷新图表实现，<br>目前，echarts已经在API中支持对应的Action，推荐的实现方案如下：</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'DynamicBar'</span>,</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      startValue: <span class="number">0</span>,</span><br><span class="line">      endValue: <span class="number">0</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    init() &#123;</span><br><span class="line">      <span class="keyword">const</span> dom = <span class="built_in">document</span>.getElementById(<span class="string">'dynamicBar'</span>)</span><br><span class="line">      <span class="keyword">this</span>.chart = echarts.init(dom)</span><br><span class="line">    &#125;,</span><br><span class="line">    refresh(option) &#123;</span><br><span class="line">      <span class="keyword">this</span>.chart.setOption(option)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    <span class="keyword">this</span>.init()</span><br><span class="line">    <span class="keyword">this</span>.refresh(option)</span><br><span class="line">    setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.startValue++</span><br><span class="line">      <span class="keyword">this</span>.endValue++</span><br><span class="line">      <span class="keyword">this</span>.chart.dispatchAction(&#123;</span><br><span class="line">        type: <span class="string">'dataZoom'</span>,</span><br><span class="line">        startValue: <span class="keyword">this</span>.startValue % <span class="number">20</span>, <span class="comment">// X轴数据长度为29，坐标轴只显示10条数据，则需要以20为模进行计算</span></span><br><span class="line">        endValue: (<span class="keyword">this</span>.endValue % <span class="number">20</span>) + <span class="number">9</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>option.js</code></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">option: &#123;</span><br><span class="line">  dataZoom: [</span><br><span class="line">    &#123;</span><br><span class="line">      show: <span class="literal">false</span>,</span><br><span class="line">      xAxisIndex: [<span class="number">0</span>],</span><br><span class="line">      bottom: <span class="number">0</span>,</span><br><span class="line">      start: <span class="number">0</span>,</span><br><span class="line">      end: <span class="number">9</span></span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Legend-使用"><a href="#Legend-使用" class="headerlink" title="Legend 使用"></a>Legend 使用</h2>
-        <!-- 
-
-
-Echarts 图表背景图
-Echarts 动态柱状图
-Legend 使用
-Legend 超出滚动
-
-
-BMW WARNING
-
-
-Echarts 图表背景图给图表设定背景图，一般有两种方式，第一种设定 option 中的 graphic
-const option = &#123;    graphic: [&#123;        type: 'image', // 图形元素类型 ......  -->
-        <p class="article-more-link">
-          <a href="/Echarts常见使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Echarts/">Echarts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li></ul>
 
     </footer>
   </div>
@@ -1135,92 +1256,6 @@ BMW WARNING
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-Vue2项目引入TS"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Vue2项目引入TS.html">Vue2项目引入TS</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-11-29T09:57:11.000Z" itemprop="datePublished">2022-11-29</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#vue-cli3-项目">vue-cli3 项目</a></li>
-<li><a href="#依赖引入">依赖引入</a><ul>
-<li><a href="#安装相关依赖">安装相关依赖</a></li>
-<li><a href="#tsconfig">tsconfig</a></li>
-<li><a href="#babelconfig">babel.config</a></li>
-<li><a href="#vueconfig">vue.config</a></li>
-<li><a href="#vue2tsx">vue2tsx</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="vue-cli3-项目"><a href="#vue-cli3-项目" class="headerlink" title="vue-cli3 项目"></a>vue-cli3 项目</h2><p>在使用 vue-cli3 及以上创建的项目根目录下，可执行命令</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">vue add typescript</span><br></pre></td></tr></table></figure>
-<h2 id="依赖引入"><a href="#依赖引入" class="headerlink" title="依赖引入"></a>依赖引入</h2><h3 id="安装相关依赖"><a href="#安装相关依赖" class="headerlink" title="安装相关依赖"></a>安装相关依赖</h3>
-        <!-- 
-
-
-vue-cli3 项目
-依赖引入
-安装相关依赖
-tsconfig
-babel.config
-vue.config
-vue2tsx
-
-
-BMW WARNING
-
-
-vue-cli3 项目在使用 vue-cli3 及以上创建的项目根目录下，可执行命令
-vue add typescript
-依赖引入安装相关依赖
-若直接 vue-cli3 添加支持不可行或 cli 低于该版本，可尝试自行添加相......  -->
-        <p class="article-more-link">
-          <a href="/Vue2项目引入TS.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
 
     </footer>
   </div>
