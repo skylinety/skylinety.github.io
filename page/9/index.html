@@ -1032,7 +1032,7 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Git常见操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1040,7 +1040,7 @@ BMW WARNING
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
+      <a class="article-title" href="/Git常见操作.html">Git常见操作</a>
     </h1>
   
 
@@ -1055,7 +1055,7 @@ BMW WARNING
 
       
     
-    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
     <!--  -->
 
       <!--  -->
@@ -1065,79 +1065,67 @@ BMW WARNING
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#页面渲染">页面渲染</a><ul>
-<li><a href="#渲染流程">渲染流程</a></li>
-<li><a href="#渲染原理">渲染原理</a></li>
-<li><a href="#layout">Layout</a></li>
-<li><a href="#paint">Paint</a></li>
+<li><a href="#回滚">回滚</a><ul>
+<li><a href="#revert">revert</a></li>
+<li><a href="#reset">reset</a></li>
 </ul>
 </li>
-<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
-<li><a href="#回流触发">回流触发</a></li>
-<li><a href="#重绘触发">重绘触发</a></li>
+<li><a href="#git-删除分支">git 删除分支</a><ul>
+<li><a href="#删除本地分支">删除本地分支</a></li>
+<li><a href="#删除远端分支">删除远端分支</a></li>
 </ul>
 </li>
-<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
-<li><a href="#浏览器优化">浏览器优化</a></li>
-<li><a href="#代码优化">代码优化</a></li>
+<li><a href="#git-单列已添加到暂存区的文件">git 单列已添加到暂存区的文件</a></li>
+<li><a href="#git-本地分支有提交单独查看并运行远程该分支">Git 本地分支有提交，单独查看并运行远程该分支</a></li>
+<li><a href="#远程仓库迁移拷贝">远程仓库迁移（拷贝）</a></li>
+<li><a href="#新建仓库时关联远程与本地">新建仓库时关联远程与本地</a></li>
+<li><a href="#git-同时推送多个仓库">git 同时推送多个仓库</a><ul>
+<li><a href="#git-remote-add">git remote add</a></li>
+<li><a href="#git-remote-set-url">git remote set-url</a></li>
 </ul>
 </li>
-<li><a href="#像素管道">像素管道</a><ul>
-<li><a href="#像素管道组成">像素管道组成</a></li>
+<li><a href="#https-方式访问-git-免输密码">https 方式访问 git 免输密码</a></li>
+<li><a href="#git-用户配置">Git 用户配置</a><ul>
+<li><a href="#查看配置">查看配置</a></li>
+<li><a href="#修改全局配置">修改全局配置</a></li>
 </ul>
 </li>
+<li><a href="#git-ssh-免密">GIT SSH 免密</a></li>
+<li><a href="#同步-github-fork-仓库">同步 Github fork 仓库</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
-<ul>
-<li>解析 HTML 节点，创建 DOM 树</li>
-<li>解析 CSS 创建 CSSOM 树</li>
-<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
-<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
-<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
-<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
-</ul>
-</li>
-<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
-<li>Paint， 绘制 renderTree 到页面上</li>
-</ul>
-<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820230310142853.png" alt="浏览器回流与重绘20230310142853"></p>
-<h3 id="渲染原理"><a href="#渲染原理" class="headerlink" title="渲染原理"></a>渲染原理</h3>
+<h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><h3 id="revert"><a href="#revert" class="headerlink" title="revert"></a>revert</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git revert [commit-id]</span><br></pre></td></tr></table></figure>
+<p>revert 可将代码回滚到指定版本，但会留下一条回滚记录</p>
+<h3 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h3>
         <!-- 
 
 
-页面渲染
-渲染流程
-渲染原理
-Layout
-Paint
+回滚
+revert
+reset
 
 
-回流与重绘触发
-回流触发
-重绘触发
+git 删除分支
+删除本地分支
+删除远端分支
 
 
-回流与重绘优化
-浏览器优化
-代码优化
+git 单列已添加到暂存区的文件
+Git 本地分支有提交，单独查看并运行远程该分支
+远程仓库迁移（拷贝）
+新建仓库时关联远程与本地
+git 同时推送多个仓库
+git remote add
+git remote set-url
 
 
-像素管道
-像素管道组成
-
-
-BMW WARNING
-
-
-页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
-
-解析 HTML 节点，创建 DOM 树
-解析 CSS 创建 CSSOM......  -->
+https 方式访问 git 免输密码
+Git 用户配置
+查看配置
+修改......  -->
         <p class="article-more-link">
-          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
+          <a href="/Git常见操作.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1145,7 +1133,7 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
 
     </footer>
   </div>
@@ -1277,7 +1265,7 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-Git常见操作"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1285,7 +1273,7 @@ BMW WARNING
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Git常见操作.html">Git常见操作</a>
+      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
     </h1>
   
 
@@ -1300,7 +1288,7 @@ BMW WARNING
 
       
     
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <a class="article-category-link" href="/categories/Major/">Major</a>
     <!--  -->
 
       <!--  -->
@@ -1310,67 +1298,79 @@ BMW WARNING
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#回滚">回滚</a><ul>
-<li><a href="#revert">revert</a></li>
-<li><a href="#reset">reset</a></li>
+<li><a href="#页面渲染">页面渲染</a><ul>
+<li><a href="#渲染流程">渲染流程</a></li>
+<li><a href="#渲染原理">渲染原理</a></li>
+<li><a href="#layout">Layout</a></li>
+<li><a href="#paint">Paint</a></li>
 </ul>
 </li>
-<li><a href="#git-删除分支">git 删除分支</a><ul>
-<li><a href="#删除本地分支">删除本地分支</a></li>
-<li><a href="#删除远端分支">删除远端分支</a></li>
+<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
+<li><a href="#回流触发">回流触发</a></li>
+<li><a href="#重绘触发">重绘触发</a></li>
 </ul>
 </li>
-<li><a href="#git-单列已添加到暂存区的文件">git 单列已添加到暂存区的文件</a></li>
-<li><a href="#git-本地分支有提交单独查看并运行远程该分支">Git 本地分支有提交，单独查看并运行远程该分支</a></li>
-<li><a href="#远程仓库迁移拷贝">远程仓库迁移（拷贝）</a></li>
-<li><a href="#新建仓库时关联远程与本地">新建仓库时关联远程与本地</a></li>
-<li><a href="#git-同时推送多个仓库">git 同时推送多个仓库</a><ul>
-<li><a href="#git-remote-add">git remote add</a></li>
-<li><a href="#git-remote-set-url">git remote set-url</a></li>
+<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
+<li><a href="#浏览器优化">浏览器优化</a></li>
+<li><a href="#代码优化">代码优化</a></li>
 </ul>
 </li>
-<li><a href="#https-方式访问-git-免输密码">https 方式访问 git 免输密码</a></li>
-<li><a href="#git-用户配置">Git 用户配置</a><ul>
-<li><a href="#查看配置">查看配置</a></li>
-<li><a href="#修改全局配置">修改全局配置</a></li>
+<li><a href="#像素管道">像素管道</a><ul>
+<li><a href="#像素管道组成">像素管道组成</a></li>
 </ul>
 </li>
-<li><a href="#git-ssh-免密">GIT SSH 免密</a></li>
-<li><a href="#同步-github-fork-仓库">同步 Github fork 仓库</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><h3 id="revert"><a href="#revert" class="headerlink" title="revert"></a>revert</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git revert [commit-id]</span><br></pre></td></tr></table></figure>
-<p>revert 可将代码回滚到指定版本，但会留下一条回滚记录</p>
-<h3 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h3>
+<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
+<ul>
+<li>解析 HTML 节点，创建 DOM 树</li>
+<li>解析 CSS 创建 CSSOM 树</li>
+<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
+<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
+<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
+<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
+</ul>
+</li>
+<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
+<li>Paint， 绘制 renderTree 到页面上</li>
+</ul>
+<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820230310142853.png" alt="浏览器回流与重绘20230310142853"></p>
+<h3 id="渲染原理"><a href="#渲染原理" class="headerlink" title="渲染原理"></a>渲染原理</h3>
         <!-- 
 
 
-回滚
-revert
-reset
+页面渲染
+渲染流程
+渲染原理
+Layout
+Paint
 
 
-git 删除分支
-删除本地分支
-删除远端分支
+回流与重绘触发
+回流触发
+重绘触发
 
 
-git 单列已添加到暂存区的文件
-Git 本地分支有提交，单独查看并运行远程该分支
-远程仓库迁移（拷贝）
-新建仓库时关联远程与本地
-git 同时推送多个仓库
-git remote add
-git remote set-url
+回流与重绘优化
+浏览器优化
+代码优化
 
 
-https 方式访问 git 免输密码
-Git 用户配置
-查看配置
-修改......  -->
+像素管道
+像素管道组成
+
+
+BMW WARNING
+
+
+页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
+
+解析 HTML 节点，创建 DOM 树
+解析 CSS 创建 CSSOM......  -->
         <p class="article-more-link">
-          <a href="/Git常见操作.html#more">阅读全文</a>
+          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1378,7 +1378,7 @@ Git 用户配置
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
 
     </footer>
   </div>
