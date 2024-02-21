@@ -279,7 +279,7 @@
         
           <section id="main" style="float:none;">
   
-    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-黑群晖安装"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -287,7 +287,7 @@
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
+      <a class="article-title" href="/黑群晖安装.html">黑群晖安装</a>
     </h1>
   
 
@@ -312,48 +312,119 @@
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#location">location</a><ul>
-<li><a href="#基础使用">基础使用</a></li>
-<li><a href="#url-match">URL-match</a></li>
-<li><a href="#modifier">modifier</a></li>
+<li><a href="#硬件准备">硬件准备</a><ul>
+<li><a href="#nas-主机">Nas 主机</a></li>
+<li><a href="#u-盘">u 盘</a></li>
+<li><a href="#电脑">电脑</a></li>
 </ul>
 </li>
-<li><a href="#proxy_pass">proxy_pass</a><ul>
-<li><a href="#简述">简述</a></li>
-<li><a href="#uri">URI</a></li>
-<li><a href="#斜杠问题">斜杠（/）问题</a></li>
-<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
+<li><a href="#软件准备">软件准备</a><ul>
+<li><a href="#系统选择">系统选择</a></li>
+<li><a href="#相关软件">相关软件</a></li>
+</ul>
+</li>
+<li><a href="#引导盘准备">引导盘准备</a><ul>
+<li><a href="#获取-vid-与-pid">获取 VID 与 PID</a></li>
+<li><a href="#替换-vid-与-pid">替换 VID 与 PID</a></li>
+<li><a href="#格式化硬盘">格式化硬盘</a></li>
+<li><a href="#引导盘制作">引导盘制作</a></li>
+</ul>
+</li>
+<li><a href="#安装系统">安装系统</a><ul>
+<li><a href="#nas-进入">Nas 进入</a></li>
 </ul>
 </li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3>
+<h2 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h2><table>
+<thead>
+<tr>
+<th>硬件</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nas 主机</td>
+<td>Intel CPU</td>
+</tr>
+<tr>
+<td>u 盘</td>
+<td>&gt; 50M</td>
+</tr>
+<tr>
+<td>电脑</td>
+<td>Windows 系统</td>
+</tr>
+<tr>
+<td>键鼠</td>
+<td>进 BIOS 等</td>
+</tr>
+<tr>
+<td>硬盘</td>
+<td>大大的好</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Nas-主机"><a href="#Nas-主机" class="headerlink" title="Nas 主机"></a>Nas 主机</h3><p>黑群晖对主机的要求不是很高，不需要硬解软路由+移动硬盘都可运行。<br>主机一般推荐使用 10 代以下的 Intel CPU.<br>新代 Intel 与 AMD 等其他 CPU 主机核显硬解不友好，视硬解需求而定。</p>
+<h3 id="u-盘"><a href="#u-盘" class="headerlink" title="u 盘"></a>u 盘</h3>
         <!-- 
 
 
-location
-基础使用
-URL-match
-modifier
+硬件准备
+Nas 主机
+u 盘
+电脑
 
 
-proxy_pass
-简述
-URI
-斜杠（/）问题
-\$uri \$request_uri
+软件准备
+系统选择
+相关软件
+
+
+引导盘准备
+获取 VID 与 PID
+替换 VID 与 PID
+格式化硬盘
+引导盘制作
+
+
+安装系统
+Nas 进入
 
 
 BMW WARNING
 
 
-location基础使用location 位于 server 下或位于另一个 location 中，基本使用如下
-location [modifier] [URL-match] &#123;  ......  -->
+硬件准备
+
+
+硬件
+要求
+
+
+
+
+Nas 主机
+Intel CPU
+
+
+u 盘
+&gt; 50M
+
+
+电脑
+Windows 系统
+
+
+键鼠
+进 BIOS 等
+
+
+硬......  -->
         <p class="article-more-link">
-          <a href="/Nginx基础.html#more">阅读全文</a>
+          <a href="/黑群晖安装.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -361,7 +432,7 @@ location [modifier] [URL-match] &#123;  ......  -->
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
 
     </footer>
   </div>
@@ -507,54 +578,6 @@ inoremap
 <!-- Table of Contents -->
 
   
-    <article id="post-VSCode相关问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/VSCode相关问题汇总.html">VSCode相关问题汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="VSCode-相关问题汇总"><a href="#VSCode-相关问题汇总" class="headerlink" title="VSCode 相关问题汇总"></a>VSCode 相关问题汇总</h1><h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="markdown-文件-Snippets-不生效"><a href="#markdown-文件-Snippets-不生效" class="headerlink" title="markdown 文件 Snippets 不生效"></a>markdown 文件 Snippets 不生效</h3><p><strong>问题描述</strong><br>通过 File -&gt; Preferences -&gt; User Snippets -&gt; Markdown<br>写相关代码块如下<br><code>markdown.json</code></p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and</span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the</span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="attr">"JS code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cjs"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:js&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"JS code block"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"PY code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cpy"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:python&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"PY code block"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在 markdown 文件中敲击:cjs 不自动提示。<br><strong>解决方案</strong><br>尝试 CTRL + Space 强制开启。<br>在用户配置<code>setting.json</code>中添加如下配置项</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"[markdown]": &#123;</span><br><span class="line">    "editor.quickSuggestions": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-Nginx常见问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -628,6 +651,244 @@ location ^~ /file/ &#123;    pro......  -->
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-VSCode相关问题汇总"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/VSCode相关问题汇总.html">VSCode相关问题汇总</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="VSCode-相关问题汇总"><a href="#VSCode-相关问题汇总" class="headerlink" title="VSCode 相关问题汇总"></a>VSCode 相关问题汇总</h1><h2 id="Snippets"><a href="#Snippets" class="headerlink" title="Snippets"></a>Snippets</h2><h3 id="markdown-文件-Snippets-不生效"><a href="#markdown-文件-Snippets-不生效" class="headerlink" title="markdown 文件 Snippets 不生效"></a>markdown 文件 Snippets 不生效</h3><p><strong>问题描述</strong><br>通过 File -&gt; Preferences -&gt; User Snippets -&gt; Markdown<br>写相关代码块如下<br><code>markdown.json</code></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="comment">// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and</span></span><br><span class="line">	<span class="comment">// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span></span><br><span class="line">	<span class="comment">// $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the</span></span><br><span class="line">	<span class="comment">// same ids are connected.</span></span><br><span class="line">	<span class="comment">// Example:</span></span><br><span class="line">	<span class="attr">"JS code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cjs"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:js&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"JS code block"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"PY code block"</span>: &#123;</span><br><span class="line">		<span class="comment">// "scope": "md,markdown",</span></span><br><span class="line">		<span class="attr">"prefix"</span>: <span class="string">":cpy"</span>,</span><br><span class="line">		<span class="attr">"body"</span>: [</span><br><span class="line">			<span class="string">"```$&#123;1:python&#125;"</span>,</span><br><span class="line">			<span class="string">"$2"</span>,</span><br><span class="line">			<span class="string">"```"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="attr">"description"</span>: <span class="string">"PY code block"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 markdown 文件中敲击:cjs 不自动提示。<br><strong>解决方案</strong><br>尝试 CTRL + Space 强制开启。<br>在用户配置<code>setting.json</code>中添加如下配置项</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"[markdown]": &#123;</span><br><span class="line">    "editor.quickSuggestions": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Nginx基础"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Nginx基础.html">Nginx基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#location">location</a><ul>
+<li><a href="#基础使用">基础使用</a></li>
+<li><a href="#url-match">URL-match</a></li>
+<li><a href="#modifier">modifier</a></li>
+</ul>
+</li>
+<li><a href="#proxy_pass">proxy_pass</a><ul>
+<li><a href="#简述">简述</a></li>
+<li><a href="#uri">URI</a></li>
+<li><a href="#斜杠问题">斜杠（/）问题</a></li>
+<li><a href="#uri-request_uri">\$uri \$request_uri</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h3><p>location 位于 server 下或位于另一个 location 中，基本使用如下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">location [modifier] [URL-match] &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="URL-match"><a href="#URL-match" class="headerlink" title="URL-match"></a>URL-match</h3>
+        <!-- 
+
+
+location
+基础使用
+URL-match
+modifier
+
+
+proxy_pass
+简述
+URI
+斜杠（/）问题
+\$uri \$request_uri
+
+
+BMW WARNING
+
+
+location基础使用location 位于 server 下或位于另一个 location 中，基本使用如下
+location [modifier] [URL-match] &#123;  ......  -->
+        <p class="article-more-link">
+          <a href="/Nginx基础.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-IpadOS常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/IpadOS常见问题.html">iPadOS常见问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
+    </a>
+
+
+      
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
+</blockquote>
+<h1 id="IpadOS-常见问题"><a href="#IpadOS-常见问题" class="headerlink" title="IpadOS 常见问题"></a>IpadOS 常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#ipados-常见问题">IpadOS 常见问题</a><ul>
+<li><a href="#apple-pencil-断触">Apple pencil 断触</a><ul>
+<li><a href="#软件问题">软件问题</a></li>
+<li><a href="#还原设置">还原设置</a></li>
+<li><a href="#硬件检测">硬件检测</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a><ul>
+<li><a href="#bulletin">Bulletin</a></li>
+<li><a href="#material">Material</a></li>
+<li><a href="#warrant">Warrant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="Apple-pencil-断触"><a href="#Apple-pencil-断触" class="headerlink" title="Apple pencil 断触"></a>Apple pencil 断触</h2><h3 id="软件问题"><a href="#软件问题" class="headerlink" title="软件问题"></a>软件问题</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">使用系统自带的备忘录尝试是否为软件问题</span><br></pre></td></tr></table></figure>
+<p>部分软件可能手触屏幕会有断触问题</p>
+<h3 id="还原设置"><a href="#还原设置" class="headerlink" title="还原设置"></a>还原设置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">关掉蓝牙重新连接 Pencil</span><br><span class="line"></span><br><span class="line">重启 iPad 后再次连接 Pencil</span><br><span class="line"></span><br><span class="line">打开 ipad 设置—&gt;通用—&gt;还原—&gt;还原所有设置</span><br></pre></td></tr></table></figure>
+<p>上述操作只是还原设置，不会删除数据，但是人脸识别和密码，壁纸会还原</p>
+<h3 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">去除贴膜，笔尖套</span><br><span class="line"></span><br><span class="line">更换笔头尝试</span><br><span class="line"></span><br><span class="line">换个 ipad 试下是否为笔的问题</span><br></pre></td></tr></table></figure>
+<p>这些操作都不行，联系售后解决</p>
+<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
+        <!-- 
+作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
+
+IpadOS 常见问题
+
+
+IpadOS 常见问题
+Apple pencil 断触
+软件问题
+还原设置
+硬件检测
+
+
+BMW WARNING
+Bulletin
+Material
+Warrant
+
+
+
+
+
+
+Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软件问题
+部分软件可能手触屏幕会有断触问......  -->
+        <p class="article-more-link">
+          <a href="/IpadOS常见问题.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
     </footer>
   </div>
   
@@ -743,179 +1004,6 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 .
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-黑群晖常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/黑群晖常见问题.html">黑群晖常见问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#黑群晖搜索不到-ip">黑群晖搜索不到 IP</a><ul>
-<li><a href="#网络联通检查">网络联通检查</a></li>
-<li><a href="#网卡驱动问题">网卡驱动问题</a></li>
-</ul>
-</li>
-<li><a href="#ssd-缓存问题">SSD 缓存问题</a></li>
-<li><a href="#moments-人物主题无照片">Moments 人物、主题无照片</a></li>
-<li><a href="#群晖添加第三方社群套件源显示无效的位置">群晖添加第三方社群套件源显示无效的位置</a></li>
-<li><a href="#jellufin-plex-扫描不出影片">Jellufin /Plex 扫描不出影片</a></li>
-<li><a href="#黑群晖硬件转码">黑群晖硬件转码</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="黑群晖搜索不到-IP"><a href="#黑群晖搜索不到-IP" class="headerlink" title="黑群晖搜索不到 IP"></a>黑群晖搜索不到 IP</h2><h3 id="网络联通检查"><a href="#网络联通检查" class="headerlink" title="网络联通检查"></a>网络联通检查</h3><p>主板网口灯检查<br>检查主板网口灯，绿灯常亮说明网络连接成功，黄灯闪烁说明有流量传输。<br>若绿灯亮，进入下一步。</p>
-<h3 id="网卡驱动问题"><a href="#网卡驱动问题" class="headerlink" title="网卡驱动问题"></a>网卡驱动问题</h3><p>检查网卡配置，黑群晖默认不支持 2.5G 以及万兆网卡，<br>需要替换引导中的网卡驱动文件。<br>直接 Google<code>DS918+ 6.23 &quot;0.13.3&quot;</code><br>找到 DS918-6.23_1.04b 的扩展驱动 0.13.3.zip<br>解压得到进行两个文件<br><code>extra.lzma extra2.lzma</code><br>然后替换[^1]。<br>用 DiskGenius 打开启动 U 盘。在左侧目录下可以看到一个 分区(1)，右键选择”挂载到 windows”。然后选择确定之后。可以发现这个分区出现在文件管理那边。<br>用上述解压得到的文件替换分区里的文件即可。<br>然后退出 U 盘，重新启动，就能支持 2.5G 网卡了<br>[^1]:<a href="https://post.smzdm.com/p/aoxd6697/" target="_blank" rel="noopener">https://post.smzdm.com/p/aoxd6697/</a></p>
-<h2 id="SSD-缓存问题"><a href="#SSD-缓存问题" class="headerlink" title="SSD 缓存问题"></a>SSD 缓存问题</h2><p>不打补丁的情况下，黑群晖默认不识别 SSD<br>SSD 补丁如下<br>版本 | 补丁 | 操作<br>— | — | —<br>6.22 | libNVMEpatch.sh | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code><br>6.23 | libsynonvme.so.1 | 将 libNVMEpatch.sh 移动到/usr/local/etc/rc.d/ 下 sudo 赋读写执行权限 <code>sudo chmod 755 libNVMEpatch.sh</code></p>
-<p>上述操作需要先远程 ssh user@ip ，操作完成后退出重启即可[^2]<br>[^2]:<a href="https://wp.gxnas.com/6010.html" target="_blank" rel="noopener">https://wp.gxnas.com/6010.html</a></p>
-<h2 id="Moments-人物、主题无照片"><a href="#Moments-人物、主题无照片" class="headerlink" title="Moments 人物、主题无照片"></a>Moments 人物、主题无照片</h2><p>安装 Moments 后人物与主题无法智能识别，进入后显示还有 xxx 张照片待发现。<br>停用 Moments<br>进入 /var/packages/SynologyMoments/target/usr/lib 目录下<br>备份 libsynophoto-plugin-detection.so</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mv ./libsynophoto-plugin-detection.so ./libsynophoto-plugin-detection.so.bak</span><br></pre></td></tr></table></figure>
-<p><a href="http://42.193.201.102:8443/file/Docs/Tools/OS/Nas/黑群晖常见问题/libsynophoto-plugin-detection.so" target="_blank" rel="noopener">libsynophoto-plugin-detection.so</a><br>将下载的新文件放在 /var/packages/SynologyMoments/target/usr/lib 下，对全部用户赋完全权限（777）或对 SynologyMoments 赋控制权限（755）。<br>开启 moments，重建索引。<br><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E9%BB%91%E7%BE%A4%E6%99%96%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%9820220121102822.png" alt="黑群晖常见问题20220121102822"></p>
-<h2 id="群晖添加第三方社群套件源显示无效的位置"><a href="#群晖添加第三方社群套件源显示无效的位置" class="headerlink" title="群晖添加第三方社群套件源显示无效的位置"></a>群晖添加第三方社群套件源显示无效的位置</h2><p>在套件设置常规中的信任层级允许任何发行者。<br>之后在套件来源中添加 <a href="http://packages.synocommunity.com显示无效地址。" target="_blank" rel="noopener">http://packages.synocommunity.com显示无效地址。</a><br>出现问题的原因是在 DSM6 非最新版本的系统证书过期。<br>在控制面板 Terminal &amp; SNMP 打开允许 SSH 连接。<br>用 SecureCRT 等工具远程连接。<br>输入如下命令</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo mv /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt.bak &amp;&amp; sudo curl -Lko /etc/ssl/certs/ca-certificates.crt https://curl.se/ca/cacert.pem</span><br></pre></td></tr></table></figure>
-<p>执行完毕后重新添加源。<br>其他常用的套件源</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">http://packages.synocommunity.com</span><br><span class="line"></span><br><span class="line">http://packages.pcloadletter.co.uk</span><br><span class="line"></span><br><span class="line">http://www.cphub.net</span><br><span class="line"></span><br><span class="line">http://synology.sysco.ch</span><br><span class="line"></span><br><span class="line">http://packages.quadrat4.de</span><br><span class="line"></span><br><span class="line">http://synology.acmenet.ru</span><br><span class="line"></span><br><span class="line">http://cytec.us/spk</span><br><span class="line"></span><br><span class="line">http://spk.naefmarco.ch/spkrepo/packages/</span><br><span class="line"></span><br><span class="line">http://spk.nas-mirror.de/spkrepo/packages</span><br><span class="line"></span><br><span class="line">http://spk.unzureichende.info/</span><br><span class="line"></span><br><span class="line">http://packages.synocommunity.com/?beta=1</span><br></pre></td></tr></table></figure>
-<h2 id="Jellufin-Plex-扫描不出影片"><a href="#Jellufin-Plex-扫描不出影片" class="headerlink" title="Jellufin /Plex 扫描不出影片"></a>Jellufin /Plex 扫描不出影片</h2><p>这是由于指定的文件夹没有开发读写权限。<br>对于 Plex，安装时会自动创建 Plex 用户，需要为其赋权。<br>Jellufin 三方套件版会创建 sc-jellyfin 用户， 尝试赋权。<br>若都不行，尝试将扫描目录对所有人赋读写权限。</p>
-<h2 id="黑群晖硬件转码"><a href="#黑群晖硬件转码" class="headerlink" title="黑群晖硬件转码"></a>黑群晖硬件转码</h2><p><a href="https://wp.gxnas.com/7952.html" target="_blank" rel="noopener">https://wp.gxnas.com/7952.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nas/">Nas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-IpadOS常见问题"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/IpadOS常见问题.html">iPadOS常见问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
-    </a>
-
-
-      
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激</p>
-</blockquote>
-<h1 id="IpadOS-常见问题"><a href="#IpadOS-常见问题" class="headerlink" title="IpadOS 常见问题"></a>IpadOS 常见问题</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#ipados-常见问题">IpadOS 常见问题</a><ul>
-<li><a href="#apple-pencil-断触">Apple pencil 断触</a><ul>
-<li><a href="#软件问题">软件问题</a></li>
-<li><a href="#还原设置">还原设置</a></li>
-<li><a href="#硬件检测">硬件检测</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a><ul>
-<li><a href="#bulletin">Bulletin</a></li>
-<li><a href="#material">Material</a></li>
-<li><a href="#warrant">Warrant</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="Apple-pencil-断触"><a href="#Apple-pencil-断触" class="headerlink" title="Apple pencil 断触"></a>Apple pencil 断触</h2><h3 id="软件问题"><a href="#软件问题" class="headerlink" title="软件问题"></a>软件问题</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">使用系统自带的备忘录尝试是否为软件问题</span><br></pre></td></tr></table></figure>
-<p>部分软件可能手触屏幕会有断触问题</p>
-<h3 id="还原设置"><a href="#还原设置" class="headerlink" title="还原设置"></a>还原设置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">关掉蓝牙重新连接 Pencil</span><br><span class="line"></span><br><span class="line">重启 iPad 后再次连接 Pencil</span><br><span class="line"></span><br><span class="line">打开 ipad 设置—&gt;通用—&gt;还原—&gt;还原所有设置</span><br></pre></td></tr></table></figure>
-<p>上述操作只是还原设置，不会删除数据，但是人脸识别和密码，壁纸会还原</p>
-<h3 id="硬件检测"><a href="#硬件检测" class="headerlink" title="硬件检测"></a>硬件检测</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">去除贴膜，笔尖套</span><br><span class="line"></span><br><span class="line">更换笔头尝试</span><br><span class="line"></span><br><span class="line">换个 ipad 试下是否为笔的问题</span><br></pre></td></tr></table></figure>
-<p>这些操作都不行，联系售后解决</p>
-<h2 id="BMW-WARNING"><a href="#BMW-WARNING" class="headerlink" title="BMW WARNING"></a>BMW WARNING</h2><h3 id="Bulletin"><a href="#Bulletin" class="headerlink" title="Bulletin"></a>Bulletin</h3>
-        <!-- 
-作者水平有限，文章仅供参考，不对的地方希望各位及时指正，共同进步，不胜感激
-
-IpadOS 常见问题
-
-
-IpadOS 常见问题
-Apple pencil 断触
-软件问题
-还原设置
-硬件检测
-
-
-BMW WARNING
-Bulletin
-Material
-Warrant
-
-
-
-
-
-
-Apple pencil 断触软件问题使用系统自带的备忘录尝试是否为软件问题
-部分软件可能手触屏幕会有断触问......  -->
-        <p class="article-more-link">
-          <a href="/IpadOS常见问题.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
     </footer>
   </div>
   
@@ -1106,7 +1194,7 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 h
 <!-- Table of Contents -->
 
   
-    <article id="post-Shell条件判定"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-MacOS应用清单"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -1114,7 +1202,7 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 h
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell条件判定.html">Shell条件判定</a>
+      <a class="article-title" href="/MacOS应用清单.html">MacOS应用清单</a>
     </h1>
   
 
@@ -1123,13 +1211,13 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 h
     <div class="article-meta">
       
     <a href="javascript:void(0)" class="article-date">
-      <time datetime="2022-01-17T07:47:15.000Z" itemprop="datePublished">2022-01-17</time>
+      <time datetime="2022-01-20T07:47:15.000Z" itemprop="datePublished">2022-01-20</time>
     </a>
 
 
       
     
-    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
     <!--  -->
 
       <!--  -->
@@ -1139,41 +1227,56 @@ Server 端下载包在 Release 页面下载服务器 CPU 架构对应的版本 h
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#if">if</a><ul>
-<li><a href="#基本语法">基本语法</a></li>
-<li><a href="#条件包裹括号">条件包裹括号</a></li>
-<li><a href="#常见判定条件">常见判定条件</a></li>
+<li><a href="#开发">开发</a></li>
+<li><a href="#学习">学习</a></li>
+<li><a href="#效率">效率</a><ul>
+<li><a href="#汇总">汇总</a></li>
+<li><a href="#barrier">barrier</a></li>
 </ul>
 </li>
-<li><a href="#三元">三元</a></li>
+<li><a href="#娱乐">娱乐</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> 条件; <span class="keyword">then</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">elif</span> 条件; <span class="keyword">then</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-<p>其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致</p>
-<h3 id="条件包裹括号"><a href="#条件包裹括号" class="headerlink" title="条件包裹括号"></a>条件包裹括号</h3>
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><h2 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h2>
         <!-- 
 
 
-if
-基本语法
-条件包裹括号
-常见判定条件
+开发
+学习
+效率
+汇总
+barrier
 
 
-三元
+娱乐
 BMW WARNING
 
 
-if基本语法if 条件; then    命令elif 条件; then    命令else    命令fi
-其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致
-条件包裹括号
+开发学习效率
+汇总
 
-command
 
-if 后直接接条件无任何括号包裹。表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首......  -->
+APP
+DESC
+Free
+Web
+
+
+
+
+Sharemouse
+跨端键鼠共用工具
+trial
+https://github.com/debauchee/barrier
+
+
+Synergy
+跨端键鼠共用工具
+false
+https://github.com/debauchee/barr......  -->
         <p class="article-more-link">
-          <a href="/Shell条件判定.html#more">阅读全文</a>
+          <a href="/MacOS应用清单.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1181,7 +1284,7 @@ if 后直接接条件无任何括号包裹。表示验证命令是否成功执�
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MacOS/">MacOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS/">OS</a></li></ul>
 
     </footer>
   </div>
@@ -1209,7 +1312,7 @@ if 后直接接条件无任何括号包裹。表示验证命令是否成功执�
 
   <div class="container">
       	<div class="row">
-	      <p id="copyRightEn">Copyright &copy; 2017 - 2023 鹧鸪天 All Rights Reserved.</p>
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2024 鹧鸪天 All Rights Reserved.</p>
         <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
 	      
   		   	<p id="copyRightCn">skyline 保留所有权利</p>
@@ -1373,7 +1476,7 @@ if 后直接接条件无任何括号包裹。表示验证命令是否成功执�
             鹧鸪天
           </div>
           <div class="panel-body">
-            Copyright © 2023 skyline All Rights Reserved.
+            Copyright © 2024 skyline All Rights Reserved.
           </div>
         </div>
       </div>

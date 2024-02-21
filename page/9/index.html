@@ -279,6 +279,91 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Shell条件判定"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell条件判定.html">Shell条件判定</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2022-01-17T07:47:15.000Z" itemprop="datePublished">2022-01-17</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#if">if</a><ul>
+<li><a href="#基本语法">基本语法</a></li>
+<li><a href="#条件包裹括号">条件包裹括号</a></li>
+<li><a href="#常见判定条件">常见判定条件</a></li>
+</ul>
+</li>
+<li><a href="#三元">三元</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="if"><a href="#if" class="headerlink" title="if"></a>if</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> 条件; <span class="keyword">then</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">elif</span> 条件; <span class="keyword">then</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    命令</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p>其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致</p>
+<h3 id="条件包裹括号"><a href="#条件包裹括号" class="headerlink" title="条件包裹括号"></a>条件包裹括号</h3>
+        <!-- 
+
+
+if
+基本语法
+条件包裹括号
+常见判定条件
+
+
+三元
+BMW WARNING
+
+
+if基本语法if 条件; then    命令elif 条件; then    命令else    命令fi
+其中条件的包裹括号可以有多种方式，每种方式对应的效果不一致
+条件包裹括号
+
+command
+
+if 后直接接条件无任何括号包裹。表示验证命令是否成功执行。代码源文件如下对于本文后续所有类似代码，首......  -->
+        <p class="article-more-link">
+          <a href="/Shell条件判定.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Husky使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -825,6 +910,107 @@ sed 简介sed 是一种流文本编辑器，用于读取指定文件或标准输
 <!-- Table of Contents -->
 
   
+    <article id="post-Shell中xargs使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/Shell中xargs使用.html">Shell中xargs使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T08:06:40.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#概述">概述</a></li>
+<li><a href="#基础使用示例">基础使用示例</a><ul>
+<li><a href="#echo">echo</a></li>
+<li><a href="#wc">wc</a></li>
+<li><a href="#mkdir">mkdir</a></li>
+</ul>
+</li>
+<li><a href="#参数">参数</a><ul>
+<li><a href="#-0">-0</a></li>
+<li><a href="#-i">-I</a></li>
+<li><a href="#-l">-L</a></li>
+<li><a href="#-n">-n</a></li>
+<li><a href="#-d">-d</a></li>
+<li><a href="#-t">-t</a></li>
+<li><a href="#-p">-p</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支持标准输入的命令提供管道操作。<br>通过 xargs 将标准输入转换成参数来完成后续命令。如果转换成的参数有多个（通过标准输入空符分割），后续命令重复执行。</p>
+<blockquote>
+<p>The xargs command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like grep can accept standard input as a parameter, many other tools cannot. Using xargs allows tools like echo and rm and mkdir to accept standard input as arguments.</p>
+</blockquote>
+<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3>
+        <!-- 
+
+
+概述
+基础使用示例
+echo
+wc
+mkdir
+
+
+参数
+-0
+-I
+-L
+-n
+-d
+-t
+-p
+
+
+BMW WARNING
+
+
+概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那......  -->
+        <p class="article-more-link">
+          <a href="/Shell中xargs使用.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Shell中字符串相关操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -931,7 +1117,7 @@ S......  -->
 <!-- Table of Contents -->
 
   
-    <article id="post-Shell中xargs使用"  class="article article-type-post" itemscope itemprop="blogPost" >
+    <article id="post-Git常见操作"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -939,108 +1125,7 @@ S......  -->
         
   
     <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Shell中xargs使用.html">Shell中xargs使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T08:06:40.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#基础使用示例">基础使用示例</a><ul>
-<li><a href="#echo">echo</a></li>
-<li><a href="#wc">wc</a></li>
-<li><a href="#mkdir">mkdir</a></li>
-</ul>
-</li>
-<li><a href="#参数">参数</a><ul>
-<li><a href="#-0">-0</a></li>
-<li><a href="#-i">-I</a></li>
-<li><a href="#-l">-L</a></li>
-<li><a href="#-n">-n</a></li>
-<li><a href="#-d">-d</a></li>
-<li><a href="#-t">-t</a></li>
-<li><a href="#-p">-p</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那些不支持标准输入的命令提供管道操作。<br>通过 xargs 将标准输入转换成参数来完成后续命令。如果转换成的参数有多个（通过标准输入空符分割），后续命令重复执行。</p>
-<blockquote>
-<p>The xargs command in UNIX is a command line utility for building an execution pipeline from standard input. Whilst tools like grep can accept standard input as a parameter, many other tools cannot. Using xargs allows tools like echo and rm and mkdir to accept standard input as arguments.</p>
-</blockquote>
-<h2 id="基础使用示例"><a href="#基础使用示例" class="headerlink" title="基础使用示例"></a>基础使用示例</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3>
-        <!-- 
-
-
-概述
-基础使用示例
-echo
-wc
-mkdir
-
-
-参数
--0
--I
--L
--n
--d
--t
--p
-
-
-BMW WARNING
-
-
-概述Shell 中只有部分命令支持标准输入，例如 wc、grep、xargs 等，通过管道 | 很容易将前置命令的标准输出传递给这些命令。但是部分命令不支持标准输入，不能通过管道 | 直接操作，例如 echo rm mkdir 等。这需要 xargs 为那......  -->
-        <p class="article-more-link">
-          <a href="/Shell中xargs使用.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
+      <a class="article-title" href="/Git常见操作.html">Git常见操作</a>
     </h1>
   
 
@@ -1055,7 +1140,7 @@ BMW WARNING
 
       
     
-    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
     <!--  -->
 
       <!--  -->
@@ -1065,79 +1150,67 @@ BMW WARNING
         <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 <ul>
-<li><a href="#页面渲染">页面渲染</a><ul>
-<li><a href="#渲染流程">渲染流程</a></li>
-<li><a href="#渲染原理">渲染原理</a></li>
-<li><a href="#layout">Layout</a></li>
-<li><a href="#paint">Paint</a></li>
+<li><a href="#回滚">回滚</a><ul>
+<li><a href="#revert">revert</a></li>
+<li><a href="#reset">reset</a></li>
 </ul>
 </li>
-<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
-<li><a href="#回流触发">回流触发</a></li>
-<li><a href="#重绘触发">重绘触发</a></li>
+<li><a href="#git-删除分支">git 删除分支</a><ul>
+<li><a href="#删除本地分支">删除本地分支</a></li>
+<li><a href="#删除远端分支">删除远端分支</a></li>
 </ul>
 </li>
-<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
-<li><a href="#浏览器优化">浏览器优化</a></li>
-<li><a href="#代码优化">代码优化</a></li>
+<li><a href="#git-单列已添加到暂存区的文件">git 单列已添加到暂存区的文件</a></li>
+<li><a href="#git-本地分支有提交单独查看并运行远程该分支">Git 本地分支有提交，单独查看并运行远程该分支</a></li>
+<li><a href="#远程仓库迁移拷贝">远程仓库迁移（拷贝）</a></li>
+<li><a href="#新建仓库时关联远程与本地">新建仓库时关联远程与本地</a></li>
+<li><a href="#git-同时推送多个仓库">git 同时推送多个仓库</a><ul>
+<li><a href="#git-remote-add">git remote add</a></li>
+<li><a href="#git-remote-set-url">git remote set-url</a></li>
 </ul>
 </li>
-<li><a href="#像素管道">像素管道</a><ul>
-<li><a href="#像素管道组成">像素管道组成</a></li>
+<li><a href="#https-方式访问-git-免输密码">https 方式访问 git 免输密码</a></li>
+<li><a href="#git-用户配置">Git 用户配置</a><ul>
+<li><a href="#查看配置">查看配置</a></li>
+<li><a href="#修改全局配置">修改全局配置</a></li>
 </ul>
 </li>
+<li><a href="#git-ssh-免密">GIT SSH 免密</a></li>
+<li><a href="#同步-github-fork-仓库">同步 Github fork 仓库</a></li>
 <li><a href="#bmw-warning">BMW WARNING</a></li>
 </ul>
 <!-- /code_chunk_output -->
-<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
-<ul>
-<li>解析 HTML 节点，创建 DOM 树</li>
-<li>解析 CSS 创建 CSSOM 树</li>
-<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
-<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
-<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
-<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
-</ul>
-</li>
-<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
-<li>Paint， 绘制 renderTree 到页面上</li>
-</ul>
-<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。</p>
-<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820230310142853.png" alt="浏览器回流与重绘20230310142853"></p>
-<h3 id="渲染原理"><a href="#渲染原理" class="headerlink" title="渲染原理"></a>渲染原理</h3>
+<h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><h3 id="revert"><a href="#revert" class="headerlink" title="revert"></a>revert</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git revert [commit-id]</span><br></pre></td></tr></table></figure>
+<p>revert 可将代码回滚到指定版本，但会留下一条回滚记录</p>
+<h3 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h3>
         <!-- 
 
 
-页面渲染
-渲染流程
-渲染原理
-Layout
-Paint
+回滚
+revert
+reset
 
 
-回流与重绘触发
-回流触发
-重绘触发
+git 删除分支
+删除本地分支
+删除远端分支
 
 
-回流与重绘优化
-浏览器优化
-代码优化
+git 单列已添加到暂存区的文件
+Git 本地分支有提交，单独查看并运行远程该分支
+远程仓库迁移（拷贝）
+新建仓库时关联远程与本地
+git 同时推送多个仓库
+git remote add
+git remote set-url
 
 
-像素管道
-像素管道组成
-
-
-BMW WARNING
-
-
-页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
-
-解析 HTML 节点，创建 DOM 树
-解析 CSS 创建 CSSOM......  -->
+https 方式访问 git 免输密码
+Git 用户配置
+查看配置
+修改......  -->
         <p class="article-more-link">
-          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
+          <a href="/Git常见操作.html#more">阅读全文</a>
         </p>
       
     </div>
@@ -1145,7 +1218,7 @@ BMW WARNING
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
 
     </footer>
   </div>
@@ -1277,117 +1350,6 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-Git常见操作"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/Git常见操作.html">Git常见操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Tools/">Tools</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#回滚">回滚</a><ul>
-<li><a href="#revert">revert</a></li>
-<li><a href="#reset">reset</a></li>
-</ul>
-</li>
-<li><a href="#git-删除分支">git 删除分支</a><ul>
-<li><a href="#删除本地分支">删除本地分支</a></li>
-<li><a href="#删除远端分支">删除远端分支</a></li>
-</ul>
-</li>
-<li><a href="#git-单列已添加到暂存区的文件">git 单列已添加到暂存区的文件</a></li>
-<li><a href="#git-本地分支有提交单独查看并运行远程该分支">Git 本地分支有提交，单独查看并运行远程该分支</a></li>
-<li><a href="#远程仓库迁移拷贝">远程仓库迁移（拷贝）</a></li>
-<li><a href="#新建仓库时关联远程与本地">新建仓库时关联远程与本地</a></li>
-<li><a href="#git-同时推送多个仓库">git 同时推送多个仓库</a><ul>
-<li><a href="#git-remote-add">git remote add</a></li>
-<li><a href="#git-remote-set-url">git remote set-url</a></li>
-</ul>
-</li>
-<li><a href="#https-方式访问-git-免输密码">https 方式访问 git 免输密码</a></li>
-<li><a href="#git-用户配置">Git 用户配置</a><ul>
-<li><a href="#查看配置">查看配置</a></li>
-<li><a href="#修改全局配置">修改全局配置</a></li>
-</ul>
-</li>
-<li><a href="#git-ssh-免密">GIT SSH 免密</a></li>
-<li><a href="#同步-github-fork-仓库">同步 Github fork 仓库</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><h3 id="revert"><a href="#revert" class="headerlink" title="revert"></a>revert</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git revert [commit-id]</span><br></pre></td></tr></table></figure>
-<p>revert 可将代码回滚到指定版本，但会留下一条回滚记录</p>
-<h3 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h3>
-        <!-- 
-
-
-回滚
-revert
-reset
-
-
-git 删除分支
-删除本地分支
-删除远端分支
-
-
-git 单列已添加到暂存区的文件
-Git 本地分支有提交，单独查看并运行远程该分支
-远程仓库迁移（拷贝）
-新建仓库时关联远程与本地
-git 同时推送多个仓库
-git remote add
-git remote set-url
-
-
-https 方式访问 git 免输密码
-Git 用户配置
-查看配置
-修改......  -->
-        <p class="article-more-link">
-          <a href="/Git常见操作.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DEVs/">DEVs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
@@ -1406,7 +1368,7 @@ Git 用户配置
 
   <div class="container">
       	<div class="row">
-	      <p id="copyRightEn">Copyright &copy; 2017 - 2023 鹧鸪天 All Rights Reserved.</p>
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2024 鹧鸪天 All Rights Reserved.</p>
         <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
 	      
   		   	<p id="copyRightCn">skyline 保留所有权利</p>
@@ -1570,7 +1532,7 @@ Git 用户配置
             鹧鸪天
           </div>
           <div class="panel-body">
-            Copyright © 2023 skyline All Rights Reserved.
+            Copyright © 2024 skyline All Rights Reserved.
           </div>
         </div>
       </div>

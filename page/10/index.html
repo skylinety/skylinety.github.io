@@ -279,6 +279,129 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-浏览器回流与重绘"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/浏览器回流与重绘.html">浏览器回流与重绘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:03.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#页面渲染">页面渲染</a><ul>
+<li><a href="#渲染流程">渲染流程</a></li>
+<li><a href="#渲染原理">渲染原理</a></li>
+<li><a href="#layout">Layout</a></li>
+<li><a href="#paint">Paint</a></li>
+</ul>
+</li>
+<li><a href="#回流与重绘触发">回流与重绘触发</a><ul>
+<li><a href="#回流触发">回流触发</a></li>
+<li><a href="#重绘触发">重绘触发</a></li>
+</ul>
+</li>
+<li><a href="#回流与重绘优化">回流与重绘优化</a><ul>
+<li><a href="#浏览器优化">浏览器优化</a></li>
+<li><a href="#代码优化">代码优化</a></li>
+</ul>
+</li>
+<li><a href="#像素管道">像素管道</a><ul>
+<li><a href="#像素管道组成">像素管道组成</a></li>
+</ul>
+</li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><h3 id="渲染流程"><a href="#渲染流程" class="headerlink" title="渲染流程"></a>渲染流程</h3><p>浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程</p>
+<ul>
+<li>解析 HTML 节点，创建 DOM 树</li>
+<li>解析 CSS 创建 CSSOM 树</li>
+<li>合并 CSSOM 与 DOM 为 渲染树（renderTree）<ul>
+<li>由 DOM 树 Root 节点开始遍历获取<strong>可视</strong>节点</li>
+<li>对于 DOM 的可视节点，获取其对应 CSSOM 树规则</li>
+<li>根据两棵树上获取的节点与样式，合成 renderTree</li>
+</ul>
+</li>
+<li>Layout，计算出 renderTree 每个节点的大小和位置</li>
+<li>Paint， 绘制 renderTree 到页面上</li>
+</ul>
+<p>合并的 renderTree 的过程只获取可视节点，将会忽略不可视节点 (meta, script, link 等节点及 display:none 的节点)。</p>
+<p><img src="https://raw.githubusercontent.com/skylinety/blog-pics/master/imgs/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%9820230310142853.png" alt="浏览器回流与重绘20230310142853"></p>
+<h3 id="渲染原理"><a href="#渲染原理" class="headerlink" title="渲染原理"></a>渲染原理</h3>
+        <!-- 
+
+
+页面渲染
+渲染流程
+渲染原理
+Layout
+Paint
+
+
+回流与重绘触发
+回流触发
+重绘触发
+
+
+回流与重绘优化
+浏览器优化
+代码优化
+
+
+像素管道
+像素管道组成
+
+
+BMW WARNING
+
+
+页面渲染渲染流程浏览器使用流式布局模型 (Flow Based Layout)，浏览器从拿到代码到渲染页面，主要流程
+
+解析 HTML 节点，创建 DOM 树
+解析 CSS 创建 CSSOM......  -->
+        <p class="article-more-link">
+          <a href="/浏览器回流与重绘.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactor-Optimization/">Refactor&Optimization</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Webpack中DllPlugin使用"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -371,106 +494,6 @@ DllPlugin 概述实质DLL即动态链接库(Dynamic Link Library)。是指包含
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Packages/">Packages</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES_Module&CommonJS.html">ES_Module&amp;CommonJS</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#模块系统">模块系统</a></li>
-<li><a href="#esm-vs-cjs">ESM VS CJS</a><ul>
-<li><a href="#模块对比">模块对比</a></li>
-<li><a href="#模块输出">模块输出</a></li>
-<li><a href="#加载时机">加载时机</a></li>
-<li><a href="#加载方式">加载方式</a></li>
-</ul>
-</li>
-<li><a href="#tree-shaking">tree shaking</a></li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
-<ul>
-<li>模块隔离（私有代码权限访问控制）</li>
-<li>模块间依赖</li>
-<li>代码传递到执行环境</li>
-</ul>
-<p>早期解决方案如下：</p>
-<ul>
-<li>命名空间</li>
-<li>立即执行匿名函数 + 闭包</li>
-</ul>
-<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，<br>在 ES6 模块系统后使用频率降低，如下简单对比。</p>
-<p>AMD 典型示例</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>CMD 典型示例</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">define(<span class="string">'main'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'a'</span>) <span class="comment">//依赖就近</span></span><br><span class="line">  a.someFn()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'b'</span>)</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>ES6 兼容 Node.js 模块方案</p>
-<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><h3 id="模块对比"><a href="#模块对比" class="headerlink" title="模块对比"></a>模块对比</h3>
-        <!-- 
-
-
-模块系统
-ESM VS CJS
-模块对比
-模块输出
-加载时机
-加载方式
-
-
-tree shaking
-BMW WARNING
-
-
-模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚本引入的顺序......  -->
-        <p class="article-more-link">
-          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>
@@ -623,6 +646,106 @@ BMW WARNING
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataStructure-Algorithm/">DataStructure&Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-ES_Module&amp;CommonJS"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/ES_Module&CommonJS.html">ES_Module&amp;CommonJS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+    <a href="javascript:void(0)" class="article-date">
+      <time datetime="2021-05-27T07:41:02.000Z" itemprop="datePublished">2021-05-27</time>
+    </a>
+
+
+      
+    
+    <a class="article-category-link" href="/categories/Major/">Major</a>
+    <!--  -->
+
+      <!--  -->
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#模块系统">模块系统</a></li>
+<li><a href="#esm-vs-cjs">ESM VS CJS</a><ul>
+<li><a href="#模块对比">模块对比</a></li>
+<li><a href="#模块输出">模块输出</a></li>
+<li><a href="#加载时机">加载时机</a></li>
+<li><a href="#加载方式">加载方式</a></li>
+</ul>
+</li>
+<li><a href="#tree-shaking">tree shaking</a></li>
+<li><a href="#bmw-warning">BMW WARNING</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="模块系统"><a href="#模块系统" class="headerlink" title="模块系统"></a>模块系统</h2><p>早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。<br>随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。<br>多脚本需要解决脚本引入的顺序，脚本互相引入，脚本循环引入，全局命名污染，命名冲突等诸多问题，同时后期维护特别困难。<br>对于复杂 JS 程序，需要解决的主要问题如下</p>
+<ul>
+<li>模块隔离（私有代码权限访问控制）</li>
+<li>模块间依赖</li>
+<li>代码传递到执行环境</li>
+</ul>
+<p>早期解决方案如下：</p>
+<ul>
+<li>命名空间</li>
+<li>立即执行匿名函数 + 闭包</li>
+</ul>
+<p>ES5 时代，模块化的标准与方案有很多，亟需统一，ES6 的模块系统应运而生。<br>由于影响力较大的 NodeJS 大方向参照了 CommonJS 标准，并在其上做了取舍，故本文主要对比 ES6 与 CommonJS 两种方案。<br>其他规范 AMD（Asynchronous Module Definiton）如 requireJS,CMD(Common Module Definition)如 SeaJS 皆支持异步模块定义，<br>在 ES6 模块系统后使用频率降低，如下简单对比。</p>
+<p>AMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖前置</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  a.someFn()</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>CMD 典型示例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">define(<span class="string">'main'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'a'</span>) <span class="comment">//依赖就近</span></span><br><span class="line">  a.someFn()</span><br><span class="line">  <span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'b'</span>)</span><br><span class="line">  b.someFn()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上述代码可以看到，AMD 规范在于依赖前置、提前执行，CMD 在于依赖就近、延迟执行。<br>为了兼容各种模块系统，UMD(Universal Module Definition) 通用模块规范进行了兼容处理。<br>常用的开源库打包后会生成 xxx.umd.js<br>webpack 打包后 UMD 兼容模块代码的如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> <span class="title">webpackUniversalModuleDefinition</span>(<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">//Node.js (拓展CommonJS),ES6</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory()</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd)</span><br><span class="line">    <span class="comment">//amd cmd</span></span><br><span class="line">    define([], factory)</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> exports === <span class="string">'object'</span>)</span><br><span class="line">    <span class="comment">// CommonJS标准方案</span></span><br><span class="line">    exports[<span class="string">'skyline-ui'</span>] = factory()</span><br><span class="line">  <span class="keyword">else</span> root[<span class="string">'skyline-ui'</span>] = factory() <span class="comment">// 未引入规范模块，全局申明</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> self !== <span class="string">'undefined'</span> ? self : <span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...some code</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>ES6 兼容 Node.js 模块方案</p>
+<h2 id="ESM-VS-CJS"><a href="#ESM-VS-CJS" class="headerlink" title="ESM VS CJS"></a>ESM VS CJS</h2><h3 id="模块对比"><a href="#模块对比" class="headerlink" title="模块对比"></a>模块对比</h3>
+        <!-- 
+
+
+模块系统
+ESM VS CJS
+模块对比
+模块输出
+加载时机
+加载方式
+
+
+tree shaking
+BMW WARNING
+
+
+模块系统早期 JS 出现只是作为脚本语言来进行简单的表单验证与控制简单动画，所有操作与变量都在全局进行，设计之初，不需要考虑模块系统。随着 JS 的发展，其应用越来越复杂，逐渐进入多 JS 脚本通过 script 标签引入的年代。多脚本需要解决脚本引入的顺序......  -->
+        <p class="article-more-link">
+          <a href="/ES_Module&CommonJS.html#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语法/">语法</a></li></ul>
 
     </footer>
   </div>
@@ -1228,126 +1351,6 @@ BMW WARNING
 <!-- Table of Contents -->
 
   
-    <article id="post-ES类型转换"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/ES类型转换.html">ES类型转换</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-    <a href="javascript:void(0)" class="article-date">
-      <time datetime="2018-01-26T07:14:56.000Z" itemprop="datePublished">2018-01-26</time>
-    </a>
-
-
-      
-    
-    <a class="article-category-link" href="/categories/Major/">Major</a>
-    <!--  -->
-
-      <!--  -->
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<!-- code_chunk_output -->
-<ul>
-<li><a href="#类型转换">类型转换</a><ul>
-<li><a href="#类型转换概述">类型转换概述</a></li>
-<li><a href="#to-boolean">to boolean</a></li>
-<li><a href="#to-number">to number</a></li>
-<li><a href="#to-string">to string</a></li>
-<li><a href="#to-object">to object</a></li>
-</ul>
-</li>
-<li><a href="#toprimitive">ToPrimitive</a></li>
-<li><a href="#隐式转换场景">隐式转换场景</a><ul>
-<li><a href="#隐式转换场景概述">隐式转换场景概述</a></li>
-<li><a href="#一元操作符">一元操作符</a></li>
-<li><a href="#二元加">二元加</a></li>
-<li><a href="#乘除取余二元减">乘、除、取余、二元减</a></li>
-<li><a href="#比较运算符">比较运算符</a></li>
-</ul>
-</li>
-<li><a href="#expression-or-statement">Expression or Statement</a><ul>
-<li><a href="#几个有意思的输出">几个有意思的输出</a></li>
-<li><a href="#ast">AST</a></li>
-<li><a href="#语法解析分析">{}语法解析分析</a></li>
-</ul>
-</li>
-<li><a href="#jsonstringify">JSON.stringify</a><ul>
-<li><a href="#处理规则">处理规则</a></li>
-<li><a href="#参数">参数</a></li>
-</ul>
-</li>
-<li><a href="#bmw-warning">BMW WARNING</a></li>
-</ul>
-<!-- /code_chunk_output -->
-<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><h3 id="类型转换概述"><a href="#类型转换概述" class="headerlink" title="类型转换概述"></a>类型转换概述</h3><ul>
-<li>隐式转换<br>JS 是弱类型语言，在使用运算符时，多个参与其中的数据类型可以是任意的，最终得到的结果却只是一种类型。<br>结果的类型可能是参与运算操作类型中的一种，也可能并非其中任何一种。<br>这就涉及到运算过程中，进行过的隐式类型转换。</li>
-<li>强制转换<br>JS 中每一种类型都有自己的构造函数，直接调用该构造函数可以强制获得该类型的值，同时 JS 还提供了其他显示调用函数转换类型的方法。</li>
-</ul>
-<h3 id="to-boolean"><a href="#to-boolean" class="headerlink" title="to boolean"></a>to boolean</h3>
-        <!-- 
-
-
-类型转换
-类型转换概述
-to boolean
-to number
-to string
-to object
-
-
-ToPrimitive
-隐式转换场景
-隐式转换场景概述
-一元操作符
-二元加
-乘、除、取余、二元减
-比较运算符
-
-
-Expression or Statement
-几个有意思的输出
-AST
-{}语法解析分析
-
-
-JSON.stringify
-处理规则
-参数
-
-
-BMW WARNI......  -->
-        <p class="article-more-link">
-          <a href="/ES类型转换.html#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES/">ES</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JS/">JS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实战/">实战</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
 
 
   <nav id="page-nav">
@@ -1366,7 +1369,7 @@ BMW WARNI......  -->
 
   <div class="container">
       	<div class="row">
-	      <p id="copyRightEn">Copyright &copy; 2017 - 2023 鹧鸪天 All Rights Reserved.</p>
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2024 鹧鸪天 All Rights Reserved.</p>
         <!-- <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p> -->
 	      
   		   	<p id="copyRightCn">skyline 保留所有权利</p>
@@ -1530,7 +1533,7 @@ BMW WARNI......  -->
             鹧鸪天
           </div>
           <div class="panel-body">
-            Copyright © 2023 skyline All Rights Reserved.
+            Copyright © 2024 skyline All Rights Reserved.
           </div>
         </div>
       </div>
